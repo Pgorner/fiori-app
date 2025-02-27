@@ -1,0 +1,157 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:m="sap.m"
+  xmlns:viz="sap.viz.ui5.controls"
+  xmlns:vizdata="sap.viz.ui5.data"
+  xmlns:feeds="sap.viz.ui5.controls.common.feeds"
+  controllerName="my.fiori.app.controller.App"
+  displayBlock="true">
+
+  <m:VBox class="sapUiSmallMargin">
+    
+    <!-- Row 1 -->
+    <m:HBox renderType="Bare" justifyContent="SpaceAround" class="sapUiSmallMargin">
+      <!-- 1) Cancellations Trend -->
+      <m:GenericTile header="Cancellations Trend" subheader="Last Month" frameType="TwoByOne">
+        <m:tileContent>
+          <m:TileContent>
+            <m:NumericContent id="cancellationTrend"
+              visible="{= ${/cancellationTrend/value} !== null && ${/cancellationTrend/indicator} !== '' }"
+              value="{/cancellationTrend/value}"
+              scale="%"
+              indicator="{/cancellationTrend/indicator}"
+              valueColor="{
+                parts: [
+                  { path: '/cancellationTrend/value' },
+                  { path: '/cancellationTrend/indicator' }
+                ],
+                formatter: '.formatter.getTrendColor'
+              }" />
+
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
+
+      <!-- 2) Cancellations per Day (Line Chart using VizFrame) -->
+      <m:GenericTile header="Cancellations per Day" subheader="Last Month" frameType="TwoByOne">
+        <m:tileContent>
+          <m:TileContent>
+            <viz:VizFrame id="cancellationChart" uiConfig="{applicationSet:'fiori'}" vizType="line" width="100%" height="100%">
+              <viz:dataset>
+                <vizdata:FlattenedDataset data="{/lineChartData}">
+                  <vizdata:dimensions>
+                    <vizdata:DimensionDefinition name="Date" value="{date}" />
+                  </vizdata:dimensions>
+                  <vizdata:measures>
+                    <vizdata:MeasureDefinition name="Cancellations" value="{cancellations}" />
+                  </vizdata:measures>
+                </vizdata:FlattenedDataset>
+              </viz:dataset>
+              <viz:feeds>
+                <feeds:FeedItem uid="primaryValues" type="Measure" values="Cancellations" />
+                <feeds:FeedItem uid="axisLabels" type="Dimension" values="Date" />
+              </viz:feeds>
+            </viz:VizFrame>
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
+
+      <!-- 3) In-Progress Cancellations -->
+      <m:GenericTile header="In-Progress Cancellations" subheader="Pending Approvals" frameType="TwoByOne">
+        <m:tileContent>
+          <m:TileContent>
+            <m:NumericContent id="inProgressCancellations" value="5" />
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
+    </m:HBox>
+
+    <!-- Row 2 -->
+    <m:HBox renderType="Bare" justifyContent="SpaceAround" class="sapUiSmallMargin">
+      <!-- 4) Successful vs Failed Cancellations (Bar Chart using VizFrame) -->
+      <m:GenericTile header="Cancellation Status" subheader="Last Month" frameType="TwoByOne">
+        <m:tileContent>
+          <m:TileContent>
+            <viz:VizFrame id="cancellationStatusChart" uiConfig="{applicationSet:'fiori'}" vizType="column" width="100%" height="100%">
+              <viz:dataset>
+                <vizdata:FlattenedDataset data="{/comparisonChartData}">
+                  <vizdata:dimensions>
+                    <vizdata:DimensionDefinition name="Status" value="{status}" />
+                  </vizdata:dimensions>
+                  <vizdata:measures>
+                    <vizdata:MeasureDefinition name="Value" value="{value}" />
+                  </vizdata:measures>
+                </vizdata:FlattenedDataset>
+              </viz:dataset>
+              <viz:feeds>
+                <feeds:FeedItem uid="primaryValues" type="Measure" values="Value" />
+                <feeds:FeedItem uid="axisLabels" type="Dimension" values="Status" />
+              </viz:feeds>
+            </viz:VizFrame>
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
+
+      <!-- 5) Average Processing Time -->
+      <m:GenericTile header="Avg Processing Time" subheader="Days to Complete" frameType="TwoByOne">
+        <m:tileContent>
+          <m:TileContent>
+            <m:NumericContent id="avgProcessingTime" value="3" scale="days" valueColor="Neutral" />
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
+
+      <!-- 6) Breakdown of Cancellation Reasons (Donut Chart using VizFrame) -->
+      <m:GenericTile header="Top Cancellation Reasons" subheader="This Month" frameType="TwoByOne">
+        <m:tileContent>
+          <m:TileContent>
+            <viz:VizFrame id="cancellationReasonsChart" uiConfig="{applicationSet:'fiori'}" vizType="donut" width="100%" height="100%">
+              <viz:dataset>
+                <vizdata:FlattenedDataset data="{/donutChartData}">
+                  <vizdata:dimensions>
+                    <vizdata:DimensionDefinition name="Reason" value="{reason}" />
+                  </vizdata:dimensions>
+                  <vizdata:measures>
+                    <vizdata:MeasureDefinition name="Value" value="{value}" />
+                  </vizdata:measures>
+                </vizdata:FlattenedDataset>
+              </viz:dataset>
+              <viz:feeds>
+                <feeds:FeedItem uid="size" type="Measure" values="Value" />
+                <feeds:FeedItem uid="color" type="Dimension" values="Reason" />
+              </viz:feeds>
+            </viz:VizFrame>
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
+    </m:HBox>
+
+    <!-- Row 3 -->
+    <m:HBox renderType="Bare" justifyContent="SpaceAround" class="sapUiSmallMargin">
+      <!-- 7) Pending Approvals Breakdown (Column Chart using VizFrame) -->
+      <m:GenericTile header="Pending Approvals Breakdown" subheader="By Stage" frameType="TwoByOne">
+        <m:tileContent>
+          <m:TileContent>
+            <viz:VizFrame id="pendingApprovalsChart" uiConfig="{applicationSet:'fiori'}" vizType="column" width="100%" height="100%">
+              <viz:dataset>
+                <vizdata:FlattenedDataset data="{/pendingChartData}">
+                  <vizdata:dimensions>
+                    <vizdata:DimensionDefinition name="Stage" value="{stage}" />
+                  </vizdata:dimensions>
+                  <vizdata:measures>
+                    <vizdata:MeasureDefinition name="Value" value="{value}" />
+                  </vizdata:measures>
+                </vizdata:FlattenedDataset>
+              </viz:dataset>
+              <viz:feeds>
+                <feeds:FeedItem uid="primaryValues" type="Measure" values="Value" />
+                <feeds:FeedItem uid="axisLabels" type="Dimension" values="Stage" />
+              </viz:feeds>
+            </viz:VizFrame>
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
+    </m:HBox>
+
+  </m:VBox>
+</mvc:View>

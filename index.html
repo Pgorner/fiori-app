@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Fiori App</title>
+    <script
+      id="sap-ui-bootstrap"
+      src="local-ui5-compl/resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_belize"
+      data-sap-ui-libs="sap.m,sap.viz"
+      data-sap-ui-resourceroots='{"my.fiori.app": "./fiori-app/"}'>
+    </script>  
+  </head>
+  <body class="sapUiBody" id="content">
+    <script>
+      sap.ui.getCore().attachInit(function () {
+        // Create the UIComponent
+        sap.ui.core.Component.create({
+          name: "my.fiori.app"
+        }).then(function (oComponent) {
+          // Embed it in a ComponentContainer, then place at "content"
+          new sap.ui.core.ComponentContainer({
+            component: oComponent
+          }).placeAt("content");
+        }).catch(function (oErr) {
+          console.error("Error loading component:", oErr);
+        });
+      });
+    </script>
+  </body>
+</html>
