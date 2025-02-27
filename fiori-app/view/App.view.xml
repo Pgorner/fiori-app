@@ -16,18 +16,15 @@
         <m:tileContent>
           <m:TileContent>
             <m:NumericContent id="cancellationTrend"
-              visible="{= ${/cancellationTrend/value} !== null && ${/cancellationTrend/indicator} !== '' }"
-              value="{/cancellationTrend/value}"
-              scale="%"
-              indicator="{/cancellationTrend/indicator}"
-              valueColor="{
-                parts: [
-                  { path: '/cancellationTrend/value' },
-                  { path: '/cancellationTrend/indicator' }
-                ],
-                formatter: '.formatter.getTrendColor'
-              }" />
-
+                value="{/cancellationTrend/value}"
+                visible="{= ${/cancellationTrend/value} !== null &amp;&amp; ${/cancellationTrend/indicator} !== '' }"
+                scale="%"
+                indicator="{/cancellationTrend/indicator}"
+                valueColor="{= ${/cancellationTrend/value} === 0 
+                              ? 'Neutral' 
+                              : (${/cancellationTrend/indicator} === 'Up' 
+                                ? 'Error' 
+                                : (${/cancellationTrend/indicator} === 'Down' ? 'Good' : 'Neutral')) }" />
           </m:TileContent>
         </m:tileContent>
       </m:GenericTile>
@@ -72,25 +69,33 @@
       <m:GenericTile header="Cancellation Status" subheader="Last Month" frameType="TwoByOne">
         <m:tileContent>
           <m:TileContent>
-            <viz:VizFrame id="cancellationStatusChart" uiConfig="{applicationSet:'fiori'}" vizType="column" width="100%" height="100%">
-              <viz:dataset>
-                <vizdata:FlattenedDataset data="{/comparisonChartData}">
-                  <vizdata:dimensions>
-                    <vizdata:DimensionDefinition name="Status" value="{status}" />
-                  </vizdata:dimensions>
-                  <vizdata:measures>
-                    <vizdata:MeasureDefinition name="Value" value="{value}" />
-                  </vizdata:measures>
-                </vizdata:FlattenedDataset>
-              </viz:dataset>
-              <viz:feeds>
-                <feeds:FeedItem uid="primaryValues" type="Measure" values="Value" />
-                <feeds:FeedItem uid="axisLabels" type="Dimension" values="Status" />
-              </viz:feeds>
-            </viz:VizFrame>
+            <m:VBox>
+              <viz:VizFrame id="cancellationStatusChart" uiConfig="{applicationSet:'fiori'}" vizType="column" width="100%" height="100%">
+                <viz:dataset>
+                  <vizdata:FlattenedDataset data="{/comparisonChartData}">
+                    <vizdata:dimensions>
+                      <vizdata:DimensionDefinition name="Status" value="{status}" />
+                    </vizdata:dimensions>
+                    <vizdata:measures>
+                      <vizdata:MeasureDefinition name="Value" value="{value}" />
+                    </vizdata:measures>
+                  </vizdata:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                  <feeds:FeedItem uid="primaryValues" type="Measure" values="Value" />
+                  <feeds:FeedItem uid="axisLabels" type="Dimension" values="Status" />
+                </viz:feeds>
+              </viz:VizFrame>
+              <!-- Display summary information on separate lines -->
+              <m:Text text="{/cancellationStatusRate}" wrapping="true" />
+              <m:Text text="{/cancellationStatusSuccessful}" wrapping="true" />
+              <m:Text text="{/cancellationStatusFailed}" wrapping="true" />
+            </m:VBox>
           </m:TileContent>
         </m:tileContent>
       </m:GenericTile>
+
+
 
       <!-- 5) Average Processing Time -->
       <m:GenericTile header="Avg Processing Time" subheader="Days to Complete" frameType="TwoByOne">
@@ -101,29 +106,51 @@
         </m:tileContent>
       </m:GenericTile>
 
-      <!-- 6) Breakdown of Cancellation Reasons (Donut Chart using VizFrame) -->
-      <m:GenericTile header="Top Cancellation Reasons" subheader="This Month" frameType="TwoByOne">
-        <m:tileContent>
-          <m:TileContent>
-            <viz:VizFrame id="cancellationReasonsChart" uiConfig="{applicationSet:'fiori'}" vizType="donut" width="100%" height="100%">
-              <viz:dataset>
-                <vizdata:FlattenedDataset data="{/donutChartData}">
-                  <vizdata:dimensions>
-                    <vizdata:DimensionDefinition name="Reason" value="{reason}" />
-                  </vizdata:dimensions>
-                  <vizdata:measures>
-                    <vizdata:MeasureDefinition name="Value" value="{value}" />
-                  </vizdata:measures>
-                </vizdata:FlattenedDataset>
-              </viz:dataset>
-              <viz:feeds>
-                <feeds:FeedItem uid="size" type="Measure" values="Value" />
-                <feeds:FeedItem uid="color" type="Dimension" values="Reason" />
-              </viz:feeds>
-            </viz:VizFrame>
-          </m:TileContent>
-        </m:tileContent>
-      </m:GenericTile>
+    <m:GenericTile
+        class="myTileContainerClass"
+        header="Top Cancellation Reasons"
+        subheader="This Month"
+        frameType="TwoByOne">
+      <m:tileContent>
+        <m:TileContent>
+          <viz:VizFrame
+              id="cancellationReasonsChart"
+              uiConfig="{applicationSet:'fiori'}"
+              vizType="donut"
+              width="100%"
+              height="100%"
+              vizProperties="{
+                'legend': { 'visible': true },
+                'title': { 'text': 'Cancellation Reasons' },
+                'plotArea': {
+                  'dataLabel': { 'visible': false }
+                },
+                'tooltip': {
+                  'visible': true,
+                  'formatString': 'n'
+                }
+              }">
+            <viz:dataset>
+              <vizdata:FlattenedDataset data="{/donutChartData}">
+                <vizdata:dimensions>
+                  <vizdata:DimensionDefinition name="Reason" value="{reason}" />
+                </vizdata:dimensions>
+                <vizdata:measures>
+                  <vizdata:MeasureDefinition name="Value" value="{value}" />
+                </vizdata:measures>
+              </vizdata:FlattenedDataset>
+            </viz:dataset>
+            <viz:feeds>
+              <feeds:FeedItem uid="size" type="Measure" values="Value" />
+              <feeds:FeedItem uid="color" type="Dimension" values="Reason" />
+            </viz:feeds>
+          </viz:VizFrame>
+        </m:TileContent>
+      </m:tileContent>
+    </m:GenericTile>
+
+
+
     </m:HBox>
 
     <!-- Row 3 -->
@@ -155,3 +182,4 @@
 
   </m:VBox>
 </mvc:View>
+
