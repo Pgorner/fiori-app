@@ -1,19 +1,55 @@
-/* Example: target multiple possible tooltip classes */
-.v-tooltip,
-.v-tooltip-container,
-.sapVizTooltip,
-.sapVizChartTooltip,
-.viz-controls-chartTooltip {
-  z-index: 9999 !important;        /* Ensure tooltip stays on top */
-  width: auto !important;          /* Let it expand horizontally */
-  max-width: none !important;      /* Remove any max width constraints */
-  min-width: 150px !important;     /* Give it a reasonable minimum width */
-  white-space: normal !important;  /* Allow multiline wrapping */
-  word-wrap: break-word !important;/* Wrap long words if needed */
+/* 
+ * 1) Make the in-app tiles “card-like” with subtle shadow & rounded corners.
+ * 2) Style the single detail panel at the bottom as a “card”.
+ * 3) Keep existing VizFrame tooltip overrides for better readability.
+ */
 
-  /* Optional: improve readability with a clear background and font color */
-  background-color: #fff !important; 
-  color: #000 !important;
-  padding: 8px !important;
-  border: 1px solid #ccc !important;
-}
+/* Tiles: subtle shadow, border-radius, white background */
+.myStylishTile {
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* The single detail panel at the bottom: card-like style */
+  .myDetailCard {
+    margin-top: 1rem;
+    padding: 1rem !important;     /* interior padding for the content */
+    border-radius: 8px !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+    border: none !important;      /* remove standard panel border if desired */
+  }
+  
+  /* If a tile needs to allow chart tooltips to overflow beyond tile boundaries */
+  .myTileContainerClass {
+    overflow: visible !important;
+  }
+  
+  /* Increase spacing in the list inside the detail panel, if needed */
+  .myDetailCard .sapMList .sapMListItems {
+    margin: 0.5rem 0 !important;
+  }
+  
+  /* 
+   * VizFrame tooltip overrides to ensure tooltips are fully visible 
+   * and large enough for their content.
+   */
+  .v-tooltip,
+  .v-tooltip-container,
+  .sapVizTooltip,
+  .sapVizChartTooltip,
+  .viz-controls-chartTooltip {
+    z-index: 9999 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 150px !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  
+    background-color: #fff !important; 
+    color: #000 !important;
+    padding: 8px !important;
+    border: 1px solid #ccc !important;
+  }
+  

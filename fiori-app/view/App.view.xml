@@ -1,39 +1,59 @@
 <mvc:View
+  controllerName="my.fiori.app.controller.App"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns:m="sap.m"
   xmlns:viz="sap.viz.ui5.controls"
   xmlns:vizdata="sap.viz.ui5.data"
   xmlns:feeds="sap.viz.ui5.controls.common.feeds"
-  controllerName="my.fiori.app.controller.App"
   displayBlock="true">
 
-  <m:VBox class="sapUiSmallMargin">
-    
-    <!-- Row 1 -->
+  <!-- VBox with extra margins/padding for a cleaner layout -->
+  <m:VBox class="sapUiLargeMargin sapUiContentPadding">
+
+    <!-- Row 1 of tiles -->
     <m:HBox renderType="Bare" justifyContent="SpaceAround" class="sapUiSmallMargin">
-      <!-- 1) Cancellations Trend -->
-      <m:GenericTile header="Cancellations Trend" subheader="Last Month" frameType="TwoByOne">
+
+      <!-- (1) Cancellations Trend -->
+      <m:GenericTile
+        id="cancellationTrendTile"
+        header="Cancellations Trend"
+        subheader="Last vs Current Month"
+        frameType="TwoByOne"
+        class="sapUiSmallMargin myStylishTile">
         <m:tileContent>
           <m:TileContent>
-            <m:NumericContent id="cancellationTrend"
-                value="{/cancellationTrend/value}"
-                visible="{= ${/cancellationTrend/value} !== null &amp;&amp; ${/cancellationTrend/indicator} !== '' }"
-                scale="%"
-                indicator="{/cancellationTrend/indicator}"
-                valueColor="{= ${/cancellationTrend/value} === 0 
-                              ? 'Neutral' 
-                              : (${/cancellationTrend/indicator} === 'Up' 
-                                ? 'Error' 
-                                : (${/cancellationTrend/indicator} === 'Down' ? 'Good' : 'Neutral')) }" />
+            <m:NumericContent
+              value="{/cancellationTrend/value}"
+              visible="{= ${/cancellationTrend/value} !== null &amp;&amp; ${/cancellationTrend/indicator} !== '' }"
+              scale="%"
+              indicator="{/cancellationTrend/indicator}"
+              valueColor="{
+                = ${/cancellationTrend/value} === 0 
+                  ? 'Neutral' 
+                  : (${/cancellationTrend/indicator} === 'Up' 
+                     ? 'Error' 
+                     : (${/cancellationTrend/indicator} === 'Down' ? 'Good' : 'Neutral'))
+              }"
+            />
           </m:TileContent>
         </m:tileContent>
       </m:GenericTile>
 
-      <!-- 2) Cancellations per Day (Line Chart using VizFrame) -->
-      <m:GenericTile header="Cancellations per Day" subheader="Last Month" frameType="TwoByOne">
+      <!-- (2) Cancellations per Day (Line Chart) -->
+      <m:GenericTile
+        id="cancellationsPerDayTile"
+        header="Cancellations per Day"
+        subheader="This Month"
+        frameType="TwoByOne"
+        class="sapUiSmallMargin myStylishTile">
         <m:tileContent>
           <m:TileContent>
-            <viz:VizFrame id="cancellationChart" uiConfig="{applicationSet:'fiori'}" vizType="line" width="100%" height="100%">
+            <viz:VizFrame
+              id="cancellationChart"
+              uiConfig="{applicationSet:'fiori'}"
+              vizType="line"
+              width="100%"
+              height="100%">
               <viz:dataset>
                 <vizdata:FlattenedDataset data="{/lineChartData}">
                   <vizdata:dimensions>
@@ -53,24 +73,42 @@
         </m:tileContent>
       </m:GenericTile>
 
-      <!-- 3) In-Progress Cancellations -->
-      <m:GenericTile header="In-Progress Cancellations" subheader="Pending Approvals" frameType="TwoByOne">
+      <!-- (3) In-Progress Cancellations -->
+      <m:GenericTile
+        id="inProgressTile"
+        header="In-Progress Cancellations"
+        subheader="Pending Approvals"
+        frameType="TwoByOne"
+        class="sapUiSmallMargin myStylishTile">
         <m:tileContent>
           <m:TileContent>
-            <m:NumericContent id="inProgressCancellations" value="5" />
+            <m:NumericContent value="{/inProgressCount}" />
           </m:TileContent>
         </m:tileContent>
       </m:GenericTile>
+
     </m:HBox>
 
-    <!-- Row 2 -->
+
+    <!-- Row 2 of tiles -->
     <m:HBox renderType="Bare" justifyContent="SpaceAround" class="sapUiSmallMargin">
-      <!-- 4) Successful vs Failed Cancellations (Bar Chart using VizFrame) -->
-      <m:GenericTile header="Cancellation Status" subheader="Last Month" frameType="TwoByOne">
+
+      <!-- (4) Cancellation Status (Bar Chart) -->
+      <m:GenericTile
+        id="cancellationStatusTile"
+        header="Cancellation Status"
+        subheader="Last Month"
+        frameType="TwoByOne"
+        class="sapUiSmallMargin myStylishTile">
         <m:tileContent>
           <m:TileContent>
             <m:VBox>
-              <viz:VizFrame id="cancellationStatusChart" uiConfig="{applicationSet:'fiori'}" vizType="column" width="100%" height="100%">
+              <viz:VizFrame
+                id="cancellationStatusChart"
+                uiConfig="{applicationSet:'fiori'}"
+                vizType="column"
+                width="100%"
+                height="100%">
                 <viz:dataset>
                   <vizdata:FlattenedDataset data="{/comparisonChartData}">
                     <vizdata:dimensions>
@@ -86,7 +124,6 @@
                   <feeds:FeedItem uid="axisLabels" type="Dimension" values="Status" />
                 </viz:feeds>
               </viz:VizFrame>
-              <!-- Display summary information on separate lines -->
               <m:Text text="{/cancellationStatusRate}" wrapping="true" />
               <m:Text text="{/cancellationStatusSuccessful}" wrapping="true" />
               <m:Text text="{/cancellationStatusFailed}" wrapping="true" />
@@ -95,25 +132,33 @@
         </m:tileContent>
       </m:GenericTile>
 
-
-
-      <!-- 5) Average Processing Time -->
-      <m:GenericTile header="Avg Processing Time" subheader="Days to Complete" frameType="TwoByOne">
+      <!-- (5) Average Processing Time -->
+      <m:GenericTile
+        id="avgProcessingTimeTile"
+        header="Avg Processing Time"
+        subheader="Days to Complete"
+        frameType="TwoByOne"
+        class="sapUiSmallMargin myStylishTile">
         <m:tileContent>
           <m:TileContent>
-            <m:NumericContent id="avgProcessingTime" value="3" scale="days" valueColor="Neutral" />
+            <m:NumericContent
+              value="{/avgProcessingTime}"
+              scale="days"
+              valueColor="Neutral" />
           </m:TileContent>
         </m:tileContent>
       </m:GenericTile>
 
-    <m:GenericTile
-        class="myTileContainerClass"
+      <!-- (6) Top Cancellation Reasons (Donut Chart) -->
+      <m:GenericTile
+        id="cancellationReasonsTile"
         header="Top Cancellation Reasons"
         subheader="This Month"
-        frameType="TwoByOne">
-      <m:tileContent>
-        <m:TileContent>
-          <viz:VizFrame
+        frameType="TwoByOne"
+        class="sapUiSmallMargin myStylishTile myTileContainerClass">
+        <m:tileContent>
+          <m:TileContent>
+            <viz:VizFrame
               id="cancellationReasonsChart"
               uiConfig="{applicationSet:'fiori'}"
               vizType="donut"
@@ -130,36 +175,44 @@
                   'formatString': 'n'
                 }
               }">
-            <viz:dataset>
-              <vizdata:FlattenedDataset data="{/donutChartData}">
-                <vizdata:dimensions>
-                  <vizdata:DimensionDefinition name="Reason" value="{reason}" />
-                </vizdata:dimensions>
-                <vizdata:measures>
-                  <vizdata:MeasureDefinition name="Value" value="{value}" />
-                </vizdata:measures>
-              </vizdata:FlattenedDataset>
-            </viz:dataset>
-            <viz:feeds>
-              <feeds:FeedItem uid="size" type="Measure" values="Value" />
-              <feeds:FeedItem uid="color" type="Dimension" values="Reason" />
-            </viz:feeds>
-          </viz:VizFrame>
-        </m:TileContent>
-      </m:tileContent>
-    </m:GenericTile>
-
-
+              <viz:dataset>
+                <vizdata:FlattenedDataset data="{/donutChartData}">
+                  <vizdata:dimensions>
+                    <vizdata:DimensionDefinition name="Reason" value="{reason}" />
+                  </vizdata:dimensions>
+                  <vizdata:measures>
+                    <vizdata:MeasureDefinition name="Value" value="{value}" />
+                  </vizdata:measures>
+                </vizdata:FlattenedDataset>
+              </viz:dataset>
+              <viz:feeds>
+                <feeds:FeedItem uid="size" type="Measure" values="Value" />
+                <feeds:FeedItem uid="color" type="Dimension" values="Reason" />
+              </viz:feeds>
+            </viz:VizFrame>
+          </m:TileContent>
+        </m:tileContent>
+      </m:GenericTile>
 
     </m:HBox>
 
-    <!-- Row 3 -->
+
+    <!-- Row 3 (7) Pending Approvals -->
     <m:HBox renderType="Bare" justifyContent="SpaceAround" class="sapUiSmallMargin">
-      <!-- 7) Pending Approvals Breakdown (Column Chart using VizFrame) -->
-      <m:GenericTile header="Pending Approvals Breakdown" subheader="By Stage" frameType="TwoByOne">
+      <m:GenericTile
+        id="pendingApprovalsTile"
+        header="Pending Approvals Breakdown"
+        subheader="By Stage"
+        frameType="TwoByOne"
+        class="sapUiSmallMargin myStylishTile">
         <m:tileContent>
           <m:TileContent>
-            <viz:VizFrame id="pendingApprovalsChart" uiConfig="{applicationSet:'fiori'}" vizType="column" width="100%" height="100%">
+            <viz:VizFrame
+              id="pendingApprovalsChart"
+              uiConfig="{applicationSet:'fiori'}"
+              vizType="column"
+              width="100%"
+              height="100%">
               <viz:dataset>
                 <vizdata:FlattenedDataset data="{/pendingChartData}">
                   <vizdata:dimensions>
@@ -180,6 +233,18 @@
       </m:GenericTile>
     </m:HBox>
 
+    <!-- A single card-like detail panel at the bottom -->
+    <m:Panel
+      id="globalDetailPanel"
+      class="myDetailCard"
+      headerText="{/detailHeader}"
+      visible="{/detailVisible}">
+      <m:List
+        id="globalDetailList"
+        items="{/detailData}">
+        <m:StandardListItem title="{title}" description="{description}" />
+      </m:List>
+    </m:Panel>
+
   </m:VBox>
 </mvc:View>
-
