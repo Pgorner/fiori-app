@@ -1,0 +1,45 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioaa5ffcf13b4c4e678ae129ad2561eca0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/implement-and-register-a-combine-change-handler-aa5ffcf.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Implement and Register a <cite>Combine</cite> Change Handler</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Implement and Register a <cite>Combine</cite> Change Handler</h2></div><div class="shortdesc">Implement and register a <cite>combine</cite> change type with its change handler to a control.</div><p>For the <cite>combine</cite> action, no default change handler exists, therefore, it's necessary to implement a change handler for combining
+            controls (see <a href="topic/6a346a293c724bd4bc33f0df92706008" title="If no default change handler is available for your use case, you need to implement your own custom change handler." class="sap-doc">Writing a Custom Change Handler</a>). </p><p>The change handler gets the following information from the SAPUI5 flexibility tool as
+			change-specific information:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_efn_dht_hyb" class=" ">
+				
+				
+				
+				<thead>
+					<tr>
+						<th colspan="1" rowspan="1">Property</th>
+						<th colspan="1" rowspan="1">Type</th>
+						<th colspan="1" rowspan="1">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="1" rowspan="1"><code>oSpecificChangeInfo</code></td>
+						<td colspan="1" rowspan="1">Object</td>
+						<td colspan="1" rowspan="1">
+					</td></tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>oSpecificChangeInfo.source</code></td>
+						<td colspan="1" rowspan="1"><code>sap.ui.core.Element</code>|Node </td>
+						<td colspan="1" rowspan="1">ID of the control where the action is triggered.</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>oSpecificChangeInfo.combineElements</code></td>
+						<td colspan="1" rowspan="1"><code>Array&lt;sap.ui.core.Element</code>|Node<code>&gt;</code></td>
+						<td colspan="1" rowspan="1">Array of control IDs to be combined.</td>
+					</tr>
+				</tbody>
+			</table></div></div><p>Find an example on GitHub at <a href="https://github.com/SAP/openui5/blob/master/src/sap.m/src/sap/m/changeHandler/CombineButtons.js" title="https://github.com/SAP/openui5/blob/master/src/sap.m/src/sap/m/changeHandler/CombineButtons.js" class="external-link" target="_blank" rel="noopener">https://github.com/SAP/openui5/blob/master/src/sap.m/src/sap/m/changeHandler/CombineButtons.js</a>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>When creating new controls inside <code>applyChange()</code>, make sure to move the original controls into the
+                     aggregation of a <span class="emphasis">container</span>. In our example, the original
+                buttons are to be moved to the <code>dependents</code> aggregation of <code>sap.m.Bar</code>, not to the
+                    <code>dependents</code> aggregation of <code>sap.m.MenuItem</code>.</p>
+            <p>Make sure that every new controls gets a stable ID, which is a prerequisite for UI
+                adaptation. </p>
+		<p></p></div></div><p>You can then register it in the <code>library.js</code> file of the control's library, where you map the change type to the
+			corresponding change handler and the control type. The change type for this action can be named <code>combineButtons</code>, for
+			example. Register the change type for this action in the <code>&lt;control&gt;.flexibility.js</code> file. For more information,
+			see <a href="topic/d5f4de8c177448e7aeb8e560e6061776" title="d5f4de8c177448e7aeb8e560e6061776.xml" class="sap-doc">Registering Change Handlers for UI Changes</a>.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/12a2d5d90fbd478faaac4029c76de473">Enabling the Combine Action</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/51f589b65e9642c4949639fdb995257a">Provide the Design-Time Metadata for the Combine Action</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

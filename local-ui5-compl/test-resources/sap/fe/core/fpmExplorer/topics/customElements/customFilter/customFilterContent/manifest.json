@@ -1,0 +1,117 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.customFilterContent",
+		"type": "application",
+		"i18n": {
+			"bundleName": "sap.fe.core.fpmExplorer.customFilterContent.i18n.i18n",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/customFilterContent/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.fe.core.fpmExplorer.customFilterContent.i18n.i18n"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.fe.core.fpmExplorer.customFilterContent.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "sample",
+					"target": "sample"
+				}
+			],
+			"targets": {
+				"sample": {
+					"type": "Component",
+					"id": "Default",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"variantManagement": "None",
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.SelectionFields": {
+									"showClearButton": true,
+									"filterFields": {
+										"TitleProperty": {
+											"label": "{i18n>customStringFilter}",
+											"template": "sap.fe.core.fpmExplorer.customFilterContent.CustomStringFilter",
+											"availability": "Default",
+											"required": true
+										},
+										"RatingVisualised": {
+											"label": "{i18n>customRatingFilter}",
+											"template": "sap.fe.core.fpmExplorer.customFilterContent.CustomRatingFilter",
+											"availability": "Default",
+											"position": {
+												"placement": "After",
+												"anchor": "TitleProperty"
+											}
+										},
+										"RatingWithOperator": {
+											"label": "{i18n>customOperatorFilter}",
+											"template": "sap.fe.core.fpmExplorer.customFilterContent.CustomRatingFilterOperator",
+											"availability": "Adaptation",
+											"position": {
+												"placement": "After",
+												"anchor": "Rating"
+											}
+										},
+										"MultiValueRating": {
+											"label": "{i18n>customRatingComboBoxFilter}",
+											"template": "sap.fe.core.fpmExplorer.customFilterContent.CustomRatingMultiComboBoxFilterWithOperator"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

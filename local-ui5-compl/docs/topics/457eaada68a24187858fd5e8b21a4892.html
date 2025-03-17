@@ -1,0 +1,175 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio457eaada68a24187858fd5e8b21a4892" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/sinon-js-spies-stubs-mocks-faked-timers-and-xhr-457eaad.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Sinon.JS: Spies, Stubs, Mocks, Faked Timers, and XHR</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Sinon.JS: Spies, Stubs, Mocks, Faked Timers, and XHR</h2></div><div class="shortdesc">By integrating Sinon.JS for QUnit, you can use spies, stubs, mocks, faked timers or faked XHR. For more information about using sinon.js, see the
+		official documentation at <code>http://sinonjs.org/docs/</code>.</div><p>All you have to do is add a sinon section to the test suite configuration as shown below:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(function() {
+	"use strict";
+ 
+	return {
+		name: "TestSuite for myapp",
+		defaults: {
+			qunit: {
+				version: 2
+			},
+			sinon: {
+				version: 4,
+				qunitBridge: true,
+				useFakeTimers: false
+			}
+		},
+
+		// ...
+
+	};
+});</pre></div></div></section><p>The variable <code>sinon</code> is now globally available in your test.</p><p>The following examples show you the basic way in which Sinon.JS can be used. These examples are adapted from the official Sinon.JS documentation
+			available at <code>http://sinonjs.org/docs/</code>:</p><section id="section_wn1_n3q_f1c">
+			<h2 class="title ">Spies</h2>
+			<p>A simple spy test:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*global QUnit sinon */
+sap.ui.define(["sap/m/Button"], function(Button) {
+	 "use strict";
+
+	 QUnit.test("Spy", 2, function(assert) {
+
+	 	var callback = sinon.spy();
+	 	var oButton = new Button();
+	 	oButton.attachPress(callback);
+	 	assert.ok(!callback.called, "Callback Spy not called yet");
+	 	oButton.firePress();
+	 	assert.ok(callback.called, "Callback Spy called");
+	 	oButton.destroy();
+
+	 });
+});</pre></div></div></section>
+		</section><section id="section_bxx_43q_f1c">
+			<h2 class="title ">Stubs</h2>
+			<p>A simple stub test:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*global QUnit sinon */
+sap.ui.define([], function() {
+ 	"use strict";
+ 
+ 	QUnit.test("Stub", 1, function(assert) {
+ 		sinon.stub(jQuery, "ajax").yieldsTo("success", [1, 2, 3]);
+ 
+ 		jQuery.ajax({
+ 			success: function (data) {
+ 				assert.deepEqual(data, [1, 2, 3], "Right data set"); 
+ 			}
+ 		});
+ 		jQuery.ajax.restore();
+ 	});
+})</pre></div></div></section>
+		</section><section id="section_mbs_q3q_f1c">
+			<h2 class="title ">Mocks</h2>
+			<p>A simple mock test:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*global QUnit sinon */
+sap.ui.define([], function() {
+	 "use strict";
+
+ 	QUnit.test("Mock", 2, function(assert) {
+ 		var myAPI = { method: function () {} };
+ 
+ 		var mock = sinon.mock(myAPI);
+		mock.expects("method").once().throws();
+ 
+ 		try {
+ 			myAPI.method();
+ 		} catch (exc) {
+ 			assert.ok(mock.verify(), "Mock function called and all expectations are fullfilled");
+ 		}
+ 		mock.restore();
+ 	});
+});</pre></div></div></section>
+		</section><section id="section_FAKETIM">
+			<h2 class="title ">Faked Timers</h2>
+			<p>A simple faked timer test:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*global QUnit sinon */
+sap.ui.define([], function() {
+ 	"use strict";
+
+ 
+ 	QUnit.test("Basic", 1, function(assert) {
+ 		var oClock = sinon.useFakeTimers();
+ 		setTimeout(function() {
+ 			assert.ok(true, "Called without need of async test");
+ 		}, 800);
+ 		oClock.tick(800);
+ 		oClock.restore();
+ 	});
+});</pre></div></div></section>
+			<p>If you use <code>sinon.qunit</code>, it will automatically use fake timers by itself. Fake timers will prevent any
+					<code>setTimeout/setInterval</code> function from being executed, unless you call
+					<code>this.clock.tick(milliseconds)</code> in your test. This means that a mock server with auto-respond won't respond, and
+				OPA won't be able to wait for controls.</p>
+			<p>In addition, control events might be fired inside a <code>setTimeout(, 0)</code>, so the event might not be triggered at all.</p>
+			<p>In general, fake timers should only be used if needed in specific test scenarios.</p>
+			<p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Be aware that <span class="keynote apiname">sinon</span> v4 and below does not provide a mock for all stubbed performance APIs, e.g.
+							<code>Performance.getEntriesByType</code> or properties such as <code>Performance.timeOrigin</code>. In case the
+						code under test relies on these APIs, you need to provide them.</p>
+					<p>Keep in mind that fake timers affect each usage of <code>setTimeout</code>, <code>clearTimeout</code>,
+							<code>setInterval</code>, <code>clearInterval</code>, <code>setImmediate</code>,
+							<code>clearImmediate</code>, <code>process.hrtime</code>, <code>performance.now</code> (when available), and
+							<code>Date</code>, also the ones <span class="emphasis">not</span> under your control, e.g triggered by the SAPUI5 framework.</p>
+					<p>Before restoring the fake timers, you should always execute any possibly pending callbacks via
+						<code>clock.runAll()</code>.</p>
+				<p></p></div></div>
+			<p></p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">QUnit.test("Test with fake timers", assert() =&gt; {
+    // Setup fake timer
+    const timeOrigin = performance.timeOrigin;
+    const clock = sinon.useFakeTimers();
+    // Mock performance API in case it's used by the code under test
+    performance.getEntriesByType = function() {
+        return [];
+    };
+    performance.timeOrigin = timeOrigin;
+
+    ...
+
+    // Cleanup
+    delete performance.getEntriesByType;
+    delete performance.timeOrigin;
+    // Execute all pending timer callbacks
+    this.clock.runAll();
+    this.clock.restore();
+});</pre></div></div></section>
+		</section><section id="section_mfx_g3q_f1c">
+			<h2 class="title ">Faked XHR</h2>
+			<p>A simple faked XHR test:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*global QUnit sinon */
+sap.ui.define([], function() {
+	"use strict";
+
+	QUnit.module("Faked XHR", {
+		beforeEach: function() {
+			this.xhr = sinon.useFakeXMLHttpRequest();
+			var requests = this.requests = [];
+
+			this.xhr.onCreate = function (xhr) {
+				requests.push(xhr);
+			};
+		},
+
+		afterEach: function() {
+			this.xhr.restore();
+		}
+	});
+
+	QUnit.test("Basic", 2, function(assert) {
+		var callback = sinon.spy();
+
+		jQuery.ajax("test", {
+			success: callback
+		});
+
+		assert.equal(1, this.requests.length, "Right number of requests");
+
+		this.requests[0].respond(200, {
+			"Content-Type": "application/json"
+		}, '[{ "foo": "bar", "bar" : "foo" }]');
+		assert.ok(callback.calledWith([{ "foo": "bar", "bar" : "foo" }]), "Data is called right");
+	});</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

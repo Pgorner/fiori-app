@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/shape/Shape","sap/gantt/misc/Utility","sap/gantt/misc/Format","sap/ui/core/Core"],function(t,e,i,a){"use strict";var r=t.extend("sap.gantt.shape.Image",{metadata:{properties:{tag:{type:"string",defaultValue:"image"},image:{type:"string"},x:{type:"float"},y:{type:"float"},width:{type:"float",defaultValue:20},height:{type:"float",defaultValue:20}}}});r.prototype.init=function(){t.prototype.init.apply(this,arguments);var e=sap.ui.getCore().getLibraryResourceBundle("sap.gantt");this.setProperty("ariaLabel",e.getText("ARIA_IMAGE"))};r.prototype.getX=function(t,e){if(this.mShapeConfig.hasShapeProperty("x")){return this._configFirst("x",t)}var r,o=this.getAxisTime();if(a.getConfiguration().getRTL()){if(this.getIsDuration(t,e)===true){r=o.timeToView(i.abapTimestampToDate(this.getEndTime(t,e)))}else{r=o.timeToView(i.abapTimestampToDate(this.getTime(t,e)))}}else{r=o.timeToView(i.abapTimestampToDate(this.getTime(t,e)))}return(r?r:0)-this.getWidth(t,e)/2};r.prototype.getY=function(t,e){if(this.mShapeConfig.hasShapeProperty("y")){return this._configFirst("y",t)}return this.getRowYCenter(t,e)-this.getHeight(t,e)/2};r.prototype.getImage=function(t){return this._configFirst("image",t)};r.prototype.getWidth=function(t){return this._configFirst("width",t,true)};r.prototype.getHeight=function(t){return this._configFirst("height",t,true)};return r},true);
+//# sourceMappingURL=Image.js.map

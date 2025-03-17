@@ -1,0 +1,92 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio84ec82e7498345ccbfcd754d4578313b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/sliders-84ec82e.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Sliders</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Sliders</h2></div><section id="section_dnk_kqr_pdb">
+			<h2 class="title ">Control Overview</h2>
+			<p>A slider is a control that enables you to adjust values on a specified range. SAPUI5 has two controls
+				of this type - <code>sap.m.Slider</code> and <code>sap.m.RangeSlider</code>.
+				The slider allows you to choose a single value, whereas with the RangeSlider you can
+				choose an interval with start and end within a given interval.</p>
+			<div><div class="fig"><img src="loio18fb5f88c2fb45f994f3567279b20e49_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Slider</h2></span></div>
+			<div><div class="fig"><img src="loio923cc5ea784a4c87826b01fd922cbed2_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">RangeSlider</h2></span></div>
+			<p>Technically the RangeSlider extends <code>sap.m.Slider</code> and thus uses all
+				its properties. It has two additional properties for the second slider value and the
+				selected range.</p>
+			<p>Both versions of the control support features for tickmarks, labels and advanced
+				tooltips. If you only need a simple native browser tooltip, you can enable
+					<code>handleTooltip</code> and show it on mouse hover. For more advanced
+				cases, you can customize the labels and the tooltips for the slider handles.</p>
+		</section><section id="section_ggb_lqr_pdb">
+			<h2 class="title ">Custom Scale</h2>
+			<p>In the background, the sliders operate on floats, but some usecases may require that
+				the range consists of other values, for example dates. In order to properly match
+				your values to floats, you need to add custom scale and implement the
+					<code>Iscale</code> interface.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Element" required from "sap/ui/core/Element"
+var CustomScale = Element.extend("sap.xx.custom.CustomScale", {
+				interfaces: [
+					"sap.m.IScale"
+				],
+				library: "sap.xx.custom",
+			});</pre></div></div></section>
+			<p>You need to implement the following methods of the <a href="api/sap.m.IScale" title="api/sap.m.IScale" class="sap-doc" alt="api/sap.m.IScale">IScale</a> interface.</p><ul class="ul ">
+					<li class="li">
+						<p><code>getTickmarksBetweenLabels</code> - Determine which tickmarks
+							should have a label</p>
+					</li>
+					<li class="li">
+						<p><code>calcNumberOfTickmarks</code> - Determine the number of
+							tickmarks on the scale</p>
+					</li>
+					<li class="li">
+						<p><code>handleResize</code> - Resize handler</p>
+					</li>
+					<li class="li">
+						<p><code>getLabel</code> - Getter for the label</p>
+					</li>
+				</ul><p></p>
+			<p>This way you have full control over the labels, their placement, density, and text.
+				As your custom labels may be longer , you will also need to show less tickmarks in
+				order to prevent cluttering of the scale values.</p>
+			<p>This custom scale is then passed to the control.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Slider" required from "sap/m/Slider"
+// "CustomScale" required from "sap/xx/custom/CustomScale"
+// "CustomTooltip" required from "sap/xx/custom/CustomTooltip"
+var oSlider = new Slider({
+				min: 0,
+				max: 30,
+				value: 15,
+				width: "80%",
+				enableTickmarks: true,
+				showAdvancedTooltip: true,
+				<span class="emphasis">scale: new CustomScale(),</span>
+				customTooltips: [new CustomTooltip()]
+			})</pre></div></div></section>
+		</section><section id="section_i4c_4qr_pdb">
+			<h2 class="title ">Custom Tooltips</h2>
+			<p>In order to create a custom tooltip, you should extend the class
+					<code>sap.m.SliderTooltipBase</code> and override some methods. If you want
+				to define your own content for the tooltip, you should override just the
+					<code>renderTooltipContent</code> method. If you want to be notified when
+				the Slider's value has been changed, you need to implement the
+					<code>sliderValueChanged</code> which takes as an argument the new value of
+				the Slider, so you can adjust the value of the tooltip.</p>
+			<p>During rendering you can provide the content of the tooltips by writing directly to
+				the DOM.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">renderTooltipContent: function (oRm, oControl) {
+
+							// you can write any DOM here - render controls or anything you want
+							// (inline elements are not recommended as you need to style them on your own)
+							oRm.openStart("div", oControl.getId() + "-inner");
+							oRm.class("sapCustomSliderTooltip");
+							oRm.openEnd();
+							oRm.close("div")</pre></div></div></section>
+		</section><section id="section_l3d_vkp_tdb">
+			<h2 class="title ">Accessibility for Sliders</h2>
+			<p>Depending on the type of slider, you may need different values to be read out by the
+				screen reader. In the case of a simple numeric slider, the screen reader will read
+				the current float value. If you have a slider with a custom scale with tickmarks,
+				the screen reader will read the value returned by <code>getLabel()</code> of the
+				scale. If you have custom tooltips, then the return value from the tooltip formatter
+				will be read. The priority for these id the following: Custom tooltips overrule
+				custom scale and custom scale overrules the generic slider.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

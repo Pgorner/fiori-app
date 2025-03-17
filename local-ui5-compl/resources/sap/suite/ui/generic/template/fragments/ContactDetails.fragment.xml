@@ -1,0 +1,100 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:macrodata="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Popover
+		id="quickView-popover"
+		class="sapUiContentPadding"
+		placement="Auto"
+		showHeader="false"
+		contentWidth="20rem"
+		afterClose="afterClose"
+		afterOpen="afterOpen">
+        <VBox>
+            <HBox class="sapUiSmallMarginBottom">
+                <Avatar
+                    src="{= ${contact>/photo} ? ${contact>/photo} : 'sap-icon://person-placeholder'}"
+					displaySize="S"
+					displayShape="Circle"
+					class="sapUiTinyMarginEnd"
+					tooltip="{contact>/contactStatus/badgeTooltip}"
+					badgeValueState="{contact>/contactStatus/badgeValueState}" badgeIcon="{contact>/contactStatus/badgeIcon}" badgeTooltip="{contact>/contactStatus/badgeTooltip}"
+					macrodata:type="{contact>/teamsCollabOptions/0/key}"
+					macrodata:email="{contact>/email}"
+                />
+                <VBox class="sapUiTinyMarginBegin">
+                    <Title text="{contact>/fn}" level="H3" wrapping="true"/>
+                    <Text text="{contact>/role}"/>
+                </VBox>
+            </HBox>
+
+			<!-- render options for teams contact collaboration -->
+			<VBox visible="{= ${contact>/teamsCollabOptions} !== undefined &amp;&amp; ${contact>/teamsCollabOptions}.length > 0 }" class="sapUiSmallMarginBottom">
+				<Toolbar >
+					<Title text="{i18n>CONTACT_OPTION}" level="H5" class="sapUiTinyMarginBegin"/> 
+					<ToolbarSpacer/>
+					<Button
+						icon="{contact>/teamsCollabOptions/0/icon}"
+						tooltip="{contact>/teamsCollabOptions/0/tooltip}"
+						macrodata:type="{contact>/teamsCollabOptions/0/key}"
+						macrodata:email="{contact>/email}"
+						press=".onTeamsCollabOptionPress"
+						class="sapUiTinyMarginEnd sapUiTinyMarginBegin"
+						type="Ghost">
+					</Button>
+					<Button
+						icon="{contact>/teamsCollabOptions/1/icon}"
+						macrodata:type="{contact>/teamsCollabOptions/1/key}"
+						macrodata:email="{contact>/email}"
+						press=".onTeamsCollabOptionPress"
+						class="sapUiTinyMarginEnd"
+						type="Ghost">
+					</Button>
+					<Button
+						icon="{contact>/teamsCollabOptions/2/icon}"
+						macrodata:type="{contact>/teamsCollabOptions/2/key}"
+						macrodata:email="{contact>/email}"
+						press=".onTeamsCollabOptionPress"
+						type="Ghost">
+					</Button>
+				</Toolbar>
+			</VBox>
+
+			<VBox visible="{= !!${contact>/title}}" class="sapUiTinyMarginBottom">
+				<Label text="{i18n>CONTACT_JOB_TITLE}:" labelFor="template:::contact:::contactDetails::jobTitle"/>
+				<Text id="template:::contact:::contactDetails::jobTitle" text="{contact>/title}" class="sapUiTinyMarginBottom" />
+			</VBox>
+
+			<VBox visible="{= !!${contact>/org}}" class="sapUiTinyMarginBottom">
+				<Label text="{i18n>CONTACT_DEPARTMENT}:" labelFor="template:::contact:::contactDetails::department"/>
+				<Text id="template:::contact:::contactDetails::department" text="{contact>/org}" class="sapUiTinyMarginBottom" />
+			</VBox>
+
+			<VBox visible="{= !!${contact>/email}}" class="sapUiTinyMarginBottom">
+				<Label text="{i18n>CONTACT_EMAIL}:" labelFor="template:::contact:::contactDetails::email"/>
+				<Link id="template:::contact:::contactDetails::email" text="{contact>/email}" href="{path: 'contact>/email', formatter: '.formatUri'}" class="sapUiTinyMarginBottom" wrapping="true"/>
+			</VBox>
+
+			<VBox visible="{= !!${contact>/work}}" class="sapUiTinyMarginBottom">
+				<Label text="{i18n>CONTACT_PHONE}:" labelFor="template:::contact:::contactDetails::phone"/>
+				<Link id="template:::contact:::contactDetails::phone" text="{contact>/work}" href="{path: 'contact>/work', formatter: '.formatUri'}" class="sapUiTinyMarginBottom" wrapping="true"/>
+			</VBox>
+			
+			<VBox visible="{= !!${contact>/cell}}" class="sapUiTinyMarginBottom">
+				<Label text="{i18n>CONTACT_MOBILE}:" labelFor="template:::contact:::contactDetails::mobile"/>
+				<Link id="template:::contact:::contactDetails::mobile" text="{contact>/cell}" href="{path: 'contact>/cell', formatter: '.formatUri'}" class="sapUiTinyMarginBottom" wrapping="true"/>
+			</VBox>
+			
+			<VBox visible="{= !!${contact>/fax}}" class="sapUiTinyMarginBottom">
+				<Label text="{i18n>CONTACT_FAX}:" labelFor="template:::contact:::contactDetails::fax"/>
+				<Text id="template:::contact:::contactDetails::fax" text="{contact>/fax}" class="sapUiTinyMarginBottom" />
+			</VBox>
+
+			<VBox visible="{= !!${contact>/adr}}" class="sapUiTinyMarginBottom">
+				<Label text="{i18n>CONTACT_ADDRESS}:" labelFor="template:::contact:::contactDetails::address"/>
+				<Text id="template:::contact:::contactDetails::address" text="{contact>/adr}" class="sapUiTinyMarginBottom" />
+			</VBox>
+
+        </VBox>
+	</Popover>
+</core:FragmentDefinition>

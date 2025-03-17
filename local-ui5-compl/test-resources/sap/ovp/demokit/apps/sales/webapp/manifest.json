@@ -1,0 +1,705 @@
+{
+    "_version": "1.1.0",
+    "start_url": "start.html",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "sales",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.2.2"
+        },
+        "title": "{{app_title}}",
+        "description": "{{app_description}}",
+        "dataSources": {
+            "salesShare": {
+                "uri": "/sap/opu/odata/sap/salesshare/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "annotations": ["salesShareAnno", "salesShare_localAnnotations"]
+                }
+            },
+            "salesShareAnno": {
+                "uri": "/sap/opu/odata/sap/salesshare;v=2/Annotations*",
+                "type": "ODataAnnotation",
+                "settings": {}
+            },
+            "salesShare_localAnnotations": {
+                "uri": "localData/salesshare/annotation.xml",
+                "type": "ODataAnnotation",
+                "settings": {}
+            }
+        }
+    },
+    "sap.ui": {
+        "icons": {
+            "icon": "img/app_object_header.png"
+        }
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "dependencies": {
+            "minUI5Version": "1.30.0",
+            "libs": {
+                "sap.ovp": {
+                    "minVersion": "1.31.0"
+                }
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "salesShare": {
+                "dataSource": "salesShare",
+                "settings": {}
+            }
+        },
+        "extends": {
+            "component": "sap.ovp.app",
+            "minVersion": "0.8.15",
+            "extensions": {
+                "sap.ui.controllerExtensions": {
+                    "sap.ovp.app.Main": {
+                        "controllerName": "sales.ext.customFilter"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ovp": {
+        "globalFilterModel": "salesShare",
+        "globalFilterEntityType": "SalesShareDonutType",
+        "containerLayout": "resizable",
+        "cards": {
+            "card000_cardDualComboTime": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Dual Combination Chart - Time Series",
+                    "subTitle": "Total sales by Date",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareBubbleTime",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_CtryCurr",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Dual-Combo-Time",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_CtryCurr_Dual_Combo_Time",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_CtryCurr-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_CtryCurr"
+                }
+            },
+            "card001_cardDualCombo": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Dual Combination Chart",
+                    "subTitle": "Total Value",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "defaultSpan": {
+                        "minimumTitleRow": 2,
+                        "minimumSubTitleRow": 2
+                    },
+                    "entitySet": "SalesShareBubble",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_CtryCurr",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_CtryCurr_Dual_Combo",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_CtryCurr_Dual_Combo",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_CtryCurr-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_CtryCurr",
+                    "navigation": "chartNav"
+                }
+            },
+            "card002_cardchartsdonut": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Donut Card",
+                    "subTitle": "Sales by Product",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareDonut",
+                    "bEnableStableColors": true,
+                    "colorPalette": {
+                        "PC01": "sapUiChartPaletteSemanticNeutral",
+                        "IF91": "sapUiChartPaletteSemanticBadDark1",
+                        "PDP9": "sapUiChartPaletteSemanticCriticalDark2",
+                        "NB15": "sapUiChartPaletteSemanticCritical",
+                        "SVB1": "sapUiChartPaletteSemanticGoodLight2",
+                        "NB19": "sapUiChartPaletteSemanticGoodLight1",
+                        "LPE1": "sapUiChartPaletteSemanticGood",
+                        "EH03": "sapUiChartPaletteSemanticGoodDark1",
+                        "10PD": "sapUiChartPaletteSemanticGoodDark2",
+                        "AVCK": "sapUiChartPaletteSemanticNeutralDark1"
+                    },
+                    "ChartProperties": {
+                        "plotArea": {
+                            "dataLabel": {
+                                "type": "percentage"
+                            }
+                        }
+                    },
+                    "selectionPresentationAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#BothSelectionAndPresentation",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Country-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency"
+                }
+            },
+            "card003_cardchartsline": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Line Chart",
+                    "subTitle": "Sales by Region",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareLine",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Country",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Country",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Country-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Country",
+                    "navigation": "headerNav"
+                }
+            },
+            "card004_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Column Chart - Semantic Pattern",
+                    "subTitle": "Sales by Product",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareColumn",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Test",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter",
+                    "navigation": "chartNav"
+                }
+            },
+            "card005_cardBubble": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Bubble Chart",
+                    "subTitle": "Sales and Total sales by Product and Quarter",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "defaultSpan": {
+                        "minimumTitleRow": 2,
+                        "minimumSubTitleRow": 2
+                    },
+                    "entitySet": "SalesShareBubble",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_CtryCurr",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_CtryCurr_1",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_CtryCurr",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_CtryCurr-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_CtryCurr",
+                    "navigation": "chartNav"
+                }
+            },
+            "card006_cardBubbleTime": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Bubble Chart - Time Series",
+                    "subTitle": "Total sales by Date",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareBubbleTime",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_CtryCurr",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Bubble-Time",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_CtryCurr",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_CtryCurr-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_CtryCurr"
+                }
+            },
+            "card007_cardchartsverticalbullet": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Vertical Bullet Chart",
+                    "subTitle": "Sales and Total sales by Supplier Company",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareVertical",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_Scatter",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_Vertical",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Scatter",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card008_cardchartsverticalbullettimeseries": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Vertical Bullet Chart - Time Series",
+                    "subTitle": "Sales and Total sales by Date",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareVertical",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_Scatter",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_VerticalTime",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Scatter1",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card009_cardchartsscatter": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Scatter Chart",
+                    "subTitle": "Sales Share and Total sales by Supplier Company",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareScatter",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_Scatter",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_Scatter",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Scatter",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card010_cardchartsscattertime": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Scatter Chart - Time Series",
+                    "subTitle": "Sales Share and Total sales by Date",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareScatter",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_Scatter",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_Scatter_Time",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Scatter_Time",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card011_cardchartscolumnstackedtime": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Stacked Column Chart- Time Series",
+                    "subTitle": "Sales by Country and Region",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareColumnStacked",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_ColumnStacked",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_ColumnStackedTime",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_ColumnStacked",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card012_cardchartscolumnstacked": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Stacked Column Chart - Customized",
+                    "subTitle": "Sales by Country and Region",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareColumnStacked",
+                    "colorPalette": {
+                        "0": {
+                            "color": "sapUiChartPaletteSemanticNeutral",
+                            "legendText": "{{OTHERS}}"
+                        },
+                        "1": {
+                            "color": "sapUiChartPaletteSemanticBadDark1",
+                            "legendText": "{{BAD}}"
+                        },
+                        "2": {
+                            "color": "sapUiChartPaletteSemanticCriticalDark2",
+                            "legendText": "{{CRITICAL}}"
+                        },
+                        "3": {
+                            "color": "sapUiChartPaletteSemanticCritical",
+                            "legendText": "{{GOOD}}"
+                        }
+                    },
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_ColumnStacked",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_ColumnStacked",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_ColumnStacked",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card013_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Column Chart - Customized",
+                    "subTitle": "Sales by Country and Region",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareColumnStacked",
+                    "colorPalette": [
+                        {
+                            "color": "sapUiChartPaletteSemanticNeutral",
+                            "legendText": "{{OTHERS}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticBadDark1",
+                            "legendText": "{{BAD}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCriticalDark2",
+                            "legendText": "{{CRITICAL}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCritical",
+                            "legendText": "{{GOOD}}"
+                        }
+                    ],
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_ColumnStacked",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_Column_Customized",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Column_Customized",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card014_cardcverticalbullet": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Vertical Bullet Chart - Customized",
+                    "subTitle": "Sales by Country and Region",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareColumnStacked",
+                    "colorPalette": [
+                        {
+                            "color": "sapUiChartPaletteSemanticNeutral",
+                            "legendText": "{{OTHERS}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticBadDark1",
+                            "legendText": "{{BAD}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCriticalDark2",
+                            "legendText": "{{CRITICAL}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCritical",
+                            "legendText": "{{GOOD}}"
+                        }
+                    ],
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_ColumnStacked",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_VerticalBullet_Customized",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_VerticalBullet_Customized",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card015_cardline": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Line Chart - Customized",
+                    "subTitle": "Sales by Country and Region",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareColumnStacked",
+                    "colorPalette": [
+                        {
+                            "color": "sapUiChartPaletteSemanticNeutral",
+                            "legendText": "{{OTHERS}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticBadDark1",
+                            "legendText": "{{BAD}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCriticalDark2",
+                            "legendText": "{{CRITICAL}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCritical",
+                            "legendText": "{{GOOD}}"
+                        }
+                    ],
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_ColumnStacked",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_Line_Customized",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Line_Customized",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card016_cardcombination": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Combination Chart - Customized",
+                    "subTitle": "Sales by Country and Region",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareColumnStacked",
+                    "colorPalette": [
+                        {
+                            "color": "sapUiChartPaletteSemanticNeutral",
+                            "legendText": "{{OTHERS}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticBadDark1",
+                            "legendText": "{{BAD}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCriticalDark2",
+                            "legendText": "{{CRITICAL}}"
+                        },
+                        {
+                            "color": "sapUiChartPaletteSemanticCritical",
+                            "legendText": "{{GOOD}}"
+                        }
+                    ],
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency_ColumnStacked",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_Combination_Customized",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Combination_Customized",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card017_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Column Chart - Semantic Pattern",
+                    "subTitle": "Sales and Total Sales by Country",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareColumnSemantic",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_ColumnSemantic",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_Column",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card018_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Semantic Column Chart - Static",
+                    "subTitle": "Sales, Sales Share and Total Sales by Country",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareColumnSemantic",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_StaticSemanticColor",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_StaticSemanticColor",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter"
+                }
+            },
+            "card019_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Semantic Column Chart - Dynamic & Mizimizing",
+                    "subTitle": "Sales by Country - Minimizing",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareColumnSemantic",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_DynamicSemanticColorMin",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_DynamicSemanticColorMin",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter",
+                    "navigation": "chartNav"
+                }
+            },
+            "card020_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Semantic Column Chart - Dynamic & Maximizing",
+                    "subTitle": "Sales by Country - Maximizing",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareColumnSemantic",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_DynamicSemanticColor",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_DynamicSemanticColor",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter",
+                    "navigation": "chartNav"
+                }
+            },
+            "card021_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Semantic Column Chart - Dynamic & Target",
+                    "subTitle": "Sales by Country",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareColumnSemantic",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_DynamicSemanticColorTarget",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_DynamicSemanticColorTarget",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter",
+                    "navigation": "chartNav"
+                }
+            },
+            "card022_cardchartscolumn": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) Semantic Column Chart - Dynamic & Minimizing with Path",
+                    "subTitle": "Sales by Country",
+                    "valueSelectionInfo": "value selection info",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "entitySet": "SalesShareColumnSemantic",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency_DynamicSemanticColorMaxPath",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency_DynamicSemanticColorMaxPath",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency_Scatter",
+                    "navigation": "chartNav"
+                }
+            },
+            "card023_cardchartsTabbed": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "dataStep": "11",
+                    "title": "(Analytical) View Switch",
+                    "subTitle": "Sales Share by Product",
+                    "valueSelectionInfo": "value selection info",
+                    "entitySet": "SalesShareLineTimeTab",
+                    "cardLayout": {
+                        "colSpan": 1
+                    },
+                    "tabs": [
+                        {
+                            "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Line-Last",
+                            "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Line-Time",
+                            "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Country",
+                            "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Country-Generic",
+                            "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Country",
+                            "value": "Last 1 month"
+                        },
+                        {
+                            "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency",
+                            "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Eval_by_Currency",
+                            "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency",
+                            "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+                            "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency",
+                            "value": "Donut Chart"
+                        }
+                    ]
+                }
+            },
+            "sales_card.card024": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "title": "(Analytical) Waterfall Chart",
+                    "subTitle": "By Spend",
+                    "entitySet": "SalesShareWaterfall",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Waterfall_Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Waterfall_Eval_by_Country",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Waterfall_Eval_by_Country",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Waterfall_Eval_by_Country",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Waterfall_Eval_by_Country",
+                    "navigation": "headerNav"
+                }
+            },
+            "sales_card.card025": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "title": "(Analytical) Semantic Waterfall Chart",
+                    "subTitle": "By Spend",
+                    "entitySet": "SalesShareWaterfall",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Waterfall_Eval_by_Country_Semantic",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Waterfall_Eval_by_Country_Semantic",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Waterfall_Eval_by_Country",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Waterfall_Eval_by_Country",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Waterfall_Eval_by_Country",
+                    "navigation": "headerNav"
+                }
+            },
+            "sales_card.card026": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "title": "(Analytical) Waterfall Chart - Multiple Measures",
+                    "subTitle": "By Spend",
+                    "entitySet": "SalesShareWaterfall",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Waterfall_Eval_by_Country_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Waterfall_Eval_by_Country_1",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Waterfall_Eval_by_Country",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Waterfall_Eval_by_Country",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Waterfall_Eval_by_Country",
+                    "navigation": "headerNav"
+                }
+            },
+            "sales_card.card027": {
+                "model": "salesShare",
+                "template": "sap.ovp.cards.charts.analytical",
+                "settings": {
+                    "title": "(Analytical) Waterfall Chart - Time Series",
+                    "subTitle": "By Spend",
+                    "entitySet": "SalesShareWaterfall",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Waterfall_Eval_by_Country",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Waterfall_Eval_by_Country_Time",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Waterfall_Eval_by_Country",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Waterfall_Eval_by_Country",
+                    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Waterfall_Eval_by_Country",
+                    "navigation": "headerNav"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,162 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa2fe8e763014477e87990ff50657a0d0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/composite-binding-a2fe8e7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Composite Binding</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Composite Binding</h2></div><div class="shortdesc">Calculated fields enable the binding of multiple properties in different models to a
+		single property of a control.</div><p>The value property of a text field, for example, may be bound to a property
+				<code>firstName</code> and a property <code>lastName</code> in a model. The
+			application can access these values in a formatter function and can decide how they
+			should be processed or combined together. If no formatter function is specified, the
+			values are joined together by default. You can use the <code>useRawValues</code>
+			property to specify if the parameter values in the formatter function are formatted
+			according to the type of the property or not. </p><p>The multiple property bindings are stored in a <code>CompositeBinding</code> and can
+			be accessed by calling the <code>getBindings</code> function. You can access the
+			composite binding, for example, by using the <code>getBinding('value')</code>
+			function of the control. The composite binding has no path, model, context, and type
+			because it contains multiple property bindings containing the necessary information. A
+			composite binding may, for example, store two property bindings which belong to
+			different models and have different types.</p><p>If you have specified a formatter function, it is also available in the composite
+			binding.</p><p>There are several options to create multiple bindings for a control. The syntax is very
+			similar to the normal single binding declaration. </p><p>Each binding is created by the specified parts and assigned information. A part must contain
+			the path to the property in the model and may contain additional information for the
+			binding, for example a type.</p><section id="section_N10044_N10011_N10001">
+			<h2 class="title ">Constructor Declaration</h2>
+			<ol>
+				<li class="li">Use binding objects to add additional parameters, for example the type:
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oTxt = new sap.m.Input({
+    value: {
+        parts: [
+                {path: "/firstName", type: new sap.ui.model.type.String()},
+                {path: "/lastName"},
+                {path: "myModel2&gt;/amount", type: new sap.ui.model.type.Float()} // path to property in another model
+               ]
+          }
+}); </pre></div></div></section></li>
+				<li class="li"> Use strings which only take the
+					path:<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oTxt = new sap.m.Input({
+    value: {
+        parts: [
+                "/firstName",
+                "/lastName",
+                "myModel2&gt;/fraud" // path to property in another model
+               ]
+         }
+}); </pre></div></div></section></li>
+			</ol>
+		</section><section id="section_N10062_N10011_N10001">
+			<h2 class="title ">Bind Property Declaration</h2>
+			<ol>
+				<li class="li">Use binding objects to add additional parameters, for example the type:
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oTxt.bindValue({
+    parts: [
+            {path: "/firstName", type: new sap.ui.model.type.String()},
+            {path: "/lastName"}
+           ]
+}); </pre></div></div></section></li>
+				<li class="li">Use strings which only take the
+					path:<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oTxt.bindValue({
+    parts: [
+            "/firstName",
+            "/lastName"
+           ]
+}); </pre></div></div></section></li>
+			</ol>
+			<p>These samples also work with a relative binding path, when you use them as a template in a
+				list binding. </p>
+		</section><section id="section_tlp_5np_rcb">
+			<h2 class="title ">Complex Syntax for Calculated Fields</h2>
+			<p>Complex (or "extended") syntax can be used for calculated fields in declarative views, such as HTML and XML views. The following examples show
+				how to use the feature:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>You can mix text with calculated fields as follows:</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Label text="Hello Mr. {
+                         path:'/singleEntry/firstName', 
+                         formatter: '.myFormatter'
+                        }, 
+                        {
+                         /singleEntry/lastName
+                        }
+ " /&gt;</pre></div></div></section>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>Use translatable text in your application.</p>
+					<p></p></div></div>
+				</li>
+				<li class="li">
+					<p>Use a syntax with leading quotation marks ("...") if you use MVC and your
+						formatter or type is located in the controller. In the following example,
+						the existing type or formatter function in the controller is used:</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Text text="{
+                   path:'gender', 
+                   formatter:'.myGenderFormatter'
+                  } 
+                  {firstName}, 
+                  {lastName}
+"/&gt;</pre></div></div></section>
+				</li>
+				<li class="li">
+					<p>If you have a global formatter function, use the following syntax:</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Text text="{
+              parts: [
+                      {path:'birthday/day'},
+                      {path:'birthday/month'},
+                      {path:'birthday/year'}
+                     ], 
+              formatter:'my.globalFormatter'
+}"/&gt;</pre></div></div></section>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The formatter of a composite binding is called for every property update. <span class="emphasis">This happens also if some parts are not
+								yet available</span>, i.e. <code>undefined</code>.</p>
+					<p></p></div></div>
+				</li>
+				<li class="li">
+					<p>For a global type that is created with the specified format options, see the
+						following example:</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Label text="A type test: {
+                           path:'/singleEntry/amount', 
+                           type:'sap.ui.model.type.Float', 
+                           formatOptions: { minFractionDigits: 1}
+                          } EUR
+"/&gt;</pre></div></div></section>
+				</li>
+			</ul>
+		</section><section id="section_v3n_qyz_gbc">
+			<h2 class="title ">Composite Binding With Static Binding Parts</h2>
+			<p>An <a href="api/sap.ui.model.StaticBinding" title="api/sap.ui.model.StaticBinding" class="sap-doc" alt="api/sap.ui.model.StaticBinding"><code>sap.ui.model.StaticBinding</code></a>
+				 is the way to define a part in a
+				composite binding with a constant value.</p>
+			<p>It is useful in cases where you'd like to use a common formatter function or type in multiple composite bindings: With a constant value as part
+				of the binding, you can achieve a different behavior of the <span class="emphasis">same</span> formatter function or type in different
+				places.</p>
+			<p><span class="emphasis">Example 1: Different formatted values with same formatter function</span></p>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!-- formatStatus returns a text or an icon source computed from the first two parts depending on the third part --&gt;
+&lt;core:Icon decorative="false"
+	src="{
+		parts: ['deliveryStatus', 'paymentStatus', {value : 'icon'}],
+		formatter : 'formatter.formatStatus'
+	}"
+	tooltip="{
+		parts: ['deliveryStatus', 'paymentStatus', {value : 'tooltip'}],
+		formatter: 'formatter.formatStatus'
+	}"
+/&gt;</pre></div></div></section>
+			<p></p></div></div>
+			<p><span class="emphasis">Example 2: Constant part in type</span></p>
+			<p>This example uses <code>sap.ui.model.odata.type.DateTimeWithTimezone</code> to display only a time zone. For more information, see
+					<a href="topic/6c9e61dc157a40c19460660ece8368bc" title="SAPUI5 applications often deal with timestamps, dates, and times. Typically, these timestamps, dates and times are stored in a back-end system and communicated to the client via OData services. SAPUI5 offers a variety of UI5 data types and formatters for handling these timestamps, dates and times." class="sap-doc">Dates, Times, Timestamps, and Time Zones</a>.</p>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!-- 'TimezoneID' refers to an Edm.String property holding the IANA time zone ID --&gt;
+&lt;Text text="{
+	formatOptions: {showDate: false, showTime: false},
+	parts: [{value: null}, {path: 'TimezoneID'}],
+	type: 'sap.ui.model.odata.type.DateTimeWithTimezone'
+}" /&gt;</pre></div></div></section>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

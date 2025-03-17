@@ -1,0 +1,8 @@
+/*!
+ * 
+		SAP UI development toolkit for HTML5 (SAPUI5)
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/ui/base/Object"],function(t){"use strict";var n="/sap/opu/odata4/sap/aps_ui_contact_srv/srvd_a2x/sap/";var e=n+"aps_ui_contact/0001/";var a="APS_UI_C_CONTACT";var o=n+"aps_ui_contact/0001/"+a;var r=n+"aps_ui_contact/0001/"+a;var c="APS_UI_C_PRESENCE";var i=n+"aps_ui_contact/0001/"+c;var u=n+"aps_ui_contact/0001/"+"APS_UI_C_CHECK_SERVICE";var h="GET";var s="HEAD";var f=t.extend("sap.suite.ui.commons.collaboration.CollaborationContactInfoHelper");f.fetchCSRFToken=function(){return fetch(e,{method:s,headers:{"X-CSRF-Token":"Fetch"}}).then(function(t){var n=t.headers.get("X-CSRF-Token");if(t.ok&&n){return n}return undefined})};f.fetchContact=function(t){return this.fetchCSRFToken().then(function(n){return fetch(o+"/"+t,{method:h,headers:{"X-CSRF-Token":n,"content-type":"application/json;odata.metadata=minimal;charset=utf-8"}}).then(function(t){return t.json()})})};f.fetchContactPicture=function(t){return this.fetchCSRFToken().then(function(n){return fetch(r+"/"+t+"/photo",{method:h,headers:{"X-CSRF-Token":n}}).then(function(t){return t.blob()})})};f.fetchContactStatus=function(t){return this.fetchCSRFToken().then(function(n){return fetch(i+"?$filter=id eq '"+t+"'",{method:h,headers:{"X-CSRF-Token":n,"content-type":"application/json;odata.metadata=minimal;charset=utf-8"}}).then(function(t){return t.json()})})};f.fetchServiceStatus=function(){return this.fetchCSRFToken().then(function(t){return fetch(u,{method:h,headers:{"X-CSRF-Token":t,"content-type":"application/json;odata.metadata=minimal;charset=utf-8"}}).then(function(t){return t.json()})})};return f});
+//# sourceMappingURL=CollaborationContactInfoHelper.js.map

@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="/services_kiw/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/services_kiw/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/Communication.xml">
+        <edmx:Include Alias="vCard" Namespace="com.sap.vocabularies.Communication.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/cs01/vocabularies/Org.OData.Measures.V1.xml">
+        <edmx:Include Alias="CQP" Namespace="Org.OData.Measures.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/services_kiw/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/services_kiw/sap/opu/odata/sap/ZCOSTCENTERCOSTSQUERY0020_CDS/$metadata">
+        <edmx:Include Alias="ZCOSTCENTERCOSTSQUERY0020_CDS" Namespace="ZCOSTCENTERCOSTSQUERY0020_CDS"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Core.V1.xml">
+		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Alias="ZCOSTCENTERCOSTSQUERY0020_CDSAnnotation" Namespace="sap.cbesh.cestbon.ZCOSTCENTERCOSTSQUERY0020_CDSAnnotation">
+
+			<!--===============================================================================
+                Entity Type ZCOSTCENTERCOSTSQUERY0020Type
+                ================================================================================-->
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+			<!-- Annotation for QuickVariantX - VAR3-->
+				<Annotation Term="UI.SelectionVariant" Qualifier="VAR1">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 20"/>
+						<PropertyValue Property="SelectOptions"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Cost Center Query 20" />
+                        <PropertyValue Property="TypeNamePlural" String="Cost Center Query 20" />
+                        <PropertyValue Property="TypeImageUrl" String="sap-icon://sales-order" />
+                    </Record>
+                </Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="MainContent">
+                    <Record>
+                        <PropertyValue Property="SortOrder" >
+                        	<Collection>
+                        		<Record Type="Common.SortOrderType">
+                        			<PropertyValue Property="Property" PropertyPath="ActualCosts"/>
+                        			<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.LineItem</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+				<Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CostCenter"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CostElement"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ControllingArea"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+						<Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Customer"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+						<Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Supplier"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ActualCosts"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PlanCosts"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Difference"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DifferencePercent"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+						<Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Display Order" />
+                            <PropertyValue Property="Action" String="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020_CDS_Entities/ALPFunction" />
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated" />
+                        </Record>
+                        <Record Type="UI.DataFieldForIntentBasedNavigation">
+                            <PropertyValue Property="Label" String="Sales Order Aggregation Navigation" />
+                            <PropertyValue Property="SemanticObject" String="SalesOrder" />
+                            <PropertyValue Property="Action" String="itemaggregation" />
+                        </Record>
+       				</Collection>
+       			</Annotation>
+				   <Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>CostCenter</PropertyPath>
+						<PropertyPath>TotaledProperties</PropertyPath>
+						<PropertyPath>Supplier</PropertyPath>
+						<PropertyPath>Customer</PropertyPath>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="Overview">
+					<Record>
+					<PropertyValue Property="Data">
+						<Collection>
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="CompanyCode"/>
+							</Record>
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="Currency"/>
+							</Record>
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="ResponsiblePersonName"/>
+							</Record>
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="PlannedStartDate"/>
+							</Record>
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="PlannedEndDate"/>
+							</Record>
+						</Collection>
+					</PropertyValue>
+					<PropertyValue Property="Label" String="Overview"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+	        <Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<!-- Annotation for QuickVariantX - VAR3-->
+				<Annotation Term="UI.SelectionPresentationVariant" Qualifier="VAR3">
+						<Record>
+							<PropertyValue Property="Text" String="Cost Center Query 20 Chart"/>
+							<PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#VAR3"/>
+							<PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant#VAR3"/>
+						</Record>
+					</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="VAR3">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 20 Chart"/>
+						<PropertyValue Property="SelectOptions"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="VAR3">
+                    <Record>
+                        <PropertyValue Property="MaxItems" Int="3"/>
+                        <PropertyValue Property="SortOrder" >
+                        	<Collection>
+                        		<Record Type="Common.SortOrderType">
+                        			<PropertyValue Property="Property" PropertyPath="ActualCosts"/>
+                        			<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#VAR3</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="VAR3">
+	        		<Record>
+	        			<PropertyValue Property="Measures">
+	        				<Collection>
+	        					<PropertyPath>ActualCosts</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="Dimensions">
+	        				<Collection>
+	        					<PropertyPath>CostCenter</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+	        			<PropertyValue Property="Title" String="{@i18n&gt;@TEST}"/>
+	        			<PropertyValue Property="Description" String="{@i18n&gt;@TEST}"/>
+	        		</Record>
+	        	</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<!--Visual Filter Presentation and Chart Variant for Cost Center-->
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="FilterDifferenceBySupplier">
+					<Record>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="Supplier"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#FilterDifferenceBySupplier</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="FilterDifferenceBySupplier">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>Difference</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>Supplier</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="Difference"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+						<PropertyValue Property="Title" String="{@i18n&gt;@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n&gt;@TEST}"/>
+					</Record>
+				</Annotation>
+				<!--Visual Filter Presentation and Chart Variant for Customer -->
+                <Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="FilterCustomerByCost">
+                    <Record>
+                        <PropertyValue Property="MaxItems" Int="3"/>
+                        <PropertyValue Property="SortOrder" >
+                        	<Collection>
+                        		<Record Type="Common.SortOrderType">
+                        			<PropertyValue Property="Property" PropertyPath="ActualCosts"/>
+                        			<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#FilterCustomerByCost</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="FilterCustomerByCost">
+	        		<Record>
+	        			<PropertyValue Property="Measures">
+	        				<Collection>
+	        					<PropertyPath>ActualCosts</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="Dimensions">
+	        				<Collection>
+	        					<PropertyPath>Customer</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+	        			<PropertyValue Property="Title" String="{@i18n&gt;@TEST}"/>
+	        			<PropertyValue Property="Description" String="{@i18n&gt;@TEST}"/>
+	        		</Record>
+	        	</Annotation>
+			</Annotations>
+			<!-- Visual Filter for Supplier-->
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/Supplier">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Supplier (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Supplier"/>
+									<PropertyValue Property="ValueListProperty" String="Supplier"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilterItem">
+					<Record>
+						<PropertyValue Property="Label" String="Supplier (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Supplier"/>
+									<PropertyValue Property="ValueListProperty" String="Supplier"/>
+								</Record>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="ValueListProperty" String="DisplayCurrency"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="PresentationVariantQualifier" String="FilterDifferenceBySupplier"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<!-- Visual Filter for Cost Element -->
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/CostCenter">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Element"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0021"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CostElement"/>
+									<PropertyValue Property="ValueListProperty" String="CostElement"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CostCenter"/>
+									<PropertyValue Property="ValueListProperty" String="CostCenter"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilterItem">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Element"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0021"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CostElement"/>
+									<PropertyValue Property="ValueListProperty" String="CostElement"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CostCenter"/>
+									<PropertyValue Property="ValueListProperty" String="CostCenter"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="PresentationVariantQualifier" String="FilterCostsByElement"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<!-- Visual Filter for Totalled Properties -->
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/Customer">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Center (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Customer"/>
+									<PropertyValue Property="ValueListProperty" String="Customer"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CostElement"/>
+									<PropertyValue Property="ValueListProperty" String="CostElement"/>
+								</Record>
+
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="PresentationVariantQualifier" String="FilterCustomerByCost"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/CostElement">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Element"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0021"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CostElement"/>
+									<PropertyValue Property="ValueListProperty" String="CostElement"/>
+								</Record>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CostCenter"/>
+									<PropertyValue Property="ValueListProperty" String="CostCenter"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>	
+        </Schema>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Alias="CZ_EASILINEITEMS_SADL_CDSAnnotation" Namespace="sap.cbesh.cestbon.CZ_EASILINEITEMS_SADL_CDSAnnotation">
+			<!-- For Another Entity Set -->
+			<!--===============================================================================
+                Entity Type ZCOSTCENTERCOSTSQUERY0021Type
+                ================================================================================-->
+
+	        <Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0021Type">
+				<Annotation Term="UI.SelectionPresentationVariant" Qualifier="VAR2">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 21"/>
+						<PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#VAR2"/>
+						<PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant#VAR2"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="VAR2">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 21">
+						</PropertyValue>
+						<PropertyValue Property="SelectOptions">
+
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.PresentationVariant" Qualifier="VAR2">
+					<Record>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@UI.LineItem#SL</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem" Qualifier="SL">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="ID"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CostCenter"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Supplier"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="ActualCosts"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Cost Center Query 21" />
+                        <PropertyValue Property="TypeNamePlural" String="Cost Center Query 21" />
+                        <PropertyValue Property="TypeImageUrl" String="sap-icon://sales-order" />
+                    </Record>
+                </Annotation>
+				<Annotation Term="UI.SelectionPresentationVariant" Qualifier="VAR4">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 21 Chart"/>
+						<PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#VAR4"/>
+						<PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant#VAR4"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="VAR4">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 21 Chart">
+						</PropertyValue>
+						<PropertyValue Property="SelectOptions">
+
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="VAR4">
+                    <Record>
+                        <PropertyValue Property="MaxItems" Int="3"/>
+                        <PropertyValue Property="SortOrder" >
+                        	<Collection>
+                        		<Record Type="Common.SortOrderType">
+                        			<PropertyValue Property="Property" PropertyPath="ActualCosts"/>
+                        			<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#VAR4</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="VAR4">
+	        		<Record>
+	        			<PropertyValue Property="Measures">
+	        				<Collection>
+	        					<PropertyPath>Difference</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="Dimensions">
+	        				<Collection>
+	        					<PropertyPath>Supplier</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+	        			<PropertyValue Property="Title" String="{@i18n&gt;@TEST}"/>
+	        			<PropertyValue Property="Description" String="{@i18n&gt;@TEST}"/>
+	        		</Record>
+	        	</Annotation>
+				<!-- visual Filter Presentation Variant for Cost by CostCenter -->
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="FilterCostsByElement">
+					<Record>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="ActualCosts"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#FilterCostsByElement</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="FilterCostsByElement">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>CostElement</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="ActualCosts"/>
+									<PropertyValue Property="DataPoint">
+										<AnnotationPath>@UI.DataPoint#Chart</AnnotationPath>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+						<PropertyValue Property="Title" String="{@i18n&gt;@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n&gt;@TEST}"/>
+					</Record>
+				</Annotation>
+            </Annotations>
+        </Schema>
+
+					<!-- Tab5 For Another Entity Set -->
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Alias="ZCOSTCENTERCOSTSQUERY0020_CDSAnnotation" Namespace="sap.cbesh.cestbon.ZCOSTCENTERCOSTSQUERY0020_CDSAnnotation">
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0022Type">
+				<Annotation Term="UI.SelectionPresentationVariant" Qualifier="VAR5">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 22 Table"/>
+						<PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#VAR5"/>
+						<PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant#VAR5"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="VAR5">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 22 Table">
+						</PropertyValue>
+						<PropertyValue Property="SelectOptions">
+
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.PresentationVariant" Qualifier="VAR5">
+					<Record>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@UI.LineItem#SL</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem" Qualifier="SL">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="ID"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Customer"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CustomerName"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Cost Center Query 22" />
+                        <PropertyValue Property="TypeNamePlural" String="Cost Center Query 22" />
+                        <PropertyValue Property="TypeImageUrl" String="sap-icon://sales-order" />
+                    </Record>
+                </Annotation>
+
+
+				<Annotation Term="UI.SelectionPresentationVariant" Qualifier="VAR6">
+						<Record>
+							<PropertyValue Property="Text" String="Cost Center Query 22 Chart"/>
+							<PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#VAR6"/>
+							<PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant#VAR6"/>
+						</Record>
+					</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="VAR6">
+					<Record>
+						<PropertyValue Property="Text" String="Cost Center Query 22 Chart"/>
+						<PropertyValue Property="SelectOptions"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="VAR6">
+                    <Record>
+                        <PropertyValue Property="MaxItems" Int="3"/>
+                        <PropertyValue Property="SortOrder" >
+                        	<Collection>
+                        		<Record Type="Common.SortOrderType">
+                        			<PropertyValue Property="Property" PropertyPath="ActualCosts"/>
+                        			<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Visualizations">
+                            <Collection>
+                                <AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#VAR6</AnnotationPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="VAR6">
+	        		<Record>
+	        			<PropertyValue Property="Measures">
+	        				<Collection>
+	        					<PropertyPath>ActualCosts</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="Dimensions">
+	        				<Collection>
+	        					<PropertyPath>TotaledProperties</PropertyPath>
+	        				</Collection>
+	        			</PropertyValue>
+	        			<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+	        			<PropertyValue Property="Title" String="{@i18n&gt;@TEST}"/>
+	        			<PropertyValue Property="Description" String="{@i18n&gt;@TEST}"/>
+	        		</Record>
+	        	</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,126 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9790d9aa686e4f818f2ad99057adb7ee" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-6-resource-models-9790d9a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 6: Resource Models</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 6: Resource Models</h2></div><div class="shortdesc">Business applications often require language-specific (translatable) text used as labels and descriptions on the user
+		interface.</div><p>The example we used at the start of this tutorial was quite simplistic as we stored language-specific text directly in a JSON model object.
+			Generally speaking, unless language-specific text comes directly from a back-end system, it's not considered good programming practice to
+			put translatable texts directly into a model. So, let's fix this by placing all translatable texts (such as field labels) into a resource
+			bundle.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio61d68f167778425bbdd2abd7d550ae65_LowRes.png" title="The graphic has an explanatory text" alt="The graphic has an explanatory text" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The texts are now derived from a resource model (No visual change to last step)</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the Demo Kit at <a href="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.06" title="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.06" class="sap-doc" alt="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.06">Data Binding - Step 6</a>.</p>
+			<ol>
+				<li class="li">
+					<p>Create a new entry in the <code>manifest.json</code> file under the <code>models</code> entry as shown in the coding below. The
+						resource model is set to the component using the model name <code>i18n</code>. The data comes from the
+							<code>i18n.properties</code> file as specified in the <code>bundleName</code> entry in the settings. Since we're
+						creating a resource model, the file name is assumed to have the extension <code>.properties</code>; this does not need to
+						be stated explicitly.</p>
+					<p><span class="emphasis">webapp/manifest.json</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.120.0",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"models": {
+			"": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "./model/data.json"
+			}<span class="emphasis">,
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "ui5.databinding.i18n.i18n",
+					"supportedLocales": [
+						"",
+						"de"
+					],
+					"fallbackLocale": ""
+				}
+			}</span>
+		},
+...</pre></div></div></section><p></p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The configured <code>supportedLocales</code> represent the following i18n files present (see Step 7):</p><ul class="ul ">
+								<li class="li"><code>""</code> - <code>i18n/i18n.properties</code></li>
+								<li class="li">
+									<code>"de"</code> - <code>i18n/i18n_de.properties</code></li>
+							</ul><p></p>
+						<p>The configured <code>fallbackLocale</code> should represent one of these files. According to the fallback chain, the root bundle
+								(<code>""</code>) is the last fallback. Configuring it explicitly avoids side effects when additional resource
+							files are added. For more information, see <a href="topic/ec753bc539d748f689e3ac814e129563" title="You can configure a list of supported locales and a fallback locale in your app's manifest to control the loading of resource bundles and avoid '404 Not Found' network responses." class="sap-doc">Supported Locales and Fallback Chain</a>.</p>
+					<p></p></div></div>
+				</li>
+				<li class="li">
+					<p>Create a new folder <code>i18n</code> in the <code>webapp</code> folder and a new file <code>i18n.properties</code> within this
+						folder. Add the code shown below.</p>
+					<p><span class="emphasis">webapp/i18n/i18n.properties (New)</span></p><section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis"># Field labels
+firstName=First Name
+lastName=Last Name
+enabled=Enabled
+
+# Screen titles
+panelHeaderText=Data Binding Basics</span></pre></div></div></section><p></p>
+					<p>The <code>panelHeaderText</code> property has been moved from the JSON model into the <code>i18n</code> resource bundle. Also, the
+						field labels are no longer hard-coded in the XML view. This is because all of these text fields need to be translated.</p>
+					<p>Language-specific text stored in resource models obeys the Java convention for internationalization (i18n). </p>
+				</li>
+				<li class="li">
+					<p>Modify the data binding for the panel header and the labels in <code>App.view.xml</code> to include the model name. Note that a "greater
+						than" character separates the model name and the property name. Also, i18n property names <span class="emphasis">must not</span> start
+						with a slash character.</p>
+					<p><span class="emphasis">webapp/view/App.view.xml</span></p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Panel headerText="{<span class="emphasis">i18n&gt;panelHeaderText}</span>" class="sapUiResponsiveMargin" width="auto"&gt;
+		&lt;form:SimpleForm editable="true" layout="ColumnLayout"&gt;
+			&lt;Label text="<span class="emphasis">{i18n&gt;firstName}</span>"/&gt;
+			&lt;Input value="{/firstName}" valueLiveUpdate="true" width="200px" enabled="{/enabled}"/&gt;
+			&lt;Label text="<span class="emphasis">{i18n&gt;lastName}</span>"/&gt;
+			&lt;Input value="{/lastName}" valueLiveUpdate="true" width="200px" enabled="{/enabled}"/&gt;
+			&lt;Label text="<span class="emphasis">{i18n&gt;enabled}</span>"/&gt;
+			&lt;CheckBox selected="{/enabled}"/&gt;
+		&lt;/form:SimpleForm&gt;
+	&lt;/Panel&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p></p>
+				</li>
+				<li class="li">
+					<p>Remove the line <code>panelHeaderText : "Data Binding Basics"</code> from the model data in the
+							<code>data.json</code> file. This text has now been moved to the resource model.</p>
+					<p><span class="emphasis">webapp/model/data.json</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"firstName": "Harry",
+	"lastName": "Hawk",
+	"enabled": true
+}</pre></div></div></section><p></p>
+				</li>
+				<li class="li">
+					<p>Remove the <code>init</code> function and the import of <code>sap/ui/model/BindingMode</code> from
+							<code>Component.js</code> as we do not want to set the one-way binding mode anymore.</p>
+					<p><span class="emphasis">webapp/Component.js</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/UIComponent"
+], (UIComponent) =&gt; {
+	"use strict";
+	return UIComponent.extend("ui5.databinding.Component", {
+		metadata: {
+			interfaces: ["sap.ui.core.IAsyncContentCreation"],
+			manifest: "json"
+		}
+	});
+});</pre></div></div></section><p></p>
+				</li>
+			</ol>
+			<p>You can use multiple model instances by using different model names. The model name can be set as the second parameter when using the
+					<code>setModel(oResourceModel,"i18n")</code> method. The model is then propagated under this name to all aggregated child
+				controls (and their children, and so on …). All these controls have access to this model under the name <code>i18n</code> as well
+				as to the <code>JSONModel</code> (default model, which has no name).</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/e5310932a71f42daa41f3a6143efca9c">Data Binding Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/88756c08fe144ba08ff1762ad92fc07c">Step 5: One-Way Data Binding</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/4e593b44e78a431e8b21be6b3915fb55">Step 7: (Optional) Resource Bundles and Multiple Languages</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f122a36f4d1014b6dd926db0e91070.html#loio91f122a36f4d1014b6dd926db0e91070" title="The resource model is used as a wrapper for resource bundles. In data binding you use the resource model instance, for example, to bind texts of a control to language-dependent resource bundle properties." class="sap-doc">Resource Model</a></li>
+	</ul></section></div></section></div></body></html>

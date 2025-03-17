@@ -1,0 +1,84 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    xmlns:build="sap.build"
+    xmlns:micro="sap.suite.ui.microchart"
+    template:require="{
+		CardAnnotationhelper: 'sap/ovp/cards/AnnotationHelper'
+	}"    
+>
+    <items>
+        <CustomListItem
+            core:require="{CardAnnotationhelper: 'sap/ovp/cards/AnnotationHelper'}"
+            type="Active"
+            press="onListItemPress"
+            build:metadata="#pattern:GenericCard>ExtendedBarList;set:ovpCardProperties>/annotationPath:com.sap.vocabularies.UI.v1.LineItem;set:ovpCardProperties>/listType:extended;set:ovpCardProperties>/listFlavor:bar">
+            <HBox class="sapOvpBarListHBox sapOvpExtendedBarListHBox">
+                <VBox class="sapOvpBarListVBoxLeft">
+                    <Text
+                        class="sapOvpExtendedBarListFirstDataField sapOvpOverflowEllipsisDataField"
+                        text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataFieldValue'}"
+                        build:metadata="#pattern:GenericCard>ExtendedBarList;prop::ItemFirstAttribute:\{lineItem>/0/Value\};"/>
+                    <Text
+                        class="sapOvpBarListDataField sapOvpBarListSubDataField sapOvpExtendedBarListBlock sapOvpOverflowEllipsisDataField"
+                        text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatSecondDataFieldValue'}"
+                        build:metadata="#pattern:GenericCard>ExtendedBarList;prop::ItemSecondAttribute:\{lineItem>/1/Value\};"/>
+                    <layoutData>
+                        <FlexItemData growFactor="1"/>
+                    </layoutData>
+                    <micro:ComparisonMicroChart 
+                        class="sapOvpBarListComparisonMicroChartAlignment" 
+                        width="100%" 
+                        height="1rem"
+                        colorPalette="{path: 'lineItem>', formatter: 'CardAnnotationhelper.colorPaletteForComparisonMicroChart'}"
+                        minValue="{minMaxModel>/minValue}"
+                        maxValue="{minMaxModel>/maxValue}"> 
+                        <micro:data> 
+                            <micro:ComparisonMicroChartData 
+                                displayValue=" "
+                                value="{= '{path: \'' + ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getFirstDataPointValue'} + '\', formatter: \'.returnBarChartValue\'}' }"
+                                color="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointColor'}">
+                            </micro:ComparisonMicroChartData>
+                        </micro:data>
+                    </micro:ComparisonMicroChart>
+                </VBox>
+                <VBox class="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0 ? 'sapOvpBarListVBoxRight' : 'sapOvpListEmptyField'}">
+                    <ObjectNumber
+                        class="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointState'} === 'None' ?
+                                        'sapOvpBarListObjectNumber' : 'sapOvpBarListObjectNumber sapOvpBarListObjectNumberWithoutState'}"
+                        textAlign="End"
+                        number="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatSecondDataPointValue'}"
+                        state="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointState'} === 'None' ?
+                                        ${path: 'lineItem>', formatter: 'CardAnnotationhelper.formatSecondDataPointState'} : 'None'}"
+                        build:metadata="#pattern:GenericCard>ExtendedBarList;prop::ItemThirdAttribute:\{lineItem>/3/Target@@Value\};prop::ItemThirdAttributeToleranceRangeLowValue:\{lineItem>/3/Target@@CriticalityCalculation/ToleranceRangeLowValue\};prop::ItemThirdAttributeDeviationRangeLowValue:\{lineItem>/3/Target@@CriticalityCalculation/DeviationRangeLowValue\}"/>
+                    <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 2}" >
+                        <ObjectNumber
+                            class="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointState'} === 'None' ?
+                                        'sapOvpBarListObjectNumber' : 'sapOvpBarListObjectNumber sapOvpBarListObjectNumberWithoutState'}"
+                            textAlign="End"
+                            number="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatThirdDataPointValue'}"
+                            build:metadata="#pattern:GenericCard>ExtendedBarList;prop::ItemFourthAttribute:\{lineItem>/4/Target@@Value\}"/>
+                    </template:if>
+                    <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.isFirstDataPointPercentageUnit'}}" >
+                        <template:then>
+                            <ObjectNumber
+                                class="sapOvpBarListObjectNumber sapOvpBarListObjectNumberPercentage"
+                                textAlign="End"
+                                number="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointValue'}"
+                                build:metadata="#pattern:GenericCard>ExtendedBarList;prop::ItemProgressBarValue:\{lineItem>/2/Target@@Value\}"/>
+                        </template:then>
+                        <template:else>
+                            <ObjectNumber
+                                class="sapOvpBarListObjectNumber valueStateText "
+                                textAlign="End"
+                                number="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointValue'}"
+                                state="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointState'}">
+                            </ObjectNumber>
+                        </template:else>
+                    </template:if>
+                </VBox>
+            </HBox>
+        </CustomListItem>
+    </items>
+</core:FragmentDefinition>

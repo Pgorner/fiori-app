@@ -1,0 +1,55 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio772a1b1eb2da4943af48bbe546a61085" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/example-revertible-change-handlers-772a1b1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Example: Revertible Change Handlers</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Example: Revertible Change Handlers</h2></div><div class="shortdesc">Here's how you can make change handlers revertible.</div><p>When navigating between control variants (views), it's necessary to revert the changes that have been applied to a certain variant when
+            displaying another variant where that change isn't present. Therefore you need to make your change handler revertible. This is easy to
+            achieve: Together with the <code>applyChange</code> method, your change handler must contain a <code>revertChange</code> method,
+            which is responsible for reverting the change.</p><p>In the usual case, before applying the change in <code>applyChange</code>, store the information that's required to restore the state of the
+            control in the change. The <code>revertChange</code> method then reads this data and is able to bring the control to its previous
+            state.</p><div class="note remember  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Remember
+				</strong></div></div><div class="fig"><p>
+			</p><p>After the change is reverted, remember to reset (clear) the revert data on the change.</p>
+		<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p><span class="emphasis"><cite>Move</cite> Change Handler</span></p><p>When you implement a custom change handler for the
+                    <cite>move</cite> action, remember that the change may already have been performed before <code>applyChange</code> is called,
+                for example when you move something using drag and drop. Generally, we recommend saving the index that the control currently has, but
+                in this case this doesn't work. If the change was already performed, the current index and the target index are the same. In this
+                case, you need to save the source index from the change data in order to guarantee that the <cite>revert</cite> action
+            works.</p><p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p><span class="emphasis">Revert Data Rules</span></p><p>Although the <code>revertData</code> object accepts any content, do not save any object instances
+                or IDs. If you need to keep a reference to a control, save its selector (<code>oModifier.getSelector(oControl,
+                    oAppComponent)</code>) or its position in the aggregation (in cases like <cite>move</cite> or <cite>combine</cite>). This
+                ensures that the control is always found, even when you're processing XML. You also get a warning if you're saving a reference to an
+                invalid control, such as a control with an unstable ID.</p><p></p></div></div><p>It's a best practice to make every change handler revertible.</p><p>Here's an example for the <code>BaseRename</code> change handler:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>BaseRename.js
+            </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+applyChange: function(oChange, oControl, mPropertyBag) {
+    const oModifier = mPropertyBag.modifier;
+    const sPropertyName = mRenameSettings.propertyName;
+    const sValue = oChange.getText(mRenameSettings.changePropertyName); 
+
+    ...
+
+    if (sValue) {
+        oChange.setRevertData(oModifier.getProperty(oControl, sPropertyName)); // Here the information is stored on the change
+    ...
+...
+
+revertChange: function(oChange, oControl, mPropertyBag) {
+    const sOldText = oChange.getRevertData(); // Retrieve the stored information
+    if (sOldText || sOldText === "") {
+        const oModifier = mPropertyBag.modifier;
+        const sPropertyName = mRenameSettings.propertyName;
+        oModifier.setProperty(oControl, sPropertyName, sOldText);
+
+        oChange.resetRevertData(); // Clear the revert data on the change
+    } else {
+        // It is also good to have error handling to ensure that the revert is working as intended
+        Utils.log.error("Change doesn't contain sufficient information to be reverted. Most likely the change didn't go through applyChange.");
+    }
+}
+
+...</pre></div></div></section><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

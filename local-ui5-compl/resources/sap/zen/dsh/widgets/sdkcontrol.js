@@ -1,0 +1,6 @@
+/*
+ * SAPUI5
+  (c) Copyright 2009-2021 SAP SE. All rights reserved
+ */
+sap.ui.define(["jquery.sap.global","sap/base/Log","sap/sac/df/thirdparty/lodash","sap/ui/core/Control"],function(jQuery,t,e,r){"use strict";function i(t){if(!t)return undefined;var e=t.split(".");var r=window;for(var i=0;i<e.length;i++){var n=e[i];r=r[n];if(!r){break}}return r}return r.extend("sap.designstudio.sdk.SdkControl",{metadata:{},init:function(){},storeProperties:function(t,e){var r=i(t["handler_name"]);if(r){this.widget=new r(this);this.widget.oControlProperties=t;this.widget.oComponentProperties=e}},dispatchProperties:function(t,e){this.widget.dispatchProperties(t,e)},renderer:function(){},advancedPropertyCall:function(){var t=arguments[1];var e=this.widget[t];if(e){var r=Array.prototype.slice.apply(arguments);r=r.slice(2);return e.apply(this.widget,r)}return null},getDecorator:function(){if(this.widget&&this.widget.getDecorator){return this.widget.getDecorator()}return null}})});
+//# sourceMappingURL=sdkcontrol.js.map

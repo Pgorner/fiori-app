@@ -1,0 +1,238 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob5a51358b3574aea9143fa50ae4e0e2a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/create-a-ruleset-for-a-library-b5a5135.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Create a Ruleset for a Library</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Create a Ruleset for a Library</h2></div><div class="shortdesc">The Support Assistant allows you to create your own ruleset.</div><section id="section_lqs_mmh_vbb">
+			<h2 class="title ">Choose Your Ruleset Location</h2>
+			<p>A ruleset is a <code>library.support.js</code> file that defines an object
+					<code>name</code> and <code>niceName</code> and returns a set of rules.
+				Before you create a rule, you need to create a ruleset at a specific location. You
+				can follow these steps as an example:</p>
+			<ol>
+				<li class="li">
+					<p>Open the respective library project. Let's say that your library is part of
+							OpenUI5, open the project in
+							<code>openui5([openui5.git]/src/sap.ui.support/src/sap/m)</code>.</p>
+				</li>
+				<li class="li">
+					<p>Create a JavaScript file with name <code>library.support.js</code> in the
+						root folder where <code>library.js</code> is placed.</p>
+				</li>
+				<li class="li">
+					<p>Add an extensions property in the <code>initLibrary()</code> function of
+						the <code>library.js</code> file and there add
+							<code>sap.ui.support</code> extension. </p>
+					<p>If your library contains  public
+						rules it will look like
+						this:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+extensions: {
+    //Configuration used for rule loading of Support Assistant
+    "sap.ui.support": {
+      publicRules: true
+    }
+…
+
+</pre></div></div></section><p></p>
+				</li>
+				<li class="li">
+					<p>Create a folder to hold the rules. For example, if the library name is
+							<code>sap.m</code>, the folder structure, if there isn't one already
+						created, should be <code>src/sap/m/rules</code>.</p>
+				</li>
+			</ol>
+			
+			<p>Here is an example of folder structure depending on the location of your ruleset:</p>
+			
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_xgs_xmd_wbb" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Location</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Folder Structure</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>OpenUI5</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>[openui5.git]/src/sap.m/src/sap/m/</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Reuse library</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>[project]/src/[library path]</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section id="section_oq3_fbp_vcb">
+			<h2 class="title ">Add <code>.supportrc</code> file</h2>
+			<p>Each library should have a <code>.supportrc</code> file placed at its root folder. It is a
+				simple JSON file specifying availability of public and internal rules per library.
+				The <code>.supportrc</code> file defines whether to load ruleset files of the
+				respective library. This reduces the number of redundant requests to load the
+				respective ruleset library files.</p>
+			<p>Here is an example of <code>.supportrc
+				file</code>:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  "publicRules": true,
+  "internalRules": true
+}
+</pre></div></div></section><p></p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If a <code>.supportrc</code> file doesn't exist, a library is considered not to have any
+					rulesets. Therefore, all ruleset developers should add a
+						<code>.supportrc</code> file to their libraries root folders. Have in
+					mind that if a ruleset property is missing, its value is considered to be
+					false.</p>
+			<p></p></div></div>
+		</section><section id="section_ugb_whc_wbb">
+			<h2 class="title ">Add <code>SupportLib</code></h2>
+			<p>Once you choose the correct location for the <code>library.support.js</code>, the
+				next step is to add the <code>SupportLib</code>. It provides a set of constants
+				and enumerations you can use to define the rules inside the
+					<code>library.support.js</code>. After creating your rules, return an object
+				holding all of them and a <code>name/niceName</code> to specify their
+				library.</p>
+			<p>Here is an example of how to add and use the
+				<code>SupportLib</code>:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/support/library"],
+  function(SupportLib) {
+    "use strict";
+    var rule1 = {
+      ...
+      audiences: [SupportLib.Audiences.Control]
+      categories: [SupportLib.Categories.Usability]
+        ...
+      check: function(oIssueManager, ...) {
+        ...
+        oIssueManager.addIssue({
+          severity: SupportLib.Severity.Medium,
+          ...
+        });
+      }
+    };
+
+    var rule2 = {…};
+
+    return {
+      name: "sap.ui.core",
+      niceName: "UI5 Core Library",
+      ruleset: [
+        rule1,
+        rule2
+      ]
+    };
+  }, true);</pre></div></div></section><p></p>
+		</section><section id="section_knl_d3c_wbb">
+			<h2 class="title ">Create Helper Functions (Optional)</h2>
+			<p>When creating a more complex ruleset, you may need to create helper functions. It is
+				recommended that those helper functions are separated into a different file that
+				ends in <code>.support.js</code> and is located in the same folder as the
+				ruleset. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Helper files must be required by a relative path such as
+							<code>./CoreHelper.js</code> so that when the Support Assistant
+						is loaded from a different origin, the file will be required from the
+						correct place.</p>
+				<p></p></div></div><p></p>
+		</section><section id="section_fxb_g3c_wbb">
+			<h2 class="title ">Split <code>library.support.js</code> (Optional)</h2>
+			<p>You can also split a <code>library.support.js</code> into multiple files.</p>
+			<p>When creating a ruleset for a bigger library, there may be too many rules and the
+				ruleset will become very big. To avoid this, the rule definitions can be split into
+				multiple files. For example, we might want to split the ruleset of the
+					<code>sap.m</code> library by creating a file with rules for each
+				control.</p>
+			<p>If the <code>library.support.js</code> contains rules for
+					<code>sap.m.Button</code> and <code>sap.m.Label</code>, you can create
+					<code>Button.support.js</code> and <code>Label.support.js</code> files.
+				After that, the <code>library.support.js</code> can require all the rules from
+				those files and create a ruleset.</p>
+			<p>This is an example of a <code>library.support.js</code> before the split:</p>
+		</section><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig"><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/support/library"],
+  function(SupportLib) {
+    "use strict";
+    var buttonRule = {…};
+
+    var labelRule1 = {…};
+
+    Var labelRule2 = {…};
+
+    return {
+      name: "sap.ui.core",
+      niceName: "UI5 Core Library",
+      ruleset: [
+        buttonRule,
+        labelRule1,
+        labelRule2
+      ]
+    };
+  }, true);</pre></div></div></section>In
+			this example there are three rules - one for button and two for label. Splitting these rules to different files is done in the following
+				way:<ol>
+				<li class="li">
+					<p>Create a <code>Button.support.js</code> and <code>Label.support.js</code> files.</p>
+					<p><code>Button.support.js</code>:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/support/library"],
+  function(SupportLib) {
+    "use strict";
+    var buttonRule = {…};
+
+    return buttonRule;
+  }, true);
+</pre></div></div></section><p></p>
+					<p><code>Label.support.js:</code></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/support/library"],
+  function(SupportLib) {
+    "use strict";
+    var labelRule1 = {…};
+
+    var labelRule2 = {…};
+
+    return [labelRule1, labelRule2];
+  }, true);
+</pre></div></div></section><p></p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>You can return a single rule or an array of rules, as shown in the second example.</p>
+					<p></p></div></div>
+				</li>
+				<li class="li">
+					<p>Require the newly created files in <code>library.support.js</code>:</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/support/library",
+    "./Button.support", "./Label.support"
+  ],
+  function(SupportLib, ButtonSupport,
+    LabelSupport) {
+    "use strict";
+
+    return {
+      name: "sap.ui.core",
+      niceName: "UI5 Core Library",
+      ruleset: [
+        ButtonSupport,
+        LabelSupport
+      ]
+    };
+  }, true);</pre></div></div></section>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The ruleset property is an array which can contain both rule objects and arrays of rules. In the example,
+								<code>LabelSupport</code> returns an array of two rules.</p>
+					<p></p></div></div>
+				</li>
+			</ol></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/c24569de859446819798c5dc53ac604d" title="A rule consists of properties that test and advise on how possible issues can be resolved and a check function that tests the application for a specific issue. To create a rule, you need to set the properties and add a check function." class="sap-doc">Create a Rule</a></li>
+	</ul></section></div></section></div></body></html>

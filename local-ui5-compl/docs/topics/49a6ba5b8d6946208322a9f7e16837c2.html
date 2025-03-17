@@ -1,0 +1,987 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio49a6ba5b8d6946208322a9f7e16837c2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/configuring-default-settings-visualizations-sort-order-filter-values-49a6ba5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuring Default Settings (Visualizations, Sort Order, Filter Values)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuring Default Settings (Visualizations, Sort Order, Filter Values)</h2></div><div class="shortdesc">SAP Fiori elements allows you to specify a
+            <code>UI.SelectionPresentationVariant</code>.</div><p>You use the <code>UI.SelectionPresentationVariant</code> to configure the default
+            visualizations,
+            grouping,
+            and
+            filter values of the main content area when an application is launched using the
+                <span class="ph uicontrol">Standard</span> variant. The
+                <code>UI.SelectionPresentationVariant</code>
+            must
+            contain references to the <code>UI.SelectionVariant</code> and the
+                <code>UI.PresentationVariant</code>. You use the
+                <code>UI.SelectionVariant</code> to define default filter values, and the
+                <code>UI.PresentationVariant</code> can contain the configurations for tables
+            and charts, including, for example, the sort
+            order or
+            grouping.</p><p>SAP Fiori elements uses the
+                <code>UI.LineItem</code> annotation and the <code>UI.Chart</code> annotation
+            to bring up tables and charts.</p><section id="section_ns2_p2w_sqb">
+            <div class="imagemap_sidebyside dark-overlays" data-static-type="false">
+                
+                
+                
+                <div class="imagemap fig"><img src="loio694950627178455cbd758e97a1e80063_LowRes.png" usemap="#imagemap_vdd_hwt_c1c"><map name="imagemap_vdd_hwt_c1c"><area shape="rect" coords="111, 0, 323, 36" originalcoords="111, 0, 323, 36" alt="49a6ba5b8d6946208322a9f7e16837c2.xml#loio49a6ba5b8d6946208322a9f7e16837c2/subsection-im1" title="The V2 and V4 specific sections shows you how to use the manifest setting" href="topic/49a6ba5b8d6946208322a9f7e16837c2" class="sap-doc"><area shape="rect" coords="113, 65, 323, 102" originalcoords="113, 65, 323, 102" alt="49a6ba5b8d6946208322a9f7e16837c2.xml#loio49a6ba5b8d6946208322a9f7e16837c2/subsection-im2" title="SelectionPresentationVariant annotation example" href="topic/49a6ba5b8d6946208322a9f7e16837c2" class="sap-doc"><area shape="rect" coords="222, 135, 436, 174" originalcoords="222, 135, 436, 174" alt="49a6ba5b8d6946208322a9f7e16837c2.xml#loio49a6ba5b8d6946208322a9f7e16837c2/subsection-im3" title="PresentationVariant annotation example" href="topic/49a6ba5b8d6946208322a9f7e16837c2" class="sap-doc"><area shape="rect" coords="105, 221, 313, 257" originalcoords="105, 221, 313, 257" alt="49a6ba5b8d6946208322a9f7e16837c2.xml#loio49a6ba5b8d6946208322a9f7e16837c2/subsection-im4" title="UI.Chart annotation example" href="topic/49a6ba5b8d6946208322a9f7e16837c2" class="sap-doc"><area shape="rect" coords="345, 223, 555, 258" originalcoords="345, 223, 555, 258" alt="49a6ba5b8d6946208322a9f7e16837c2.xml#loio49a6ba5b8d6946208322a9f7e16837c2/subsection-im5" title="LineItem annotation example" href="topic/49a6ba5b8d6946208322a9f7e16837c2" class="sap-doc"><area shape="rect" coords="0, 134, 210, 173" originalcoords="0, 134, 210, 173" alt="49a6ba5b8d6946208322a9f7e16837c2.xml#loio49a6ba5b8d6946208322a9f7e16837c2/subsection-im6" title="SelectionVariant annotation example" href="topic/49a6ba5b8d6946208322a9f7e16837c2" class="sap-doc"></map></div>
+                
+                
+                <section id="subsection-im0" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">
+                    <p>Hover over each action for a description. Click the action for more
+                        information.</p>
+                </h3></section>
+                <section id="subsection-im1" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Descriptor Settings </h3>
+                    <p>For more information, see the V2 and V4 specific sections.</p>
+                </section>
+                <section id="subsection-im2" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Annotation: SelectionPresentationVariant with
+                        Qualifier="DefaultVariant"</h3>
+                    <p><span class="emphasis">Configuration Sample:</span></p>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="self.BookingType"&gt;
+    ...
+    &lt;Annotation Term="UI.SelectionPresentationVariant" Qualifier="BookingSPV"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Text" String="Default"/&gt;
+            &lt;PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#BookingSV"/&gt;
+            &lt;PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant#BookingPV"/&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+    ...
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//@Scope: [ENTITY] ("Booking")
+@UI: {
+    selectionPresentationVariant: [ {
+        qualifier: 'BookingSPV',
+        selectionVariantQualifier: 'BookingSV',
+        presentationVariantQualifier: 'BookingPV'
+    } ],
+    ...
+}
+</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate TravelService.Travel with @UI: {
+    SelectionPresentationVariant #BookingSPV : {
+        SelectionVariant : ![@UI.SelectionVariant#BookingSV],
+        PresentationVariant : ![@UI.PresentationVariant#BookingPV]
+    }
+    ...
+}
+</pre></div></div></section><p></p></div></div>
+                </section>
+                <section id="subsection-im6" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Annotation: SelectionVariant</h3>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="self.BookingType"&gt;
+    ...
+    &lt;Annotation Term="UI.SelectionVariant" Qualifier="BookingSV"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SelectOptions"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="UI.SelectOptionType"&gt;
+                        &lt;PropertyValue Property="PropertyName" PropertyPath="BookingStatus"/&gt;
+                        &lt;PropertyValue Property="Ranges"&gt;
+                            &lt;Collection&gt;
+                                &lt;Record Type="UI.SelectionRangeType"&gt;
+                                    &lt;PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I"/&gt;
+                                    &lt;PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ"/&gt;
+                                    &lt;PropertyValue Property="Low" String="N"/&gt;
+                                &lt;/Record&gt;
+                            &lt;/Collection&gt;
+                        &lt;/PropertyValue&gt;
+                    &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+    ...
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//@Scope: [ENTITY] (e.g. "Booking")
+@UI: {
+    selectionVariant: [ { 
+        qualifier: 'BookingSV',
+        filter: 'BookingStatus EQ "N"'
+    } ]
+}
+</pre></div></div></section><p></p></div></div>
+                    
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate TravelService.Travel with @UI: {
+    SelectionVariant #BookingSV: {
+        SelectOptions: [ {
+            $Type       : 'UI.SelectOptionType',
+            PropertyName: BookingStatus,
+            Ranges      : [ {
+                $Type : 'UI.SelectionRangeType',
+                Sign  : #I,
+                Option: #EQ,
+                Low   : 'N'
+            } ]
+        } ]
+    },
+    ...
+}
+</pre></div></div></section><p></p></div></div>
+                </section>
+                <section id="subsection-im3" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Annotation: PresentationVariant</h3>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation for SAP Fiori elements for OData
+                            V2</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"component": {
+     "name": "sap.suite.ui.generic.template.ListReport",
+     "list": true,
+     "settings": {
+          "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#DefaultSPV" // This can also point to PresentationVariant/SelectionVariant instead of SelectionPresentationVariant
+     }
+}
+</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation for SAP Fiori elements for OData
+                            V4</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="self.BookingType"&gt;
+    ...
+    &lt;Annotation Term="UI.PresentationVariant" Qualifier="BookingPV"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Text" String="Default"/&gt;
+            &lt;PropertyValue Property="SortOrder"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="Common.SortOrderType"&gt;
+                        &lt;PropertyValue Property="Property" PropertyPath="BookingID"/&gt;
+                        &lt;PropertyValue Property="Descending" Bool="true"/&gt;
+                    &lt;/Record&gt;
+ 
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="Visualizations"&gt;
+                &lt;Collection&gt;
+                    &lt;AnnotationPath&gt;@UI.LineItem&lt;/AnnotationPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+    ...
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//@Scope: [ENTITY] ("Booking")
+@UI: {
+    presentationVariant: [ { 
+        qualifier: 'BookingPV',
+        sortOrder: [ {
+            by: 'BookingID',
+            direction: #DESC
+        } ],
+        visualizations: [ {
+            type: #AS_LINEITEM
+        } ]
+   } ]
+}
+</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate TravelService.Travel with @UI: {
+    PresentationVariant #BookingPV: {
+        SortOrder : [
+            {
+                $Type : 'Common.SortOrderType',
+                Property : BookingID,
+                Descending : true
+            }
+        ],
+        Visualizations : [
+            '@UI.LineItem'
+        ]
+    },
+    ...
+    ...
+}
+</pre></div></div></section><p></p></div></div>
+                </section>
+                <section id="subsection-im4" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Annotation: UI.Chart </h3>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_PROD_MAN.STTA_C_MP_ProductSalesDataType"&gt;
+   &lt;Annotation Term="UI.Chart"&gt;
+      &lt;Record&gt;
+         &lt;PropertyValue Property="Title" String="Test Chart"/&gt;
+         &lt;PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/&gt;
+         &lt;PropertyValue Property="Dimensions"&gt;
+            &lt;Collection&gt;
+               &lt;PropertyPath&gt;DeliveryMonth&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+         &lt;/PropertyValue&gt; 
+         &lt;PropertyValue Property="Measures"&gt;
+            &lt;Collection&gt;
+               &lt;PropertyPath&gt;Revenue&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+         &lt;/PropertyValue&gt;
+      &lt;/Record&gt;
+   &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Chart: [
+  {
+    title: 'Test Chart',
+    chartType: #COLUMN,
+    dimensions: [
+      'DELIVERYMONTH'
+    ],
+    measures: [
+      'REVENUE'
+    ]
+  }
+]
+annotate view STTA_C_MP_PRODUCTSALESDATA with {
+
+}</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_PROD_MAN.STTA_C_MP_ProductSalesDataType @(
+  UI.Chart : {
+    Title : 'Test Chart',
+    ChartType : #Column,
+    Dimensions : [
+        DeliveryMonth
+    ],
+    Measures : [
+        Revenue
+    ]
+  }
+);</pre></div></div></section><p></p></div></div>
+                </section>
+                <section id="subsection-im5" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Annotation: LineItem </h3>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="self.Container/Booking"&gt;
+
+    &lt;Annotation Term="UI.LineItem"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="TravelID"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="BookingID"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="BookingDate"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="CustomerID"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="CarrierID"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="ConnectionID"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="FlightDate"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="FlightPrice"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Criticality" Path="BookingStatusIndicator"/&gt;
+                &lt;PropertyValue Property="Value" Path="BookingStatus"/&gt;
+                &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+            &lt;/Record&gt;
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+    ...
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//@Scope: [VIEW] ("BOOKING")
+annotate view VIEWNAME with {
+    @UI.lineItem: [ {
+        position: 10 ,
+        importance: #HIGH
+    } ]
+    TravelID;
+    
+    @UI.lineItem: [ {
+        position: 20 ,
+        importance: #HIGH
+    } ]
+    BookingID;
+    
+    @UI.lineItem: [ {
+        position: 30 ,
+        importance: #HIGH
+    } ]
+    BookingDate;
+    
+    @UI.lineItem: [ {
+        position: 40 ,
+        importance: #HIGH
+    } ]
+    @UI.textArrangement: #TEXT_FIRST
+    CustomerID;
+    
+    @UI.lineItem: [ {
+        position: 50 ,
+        importance: #HIGH
+    } ]
+    CarrierID;
+    
+    @UI.lineItem: [ {
+        position: 60 ,
+        importance: #HIGH
+    } ]
+    ConnectionID;
+    
+    @UI.lineItem: [ {
+        position: 70 ,
+        importance: #HIGH
+    } ]
+    FlightDate;
+    
+    @UI.lineItem: [ {
+        position: 80 ,
+        importance: #HIGH
+    } ]
+    FlightPrice;
+    
+    @UI.lineItem:       [ {
+        position: 90,
+        criticality: 'BookingStatusIndicator',
+        importance: #HIGH
+    } ]
+    BookingStatus;
+}
+</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.LineItem : [
+    {
+        $Type : 'UI.DataField',
+        Value : TravelID,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : BookingID,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : BookingDate,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : CustomerID,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : CarrierID,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : ConnectionID,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : FlightDate,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : FlightPrice,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type       : 'UI.DataField',
+        Value       : BookingStatus,
+        Criticality : BookingStatusIndicator,
+        ![@UI.Importance] : #High
+    }
+]
+</pre></div></div></section><p></p></div></div>
+                </section>
+            </div>
+            <p>The <code>UI.Chart</code> annotation is applicable for the following:</p>
+            <ul class="ul ">
+                <li class="li">
+                    <p>The main chart in the analytical list page (ALP). For more information about
+                        the descriptor configuration in SAP Fiori elements for OData
+                            V4,
+                        see <a href="topic/2a9df06673d34f72b238549d49da8bfb" title="The descriptor file (manifest.json) is an application configuration file that contains valid entries for initializing the analytical list page (ALP)." class="sap-doc">Descriptor Configuration for the Analytical List Page</a>.</p>
+                </li>
+                <li class="li">Usage within multiple views for the list report tables. For more information,
+                    see <a href="topic/37aeed74e17a42caa2cba3123f0c15fc" title="You can define multiple views of a table and display them in multiple table mode. Users can switch between views using an icon tab bar." class="sap-doc">Defining Multiple Views on a List Report Table - Multiple Table Mode</a> and <a href="topic/b6b59e4a4c3548cf83ff9c3b955d3ba3" title="You can configure your application to display data for different entity sets and table settings, for example, sales orders or suppliers." class="sap-doc">Defining Multiple Views on a List Report with Different Entity Sets and Table Settings</a>.</li>
+            </ul>
+        </section><section id="section_mzt_mcw_sqb">
+            <h2 class="title ">Configuring the Default Visualization</h2>
+            <div class="note note  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><ul class="ul ">
+                    <li class="li">
+                        <p>The information provided in the section isn't applicable to the object
+                            page. </p>
+                    </li>
+                    
+                    <li class="li">
+                        <p>When defining a <code>PresentationVariant</code>, the
+                                <code>Visualizations</code> annotation should be provided and
+                            point to a valid visualization.</p>
+                    </li>
+                    
+                    <li class="li">
+                        <p>In a multiple view scenario, the following logic is used to fetch the
+                                <code>UI.PresentationVariant</code> annotation only if it is
+                            undefined. For more information about the multiple view configuration,
+                            see <a href="topic/37aeed74e17a42caa2cba3123f0c15fc" title="You can define multiple views of a table and display them in multiple table mode. Users can switch between views using an icon tab bar." class="sap-doc">Defining Multiple Views on a List Report Table - Multiple Table Mode</a> and <a href="topic/b6b59e4a4c3548cf83ff9c3b955d3ba3" title="You can configure your application to display data for different entity sets and table settings, for example, sales orders or suppliers." class="sap-doc">Defining Multiple Views on a List Report with Different Entity Sets and Table Settings</a>.</p>
+                    </li>
+                    <li class="li">
+                        <p>In SAP Fiori elements for OData
+                            V4, the information provided in the section isn't applicable to the
+                            analytical list page (ALP) flavor. For more information about the
+                            configuration in ALP, see <a href="topic/2a9df06673d34f72b238549d49da8bfb" title="The descriptor file (manifest.json) is an application configuration file that contains valid entries for initializing the analytical list page (ALP)." class="sap-doc">Descriptor Configuration for the Analytical List Page</a>.</p>
+                        
+                        <p>However, SAP Fiori elements for OData
+                            V4
+                            supports rendering of tables using the
+                                <code>PresentationVariant</code> or
+                                <code>SelectionPresentationVariant</code> annotation in an
+                            object page facet. For more information, see <a href="topic/facfea09018d4376acaceddb7e3f03b6" title="The object page content is arranged into sections and subsections that you can configure." class="sap-doc">Defining and Adapting Sections</a>.</p>
+                        
+                    </li>
+                </ul>
+            <p></p></div></div>
+            <p>You can control the default visualization by using a setting in the
+                    <code>manifest.json</code> file. This setting allows you to define
+                    <code>UI.SelectionPresentationVariant</code> (with a qualifier). When
+                    <code>UI.SelectionPresentationVariant</code> is defined, you must use the
+                associated annotations such as <code>UI.SelectionVariant</code> (for filter bar
+                defaults) and <code>UI.PresentationVariant</code> (for default
+                visualization).</p>
+            <p>Defining the manifest setting is optional. If the setting isn't defined, SAP Fiori elements uses the
+                fallback mechanism in the following order:</p>
+            <ul class="ul ">
+                <li class="li">
+                    <p>SAP Fiori elements
+                        first checks for a default (unqualified)
+                            <code>UI.SelectionPresentationVariant</code> and, if found, uses the
+                        associated selection/presentation variants.</p>
+                </li>
+                <li class="li">
+                    <p>If a default <code>UI.SelectionPresentationVariant</code> (or its
+                        associated selection or presentation variant) is <span class="emphasis">not</span>
+                        found, SAP Fiori elements
+                        checks for a default (unqualified) <code>UI.SelectionVariant</code> and
+                        default (unqualified) <code>UI.PresentationVariant</code>.</p>
+                </li>
+                <li class="li">
+                    <p>If <code>UI.SelectionVariant</code> is <span class="emphasis">not</span> found,
+                            SAP Fiori elements
+                        displays a filter bar with a search field only. For draft-enabled
+                        applications, a draft editing status is also displayed along with the filter
+                        bar and a search field.</p>
+                    <p>The end users can use the personalization of the control to display
+                        additional filter fields.</p>
+                </li>
+                <li class="li">
+                    <p>If <code>UI.PresentationVariant</code>
+                        <span class="emphasis">not</span> is found, SAP Fiori elements
+                        checks for a default <code>UI.LineItem</code> or
+                            <code>UI.Chart</code> for the visualization.</p>
+                </li>
+                <li class="li">
+                    <p>Finally, if none of the above annotations are found, the SAP Fiori elements
+                        renders an empty table or empty chart, and the end users can still use the
+                        personalization of the control to render the required table or chart.</p>
+                </li>
+            </ul>
+            
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><ul class="ul ">
+                    <li class="li">
+                        <p>In all the preceding cases, if a
+                                <code>UI.SelectionPresentationVariant</code> is found but the
+                            associated <code>UI.PresentationVariant</code> is
+                                <span class="emphasis">not</span> found, SAP Fiori elements raises an error and stops loading the application. SAP Fiori elements behaves in the same manner when you define a
+                                <code>UI.SelectionPresentationVariant</code> correctly, but you
+                            miss to define a (correct) association to
+                                <code>UI.PresentationVariant</code>. Hence, you must always
+                            ensure to define the correct path for the default selection presentation
+                            variant in the manifest and the correct association to
+                                <code>UI.PresentationVariant</code>.</p>
+                    </li>
+                    
+                    <li class="li">
+                        <p>If a<code> UI.PresentationVariant</code> is found but the
+                            visualization isn't defined, then we fallback to default (unqualified)
+                                <code>UI.LineItem</code> (or default <code>UI.Chart</code>)
+                            annotation. If these annotations are not found, SAP Fiori elements renders an empty table
+                            (or
+                            chart),
+                            and the end users can still use the personalization of the control to
+                            configure the required table
+                            (or
+                            chart).</p>
+                    </li>
+                    
+                </ul>
+            <p></p></div></div>
+            
+            
+            <section>
+                <h3 class="title ">Specifying the
+                        <code>SelectionVariant</code>/<code>PresentationVariant</code>
+                    Inline</h3>
+                <p>Application developers can also specify the <code>SelectionVariant</code> or
+                        <code>PresentationVariant</code> inline within the
+                        <code>SelectionPresentationVariant</code>. The sample below is
+                    configured with an inline <code>SelectionVariant</code>. The
+                        <code>UI.SelectionPresentationVariant</code> can be provided with or
+                    without the qualifier:</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.SelectionPresentationVariant" Qualifier="OpenSPVWithPVPath"&gt;
+   &lt;Record&gt;
+    &lt;PropertyValue Property="Text" String="Open"&gt;
+    &lt;/PropertyValue&gt;
+    &lt;PropertyValue Property="SelectionVariant"&gt;
+        &lt;Record Type="UI.SelectionVariantType"&gt;
+            &lt;PropertyValue Property="Text" String="Open"&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="SelectOptions"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="UI.SelectOptionType"&gt;
+                        &lt;PropertyValue Property="PropertyName" PropertyPath="OverallSDProcessStatus" /&gt;
+                        &lt;PropertyValue Property="Ranges"&gt;
+                            &lt;Collection&gt;
+                               &lt;Record Type="UI.SelectionRangeType"&gt;
+                                   &lt;PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I" /&gt;
+                                   &lt;PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ" /&gt;
+                                   &lt;PropertyValue Property="Low" String="A" /&gt;
+                                &lt;/Record&gt;
+                            &lt;/Collection&gt;
+                        &lt;/PropertyValue&gt;
+                     &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+     &lt;/PropertyValue&gt;
+     &lt;PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant" /&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;
+
+ 
+
+&lt;Annotation Term="UI.PresentationVariant"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="MaxItems" Int="2" /&gt;
+        &lt;PropertyValue Property="SortOrder"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="Common.SortOrderType"&gt;
+                  &lt;PropertyValue Property="Property" PropertyPath="ID" /&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="Visualizations"&gt;
+            &lt;Collection&gt;
+                &lt;AnnotationPath&gt;@UI.LineItem&lt;/AnnotationPath&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><p>ABAP
+                        CDS annotation does not have an inline syntax.
+                        Please
+                        use the local XML annotation.</p><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP
+                    CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.SelectionPresentationVariant #OpenSPVWithPVPath           : {
+        Text                : 'Open',
+        SelectionVariant    : {
+            Text          : 'Open',
+            SelectOptions : [{
+                PropertyName : OverallSDProcessStatus,
+                Ranges       : [{
+                      Sign : #I,
+                    Option : #EQ,
+                   Low    : 'A'
+                }]
+            }]
+        },
+        PresentationVariant : ![@UI.PresentationVariant]
+    },
+
+UI.PresentationVariant                             : {
+        MaxItems       : 2,
+        SortOrder      : [{Property : ID}],
+        Visualizations : ['@UI.LineItem']
+    }</pre></div></div></section><p></p></div></div>
+            </section>
+            
+            <p>For more information about the <code>UI.SelectionPresentationVariant</code>, see
+                the version-specific sections in this topic.</p>
+            
+        </section><section id="section_tnc_ld2_qbc">
+            <h2 class="title ">Requesting Additional Properties</h2>
+            <p>You can request additional properties for tables and charts even if these properties
+                are not displayed by using the
+                    <code>com.sap.vocabularies.UI.v1.PresentationVariant</code> annotation term
+                and the <code>RequestAtLeast</code> property.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns=http://docs.oasis-open.org/odata/ns/edm Target="ZFAR_CUSTOMER_LINE_ITEMS2_SRV.Item"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Visualizations"&gt;
+                &lt;Collection&gt;
+                    &lt;AnnotationPath&gt;@UI.LineItem&lt;/AnnotationPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="RequestAtLeast"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;Customer&lt;/PropertyPath&gt;
+                    &lt;PropertyPath&gt;CompanyCode&lt;/PropertyPath&gt;
+               &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.PresentationVariant: [
+  {
+    requestAtLeast: [
+      'CUSTOMER',
+      'COMPANYCODE'
+    ],
+    visualizations: [{type: #AS_LINEITEM }]
+  }
+]
+annotate view ITEM with {
+ 
+}</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate ZFAR_CUSTOMER_LINE_ITEMS2_SRV.Item @(
+  com.sap.vocabularies.UI.v1.PresentationVariant : {
+    Visualizations : [
+        '@UI.LineItem'
+    ],
+    RequestAtLeast : [
+        Customer,
+        CompanyCode
+    ]
+  }
+);</pre></div></div></section><p></p></div></div>
+        </section><section id="section_jvb_hvt_hvb">
+            
+            
+            <h2 class="title ">Configuring the Default Sort Order</h2>
+            
+            <p>You can define whether the default sort order for tables and charts is ascending or
+                descending by using the
+                    <code>com.sap.vocabularies.UI.v1.PresentationVariant</code> annotation term
+                and the <code>SortOrder</code> property.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZFAR_CUSTOMER_LINE_ITEMS2_SRV.Item"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Visualizations"&gt;
+                &lt;Collection&gt;
+                    &lt;AnnotationPath&gt;@UI.LineItem&lt;/AnnotationPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="SortOrder"&gt;
+                &lt;Collection&gt;
+                    &lt;Record&gt;
+                        &lt;PropertyValue Property="Property" PropertyPath="CompanyCode"/&gt;
+                        &lt;PropertyValue Property="Descending" Bool="true"/&gt;
+                    &lt;/Record&gt;
+                    &lt;Record&gt;
+                        &lt;PropertyValue Property="Property" PropertyPath="Customer"/&gt;
+                    &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.PresentationVariant: [
+  {
+    
+    sortOrder: [
+      {
+        by: 'COMPANYCODE',
+        direction: #DESC
+      },
+      {
+        by: 'CUSTOMER'
+      }
+    ],
+    visualizations: [{type: #AS_LINEITEM }]
+  }
+]
+annotate view ITEM with {
+
+}
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate ZFAR_CUSTOMER_LINE_ITEMS2_SRV.Item @(
+  com.sap.vocabularies.UI.v1.PresentationVariant : {
+    Visualizations : [
+        '@UI.LineItem'
+    ],
+    
+    SortOrder : [
+        {
+            Property : CompanyCode,
+            Descending : true
+        },
+        {
+            Property : Customer
+        }
+    ]
+  }
+);</pre></div></div></section><p></p></div></div>
+            
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>When sorting a column that contains an amount with a currency or a unit of
+                    measure, the sort will be applied on the currency or the unit of measure first
+                    and then to the amount field. This ensures a consistent display of amount when
+                    different currencies or units of measure are used.</p>
+            <p></p></div></div>
+            
+        </section><section id="section_ock_pgh_1cc">
+            <h2 class="title ">Configuring the Number of Rows Loaded</h2>
+            <p>You can define the number of table rows to be loaded initially by using the
+                    <code>com.sap.vocabularies.UI.v1.PresentationVariant</code> annotation term
+                and the <code>MaxItems</code> property.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns=http://docs.oasis-open.org/odata/ns/edm Target="ZFAR_CUSTOMER_LINE_ITEMS2_SRV.Item"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Visualizations"&gt;
+                &lt;Collection&gt;
+                    &lt;AnnotationPath&gt;@UI.LineItem&lt;/AnnotationPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="MaxItems" Int="50" /&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.PresentationVariant: [
+  {
+    maxItems : 50,
+    visualizations: [{type: #AS_LINEITEM }]
+  }
+]
+annotate view ITEM with {
+
+}</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate ZFAR_CUSTOMER_LINE_ITEMS2_SRV.Item @(
+  com.sap.vocabularies.UI.v1.PresentationVariant : {
+    Visualizations : [
+        '@UI.LineItem'
+    ],
+    MaxItems : 50
+  }
+);</pre></div></div></section><p></p></div></div>
+        </section><section id="section_gfr_mvc_jsb">
+            <h2 class="title ">Configuring Default Filter Values</h2>
+            <p>For more information, see <a href="topic/f27ad7bc1f9c4b0d947b1fb18c37e94c" title="You can set default filter values for filter bar fields, for example." class="sap-doc">Configuring Default Filter Values</a>.</p>
+        </section><section id="section_nyl_ts1_bqb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>Make the following setting in the <code>manifest.json</code> to specify the
+                    <code>SelectionPresentationVariant</code>, the
+                    <code>PresentationVariant</code> or, the
+                <code>SelectionVariant</code>:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"component": {
+     "name": "sap.suite.ui.generic.template.ListReport",
+     "list": true,
+     "settings": {
+          "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#DefaultSPV" // This can also point to PresentationVariant/SelectionVariant instead of SelectionPresentationVariant
+     }
+}
+</pre></div></div></section>
+            <p></p></div></div><section>
+                <h3 class="title ">Using the <code>annotationPath</code> Pointing to the
+                        <code>PresentationVariant</code> or
+                    <code>SelectionVariant</code></h3>
+                <p>The following behavior applies:</p>
+                <ul class="ul ">
+                    <li class="li">
+                        <p>If the <code>"annotationPath"</code> has a reference to the
+                                <code>"PresentationVariant"</code>, the
+                                <code>SelectionVariant</code> has no default filter values. The
+                            specified <code>PresentationVariant</code> is handled in the same
+                            way as when the <code>SelectionPresentationVariant</code> is
+                            specified.</p>
+                    </li>
+                    <li class="li">
+                        <p>If the <code>"annotationPath"</code> has a reference to the
+                                <code>"SelectionVariant"</code>, only the default filter values
+                            are applied. The visualization is defined in the default
+                                <code>PresentationVariant</code> (unqualified). The fallback
+                            option is defined in the <code>UI.LineItem</code> and
+                                <code>UI.Chart</code> annotations. This is described in the
+                            handling of the <code>UI.SelectionPresentationVariant</code>.</p>
+                    </li>
+                </ul>
+            </section></div></section><section id="section_nyc_3qd_jsb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>Make the following settings in the <code>manifest.json</code> to specify the
+                    <code>SelectionPresentationVariant</code>:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"targets": {
+    "SalesOrderManageList": {
+        "type": "Component",
+        "id": "SalesOrderManageList",
+        "name": "sap.fe.templates.ListReport",
+        "options": {
+            "settings": {
+                "contextPath": "/SalesOrderManage",
+                "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SPVPath", 
+                 .....
+                 .....
+            }
+        }
+    }
+}
+</pre></div></div></section>
+            <p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>In this case, the <code>"defaultTemplateAnnotationPath"</code> must be a
+                    reference to the <code>SelectionPresentationVariant</code> and
+                        <span class="emphasis">not</span> to the <code>PresentationVariant</code> or
+                        <code>SelectionVariant</code>.</p>
+            <p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="topic/f4eb70f4808b48adb6ea03a4017aba24" title="You can use the annotations and entries in the manifest.json to control various aspects of tables." class="sap-doc">Configuring Tables</a></li>
+        <li><a href="topic/653ed0f4f0d743dbb33ace4f68886c4e" title="You can add a chart facet to a content section within the list report and object page." class="sap-doc">Configuring Charts</a></li>
+        <li><a href="topic/9f4e1192f1384b85bc160288e17f69c4" title="Several factors affect the loading behavior of data on initial launch of the application." class="sap-doc">Loading Behavior of Data on Initial Launch of the Application</a></li>
+        
+        
+        <li><a href="topic/bc05d353d2c44854b1ea228b99e922a2" title="You can set the number of expanded levels for tables in List Reports and Analytical List Pages using the initialExpansionLevel property of the PresentationVariant annotation." class="sap-doc">Initial Expansion Level for Tables in List Reports & Analytical List Pages</a></li>
+        
+    </ul></section></div></section></div></body></html>

@@ -1,0 +1,687 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio798dd9abcae24c8194922615191ab3f5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/deprecated-core-api-798dd9a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Deprecated Core API</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Deprecated Core API</h2></div><div class="shortdesc">This page describes important aspects of the deprecation of the <code>sap.ui.core.Core</code> API facade, as most of its
+                methods have been deprecated. It shows a migration path away from the deprecated legacy APIs and towards their future-proof
+                alternatives.</div><section id="section_msd_jb4_rzb">
+                        <h2 class="title ">Overview of Deprecated API Methods of <code>Core</code></h2>
+                        <p>The following is an alphabetical list of API methods on <code>sap.ui.core.Core</code>. Meant as a compact and practical
+                                overview, it is derived from the <a href="api/sap.ui.core.Core" title="api/sap.ui.core.Core" class="sap-doc" alt="api/sap.ui.core.Core">API
+                                                Reference</a>, which may provide complementary information.</p>
+                        <div class="tableWrapper "><div class="fig"><table border="1" id="table_ur1_xwv_fzb" class=" ">
+                                        
+                                        
+                                        <thead>
+                                                <tr>
+                                                        <th colspan="1" rowspan="1">
+                                                                <p>Legacy API Method</p>
+                                                        </th>
+                                                        <th colspan="1" rowspan="1">
+                                                                <p>Deprecation Information</p>
+                                                        </th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/applyChanges" title="api/sap.ui.core.Core#methods/applyChanges" class="sap-doc" alt="api/sap.ui.core.Core#methods/applyChanges"><code>applyChanges</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Applications and controls should not call this method explicitly as the framework
+                                                                        handles necessary rendering. The <code>applyChanges()</code> method
+                                                                        enforces a synchronous rendering and must not be used in future-proof,
+                                                                        productive code.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/applyTheme" title="api/sap.ui.core.Core#methods/applyTheme" class="sap-doc" alt="api/sap.ui.core.Core#methods/applyTheme"><code>applyTheme</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.setTheme" title="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.setTheme" class="sap-doc" alt="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.setTheme"><code>Theming.setTheme()</code></a>
+                                                                        instead. However, this will no longer support providing a new theme root via
+                                                                        an "@" symbol. In URL parameters, usage of the "@" symbol is still
+                                                                        available.</p>
+                                                                <p>See <a href="topic/e9fc648661d84ed89360bbec3ae02611" title="You define which theme is used by your app either by using the theme configuration parameter or the sap/ui/core/Theming.setTheme method." class="sap-doc">Setting Themes</a> for more details.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachControlEvent" title="api/sap.ui.core.Core#methods/attachControlEvent" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachControlEvent"><code>attachControlEvent</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Applications and controls should avoid listening to <span class="emphasis">all</span>
+                                                                        control events, but rather listen to specific events provided by the control
+                                                                        classes.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachFormatError" title="api/sap.ui.core.Core#methods/attachFormatError" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachFormatError"><code>attachFormatError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/attachFormatError" title="api/sap.ui.base.ManagedObject#methods/attachFormatError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/attachFormatError"><code>ManagedObject#attachFormatError()</code></a> instead.</p>
+                                                                <p>See related information for <code>attachParseError()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachInit" title="api/sap.ui.core.Core#methods/attachInit" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachInit"><code>attachInit</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Core#methods/ready" title="api/sap.ui.core.Core#methods/ready" class="sap-doc" alt="api/sap.ui.core.Core#methods/ready"><code>Core.ready()</code></a>
+                                                                        instead. While the behavior is nearly identical, the <code>ready()</code>
+                                                                        function also allows for Promise chaining and awaiting the Core ready
+                                                                        state.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/Core"], async function(Core) {
+    Core.ready(() =&gt; {
+        // this callback is executed directly in case the Core is
+        // already in ready state, otherwise it is executed at a later point in time
+    });
+    // You can also use the ready() function as a Promise, e.g.
+    Core.ready().then(...)
+    // or await it
+    await Core.ready();
+});</pre></div></div></section>
+                                                                <p>As an alternative to programmatically chaining to the Core's ready state, you can
+                                                                        also use a dedicated <code>on-init</code> module, which will be required
+                                                                        and executed automatically once the Core is ready:</p>
+                                                                <section class="language-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id='sap-ui-bootstrap'
+    data-sap-ui-async='true'
+    data-sap-ui-resource-roots='{"my": "./"}'
+    data-sap-ui-on-init='module:my/initModule'
+    ...&gt;
+&lt;/script&gt;</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachInitEvent" title="api/sap.ui.core.Core#methods/attachInitEvent" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachInitEvent"><code>attachInitEvent</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Core#methods/ready" title="api/sap.ui.core.Core#methods/ready" class="sap-doc" alt="api/sap.ui.core.Core#methods/ready"><code>Core.ready()</code></a>
+                                                                        instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachIntervalTimer" title="api/sap.ui.core.Core#methods/attachIntervalTimer" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachIntervalTimer"><code>attachIntervalTimer</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.IntervalTrigger#methods/sap.ui.core.IntervalTrigger.addListener" title="api/sap.ui.core.IntervalTrigger#methods/sap.ui.core.IntervalTrigger.addListener" class="sap-doc" alt="api/sap.ui.core.IntervalTrigger#methods/sap.ui.core.IntervalTrigger.addListener"><code>IntervalTrigger.addListener()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachLocalizationChanged" title="api/sap.ui.core.Core#methods/attachLocalizationChanged" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachLocalizationChanged"><code>attachLocalizationChanged</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/base/i18n/Localization#methods/attachChange" title="api/module:sap/base/i18n/Localization#methods/attachChange" class="sap-doc" alt="api/module:sap/base/i18n/Localization#methods/attachChange"><code>Localization#attachChange()</code></a> instead.</p>
+                                                                <p>Instead of relying on <code>Localization.attachChange()</code> and manually
+                                                                        attaching an event handler for <code>localizationChanged</code>, we
+                                                                        recommend to use the generic control hook
+                                                                        <span class="emphasis"><code>onLocalizationChanged</code></span> on your
+                                                                        <code>sap.ui.core.Element</code> subclasses instead.</p>
+                                                                <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                                                                        </p><p>The generic control hook has been renamed from
+                                                                                <code>onlocalizationChanged</code> to
+                                                                                <code>onLocalizationChanged</code> (mind the capital letter "L").</p>
+                                                                        <p>The generic control hook captures all changes on settings exposed via the
+                                                                                <code>sap/base/i18n/Localization</code> facade, as well as the changes
+                                                                                to settings exposed via the<code> sap/base/i18n/Formatting</code>
+                                                                                facade.</p>
+                                                                <p></p></div></div>
+                                                                <p>The old <code>LocalizationChanged</code> event was fired on each relevant
+                                                                        localization <span class="emphasis">and</span> format settings change.</p>
+                                                                <p>The <code>change</code> event of the new <code>Localization</code> facade
+                                                                        only captures the settings that are changeable via said facade. However, if
+                                                                        you are interested in the changes of the format settings, additionally use the
+                                                                        <code>change</code> event of the
+                                                                        <code>sap/base/i18n/Formatting</code> facade.</p>
+                                                                <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                                                                        </p><p>The Event object has a different API than on the Core facade. There is no
+                                                                                more <code>getParameters()</code>, but simple properties like the Web
+                                                                                API events (see the sample below).</p>
+                                                                        <p>See <a href="api/module:sap/base/i18n/Localization$ChangeEvent" title="api/module:sap/base/i18n/Localization$ChangeEvent" class="sap-doc" alt="api/module:sap/base/i18n/Localization$ChangeEvent"><code>Localization$ChangeEvent</code></a> or <a href="api/module:sap/base/i18n/Formatting$ChangeEvent" title="api/module:sap/base/i18n/Formatting$ChangeEvent" class="sap-doc" alt="api/module:sap/base/i18n/Formatting$ChangeEvent"><code>Formatting$ChangeEvent</code></a>, respectively.</p>
+                                                                <p></p></div></div>
+                                                                <p>Instead of the former APIs <code>onlocalizationChanged()</code> or
+                                                                        <code>attachLocalizationChanged()</code>, see the following sample:</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/// generic control hook
+MyControl.prototype.onLocalizationChanged = function() {};
+ 
+// Localization API
+sap.ui.require([
+    "sap/base/i18n/Localization",
+    "sap/base/i18n/Formatting"
+], (Localization, Formatting) =&gt; {
+    Localization.attachChange((oEvent) =&gt; {
+        // Note: The event callback has no &lt;this&gt; context anymore,
+        // thus we use an arrow function here
+ 
+        // Note: the Event object has a different API than on the Core facade:
+        // no more getParameters(), but simple properties like the Web API events.
+        // Therefore, you can access the newly set "language" like so:
+        const sLanguage = oEvent.language;
+    });
+ 
+    // additional setting changes can be captured via the Formatting facade
+    Formatting.attachChange((oEvent) =&gt; {
+        // s.a.
+    });
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachParseError" title="api/sap.ui.core.Core#methods/attachParseError" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachParseError"><code>attachParseError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/attachParseError" title="api/sap.ui.base.ManagedObject#methods/attachParseError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/attachParseError"><code>ManagedObject#attachParseError()</code></a> instead.</p>
+                                                                <p>Overall, the events <code>parseError</code>, <code>validationError</code>,
+                                                                        <code>formatError</code> and <code>validationSuccess</code> have
+                                                                        been deprecated. Use the corresponding APIs on subclasses of
+                                                                        <code>sap/ui/base/ManagedObject</code>.</p>
+                                                                <p>Component-based applications should rather prefer framework controlled validation
+                                                                        handling (manifest flag <code>"sap.ui5"/"handleValidation"</code>).</p>
+                                                                <p>Tests and samples that are not Component-based should attach validation event
+                                                                        listeners to a suitable control in the control tree instead.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require([
+    "sap/ui/core/Component"
+], async (Component) =&gt; {
+    const oComponent = await Component.create({
+        name: "my.component"
+    });
+    const fnParseErrorHandler = function () {
+        // Error handling
+    };
+    oComponent.attachParseError(fnParseErrorHandler);
+    oComponent.detachParseError(fnParseErrorHandler);
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachThemeChanged" title="api/sap.ui.core.Core#methods/attachThemeChanged" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachThemeChanged"><code>attachThemeChanged</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>For applications and test code, see <a href="api/module:sap/ui/core/Theming#methods/attachApplied" title="api/module:sap/ui/core/Theming#methods/attachApplied" class="sap-doc" alt="api/module:sap/ui/core/Theming#methods/attachApplied"><code>Theming.attachApplied()</code></a> as an alternative. For
+                                                                        controls, use the generic control hook
+                                                                           <span class="emphasis"><code>onThemeChanged</code></span> on your
+                                                                           <code>sap.ui.core.Element</code> subclasses instead.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                                                                           </p><p>The Event object has a different API than on the Core facade. There is
+                                                                           no more <code>getParameters()</code>, but simple properties like the
+                                                                           Web API events.</p>
+                                                                        <p></p></div></div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+                                                                           </p><p>The handler of the <span class="emphasis"><code>applied</code></span> event
+                                                                           will be executed immediately once, in case all *.css files are loaded and
+                                                                           there are no further requests pending for the theme.</p>
+                                                                           <p>After that, it will only be executed in case of new *.css files, which
+                                                                           may happen for a complete theme change or loading of additional libraries.
+                                                                           Keep in mind that the <span class="emphasis"><code>onThemeChanged</code></span>
+                                                                           hook is not executed initially in case the theme is already applied.</p>
+                                                                        <p></p></div></div><p></p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachValidationError" title="api/sap.ui.core.Core#methods/attachValidationError" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachValidationError"><code>attachValidationError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/attachValidationError" title="api/sap.ui.base.ManagedObject#methods/attachValidationError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/attachValidationError"><code>ManagedObject#attachValidationError()</code></a> instead.</p>
+                                                                <p>See related information for <code>attachParseError()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/attachValidationSuccess" title="api/sap.ui.core.Core#methods/attachValidationSuccess" class="sap-doc" alt="api/sap.ui.core.Core#methods/attachValidationSuccess"><code>attachValidationSuccess</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/attachValidationSuccess" title="api/sap.ui.base.ManagedObject#methods/attachValidationSuccess" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/attachValidationSuccess"><code>ManagedObject#attachValidationSuccess()</code></a>
+                                                                        instead.</p>
+                                                                <p>See related information for <code>attachParseError()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/byFieldGroupId" title="api/sap.ui.core.Core#methods/byFieldGroupId" class="sap-doc" alt="api/sap.ui.core.Core#methods/byFieldGroupId"><code>byFieldGroupId</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Control#methods/getControlsByFieldGroup" title="api/sap.ui.core.Control#methods/getControlsByFieldGroup" class="sap-doc" alt="api/sap.ui.core.Control#methods/getControlsByFieldGroup"><code>Control#getControlsByFieldGroup()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/byId" title="api/sap.ui.core.Core#methods/byId" class="sap-doc" alt="api/sap.ui.core.Core#methods/byId"><code>byId</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Use <a href="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById" title="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById" class="sap-doc" alt="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById"><code>Element.getElementById()</code></a> instead.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/Element"], async function(Element) {
+    const oMyElement = Element.getElementById("myId");
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/createComponent" title="api/sap.ui.core.Core#methods/createComponent" class="sap-doc" alt="api/sap.ui.core.Core#methods/createComponent"><code>createComponent</code></a></td>
+                                                        <td colspan="1" rowspan="1">Use <a href="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" title="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" class="sap-doc" alt="api/sap.ui.core.Component#methods/sap.ui.core.Component.create"><code>Component.create()</code></a>
+                                                                instead.</td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/createRenderManager" title="api/sap.ui.core.Core#methods/createRenderManager" class="sap-doc" alt="api/sap.ui.core.Core#methods/createRenderManager"><code>createRenderManager</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>A separate <code>RenderManager</code> should not be used.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/createUIArea" title="api/sap.ui.core.Core#methods/createUIArea" class="sap-doc" alt="api/sap.ui.core.Core#methods/createUIArea"><code>createUIArea</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Control#methods/placeAt" title="api/sap.ui.core.Control#methods/placeAt" class="sap-doc" alt="api/sap.ui.core.Control#methods/placeAt"><code>Control#placeAt()</code></a>
+                                                                        instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachControlEvent" title="api/sap.ui.core.Core#methods/detachControlEvent" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachControlEvent"><code>detachControlEvent</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>See <code>attachControlEvent()</code> above.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachFormatError" title="api/sap.ui.core.Core#methods/detachFormatError" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachFormatError"><code>detachFormatError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/detachFormatError" title="api/sap.ui.base.ManagedObject#methods/detachFormatError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/detachFormatError"><code>ManagedObject#detachFormatError()</code></a> instead.</p>
+                                                                <p>See related information for <code>attachParseError()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachIntervalTimer" title="api/sap.ui.core.Core#methods/detachIntervalTimer" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachIntervalTimer"><code>detachIntervalTimer</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.IntervalTrigger#methods/sap.ui.core.IntervalTrigger.removeListener" title="api/sap.ui.core.IntervalTrigger#methods/sap.ui.core.IntervalTrigger.removeListener" class="sap-doc" alt="api/sap.ui.core.IntervalTrigger#methods/sap.ui.core.IntervalTrigger.removeListener"><code>IntervalTrigger.removeListener()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachLocalizationChanged" title="api/sap.ui.core.Core#methods/detachLocalizationChanged" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachLocalizationChanged"><code>detachLocalizationChanged</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/base/i18n/Localization#methods/detachChange" title="api/module:sap/base/i18n/Localization#methods/detachChange" class="sap-doc" alt="api/module:sap/base/i18n/Localization#methods/detachChange"><code>Localization#detachChange()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachParseError" title="api/sap.ui.core.Core#methods/detachParseError" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachParseError"><code>detachParseError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/detachParseError" title="api/sap.ui.base.ManagedObject#methods/detachParseError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/detachParseError"><code>ManagedObject#detachParseError()</code></a>
+                                                                        instead.</p>
+                                                                <p>See related information for <code>attachParseError()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachThemeChanged" title="api/sap.ui.core.Core#methods/detachThemeChanged" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachThemeChanged"><code>detachThemeChanged</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> See <a href="api/module:sap/ui/core/Theming#methods/detachApplied" title="api/module:sap/ui/core/Theming#methods/detachApplied" class="sap-doc" alt="api/module:sap/ui/core/Theming#methods/detachApplied"><code>Theming.detachApplied()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachValidationError" title="api/sap.ui.core.Core#methods/detachValidationError" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachValidationError"><code>detachValidationError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/detachValidationError" title="api/sap.ui.base.ManagedObject#methods/detachValidationError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/detachValidationError"><code>ManagedObject#detachValidationError()</code></a> instead.</p>
+                                                                <p>See related information for <code>attachParseError()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/detachValidationSuccess" title="api/sap.ui.core.Core#methods/detachValidationSuccess" class="sap-doc" alt="api/sap.ui.core.Core#methods/detachValidationSuccess"><code>detachValidationSuccess</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/detachValidationSuccess" title="api/sap.ui.base.ManagedObject#methods/detachValidationSuccess" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/detachValidationSuccess"><code>ManagedObject#detachValidationSuccess()</code></a>
+                                                                        instead.</p>
+                                                                <p>See related information for <code>attachParseError()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/fireFormatError" title="api/sap.ui.core.Core#methods/fireFormatError" class="sap-doc" alt="api/sap.ui.core.Core#methods/fireFormatError"><code>fireFormatError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/fireFormatError" title="api/sap.ui.base.ManagedObject#methods/fireFormatError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/fireFormatError"><code>ManagedObject#fireFormatError()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/fireParseError" title="api/sap.ui.core.Core#methods/fireParseError" class="sap-doc" alt="api/sap.ui.core.Core#methods/fireParseError"><code>fireParseError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/fireParseError" title="api/sap.ui.base.ManagedObject#methods/fireParseError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/fireParseError"><code>ManagedObject#fireParseError()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/fireValidationError" title="api/sap.ui.core.Core#methods/fireValidationError" class="sap-doc" alt="api/sap.ui.core.Core#methods/fireValidationError"><code>fireValidationError</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Use <a href="api/sap.ui.base.ManagedObject#methods/fireValidationError" title="api/sap.ui.base.ManagedObject#methods/fireValidationError" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/fireValidationError"><code>ManagedObject#fireValidationError()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/fireValidationSuccess" title="api/sap.ui.core.Core#methods/fireValidationSuccess" class="sap-doc" alt="api/sap.ui.core.Core#methods/fireValidationSuccess"><code>fireValidationSuccess</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.base.ManagedObject#methods/fireValidationSuccess" title="api/sap.ui.base.ManagedObject#methods/fireValidationSuccess" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/fireValidationSuccess"><code>ManagedObject#fireValidationSuccess()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getApplication" title="api/sap.ui.core.Core#methods/getApplication" class="sap-doc" alt="api/sap.ui.core.Core#methods/getApplication"><code>getApplication</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>The <code>Component</code> class is enhanced to take care about the application
+                                                                        code.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getComponent" title="api/sap.ui.core.Core#methods/getComponent" class="sap-doc" alt="api/sap.ui.core.Core#methods/getComponent"><code>getComponent</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Component#methods/sap.ui.core.Component.getComponentById" title="api/sap.ui.core.Component#methods/sap.ui.core.Component.getComponentById" class="sap-doc" alt="api/sap.ui.core.Component#methods/sap.ui.core.Component.getComponentById"><code>Component.getComponentById()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getConfiguration" title="api/sap.ui.core.Core#methods/getConfiguration" class="sap-doc" alt="api/sap.ui.core.Core#methods/getConfiguration"><code>getConfiguration</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>See <a href="topic/2acafbfcc2cb47e8aac6d2e32399af10" title="This page describes important aspects of the deprecation of the sap.ui.core.Configuration API facade. It shows a migration path away from the deprecated legacy APIs and towards their future-proof alternatives, provided the functionality is still meant for productive usage." class="sap-doc">Deprecated Configuration API</a> for detailed information
+                                                                        to handle legacy <code>sap.u.core.Configuration</code> via replacements
+                                                                        for the respective APIs.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getControl" title="api/sap.ui.core.Core#methods/getControl" class="sap-doc" alt="api/sap.ui.core.Core#methods/getControl"><code>getControl</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById" title="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById" class="sap-doc" alt="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById"><code>Element.getElementById()</code></a> instead. See example at
+                                                                           <code>byId()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getCurrentFocusedControlId" title="api/sap.ui.core.Core#methods/getCurrentFocusedControlId" class="sap-doc" alt="api/sap.ui.core.Core#methods/getCurrentFocusedControlId"><code>getCurrentFocusedControlId</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Element#methods/sap.ui.core.Element.getActiveElement" title="api/sap.ui.core.Element#methods/sap.ui.core.Element.getActiveElement" class="sap-doc" alt="api/sap.ui.core.Element#methods/sap.ui.core.Element.getActiveElement"><code>Element.getActiveElement()</code></a>
+                                                                        to get the currently focused element. You can then retrieve the ID of that
+                                                                        element with <a href="api/sap.ui.core.Element#methods/getId" title="api/sap.ui.core.Element#methods/getId" class="sap-doc" alt="api/sap.ui.core.Element#methods/getId"><code>Element#getId()</code></a>.
+                                                                        Keep in mind that <code>Element.getActiveElement()</code> may return
+                                                                           <code>undefined</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getElementById" title="api/sap.ui.core.Core#methods/getElementById" class="sap-doc" alt="api/sap.ui.core.Core#methods/getElementById"><code>getElementById</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById" title="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById" class="sap-doc" alt="api/sap.ui.core.Element#methods/sap.ui.core.Element.getElementById"><code>Element.getElementById()</code></a> instead. See example at
+                                                                           <code>byId()</code>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getEventBus" title="api/sap.ui.core.Core#methods/getEventBus" class="sap-doc" alt="api/sap.ui.core.Core#methods/getEventBus"><code>getEventBus</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.EventBus#methods/sap.ui.core.EventBus.getInstance" title="api/sap.ui.core.EventBus#methods/sap.ui.core.EventBus.getInstance" class="sap-doc" alt="api/sap.ui.core.EventBus#methods/sap.ui.core.EventBus.getInstance"><code>EventBus.getInstance()</code></a> for global usage instead.
+                                                                        However, the global <code>EventBus</code> should only be used if there is
+                                                                        no other option to communicate between different instances. Whenever possible,
+                                                                        you should prefer native control events, View or Component (lifecycle)
+                                                                        events.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require([
+    "sap/ui/core/EventBus"
+], (EventBus) =&gt; {
+    const oEventBus = EventBus.getInstance();
+});</pre></div></div></section>
+                                                                <p>If needed, a new private <code>EventBus</code> instance may be created via the
+                                                                        constructor, which decouples it from any other parties subscribed to the
+                                                                        global <code>EventBus</code>:</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">const oMyOwnEventBus = new EventBus();
+oMyEventBus.subscribe("my-channel-id", "my-event-id")
+oMyEventBus.publish("my-channel-id", "my-event-id", { /* data */ })</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getLibraryResourceBundle" title="api/sap.ui.core.Core#methods/getLibraryResourceBundle" class="sap-doc" alt="api/sap.ui.core.Core#methods/getLibraryResourceBundle"><code>getLibraryResourceBundle</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.getResourceBundleFor" title="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.getResourceBundleFor" class="sap-doc" alt="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.getResourceBundleFor"><code>Lib.getResourceBundleFor()</code></a> instead.</p>
+                                                                <p>Note that the new API may unintentionally still load the ResourceBundle for the
+                                                                        given library synchronously, which is to be avoided. Therefore, make sure to
+                                                                        always either load the library beforehand or maintain it as a
+                                                                        <span class="emphasis">Component</span> or <span class="emphasis">Library</span> dependency,
+                                                                        so that you can prevent such synchronous loading of *.properties files.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// Retrieve ResourceBundle when library was already loaded beforehand.
+// This is the case for controls inside their own library
+sap.ui.require(["sap/ui/core/Lib"], async (Library) =&gt; {
+    // ensures the library is loaded
+    await Library.load({ name: "sap.m" });
+    // ResourceBundle can be retrieved
+    const oRB = Library.getResourceBundleFor("sap.m")
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getLoadedLibraries" title="api/sap.ui.core.Core#methods/getLoadedLibraries" class="sap-doc" alt="api/sap.ui.core.Core#methods/getLoadedLibraries"><code>getLoadedLibraries</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Applications should avoid performing operations on all loaded libraries. This
+                                                                        concept is reserved for the framework itself and dedicated support use
+                                                                        cases.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getMessageManager" title="api/sap.ui.core.Core#methods/getMessageManager" class="sap-doc" alt="api/sap.ui.core.Core#methods/getMessageManager"><code>getMessageManager</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/ui/core/Messaging" title="api/module:sap/ui/core/Messaging" class="sap-doc" alt="api/module:sap/ui/core/Messaging"><code>Messaging</code></a>
+                                                                        instead.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// example, replacing legacy sap.ui.getCore().getMessageManager().addMessage()
+sap.ui.require([
+    "sap/ui/core/Messaging",
+    "sap/ui/core/message/Message
+], (Messaging, Message) =&gt; {
+    Messaging.addMessage(new Message({
+        text: "My message text"
+    }));
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getModel" title="api/sap.ui.core.Core#methods/getModel" class="sap-doc" alt="api/sap.ui.core.Core#methods/getModel"><code>getModel</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Deprecated without direct replacement. See the information on
+                                                                           <code>setModel()</code> below for a potential use via <a href="api/sap.ui.base.ManagedObject#methods/getModel" title="api/sap.ui.base.ManagedObject#methods/getModel" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/getModel"><code>ManagedObject#getModel()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getRenderManager" title="api/sap.ui.core.Core#methods/getRenderManager" class="sap-doc" alt="api/sap.ui.core.Core#methods/getRenderManager"><code>getRenderManager</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>A separate <code>RenderManager</code> should not be used.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getRootComponent" title="api/sap.ui.core.Core#methods/getRootComponent" class="sap-doc" alt="api/sap.ui.core.Core#methods/getRootComponent"><code>getRootComponent</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/ui/core/ComponentSupport" title="api/module:sap/ui/core/ComponentSupport" class="sap-doc" alt="api/module:sap/ui/core/ComponentSupport"><code>sap/ui/core/ComponentSupport</code></a> instead. See also
+                                                                           <a href="topic/82a0fcecc3cb427c91469bc537ebdddf" title="The declarative API enables you to define the initially started component directly in the HTML markup." class="sap-doc">Declarative API for Initial Components</a>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getStaticAreaRef" title="api/sap.ui.core.Core#methods/getStaticAreaRef" class="sap-doc" alt="api/sap.ui.core.Core#methods/getStaticAreaRef"><code>getStaticAreaRef</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/ui/core/StaticArea#methods/sap/ui/core/StaticArea.getDomRef" title="api/module:sap/ui/core/StaticArea#methods/sap/ui/core/StaticArea.getDomRef" class="sap-doc" alt="api/module:sap/ui/core/StaticArea#methods/sap/ui/core/StaticArea.getDomRef"><code>StaticArea.getDomRef()</code></a> instead. It provides more
+                                                                        possibilities, e.g. you can also retrieve the static UIArea directly, if
+                                                                        needed.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require([
+    "sap/ui/core/StaticArea"
+], (StaticArea) =&gt; {
+    // Direct replacement
+    const oStaticArea = StaticArea.getDomRef();
+ 
+    // Retrieving the static UIArea directly
+    oStaticUIArea = StaticArea.getUIArea();
+ 
+    // Check whether the given DOM element is part of the static area
+    const bContainedInArea = StaticArea.contains(myControl.getDomRef())
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getTemplate" title="api/sap.ui.core.Core#methods/getTemplate" class="sap-doc" alt="api/sap.ui.core.Core#methods/getTemplate"><code>getTemplate</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use an <a href="api/sap.ui.core.mvc.XMLView" title="api/sap.ui.core.mvc.XMLView" class="sap-doc" alt="api/sap.ui.core.mvc.XMLView"><code>XMLView</code></a> or a <a href="topic/e6bb33d076dc4f23be50c082c271b9f0" title="A view can also be defined by extending the sap.ui.core.mvc.View class. Such a view is referred to as a typed view. This means the view definition represents its own view class." class="sap-doc">Typed View</a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getUIArea" title="api/sap.ui.core.Core#methods/getUIArea" class="sap-doc" alt="api/sap.ui.core.Core#methods/getUIArea"><code>getUIArea</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> For access to the static UIArea, use the <a href="api/module:sap/ui/core/StaticArea" title="api/module:sap/ui/core/StaticArea" class="sap-doc" alt="api/module:sap/ui/core/StaticArea"><code>StaticArea</code></a>
+                                                                        instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/getUIDirty" title="api/sap.ui.core.Core#methods/getUIDirty" class="sap-doc" alt="api/sap.ui.core.Core#methods/getUIDirty"><code>getUIDirty</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Applications and controls should avoid querying the rendering state and should rely
+                                                                        on the standard rendering lifecycle of the framework.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/hasModel" title="api/sap.ui.core.Core#methods/hasModel" class="sap-doc" alt="api/sap.ui.core.Core#methods/hasModel"><code>hasModel</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Use <a href="api/sap.ui.base.ManagedObject#methods/hasModel" title="api/sap.ui.base.ManagedObject#methods/hasModel" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/hasModel"><code>ManagedObject#hasModel()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/includeLibraryTheme" title="api/sap.ui.core.Core#methods/includeLibraryTheme" class="sap-doc" alt="api/sap.ui.core.Core#methods/includeLibraryTheme"><code>includeLibraryTheme</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Applications and controls should avoid interfering with the loading of library.css
+                                                                        files. All library theme files are maintained and orchestrated by the
+                                                                        framework.</p>
+                                                                <p>Use <a href="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.load" title="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.load" class="sap-doc" alt="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.load"><code>Lib.load()</code></a> instead
+                                                                        to ensure the loading of the corresponding theme files.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/initLibrary" title="api/sap.ui.core.Core#methods/initLibrary" class="sap-doc" alt="api/sap.ui.core.Core#methods/initLibrary"><code>initLibrary</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Use <a href="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.init" title="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.init" class="sap-doc" alt="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.init"><code>Lib.init()</code></a>
+                                                                        instead.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// the object is no longer passed into sap.ui.getCore().initLibrary()
+sap.ui.require(["sap/ui/core/Lib"], (Library) =&gt; {
+    Library.init({
+        name: "my.library",
+        version: "${version}",
+        dependencies: ["sap.ui.core", "..."],
+        types: [
+            ...
+        ],
+        interfaces: [],
+        controls: [
+            ...
+        ],
+        elements: [
+            ...
+        ],
+        extensions: {
+            ...
+        }
+    });
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/isInitialized" title="api/sap.ui.core.Core#methods/isInitialized" class="sap-doc" alt="api/sap.ui.core.Core#methods/isInitialized"><code>isInitialized</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Deprecated without replacement. It should no longer be necessary as it was mainly
+                                                                        used to avoid accessing APIs before the Core was ready, but these other Core
+                                                                        APIs have been deprecated as well.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// Nevertheless, if you still have a need for isInitialized, maybe use the following
+sap.ui.require(["sap/ui/core/Core"], async function(Core) {
+    let isInitialized = false;
+    Core.ready(() =&gt; {
+        isInitialized = true;
+    });
+    if (isInitialized) {
+        ...
+    }
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/isLocked" title="api/sap.ui.core.Core#methods/isLocked" class="sap-doc" alt="api/sap.ui.core.Core#methods/isLocked"><code>isLocked</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Locking the event handling of the <code>sap.ui.core.Core</code> is considered
+                                                                        an anti-pattern and should be avoided.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/isMobile" title="api/sap.ui.core.Core#methods/isMobile" class="sap-doc" alt="api/sap.ui.core.Core#methods/isMobile"><code>isMobile</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/sap.ui.Device.browser" title="api/sap.ui.Device.browser" class="sap-doc" alt="api/sap.ui.Device.browser"><code>Device.browser.mobile</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/isStaticAreaRef" title="api/sap.ui.core.Core#methods/isStaticAreaRef" class="sap-doc" alt="api/sap.ui.core.Core#methods/isStaticAreaRef"><code>isStaticAreaRef</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/ui/core/StaticArea#methods/sap/ui/core/StaticArea.contains" title="api/module:sap/ui/core/StaticArea#methods/sap/ui/core/StaticArea.contains" class="sap-doc" alt="api/module:sap/ui/core/StaticArea#methods/sap/ui/core/StaticArea.contains"><code>StaticArea.contains()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/isThemeApplied" title="api/sap.ui.core.Core#methods/isThemeApplied" class="sap-doc" alt="api/sap.ui.core.Core#methods/isThemeApplied"><code>isThemeApplied</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>For applications and test code, see <a href="api/module:sap/ui/core/Theming#methods/attachApplied" title="api/module:sap/ui/core/Theming#methods/attachApplied" class="sap-doc" alt="api/module:sap/ui/core/Theming#methods/attachApplied"><code>Theming.attachApplied()</code></a> as an alternative. For
+                                                                        controls, use the generic control hook
+                                                                           <span class="emphasis"><code>onThemeChanged</code></span> on your
+                                                                           <code>sap.ui.core.Element</code> subclasses instead.</p>
+                                                                <p>See <code>attachThemeChanged</code> for related information.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/loadLibrary" title="api/sap.ui.core.Core#methods/loadLibrary" class="sap-doc" alt="api/sap.ui.core.Core#methods/loadLibrary"><code>loadLibrary</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Use <a href="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.load" title="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.load" class="sap-doc" alt="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.load"><code>Lib.load()</code></a>
+                                                                        instead.</p>
+                                                                <section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// instead of legacy loading via sap.ui.getCore().loadLibrary("my.library")
+sap.ui.require(["sap/ui/core/Lib"], (Library) =&gt; {
+    Library.load({
+        name: "my.library"
+    });
+});</pre></div></div></section>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/lock" title="api/sap.ui.core.Core#methods/lock" class="sap-doc" alt="api/sap.ui.core.Core#methods/lock"><code>lock</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Locking the event handling of the <code>sap.ui.core.Core</code> is considered
+                                                                        an anti-pattern and should be avoided.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/notifyContentDensityChanged" title="api/sap.ui.core.Core#methods/notifyContentDensityChanged" class="sap-doc" alt="api/sap.ui.core.Core#methods/notifyContentDensityChanged"><code>notifyContentDensityChanged</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Use <a href="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.notifyContentDensityChanged" title="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.notifyContentDensityChanged" class="sap-doc" alt="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.notifyContentDensityChanged"><code>Theming.notifyContentDensityChanged()</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/registerPlugin" title="api/sap.ui.core.Core#methods/registerPlugin" class="sap-doc" alt="api/sap.ui.core.Core#methods/registerPlugin"><code>registerPlugin</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Albeit plugins are not meant for public usage, the common need to access the set of
+                                                                        all controls/elements or all components can now be achieved using the <a href="api/sap.ui.core.Element.registry" title="api/sap.ui.core.Element.registry" class="sap-doc" alt="api/sap.ui.core.Element.registry"><code>sap.ui.core.Element.registry</code></a> or <a href="api/sap.ui.core.Component.registry" title="api/sap.ui.core.Component.registry" class="sap-doc" alt="api/sap.ui.core.Component.registry"><code>sap.ui.core.Component.registry</code></a> APIs,
+                                                                        respectively.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/sap.ui.core.Core.extend" title="api/sap.ui.core.Core#methods/sap.ui.core.Core.extend" class="sap-doc" alt="api/sap.ui.core.Core#methods/sap.ui.core.Core.extend"><code>sap.ui.core.Core.extend</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>
+                                                                        <code>sap.ui.core.Core</code> is a singleton and should not be
+                                                                        sub-classed.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/sap.ui.core.Core.getMetadata" title="api/sap.ui.core.Core#methods/sap.ui.core.Core.getMetadata" class="sap-doc" alt="api/sap.ui.core.Core#methods/sap.ui.core.Core.getMetadata"><code>sap.ui.core.Core.getMetadata</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p><code>sap.ui.core.Core</code> is a singleton and the metadata of the internal
+                                                                        class should not be accessed.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/setModel" title="api/sap.ui.core.Core#methods/setModel" class="sap-doc" alt="api/sap.ui.core.Core#methods/setModel"><code>setModel</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>Deprecated without direct replacement. The future-proof Core facade no longer acts
+                                                                        as a model provider.</p>
+                                                                <p>Component-based applications should prefer manifest models.</p>
+                                                                <p>Tests and samples which are not Component-based may attach models to a suitable
+                                                                        control in the control tree instead, e.g. via <a href="api/sap.ui.base.ManagedObject#methods/setModel" title="api/sap.ui.base.ManagedObject#methods/setModel" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/setModel"><code>ManagedObject#setModel()</code></a>.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/setRoot" title="api/sap.ui.core.Core#methods/setRoot" class="sap-doc" alt="api/sap.ui.core.Core#methods/setRoot"><code>setRoot</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Use <a href="api/sap.ui.core.Control#methods/placeAt" title="api/sap.ui.core.Control#methods/placeAt" class="sap-doc" alt="api/sap.ui.core.Control#methods/placeAt"><code>oControl.placeAt(oDomRef,
+                                                                           "only")</code></a> instead.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/setThemeRoot" title="api/sap.ui.core.Core#methods/setThemeRoot" class="sap-doc" alt="api/sap.ui.core.Core#methods/setThemeRoot"><code>setThemeRoot</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Theme roots should not be changed at runtime. Instead, provide the corresponding
+                                                                        <code>sap-ui-theme-roots</code> configuration option via either the
+                                                                        bootstrap, meta tag, or an URL parameter. See <a href="topic/e9fc648661d84ed89360bbec3ae02611" title="You define which theme is used by your app either by using the theme configuration parameter or the sap/ui/core/Theming.setTheme method." class="sap-doc">Setting Themes</a> for more details.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/unlock" title="api/sap.ui.core.Core#methods/unlock" class="sap-doc" alt="api/sap.ui.core.Core#methods/unlock"><code>unlock</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p> Locking the event handling of the <code>sap.ui.core.Core</code> is considered
+                                                                        an anti-pattern and should be avoided.</p>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" rowspan="1"><a href="api/sap.ui.core.Core#methods/unregisterPlugin" title="api/sap.ui.core.Core#methods/unregisterPlugin" class="sap-doc" alt="api/sap.ui.core.Core#methods/unregisterPlugin"><code>unregisterPlugin</code></a></td>
+                                                        <td colspan="1" rowspan="1">
+                                                                <p>See <code>registerPlugin</code> above.</p>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                </table></div></div>
+                </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,162 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7d1fa8399f714cf6a657ac5467a70d4a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/defining-actions-in-the-chart-toolbar-7d1fa83.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Defining Actions in the Chart Toolbar</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Defining Actions in the Chart Toolbar</h2></div><div class="shortdesc">You can add action buttons to the chart toolbar by defining the <code>Actions</code>
+          property in the annotation term <code>UI.Chart</code>. </div><section id="section_o1g_q34_qmb"><p>The <code>Actions</code> property must be a
+                collection of the types <code>UI.DataFieldForAction</code> and
+                    <code>UI.DataFieldForIntentBasedNavigation</code>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                
+                </p><ul class="ul ">
+                    <li class="li">
+                        <p>To make the button visible in the chart toolbar, the properties
+                                <code>Determining</code> and <code>Inline</code> for
+                                <code>UI.DataFieldForAction</code> and
+                                <code>UI.DataFieldForIntentBasedNavigation</code> must be set to
+                                <code>false</code> or must not be defined.</p>
+                    </li>
+                    <li class="li">
+                        <p>Chart actions coming from <code>UI.DataFieldForAction</code> do not
+                            support the passing of context.</p>
+                    </li>
+                </ul>
+                
+                
+            <p></p></div></div><p>The action buttons are displayed as shown below in the chart toolbar:</p><div><div class="fig"><img src="loio067d5d80307949449a1b7e0c6614fe4b_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Actions in Chart Toolbar</h2></span></div><section>
+                <h3 class="title ">Code Samples</h3>
+                <p>The code samples below show how to add actions to the chart toolbar.</p>
+                <span class="emphasis">UI.Chart</span>
+                
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.Chart"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/&gt;
+        &lt;PropertyValue Property="Dimensions"&gt;
+            &lt;Collection&gt;
+                &lt;PropertyPath&gt;product&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="Measures"&gt;
+            &lt;Collection&gt;
+                &lt;PropertyPath&gt;sales&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="Actions"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="UI.DataFieldForAction"&gt;
+                    &lt;PropertyValue Property="Label" String="provide_label"/&gt;
+                    &lt;PropertyValue Property="Action" String="provide_action_name"/&gt;
+                    &lt;PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/&gt;
+                &lt;/Record&gt;
+                &lt;Record Type="UI.DataFieldForIntentBasedNavigation"&gt;
+                    &lt;PropertyValue Property="Label" String="provide_label"/&gt;
+                    &lt;PropertyValue Property="SemanticObject" String="provide_semantic_object"/&gt;
+                    &lt;PropertyValue Property="Action" String="provide_action_name"/&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Chart: [
+  {
+    chartType: #COLUMN,
+    dimensions: [
+      'PRODUCT'
+    ],
+    measures: [
+      'SALES'
+    ],
+    actions: [
+      {
+        label: 'provide_label',
+        dataAction: 'PUSHDOWN:provide_action_name',
+        invocationGrouping: #ISOLATED,
+        type: #FOR_ACTION
+      },
+      {
+        label: 'provide_label',
+        semanticObjectAction: 'provide_action_name',
+        type: #FOR_INTENT_BASED_NAVIGATION
+      }
+    ]
+  }
+]
+annotate view STTA_C_MP_PRODUCTSALESDATA with {
+
+}
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP
+                    CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.Chart : {
+    ChartType : #Column,
+    Dimensions : [
+        product
+    ],
+    Measures : [
+        sales
+    ],
+    Actions : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Label : 'provide_label',
+            Action : 'provide_action_name',
+            InvocationGrouping : #Isolated
+        },
+        {
+            $Type : 'UI.DataFieldForIntentBasedNavigation',
+            Label : 'provide_label',
+            SemanticObject : 'provide_semantic_object',
+            Action : 'provide_action_name'
+        }
+    ]
+}</pre></div></div></section><p></p></div></div>
+                
+            </section></section><section id="section_ury_h4s_hnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+                Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><section>
+                <h3 class="title ">Enabling and Disabling Actions in Chart Toolbar</h3>
+                <p>To control whether <code>UI.DataFieldForAction</code>-based actions are
+                    enabled or disabled in the chart toolbar, see <a href="topic/5b0b686a3b7a491a9ec654b4f1536fa8" title="Action control refers to the ability of applications to be able to configure app-specific actions so that they are only enabled for certain instances of the object, but not others." class="sap-doc">Using Action Control for Context-Dependent Actions</a>. </p>
+                <p>To control whether <code>UI.DataFieldForIntentBasedNavigation</code>-based
+                    actions are enabled or disabled in the chart toolbar, use the property
+                        <code>RequiresContext</code>. If this property is set to
+                        <code>true</code> (default value), the user has to select an item in the
+                    chart before the action can be performed. If this property is set to
+                        <code>false</code>, then the button will always be enabled.</p>
+                <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                    </p><p>If you are using the path-based <code>applicable-path</code> setting to
+                        control the visibility of actions in the chart toolbar, the property
+                        specified must be based on the property from the parent entity set. The
+                        property cannot be from the chart entity set.</p>
+                <p></p></div></div>
+                <div><div class="fig"><img src="loio911138648ae54cce98084011385ea584_LowRes.png" usemap="#"></div></div>
+            </section></div></section><section id="section_r23_njz_hnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+                Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+                <h3 class="title ">Enabling and Disabling Actions in Chart Toolbar</h3>
+                <p>Actions can be selectively enabled or disabled based on the context that is
+                    selected using the approach outlined in <a href="topic/b623e0bbbb2b4147b2d0516c463921a0" title="The table control offers the possibility to show generic actions, such as Create and Delete, as well as application-specific actions." class="sap-doc">Adding Actions to Tables</a> in the section <i>Enablement
+                        of Operations</i> under <i>Additional Features in SAP Fiori Elements for OData V4</i>.</p>
+                <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                    </p><p>If you are using the path-based <code>OperationAvailable</code> setting
+                        to control the visibility of actions in the chart toolbar, the property
+                        specified must be based on the property from the parent entity set. The
+                        property cannot be from the chart entity set.</p>
+                <p></p></div></div>
+            </section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

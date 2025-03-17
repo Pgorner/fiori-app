@@ -1,0 +1,8 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define([],function(){"use strict";class e{requestExecutor;resolve;reject;promise;constructor(e){this.requestExecutor=e;this.promise=new Promise((e,s)=>{this.resolve=e;this.reject=s})}notify(){if(this.requestExecutor.status!==s.COMPLETED){throw"program error"}if(!this.requestExecutor.executionResult.hasError){this.resolve(this.requestExecutor.executionResult.response)}else{this.reject(this.requestExecutor.executionResult.error)}}}var s=function(e){e["INITIAL"]="INITIAL";e["PENDING"]="PENDING";e["COMPLETED"]="COMPLETED";return e}(s||{});class t{request;copiedRequest;time;status=(()=>s.INITIAL)();executionResult;responseListeners=[];constructor(e){this.request=e;this.copiedRequest=e.clone()}getRequest(){return this.copiedRequest}delete(){this.clearResponseListeners()}createResponseListener(){const t=new e(this);if(this.status===s.COMPLETED){t.notify()}else{this.responseListeners.push(t)}return t.promise}clearResponseListeners(){this.responseListeners=[]}execute(){this.time=(new Date).getTime();this.status=s.PENDING;if(this.executionResult){throw"program error"}this.request.execute().then(e=>{this.status=s.COMPLETED;this.executionResult={hasError:false,response:e};this.notifyResponseListeners()},e=>{this.status=s.COMPLETED;this.executionResult={hasError:true,error:e};this.notifyResponseListeners()})}notifyResponseListeners(){for(const e of this.responseListeners){e.notify()}this.clearResponseListeners()}}var r={__esModule:true};r.RequestExecutorStatus=s;r.RequestExecutor=t;return r})})();
+//# sourceMappingURL=requestexecutor.js.map

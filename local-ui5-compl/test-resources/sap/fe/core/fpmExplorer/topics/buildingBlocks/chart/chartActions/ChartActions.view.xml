@@ -1,0 +1,41 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+	xmlns:macrosChart="sap.fe.macros.chart"
+	controllerName="sap.fe.core.fpmExplorer.chartActions.ChartActions"
+>
+	<VBox fitContainer="true" alignItems="Stretch" alignContent="Stretch" justifyContent="Start" renderType="Div">
+		<macros:Chart
+			id="chartActions"
+			metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.Chart"
+			selectionChange=".onChartSelectionChanged"
+			personalization="Sort,Type,Item"
+			selectionMode="Multiple"
+		>
+			<macros:actions>
+				<macrosChart:Action
+					key="customAction"
+					text="Custom Action"
+					press=".onPressAction"
+					placement="Before"
+					anchor="DataFieldForAction::Service.EntityContainer::ToolbarAction"
+				/>
+				<macrosChart:Action
+					key="customActionSelection"
+					text="Custom Action with Selection"
+					press=".onPressActionSelection"
+					enabled="true"
+					placement="Before"
+					requiresSelection="true"
+					anchor="DataFieldForAction::Service.EntityContainer::ToolbarAction"
+				/>
+				<macrosChart:ActionGroup key="customActionGroup" text="Grouped Actions" placement="After" anchor="customAction">
+					<macrosChart:Action text="Menu Action 1" press=".onPressMenuAction" />
+					<macrosChart:Action text="Menu Action 2" press=".onPressMenuAction" enabled="false" />
+				</macrosChart:ActionGroup>
+			</macros:actions>
+		</macros:Chart>
+		<Text text="NOTE: Sorting doesn't work here, since we're using a mock service" />
+	</VBox>
+</mvc:View>

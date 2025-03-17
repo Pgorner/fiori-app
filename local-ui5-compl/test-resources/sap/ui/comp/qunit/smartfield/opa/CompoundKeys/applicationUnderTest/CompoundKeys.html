@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField With Compound Keys</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-animation-mode="none"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-language="en"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-log-level="0"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="mainView"
+				xmlns:mvc="sap.ui.core.mvc"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				height="100%">
+
+			<App>
+				<Page id="page" title="Smart Field Snippet">
+					<smartForm:SmartForm id="smartForm" editable="true" title="Smart Form">
+						<smartForm:Group>
+							<smartForm:GroupElement>
+
+								<smartField:SmartField id="Name" value="{Name}" showSuggestion="false" textInEditModeSource="ValueList"/>
+
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<Panel headerText="Last server response" expandable="true" expanded="true">
+						<VBox>
+							<Text id="url"/>
+							<Text id="response" wrapping="false" renderWhitespace="true"/>
+						</VBox>
+					</Panel>
+				</Page>
+			</App>
+
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+
+						<Property Name="LOCALKEY2"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="4321321"
+								  sap:creatable="false"/>
+
+						<Property Name="LOCALKEY3"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="3213213"
+								  sap:creatable="false"/>
+
+						<Property Name="Name"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name"
+								  Nullable="false"/>
+
+						<Property Name="LocalText"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Local text"
+								  Nullable="false"/>
+
+					</EntityType>
+
+					<EntityType Name="StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+							<PropertyRef Name="KEY2" />
+							<PropertyRef Name="KEY3" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="KEY2" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key2"/>
+						<Property Name="KEY3" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key3"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+
+						<Property Name="CategoryType"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Local text"
+								  Nullable="false"/>
+
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="StringVH"
+								   EntityType="EmployeesNamespace.StringVHType"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+
+					</EntityContainer>
+
+					<Annotations Target="EmployeesNamespace.StringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="TXT">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Name"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Name"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY3"/>
+											<PropertyValue Property="ValueListProperty" String="KEY3"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterConstant">
+										  <PropertyValue Property="Constant" String="Automotive" />
+										  <PropertyValue Property="ValueListProperty" String="CategoryType" />
+									    </Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+						"Department": "Purchasing",
+						"Name": "1",
+						"LocalText": "Local Text",
+						"LOCALKEY2": "AAA",
+						"LOCALKEY3": "BBB",
+						"Id": "0001"
+					}
+				]
+		}}
+</script>
+
+	<script id="dataSectionVH" type="text/json">
+		{"d": {
+			"__count": "4",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0001')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "1",
+					"KEY2": "a",
+					"KEY3": "b",
+					"CategoryType": "11",
+					"TXT": "ValueList 1"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0002')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "2",
+					"KEY2": "d",
+					"KEY3": "e",
+					"CategoryType": "22",
+					"TXT": "ValueList 2"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0003')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "3",
+					"KEY2": "q",
+					"KEY3": "w",
+					"CategoryType": "33",
+					"TXT": "ValueList 3"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0004')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "4",
+					"KEY2": "x",
+					"KEY3": "z",
+					"CategoryType": "44",
+					"TXT": "ValueList 4"
+				}
+			]
+		}}
+</script>
+<script src="./CompoundKeys.js"></script>
+
+</head>
+
+<body class='sapUiBody'>
+<div id='content'></div>
+</body>
+</html>

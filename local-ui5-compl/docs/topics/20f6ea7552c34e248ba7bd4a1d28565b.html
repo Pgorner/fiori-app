@@ -1,0 +1,51 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio20f6ea7552c34e248ba7bd4a1d28565b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/troubleshooting-20f6ea7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Troubleshooting</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Troubleshooting</h2></div><section id="section_vzn_wkf_2fb">
+			<h2 class="title ">How do I get the new Logger module on the browser console?</h2>
+			<p><code>jQuery.sap.log</code> is currently still available and the module
+					<code>sap/base/Log</code> is not yet globally available. So, if a developer
+				wants to set a log level with the new module on the console, additional code is
+				required.</p>
+			<p>Old:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">jQuery.sap.log.setLevel(3);
+// OR
+jQuery.sap.log.setLevel(jQuery.sap.log.Level.INFO);</pre></div></div></section>
+			<p>New:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require("sap/base/Log").setLevel(3);
+// OR
+var Log = sap.ui.require("sap/base/Log"); Log.setLevel(Log.Level.INFO);</pre></div></div></section>
+		</section><section id="section_unv_wkf_2fb">
+			<h2 class="title ">How can I mock or spy the new modules?</h2>
+			<p>The new modules are no longer global. Spying or mocking them on <code>jQuery.sap.*</code>
+				does not work. The module has to be loaded with <code>sap.ui.require</code>:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/base/Log"],function(Log){
+
+    QUnit.test("My Test", function(assert) {
+
+        var oLogSpy = sinon.spy(Log, "warning");
+
+        ...
+
+        assert.equal(oLogSpy.callCount, 1, "Warning should be logged");
+
+        Log.warning.restore();
+
+    });
+
+});
+</pre></div></div></section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Some of the new modules were changed from objects to functions, for example
+						<code>sap/base/util/uid</code> and
+						<code>sap/base/strings/hash</code>. This means that the export of a
+					module is used for import into other modules. Each importing module has its own
+					reference to the original export. The test can change its own reference, but not
+					the reference that other modules have obtained already. The value of the
+					reference (the function), however, is always the same.</p>
+				<p>Until further testing capabilities are available, you should write the tests in a way that it
+					is not necessary to mock them, because they are used inside the actual API,
+					which should be tested instead.</p>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

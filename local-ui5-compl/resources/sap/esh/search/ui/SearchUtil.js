@@ -1,0 +1,8 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define([],function(){"use strict";const t="sapElisaSearchResultForwardEllipsis";function e(e){const s=t;if(e.textContent?.substring(0,3)==="..."&&e.classList.contains(s)&&e.dataset?.originalcontent?.substring(0,3)!=="..."){o(e,s)}const a=e?.querySelector("b");if(!a){return}const l=n(a);if(l){r(e,s);return}else{const t=a.parentElement;const n=document.createRange();n.setStartBefore(t.firstChild);n.setEndBefore(a);const o=n.toString().trim();if(o.length>0){i(e,s);const t=document.createTextNode("... ");n.deleteContents();n.insertNode(t)}else{r(e,s)}}}function n(t){if(!t){return false}const e=t.getBoundingClientRect();const n=["sapUshellSearchLinkLink","sapUshellSearchTextText"];let i=s(t,n);if(!i){i=t.parentElement}const o=i.getBoundingClientRect();const r=e.top<=o.top+1&&e.left>=o.left&&e.bottom<=o.bottom&&e.right<=o.right+1;return r}function s(t,e){let n=t;while(n){for(const t of e){if(n.classList.contains(t)){return n}}n=n.parentElement}return null}function i(t,e){if(!e||t.classList.contains(e)){return}t.classList.add(e);t.dataset.originalcontent=t.textContent;t.dataset.originalcontenthtml=t.innerHTML}function o(t,e){if(t.dataset.originalcontenthtml){t.innerHTML=t.dataset.originalcontenthtml}r(t,e)}function r(t,e){delete t.dataset.originalcontent;delete t.dataset.originalcontenthtml;if(e){t.classList.remove(e)}}var a={__esModule:true};a.SAP_ELISA_CLASSNAME_FORWARD_ELLIPSIS=t;a.forwardEllipsis4Whyfound=e;a.isElementVisible=n;a.findParentWithClass=s;a.preserveElement=i;a.restoreElement=o;a.removePreservedData=r;return a})})();
+//# sourceMappingURL=SearchUtil.js.map

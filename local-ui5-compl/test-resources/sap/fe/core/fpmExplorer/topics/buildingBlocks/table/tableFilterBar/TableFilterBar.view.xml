@@ -1,0 +1,27 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+	controllerName="sap.fe.core.fpmExplorer.tableFilterBar.TableFilterBar"
+>
+	<!--
+		The contextPath is set to "/RootEntity" - therefore all building blocks use a relative metaPath to "/RootEntity"
+	-->
+	<Page enableScrolling="true">
+		<Panel headerText="Table in Display Mode with FilterBar">
+			<macros:FilterBar metaPath="@com.sap.vocabularies.UI.v1.SelectionFields#SF1" id="FilterBar" />
+			<macros:Table
+				metaPath="@com.sap.vocabularies.UI.v1.LineItem"
+				readOnly="true"
+				id="LineItemTable"
+				filterBar="FilterBar"
+				initialLoad="true"
+			/>
+		</Panel>
+
+		<Panel headerText="Table in Display Mode with FilterBar liveMode=true">
+			<macros:FilterBar metaPath="@com.sap.vocabularies.UI.v1.SelectionFields#SF1" id="FilterBar2" liveMode="true" />
+			<macros:Table metaPath="@com.sap.vocabularies.UI.v1.LineItem" readOnly="true" id="LineItemTable2" filterBar="FilterBar2" />
+		</Panel>
+	</Page>
+</mvc:View>

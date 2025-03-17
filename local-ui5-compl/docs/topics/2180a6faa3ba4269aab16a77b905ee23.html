@@ -1,0 +1,161 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio2180a6faa3ba4269aab16a77b905ee23" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/smart-micro-chart-2180a6f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Smart Micro Chart</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Smart Micro Chart</h2></div><div class="shortdesc">The <code>sap.ui.comp.smartmicrochart.SmartMicroChart</code> control is used to
+		create different micro charts based on OData metadata.</div><p>For more information about this
+			control, see the <a href="api/sap.ui.comp.smartmicrochart.SmartMicroChart" title="api/sap.ui.comp.smartmicrochart.SmartMicroChart" class="sap-doc" alt="api/sap.ui.comp.smartmicrochart.SmartMicroChart">API Reference</a> and the <a href="entity/sap.ui.comp.smartmicrochart.SmartMicroChart" title="entity/sap.ui.comp.smartmicrochart.SmartMicroChart" class="sap-doc" alt="entity/sap.ui.comp.smartmicrochart.SmartMicroChart">Samples</a> in the Demo Kit.</p><section id="section_y4b_djc_wz">
+			<h2 class="title ">Overview</h2>
+			<p>The <code>SmartMicroChart</code> control analyzes the metadata document of an
+				OData service and renders a <code>MicroChart</code> control for a specified
+				entitySet. If no annotations or metadata are provided, the chart will not be
+				rendered.</p>
+			<p>According to the defined value in the <code>chartType</code> property of the
+					<span class="ph uicontrol">UI.Chart</span> annotation the corresponding
+					<code>MicroChart</code> control is rendered. Currently, the following chart
+				types are supported: </p>
+			<ul class="ul ">
+				<li class="li">
+					<p><span class="ph uicontrol">Area</span>
+							(<code>sap.ui.comp.smartmicrochart.SmartAreaMicroChart</code> will
+						be created) based on the <code>UI.ChartType</code>
+						<span class="ph uicontrol">Area</span> and <span class="ph uicontrol">Line</span>.</p>
+				</li>
+				<li class="li">
+					<p><span class="ph uicontrol">Bullet</span>
+							(<code>sap.ui.comp.smartmicrochart.SmartBulletMicroChart</code> will
+						be created) based on <code>UI.ChartType</code>
+						<span class="ph uicontrol">Bullet</span>.</p>
+				</li>
+				<li class="li">
+					<p><span class="ph uicontrol">Radial</span>
+							(<code>sap.ui.comp.smartmicrochart.SmartRadialMicroChart</code> will
+						be created) based on the <code>UI.ChartType</code>
+						<span class="ph uicontrol">Donut</span>.</p>
+				</li>
+			</ul>
+			<h2 class="title "></h2><h2 class="title ">
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>In case of a different <span class="ph uicontrol">UI.ChartType</span> is provided than the
+				mentioned above, the control does not render anything. The developer gets informed
+				with a log statement.</p></div></div>
+			<p>The metadata should be annotated with the <span class="ph uicontrol">UI.Chart</span> and the
+					<span class="ph uicontrol">UI.DataPoint</span> terms. Both terms need to annotate one and
+				the same entityType (see
+					also the <code>entitySet</code> property of the
+						<code>SmartMicroChart</code> control in the <a href="api/sap.ui.comp.smartmicrochart.SmartMicroChart" title="api/sap.ui.comp.smartmicrochart.SmartMicroChart" class="sap-doc" alt="api/sap.ui.comp.smartmicrochart.SmartMicroChart">API Reference</a>).</p>
+		</h2></section><section id="section_z4b_djc_wz"><h2 class="title ">Details</h2><section>
+				<h3 class="title ">Property handling</h3>
+				<p>All supported chart types of SmartMicroCharts need to handle the properties as
+					follows: </p>
+				<ul class="ul ">
+					<li class="li">
+						<p><span class="ph uicontrol">DataPoint</span> property of the
+								<span class="ph uicontrol">Chart</span> annotation should point to the
+								<span class="ph uicontrol">DataPoint</span> annotation. Example: </p>
+						<p>
+							</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Property="DataPoint" AnnotationPath="@UI.DataPoint#BulletChartDataPoint"&gt;</pre></div></div></section>
+						<p></p>
+						<p>In this example, the <code>BulletChartDataPoint</code> is the
+							qualifier of the <span class="ph uicontrol">DataPoint</span> annotation. </p>
+					</li>
+					<li class="li">
+						<p><span class="ph uicontrol">Measures</span> and <span class="ph uicontrol">Measure</span>
+							properties</p>
+						<p><span class="ph uicontrol">Measures</span> property of the
+								<span class="ph uicontrol">Chart</span> annotation and
+								<span class="ph uicontrol">Measure</span> property of the
+								<span class="ph uicontrol">MeasureAttributes</span> property of the
+								<span class="ph uicontrol">Chart</span> annotation should point at the same
+							property in the <code>entityType</code> (Revenue in the sample
+							below). Example:</p>
+						<p>
+							</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="ProductType" sap:label="Product Sales Data" sap:content-version="1"&gt;
+				&lt;Key&gt;
+					&lt;PropertyRef Name="Product" /&gt;
+				&lt;/Key&gt;
+				&lt;Property Name="Product" Type="Edm.String" /&gt;
+				&lt;Property Name="Revenue" Type="Edm.Decimal"/&gt;
+				&lt;Property Name="TargetRevenue" Type="Edm.Decimal"/&gt;
+				&lt;Property Name="ForecastRevenue" Type="Edm.Decimal"/&gt;
+				&lt;Property Name="Criticality" Type="Edm.String"/&gt;
+				&lt;Property Name="Currency" Type="Edm.String"/&gt;
+				&lt;Property Name="ChartTitle" Type="Edm.String"/&gt;
+				&lt;Property Name="ChartDescription" Type="Edm.String"/&gt;
+			&lt;/EntityType&gt;					</pre></div></div></section>
+						<p></p>
+						<p>
+							</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="BmcNamespace.ProductType" xmlns="http://docs.oasis-open.org/odata/ns/edm"&gt;
+				&lt;Annotation Term="UI.Chart"&gt;
+					&lt;Record&gt;
+						&lt;PropertyValue EnumMember="UI.ChartType/Bullet"
+							Property="ChartType" /&gt;
+						&lt;PropertyValue Property="Title" Path="ChartTitle" /&gt;
+						&lt;PropertyValue Property="Description" Path="ChartDescription" /&gt;
+						&lt;PropertyValue Property="Measures"&gt;
+							&lt;Collection&gt;
+								&lt;PropertyPath&gt;Revenue&lt;/PropertyPath&gt;
+							&lt;/Collection&gt;
+						&lt;/PropertyValue&gt;
+						&lt;PropertyValue Property="MeasureAttributes"&gt;
+							&lt;Collection&gt;
+								&lt;Record Type="UI.ChartMeasureAttributeType"&gt;
+									&lt;PropertyValue Property="Measure" PropertyPath="Revenue" /&gt;
+									&lt;PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" /&gt;
+									&lt;PropertyValue Property="DataPoint" AnnotationPath="@UI.DataPoint#BulletChartDataPoint" /&gt;
+								&lt;/Record&gt;
+							&lt;/Collection&gt;
+						&lt;/PropertyValue&gt;
+					&lt;/Record&gt;
+				&lt;/Annotation&gt;
+				&lt;Annotation Term="UI.DataPoint" Qualifier="BulletChartDataPoint"&gt;
+					&lt;Record&gt;
+						&lt;PropertyValue String="Product" Property="Title" /&gt;
+						&lt;PropertyValue Path="Revenue" Property="Value" /&gt;
+						&lt;PropertyValue Path="TargetRevenue" Property="TargetValue" /&gt;
+						&lt;PropertyValue Path="ForecastRevenue" Property="ForecastValue" /&gt;
+						&lt;PropertyValue Decimal="0" Property="MinimumValue" /&gt;
+						&lt;PropertyValue Decimal="200" Property="MaximumValue" /&gt;
+						&lt;PropertyValue Path="Criticality" Property="Criticality" /&gt;
+					&lt;/Record&gt;
+				&lt;/Annotation&gt;
+			&lt;/Annotations&gt;
+
+
+</pre></div></div></section>
+						<p></p>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The same <code>entityType</code> property should be used as a path
+							for the <code>Value</code> property of the
+								<span class="ph uicontrol">DataPoint</span> annotation.</p></div></div>
+					</li>
+				</ul>
+			</section><section>
+				<h3 class="title ">Qualifiers</h3>
+				<p>With the qualifier for the <span class="ph uicontrol">UI.Chart</span> annotation term, the
+					SmartMicroChart control can support multiple <span class="ph uicontrol">UI.Chart</span>
+					annotations for an OData service. Depending on the qualifiers, you can separate
+					these multiple annotations and handle the different OData Annotations in this
+					control.</p>
+				<p>You can provide the qualifier name through the
+					<code>CustomData</code>aggregation of the corresponding SmartMicroChart
+					control. A qualifier for <span class="ph uicontrol">UI.Chart</span> annotation with
+					Qualifier can look like this:
+					</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.Chart" Qualifier="BulletChartQualifier"&gt;</pre></div></div></section><p></p>
+				<p>The "BulletChartQualifier" string is the qualifier and can be any kind of string.
+					The SmartMicroChart control needs this string to find the corresponding
+					annotation. This is handled by providing the qualifier string as a custom data
+					on the control instance.
+					</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		&lt;SmartMicroChart id="smartChartBullet" entitySet="Products" enableAutoBinding="true" chartBindingPath="/Products('PC')" isResponsive="true"&gt;
+			&lt;customData&gt;
+			&lt;core:CustomData key="chartQualifier" value="BulletChartQualifier" /&gt;
+			&lt;/customData&gt;
+		&lt;/SmartMicroChart&gt;</pre></div></div></section><p></p>
+				<p>The custom data key is "chartQualifier". There are three different options
+					supported how custom data can be provided:</p>
+				<ul class="ul ">
+					<li class="li">as XML declaration</li>
+					<li class="li">by calling data function</li>
+					<li class="li">by calling addCustomData function</li>
+				</ul>
+			</section></section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/b28959d6cbf6429980da065e990edb06">Smart Bullet Micro Chart</a></li><li><a href="topic/283cdca9709e4c4ebfa8f2324da371f9">Smart Area Micro Chart</a></li><li><a href="topic/f8b31037ea284ef6a5a85c55762461b2">Smart Radial Micro Chart</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,234 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio62d9c4d8f5ad49aa914624af9551beb7" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/frame-options-62d9c4d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Frame Options</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Frame Options</h2></div><div class="shortdesc">The <code>frame-options</code> configuration of SAPUI5 is a client-side
+		feature that is used to prevent security vulnerabilities like clickjacking, that is, situations where a user could be misled to use the
+		targeted application unintentionally.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>SAPUI5's <code>frame-options</code> configuration is
+					<span class="emphasis">not</span> the same as the <code>X-Frame-Options</code> HTTP response header.</p>
+			<p><span class="emphasis">SAPUI5's <code>frame-options</code></span> is a front-end
+				JavaScript feature that supports all browsers in the UI5 compatibility list. When set to <code>"deny"</code> or
+					<code>"trusted"</code>, it places an invisible block layer over the page, preventing user interaction by disabling event
+				propagation, e.g. for mouse and keyboard events. However, the page content remains visible.</p>
+			<p>In contrast, the <span class="emphasis"><code>X-Frame-Options</code> header</span> is a back-end feature sent via HTTP response headers. It prevents
+				the page from loading at the browser level if framing is not allowed. Although it supports <code>DENY</code> and
+					<code>SAMEORIGIN</code>, it lacks comprehensive support for <code>ALLOW-FROM</code>, which is now deprecated in most
+				browsers. This header must be set by the back end and may not be fully supported by all browsers.</p>
+			<p>Additionally, the more recent <span class="emphasis">Content-Security-Policy (CSP) header</span>, also sent by the back end, includes the
+					<code>frame-ancestors</code> directive, which provides better control over trusted sites and should be preferred over
+					<code>X-Frame-Options</code> for embedding restrictions.</p>
+		<p></p></div></div><p>SAPUI5 provides the following configuration options for
+				<code>frame-options</code> to specify whether the target application is allowed to be used if it's embedded in a separate
+			frame:</p><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_h2h_b3r_2r" class=" "><thead>
+				<tr><th colspan="1" rowspan="1">
+					<p>Mode</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Default</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Description</p>
+				</th>
+			</tr></thead><tbody><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>"allow"</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>X</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Allows interaction with the application regardless of the origin of the parent frame.</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>"deny"</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>
+				</p></td>
+				<td colspan="1" rowspan="1">
+					<p>Denies interaction with the application.</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>"trusted"</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>
+				</p></td>
+				<td colspan="1" rowspan="1">
+					<p>Allows interaction only if the application is embedded from trusted origins according to the same-origin policy and from origins allowed by
+						the allowlist service.</p>
+				</td>
+			</tr></tbody></table></div></div><p>With <code>frame-options-config</code> the following additional configuration options can be set:</p><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_dk2_43r_2r" class=" "><thead>
+				<tr><th colspan="1" rowspan="1">
+					<p>Parameter</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Type</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Default</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Description</p>
+				</th>
+			</tr></thead><tbody><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>callback</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>function(bSuccess)</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>
+				</p></td>
+				<td colspan="1" rowspan="1">
+					<p>Function that is called with the success state.</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The function can be synchronously called from the SAPUI5
+							bootstrap script. The DOM (<code>document.body</code>) may not be
+							accessible.</p>
+					<p></p></div></div>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>timeout</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>number</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>10000</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>After the delay, the page remains blocked and the provided callback is invoked (milliseconds).</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>blockEvents</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>boolean</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>true</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Defines whether keyboard, mouse, and touch events are blocked.</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>showBlockLayer</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>boolean</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>true</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Defines whether an invisible block layer is rendered to prevent interaction with the UI.</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>allowSameOrigin</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>boolean</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>true</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Defines whether same origin domains are allowed.</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>allowlist</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p><code>string[]</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>
+				</p></td>
+				<td colspan="1" rowspan="1">
+					<p>Contains the domain allowlist, for example <code>[".example.com"]</code>, <code>["hana.ondemand.com"]</code>.</p>
+				</td>
+			</tr></tbody></table></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>The <code>frame-options-config</code> cannot be set via URL. Wildcards are not supported.</p>
+		<p></p></div></div><section>
+			<h2 class="title ">Example: <code>"deny"</code></h2>
+			<p>If the application is not intended to run in a frame, set <code>frame-options</code> to <code>"deny"</code>:</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id="sap-ui-bootstrap"
+    src="resources/sap-ui-core.js"
+    data-sap-ui-frame-options="deny"
+    data-sap-ui-...="..."&gt;
+&lt;/script&gt;</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Example: <code>"trusted"</code> with <code>callback</code>
+			</h2>
+			<p>To restrict the embedding to same-origin domains, set <code>frame-options</code> to <code>trusted</code>. The <code>callback</code>
+				in the following code sample is called with a boolean as success state and can be used to implement an application-specific
+				behavior.</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script&gt;
+globalThis["sap-ui-config"] = {
+    "frame-options": "trusted",
+    "frame-options-config": {
+        callback: function(bSuccess) {
+            if (bSuccess) {
+                alert("App is allowed to run!");
+            } else {
+                alert("App is not allowed to run!");
+            }
+        }
+    }
+};
+&lt;/script&gt;
+&lt;script id="sap-ui-bootstrap"
+    src="resources/sap-ui-core.js"
+    data-...="..."&gt;
+&lt;/script&gt;</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Example: Allowlist Service</h2>
+			<p>To allow that the SAPUI5 application is embedded in cross-origin domains, configure
+				an allowlist service. The allowlist service checks whether the application can run in the parent origin, or not.</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script&gt;
+globalThis["sap-ui-config"] = {
+    "allowlist-service": "url/to/allowlist/service",
+    "frame-options": "trusted",
+    "frame-options-config": {
+        callback: function(bSuccess) {
+            if (bSuccess) {
+                alert("App is allowed to run!");
+            } else {
+                alert("App is not allowed to run!");
+            }
+        }
+    }
+};
+&lt;/script&gt;
+&lt;script id="sap-ui-bootstrap"
+    src="resources/sap-ui-core.js"
+    data-...="..."&gt;
+&lt;/script&gt;</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Example: Allowlist Service via <code>&lt;meta&gt;</code> Tag</h2>
+			<p>Alternatively, a <code>&lt;meta&gt;</code> tag can be used to configure the <code>sap-allowlist-service</code> and set the
+					<code>sap-ui-frame-options</code> to <code>"trusted"</code>. This only applies if the <code>allowlist-service</code>
+				or <code>frame-options</code> configuration is not set otherwise according to the <a href="topic/91f08de06f4d1014b6dd926db0e91070" title="SAPUI5 provides several options for the configuration of the SAPUI5 runtime. The possible ways to provide input for the available configuration options are described in detail." class="sap-doc">Configuration of the SAPUI5 Runtime</a>.</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;meta name="sap-allowlist-service" content="url/to/allowlist/service" /&gt;
+&lt;script  id="sap-ui-bootstrap"
+    src="resources/sap-ui-core.js"
+    data-...="..."&gt;
+&lt;/script&gt;</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/d04a6d41480c4396af16b5d2b25509ec" title="SAPUI5 supports the configuration of a central allowlist service." class="sap-doc">Allowlist Service</a></li>
+		<li><a href="topic/91f2d03b6f4d1014b6dd926db0e91070" title="The following tables show available configuration options." class="sap-doc">Configuration Options and URL Parameters</a></li>
+	</ul></section></div></section></div></body></html>

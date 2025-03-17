@@ -1,0 +1,115 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.customSubSectionContent",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/customSubSectionContent/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleUrl": "i18n/i18n.properties"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleUrl": "i18n/i18n.properties"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": "/RootEntity({key}):?query:",
+					"name": "default",
+					"target": "sample"
+				}
+			],
+			"targets": {
+				"sample": {
+					"type": "Component",
+					"id": "Default",
+					"name": "sap.fe.templates.ObjectPage",
+					"viewLevel": 1,
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"content": {
+								"body": {
+									"sections": {
+										"ReferenceFacet1": {
+											"subSections": {
+												"customSubSection1": {
+													"type": "XMLFragment",
+													"template": "sap.fe.core.fpmExplorer.customSubSectionContent.CustomSubSection1",
+													"title": "Custom Subsection 1"
+												}
+											}
+										},
+										"CollectionFacet2": {
+											"subSections": {
+												"customSubSection2": {
+													"type": "XMLFragment",
+													"template": "sap.fe.core.fpmExplorer.customSubSectionContent.CustomSubSection2",
+													"title": "Custom Subsection 2"
+												}
+											}
+										},
+										"CollectionFacet3": {
+											"subSections": {
+												"customSubSection3_2": {
+													"type": "XMLFragment",
+													"template": "sap.fe.core.fpmExplorer.customSubSectionContent.CustomSubSection3",
+													"title": "Custom Subsection 3_2"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

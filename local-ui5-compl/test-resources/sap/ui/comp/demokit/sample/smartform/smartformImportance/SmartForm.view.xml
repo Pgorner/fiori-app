@@ -1,0 +1,63 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:smartForm="sap.ui.comp.smartform"
+	xmlns:smartField="sap.ui.comp.smartfield"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	controllerName="sap.ui.comp.sample.smartform.smartformImportance.SmartForm"
+	height="100%">
+
+		<smartForm:SmartForm id="smartformImportance"
+			editTogglable="true" title="{Name}" editable="true"
+			validationMode="Async"
+			editToggled="handleEditToggled">
+			<smartForm:layout>
+				<smartForm:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+			</smartForm:layout>
+			<smartForm:Group title="SmartFields with High importance">
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{ProductId}" importance="High" />
+				</smartForm:GroupElement>
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{SupplierName}" />
+				</smartForm:GroupElement>
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{Category}" importance="High" visible="false"/>
+				</smartForm:GroupElement>
+			</smartForm:Group>
+			<smartForm:Group  title="SmartFields with Medium importance">
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{Name}" importance="Medium"/>
+				</smartForm:GroupElement>
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{Status}" />
+				</smartForm:GroupElement>
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{Price}" />
+				</smartForm:GroupElement>
+			</smartForm:Group>
+			<smartForm:Group  title="SmartFields with Low importance">
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{Description}" importance="Low"/>
+				</smartForm:GroupElement>
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{Quantity}" />
+				</smartForm:GroupElement>
+				<smartForm:GroupElement>
+					<smartField:SmartField value="{ProductPicUrl}" />
+				</smartForm:GroupElement>
+			</smartForm:Group>
+		</smartForm:SmartForm>
+		<VBox class="sapUiSmallMarginBegin">
+			<Text text="Set SmartForm importance property:" />
+			<SegmentedButton selectedKey="low" selectionChange="onSelectionChange">
+				<items>
+					<SegmentedButtonItem text="High" />
+					<SegmentedButtonItem text="Medium" />
+					<SegmentedButtonItem text="Low" key="low"/>
+				</items>
+			</SegmentedButton>
+		</VBox>
+</mvc:View>

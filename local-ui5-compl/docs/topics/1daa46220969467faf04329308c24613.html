@@ -1,0 +1,375 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio1daa46220969467faf04329308c24613" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-5-smart-filter-bar-and-smart-table-1daa462.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 5: Smart Filter Bar and Smart Table</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 5: Smart Filter Bar and Smart Table</h2></div><div class="shortdesc"> In this step, we will look at the <code>SmartTable</code> control along with the
+			<code>SmartFilterBar</code> control that allow you to filter table
+		entries.</div><p> In the context of <code>SmartTable</code>, there are several central features that
+			can be activated:</p><ul class="ul ">
+				<li class="li">
+					<p>Table personalization</p>
+				</li>
+				<li class="li">
+					<p>View management with the <code>VariantManagement</code> control</p>
+				</li>
+				<li class="li">
+					<p>Export to Microsoft Excel</p>
+				</li>
+			</ul><p></p><p>In this step, we will look at <code>SmartTable</code> without table personalization
+			or view management. These will be treated as separate steps. In addition, we will first
+			focus on <code>SmartTable</code> with <code>sap.m.Table</code> as the underlying
+			table type. This table type is best suited for a responsive behavior and is even
+			designed to be used on a smart phone or a tablet.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio928338e25ba842899be9ec56816fa36c_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Initial Look of the Smart Filter Bar and the Smart Table, and the Results of
+					Firing the Query </h2></span></div>
+			<p>When choosing the <span class="ph uicontrol">Filters</span> link, you see a popup:</p>
+			<div><div class="fig"><img src="loio3e467eda8cb4484094dbf2f443dbaad7_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "> Dialog for Changing the Filter Values and Defining the Fields Displayed in
+					the Filter Bar</h2></span></div>
+			<p>You can now select <span class="ph uicontrol">Currency</span> as an additional field in the
+				filter bar of the first dialog.</p>
+			<p>After selecting this additional field, we return to the table with the filter bar
+				again and can use the value help for the newly added <span class="ph uicontrol">Currency</span>
+				field to restrict the results to those with <span class="ph uicontrol">Currency = "EUR"</span>.
+				Firing the query with this restriction, we see fewer results:</p>
+			<div><div class="fig"><img src="loio7f96bdad2b3448ab943a31f016f205b0_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Query "EUR" Applied</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.05" title="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.05" class="sap-doc" alt="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.05">Smart Controls - Step 5 - Smart Filter Bar
+						and Smart Table</a>.</p>
+		</section><section>
+			<h2 class="title ">SmartTable.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="sap.ui.demo.smartControls.SmartTable"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"&gt;
+	&lt;smartFilterBar:SmartFilterBar 
+		id="smartFilterBar"
+		entitySet="Products"&gt;
+		&lt;smartFilterBar:controlConfiguration&gt;
+			&lt;smartFilterBar:ControlConfiguration
+				key="Category" visibleInAdvancedArea="true"
+				preventInitialDataFetchInValueHelpDialog="false"&gt;
+			&lt;/smartFilterBar:ControlConfiguration&gt;
+		&lt;/smartFilterBar:controlConfiguration&gt;
+	&lt;/smartFilterBar:SmartFilterBar&gt;
+	&lt;smartTable:SmartTable 
+		id="smartTable_ResponsiveTable"
+		smartFilterId="smartFilterBar" 
+		tableType="ResponsiveTable" 
+		editable="false"
+		entitySet="Products" 
+		useVariantManagement="false"
+		useTablePersonalisation="false" 
+		header="Products" 
+		showRowCount="true"
+		enableExport="false" 
+		enableAutoBinding="true"&gt;
+	&lt;/smartTable:SmartTable&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We see that two new controls have been added to the <code>view.xml</code>. In the
+					<code>SmartFilterBar</code> control we refer to an
+					<code>entityType</code> which we will see later in
+					<code>metadata.xml</code>. With the <code>ControlConfiguration</code>
+				element that is added to the <code>controlConfiguration</code> aggregation of
+					<code>SmartFilterBar</code>, we include the <code>Category</code> field
+				in
+				the
+				filter bar. This is the area that can be hidden (or shown) using the toolbar
+					<span class="ph uicontrol">Hide Filter Bar</span>. We set the
+					<code>preventInitialDataFetchInValueHelpDialog</code> property to
+					<code>false</code> for an automatic execution of the query and thus showing
+				of the results as soon as you open the value help. For <code>SmartTable</code>
+				we define a few properties, some of which deserve special attention:</p><ul class="ul ">
+					<li class="li">
+						<p><code>smartFilterId="smartFilterBar"</code></p>
+						<p>Ensures that the <code>SmartTable</code> can consume the
+								<code>FilterBar</code> and the filter values defined there</p>
+					</li>
+					<li class="li">
+						<p><code>tableType="ResponsiveTable"</code></p>
+						<p>Defines the underlying table as responsive (technically, it is an
+								<code>sap.m.Table</code>)</p>
+					</li>
+					<li class="li">
+						<p><code>useVariantManagement="false"</code></p>
+						<p>We will treat the case <code>true</code> in a later step.</p>
+					</li>
+					<li class="li">
+						<p><code>useTablePersonalisation="false"</code></p>
+						<p>We will treat the case <code>true</code> in a later step.</p>
+					</li>
+					<li class="li">
+						<p><code>header="Products"</code></p>
+						<p>Specifies the title for the table to be shown</p>
+					</li>
+					<li class="li">
+						<p><code>showRowCount="true"</code></p>
+						<p>Specifies that the number of products appears after the title. In order
+							for this count to work, the <code>SmartTable</code> needs to do the
+							binding internally, which will be the case if either
+								<code>smartFilterId</code> is specified or
+								<code>enableAutoBinding</code> is set to <code>true</code>
+							(see below).</p>
+					</li>
+					<li class="li">
+						<p><code>enableExport="false"</code></p>
+						<p>Offers an export to Microsoft Excel. In our case, we must set this value to
+								<code>false</code> since the mock server does not support the
+							proper format needed for such an export.</p>
+					</li>
+					<li class="li">
+						<p><code>enableAutoBinding="true"</code></p>
+						<p>Defines whether the query is fired automatically initially, so
+								<code>false</code> would mean the user must press
+								<span class="ph uicontrol">Go</span> to see any results in the table.</p>
+					</li>
+				</ul><p></p>
+		</section><section>
+			<h2 class="title ">SmartTable.controller.js </h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function(Controller) {
+	"use strict";
+	return Controller.extend("sap.ui.demo.smartControls.SmartTable");
+});</pre></div></div></section>
+			<p>We notice that because the <code>enableAutoBinding</code> property has aready
+				been set in the <code>view.xml</code>, we don't have to do any binding in the
+				controller.</p>
+		</section><section>
+			<h2 class="title ">metadata.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData"&gt;
+	&lt;edmx:DataServices m:DataServiceVersion="2.0"&gt;
+		&lt;Schema Namespace="com.sap.wt05" 
+			sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm"&gt;
+			&lt;EntityType Name="Product"&gt;
+				&lt;Key&gt;
+					&lt;PropertyRef Name="ProductId" /&gt;
+				&lt;/Key&gt;
+				&lt;Property Name="ProductId" Type="Edm.String"
+					sap:filterable="false" /&gt;
+				&lt;Property Name="Name" Type="Edm.String" MaxLength="30"
+					sap:label="Name" sap:filterable="false" /&gt;
+				&lt;Property Name="Category" Type="Edm.String" sap:label="Category"
+					sap:filterable="true" /&gt;
+				&lt;Property Name="Price" Type="Edm.String" sap:unit="CurrencyCode"
+					MaxLength="3" sap:label="Price" sap:filterable="false" /&gt;
+				&lt;Property Name="CurrencyCode" Type="Edm.String" MaxLength="3"
+					sap:label="Currency" sap:semantics="currency-code" sap:filterable="true" /&gt;
+			&lt;/EntityType&gt;
+			&lt;EntityType Name="Currency"&gt;
+				&lt;Key&gt;
+					&lt;PropertyRef Name="CURR" /&gt;
+				&lt;/Key&gt;
+				&lt;Property Name="CURR" Type="Edm.String" MaxLength="4"
+					sap:display-format="UpperCase" sap:text="DESCR" sap:label="Currency Code"
+					sap:filterable="false" /&gt;
+				&lt;Property Name="DESCR" Type="Edm.String" MaxLength="25"
+					sap:label="Description" /&gt;
+			&lt;/EntityType&gt;
+			&lt;EntityType Name="Category"&gt;
+				&lt;Key&gt;
+					&lt;PropertyRef Name="CAT" /&gt;
+				&lt;/Key&gt;
+				&lt;Property Name="CAT" Type="Edm.String" MaxLength="4"
+					sap:display-format="UpperCase" sap:text="DESCR" sap:label="Category"
+					sap:filterable="false" /&gt;
+				&lt;Property Name="DESCR" Type="Edm.String" MaxLength="25"
+					sap:label="Description" /&gt;
+			&lt;/EntityType&gt;
+			&lt;EntityContainer m:IsDefaultEntityContainer="true"
+				sap:supported-formats="atom json"&gt;
+				&lt;EntitySet Name="Products" EntityType="com.sap.wt05.Product" /&gt;
+				&lt;EntitySet Name="Currency" EntityType="com.sap.wt05.Currency" /&gt;
+				&lt;EntitySet Name="Category" EntityType="com.sap.wt05.Category" /&gt;
+			&lt;/EntityContainer&gt;
+			&lt;Annotations Target="com.sap.wt05.Product/CurrencyCode"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm"&gt;
+				&lt;Annotation Term="com.sap.vocabularies.Common.v1.ValueList"&gt;
+					&lt;Record&gt;
+						&lt;PropertyValue Property="Label" String="Currency" /&gt;
+						&lt;PropertyValue Property="CollectionPath" String="Currency" /&gt;
+						&lt;PropertyValue Property="SearchSupported" Bool="true" /&gt;
+						&lt;PropertyValue Property="Parameters"&gt;
+							&lt;Collection&gt;
+								&lt;Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut"&gt;
+									&lt;PropertyValue Property="LocalDataProperty"
+										PropertyPath="CurrencyCode" /&gt;
+									&lt;PropertyValue Property="ValueListProperty"
+										String="CURR" /&gt;
+								&lt;/Record&gt;
+								&lt;Record
+									Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly"&gt;
+									&lt;PropertyValue Property="ValueListProperty"
+										String="DESCR" /&gt;
+								&lt;/Record&gt;
+							&lt;/Collection&gt;
+						&lt;/PropertyValue&gt;
+					&lt;/Record&gt;
+				&lt;/Annotation&gt;
+			&lt;/Annotations&gt;
+			&lt;Annotations Target="com.sap.wt05.Product/Category"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm"&gt;
+				&lt;Annotation Term="com.sap.vocabularies.Common.v1.ValueList"&gt;
+					&lt;Record&gt;
+						&lt;PropertyValue Property="Label" String="Category" /&gt;
+						&lt;PropertyValue Property="CollectionPath" String="Category" /&gt;
+						&lt;PropertyValue Property="SearchSupported" Bool="true" /&gt;
+						&lt;PropertyValue Property="Parameters"&gt;
+							&lt;Collection&gt;
+								&lt;Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut"&gt;
+									&lt;PropertyValue Property="LocalDataProperty"
+										PropertyPath="Category" /&gt;
+									&lt;PropertyValue Property="ValueListProperty"
+										String="CAT" /&gt;
+								&lt;/Record&gt;
+								&lt;Record
+									Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly"&gt;
+									&lt;PropertyValue Property="ValueListProperty"
+										String="DESCR" /&gt;
+								&lt;/Record&gt;
+							&lt;/Collection&gt;
+						&lt;/PropertyValue&gt;
+					&lt;/Record&gt;
+				&lt;/Annotation&gt;
+			&lt;/Annotations&gt;
+			&lt;Annotations Target="com.sap.wt05.Product"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm"&gt;
+				&lt;Annotation Term="com.sap.vocabularies.UI.v1.LineItem"&gt;
+					&lt;Collection&gt;
+						&lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+							&lt;PropertyValue Property="Value" Path="ProductId" /&gt;
+						&lt;/Record&gt;
+						&lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+							&lt;PropertyValue Property="Value" Path="Price" /&gt;
+						&lt;/Record&gt;
+						&lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+							&lt;PropertyValue Property="Value" Path="Name" /&gt;
+						&lt;/Record&gt;
+						&lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+							&lt;PropertyValue Property="Value" Path="Category" /&gt;
+						&lt;/Record&gt;
+					&lt;/Collection&gt;
+				&lt;/Annotation&gt;
+			&lt;/Annotations&gt;
+		&lt;/Schema&gt;
+	&lt;/edmx:DataServices&gt;
+&lt;/edmx:Edmx&gt;						</pre></div></div></section>
+			<p>The <code>LineItem</code> annotation used here defines the columns that are
+				created in the table. Only records defined in this annotation are created as table
+				columns. Apart from this annotation, we have seen the remaining part before: We have
+				two <code>ValueList</code> annotations that trigger a value help to be created
+				for the associated fields, in our case the <code>CurrencyCode</code> and the
+					<code>Category</code>. For <code>EntityType Name="Product"</code>, we
+				have defined two fields as filterable. These are the two fields on which you can
+				filter (and that are then also available as filter fields for table personalization
+				as we will see in the next step). For <code>EntityType Name="Currency"</code>,
+				we have only defined the description to be filterable to ensure that we only see the
+				description field as search field and not the <code>CurrencyCode</code> field.
+				The same applies to <code>EntityType Name="Category"</code>.</p>
+		</section><section>
+			<h2 class="title ">Category.json </h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">[{
+	"CAT": "PRO",
+	"DESCR": "Projector"
+},
+{	
+	"CAT": "GCD",
+	"DESCR": "Graphics Card"
+},
+{
+	"CAT": "ACC",
+	"DESCR": "Accessory"
+},
+{
+	"CAT": "PRI",
+	"DESCR": "Printer"
+},
+{
+	"CAT": "MON",
+	"DESCR": "Monitor"
+},
+{
+	"CAT": "LAP",
+	"DESCR": "Laptop"
+},
+{
+	"CAT": "KBD",
+	"DESCR": "Keyboard"
+}]</pre></div></div></section>
+			<p>This JSON file defines the possible value of the <code>Category</code>.</p>
+		</section><section>
+			<h2 class="title ">Currency.json</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">[{
+	"CURR": "EUR",
+	"DESCR": "European Euro"
+},
+{
+	"CURR": "USD",
+	"DESCR": "United States Dollar"
+},
+{
+	"CURR": "GBP",
+	"DESCR": "British Pound"
+},
+{
+	"CURR": "DKK",
+	"DESCR": "Danish Krone"
+},
+{
+	"CURR": "INR",
+	"DESCR": "Indian Rupee"
+},
+{
+	"CURR": "NOK",
+	"DESCR": "Norwegian Krone"
+},
+{
+	"CURR": "SEK",
+	"DESCR": "Swedish Krona"
+},
+{
+	"CURR": "CHF",
+	"DESCR": "Swiss Franc"
+}]</pre></div></div></section>
+			<p>This JSON file defines the possible value of the <code>CurrencyCode</code>, the
+				same values we saw in step 2.</p>
+		</section><section>
+			<h2 class="title ">Products.json</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">[
+  {
+	"ProductId": "1239102",
+	"Name": "Power Projector 4713",
+	"Category": "Projector",
+	"SupplierName": "Titanium",
+	"Description": "A very powerful projector with special features for Internet usability, USB",
+	"WeightMeasure": 1467,
+	"WeightUnit": "g",
+	"Price": 856.49,
+	"CurrencyCode": "INR",
+	"Status": "Available",
+	"Quantity": 3,
+	"UoM": "PC",
+	"Width": 51,
+	"Depth": 42,
+	"Height": 18,
+	"DimUnit": "cm"
+  },
+.
+.
+.
+]</pre></div></div></section>
+			<p>We have only listed a part of the <code>Products.json</code> entries since the
+				actual values are not so relevant. Please note that for your convenience we have
+				included additional properties in this file to make it easier to experiment with
+				changes to the <code>metadata.xml</code>, and possibly of the
+					<code>view.xml</code>, to allow for a more hands-on experience.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/64bde9a8879d4f418e2849f7285dd757">Smart Controls Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/f712d30f9e2d4abd9670263f89542f2b">Step 4: Smart Form</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/19531496ec144fa1bc4adab5bc08527c">Step 6: Table Personalization</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/7bcdffc056a94731b4341db73251e32b" title="The sap.ui.comp.smartfilterbar.SmartFilterBar control analyzes the $metadata document of an OData service and renders a FilterBar control that can be used to filter, for example, a table or a chart." class="sap-doc">Smart Filter Bar</a></li>
+		<li><a href="topic/bed8274140d04fc0b9bcb2db42d8bac2" title="The sap.ui.comp.smarttable.SmartTable control is used to create different types of tables based on OData V2 metadata. The control allows users to use a number of built-in features, such as personalized table settings with sorting and filtering options, the calculation of column widths, column header menus, and a document export." class="sap-doc">Smart Table</a></li>
+	</ul></section></div></section></div></body></html>

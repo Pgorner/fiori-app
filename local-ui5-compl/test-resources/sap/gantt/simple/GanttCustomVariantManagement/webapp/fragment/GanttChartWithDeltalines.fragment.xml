@@ -1,0 +1,81 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.table"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:axistime="sap.gantt.axistime"
+	xmlns:config="sap.gantt.config"
+	xmlns:gantt="sap.gantt.simple"
+    xmlns:shapes="sap.gantt.simple.shapes"
+     xmlns:rm="sap.ui.table.rowmodes">
+    <gantt:GanttChartWithTable id="ganttChartDelta" adhocLineLayer="Bottom" shapeSelectionMode = "Single">
+        <gantt:deltaLines>
+            <gantt:DeltaLine stroke="@sapUiLegend13" strokeDasharray="5, 2" timeStamp="20200301000000" endTimeStamp="20200401000000"/>
+        </gantt:deltaLines>
+        <gantt:axisTimeStrategy>
+            <axistime:ProportionZoomStrategy id="Zoom1">
+                <axistime:totalHorizon>
+                    <config:TimeHorizon startTime="20191201000000" endTime="20201031000000"/>
+                </axistime:totalHorizon>
+                <axistime:visibleHorizon>
+                    <config:TimeHorizon startTime="20200101000000" endTime="20200731000000"/>
+                </axistime:visibleHorizon>
+            </axistime:ProportionZoomStrategy>
+        </gantt:axisTimeStrategy>
+		<gantt:table>
+			<TreeTable id="ganttTreeTableDelta"
+				 selectionMode="Single" selectionBehavior="RowSelector"
+                enableColumnReordering="true" rows="{ path: 'data>/root', parameters: { arrayNames: ['nodes'], numberOfExpandedLevels: 1 } }">
+				<extension>
+					<m:OverflowToolbar>
+						<m:content>
+                            <m:Button icon="sap-icon://expand-all" type="Transparent" press="handleExpandShape"/>
+                            <m:Button icon="sap-icon://collapse-all" type="Transparent" press="handleCollapseShape"/>
+                            <m:DatePicker id="adhocLine1" width="200px" displayFormat="yyyy-MM-dd" valueFormat="yyyyMMddHHmmss"/>
+                        </m:content>
+					</m:OverflowToolbar>
+				</extension>
+                <rowMode>
+                    <rm:Auto minRowCount="12"/>
+                </rowMode>
+                <columns>
+                    <Column id="Column01" sortProperty="ProjectElemID" filterProperty="ProjectElemID" autoResizable="true" defaultFilterOperator="EQ">
+                        <m:Text text="ID"/>
+                        <template>
+                            <m:Label text="{data>ProjectElemID}"/>
+                        </template>
+                    </Column>
+                    <Column id="Column11" sortProperty="ObjectName" filterProperty="ObjectName" autoResizable="true">
+                        <m:Text text="Object Name"/>
+                        <template>
+                            <m:Label text="{data>ObjectName}"/>
+                        </template>
+                    </Column>
+                    <Column id="Column21" sortProperty="Percentage" filterProperty="Percentage" autoResizable="true" defaultFilterOperator="EQ">
+                        <m:Text text="Percentage"/>
+                        <template>
+                            <m:Label text="{data>Percentage}"/>
+                        </template>
+                    </Column>
+                    <Column id="Column31" sortProperty="Description" filterProperty="Description" autoResizable="true" visible="{= ${view>/isDescriptionVisible}}">
+                        <m:Text text="Description"/>
+                        <template>
+                            <m:Label text="{data>Description}"/>
+                        </template>
+                    </Column>
+                </columns>
+				<rowSettingsTemplate>
+					<gantt:GanttRowSettings rowId="{id}" shapes1="{path: 'data>task', templateShareable:false}"
+                        shapes2="{path: 'data>subtask', templateShareable:false}">
+                        <gantt:shapes1>
+                            <shapes:Task time="{path: 'data>startTime', formatter: '.fnTimeConverter'}" endTime="{path: 'data>endTime', formatter: '.fnTimeConverter'}"
+                                type="SummaryExpanded" color="sapUiAccent5" countInBirdEye="true"/>
+                        </gantt:shapes1>
+                        <gantt:shapes2>
+                            <shapes:Task time="{path: 'data>startTime', formatter: '.fnTimeConverter'}" endTime="{path: 'data>endTime', formatter: '.fnTimeConverter'}" countInBirdEye="true"/>
+                        </gantt:shapes2>
+                    </gantt:GanttRowSettings>
+				</rowSettingsTemplate>
+			</TreeTable>
+		</gantt:table>
+	</gantt:GanttChartWithTable>
+</core:FragmentDefinition>

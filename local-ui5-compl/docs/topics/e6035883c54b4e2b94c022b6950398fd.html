@@ -1,0 +1,205 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioe6035883c54b4e2b94c022b6950398fd" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/features-e603588.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Features</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Features</h2></div><section id="section_uwc_fms_w3b">
+			<h2 class="title ">Refresh Data Object</h2>
+			<p>The refresh data object feature reads the attributes of the data object and
+				automatically fetches the predefined result attributes.</p>
+		</section><section id="section_y23_kms_w3b">
+			<h2 class="title ">Access Modes</h2>
+			<p>The access modes provided to the value in the text rule settings should be either
+					<code>Editable</code> or <code>Hidden</code>.</p><ul class="ul ">
+					<li class="li">The hidden access sets that default value to the attribute of data object in
+						text rule, where it gets hidden from the text rule. The default value is
+							<code>mandatory</code>.</li>
+					<li class="li">The editable access sets that default value to the new entries of data
+						object which is created after the settings are applied and new
+							<code>else</code> block is created. The default value is
+							<code>optional</code>. When the result data object changes, by
+						default all the attributes will have the access mode as
+							<code>Editable</code> with no default value.</li>
+				</ul><p></p>
+		</section><section id="section_f4c_3ms_w3b">
+			<h2 class="title ">Operations</h2>
+			<p>You can model a text rule without a result data object too. This type of text rule
+				lets you perform operations on existing data objects or its attributes and is
+				supported only in expression language 2.0. You can also add multiple result
+				operations in a text rule. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Select <span class="ph uicontrol">No Default Result</span> as the text rule result to
+						perform the operations.</p>
+				<p></p></div></div><p></p>
+			<p>To view the list of operations that can be performed on any data object or attribute
+				of your project, press <span class="keys">
+					<span class="keyWrap"><kbd class="key">CTRL</kbd></span>
+					<span class="keyWrap"><kbd class="key">SPACE</kbd></span>
+				</span> in the <span class="ph uicontrol">Then</span> field of your text rule.</p>
+			<p><span class="emphasis">List of Operations:</span></p><div class="tableWrapper "><div class="fig"><table border="1" id="table_a13_1fj_w3b" class=" ">
+						
+						
+						
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">Operation</th>
+								<th colspan="1" rowspan="1">Syntax</th>
+								<th colspan="1" rowspan="1">Input</th>
+								<th colspan="1" rowspan="1">Description</th>
+								<th colspan="1" rowspan="1">Example</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="2">Update</td>
+								<td colspan="1" rowspan="2"><span class="ph uicontrol">UPDATE</span>(<code>&lt;Target&gt;,
+										&lt;Source&gt;</code>)</td>
+								<td colspan="1" rowspan="1"><code>Target Entity</code></td>
+								<td colspan="1" rowspan="1">The target data object or attribute that should be updated as
+									per the value of the <code>Source Entity</code> or
+										<code>Expression</code>.</td>
+								<td colspan="1" rowspan="2">
+									<p><span class="ph uicontrol">UPDATE</span>(<code>
+											Employee_Table.Employee Name</code> ,
+											<code>Employee.Employee Name</code> ) </p>
+									<p>The data object, <code>Employee_Table.Employee
+											Name</code> is updated as per the value of
+											<code>Employee.Employee Name</code>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>Source Entity</code> or <code>Source
+										Expression</code>.</td>
+								<td colspan="1" rowspan="1">The value of the <code>Target Entity</code> is updated to
+									the value of the <code>Source Entity</code> or the value
+									returned by the <code>Source Expression</code>.<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>You can also use vocabulary rules as the source
+											expression by selecting it from the autosuggest
+											list.</p>
+									<p></p></div></div></td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="2">Append</td>
+								<td colspan="1" rowspan="2"><span class="ph uicontrol">APPEND</span>(<code>&lt;Target&gt;,
+										&lt;Source&gt;</code>)</td>
+								<td colspan="1" rowspan="1"><code>Target Entity</code></td>
+								<td colspan="1" rowspan="1">The target data object of type <span class="ph uicontrol">Table</span> to which the
+										<code>Source</code> has to be appended.</td>
+								<td colspan="1" rowspan="2">
+									<p><span class="ph uicontrol">APPEND</span>(<code>FlightTable,
+											Flight</code>)</p>
+									<p>The data object <code>Flight</code> is appended to the
+										data object <code>FlightTable</code>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>Source Entity</code> or <code>Source Expression</code>
+								</td>
+								<td colspan="1" rowspan="1">A data object that should be appended to the <code>Target</code> data object.
+									Source data object should be of type
+										<span class="ph uicontrol">Structure</span> or
+										<span class="ph uicontrol">Table</span> or a rule that returns a data
+									object of type <span class="ph uicontrol">Structure</span> or
+										<span class="ph uicontrol">Table</span>.</td>
+							</tr>
+						</tbody>
+					</table></div></div><p></p>
+			<p>For more information about functions related to text rule operations, see <a href="https://help.sap.com/viewer/0e4dd38c4e204f47b1ffd09e5684537b/Cloud/en-US/0b42dec8f69f405f9a564e162c4f07c9.html" title="https://help.sap.com/viewer/0e4dd38c4e204f47b1ffd09e5684537b/Cloud/en-US/0b42dec8f69f405f9a564e162c4f07c9.html" class="external-link" target="_blank" rel="noopener">Functions</a>.</p>
+		</section><section id="section_p13_nms_w3b">
+			<h2 class="title ">Value Help</h2>
+			<p>While authoring a rule in advanced mode, the auto-complete suggestion list provides
+				the corresponding list of values as value help items along with other auto-complete
+				suggestions.</p>
+			<p>There are two types of value help:</p><ul class="ul ">
+					<li class="li">Value List : The values are created and maintained in the business rules by
+						adding code and description.</li>
+					<li class="li">Service URL Mapping : The values are maintained outside the business rules and you have to configure the managed system to consume the values
+						from external system. For more information on configuring managed system, see <a href="https://help.sap.com/viewer/9d7cfeaba766433eaea8a29fdb8a688c/Cloud/en-US/74dfe0537d8e47889cdfc8a874ecde27.html" title="https://help.sap.com/viewer/9d7cfeaba766433eaea8a29fdb8a688c/Cloud/en-US/74dfe0537d8e47889cdfc8a874ecde27.html" class="external-link" target="_blank" rel="noopener">Configuring Managed System</a> in SAP Business Technology Platform Business Rules.</li>
+				</ul><p></p>
+			<p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">The value list link is provided with the suggestions, only if the
+							attribute is of type value help.</li>
+						<li class="li">The value help dialog can also be consumed by pressing
+								<span class="emphasis">f4</span> while authoring a rule.</li>
+						<li class="li">To change the value help while authoring the rule, you can also click
+							the value help attribute which opens the value help dialog.</li>
+					</ul>
+				<p></p></div></div>
+			<p></p>
+			<ul class="ul ">
+				<li class="li">
+					<p>In the following example, the ID of an equipment is an attribute of type
+						value help. While authoring the rule, the value help is provided in the
+						suggestion which has the value list with descriptions as shown in the table.
+						The value can be selected from the list and consumed in the
+							rule.</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">If
+	    ID of an Equipment is equal to <span class="emphasis">'E001'</span>
+	    Then
+	    Order
+</pre></div></div></section><div class="tableWrapper "><div class="fig"><table border="1" id="table_fl4_dbz_lfb" class=" ">
+								
+								
+								<tbody>
+									<tr>
+										<td colspan="1" rowspan="1"><span class="emphasis">Code</span></td>
+										<td colspan="1" rowspan="1"><span class="emphasis">Description</span></td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">E001</td>
+										<td colspan="1" rowspan="1">Smartphone</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">E002</td>
+										<td colspan="1" rowspan="1">Laptop</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">E003</td>
+										<td colspan="1" rowspan="1">Tablet</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">E004</td>
+										<td colspan="1" rowspan="1">Smartphone</td>
+									</tr>
+								</tbody>
+							</table></div></div><p></p>
+				</li>
+				<li class="li">You can search for the value and description in the search bar.</li>
+				<li class="li">The advanced filter option is used to filter a value and description based on
+					conditions which can be included or excluded. It can be applied in both value
+					and description field.<p><span class="emphasis">For Example</span>: </p><p>If you want to
+						filter the description <code>Smartphone</code> from the list which has
+							<code>Smartphone</code>, <code>Laptop</code>, and
+							<code>Tablet</code>, then the condition can be applied in both the
+						value and description field as the
+							following.</p><p><span class="emphasis">Include</span>: Description is equal to
+							<code>Smartphone</code>.</p><p><span class="emphasis">Exclude</span>: Value
+						is equal to <code>E004</code>.</p><p>So that the filtered result is
+							<code>E001</code>, <code>Smartphone</code>.</p></li>
+				<li class="li">The value column can be sorted in both ascending and descending order.<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The
+						search and filter options are case sensitive.</p></div></div></li>
+			</ul>
+		</section><section id="section_l4z_pms_w3b">
+			<h2 class="title ">Date Control</h2>
+			<p>While authoring a rule in advanced mode, the auto-complete suggestion list of the
+				Rule Builder UI control provides the date link where the value can be picked from
+				the calendar. This date link is provided in the suggestion list, only if the
+				attribute is of type date.</p>
+			<p>In the following example, the DOB of an employee is an attribute of type date. While
+				authoring the rule, the date link is provided in the suggestion which opens a
+				calendar from where the value can be selected and consumed in the rule.</p>
+			<p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	If
+	DOB of an Employee is equal to <code>'01/01/18'</code>
+	Then
+	Discount
+</pre></div></div></section>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/80e719a791c2436abbc2d0b8e52e1902">Text Rule</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/eefe8c641bee4a46a88c56cb26dc072c">Step 1: Creating a Rule Control</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

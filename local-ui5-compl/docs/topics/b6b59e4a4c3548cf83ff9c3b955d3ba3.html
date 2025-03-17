@@ -1,0 +1,406 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob6b59e4a4c3548cf83ff9c3b955d3ba3" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/defining-multiple-views-on-a-list-report-with-different-entity-sets-and-table-settings-b6b59e4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Defining Multiple Views on a List Report with Different Entity Sets and Table Settings</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Defining Multiple Views on a List Report with Different Entity Sets and Table Settings</h2></div><div class="shortdesc">You can configure your application to display data for different entity sets
+        and table settings, for example, sales orders or suppliers.</div><p>The configuration steps are the same as in
+            <a href="topic/37aeed74e17a42caa2cba3123f0c15fc" title="You can define multiple views of a table and display them in multiple table mode. Users can switch between views using an icon tab bar." class="sap-doc">Defining Multiple Views on a List Report Table - Multiple Table Mode</a>. In addition, the manifest property
+                <code>entitySet</code> must be added to the definition of tables and charts that are based on an entity set different from the main entity set of the list
+            report. Note that, in this case, the corresponding property <code>annotationPath</code> must specify an annotation for that entity
+            set.</p><p>You
+            can configure <code>SelectionPresentationVariant</code> that has a chart visualization
+            to bring up a chart coming from a different entity set. For more information, see <a href="topic/37aeed74e17a42caa2cba3123f0c15fc" title="You can define multiple views of a table and display them in multiple table mode. Users can switch between views using an icon tab bar." class="sap-doc">Defining Multiple Views on a List Report Table - Multiple Table Mode</a>.</p><section>
+            <h2 class="title ">System Behavior for Filters and Count</h2>
+            <p>By default, in case of multiple entity sets, counts are always displayed in the icon tab bar to visualize the change in results whenever a filter is added or removed
+                in the list report.</p>
+            <p>The filters available in the filter
+                bar are those from the main
+                entity
+                set. You cannot add filters that
+                belong only to an additional entity
+                set.</p>
+            <p>The filters are applied to every table if the corresponding properties exist in the entity type of the table. If not, they are ignored.</p>
+            <p>The counts of each table are also influenced by the filters from the <code>filterBar</code> only if the filters are relevant.</p>
+            <p>In the following
+                screenshot, the
+                    <span class="uinolabel">Requested</span>
+                field exists in each entity set. It influences the number of items displayed on each tab:</p>
+            <div><div class="fig"><img src="loio1e794e66348d41cb890b19197f078131_LowRes.png" usemap="#"></div></div>
+            <p>If you add a second filter value, which is found only in the entity type of the first table, only the count of the first tab changes. The counts of the second tab
+                remain
+                unchanged, as this field isn't relevant for the second
+                entity set. The system displays a message to inform users about this.</p>
+            <p>For example, if you add the filter
+                    <span class="uinolabel">Property
+                    S3</span> to the first tab, which is not applicable to the entity set of
+                the second tab, and then switch to the second tab, the
+                application
+                displays a message about this. If you close this message and add another filter that is also
+                not applicable to the entity set of the <span class="ph uicontrol">Purchase Orders</span> tab, the
+                application
+                displays an updated message informing that both filters are not relevant to this entity set.</p>
+            <div><div class="fig"><img src="loio120cf4074ddd45aabc1808301b760e0d_LowRes.png" usemap="#"></div></div>
+        </section><section id="section_vlc_4md_tnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p><span class="emphasis">Prerequisite</span>: You have completed the procedure <a href="topic/37aeed74e17a42caa2cba3123f0c15fc" title="You can define multiple views of a table and display them in multiple table mode. Users can switch between views using an icon tab bar." class="sap-doc">Defining Multiple Views on a List Report Table - Multiple Table Mode</a>.</p><p>To specify table settings on tab pages, you need to add <code>tableSettings</code> to the corresponding tab
+                in the
+                <code>manifest.json</code>
+                file of your application. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Implement this feature with caution, and, for example, take the following into account:</p><ul class="ul ">
+                    <li class="li">
+                        <p>Even
+                            though this feature provides a combined view of different objects, it does not replace dedicated applications, each with their
+                            specific purpose.</p>
+                    </li>
+                    <li class="li">
+                        <p>Use this feature only to search for and work on similar business objects that have a subset of common fields. Do not use it for random business objects.
+                            Changing common fields in the smart filter bar always has an effect on the tab that is currently open, as well as on all other tabs. While you can
+                            implement any entity set from a technical perspective, you should take the business and usability perspective into account. Moreover, as this feature
+                            affects performance, you should also check any changes in performance when adding entity sets. Note that if you don't follow these recommendations, the
+                            application will be responsible for usability and performance. </p>
+                    </li>
+                    <li class="li">
+                        <p>Do not combine draft and non-draft entity sets in one list report.</p>
+                    </li>
+                    <li class="li">
+                        <p>You can specify different table types for each tab, but there should not be a mix of responsive and non-responsive (grid, tree and analytical)
+                            tables.</p>
+                    </li>
+                    <li class="li">
+                        <p>You can define custom actions using extension points only for main entity sets. Actions defined for other entity sets are not supported.</p>
+                    </li>
+                    <li class="li">
+                        <p>By default, in the case of multiple entity sets, the counts are always displayed in the icon tab bar to visualize the change in results when any filter
+                            is added or removed in the list report. </p>
+                    </li>
+                    <li class="li">
+                        <p>Ensure that the service/entity configured for the chart is <span class="emphasis">not</span> draft enabled or a read-only service/entity.</p>
+                    </li>
+                </ul><p></p></div></div><p>To include different entity sets and table settings in multiple views, specify an entity set for each tab in the
+                <code>quickVariantSelectionX"</code>
+                section as shown in the following sample
+                code:
+            </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+         "pages": [{
+             "entitySet": "C_RequirementTrackingPurReq",
+             "component": {
+                 "name": "sap.suite.ui.generic.template.ListReport",
+                 "list": true,
+                 "settings": {
+                     "condensedTableLayout": true,
+                     "smartVariantManagement": false,
+                     "quickVariantSelectionX": {
+                        "variants": {
+                            "1": {
+                                "key": "1",
+                                "entitySet": "C_RequirementTrackingPurReq",
+                                "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#VAR1",
+                                "tableSettings": { 
+                                      "type": "GridTable",
+                        }
+                            },
+                            "2": {
+                                "key": "2",
+                                "entitySet": "C_RequirementTrackingPurOrd",
+                                "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#VAR5",
+                                "tableSettings": { 
+                                      "type": "GridTable",
+                        }
+                            },
+                            "3": {
+                                "key": "3",
+                                "entitySet": "C_RequirementTrackingPurReq",
+                                "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#VAR6",
+                                "showItemNavigationOnChart": true,
+                                       "tableSettings": { 
+                                            "type": "TreeTable",
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }]    
+	}</pre></div></div></section>
+            <p></p></div></div><p>Under <code>"sap.ui.generic.app"/"pages"</code>, specify the leading entity set. This is used for the smart filter bar
+                andfooter.
+                Each table or chart has its own <code>entitySet</code> which you can
+                specify under <code>"quickVariantSelectionX"/"variants"</code>. If you do not specify an entity set under <code>"/"variants"</code>,
+                then the leading entity set is used as
+                default.</p><section>
+                <h3 class="title ">System Behavior for Different Table Type Settings</h3>
+                <p>Table type settings can be set for each variant under <code>quickVariantSelectionX</code> in
+                    the
+                    <code>manifest.json</code> file. If table settings
+                    are not specified, the
+                    application
+                    picks the overall table setting and applies them for the variant. It is not possible to have a combination of responsive and non-responsive table types in same
+                    list
+                    report.
+                    The tables in a
+                    list
+                    report
+                    can either be all responsive or a mix of non-responsive, such as grid,
+                    tree, or analytical tables. This ensures a consistent scrolling
+                    behavior. </p>
+                <p>Different tabs
+                    in
+                    a
+                    list
+                    report
+                    can render different table types. For example, first tab can be a tree table while the second tab can be a grid table.</p>
+                <div><div class="fig"><img src="loiobc2ec3003ff54845ba38a3004dcf28c1_LowRes.jpg" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "> Example of a List Report page with two tabs of different table types </h2></span></div>
+                <div><div class="fig"><img src="loiod34682ae5ec84028956bc0ed6668c480_LowRes.jpg" usemap="#"></div></div>
+            </section></div></section><section class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>You can configure the list report views to display different
+                entity
+                sets.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Implement this feature with caution, and, for example, take the following into account:</p><ul class="ul ">
+                    <li class="li">
+                        <p>While this feature provides a combined view of different objects, it does not replace dedicated applications, each with their specific purpose.</p>
+                    </li>
+                    <li class="li">
+                        <p>Use this feature only to search for and work on similar business objects that have a subset of common fields. Do not use it for random business objects.
+                            Changing common fields in the filter bar always has an effect on the tab that is currently open, as well as on all other tabs. While you can implement
+                            any entity set from a technical perspective, you should take the business and usability perspective into account. Moreover, as this feature affects
+                            performance, you should also check any changes in performance when adding entity sets. Note that if you don't follow these recommendations, the
+                            application will be responsible for usability and performance.</p>
+                    </li>
+                    <li class="li">
+                        <p>Do not combine draft and non-draft entity sets in one list report.</p>
+                    </li>
+                    <li class="li">
+                        <p>Do not mix responsive and non-responsive (grid) tables.</p>
+                    </li>
+                    <li class="li">
+                        <p>By default, in the case of multiple entity sets, the counts are always displayed in the icon tab bar to visualize the change in results when any filter
+                            is added or removed in the list report. </p>
+                    </li>
+                </ul><p></p></div></div><section>
+                <h3 class="title ">Rendering Several Entity
+                    Sets in a List
+                    Report</h3>
+                <p>Each table display the data of an <code>entitySet</code> and reads a <code>SelectionVariant</code> (SV) or <code>SelectionPresentationVariant</code>
+                    (SPV) which apply filters, sorters, and presentation settings.</p>
+                <p>To define a <code>SelectionVariant</code> for <code>entityA</code> and a <code>SelectionPresentationVariant</code> for <code>entityB</code> that
+                    you want to display on each tab, for the entities that you want to show, proceed as shown in the
+                    following sample
+                    code:</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="myService.entityB"&gt;
+   &lt;Annotation Term="UI.SelectionVariant" Qualifier="Good"&gt;
+   &lt;Record Type="UI.SelectionVariantType"&gt;
+      &lt;PropertyValue Property="SelectOptions"&gt;
+         &lt;Collection&gt;
+            &lt;Record Type="UI.SelectOptionType"&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="propertyInteger" /&gt;
+               &lt;PropertyValue Property="Ranges"&gt;
+                  &lt;Collection&gt;
+                     &lt;Record Type="UI.SelectionRangeType"&gt;
+                        &lt;PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ" /&gt;
+                        &lt;PropertyValue Property="Low" String="1" /&gt;
+                     &lt;/Record&gt;
+                  &lt;/Collection&gt;
+               &lt;/PropertyValue&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="Text" String="entityA with one follower" /&gt;
+   &lt;/Record&gt;
+  &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+ 
+&lt;Annotations Target="myService.entityA"&gt;
+&lt;Annotation Term="UI.SelectionPresentationVariant" Qualifier="trueSPV"&gt;
+      &lt;Record Type="UI.SelectionPresentationVariantType"
+           &lt;PropertyValue Property="Text" String="entityB with true value"&gt;&lt;/PropertyValue&gt;
+           &lt;PropertyValue Property="SelectionVariant"&gt;
+              &lt;Record Type="UI.SelectionVariantType"&gt;
+                 &lt;PropertyValue Property="SelectOptions"&gt;
+                    &lt;Collection&gt;
+                       &lt;Record Type="UI.SelectOptionType"&gt;
+                          &lt;PropertyValue Property="PropertyName" PropertyPath="propertyBoolean" /&gt;
+                          &lt;PropertyValue Property="Ranges"&gt;
+                             &lt;Collection&gt;
+                                &lt;Record Type="UI.SelectionRangeType"&gt;
+                                   &lt;PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ" /&gt;
+                                   &lt;PropertyValue Property="Low" String="true" /&gt;                                &lt;/Record&gt;
+                             &lt;/Collection&gt;
+                          &lt;/PropertyValue&gt;
+                       &lt;/Record&gt;
+                    &lt;/Collection&gt;
+                 &lt;/PropertyValue&gt;
+                 &lt;PropertyValue Property="Text" String="Medium Rating" /&gt;
+              &lt;/Record&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="PresentationVariant"&gt;
+                  &lt;Record Type="UI.PresentationVariantType"&gt;&gt;
+                      &lt;PropertyValue Property="MaxItems" Int="3" /&gt;
+                      &lt;PropertyValue Property="SortOrder"&gt;
+                           &lt;Collection&gt;
+                              &lt;Record Type="Common.SortOrderType"&gt;
+                                  &lt;PropertyValue Property="Property" PropertyPath="propertyInteger" /&gt;
+                              &lt;/Record&gt;
+                          &lt;/Collection&gt;
+                      &lt;/PropertyValue&gt;
+                   &lt;/Record&gt;
+              &lt;/PropertyValue&gt;
+          &lt;/Record&gt;
+      &lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotatio</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate entityB with @(
+UI.SelectionVariant#One :
+{
+    Text: 'entityA with one follower',
+    SelectOptions:
+    [
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : propertyInteger,
+             Ranges:
+             [
+                 {
+                     $Type: 'UI.SelectionRangeType',
+                     Option: #EQ,
+                     Low: '1'
+                }
+            ]
+        }
+    ]
+}
+ 
+...
+annotate entityA with @(
+ 
+UI.SelectionPresentationVariant#trueSPV :
+{
+    Text: 'entityB with true value',
+    SelectionVariant: {
+          SelectOptions:
+          [
+              {
+                  $Type : 'UI.SelectOptionType',
+                  PropertyName : propertyBoolean,
+                   Ranges:
+                   [
+                       {
+                           $Type: 'UI.SelectionRangeType',
+                           Option: #EQ,
+                           Low: 'true'
+                      }
+                  ]
+              }
+          ]
+      },
+    PresentationVariant: {
+            MaxItems       : 3,
+            SortOrder      : [{Property : 'ID'}]
+    }
+},</pre></div></div></section><p></p></div></div>
+                <p>Once the SV and SPV are defined for the two <code>entitySets</code>, you must configure the manifest to read the annotation for the views. This is the same
+                    configuration in the <code>manifest.json</code> as for the multiple views feature. In addition, you need to specify the <code>entitySet</code> when it
+                    differs from the main <code>entitySet</code> as follows:</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"targets": {   
+    "DraftList": {
+        "type": "Component",
+            "id": "DraftList",
+            "name": "sap.fe.templates.ListReport",
+            "options": {
+                "settings": {
+                    "contextPath": "/entityA",
+                    "views": {
+                        "paths": [
+                            {
+                                "key": "tab1",
+                                "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#trueSPV"
+                            },
+                            {
+                                "key": "tab2",
+                                "entitySet": "entityB",
+                                "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#One"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+...
+}</pre></div></div></section><p></p></div></div>
+                <p>As a result, the application displays two tabs as shown in the following
+                    screenshot:</p>
+                <div><div class="fig"><img src="loiodac86fac89da422880644c3e0613dae7_LowRes.png" usemap="#"></div></div>
+                <p><span class="emphasis">Defining Different Table Configurations Using <code>controlConfiguration</code></span></p>
+                <p>You can define different table configurations for each entity set. To do so, prefix the annotation key with the name of the entity set in the
+                        <code>controlConfiguration</code> of the <code>manifest.json</code> file.</p>
+                <p>The following sample code shows different personalization settings per table (with no personalization for <code>EntityA</code> and a column personalization
+                    and a filter personalization for <code>EntityB</code>):</p>
+                
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"targets": {
+    "DraftList": {
+        "type": "Component",
+        "id": "DraftList",
+        "name": "sap.fe.templates.ListReport",
+        "options": {
+            "settings": {
+                "contextPath": "/EntityA",
+                "views": {
+                    "paths": [
+                        {
+                            "key": "tab1",
+                            "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant"
+                        },
+                        {
+                            "key": "tab2",
+                            "entitySet": "EntityB",
+                            "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant"
+                        }
+                    ]
+                },
+                "controlConfiguration": {
+                    "@com.sap.vocabularies.UI.v1.LineItem": {
+                        "tableSettings": {
+                            "personalization": false
+                        }
+                    },
+                    "/EntityB/@com.sap.vocabularies.UI.v1.LineItem": {
+                        "tableSettings": {
+                            "personalization": {
+                                "column": true,
+                                "sort": false,
+                                "filter": true,
+                                "group": false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    ...
+}</pre></div></div></section><p></p></div></div>
+                
+                
+            </section><section>
+                <h3 class="title ">System Behavior for Filters and Count</h3>
+                <p>The filters are applied to every table if the corresponding properties exist in the entity type of the table.
+                    Otherwise,
+                    they are ignored. This behavior also applies
+                     for filters coming from a navigation property. If the
+                    navigation and target properties also exist for the non-main entity, the filter is applied.</p>
+            </section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="topic/75002b3c5ad7407dadce2f88f15f4253" title="You can enable internal navigation to a different detail page (i.e. using different entity sets) for a list report or an object page." class="sap-doc">Example: Enable Internal Navigation to Different Detail Page</a></li>
+    </ul></section></div></section></div></body></html>

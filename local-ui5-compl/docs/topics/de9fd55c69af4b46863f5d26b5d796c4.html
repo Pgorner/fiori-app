@@ -1,0 +1,150 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiode9fd55c69af4b46863f5d26b5d796c4" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/enabling-ui-adaptation-other-things-to-consider-de9fd55.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling UI Adaptation: Other Things to Consider</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling UI Adaptation: Other Things to Consider</h2></div><div class="shortdesc">Find out how you can enable UI adaptation exactly how you need it.</div><section id="section_j4v_lnn_2jb"><h2 class="title ">How to improve the performance</h2><section>
+				<h3 class="title ">Use asynchronous loading of views</h3>
+				<p>To enable processing of UI changes directly on XML views, use the asynchronous loading of views. For more information, see <a href="topic/68d0e58857a647d49470d9f92dd859bd" title="To instantiate views asychronously, SAPUI5 provides the factory method View.create defined in module sap/ui/core/mvc/View." class="sap-doc">Instantiating Views</a>.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If you use stashed-based lazy loading, asynchronous views are even a prerequisite. See <a href="topic/f1430c0337534d469da3a56307ff76af.html#loiof1430c0337534d469da3a56307ff76af/section_async" title="f1430c0337534d469da3a56307ff76af.xml#loiof1430c0337534d469da3a56307ff76af/section_async" class="sap-doc">Stashed-based lazy loading: Load your views asynchronously</a></p></div></div>
+				<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>Using the rule <code>Asynchronous XML views in the Support Assistant,</code> you can check whether asynchronous
+					loading is used for all views. For more information, see <a href="topic/57ccd7d7103640e3a187ed55e1d2c163" title="The Support Assistant enables developers to check whether their apps are built according to the SAPUI5 best practices and guidelines." class="sap-doc">Support Assistant</a>.</p></div></div>
+			</section><section>
+				<h3 class="title ">Use view caching</h3>
+				<p>If you use view caching, your views are stored in the cache after UI changes have been applied. The view (including the UI changes) is then
+					loaded from the cache. For more information, see <a href="topic/3d85d5eec1594be0a71236d5e61f89aa" title="To be able to speed up processing times of XML views that make heavy use of the preprocessor feature, you can use the view cache to store its processed XML source. Then according network requests for the source and all preprocessor runs that modify the XML source are skipped and the source is taken from the cache." class="sap-doc">XML View Cache</a>.</p>
+			</section></section><section id="section_ghl_f4n_2jb">
+			<h2 class="title ">Configure the variant management control</h2>
+			<p>If users should be able to save their UI changes as different views (control variants), you have to configure the <a href="api/sap.ui.fl.variants.VariantManagement" title="api/sap.ui.fl.variants.VariantManagement" class="sap-doc" alt="api/sap.ui.fl.variants.VariantManagement"><code>sap.ui.fl.variants.VariantManagement</code></a> control.
+				</p>
+			<p>All you have to do is add this control to an appropriate location in your app, and assign the desired UI container as a target in a
+					<code>for</code> association.</p>
+			<p>Please note that it is not supported to retroactively introduce a variant management control after a key user has already created
+				adaptations for your application. This would lead to adaptations being applied in a non-defined order, making the state of the UI
+				unpredictable.</p>
+			<p>If you retroactively remove a variant management control for which key user adaptations or end user personalization already exist,
+				these adaptations will be lost.</p>
+		</section><section id="section_rvb_cpn_2jb">
+			<h2 class="title ">Enable the key user to add additional UI elements</h2>
+			<p>To enable the key user to make additional properties of an OData entity visible (typically when the key user adds fields or custom
+				fields), you have to do the following:</p><ul class="ul ">
+					<li class="li">Use data binding in the container where you want to enable this.</li>
+					<li class="li">Make sure that the related OData model is the default model of your app component. For more information, see <a href="topic/91f0d1c56f4d1014b6dd926db0e91070" title="If you don't want to use a component or descriptor file, you have to assign the model instance manually to the UI, before you can bind controls to this model instance." class="sap-doc">Assigning the Model to the UI</a>.</li>
+					<li class="li">If a property of an OData entity shouldn't come up in key user adaptation, for example, because it's a technical field, you
+						should set the annotation <code>sap:visible=false</code>. If the property is only relevant under certain circumstances,
+						you can provide the <code>field-control</code> property and set the field to be hidden. For more information, see the
+							<a href="https://wiki.scn.sap.com/wiki/display/EmTech/SAP+Annotations+for+OData+Version+2.0#SAPAnnotationsforODataVersion2.0-Property_field_controlAttributesap:field-control" title="https://wiki.scn.sap.com/wiki/display/EmTech/SAP+Annotations+for+OData+Version+2.0#SAPAnnotationsforODataVersion2.0-Property_field_controlAttributesap:field-control" class="external-link" target="_blank" rel="noopener">official annotations documentation</a>.</li>
+					<li class="li">If you don't have OData models or if you want to give the key user the option to enable more complex UI parts, you can deliver hidden
+						controls (<code>visible="false"</code>). These can then be made visible via key user adaptation.</li>
+				</ul><p></p>
+		</section><section id="section_e2v_xpn_2jb"><h2 class="title ">Reuse Components</h2><p>If you are using reuse components, dialogs or popovers inside
+				your application, they must have the application component as owner component (<code>type=component</code>). Make sure to
+				instantiate it using a <code>runAsOwner</code> function.</p><section>
+				<h3 class="title ">About Reuse Components</h3>
+				<p>During key user adaptation, only the specific UIs/applications are adapted, but not the reuse components themselves. Key user adaptation
+					follows a WYSIWYG approach. Since the use cases can vary from app to app, the UI changes done inside a reuse component of one app
+					won't be applicable for another app where the same reuse component is used. Therefore, any changes to the UIs inside a reuse
+					component will be stored only in the context of the app in which it was embedded.</p>
+				
+				
+				
+				
+			</section></section><section id="section_restrictadaptation"><h2 class="title ">Restrict adaptation for certain controls</h2><p>It can be a good idea to exclude certain controls
+				from key user adaptation. Examples:</p><ul class="ul ">
+					<li class="li">Controls for standard actions that should not be <span class="emphasis">removed</span> (for example, the <span class="ph uicontrol">Close</span>
+						button)</li>
+					<li class="li">Controls that should not be <span class="emphasis">changed</span>, because their properties are changed dynamically by the application
+						coding, which will consequently overwrite key user changes</li>
+					<li class="li">You're planning a beta release or something similar for an app and want to prevent that the included controls are
+						adapted.</li>
+				</ul><p></p><p>To achieve this, you need instance-specific design time metadata. You attach these metadata via
+				the <code>sap.ui.dt</code> namespace and the <code>designtime</code>
+				attribute to the <code>xml</code> node of the control you want to restrict, or
+				via <code>CustomData</code>. There are three types of restrictions:</p><ul class="ul ">
+					<li class="li">The control cannot be <span class="emphasis">changed</span> on the respective
+						instance level (recommended, for example, if the control properties are
+						changed dynamically by the application coding).<p>Required metadata:
+								<code>not-adaptable</code></p></li>
+					<li class="li">The control cannot be <span class="emphasis">changed</span> on the respective
+						instance level as well as on all children of that instance.<p>Required
+							metadata: <code>not-adaptable-tree</code></p></li>
+					<li class="li">The control cannot be <span class="emphasis">removed</span> or
+							<span class="emphasis">revealed</span> (i.e. added) (recommended, for example,
+						for standard actions).<p>Required metadata:
+								<code>not-adaptable-visibility</code></p></li>
+				</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Controls that have already been delivered with previous app versions should
+							<span class="ph uicontrol">not</span> be switched to
+						<code>not-adaptable</code>, <code>not-adaptable-tree</code>, or
+							<code>not-adaptable-visibility</code> later. Reason: Setting these
+						metadata later will not affect existing changes and might even cause
+						regressions.</p>
+				<p></p></div></div>The process to define the design time metadata depends on your scenario:<p></p><section>
+				<h3 class="title ">XML View</h3>
+				<p>In this case, you need to specify metadata via the <code>sap.ui.dt</code> namespace. Example:</p>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns:sap.ui.dt="sap.ui.dt"
+&gt;
+	...
+	&lt;SomeControl sap.ui.dt:designtime="&lt;path&gt;/&lt;name.designtime" /&gt;
+	&lt;SomeOtherControl sap.ui.dt:designtime="not-adaptable" /&gt;
+	&lt;AnotherControl sap.ui.dt:designtime="not-adaptable-visibility" /&gt;
+	&lt;ContainerControl sap.ui.dt:designtime="not-adaptable-tree" /&gt;
+		&lt;ChildControl&gt; &lt;!-- this is also not adaptable --&gt;
+			&lt;AnotherChildControl /&gt; &lt;!-- this is also not adaptable --&gt;
+		&lt;/ChildControl&gt;
+	&lt;/ContainerControl&gt;
+	...
+&lt;/mvc:View&gt;</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Control is instantiated by JavaScript code</h3>
+				<p>In this case, you need to provide the instance-specific design time metadata as custom data. Example:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">new SomeControl({
+	//other settings
+	customData :  [new CustomData({
+		key : "sap-ui-custom-settings",
+		value : {
+			"sap.ui.dt" : {
+				"designtime": "not-adaptable" || "not-adaptable-visibility" || "not-adaptable-tree"
+			}
+		}
+	})];
+});</pre></div></div></section>
+			</section>
+			<p>For more information, see <a href="topic/6af43022e00945019903f8e9410eb6e5" title="You can specify that some controls cannot be adapted." class="sap-doc">Deactivating Adaptation of Controls</a>.</p></section><section id="section_s5x_314_2jb">
+			<h2 class="title ">When are key user changes applied?</h2>
+			<p>As described under <a href="topic/f1430c0337534d469da3a56307ff76af.html#loiof1430c0337534d469da3a56307ff76af/section_ControllerCode" title="f1430c0337534d469da3a56307ff76af.xml#loiof1430c0337534d469da3a56307ff76af/section_ControllerCode" class="sap-doc">Controller Code</a>, two mechanisms apply:</p>
+			<ul class="ul ">
+				<li class="li">For controls in the XML view, changes are applied during the XML view processing.</li>
+				<li class="li">For controls that are created by your controller code, such as controls that are part of a group and are later placed inside an existing
+					control (e.g. <code>placeAt</code> to place a control inside a node of the DOM), the changes are applied when the control
+					becomes part of the SAPUI5 control tree.</li>
+			</ul>
+			
+		</section><section id="section_af4_cb4_2jb">
+			<h2 class="title ">Can I check for stable IDs during automatic testing?</h2>
+			<p>Yes. You can integrate corresponding check from the Support Assistant rule into your Opa5 tests as described in <a href="topic/cfabbd4dfc054936997d9d00916e1668" title="The Support Assistant can be used as part of an existing OPA test to cover more test aspects of the application." class="sap-doc">Integrating the Rules in OPA Tests</a>.</p>
+		</section><section id="section_k2w_3b4_2jb">
+			<h2 class="title ">Can I do manual testing?</h2>
+			<p>To test key user adaptation in your <a href="https://help.sap.com/viewer/825270ffffe74d9f988a0f0066ad59f0/CF/en-US/6609d3ba857742ef99432b6b0472ade0.html" title="https://help.sap.com/viewer/825270ffffe74d9f988a0f0066ad59f0/CF/en-US/6609d3ba857742ef99432b6b0472ade0.html" class="external-link" target="_blank" rel="noopener">SAP Fiori launchpad sandbox</a>, include the following
+				script in the HTML file that you use for sandbox testing. With these configurations, you should be able to start key user adaptation
+				as
+				usual.</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript"&gt;
+    window["sap-ushell-config"] = {
+        defaultRenderer : "fiori2",
+        bootstrapPlugins: {
+            "RuntimeAuthoringPlugin" : {
+                "component": "sap.ushell.plugins.rta",
+                config: {
+                    validateAppVersion: false
+                }
+            }
+        }
+    }
+&lt;/script&gt;
+</pre></div></div></section><p></p>
+			
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

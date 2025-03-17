@@ -1,0 +1,233 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc73dfe312f104664954749c5c36faf27" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-7-adding-a-comments-section-c73dfe3.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 7: Adding a Comments Section</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 7: Adding a Comments Section</h2></div><div class="shortdesc">In this step, we extend the product detail view by adding a feature allowing to add
+		comments to the product.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loioa517fe596aa04b4d8d080fbf6168cf40_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Comments section added to the detail page</h2></span></div>
+		</section><section><h2 class="title ">Coding</h2><p>You can view and download all files in the
+                    <span class="ph uicontrol">Samples</span> in the Demo Kit at <a href="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.07" title="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.07" class="sap-doc" alt="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.07">Worklist App - Step 7</a>
+                .</p><section>
+                <h3 class="title ">webapp/view/Object.view.xml [MODIFY]</h3>
+                <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+    controllerName="mycompany.myapp.MyWorklistApp.controller.Object"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:form="sap.ui.layout.form"
+    <span class="emphasis">xmlns:l="sap.ui.layout"&gt;</span>
+
+...
+
+        &lt;semantic:content&gt;
+            <span class="emphasis">&lt;l:VerticalLayout width="100%"&gt;</span>
+            &lt;Panel
+                <span class="emphasis">backgroundDesign="Transparent"</span>
+                headerText="{i18n&gt;ObjectSupplierTabTitle}"&gt;
+
+...
+            &lt;/Panel&gt;
+                <span class="emphasis">&lt;Panel
+                    backgroundDesign="Transparent"
+                    headerText="{i18n&gt;ObjectCommentsTabTitle}"&gt;
+                    &lt;content&gt;
+                        &lt;FeedInput post=".onPost"/&gt;
+                        &lt;List
+                            id="idCommentsList"
+                            noDataText="{i18n&gt;ObjectCommentNoData}"
+                            showSeparators="Inner"
+                            items="{
+                                path: 'productFeedback&gt;/productComments',
+                                sorter: {
+                                    path: 'date',
+                                    descending: true
+                                }
+                            }"&gt;
+                            &lt;FeedListItem
+                                info="{productFeedback&gt;type}"
+                                text="{productFeedback&gt;comment}"
+                                timestamp="{productFeedback&gt;date}"/&gt;
+                        &lt;/List&gt;
+                    &lt;/content&gt;
+                &lt;/Panel&gt;
+            &lt;/l:VerticalLayout&gt;</span>
+        &lt;/semantic:content&gt;</pre></div></div></section>
+                <p>Below the already existing panel, we add another panel that will serve as a
+                    container for our comments section. We put both panels inside a vertical layout,
+                    because <code>sap.f.semanticPage</code> allows only one control for content
+                    aggregation. Within the new panel, we add a <code>sap.m.FeedInput</code>
+                    control and attach an event handler <code>onPost</code> for the
+                        <code>post</code> event. This control will render an input field and a
+                    button, which allow users to post comments. The event handler we registered will
+                    be implemented below.</p>
+                <p>Below the <code>FeedInput</code> control, we add a list with all existing
+                    comments. The <code>items</code> aggregation of the list is bound to the
+                        <code>/productComments</code> property of the named model
+                        <code>productFeedback</code> that we will create below. All comments
+                    shall be displayed in descending order based on their publishing date.
+                    Therefore, we also configure a sorter for our items in the list.</p>
+                <p>The template for each row is a <code>FeedListItem</code> control. We
+                    configure the <code>FeedListItem</code> to simply display the date of the
+                    post, the text of the post itself, and the type of the post.</p>
+            </section><section>
+                <h3 class="title ">webapp/controller/Object.controller.js [MODIFY]</h3>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+/*global location*/
+sap.ui.define([
+   "myCompany/myApp/controller/BaseController",
+   "sap/ui/model/json/JSONModel",
+   "sap/ui/core/routing/History",
+   "myCompany/myApp/model/formatter"<span class="emphasis">,
+   "sap/ui/core/date/UI5Date",
+   "sap/ui/core/format/DateFormat",
+   "sap/ui/model/Filter",
+   "sap/ui/model/FilterOperator"</span>
+], function(BaseController, JSONModel, History, formatter<span class="emphasis">, UI5Date, DateFormat, Filter, FilterOperator</span>) {
+   "use strict";
+   return BaseController.extend("myCompany.myApp.controller.Object", {
+      formatter: formatter,
+      ...
+      _onBindingChange: function(oEvent) {
+         ...
+ <span class="emphasis">        // Update the comments in the list
+         var oList = this.byId("idCommentsList");
+         var oBinding = oList.getBinding("items");
+         oBinding.filter(new Filter("productID", FilterOperator.EQ, sObjectId));
+      },
+      /**
+      * Updates the model with the user comments on Products.
+      * @function
+      * @param {sap.ui.base.Event} oEvent object of the user input
+      */
+      onPost: function (oEvent) {
+         var oFormat = DateFormat.getDateTimeInstance({style: "medium"});
+         var sDate = oFormat.format(UI5Date.getInstance());
+         var oObject = this.getView().getBindingContext().getObject();
+         var sValue = oEvent.getParameter("value");
+         var oEntry = {
+             productID: oObject.ProductID,
+             type: "Comment",
+             date: sDate,
+             comment: sValue
+         };        
+         // update model
+         var oFeedbackModel = this.getModel("productFeedback");
+         var aEntries = oFeedbackModel.getData().productComments;
+         aEntries.push(oEntry);
+         oFeedbackModel.setData({
+            productComments : aEntries
+         });
+      }</span>
+   });
+});</pre></div></div></section>
+                <p>First, we add three new dependencies to the controller. We need these
+                    dependencies because we want to create a filter for the list and because we
+                    format the date and time of each post.</p>
+                <p>Whenever the binding of the detail view changes, we want to make sure that the
+                    comments for the current product are displayed. Therefore, we change the private
+                    function <code>_onBindingChange</code> and update the filter of the list
+                    that displays the comments by getting a reference to the binding of the
+                        <code>items</code> aggregation of our list and calling the
+                        <code>filter()</code> API afterwards. The filter is passed on to the
+                        <code>filter()</code> API. We use the <code>productID</code> as
+                    filter criterion, because we only want comments for a specific product.</p>
+                <p>Next, the event handler for the <code>post</code> event of the
+                        <code>FeedInput</code> is implemented. In the <code>onPost</code>
+                    handler, we create a new <code>entry</code> object that contains all data we
+                    want to store in our model. This data is the <code>productId</code>, the
+                        <code>type</code> of the post (hard-coded in our example), the current
+                        <code>date</code> in a medium date format, and the
+                        <code>comment</code> itself. The comment is retrieved from the event
+                    object. The <code>productId</code> is determined by calling
+                        <code>getObject()</code> on the view's binding context.</p>
+                <p>Finally, the new entry is added to the named model called
+                        <code>productFeedback</code>. This model does not exist yet, so let's
+                    create it next. </p>
+            </section>
+            <section>
+                <h3 class="title ">webapp/model/models.js [MODIFY]</h3>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+   "sap/ui/model/json/JSONModel",
+   "sap/ui/Device"
+], function(JSONModel, Device) {
+   "use strict";
+   return {
+      createDeviceModel: function() {
+         var oModel = new JSONModel(Device);
+         oModel.setDefaultBindingMode("OneWay");
+         return oModel;
+      }<span class="emphasis">,   
+      createCommentsModel: function() {
+         return new JSONModel({ productComments : [] });
+      }</span>
+   };
+});</pre></div></div></section>
+                <p>In both the object view (detail page) as well as in the corresponding controller
+                    we used a named model called <code>productFeedback</code>. In our example
+                    this model is a simple <code>JSONModel</code>. It is created in the function
+                        <code>createCommentsModel()</code> in the<code> model.js</code>
+                    file. As you can see above, the function simply returns a new instance of a
+                        <code>JSONModel</code> with a simple data object. The property
+                        <code>productComments</code> is an empty array and it will be updated
+                    every time someone posts a new comment.</p>
+                <p>However, this model is not yet accessible throughout our app. Let's fix this
+                    next. </p>
+            </section><section>
+                <h3 class="title ">webapp/Component.js [MODIFY]</h3>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+   "sap/ui/core/UIComponent",
+   "sap/ui/Device",
+   "./model/models",
+   "./controller/ErrorHandler"
+], function(UIComponent, Device, models, ErrorHandler) {
+   "use strict";
+   return UIComponent.extend("myCompany.myApp.Component", {
+      ...
+      init: function() {
+         // call the base component's init function
+         UIComponent.prototype.init.apply(this, arguments);
+
+         // initialize the error handler with the component
+         this._oErrorHandler = new ErrorHandler(this);
+
+         // set the device model
+         this.setModel(models.createDeviceModel(), "device");
+         
+         <span class="emphasis">// set the product feedback model
+         this.setModel(models.createCommentsModel(), "productFeedback");
+</span>
+
+         // create the views based on the url/hash
+         this.getRouter().initialize();
+      },
+      ...
+   });
+});</pre></div></div></section>
+                <p>Now it's time to make the named model <code>productFeedback</code> available
+                    to our app. Therefore, just change the <code>init</code> function of our
+                        <code>Component.js</code> file by calling our
+                        <code>createCommentsModel()</code> method and setting the returned model
+                    on the component. After this, our model is accessible in our app.</p>
+            </section><section>
+                <h3 class="title ">webapp/i18n/i18n.properties [MODIFY]</h3>
+                <section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+<span class="emphasis">#Comments tab title
+ObjectCommentsTabTitle=Comments
+
+#No comments text
+ObjectCommentNoData=No Comments
+</span>
+
+#~~~ Footer Options ~~~~~~~~~~~~~~~~~~~~~~~
+...</pre></div></div></section>
+                <p>Now add the new texts to our <code>i18n.properties</code> file and you're
+                    done.</p>
+                <p>You can test the new features by navigating to the details page of any given
+                    product. After that, just create a new comment for that product and post it.</p>
+            </section></section><section id="section_jvq_kgt_qbb">
+			<h2 class="title ">Summary</h2>
+			<p>Based on the initial app you have seen how easy it can be to generate or download initial code
+                and to extend it according to your own requirements. This tutorial also illustrated
+                how to communicate easily with an OData back end using the OData V2 model.
+                Furthermore, it illustrated how to use the mock server with both generated mock data
+                and more realistic data.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/6a6a621c978145ad9eef2b221d2cf21d">Worklist App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/b561d146f9114b029bd60fa26df09c6b">Step 6: Extending the Detail Page</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

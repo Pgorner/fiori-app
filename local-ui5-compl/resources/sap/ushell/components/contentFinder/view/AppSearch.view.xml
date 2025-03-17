@@ -1,0 +1,357 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    core:require="{
+        fLibrary: 'sap/f/library',
+        mLibrary: 'sap/m/library'
+    }"
+    controllerName="sap.ushell.components.contentFinder.controller.AppSearch"
+    id="contentFinderAppSearchView"
+    height="100%"
+>
+    <VBox height="100%">
+        <MessageStrip
+            text="{i18n>ContentFinder.AppSearch.MessageStrip.AppFinderFallbackText}"
+            type="Information"
+            showCloseButton="true"
+            class="sapUiResponsiveMargin"
+            visible="{= !!${ui>/linkToAppFinder} }"
+        >
+            <link>
+                <Link text="{i18n>ContentFinder.AppSearch.MessageStrip.AppFinderFallbackLinkText}"
+                    target="_blank"
+                    href="{ui>/linkToAppFinder}" />
+            </link>
+        </MessageStrip>
+        <f:FlexibleColumnLayout
+            id="contentFinderAppSearchFlexibleColumnLayout"
+            layout="{ui>/layoutType}"
+        >
+            <f:layoutData>
+                <FlexItemData growFactor="1" />
+            </f:layoutData>
+            <f:beginColumnPages>
+                <!-- Category Tree Menu -->
+                <Page
+                    id="contentFinderAppSearchCategoryTreePage"
+                    enableScrolling="true"
+                    showHeader="false"
+                    backgroundDesign="List"
+                >
+                    <core:Fragment
+                        fragmentName="sap.ushell.components.contentFinder.view.AppSearchCategoryTree"
+                        type="XML"
+                        id="CategoryTreeFragment"
+                    />
+                </Page>
+            </f:beginColumnPages>
+            <f:midColumnPages>
+                <Page
+                    id="contentFinderAppSearchDetailPage"
+                    enableScrolling="false"
+                    showHeader="false"
+                >
+                    <!-- The container needs any fixed height (e.g. minFlexSize="1px") to calculate the content heights. -->
+                    <l:FixFlex
+                        id="contentFinderAppSearchLayout"
+                        minFlexSize="1px"
+                    >
+                        <l:fixContent>
+                            <OverflowToolbar
+                                id="appSearchOverflowToolbar"
+                                asyncMode="false"
+                                style="Clear"
+                                class="contentFinderToolbar sapUiResponsiveMargin"
+                            >
+                                <OverflowToolbarToggleButton
+                                    id="categoryTreeToggleButton"
+                                    icon="sap-icon://menu2"
+                                    tooltip="{=
+                                        ${ui>/categoryTree/visible}
+                                        ? ${i18n>ContentFinder.AppSearch.Button.Tooltip.HideCatalogsTree}
+                                        : ${i18n>ContentFinder.AppSearch.Button.Tooltip.ShowCatalogsTree}
+                                    }"
+                                    press=".onCategoryTreeTogglePressed"
+                                    visible="{= (${ui>/componentSettings/showCategoryTreeWhenEmpty} || ${ui>/categoryTree/hasData})
+                                        &amp;&amp; ${ui>/visualizations/filters/selected} === 'tiles'
+                                    }"
+                                    pressed="{ui>/categoryTree/visible}"
+                                />
+                                <Title
+                                    id="appSearchVisualizationsTitle"
+                                    titleStyle="H5"
+                                    text="{
+                                        parts: [
+                                            'ui>/visualizations/filters/selected',
+                                            'ui>/visualizations/filters/available',
+                                            'ui>/visualizations/filters/filterIsTitle',
+                                            'ui>/visualizations/searchTerm',
+                                            'ui>/categoryTree/selectedTitle',
+                                            'ui>/visualizations/showSelectedPressed',
+                                            'selection>/visualizations/items/length',
+                                            'data>/visualizations/items',
+                                            'data>/visualizations/totalCount'
+                                        ], formatter: '.formatter.formatAppSearchTitle' }"
+                                    tooltip="{
+                                        parts: [
+                                            'ui>/visualizations/filters/selected',
+                                            'ui>/visualizations/filters/available',
+                                            'ui>/visualizations/filters/filterIsTitle',
+                                            'ui>/visualizations/searchTerm',
+                                            'ui>/categoryTree/selectedTitle',
+                                            'ui>/visualizations/showSelectedPressed',
+                                            'selection>/visualizations/items/length',
+                                            'data>/visualizations/items',
+                                            'data>/visualizations/totalCount'
+                                        ], formatter: '.formatter.formatAppSearchTitle' }"
+                                >
+                                    <layoutData>
+                                        <OverflowToolbarLayoutData
+                                            minWidth="6rem"
+                                            shrinkable="true"
+                                            priority="NeverOverflow"
+                                        />
+                                    </layoutData>
+                                </Title>
+                                <SegmentedButton
+                                    id="selectVisualizationsFilter"
+                                    items="{ui>/visualizations/filters/available}"
+                                    selectedKey="{ui>/visualizations/filters/selected}"
+                                    selectionChange=".onSelectVisualizationsFilter"
+                                    enabled="{= ${selection>/visualizations/items/length} === 0 &amp;&amp; ${ui>/visualizations/loaded} }"
+                                    visible="{= !${ui>/visualizations/showSelectedPressed} &amp;&amp; ${ui>/visualizations/filters/displayed/length} > 1 }"
+                                >
+                                    <layoutData>
+                                        <OverflowToolbarLayoutData
+                                            priority="Low"
+                                        />
+                                    </layoutData>
+                                    <items>
+                                        <SegmentedButtonItem
+                                            key="{ui>key}"
+                                            text="{ui>title}"
+                                            tooltip="{ui>title}"
+                                        />
+                                    </items>
+                                </SegmentedButton>
+                                <ToolbarSpacer />
+
+                                <!-- Add 'search=".onSearch"' for server side searching -->
+                                <SearchField
+                                    id="appSearchField"
+                                    placeholder="{i18n>ContentFinder.AppSearch.SearchPlaceholder}"
+                                    search=".onSearch"
+                                    value="{ui>/visualizations/searchFieldValue}"
+                                >
+                                    <layoutData>
+                                        <OverflowToolbarLayoutData
+                                            minWidth="6rem"
+                                            maxWidth="13.75rem"
+                                            shrinkable="false"
+                                            priority="High"
+                                        />
+                                    </layoutData>
+                                </SearchField>
+                                <OverflowToolbarToggleButton
+                                    id="showAllSelectedBtn"
+                                    visible="{ui>/componentSettings/enablePersonalization}"
+                                    pressed="{ui>/visualizations/showSelectedPressed}"
+                                    enabled="{= ${selection>/visualizations/items/length} > 0 || ${ui>/visualizations/showSelectedPressed} }"
+                                    icon="sap-icon://multi-select"
+                                    text="{i18n>ContentFinder.AppSearch.Button.Tooltip.ShowSelected}"
+                                    tooltip="{= ${ui>/visualizations/showSelectedPressed} ? ${i18n>ContentFinder.AppSearch.Button.Tooltip.ShowAll} : ${i18n>ContentFinder.AppSearch.Button.Tooltip.ShowSelected}}"
+                                    press=".onShowSelectedPressed"
+                                >
+                                    <layoutData>
+                                        <OverflowToolbarLayoutData
+                                            shrinkable="false"
+                                            priority="Low"
+                                        />
+                                    </layoutData>
+                                </OverflowToolbarToggleButton>
+
+                                <SegmentedButton
+                                    id="selectListView"
+                                    selectionChange=".onViewSelectionChange"
+                                >
+                                    <layoutData>
+                                        <OverflowToolbarLayoutData
+                                            priority="Low"
+                                        />
+                                    </layoutData>
+                                    <items>
+                                        <SegmentedButtonItem
+                                            id="gridBtn"
+                                            icon="sap-icon://table-view"
+                                            tooltip="{i18n>ContentFinder.AppSearch.Button.Tooltip.GridView}"
+                                        />
+                                        <SegmentedButtonItem
+                                            id="listBtn"
+                                            icon="sap-icon://list"
+                                            key="list"
+                                            tooltip="{i18n>ContentFinder.AppSearch.Button.Tooltip.ListView}"
+                                        />
+                                    </items>
+                                </SegmentedButton>
+                            </OverflowToolbar>
+                        </l:fixContent>
+                        <l:flexContent>
+                            <Page
+                                id="contentPage"
+                                showHeader="false"
+                                busy="{= !${ui>/visualizations/loaded}}"
+                            >
+                                <ScrollContainer class="sapUiResponsiveContentPadding" horizontal="false" vertical="true" height="100%">
+                                    <!-- Table for appSearch in list view -->
+                                    <Table
+                                        id="visualizationsTable"
+                                        fixedLayout="false"
+                                        includeItemInSelection="true"
+                                        updateStarted=".onUpdateStarted"
+                                        items="{
+                                            model: 'data',
+                                            path: '/visualizations/items',
+                                            parameters: { totalCountPropertyPath: '/visualizations/totalCount' }
+                                        }"
+                                        mode="{ parts: [
+                                                'ui>/componentSettings/enablePersonalization',
+                                                'ui>/visualizations/filters/selected'
+                                            ], formatter: '.formatter.formatVisualizationsListMode'
+                                        }"
+                                        multiSelectMode="ClearAll"
+                                        growingScrollToLoad="true"
+                                        growingThreshold="{ui>/visualizations/growingThreshold}"
+                                        selectionChange=".onAppBoxSelected"
+                                        popinLayout="GridSmall"
+                                        sticky="{= mLibrary.Sticky.ColumnHeaders}"
+                                        rememberSelections="false"
+                                        visible="{ui>/visualizations/listView}"
+                                    >
+                                        <columns>
+                                            <Column>
+                                                <Text
+                                                    id="applicationColumn"
+                                                    text="{i18n>ContentFinder.AppSearch.Label.Application}"
+                                                    tooltip="{i18n>ContentFinder.AppSearch.Label.Application}"
+                                                />
+                                            </Column>
+                                            <Column
+                                                minScreenWidth="Small"
+                                                demandPopin="true"
+                                            >
+                                                <Text
+                                                    id="appIdColumn"
+                                                    text="{i18n>ContentFinder.AppSearch.Label.FioriId}"
+                                                    tooltip="{i18n>ContentFinder.AppSearch.Label.FioriId}"
+                                                />
+                                            </Column>
+                                            <Column
+                                                minScreenWidth="Medium"
+                                                demandPopin="true"
+                                            >
+                                                <Text
+                                                    id="systemIdColumn"
+                                                    text="{i18n>ContentFinder.AppSearch.Label.SystemId}"
+                                                    tooltip="{i18n>ContentFinder.AppSearch.Label.SystemId}"
+                                                />
+                                            </Column>
+                                            <Column
+                                                minScreenWidth="Large"
+                                                demandPopin="true"
+                                            >
+                                                <Text
+                                                    id="informationColumn"
+                                                    text="{i18n>ContentFinder.AppSearch.Label.Information}"
+                                                    tooltip="{i18n>ContentFinder.AppSearch.Label.Information}"
+                                                />
+                                            </Column>
+                                            <Column
+                                                minScreenWidth="XSmall"
+                                                demandPopin="true"
+                                                visible="{ui>/componentSettings/showApplicationLaunchButton}"
+                                            >
+                                                <Text
+                                                    id="actionsColumn"
+                                                    text="{i18n>ContentFinder.AppSearch.Label.Actions}"
+                                                    tooltip="{i18n>ContentFinder.AppSearch.Label.Actions}"
+                                                />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <core:Fragment
+                                                id="tilesListItems"
+                                                fragmentName="sap.ushell.components.contentFinder.view.AppSearchList"
+                                                type="XML"
+                                            />
+                                        </items>
+                                        <noData>
+                                            <core:Fragment
+                                                id="VisualizationsNoDataIllustratedMessage"
+                                                fragmentName="sap.ushell.components.contentFinder.view.VisualizationsNoDataIllustratedMessage"
+                                                type="XML"
+                                            />
+                                        </noData>
+                                    </Table>
+                                    <!-- Grid for appSearch in grid view -->
+                                    <f:GridList
+                                        id="visualizationsGridList"
+                                        includeItemInSelection="true"
+                                        mode="{ parts: [
+                                                'ui>/componentSettings/enablePersonalization',
+                                                'ui>/visualizations/filters/selected'
+                                            ], formatter: '.formatter.formatVisualizationsListMode'
+                                        }"
+                                        growing="true"
+                                        growingScrollToLoad="true"
+                                        growingThreshold="{ui>/visualizations/growingThreshold}"
+                                        updateStarted=".onUpdateStarted"
+                                        items="{
+                                            model: 'data',
+                                            key: 'id',
+                                            path: '/visualizations/items',
+                                            parameters: { totalCountPropertyPath: '/visualizations/totalCount' }
+                                        }"
+                                        selectionChange=".onAppBoxSelected"
+                                        rememberSelections="false"
+                                        visible="{= !${ui>/visualizations/listView} }"
+                                    >
+                                        <f:customLayout>
+                                            <grid:GridResponsiveLayout
+                                                containerQuery="true"
+                                            >
+                                                <grid:layout>
+                                                    <!-- Set GridSettings only if there are tiles otherwise the noData messages are affected by it.  -->
+                                                    <grid:GridSettings
+                                                        gridTemplateColumns="{= ${data>/visualizations/items}.length > 0 ? 'repeat(auto-fill, 19.0625rem)' : ''}"
+                                                        gridAutoRows="{= ${data>/visualizations/items}.length > 0 ? '12.75rem' : ''}"
+                                                        gridGap="{= ${data>/visualizations/items}.length > 0 ? '1rem' : ''}"
+                                                    />
+                                                </grid:layout>
+                                            </grid:GridResponsiveLayout>
+                                        </f:customLayout>
+                                        <core:Fragment
+                                            id="tilesBox"
+                                            fragmentName="sap.ushell.components.contentFinder.view.AppSearchBox"
+                                            type="XML"
+                                        />
+                                        <f:noData>
+                                            <core:Fragment
+                                                id="VisualizationsNoDataIllustratedMessage"
+                                                fragmentName="sap.ushell.components.contentFinder.view.VisualizationsNoDataIllustratedMessage"
+                                                type="XML"
+                                            />
+                                        </f:noData>
+                                    </f:GridList>
+                                </ScrollContainer>
+                            </Page>
+                        </l:flexContent>
+                    </l:FixFlex>
+                </Page>
+            </f:midColumnPages>
+        </f:FlexibleColumnLayout>
+    </VBox>
+</mvc:View>

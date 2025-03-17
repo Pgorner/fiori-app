@@ -1,0 +1,132 @@
+{
+    "_version": "1.1.0",
+    "start_url": "start.html",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "bookshop",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.2.2"
+        },
+        "title": "{{APP_TITLE}}",
+        "description": "{{APP_DESCRIPTION}}",
+        "dataSources": {
+            "CatalogServiceV2": {
+                "uri": "/v2/ovp/catalog/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "annotations": ["localAnnotation"]
+                }
+            },
+            "CatalogServiceV4": {
+                "uri": "/ovp/catalog/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "annotations": ["localAnnotation"]
+                }
+            },
+            "localAnnotation": {
+                "uri": "localData/annotation.xml",
+                "type": "ODataAnnotation",
+                "settings": {}
+            }
+        }
+    },
+    "sap.ui": {
+        "_version": "1.2.0",
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://dimension"
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": ["sap_hcb", "sap_bluecrystal"]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "dependencies": {
+            "minUI5Version": "1.32.0",
+            "libs": {
+                "sap.ovp": {
+                    "minVersion": "1.32.0"
+                }
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "CATALOG_MODEL_V2": {
+                "dataSource": "CatalogServiceV2",
+                "settings": {}
+            },
+            "CATALOG_MODEL_V4": {
+                "dataSource": "CatalogServiceV4",
+                "settings": {
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true,
+                    "groupProperties": {
+                        "default": {
+                            "submit": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "extends": {
+            "component": "sap.ovp.app",
+            "minVersion": "1.32.0",
+            "extensions": {}
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ovp": {
+        "_version": "1.1.0",
+        "globalFilterModel": "CATALOG_MODEL_V4",
+        "globalFilterEntityType": "Books",
+        "smartVariantRequired": true,
+        "enableLiveFilter": false,
+        "dataLoadSettings" : {
+            "loadDataOnAppLaunch" : "ifAnyFilterExist"
+        },
+        "containerLayout": "resizable",
+        "cards": {
+            "card_01_v4": {
+                "model": "CATALOG_MODEL_V4",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "{{EXTENDED_LIST_CARD_BAR_FLAVOR}}",
+                    "subTitle": "{{COMMON_LIST_CARD_SUBTITLE_V4}}",
+                    "listType": "extended",
+                    "listFlavor": "bar",
+                    "entitySet": "Books",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#View4",
+                    "value": "Without KPI"
+                }
+            },
+            "card_02_v4": {
+                "model": "CATALOG_MODEL_V4",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "{{EXTENDED_LIST_CARD_STANDARD}}",
+                    "subTitle": "{{COMMON_LIST_CARD_SUBTITLE_V4}}",
+                    "listType": "extended",
+                    "entitySet": "Books",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#View4",
+                    "value": "Without KPI"
+                }
+            }
+        }
+    }
+}

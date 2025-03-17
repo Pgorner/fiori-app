@@ -1,0 +1,9 @@
+/*!
+ * 
+		SAP UI development toolkit for HTML5 (SAPUI5)
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ * This extension is for OVP Analytical cards delivered in 2208.
+ */
+sap.ui.define(["sap/ui/integration/Host","sap/insights/base/CacheData"],function(e,t){"use strict";var s=t.getInstance();var n="refreshTime";return e.extend("sap.insights.InMemoryCachingHost",{_fetchData:function(t,a,i,r){var c=r.getManifestEntry("sap.app").id;return e.prototype.fetch.call(this,t,a,i).then(function(e){s.setCacheResponse(c,t,e);s.setCacheResponse(c,n,new Date);var a=s.getCacheResponse(c);const i={"/sap.card/header/dataTimestamp":a[n]};if(r.getManifestEntry("sap.card").type==="List"){i["/sap.card/content/item/actionsStrip"]=r.getManifestEntry("sap.card").content.item.actionsStrip||[]}r.setManifestChanges([i]);return a[t]}).catch(function(e){var a={error:e.toString()};var i=new Response(JSON.stringify(a),{headers:{"Content-Type":"application/json"}});s.setCacheResponse(c,t,i);s.setCacheResponse(c,n,new Date);var r=s.getCacheResponse(c);return r[t]})},_isCSRFFetchCall:function(e){return e.method==="HEAD"},fetch:function(t,n,a,i){var r=i.getManifestEntry("sap.app").id;var c=s.getCacheResponse(r);var p=s.getTempPromise(r);if(!c){c=s.setCacheResponse(r,null,{})}if(!p){p=s.setTempPromise(r,null,{})}if(this._isCSRFFetchCall(a)){return e.prototype.fetch.call(this,t,n,a)}else if(!c[t]&&!p[t]){p=s.setTempPromise(r,t,this._fetchData(t,n,a,i));return p[t]}else if(!c[t]&&p[t]){return p[t]}else{return new Promise(function(e){if(i.getManifestChanges()&&!i.getManifestChanges().length){const e={"/sap.card/header/dataTimestamp":c["refreshTime"]};if(i.getManifestEntry("sap.card").type==="List"){e["/sap.card/content/item/actionsStrip"]=i.getManifestEntry("sap.card").content.item.actionsStrip||[]}i.setManifestChanges([e])}e(c[t])})}}})});
+//# sourceMappingURL=InMemoryCachingHost.js.map

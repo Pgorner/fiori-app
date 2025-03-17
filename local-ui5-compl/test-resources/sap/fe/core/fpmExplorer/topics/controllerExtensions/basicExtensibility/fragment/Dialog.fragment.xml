@@ -1,0 +1,37 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:macros="sap.fe.macros"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+>
+	<Dialog title="Confirmation" id="confirmationDialog" contentWidth="38rem">
+		<content>
+			<MessageStrip
+				id="message"
+				text="{dialog>/text}"
+				type="Information"
+				showIcon='{DialogProperty}'
+				class="sapUiSmallMarginTop sapUiSmallMarginBottom sapUiSmallMarginBeginEnd"
+			/>
+			<f:Form visible="{dialog>/formVisible}">
+				<f:layout>
+					<f:ColumnLayout columnsXL="2" columnsL="2" columnsM="2" />
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<macros:FormElement metaPath="DialogProperty" id="formElementMacroID2" />
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+		</content>
+		<beginButton>
+			<Button id="continue" text="Continue" press="onConfirm" type="Emphasized" />
+		</beginButton>
+		<endButton>
+			<Button id="cancel" press="onCancel" text="Cancel" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

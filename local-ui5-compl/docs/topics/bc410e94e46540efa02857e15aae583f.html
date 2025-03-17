@@ -1,0 +1,55 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobc410e94e46540efa02857e15aae583f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/object-page-scrolling-bc410e9.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Object Page Scrolling</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Object Page Scrolling</h2></div><div class="shortdesc">The object page offers different ways to handle specific scrolling scenarios. </div><section>
+			<h2 class="title ">General Scrolling Behavior</h2>
+			<p>By default, the <code>headerContent</code> of the <code>ObjectPage</code>
+				snaps to the <code>headerTitle</code> when scrolling a longer section. Some of
+				the contents of the <code>headerContent</code> move to the
+					<code>headerTitle</code> and thus always remain visible. You can see an
+				example of this behavior in the screenshot below. </p>
+			<div><div class="fig"><img src="loio1106798cda9a4eda858c4322b933579d_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Object Page Header: Expanded (left) / Snapped (right)</h2></span></div>
+			<p>This behavior can be altered. Setting the property
+					<code>alwaysShowContentHeader</code> to <code>true</code> will prevent
+				the <code>headerContent</code> from snapping. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This property only affects
+					desktop environments.</p></div></div><p></p>
+		</section><section><h2 class="title ">Selected Section</h2>
+			<p>As the user scrolls through the sections, the currently scrolled section is
+				internally set to the <code>selectedSection</code> association of
+					<code>ObjectPageLayout</code>. The app can also modify its value:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>The app can set which section the page should scroll to upon initial
+						display:</p>
+					<p>
+						</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"> &lt;ObjectPageLayout id="ObjectPageLayout" <span class="emphasis">selectedSection="mySectionId"</span>&gt;
+        &lt;sections&gt;
+            &lt;ObjectPageSection title="Payroll" <span class="emphasis">id="mySectionId"</span>&gt;
+                &lt;subSections&gt;
+                    &lt;ObjectPageSubSection title="sub payroll title"&gt;
+                        &lt;blocks&gt;
+                            &lt;myNameSpace:myBlock/&gt;
+                            &lt;myNameSpace:myBlock/&gt;
+                            &lt;myNameSpace:myBlock/&gt;
+                        &lt;/blocks&gt;
+                    &lt;/ObjectPageSubSection&gt;
+                &lt;/subSections&gt;
+            &lt;/ObjectPageSection&gt;
+        &lt;/sections&gt;
+    &lt;/ObjectPageLayout&gt;</pre></div></div></section>
+					<p></p>
+				</li>
+				<li class="li">
+					<p>The app can also change the currently scrolled section at runtime:</p>
+					<p>
+						</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//navigate to a specific section on open
+this.oObjectPageLayout = this.getView().byId("ObjectPageLayout");
+this.oTargetSection = this.getView().byId("empl");
+this.oObjectPageLayout.<span class="emphasis">setSelectedSection</span>(this.oTargetSection)</pre></div></div></section>
+					<p></p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="entity/sap.uxap.ObjectPageLayout/sample/sap.uxap.sample.ObjectPageState" title="entity/sap.uxap.ObjectPageLayout/sample/sap.uxap.sample.ObjectPageState" class="sap-doc" alt="entity/sap.uxap.ObjectPageLayout/sample/sap.uxap.sample.ObjectPageState">Sample: sap.uxap.sample.ObjectPageState</a></li>
+	</ul></section></div></section></div></body></html>

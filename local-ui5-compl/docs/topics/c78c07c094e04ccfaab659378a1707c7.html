@@ -1,0 +1,40 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc78c07c094e04ccfaab659378a1707c7" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/creating-control-and-class-modules-c78c07c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating Control and Class Modules</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating Control and Class Modules</h2></div><div class="shortdesc">Modules not only require and use functionality from other modules, they can also expose their own functionality.</div><p>In asynchronous module definition (AMD) syntax, there are several ways to do this. When working with SAPUI5, we recommend using the "module return value".</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>It is best practice to avoid the usage of global names. For more information, see <a href="topic/28fcd55b04654977b63dacbee0552712" title="This page is a good starting point for you to ensure your code bases, specifically your SAPUI5 applications and libraries, are ready for the future and won't become outdated." class="sap-doc">Best Practices for Developers</a>.</p>
+		<p></p></div></div><p>If you want to export the "module value" of an AMD module under a global name, you can  rely on the SAPUI5 methods that already do the exposure as a side effect, such as:</p><ul class="ul ">
+				<li class="li">
+					<p>Classes created by the <code>extend</code> method</p>
+				</li>
+				<li class="li">
+					<p>Renderers that are created with <code>sap/ui/core/Renderer.extend("…")</code></p>
+				</li>
+			</ul><p></p><p>In control and class modules, you should not use global variables at all. When you derive a
+			custom control from an existing superclass via the <code>extend</code> method, the
+			resulting subclass is returned.</p><p>You can store the return value of the extend function in a local variable, make changes to the prototype and then return this variable as the
+			module's return value.</p><p>JSDoc for the class should use the <code>@alias</code> tag to make sure that the
+			variable is known under the global name in the generated JSDoc.</p><p>The <code>extend</code> function makes sure that the respective namespace is
+			created:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/base/Object"], function(BaseObject) {
+
+    /**
+     * Constructor for a new MyClass instance.
+     *
+     * @class
+     * Description for MyClass
+     * @extends sap.ui.base.Object
+     * @alias foo.bar.MyClass
+     */  
+    const Foo = BaseObject.extend("foo.bar.MyClass", /** @lends foo.bar.MyClass.prototype */ {
+      constructor: function() {
+      }
+    });
+
+    Foo.prototype.ownMethod = function(a) {
+        return a * 2;
+    };
+
+    // return the module value, in this example a class
+    return Foo;
+});</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

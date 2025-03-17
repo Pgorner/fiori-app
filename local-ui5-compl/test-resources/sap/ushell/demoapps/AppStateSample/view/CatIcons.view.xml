@@ -1,0 +1,44 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="sap.ushell.demo.AppStateSample.view.CatIcons">
+    <Page title="CatIcons" id="pgView2">
+        <content>
+            <Toolbar>
+                <Input
+                    id="search"
+                    value="{AppState>/appState/filter}"
+                    type="Text"
+                    placeholder="Enter icon search criteria, e.g. 'wrench' or 'survey'" />
+                <ToolbarSpacer />
+            </Toolbar>
+            <Table id="itemTable" inset="false" items="{/icons}">
+                <columns>
+                    <Column width="4rem">
+                        <Text text="Icon" />
+                    </Column>
+                    <Column>
+                        <Text text="Src" />
+                    </Column>
+                    <Column>
+                        <Text text="Collection Name" />
+                    </Column>
+                    <Column width="4rem" hAlign="End">
+                        <Text text="Count" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <core:Icon src="{key}" size="2rem" />
+                            <Text text="{key}" />
+                            <Text text="{collectionName}" />
+                            <Text text="{index}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

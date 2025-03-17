@@ -1,0 +1,85 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:build="sap.build"
+    xmlns:ovp="sap.ovp.ui"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    template:require="{
+		CardAnnotationhelper: 'sap/ovp/cards/AnnotationHelper',
+        CardAnnotationhelperV4: 'sap/ovp/cards/v4/V4AnnotationHelper'
+	}"    
+>
+    <template:if test="{= ${ovpCardProperties>/disableTableCardFlexibility} === true}">
+        <template:then>
+            <template:with 
+                path='ovpCardProperties>/annotationPath'
+                helper="CardAnnotationhelperV4.resolveEntityTypePath" 
+                var='lineItem'>
+                <columns>
+                    <Column>
+                        <Text text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.getFirstDataFieldName'}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.getSecondDataFieldName'}"/>
+                    </Column>
+                    <Column hAlign="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.isFirstDataPointCriticalityForTableStatus'} === true ? 'Center' : 'Right'}">
+                        <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0}">
+                            <template:then>
+                                <Text 
+                                    class="displayBlock {= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.isFirstDataPointCriticalityForTableStatus'} === true ? 'textAlignCenter' : 'textAlignRight'}"
+                                    text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.getLabelForFirstDataPoint'}"/>
+                            </template:then>
+                            <template:else>
+                                <Text text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.getThirdDataFieldName'}"/>
+                            </template:else>
+                        </template:if>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem
+                        core:require="{CardAnnotationhelper: 'sap/ovp/cards/AnnotationHelper'}"
+                        id = "tableItem"
+                        type="Active"
+                        press="onColumnListItemPress">
+                        <cells>
+                            <Text 
+                                class="{= ${ovpCardProperties>/webkitSupport} ? 'sapTableDataRow' : 'sapTableDataRowIE' }"
+                                text="{parts:[{path:'lineItem>'}, {path:'ovpConstants>/firstDataFieldIndex'}], formatter: 'CardAnnotationhelperV4.formatDataFieldValueOnIndex'}"/>
+                            <Text 
+                                class="{= ${ovpCardProperties>/webkitSupport} ? 'sapTableDataRow' : 'sapTableDataRowIE' }"
+                                text="{parts:[{path:'lineItem>'}, {path:'ovpConstants>/secondDataFieldIndex'}], formatter: 'CardAnnotationhelperV4.formatDataFieldValueOnIndex'}"/>
+                            <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0}">
+                                <template:then>
+                                    <template:if
+                                        test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.isFirstDataPointCriticality'} === true &amp;&amp; ${ovpCardProperties>/enableLocaleCurrencyFormatting} === false}">
+                                        <template:then>
+                                            <ObjectStatus class="textAlignCenter"
+                                                text="{parts:[{path:'lineItem>'}, {path:'ovpConstants>/firstDataPointIndex'}], formatter: 'CardAnnotationhelperV4.formatDataPointValueOnIndex'}" 
+                                                state="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointState'}"/>
+                                        </template:then>
+                                        <template:else>
+                                            <ObjectNumber 
+                                                class="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.isFirstDataPointCriticalityForTableStatus'} === true ? 'textAlignCenter' : 'textAlignRight'} sapOvpObjectNumber"
+                                                number="{parts:[{path:'lineItem>'}, {path:'ovpConstants>/firstDataPointIndex'}, {path:'ovpConstants>/dontIncludeUOM'}], formatter: 'CardAnnotationhelperV4.formatObjectNumber'}"
+                                                unit="{parts:[{path:'lineItem>'}, {path:'ovpConstants>/firstDataPointIndex'}], formatter: 'CardAnnotationhelper.formatUnit'}"
+                                                state="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointState'}"/>
+                                        </template:else>
+                                    </template:if>
+                                </template:then>
+                                <template:else>
+                                    <Text 
+                                        class="{= ${ovpCardProperties>/webkitSupport} ? 'sapTableDataRow' : 'sapTableDataRowIE' }"
+                                        text="{parts:[{path:'lineItem>'}, {path:'ovpConstants>/thirdDataFieldIndex'}], formatter: 'CardAnnotationhelperV4.formatDataFieldValueOnIndex'}"/>
+                                </template:else>
+                            </template:if>
+
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </template:with>
+        </template:then>
+        <template:else>
+            <core:Fragment fragmentName="sap.ovp.cards.v4.table.TableDashBoardLayout" type="XML"/>
+        </template:else>
+    </template:if>
+</core:FragmentDefinition>

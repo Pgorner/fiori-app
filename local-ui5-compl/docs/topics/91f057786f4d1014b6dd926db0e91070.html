@@ -1,0 +1,144 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f057786f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/list-binding-aggregation-binding-91f0577.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">List Binding (Aggregation Binding)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">List Binding (Aggregation Binding)</h2></div><div class="shortdesc">List binding (or aggregation binding) is used to automatically create child controls
+		according to model data.</div><p>Let's say we would like to display the following JSON model data in a
+				<code>sap.m.List</code>:</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	companies : [
+		{
+			name : "Acme Inc.",
+			city: "Belmont",
+			state: "NH",
+			county: "Belknap",
+			revenue : "123214125.34"  
+		},{
+			name : "Beam Hdg.",
+			city: "Hancock",
+			state: "NH",
+			county: "Belknap",
+			revenue : "3235235235.23"  
+		},{
+			name : "Carot Ltd.",
+			city: "Cheshire",
+			state: "NH",
+			county: "Sullivan",
+			revenue : "Not Disclosed"  
+		}]
+}</pre></div></div></section><section id="AggregationBindingXMLViews">
+			<h2 class="title ">Declarative List Binding in XML Views</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.sample.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;List id="companyList" items="{path: '/companies', templateShareable:false}"&gt;
+		&lt;items&gt;
+			&lt;StandardListItem
+				title="{name}"
+				description="{city}"
+			/&gt;
+		&lt;/items&gt;
+	&lt;/List&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>The <code>List</code> element has both an <code>items</code> attribute and a
+				nested <code>items</code> element:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>The attribute <code>items="{path: '/companies', templateShareable:false}"</code> binds
+						the children of our json model's <code>companies</code> array to the
+						list. This by itself is not enough to display the companies, instead it sets
+						the parent path for the binding of all contained list items and their
+						descendants. In addition you need to declare a nested element.</p>
+				</li>
+				<li class="li">
+					<p>The nested <code>items</code> element in our case contains a
+							<code>StandardListItem</code>. This serves as a template for
+						creating the individual list rows.</p>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The binding paths of <code>StandardListItem</code> for properties
+						<code>title</code> and <code>description</code> are relative to
+						<code>companies</code>. This means that instead of having to write the
+					whole binding path <code>title={/companies/name}</code>, you can simply
+					write <code>title={name}</code>. By omitting the slash '/' at the beginning,
+						<code>{name}</code> is marked as a relative binding path.</p>
+			<p></p></div></div>
+			<p>Instead of using a <code>StandardListItem</code> as a list row template, you can
+				also use any other <code>sap.m.</code> list item, such as:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>ActionListItem</p>
+				</li>
+				<li class="li">
+					<p>DisplayListItem</p>
+				</li>
+				<li class="li">
+					<p>CustomListItem</p>
+				</li>
+				<li class="li">
+					<p>ObjectListItem</p>
+				</li>
+			</ul>
+			<p>For more examples and details on when to use which list item control, see the various
+				list items in the <a href="controls/" title="controls/" class="sap-doc" alt="controls/">Samples</a> in the Demo Kit.</p>
+			<div class="note note  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The model has a default size limit to avoid too much data being rendered on the UI. This size
+					limit determines the number of entries used for the list bindings. The default
+					size limit is 100 entries.</p>
+				<p>This means that controls that don't support paging or don't request data in
+					chunks (e.g. <code>sap.m.ComboBox</code>) only show 100 entries even though
+					the model contains more items.</p>
+				<p>To change this behavior, you can either set a size limit in the model by using <code>oModel.setSizeLimit</code> or set the
+						<code>length</code> property of the <code>oBindingInfo</code> parameter of the 
+							<a href="api/sap.ui.base.ManagedObject#methods/bindAggregation" title="api/sap.ui.base.ManagedObject#methods/bindAggregation" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/bindAggregation"><code>sap.ui.base.ManagedObject#bindAggregation</code></a> method.</p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">List Binding in the JavaScript Code</h2>
+			<p>You can define list binding directly in JavaScript either in the <code>settings</code>
+				object in the constructor or by calling the <code>bindAggregation</code> method.
+				List binding requires the definition of a template, which is cloned for each bound
+				entry of the list. For each clone that is created, the binding context is set to the
+				respective list entry, so that all bindings of the template are resolved relative to
+				the entry. The aggregated elements are destroyed and recreated whenever the bound
+				list in the data model is changed.</p>
+			<p>To bind a list, you create a template or provide a factory function, which is then passed when
+				defining the list binding itself. In the <code>settings</code> object, this
+				looks as follows:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oItemTemplate = new sap.ui.core.ListItem({text:"{name}"});
+oComboBox = new sap.m.ComboBox({
+	items: {
+		path: "/companies",      //no curly brackets here!
+		template: oItemTemplate
+		templateShareable: false
+	}
+});</pre></div></div></section>
+			<p>A template is not necessarily a single control as shown in the example above, but can also be
+				a tree of controls. For each list entry, a deep clone of the template is created and
+				added to the bound list.</p>
+			<p>You can also define the list binding by using the <code>bindAggregation</code> method of a
+				control:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oItemTemplate = new sap.ui.core.ListItem({text:"{name}"});
+oComboBox.bindAggregation("items", {
+path: "/companies",
+template: oItemTemplate,
+templateShareable: false
+});</pre></div></div></section>
+			<p>In addition, some controls have a typed binding method for lists that are likely to be bound
+				by the application:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oComboBox.bindItems("/companies", oItemTemplate);</pre></div></div></section>
+			<p>To remove a list binding, you can use the <code>unbindAggregation</code> method:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oComboBox.unbindAggregation("items");</pre></div></div></section>
+			<p>Controls with typed binding methods also provide a typed unbind:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oComboBox.unbindItems();</pre></div></div></section>
+			<p>When a list is unbound, its aggregated controls are removed and destroyed by default. If you
+				would like to keep the items in your <code>ComboBox</code>, for example, you can
+				do so by using:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oComboBox.unbindAggregation("items", true);</pre></div></div></section>
+		</section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/335848ac1174435c901baaa55f6d7819">Using Factory Functions</a></li><li><a href="topic/ec79a5d5918f4f7f9cbc2150e66778cc">Sorting, Grouping, and Filtering for List Binding</a></li><li><a href="topic/9b5bdd8931194e88b22faf8537099073">Displaying a Specific Range of Records in a Control</a></li><li><a href="topic/3a4a9e562988456c9be0ef883ae7da50">Lifecycle of Binding Templates</a></li><li><a href="topic/7cdff73f308b4b10bdf7d83b7aba72e7">Extended Change Detection</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/97830de2d7314e93b5c1ee3878a17be9" title="Aggregation binding, also known as &quot;list binding&quot;, lets a control bind to a list within the model data. This binding allows relative binding to the list entries by its child controls." class="sap-doc">Tutorial Step 12: Aggregation Binding Using Templates</a></li>
+		<li><a href="topic/e2e6f4127fe4450ab3cf1339c42ee832" title="You bind UI elements to data of a data source by defining a binding path to the model that represents the data source in the app." class="sap-doc">Binding Syntax</a></li>
+		<li><a href="topic/07e4b920f5734fd78fdaa236f26236d8" title="Data that is presented on the UI often has to be converted so that is human readable and fits to the locale of the user. On the other hand, data entered by the user has to be parsed and validated to be understood by the data source. For this purpose, you use formatters and data types." class="sap-doc">Formatting, Parsing, and Validating Data</a></li>
+	</ul></section></div></section></div></body></html>

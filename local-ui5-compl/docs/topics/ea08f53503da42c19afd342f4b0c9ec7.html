@@ -1,0 +1,80 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioea08f53503da42c19afd342f4b0c9ec7" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/css-classes-for-theme-parameters-ea08f53.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">CSS Classes for Theme Parameters</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">CSS Classes for Theme Parameters</h2></div><div class="shortdesc">SAPUI5 provides a set of
+		essential adjustable colors behind the generic predefined CSS rules that enable custom
+		content to use the respective CSS classes for the required colors.</div><p>If SAPUI5 applications
+			define their own HTML and CSS content that is not created by any standard
+			SAPUI5 controls, switching
+			between different themes or adapting colors using the theme designer won't have any
+			effect on these parts of the application.</p><p>The reason this doesn't work is because this type of styling cannot make use of the SAPUI5 theme
+			parameters.</p><p>HTML content like that might be created as part of the following: </p><ul class="ul ">
+				<li class="li">
+					<p>JavaScript libraries that are <span class="emphasis">not</span>
+						SAPUI5
+						libraries</p>
+				</li>
+				<li class="li">
+					<p>Custom/notepad
+						controls(if they do <span class="emphasis">not</span>
+						belong
+						to a control library with a theme build)</p>
+				</li>
+				<li class="li">
+					<p>Plain static HTML or CSS content used in an application</p>
+				</li>
+			</ul><p></p><p>To resolve this problem, you can use CSS classes. There is a number of predefined CSS classes that are supplied with color values by LESS CSS
+			parameters of the current theme. These classes can be used in custom HTML content and in custom controls. The names of the CSS classes are
+			generic and mostly derived from the respective theme parameter
+			name.
+			This makes it easier to use the classes, and the names created are not too long or conflict-prone.</p><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<p>The most straightforward example is the theme parameter <code>@sapUiText</code>. The theme parameter is mainly used for text colors, so the
+				custom CSS rule sets the <code>color</code> property.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">   CSS
+.sapThemeText {
+   color: @sapUiText;
+}</pre></div></div></section>
+			<p>This solution is not sufficient if the same color is used for borders, for example.
+				To support this, the color is defined for each CSS color parameter: Once as a text
+				color, once as a background color, once as a border color, and so on. The styled CSS
+				property name is part of the CSS class name, as a suffix:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">   CSS
+.sapThemeText-asColor {
+   color: @sapUiText;
+}
+.sapThemeText-asBackgroundColor {
+   background-color: @sapUiText;
+}
+.sapThemeText-asBorderColor {
+   border-color: @sapUiText;
+}</pre></div></div></section>
+			<p>Nevertheless, if there is an obvious default CSS property, such as the (text) color
+				for <code>@sapUiText</code> or the background color for
+					<code>@sapUiPageBG</code>, this one is available without suffix. </p>
+		</div></section><p>If an application is using SAPUI5, and a theme is
+			loaded into the page, any custom content like plain HTML, HTML inside HTML controls or
+			HTML/XML views, or HTML rendered by
+			custom/notepad
+			controls can use theming if the respective generic CSS classes are added. If custom HTML
+			should have the font color as
+			defined
+			in the current theme, the application writes:</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;span class="sapThemeText"&gt;some custom text in custom HTML&lt;/span&gt;</pre></div></div></section><p>Whenever the theme is switched or the theme designer is used to modify the standard text
+			color, this span automatically gets the new text color. The same is valid if a
+			custom/notepad
+			control is created. Just make sure the control writes the respective CSS class, for
+			example, by calling <code>oRm.addClass("sapThemeText");</code>: </p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// the part creating the HTML:
+render : function(oRm, oControl) { 
+oRm.openStart("div", oControl); 
+    oRm.style("width", oControl.getSize());  
+    oRm.style("height", oControl.getSize());
+    oRm.class("mySquare");       
+    oRm.class("sapThemeText");  // here the CSS class is added which makes the text color depend on the current theme
+    oRm.openEnd();
+    oRm.text(oControl.getText()); 
+    oRm.close("div");
+},
+</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91a4946b0dcf4356aaaedc4e502864f4" title="Overview of the CSS classes currently supported by SAPUI5." class="sap-doc">List of Supported CSS Classes</a></li>
+		<li><a href="topic/d12d2ee6a5454d799358d425f9e7c4db" title="In this step, we are going to extend the functionality of SAPUI5 with a custom control. We want to rate the product shown on the detail page, so we create a composition of multiple standard controls using the SAPUI5 extension mechanism and add some glue code to make them work nicely together. This way, we can reuse the control across the app and keep all related functionality in one module." class="sap-doc">Step 33: Custom Controls</a></li>
+	</ul></section></div></section></div></body></html>

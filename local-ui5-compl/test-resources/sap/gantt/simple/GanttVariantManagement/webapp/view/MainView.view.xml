@@ -1,0 +1,39 @@
+<mvc:View controllerName="gantt.demo.GanttVariantManagement.controller.MainView" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:gantt="sap.gantt.simple"
+	xmlns:axistime="sap.gantt.axistime"
+	xmlns:customVariant="gantt.demo.GanttVariantManagement.helper"
+	xmlns:core="sap.ui.core">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="Gantt Variant Management" titleAlignment="Center">
+					<content>
+						<gantt:GanttChartContainer id="ganttContainer" height="100%" width="100%" layoutOrientation="Vertical" enableTimeScrollSync="true"
+							enableCursorLine="true" enableNowLine="true" enableVerticalLine="true" enableAdhocLine="true" displayType="Both" customSettingChange="updateOnSettingsChange"
+							variantApplied="onVariantApplied" enableVariantManagement="true">
+							<gantt:toolbar>
+								<gantt:ContainerToolbar id="ganttContainerToolbar" showBirdEyeButton="true" showDisplayTypeButton="true" showLegendButton="true" showSearchButton="false">
+									<Select id="layoutSelect" forceSelection="false" selectedKey="AdhocAndDelta" change="onLayoutChange">
+										<items>
+											<core:Item key="AdhocAndDelta" text="Table 1 and 2"/>
+											<core:Item key="Adhoc" text="Table 1"/>
+											<core:Item key="Delta" text="Table 2"/>
+										</items>
+									</Select>
+									<Button text="Export to PDF" press="onExportPDF" />
+									<Button text="Export Single Page PDF" press="onExportSinglePage" />
+									<!-- <Button text="Hide Description" id="descBtn" type="Transparent" press="onChange"/> -->
+								</gantt:ContainerToolbar>
+							</gantt:toolbar>
+							<gantt:variantHandler>
+								<customVariant:ExtendCustomVariantSettings id="variantId"></customVariant:ExtendCustomVariantSettings>
+							</gantt:variantHandler>
+							<core:Fragment fragmentName="gantt.demo.GanttVariantManagement.fragment.GanttChartWithAdhoclines" type="XML"/>
+							<core:Fragment fragmentName="gantt.demo.GanttVariantManagement.fragment.GanttChartWithDeltalines" type="XML"/>
+						</gantt:GanttChartContainer>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/shape/Line"],function(t){"use strict";var r=t.extend("sap.gantt.shape.ext.ulc.UlcMiddleLine",{});r.prototype.getX1=function(t,r){if(this.mShapeConfig.hasShapeProperty("x1")){return this._configFirst("x1",t)}var e=this.mChartInstance._oStatusSet?this.mChartInstance._oStatusSet.aViewBoundary:[];if(e.length>0){return e[0]}return 0};r.prototype.getY1=function(t,r){if(this.mShapeConfig.hasShapeProperty("y1")){return this._configFirst("y1",t)}var e=25;if(this.mShapeConfig.hasShapeProperty("maxVisibleRatio")){e=this._configFirst("maxVisibleRatio",t)}return r.y+r.rowHeight*(50+e)/(100+e)};r.prototype.getX2=function(t,r){if(this.mShapeConfig.hasShapeProperty("x2")){return this._configFirst("x2",t)}var e=this.mChartInstance._oStatusSet?this.mChartInstance._oStatusSet.aViewBoundary:[];if(e.length>0){return e[1]}return 0};r.prototype.getY2=function(t,r){if(this.mShapeConfig.hasShapeProperty("y2")){return this._configFirst("y2",t)}return this.getY1(t,r)};r.prototype.getStrokeDasharray=function(t,r){if(this.mShapeConfig.hasShapeProperty("strokeDasharray")){return this._configFirst("strokeDasharray",t)}return"5,5"};r.prototype.getStroke=function(t){if(this.mShapeConfig.hasShapeProperty("stroke")){return this._configFirst("stroke",t)}return"#CAC7BA"};r.prototype.getStrokeWidth=function(t){if(this.mShapeConfig.hasShapeProperty("strokeWidth")){return this._configFirst("strokeWidth",t)}return 1};return r},true);
+//# sourceMappingURL=UlcMiddleLine.js.map

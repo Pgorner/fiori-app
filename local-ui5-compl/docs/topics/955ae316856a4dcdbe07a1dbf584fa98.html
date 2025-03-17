@@ -1,0 +1,73 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio955ae316856a4dcdbe07a1dbf584fa98" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/using-global-side-effects-955ae31.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using Global Side Effects</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using Global Side Effects</h2></div><div class="shortdesc">Global side effects are those side effects that are defined without any source properties or source entities.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+            </p><p>Global side
+                effects
+                are only applicable to draft-enabled applications.</p>
+        <p></p></div></div><p>Global side effects can be annotated under each entity separately. When you press <span class="keyWrap"><kbd class="key">Enter</kbd></span> on any input field, the global side
+            effect defined under the corresponding entity is triggered.</p><p>The following sample code shows the global side effect with target fields and the <code>TriggerAction</code>:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="NAMESPACE.ENTITYTYPE"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="GlobalSideEffect"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="TargetProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;String&gt;TaxAmount&lt;/String&gt;
+                    &lt;String&gt;NetAmount&lt;/String&gt;
+                    &lt;String&gt;GrossAmount&lt;/String&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+          &lt;PropertyValue Property="TriggerAction" String="NAMESPACE.MyAction"/&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div><section id="section_b5t_bn1_twb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>If the <code>TriggerAction</code> is annotated with a global side effect, then on pressing <span class="keyWrap"><kbd class="key">Enter</kbd></span> the
+                    <code>TriggerAction</code> replaces the <code>PreparationAction</code> call. For more information, see <a href="topic/ed9aa41c563a44b18701529c8327db4d" title="A draft is an interim version of a business entity that has not yet been explicitly saved as an active version. SAP Fiori elements supports the creation of apps using draft handling." class="sap-doc"> Draft Handling</a>.</p><p>To optimize performance, make the annotations for the desired side effects as specific as possible.</p><p>It is recommended to specify the target properties or target entities for global side effects. For exceptional cases, apps can
+                configure to refresh the whole entity with the help of the <code>forceGlobalRefresh</code> parameter in the
+                    <code>manifest.json</code>.</p><p>
+                </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+        "_version": "1.3.0",
+        "settings": {
+            "forceGlobalRefresh": true,
+            .....
+                }
+            },</pre></div></div></section><p></p></div></div>
+                <ul class="ul ">
+                    <li class="li">
+                        <p>If the <code>forceGlobalRefresh</code> parameter is set to <code>true</code>, a refresh of the entire model is
+                            triggered when you press <span class="keyWrap"><kbd class="key">Enter</kbd></span>.</p>
+                    </li>
+                    <li class="li">
+                        <p>If the parameter is set to <code>false</code>, then only the annotated targets are refreshed, and/or the annotated
+                                <code>TriggerAction</code> is called.</p>
+                    </li>
+                    <li class="li">
+                        <p>As of SAPUI5 1.106, if the parameter is not set, the (runtime)
+                            default is <code>false</code>.</p>
+                    </li>
+                </ul>
+            <p></p><p>For newly generated apps, the (design time) default is <code>false</code>, that is, the project generation wizard generates
+                    <code>"forceGlobalRefresh": false</code>.</p></div></section><section id="section_hkm_hzq_5wb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>The following CAP CDS sample code shows the global side effect with target
+                fields and the <code>TriggerAction</code>:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate NAMESPACE.ENTITYTYPE @(
+Common.SideEffects #GlobalSideEffect : {
+    TargetProperties : [
+        TaxAmount,
+        NetAmount,
+        GrossAmount
+    ],
+    TriggerAction : 'NAMESPACE.MyAction'
+}
+);</pre></div></div></section><p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="topic/ed9aa41c563a44b18701529c8327db4d" title="A draft is an interim version of a business entity that has not yet been explicitly saved as an active version. SAP Fiori elements supports the creation of apps using draft handling." class="sap-doc">Draft Handling</a></li>
+    </ul></section></div></section></div></body></html>

@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parse formatter expression Parse date type formatters Parse format.date formatter 1`] = `
+{
+  "formatterName": "format.date",
+  "parameters": [
+    {
+      "UTC": true,
+    },
+  ],
+  "propertyPath": "created_at",
+}
+`;
+
+exports[`Parse formatter expression Parse date type formatters Parse format.dateTime formatter 1`] = `
+{
+  "formatterName": "format.dateTime",
+  "parameters": [
+    {
+      "UTC": true,
+      "relative": true,
+    },
+  ],
+  "propertyPath": "created_at",
+}
+`;
+
+exports[`Parse formatter expression Parse numeric type formatters Parse format.currency formatter 1`] = `
+{
+  "formatterName": "format.currency",
+  "parameters": [
+    "INR",
+    {
+      "currencyCode": true,
+    },
+  ],
+  "propertyPath": "net_amount",
+}
+`;
+
+exports[`Parse formatter expression Parse numeric type formatters Parse format.float formatter 1`] = `
+{
+  "formatterName": "format.float",
+  "parameters": [
+    {
+      "decimals": 2,
+      "style": "long",
+    },
+  ],
+  "propertyPath": "net_amount",
+}
+`;
+
+exports[`Parse formatter expression Parse numeric type formatters Parse format.integer formatter 1`] = `
+{
+  "formatterName": "format.integer",
+  "parameters": [],
+  "propertyPath": "net_amount",
+}
+`;
+
+exports[`Parse formatter expression Parse numeric type formatters Parse format.percent formatter 1`] = `
+{
+  "formatterName": "format.percent",
+  "parameters": [],
+  "propertyPath": "net_amount",
+}
+`;
+
+exports[`Utility methods extractPathWithoutTextArrangement: extract path without text arrangement 1`] = `
+[
+  {
+    "formatterExpression": [
+      "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+    ],
+    "propertyPath": "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+  },
+  {
+    "formatterExpression": [
+      "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+    ],
+    "propertyPath": "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})} {currency_code}",
+  },
+  {
+    "formatterExpression": [
+      "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+    ],
+    "propertyPath": "{net_amount} {currency_code}",
+  },
+  {
+    "formatterExpression": [
+      "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+    ],
+    "propertyPath": "{so_id} {currency_code}",
+  },
+  {
+    "formatterExpression": [
+      "{= format.float(\${net_amount}, {"decimals":2,"style":"short"})}",
+      "{=format.dateTime(\${created_at}, {"relative":false,"UTC":true})}",
+    ],
+    "propertyPath": "{net_amount} {currency_code}",
+  },
+]
+`;
+
+exports[`Utility methods getExpressionParts: parse expression and extract paths 1`] = `
+[
+  [
+    "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+  ],
+  [
+    "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+    "{currency_code}",
+  ],
+  [
+    "{= format.float(\${net_amount}, {"decimals":2,"style":"long"})}",
+    "({so_id})",
+    "{currency_code}",
+  ],
+  [
+    "{so_id}",
+    "({= format.float(\${net_amount}, {"decimals":2,"style":"long"})})",
+    "{currency_code}",
+  ],
+]
+`;
+
+exports[`getArrangements Get Arrangements for property with TextFirst arrangement 1`] = `"{so_id} ({net_amount})"`;
+
+exports[`getArrangements Get Arrangements for property with TextFirst arrangement 2`] = `"{so_id} ({net_amount})"`;
+
+exports[`getArrangements Get Arrangements for property with TextFirst arrangement and UOM 1`] = `"{so_id} ({= format.unit(\${net_amount}, \${net_amount})})"`;
+
+exports[`getArrangements Get Arrangements for property with TextFirst arrangement with formatters 1`] = `"{so_id} ({= format.float(\${net_amount}, {"decimals":2,"style":"short"})})"`;
+
+exports[`getArrangements Get Arrangements for property with TextFirst arrangement, when both property and matching UoM has formatter 1`] = `"{= format.float(\${net_amount}, {"decimals":1,"style":"short"})} ({= format.unit(\${gross_amount}, \${currency_code}, {"decimals":1,"style":"short"})})"`;
+
+exports[`getArrangements Get Arrangements for property with TextLast arrangement 1`] = `"{net_amount} ({so_id})"`;
+
+exports[`getArrangements Get Arrangements for property with TextLast arrangement 2`] = `"{net_amount} ({so_id})"`;
+
+exports[`getArrangements Get Arrangements for property with TextLast arrangement and UOM 1`] = `"{= format.unit(\${net_amount}, \${net_amount})} ({so_id})"`;
+
+exports[`getArrangements Get Arrangements for property with TextLast arrangement with formatters 1`] = `"{= format.float(\${net_amount}, {"decimals":2,"style":"short"})} ({so_id})"`;
+
+exports[`getArrangements Get Arrangements for property with TextOnly arrangement and UOM 1`] = `"{so_id}"`;
+
+exports[`getArrangements Get Arrangements for property with TextSeparate arrangement 1`] = `"{net_amount}"`;
+
+exports[`getArrangements Get Arrangements for property with TextSeparate arrangement 2`] = `"{net_amount}"`;
+
+exports[`getArrangements Get Arrangements for property with TextSeparate arrangement and UOM 1`] = `"{= format.unit(\${net_amount}, \${currency_code})}"`;
+
+exports[`getArrangements Get Arrangements for property with TextSeparate arrangement and UOM with propertyFormatter 1`] = `"{= format.unit(\${net_amount}, \${currency_code}, {"decimals":2,"style":"short"})}"`;
+
+exports[`getArrangements Get Arrangements for property with UOM, formatter and text arrangement 1`] = `"{so_id} ({= format.unit(\${net_amount}, \${currency_code}, {"decimals":2,"style":"short"})})"`;
+
+exports[`getArrangements Get arrangements for property with binding 1`] = `"{= format.unit(\${Property1}, \${Property1UOM})} ({Property1Arrangement})"`;
+
+exports[`getArrangements Get arrangements for property with formatters 1`] = `"{= format.float(\${net_amount}, {"decimals":3,"style":"long"})} {= format.float(\${net_amount}, {"decimals":3,"style":"long"})} ({Property1Arrangement})"`;
+
+exports[`getArrangements with matching UOM, without matching arrangement property with binding, float formatter and matching UOM - when matching UOM does not have formatter 1`] = `"{= format.unit(\${net_amount}, \${currency_code}, {"decimals":1,"style":"long"})}"`;
+
+exports[`getArrangements with matching UOM, without matching arrangement property with binding, float formatter and matching UOM - when matching UOM has formatter 1`] = `"{= format.float(\${net_amount}, {"decimals":1,"style":"long"})} {= format.float(\${net_amount}, {"decimals":1,"style":"long"})}"`;
+
+exports[`getArrangements with matching UOM, without matching arrangement property with binding, float formatter and matching UOM - when matching UOM with binding, without formatter 1`] = `"{= format.unit(\${net_amount}, \${gross_amount}, {"decimals":1,"style":"long"})}"`;
+
+exports[`getArrangements with matching UOM, without matching arrangement property with matching UOM - when property and matching UOM does not have any pre applied formatters 1`] = `"{= format.unit(\${net_amount}, \${so_id})}"`;
+
+exports[`getArrangements with matching UOM, without matching arrangement property with matching UOM - when property has pre applied unit formatter with formatOptions 1`] = `"{= format.unit(\${net_amount}, \${so_id}, {"decimals":1,"style":"long"})}"`;
+
+exports[`getArrangements with matching UOM, without matching arrangement property with matching UOM - when property has pre applied unit formatter without formatOptions 1`] = `"{= format.unit(\${net_amount}, \${so_id})}"`;

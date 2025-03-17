@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common/v1">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI/v1">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="Namespace"
+			sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="MainEntityType" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id" />
+				</Key>
+				<Property Name="Id"
+					Type="Edm.String"
+					Nullable="false"
+					sap:visible="false"
+					sap:label="Id Key Field"/>
+				<Property Name="CompanyCode"
+					Type="Edm.String"
+					MaxLength="4"
+					sap:display-format="UpperCase"
+					sap:label="Company Code"/>
+				<Property Name="DataField"
+					Type="Edm.String"
+					sap:display-format="NonNegative"
+					sap:label="Data Field"/>
+				<Property Name="Customer"
+					Type="Edm.String"
+					sap:label="Customer"/>
+				<Property Name="Amount"
+					Type="Edm.Decimal"
+					Precision="25"
+					Scale="2"
+					sap:unit="Currency"
+					sap:label="Amount"/>
+				<Property Name="Currency"
+					Type="Edm.String"
+					sap:display-format="UpperCase"
+					sap:label="Currency"
+					sap:semantics="currency-code" />
+				<Property Name="PostingDate"
+					Type="Edm.DateTime"
+					Precision="0"
+					sap:display-format="Date"
+					sap:filter-restriction="interval"
+					sap:label="Posting Date"/>
+				<Property Name="DocumentDate"
+					Type="Edm.DateTime"
+					Precision="0"
+					sap:display-format="Date"
+					sap:label="Document Date"/>
+				<Property Name="OrdersCount"
+					Type="Edm.Int32"
+					sap:label="OrdersCount"
+					sap:filterable="true"/>
+				<Property Name="Validated"
+					Type="Edm.Boolean"
+					sap:display-format="UpperCase"
+					sap:filterable="true"
+					sap:label="Validated"/>
+			</EntityType>
+			<EntityType Name="VL1Type" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="CompanyCodeVL1" />
+				</Key>
+				<Property Name="CompanyCodeVL1"
+					Type="Edm.String"
+					Nullable="false"
+					MaxLength="4"
+					sap:display-format="UpperCase"
+					sap:label="Company Code" />
+				<Property Name="CompanyNameVL1"
+					Type="Edm.String"
+					sap:label="Company Name" />
+				<Property Name="CityVL1"
+					Type="Edm.String"
+					sap:label="City" />
+				<Property Name="CurrencyVL1"
+					Type="Edm.String"
+					sap:display-format="UpperCase"
+					sap:label="Currency"
+					sap:semantics="currency-code" />
+			</EntityType>
+			<EntityType Name="VL2Type" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="CustomerIdVL2" />
+				</Key>
+				<Property Name="CustomerIdVL2"
+					Type="Edm.String"
+					Nullable="false"
+					sap:display-format="UpperCase"
+					sap:label="Customer" />
+				<Property Name="CustomerNameVL2"
+					Type="Edm.String"
+					sap:display-format="UpperCase"
+					sap:label="Customer Name" />
+				<Property Name="CountryVL2"
+					Type="Edm.String"
+					sap:display-format="UpperCase"
+					sap:label="Country" />
+				<Property Name="CityVL2"
+					Type="Edm.String"
+					sap:display-format="UpperCase"
+					sap:label="City" />
+			</EntityType>
+			<EntityContainer Name="Namespace_Entities"
+				m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="MainEntitySet" EntityType="Namespace.MainEntityType"/>
+				<EntitySet Name="VL1" EntityType="Namespace.VL1Type"/>
+				<EntitySet Name="VL2" EntityType="Namespace.VL2Type"/>
+			</EntityContainer>
+
+			<Annotations Target="Namespace.MainEntityType/CompanyCode"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Company Codes" />
+						<PropertyValue Property="CollectionPath" String="VL1" />
+						<PropertyValue Property="SearchSupported" Bool="true" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty"
+										PropertyPath="CompanyCode" />
+									<PropertyValue Property="ValueListProperty"
+										String="CompanyCodeVL1" />
+								</Record>
+								<Record
+									Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty"
+										String="CompanyNameVL1" />
+								</Record>
+								<Record
+									Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty"
+										String="CityVL1" />
+								</Record>
+								<Record
+									Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty"
+										String="CurrencyVL1" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Namespace.MainEntityType/Customer"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Customer (general)" />
+						<PropertyValue Property="CollectionPath" String="VL2" />
+						<PropertyValue Property="SearchSupported" Bool="true" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty"
+										PropertyPath="Customer" />
+									<PropertyValue Property="ValueListProperty"
+										String="CustomerIdVL2" />
+								</Record>
+								<Record	Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty"
+										String="CustomerNameVL2" />
+								</Record>
+								<Record	Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty"
+										String="CountryVL2" />
+								</Record>
+								<Record	Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty"
+										String="CityVL2" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="Namespace.MainEntityType">
+				<Annotation Term="UI.FieldGroup" Qualifier="Date.Group">
+					<Record>
+						<PropertyValue Property="Label" String="Date Group" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="DocumentDate" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="PostingDate" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="PostingDate" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="DocumentDate" />
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

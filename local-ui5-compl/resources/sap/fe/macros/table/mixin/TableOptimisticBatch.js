@@ -1,0 +1,6 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ *      (c) Copyright 2009-2024 SAP SE. All rights reserved
+ */
+sap.ui.define(["sap/ui/core/Element"],function(t){"use strict";var e={};let i=function(){function i(){}e=i;var n=i.prototype;n.setupMixin=function t(e){this.optimisticBatchEnablerPromise=undefined};n.setupOptimisticBatch=async function e(){const i=this.getContent();if(!i){return}const n=await(i?.awaitControlDelegate());const s=t.getElementById(i?.getFilter());if(s&&s.getParent){s.getParent()?.attachEvent("search",t=>{const e=i.getParent();const s=e.getPageController();const r=s.extension;if(s&&s.isA("sap.fe.templates.ListReport.ListReportController")&&r===undefined&&!["Go","Enter"].includes(t.getParameter("reason"))){try{n?.setOptimisticBatchPromiseForModel(s,e);n?.enableOptimisticBatchMode(s,i)}catch(t){}}const o=i.getBindingContext("internal");o?.setProperty("searchFired",true)})}};n.setOptimisticBatchEnablerPromise=function t(e){this.optimisticBatchEnablerPromise=e};n.getOptimisticBatchEnablerPromise=function t(){return this.optimisticBatchEnablerPromise};n.isOptimisticBatchDisabled=function t(){return this.getTableDefinition().control.disableRequestCache||false};return i}();e=i;return e},false);
+//# sourceMappingURL=TableOptimisticBatch.js.map

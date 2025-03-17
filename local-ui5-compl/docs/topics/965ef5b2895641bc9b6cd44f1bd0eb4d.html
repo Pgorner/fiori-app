@@ -1,0 +1,272 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio965ef5b2895641bc9b6cd44f1bd0eb4d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-editing-using-a-dialog-mass-edit-965ef5b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling Editing Using a Dialog (Mass Edit)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling Editing Using a Dialog (Mass Edit)</h2></div><div class="shortdesc">Mass editing allows users to simultaneously change multiple objects that share the same editable properties.</div><p>The values that are changed within the mass edit dialog are applied to all selected records that are editable.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><ul class="ul ">
+				<li class="li">
+					<p>When the request for each selected instance is sent, the update is executed with the following logic:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>if some of the records fail with errors or warnings, the updates for the other selected instances are still
+								executed</p>
+						</li>
+						<li class="li">
+							<p>individual records are only updated if all fields can be updated</p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>In the list report, <span class="ph uicontrol">Mass Edit</span> is available for active records that don't have unsaved drafts from any
+						user.</p>
+				</li>
+			</ul>
+		<p></p></div></div><section id="section_bqg_2xm_mtb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>In SAP Fiori elements for OData
+                            V2, using the mass edit dialog is
+				only available in the list report.</p><p>For more information, see <a href="topic/7cc4f04364c540c397130ff92f84c3ca" title="You can edit a single object or multiple objects using a dialog in the list report page." class="sap-doc">Enabling Editing Using a Dialog (Mass Edit) in the List Report</a>.</p></div></section><section id="section_mjc_ccs_hnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>In SAP Fiori elements for OData
+                            V4, you can use the mass edit dialog on the object page in edit
+				mode and in the list report. Use the
+					<code>enableMassEdit</code>
+				property in the manifest to enable the
+				feature.
+				You can use the following settings for the <code>enableMassEdit</code> property:</p><ul class="ul ">
+				<li class="li">
+					<p>Undefined (mass edit is disabled)</p>
+				</li>
+				<li class="li">
+					<p>A Boolean property</p>
+				</li>
+				<li class="li">
+					<p>An object which can contain two properties:</p><ul class="ul ">
+							<li class="li">
+								<p><code>visibleFields</code></p>
+							</li>
+							<li class="li">
+								<p><code>ignoredFields</code></p>
+							</li>
+						</ul><p></p>
+				</li>
+			</ul><p>The <code>visibleFields</code> property lets you specify which fields are available in the mass edit dialog, even if these fields
+				are not displayed in the table.
+				The <code>ignoredFields</code> property
+				lets you hide specific fields from the mass edit dialog, even if these fields are displayed in the table. When the user chooses the
+					<span class="ph uicontrol">Mass Edit</span> button, the editability of each field is evaluated. Read-only fields are automatically excluded
+				from the mass edit dialog, and changes are only applied to fields that are editable.</p><p>You can
+				only use
+				one
+				of these properties
+				at
+				a time. If the
+					<code>visibleFields</code> property is set, then the <code>ignoredFields</code> property is
+				ignored.</p><p>Both properties can contain a <code>FieldGroup</code> annotation or a comma-separated list of properties. A combination of both is
+				not supported.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>The <code>manifest.json</code>
+				setting to toggle the mass edit functionality</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"controlConfiguration": {
+   "_Item/@com.sap.vocabularies.UI.v1.LineItem": {
+      "tableSettings": {
+         ......
+         ......
+         "enableMassEdit": true
+      },
+      ......
+      ......
+}</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>The <code>manifest.json</code> setting to toggle the mass edit functionality using the
+					<code>visibleFields</code> property</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"controlConfiguration": {
+   "_Item/@com.sap.vocabularies.UI.v1.LineItem": {
+      "tableSettings": {
+         ......
+         ......
+         "enableMassEdit": {
+             "visibleFields": "com.sap.vocabularies.UI.v1.FieldGroup#Include"
+      },
+      ......
+      ......
+}</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>The <code>manifest.json</code> setting to toggle the mass edit functionality using the
+					<code>ignoredFields</code> property</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"controlConfiguration": {
+   _Item/@com.sap.vocabularies.UI.v1.LineItem: {
+      "tableSettings": {
+         ......
+         ......
+         "enableMassEdit": {
+             "ignoredFields": "property2,property3"
+      },
+      ......
+      ......
+}</pre></div></div></section><p></p></div></div><section>
+				<h3 class="title ">Operation Grouping for Mass Edit</h3>
+				<p>You can define how the changes using mass edit should be applied:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>Grouped for all objects within the same request (<code>ChangeSet</code>)</p>
+					</li>
+					<li class="li">
+						<p>Separately for each object (<code>Isolated</code>)</p>
+					</li>
+				</ul>
+				<p>You can set the mode for mass editing by using the <code>operationGroupingMode</code> key in the
+					<code>manifest.json</code>.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"controlConfiguration": {
+   _Item/@com.sap.vocabularies.UI.v1.LineItem: {
+      "tableSettings": {
+         ......
+         ......
+         "enableMassEdit": {
+            ......
+            "operationGroupingMode": "Isolated"
+      },
+      ......
+      ......
+}</pre></div></div></section><p></p></div></div>
+				<p>The default mode for mass editing is <code>ChangeSet</code> on the object page and <code>Isolated</code> in the list
+					report.</p>
+			</section><section>
+				<h3 class="title ">Enabling the Mass Edit Functionality</h3>
+			</section><p>The following prerequisites apply:</p><ul class="ul ">
+				<li class="li">
+					<p>Application developers have enabled the functionality in the manifest, as shown in the sample code above.</p>
+				</li>
+				<li class="li">
+					<p>Users must select at least 1 record.</p>
+				</li>
+				<li class="li">
+					<p>On the object page, <span class="ph uicontrol">Mass Edit</span> is only available in edit mode.</p>
+				</li>
+			</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>You can enable the mass edit feature for backend services based on CAP Node.js by setting a feature flag. For more information, see
+						<a href="https://cap.cloud.sap/docs/releases/dec23#sapui5-mass-edit" title="https://cap.cloud.sap/docs/releases/dec23#sapui5-mass-edit" class="external-link" target="_blank" rel="noopener">https://cap.cloud.sap/docs/releases/dec23#sapui5-mass-edit</a>.</p>
+			<p></p></div></div><p>When
+				a user clicks on the <span class="ph uicontrol">Mass Edit</span> button, a dialog opens showing all the editable
+				fields
+				that
+				are visible in the table or configured using
+				the <code>visibleFields</code> property or the <code>ignoreFields</code> property. The user is able to set a
+				value for every editable field of the selected records, or even clear all values for the field from the selected records in one
+				go.</p><p>The <span class="ph uicontrol">Mass Edit</span> button isn't visible if the table entity has an update restriction set to static false. Visibility
+				can also be controlled via a value for <code>UI.UpdateHidden</code> (you can use a path-based value, but can only point to the
+				parent path for a table on an object page or subobject page, and to a singleton in a list report table).</p><p>The <span class="ph uicontrol">Mass Edit</span> button isn't enabled if the update restriction points to a path and the path evaluates to
+				false.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p><span class="ph uicontrol">Mass Edit</span> doesn't change the draft or active status of the object.</p>
+					</li>
+					<li class="li">
+						<p>If the parent entity has a navigation restriction to the table entity set, this takes priority over the update restriction
+							of the table entity set.</p>
+					</li>
+					<li class="li">
+						<p>If <span class="ph uicontrol">Mass Edit</span> is enabled and if <code>selectionMode</code> isn't specified or set to
+								<code>"Multi"</code>, then users can select multiple records – irrespective of other conditions (for example,
+							multiple selection is possible even if there are no table toolbar actions that require context).</p>
+					</li>
+					<li class="li">
+						<p>The suggestion list in the fields (showing the values for this field from the selected records in the table) within the
+							mass
+							edit dialog doesn't appear if the following applies:</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>the field is part of the <code>Common.ValueListParameterIn</code> mapping of another field and this other field
+									is filled with a value</p>
+								<p>Example:</p>
+								<p><code>"Country"</code> has an IN mapping to <code>"City"</code>. If a user selects a value for the field
+										<code>"Country"</code> within the
+									mass
+									edit dialog, no suggestion list is available for the field <code>"City"</code>.</p>
+							</li>
+							<li class="li">
+								<p>the field has a <code>Common.ValueListParameterOut</code> mapping to another field</p>
+								<p>Example:</p>
+								<p>If <code>EmployeeID</code> is picked from the suggestion list and if there are two reporting lines (two
+									different <code>Managers</code>) for this <code>EmployeeID</code>, the OUT mapping (the
+										<code>Manager</code> field) cannot be populated with the correct value.</p>
+							</li>
+						</ul>
+					</li>
+					<li class="li">
+						<p>If <span class="ph uicontrol">Mass Edit</span> is enabled for an object page and the service is ETag enabled, you must ensure that the
+							ETag implementation is in <code>etag master</code>. This means the ETag value of the child entity doesn't depend on
+							the ETag value of the parent (that is, the root entity).</p>
+					</li>
+				</ul>
+			<p></p></div></div><div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p>The following fields are not
+							available in the 
+							mass edit dialog:</p>
+						<ul class="ul ">
+							
+							
+							<li class="li">
+								<p>image-based
+									fields</p>
+							</li>
+							
+							<li class="li">
+								<p><code>DataFieldForAnnotation</code>-based
+									fields such as:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p>micro-chart-based
+											fields</p>
+									</li>
+									<li class="li">
+										<p>contact fields</p>
+									</li>
+									<li class="li">
+										<p>fields coming from a <code>FieldGroup</code>-based field in the table</p>
+									</li>
+								</ul>
+							</li>
+							
+							<li class="li">
+								<p>multi-input
+									fields</p>
+							</li>
+							<li class="li">
+								<p>fields coming from navigation entities</p>
+							</li>
+							<li class="li">
+								<p>custom fields</p>
+							</li>
+							<li class="li">
+								<p>fields that have context-dependent value help</p>
+								<p>For more information, see <a href="topic/a5608eabcc184aee99e1a7d88b28816c" title="A field can be associated with a helper control, depending on how the field is configured." class="sap-doc">Field Help</a>.</p>
+							</li>
+							
+							<li class="li">
+								<p>value help fields with a dropdown list that have fixed values (<code>@Common.ValueListWithFixedValues:
+										true</code>)</p>
+							</li>
+							
+						</ul>
+					</li>
+					<li class="li">
+						<p>Validation from the server for updates made in the
+							mass
+							edit
+							dialog is currently not supported. There's no communication with the back end until users choose
+								<span class="ph uicontrol">Save</span> in the mass
+							edit
+							dialog.</p>
+					</li>
+					
+					<li class="li">
+						<p>You must not enable <span class="ph uicontrol">Mass Edit</span> if the back end is configured to lock the entire object while you're
+							making an update to a child object.</p>
+					</li>
+					
+				</ul>
+			<p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

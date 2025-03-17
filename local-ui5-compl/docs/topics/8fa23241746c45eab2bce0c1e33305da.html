@@ -1,0 +1,39 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio8fa23241746c45eab2bce0c1e33305da" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/instance-specific-design-time-metadata-8fa2324.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Instance-Specific Design-Time Metadata </h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Instance-Specific Design-Time Metadata </h2></div><div class="shortdesc">If you want to change the adaptability of a control in a specific instance only, you can provide instance-specific design-time metadata. </div><p>To attach instance-specific design-time metadata to XML views, you can attach the <code>designtime</code> attribute with the
+                <code>sap.ui.dt</code> namespace to the XML node of a control. There are two ways to define the design-time metadata: Either with
+            a path to a file that you created or with special keywords for predefined design-time metadata.</p><p>For a list of available keywords, see <a href="topic/6af43022e00945019903f8e9410eb6e5" title="You can specify that some controls cannot be adapted." class="sap-doc">Deactivating Adaptation of Controls</a>.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:View
+    ...
+    xmlns:sap.ui.dt="sap.ui.dt"
+&gt;
+    ...
+    &lt;SomeControl sap.ui.dt:designtime="&lt;path&gt;/&lt;name&gt;.designtime" /&gt;
+    &lt;SomeOtherControl sap.ui.dt:designtime="not-adaptable" /&gt;
+    &lt;AnotherControl sap.ui.dt:designtime="not-adaptable-visibility" /&gt;
+    &lt;ContainerControl sap.ui.dt:designtime="not-adaptable-tree"&gt;
+        &lt;ChildControl&gt; &lt;!-- this is also not adaptable --&gt;
+            &lt;AnotherChildControl /&gt; &lt;!-- this is also not adaptable --&gt;
+        &lt;/ChildControl&gt;
+    &lt;/ContainerControl&gt;
+    ...
+&lt;/core:View&gt;</pre></div></div></section>
+		<p></p></div></div><p>When you instantiate the view in JavaScript code, you can provide instance-specific design-time metadata as custom data:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">new SomeControl({
+    //other settings
+    customData :  [new CustomData({
+        key : "sap-ui-custom-settings",
+        value : {
+            "sap.ui.dt" : {
+                "designtime": "&lt;path&gt;/&lt;name&gt;.designtime" // || "not-adaptable" || "not-adaptable-visibility" || "not-adaptable-tree"
+            }
+        }
+    })];
+});</pre></div></div></section>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/6af43022e00945019903f8e9410eb6e5" title="You can specify that some controls cannot be adapted." class="sap-doc">Deactivating Adaptation of Controls</a></li>
+	</ul></section></div></section></div></body></html>

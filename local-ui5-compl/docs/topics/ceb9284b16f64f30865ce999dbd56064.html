@@ -1,0 +1,190 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioceb9284b16f64f30865ce999dbd56064" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-object-creation-using-the-dialog-in-the-list-report-ceb9284.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling Object Creation Using the Dialog in the List Report</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling Object Creation Using the Dialog in the List Report</h2></div><div class="shortdesc">You can enable the creation of objects that have a maximum of 8 data fields using a dialog in the list report page.</div><section id="section_wxx_bvy_cnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p><img src="loioac4a875e5d2a4af6a1cd39e3d0f71208_HiRes.png" usemap="#"></p><p>You can enable this feature in the list report or worklist applications. To do this, configure the <code>manifest.json</code> file by  adding the property
+                    <code>createWithParameterDialog</code> and passing the properties of the related entity set, as shown in the following sample code:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"createWithParameterDialog" : {
+               "fields" : {
+                  "&lt;fieldName&gt;" : {"path":"&lt;fieldname&gt;"},
+                  "&lt;fieldName&gt;" : {"path":"&lt;fieldname&gt;"}
+             }
+</pre></div></div></section><p></p></div></div><p>The option to create objects using a dialog now appears in the list report application.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+    "_version": "1.3.0",
+    "pages": {
+        "ListReport|STTA_C_SO_SalesOrder_ND": {
+            "entitySet": "STTA_C_SO_SalesOrder_ND",
+            "component": {
+                "name": "sap.suite.ui.generic.template.ListReport",
+                "list": true,
+                "settings": {
+                    "multiSelect": true,
+                    "isWorklist": true,
+                    "tableSettings": {
+                        "createWithParameterDialog" : {
+                            "fields" : {
+                                "BusinessPartnerID":{"path": "BusinessPartnerID"},
+                                "CurrencyCode" : {"path":"CurrencyCode"},
+                                "BillingStatus" : {"path":"BillingStatus"},
+                                "DeliveryStatus" : {"path":"DeliveryStatus"},
+                                "OpportunityID" : {"path":"OpportunityID"}
+                            }
+                        }
+                    }
+                }
+            },
+            "pages": {
+                ..............
+                ..............
+            }
+        }
+    }
+}</pre></div></div></section>
+            <p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Enabling <code>createWithParameterDialog</code> in list reports or worklists in multi-view mode in the
+                    <code>manifest.json</code>
+                file</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+        "pages": [{
+            "entitySet": "C_STTA_SalesOrder_WD_20",
+            "component": {
+                "name": "sap.suite.ui.generic.template.ListReport",
+                "list": true,
+                "settings": {
+                        "quickVariantSelectionX": {
+                                "showCounts": true,
+                                "variants": {
+                                        "0":
+                                               {
+                                                    "key": "_tab1",
+                                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Expensive"
+                                                          },
+                                        "1": 
+                                               {
+                                                    "key": "_tab2",
+                                                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#Cheap",
+                                                    "tableSettings": {
+                                                                "createWithParameterDialog": {
+                                                                        "fields": {
+                                                                                "bp_id":
+                                                                                        {
+                                                                                            "path": "bp_id"
+                                                                                        },
+                                                                                            "currency_code":
+                                                                                        {
+                                                                                            "path": "currency_code"
+                                                                                        },
+                                                                                        "op_id":
+                                                                                        {
+                                                                                        "path": "op_id"
+                                                                                        }
+                                                                                }
+                                                                    }
+                                                        }
+                                            }
+                                }
+                    }
+        }
+},</pre></div></div></section><p></p></div></div><p> If this feature is enabled, you cannot navigate to an object page in create mode. However, you can navigate to the object page in display mode to modify
+                objects.</p><p>The draft state is not maintained when an object is created using the dialog. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><ul class="ul ">
+                    <li class="li">
+                        <p>Make sure that the properties are related to the entities.</p>
+                    </li>
+                    <li class="li">
+                        <p>Make sure that all the mandatory fields of the entities are part of the create dialog.</p>
+                    </li>
+                    <li class="li">
+                        <p>Only list report pages support object creation using the dialog. On list report pages, this feature is available in both single view and multiple views
+                            scenarios. For more information, see <a href="topic/0d390fed360c4c58a0f0619338938de1" title="You can define multiple views of a table and display them in single table mode. Users can switch between views using a segmented button." class="sap-doc">Defining Multiple Views on a List Report Table - Single Table
+                                Mode</a> and <a href="topic/37aeed74e17a42caa2cba3123f0c15fc" title="You can define multiple views of a table and display them in multiple table mode. Users can switch between views using an icon tab bar." class="sap-doc">Defining Multiple Views on a List Report Table - Multiple Table Mode</a>.</p>
+                    </li>
+                    <li class="li">
+                        <p>You can also create objects using a dialog by prefilling fields from the filter values that you entered. For more information, see <a href="topic/189e2d8a59f04a2693a4fde7f4a91a65" title="End users can create a new entity and prefill fields with specific values." class="sap-doc">Prefilling Fields When Creating a New Entity Using an Extension Point</a>.</p>
+                    </li>
+                    
+                    <li class="li">
+                        <p>When you click on <span class="ph uicontrol">Create</span> while creating an object, the message displayed in the popup is the same as the transient message if it
+                            is received from the back
+                            end.</p>
+                    </li>
+                    <li class="li">If a state message is received from the back
+                        end
+                        when
+                        clicking <span class="ph uicontrol">Create</span>, it is then mandatory to send a target for each message pointing to a particular field. The same message is then
+                        displayed on the respective field with a red box and a
+                        text.</li>
+                    
+                </ul>
+            <p></p></div></div><section>
+                <h3 class="title ">Customizing the Dialog Title and Buttons</h3>
+                <p>The default title of the dialog is <span class="ph uicontrol">New Object</span>,
+                    and the key in the <code>i18n</code> file is
+                        <code>CREATE_DIALOG_TITLE</code>. You can change this by redefining the key in the application or in the
+                        Adaptation Editor. The default values of the buttons on the dialog are
+                        <span class="ph uicontrol">Create</span> and <span class="ph uicontrol">Cancel</span>. You can also change them in the
+                        Adaptation Editor.</p>
+            </section></div></section><section id="section_r2b_hvy_cnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>You can enable this feature for the list report by
+                configuring
+                the <code>creationMode</code> property in the <code>manifest.json</code> file,
+                as
+                shown in the
+                following sample code:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"targets": {
+    "ProductsList": {
+        "type": "Component",
+        "name": "sap.fe.templates.ListReport",
+        "id": "ProductsList",
+        "options": {
+            "settings": {
+                "entitySet": "Products",
+                "controlConfiguration": {
+                    "@com.sap.vocabularies.UI.v1.LineItem": {
+                        "tableSettings": {
+                            "creationMode": {
+                                "name": "CreationDialog",
+                                "creationFields": "com.sap.vocabularies.UI.v1.FieldGroup#CreationParameters"
+                            }
+                        }
+                    }
+                },
+                ...
+            }
+        }
+    },</pre></div></div></section><p></p></div></div><p>The <code>CreationFields</code> parameter can point to a <code>FieldGroup</code> annotation or a comma-separated list of properties. Immutable properties are
+                added to the <code>CreationFields</code> list automatically.</p><p>For the list report in multi-view mode, provide the creation mode parameters in the <code>TableSettings</code> configuration for each line item configured in a
+                view.</p><p>If this feature is enabled, you cannot navigate to an object page in create mode. However, you can navigate to the object page in display mode to modify objects.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>
+                    </p><ul class="ul ">
+                        <li class="li">
+                            <p>The
+                                draft
+                                state is not maintained when an object is created using the dialog.</p>
+                        </li>
+                        <li class="li">
+                            <p>All properties must be related to entities.</p>
+                        </li>
+                        <li class="li">
+                            <p>Mandatory parameters are marked with a red asterisk in the dialog.</p>
+                        </li>
+                        <li class="li">
+                            <p>For information about enabling a custom create dialog on a tree table, see the <a href="topic/7cf7a31fd1ee490ab816ecd941bd2f1f.html#loio7cf7a31fd1ee490ab816ecd941bd2f1f/section_osy_44d_gbc" title="7cf7a31fd1ee490ab816ecd941bd2f1f.xml#loio7cf7a31fd1ee490ab816ecd941bd2f1f/section_osy_44d_gbc" class="sap-doc">Create Mode and Custom Create Mode with a Menu Button</a> section in <a href="topic/7cf7a31fd1ee490ab816ecd941bd2f1f" title="You can use tree tables in the list report and the object page." class="sap-doc">Tree Tables</a>.</p>
+                        </li>
+                        <li class="li">
+                            <p>If you have entered filter values to prefill fields with specific values, the user can also use a dialog to create objects. For more information, see
+                                    <a href="topic/11ff444f82e14eb3a2e8eca0065a5055" title="When a user creates a new entity, it is possible to prefill fields with specific values." class="sap-doc">Prefilling Fields When Creating a New Entity</a>.</p>
+                        </li>
+                    </ul>
+                <p></p>
+            <p></p></div></div><section>
+                <h3 class="title ">Customizing the Title of the Dialog</h3>
+                <p>The default title of the dialog is <span class="ph uicontrol">New Object</span>. Use the <code>C_TRANSACTION_HELPER_SAPFE_ACTION_CREATE</code> key in the
+                        <code>i18n</code> file to modify it.</p>
+            </section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

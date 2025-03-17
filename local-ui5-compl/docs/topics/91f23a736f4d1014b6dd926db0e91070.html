@@ -1,0 +1,138 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f23a736f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/modules-and-dependencies-91f23a7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Modules and Dependencies</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Modules and Dependencies</h2></div><div class="shortdesc">The SAPUI5 framework has
+		built-in support for modularizing comprehensive JavaScript applications. That means, instead
+		of defining and loading one large bundle of JavaScript code, an application can be split
+		into smaller parts which then can be loaded at runtime at the time when they are needed.
+		These smaller individual files are called modules.</div><p>A module is a JavaScript file that can be loaded and executed in a browser. There are no
+			rules or definitions what code belongs to a module, and what code does <b>not</b>. The
+			content bundled in a module is up to the developer, but typically the content has a
+			common topic, such as forming a JavaScript class or namespace or the contained functions
+			address a specific topic, for example client to server communication or mathematical
+			functions.</p><p>Modules have no predefined syntax or structure, but module developers can use the
+			following features:</p><ul class="ul ">
+			<li class="li">
+				<p><span class="emphasis">Name</span></p>
+				<p>The name indentifies the module in connection with the
+						<code>sap.ui.define</code> and <code>sap.ui.require</code> syntax. A
+					module defined under a certain name can be required using the same name.</p>
+			</li>
+			<li class="li">
+				<p><span class="emphasis">Definition</span></p>
+				<p>Modules have a predefined structure based on the function
+						<code>sap.ui.define</code>. </p>
+				<p>The <code>sap.ui.define</code> syntax for defining modules helps to ensure an
+					asynchronous loading of resources.</p>
+				<p>For more
+						information, see the <a href="api/sap.ui#methods/sap.ui.define" title="api/sap.ui#methods/sap.ui.define" class="sap-doc" alt="api/sap.ui#methods/sap.ui.define">API Reference:
+								<code>sap.ui.define</code></a>.
+					</p>
+			</li>
+			<li class="li">
+				<p><span class="emphasis">Dependencies</span></p>
+				<p>Every module defines a list of dependencies that have to be resolved before the
+					callback function for the module is executed.</p>
+				<p>The dependency declarations can be evaluated at runtime, but can also be analyzed
+					at build time or at deploy time on the server.</p>
+			</li>
+		</ul><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<p>The following code snippet shows a typical module that uses all of features listed
+				above. The name of the module is <code>someClass</code>:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  sap.ui.define("SomeClass", ['sap/mylib/Helper', 'sap/m/Bar'], function(Helper, Bar) {
+ 
+    // create a new class
+    var SomeClass = function () {};
+ 
+    // add methods to its prototype
+    SomeClass.prototype.foo = function () {
+ 
+        // use a function from the dependency 'Helper' in the same package (e.g. 'sap/mylib/Helper' )
+        var mSettings = Helper.foo();
+ 
+        // create and return an sap.m.Bar (using its local name 'Bar')
+        return new Bar(mSettings);
+    };
+    // return the class as module value
+    return SomeClass;
+ 
+  });
+ 
+ 
+// later requiring the previously defined module
+sap.ui.require(['SomeClass'], function(SomeClass) {
+    var oInstance = new SomeClass();
+});</pre></div></div></section>
+		</div></section><section id="section_ntl_h3h_yy" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Static and Dynamic Dependencies</h2></div><div class="fig"><p>Adding each and every dependency to the <code>sap.ui.define</code> call can lead
+				to many modules that have to be loaded before your module can be executed. Often,
+				dependencies are not needed initially when the module is started. For rarely or not
+				immediately used references, it might be overhead to load them in advance before
+				executing your module.</p><p>Therefore, you have to decide whether you want to use static or dynamic
+					dependencies:</p><ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">Static</span> dependencies are loaded in the dependency
+							declaration array of the <code>sap.ui.define</code> call. These
+							dependencies are always loaded in advance before executing the defined
+							module:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(['sap/m/Input'], function(Input) {
+ 
+    // callback is executed once all dependencies are loaded
+    ...
+});</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Dynamic</span> dependencies are resolved on demand after the initial module execution as they're not needed for the
+							initialisation of the module and are often tied to a conditional or a user interaction.</p>
+						<p>Dynamic dependencies should always be loaded asynchronously via <code>sap.ui.require</code>.
+							 The use of
+									<code>jQuery.sap.require</code> is synchronous and considered bad practice because the synchronous
+									<code>XMLHttpRequest</code> has been deprecated by the Web Hypertext Application Technology Working Group
+								(WHATWG).</p>
+						<p>When dynamically requiring modules, the callback function will be called
+							once all referenced modules (and their dependencies) are fully
+							loaded:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(['sap/m/Input'], function(Input) {
+ 
+    var MyControl = ...;
+ 
+    MyControl.prototype.onSavePress = function () {
+        // dynamically load a dialog once it is needed
+        sap.ui.require(['sap/m/Dialog'], function(Dialog) {
+            var oDialog = new Dialog(...);
+            oDialog.open(...);
+        });
+    };
+     
+    return MyControl;
+});</pre></div></div></section><p></p>
+					</li>
+				</ul><p></p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Many code samples in the SAPUI5
+					documentation use the <code>sap.ui.require</code> syntax even though we
+					could also have used <code>sap.ui.define</code>.</p>
+			<p></p></div></div></div></section><section id="section_sjt_2x3_12c">
+			<h2 class="title ">JavaScript Namespaces</h2>
+			<p>SAPUI5 modules such as classes, components, and controls, should use a
+				consistent qualified naming scheme. Each module should reside in a unique namespace.</p>
+			<p>A namespace should be lowercase, and each word should be separated by a dot (<code>.</code>), like for the Java package notation.
+				The class name should be upper camel case (i.e., starting with a capital letter).</p>
+			<p>The namespace gets attached to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window" title="https://developer.mozilla.org/en-US/docs/Web/API/Window" class="external-link" target="_blank" rel="noopener">global window object</a>. Therefore, its first segment must not match any global properties, such as "name", "location",
+				"top", "self", ...</p>
+			<p>In the following example, <code>my.app</code> is the general namespace, and <code>my.app.MyControl</code> is the fully
+				qualified class name.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/Control"], function(Control) {
+    return Control.extend("my.app.MyControl", {});
+});</pre></div></div></section>
+			<p>For JavaScript global names, module names, and SAPUI5 qualified names
+				(class names, interface names, DataType names), use the same naming prefix, only with varying separators. For example, use a slash (/)
+				instead of a dot (.) when requiring the class from the example above.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["my/app/MyControl"], function(MyControl) {
+    ...
+});</pre></div></div></section>
+			<div class="note note  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>To avoid conflicts with other frameworks or developments, the <code>sap</code> namespace is
+				reserved for SAP. Therefore, any non-SAPUI5 content, such as application
+				code or custom controls, must <span class="emphasis">not</span> use namespaces starting with the <code>sap</code> prefix.</p></div></div>
+		</section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/d12024e38385472a89c1ad204e1edb48">Loading a Module</a></li><li><a href="topic/1dfab2e19fc0479d9dfcefc28d3642f1">Multiple Module Locations</a></li><li><a href="topic/00737d6c1b864dc3ab72ef56611491c4">Best Practices for Loading Modules</a></li><li><a href="topic/b8fdf0c903424c9191f142842323ae22">Adapting to the Modularization of the Core</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

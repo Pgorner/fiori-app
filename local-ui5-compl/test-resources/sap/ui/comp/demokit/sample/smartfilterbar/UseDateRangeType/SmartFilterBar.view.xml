@@ -1,0 +1,64 @@
+<mvc:View
+	xmlns="sap.ui.comp.smartfilterbar"
+	xmlns:f="sap.f"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	controllerName="sap.ui.comp.sample.smartfilterbar.UseDateRangeType.SmartFilterBar"
+	height="100%">
+
+	<f:DynamicPage id="dynamicPage" fitContent="true">
+		<f:header>
+			<f:DynamicPageHeader>
+			<!-- If we add useDateRangeType="true" property to the SmartFilterBar
+				control all date fields with filter restriction interval will be
+				treated as DateTimeRange filters. -->
+				<SmartFilterBar
+					id="smartFilterBar"
+					entitySet="MainEntitySet">
+					<controlConfiguration>
+						<ControlConfiguration
+							key="PostingDate"
+							visibleInAdvancedArea="true"
+						/>
+						<ControlConfiguration
+							key="CREATION_DATE"
+							visibleInAdvancedArea="true"
+							conditionType="{
+								module: 'sap.ui.comp.config.condition.DateRangeType'
+							}"
+						/>
+						<ControlConfiguration
+							key="CLOSE_DATE"
+							visibleInAdvancedArea="true"
+							conditionType="{
+								module: 'sap.ui.comp.config.condition.DateRangeType',
+								defaultOperation: 'TODAYFROMTO',
+								values:[5,6]
+							}"
+						/>
+					</controlConfiguration>
+					<!-- layout data used to make the table growing but the filter bar fixed -->
+					<layoutData>
+						<m:FlexItemData shrinkFactor="0"/>
+					</layoutData>
+				</SmartFilterBar>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<smartTable:SmartTable
+				id="smartTable"
+				entitySet="MainEntitySet"
+				smartFilterId="smartFilterBar"
+				tableType="Table"
+				useTablePersonalisation="true"
+				header="Customer orders"
+				showRowCount="true"
+				enableAutoColumnWidth="true">
+				<smartTable:layoutData>
+					<m:FlexItemData growFactor="1" baseSize="0%"/>
+				</smartTable:layoutData>
+			</smartTable:SmartTable>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

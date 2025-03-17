@@ -1,0 +1,212 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio599428aa0b244626a029d5202c1bfaac" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/using-the-application-preview-generator-599428a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using the Application Preview Generator</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using the Application Preview Generator</h2></div><div class="shortdesc">Applications based on SAP Fiori elements can generate integration cards and
+		adaptive cards.</div><p>You can use cards to provide a preview of the data of the object page. Cards can be shared using SAP Collaboration Manager, Microsoft Teams, or
+			any other platform where the integration card or the adaptive card can be hosted.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p>Application preview cards can only be generated for object pages.</p>
+					</li>
+					<li class="li">
+						<p>The integration card is displayed by default on the UI, but the adaptive card is always generated at the same time, and you can choose to
+							display it instead.</p>
+					</li>
+				</ul>
+			<p></p>
+		<p></p></div></div><section id="section_jg1_nvr_gdc">
+			<h2 class="title ">Prerequisites</h2>
+			<p>To use the application preview generator, the following requrements must be met:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>You must have cloned your project in SAP Business Application Studio.</p>
+				</li>
+				<li class="li">
+					<p>After cloning the project, you must ensure that it is compatible with UI5 Tooling v3. If it is not, you must migrate it so that it can work
+						within SAP Business Application Studio.</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>For more information about UI5 Tooling v3, see <a href="https://sap.github.io/ui5-tooling/v3/updates/migrate-v3/" title="https://sap.github.io/ui5-tooling/v3/updates/migrate-v3/" class="external-link" target="_blank" rel="noopener">Migrate to
+									v3</a>.</p>
+						</li>
+						<li class="li">
+							<p>For more information about migrating your project, see <a href="https://community.sap.com/t5/technology-blogs-by-sap/migrate-sap-fiori-projects-from-sap-web-ide-to-sap-business-application/ba-p/13544987" title="https://community.sap.com/t5/technology-blogs-by-sap/migrate-sap-fiori-projects-from-sap-web-ide-to-sap-business-application/ba-p/13544987" class="external-link" target="_blank" rel="noopener">Migrate SAP Fiori projects from SAP Web IDE to SAP Business Application Studio</a>.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section><section id="section_pz3_4zr_gdc">
+			<h2 class="title ">Enabling the Application Preview Generator</h2>
+			<p>Ensure that you are using the latest version of SAP UI5. To do that, open the <code>ui5.yaml</code> file and ensure that the
+					<code>url</code> is set to <code>https://ui5.sap.com</code>.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">specVersion: "3.1"
+metadata:
+  name: sales-order.wd.sample
+type: application
+resources:
+  configuration:
+    paths:
+      webapp: webapp
+server:
+  customMiddleware:
+  - name: fiori-tools-proxy
+    afterMiddleware: compression
+    configuration:
+      ignoreCertError: false
+      ui5:
+        path:
+        - /resources
+        - /test-resources
+        url: https://ui5.sap.com
+  - name: sap-fe-mockserver
+    mountPath: /
+    afterMiddleware: compression
+    configuration:
+      annotations:
+      - localPath: './mockserver/sap/opu/odata/sap/salesorder/annotations.xml'
+        urlPath: '/sap/opu/odata/sap/salesorder;v=2/Annotations*'
+      services:
+      - urlPath: '/sap/opu/odata/sap/salesorder'
+        metadataPath: './mockserver/sap/opu/odata/sap/salesorder/metadata.xml'
+        mockdataPath: './mockserver/sap/opu/odata/sap/salesorder/data/'</pre></div></div></section>
+			<p>Next, open a new terminal at a desired project location and run one of the following commands:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>npx @sap-ux/create@latest add cards-editor</code></p>
+				</li>
+				<li class="li">
+					<p><code>npm init @sap-ux@latest add cards-editor</code></p>
+				</li>
+			</ul>
+		</section><section id="section_egf_vzr_gdc">
+			<h2 class="title ">Generating Cards</h2>
+			<p>After enabling the application preview generator as described previously, launch the project by using the <code>npm run
+					start-cards-generator</code> command.</p>
+			<p>If the landing page of the application is a list report, use the necessary filters or search to navigate to the object page for which the card
+				will be created. After the object page is launched, open the user menu and choose <span class="ph uicontrol">Generate Card</span>.</p>
+			<div><div class="fig"><img src="loiob9f3b5001799472b9ae7e7e0ce5cde10_LowRes.png" usemap="#"></div></div>
+			<p>The following dialog appears:</p>
+			<div><div class="fig"><img src="loio500278e1174341bbb101d79c3ba74e93_LowRes.png" usemap="#"></div></div>
+			<p>Enter the data for the relevant fields in the dialog. For more information about the supported features, see the <a href="topic/599428aa0b244626a029d5202c1bfaac.html#loio599428aa0b244626a029d5202c1bfaac/section_ysh_2dw_hdc" title="599428aa0b244626a029d5202c1bfaac.xml#loio599428aa0b244626a029d5202c1bfaac/section_ysh_2dw_hdc" class="sap-doc">Supported features</a> section in this topic.</p>
+			<p> A live preview of the integration card and its corresponding adaptive card is displayed on the right side, as shown in the following
+				screenshots:</p>
+			<div><div class="fig"><img src="loio759c5826fae547c4a77b31ce7b2cd035_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Preview of the Integration Card</h2></span></div>
+			<div><div class="fig"><img src="loio9ac91e451c8e4b3888d81393b961c220_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Preview of the Adaptive Card</h2></span></div>
+			<p>When you have created the desired application preview, choose <span class="ph uicontrol">Save</span> to make the cards available within the
+				application repository.</p>
+			<p>A new <code>cards</code>  folder is created under <code>webapp</code>.</p>
+			<div><div class="fig"><img src="loio85162736fb9848dbb372ef25a6b1abea_LowRes.png" usemap="#"></div></div>
+			<p>The <code>manifest.json</code> file is automatically updated with a new <code>sap.cards.ap</code> section that links the cards with the
+					<code>cards</code> folder.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.cards.ap": {
+  "embeds": {
+    "ObjectPage": {
+      "default": "C_STTA_SalesOrder_WD_20",
+      "manifests": {
+        "C_STTA_SalesOrder_WD_20": [
+          {
+            "localUri": "cards/op/C_STTA_SalesOrder_WD_20"
+          }
+        ]
+      }
+    }
+  }
+}</pre></div></div></section>
+			<p>If you repeat the card generation process, the previously generated card is overwritten with the latest version.</p>
+			<p>After adding the cards, you must update the project repository. To do that, merge all the changed files of the project in the
+				repository.</p>
+		</section><section id="section_ysh_2dw_hdc">
+			<h2 class="title ">Supported features</h2>
+			<p>You can use the following features of the card generator dialog:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_x5n_12w_hdc" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Label</th>
+							<th colspan="1" rowspan="1">Description</th>
+							<th colspan="1" rowspan="1">Screenshot</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1"><span class="ph uicontrol">Card Header</span></td>
+							<td colspan="1" rowspan="1">You can add a title, a subtitle, and a main indicator as part of the card header.</td>
+							<td colspan="1" rowspan="1">
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio2b03d19a1bd5453d92047c23696b8125_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Card Header</h2></span></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><span class="ph uicontrol">Card Content</span></td>
+							<td colspan="1" rowspan="1">You can add properties to groups, change labels, and format the properties to be displayed in the card
+								content.</td>
+							<td colspan="1" rowspan="1">
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio6ce9f32f252944838d786794cdf27227_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Card Content</h2></span></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><span class="ph uicontrol">Card Actions</span></td>
+							<td colspan="1" rowspan="1">You can add import-based actions as footer actions of the adaptive card. The recipient of the card can execute these actions from within
+								the Microsoft Teams chat.</td>
+							<td colspan="1" rowspan="1">
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio0480caa27e204713b4e85cf815df731e_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Card Actions</h2></span></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><span class="ph uicontrol">Advanced Panel</span></td>
+							<td colspan="1" rowspan="1">You can apply criticality assignments, unit of measure, and text arrangement to properties. The options configured
+								in this panel apply to the specified properties wherever they are used in the card.</td>
+							<td colspan="1" rowspan="1">
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio3694958460b14faca45d75ca5166264e_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Advanced Panel</h2></span></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><span class="SAP-icons sapUiInheritedElement sapUiInheritedBackground" style="font-size:inherit;"></span><span class="$description/@outputclass"></span>
+								<span class="ph uicontrol">(More)</span></td>
+							<td colspan="1" rowspan="1">You can apply additional options to any property that has this control displayed next to it. The following additional options are
+									available:<ul class="ul ">
+									<li class="li">
+										<p><span class="ph uicontrol">Apply Units of Measure</span>. This option can be applied to properties of string type or number type.</p>
+									</li>
+									<li class="li">
+										<p><span class="ph uicontrol">Apply Formatter</span>:</p>
+										<ul class="ul ">
+											<li class="li">
+												<p><span class="ph uicontrol">Date Type</span>. This option lets you choose how the date and time are formatted. You can format just the date or the
+													date and time together. You can enable or disable UTC formatting for either of those options. If
+													you format the date and time together, you can also apply relative formatting options as described
+													in <a href="controls" title="controls" class="external-link" target="_blank" rel="noopener" alt="controls">Date Format</a>.</p>
+											</li>
+											<li class="li">
+												<p><span class="ph uicontrol">Number Type</span>. Numbers can be formatted as <span class="ph uicontrol">Float</span>,
+														<span class="ph uicontrol">Currency</span>, <span class="ph uicontrol">Percent</span>, or
+														<span class="ph uicontrol">Integer</span>.</p>
+											</li>
+										</ul>
+									</li>
+									<li class="li">
+										<p><span class="ph uicontrol">Apply Criticality</span>.</p>
+									</li>
+									<li class="li">
+										<p><span class="ph uicontrol">Apply Trend</span>. This option can be applied to properties of string type or number type.</p>
+									</li>
+									<li class="li">
+										<p><span class="ph uicontrol">Apply Indicators</span>. This option can be applied to properties of string type or number type.</p>
+									</li>
+								</ul></td>
+							<td colspan="1" rowspan="1">
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio64c45fcedbc04eb8bc2b8005271a2b80_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Additional Options</h2></span></div>
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio484103c76e304f2aa2f0ddb7a198b1e2_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Apply Units of Measure</h2></span></div>
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio6789edaecd2c406fb615401969b99822_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Apply Formatter: Date Type</h2></span></div>
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loiobdecc76396a64e999b37113f0c4ff317_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Apply Formatter: Number Type</h2></span></div>
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loioeb2d18e59df445158b1c8a771d8cb914_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Apply Criticality</h2></span></div>
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio016957654f2e43c68fecb85cfc4dfd0c_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Apply Trend</h2></span></div>
+								<div><div class="fig"><div class="lightbox-img-wrapper"><div class="overlay"><span style="display: none;">Hidden</span></div><img class="minimized-extrasmall lightbox-img" src="loio5276fe01ae634d718c75f59aa598b407_LowRes.png"></div></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Apply Indicators</h2></span></div>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

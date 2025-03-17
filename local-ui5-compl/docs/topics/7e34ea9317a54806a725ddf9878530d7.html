@@ -1,0 +1,55 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7e34ea9317a54806a725ddf9878530d7" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/extending-the-bookmark-function-to-save-static-tiles-to-the-sap-fiori-launchpad-7e34ea9.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Extending the Bookmark Function to Save Static Tiles to the SAP Fiori Launchpad</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Extending the Bookmark Function to Save Static Tiles to the SAP Fiori Launchpad</h2></div><div class="shortdesc">You can extend the standard bookmark function by adding an extension point to the list
+		report or analytical list page controller extension. Static tiles are then saved to the SAP
+		Fiori launchpad  instead of dynamic tiles.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+		<p></p></div></div><p>Users can use the bookmark function via the <span class="uinolabel">Share</span> button to make list reports, object pages, or analytical list
+			pages directly accessible from the SAP Fiori launchpad while preserving all filter values they have set before. The bookmark is added as a
+			tile to the SAP Fiori launchpad.</p><p>By default, a dynamic tile is created
+			for
+			the list report and the analytical list page. 
+			However, there is an exception
+			when
+			the
+			filter bar is configured to consume the
+			semantic date range feature either through
+			manifest settings or by using the custom date
+			range fields. In this case, a
+			static tile is created if any of the semantic date range field(s) have been filled with a value. A dynamic tile is created if nothing has
+			been filled.</p><p>For more details on the
+			configuration settings
+			of
+			the semantic date range, see <a href="topic/fef65d03d01a4b2baca28983a5449cf7" title="You can use semantic date values, such as Today or Last Week, on the filter bar of list report and analytical list page applications." class="sap-doc">Enabling Semantic Operators in the Filter Bar</a>.</p><p>For the object page, a static tile is created. Dynamic tiles fetch data from a web service which may result in the following issues:</p><ul class="ul ">
+				<li class="li">
+					<p>They can access a different service URL and thus retrieve a wrong value</p>
+				</li>
+				<li class="li">
+					<p>They might fetch data that does not correctly represent the tile's purpose</p>
+				</li>
+				<li class="li">
+					<p>They might be inconsistent if the original tile is static</p>
+				</li>
+			</ul><p></p><p>If you want to enforce the creation of a static tile, add the extension point <code>onSaveAsTileExtension</code> to the list report or
+			analytical list page controller extension.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This extension point can only be used for tiles that are added to the launchpad using the
+				bookmark function.</p></div></div> As a prerequisite, you have already added the controller extension to the <code>manifest.json</code> of
+			your app.<p></p><p>Overwrite the value in the <code>serviceUrl</code> field of the relevant <code>oShareInfo</code> object that can either be an empty
+			string to enforce usage of a static tile, or any other service URL string, as follows:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([], function () {
+   "use strict";
+   return {
+      onSaveAsTileExtension: function(oShareInfo) {
+         oShareInfo.serviceUrl = ""; // Force static tile
+      }
+   };
+});
+
+</pre></div></div></section>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

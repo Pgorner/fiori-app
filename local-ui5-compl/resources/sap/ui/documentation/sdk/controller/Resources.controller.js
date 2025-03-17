@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2025 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/documentation/sdk/controller/BaseController","sap/ui/documentation/sdk/controller/util/ResourcesInfo","sap/ui/documentation/sdk/model/formatter","sap/ui/util/openWindow","sap/ui/model/json/JSONModel"],function(t,o,e,s,n){"use strict";return t.extend("sap.ui.documentation.sdk.controller.Resources",{formatter:e,onInit:function(){t.prototype.onInit.call(this);this._oRouter=this.getRouter();this._oResourcesModel=new n;this.setModel(this._oResourcesModel,"resources");o.getResourcesConfig().then(this.onResourceConfigLoaded.bind(this));this._oRouter.getRoute("tools").attachPatternMatched(function(){this._oRouter.navTo("resources")},this);this._oRouter.getRoute("resources").attachPatternMatched(this.onPatternMatched,this)},onResourceConfigLoaded:function(t){var o={};t.forEach(function(t){o[t.id]=t},this);this._oResourcesModel.setData(o);this._oResourcesModel.setProperty("/_raw",t)},onButtonPress:function(t){var o=t.getSource().data("href");if(!o){return}if(o.startsWith("topic/")){o=e.formatHttpHrefForNewWindow(o)}s(o,"_blank")},onPatternMatched:function(){this.hideMasterSide()}})});
+//# sourceMappingURL=Resources.controller.js.map

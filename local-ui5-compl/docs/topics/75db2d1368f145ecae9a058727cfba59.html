@@ -1,0 +1,146 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio75db2d1368f145ecae9a058727cfba59" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/provide-the-design-time-metadata-for-the-reveal-action-75db2d1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Provide the Design-Time Metadata for the <cite>Reveal</cite> Action</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Provide the Design-Time Metadata for the <cite>Reveal</cite> Action</h2></div><div class="shortdesc">Provide the design-time metadata and the meta functions needed when the <cite>reveal</cite> action is performed</div><p>To provide the design-time information needed for the <cite>reveal</cite> action, use the JavaScript code file
+				<code>&lt;control&gt;.designtime.js</code>, which is located next to the control implementation. If the file is missing,
+			please create it. Make sure that the <code>designTime</code> attribute in the metadata of the control includes the
+				<code>designTime</code> attribute, which links to the <code>&lt;control\&gt;.designtime.js</code> file.</p><p>The following table shows a hierarchical overview of the properties:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_htw_yyr_gyb" class=" ">
+				
+				
+				
+				
+				<thead>
+					<tr>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 1)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 2)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 3)</p>
+						</th>
+						<th colspan="1" rowspan="1">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="1" rowspan="5"><code>actions: &lt;object&gt;</code> (mandatory) </td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Describes the actions that can be applied to the element.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="4"><code>"reveal": &lt;object&gt; | &lt;function&gt;</code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Provides or computes the design-time metadata specific to the <cite>reveal</cite> action for an element as an object
+								with the following properties.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>changeType: &lt;string&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>Provides the value of <code>changeType</code> from the previous step.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>getLabel: &lt;function&gt;</code> (optional)</td>
+						<td colspan="1" rowspan="1">
+							<p>Allows you to return the label texts of the control. The default implementation tries <code>getText()</code>, and
+								then <code>getLabelText()</code>. If it's not available, it tries <code>getLabel().getText()</code>, then
+									<code>getTitle()</code>, and then <code>getId()</code>.</p>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">function(oControl) {
+    return oControl.getLabelTextInSpecialControlProperty()
+}</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>changeOnRelevantContainer: &lt;boolean&gt;</code> (optional)</td>
+						<td colspan="1" rowspan="1">
+							<p>Needs to be set to <code>true</code> if the change handler for the action is implemented on the relevant
+								container.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="3"><code>name:&lt;object&gt; | &lt;function&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Specify or calculate a meaningful name for the control, which is understandable to key users. This is needed for the
+									<cite>reveal</cite> action to show the names in the context menu: <span class="ph uicontrol">Add &lt;name in
+									singular&gt;</span> and <span class="ph uicontrol">Available &lt;name in plural&gt;</span>.</p>
+							<p>Name your control based on the general UI concept and follow the <a href="https://experience.sap.com/fiori-design/" title="https://experience.sap.com/fiori-design/" class="external-link" target="_blank" rel="noopener">SAP Fiori Design Guidelines</a>. Example: Key
+								users don't care about the difference between a smart, mobile, or responsive version of a form - they just call it
+								"form".</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>singular: &lt;string&gt; | function</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>i18n</code> key from library resource bundle or function returning the translated text (if library resource
+								bundles aren't used).</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>plural: &lt;string&gt;| function</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>i18n</code> key from library resource bundle or function returning the translated text (if library resource
+								bundles aren't used).</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>isVisible: &lt;function&gt;</code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Needed for elements that aren't derived from <code>sap.ui.core.Control</code>. The function returns the visibility
+								of the element.</p>
+							<p>As this function can be called before the DOM is ready, don't use functions such as
+									<code>jQuery.is(":visible")</code>. Use an internal parameter instead.</p>
+						</td>
+					</tr>
+				</tbody>
+			</table></div></div><section id="section_thx_1cs_gyb">
+			<h2 class="title ">Example</h2>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>RadioButton.designtime.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([], function () {
+    "use strict";
+    return {
+        actions: {
+            reveal: {
+                changeType: "unhideControl"
+            }
+        },
+        name: {
+            singular: "RADIOBUTTON_NAME",
+            plural: "RADIOBUTTON_NAME_PLURAL"
+        }
+    };
+});</pre></div></div></section><p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/fc78d5182db8472f8af42a0208a94dee">Enabling the Reveal Action</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/2803e2d911404ed890ed36adf7d22431">Register a Reveal Change Handler</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

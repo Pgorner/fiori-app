@@ -1,0 +1,34 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:macros="sap.fe.macros" xmlns:f="sap.ui.layout.form">
+	<!--
+		The contextPath is set to "/RootEntity" - therefore all forl elements use a relative metaPath to "/RootEntity"
+	-->
+
+	<Panel headerText="Form Elements With Custom Elements" binding="{path:'/RootEntity(\'1\')'}">
+		<f:Form>
+			<f:layout>
+				<f:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" labelCellsLarge="12" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer>
+					<f:formElements>
+						<macros:FormElement metaPath="ID" id="customID">
+							<macros:fields>
+								<macros:Field id="formElementID" metaPath="ID" />
+							</macros:fields>
+						</macros:FormElement>
+						<macros:FormElement metaPath="BooleanProperty" id="customString">
+							<macros:fields>
+								<Switch state="{BooleanProperty}" />
+							</macros:fields>
+						</macros:FormElement>
+						<macros:FormElement metaPath="IntegerProperty" id="customTime">
+							<macros:fields>
+								<Slider value="{IntegerProperty}" />
+							</macros:fields>
+						</macros:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		</f:Form>
+	</Panel>
+</mvc:View>

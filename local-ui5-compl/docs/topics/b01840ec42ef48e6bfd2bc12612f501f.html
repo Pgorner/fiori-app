@@ -1,0 +1,480 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob01840ec42ef48e6bfd2bc12612f501f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-11-assign-multiple-targets-b01840e.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 11: Assign Multiple Targets</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 11: Assign Multiple Targets</h2></div><div class="shortdesc">In this step, we will add a new button to the home page to illustrate the usage of
+		multiple targets for a route. When the button is pressed, a new page opens that contains two
+		parts: a header part at the top and a content part. The content part displays a table of
+		employees that can be sorted and searched. We will use the array notation in the routing
+		configuration to assign multiple targets to a route - a feature that we have not yet
+		introduced.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio02350a2506854c60a8e81459c578b8b1_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">New button <span class="ph uicontrol">Show Employee Overview</span></h2></span></div>
+			<div><div class="fig"><img src="loiobf4ffb536b9244abb91321cb6e86b26d_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "><span class="ph uicontrol">Employee Overview</span> with search field</h2></span></div>
+			<div><div class="fig"><img src="loio0842e39ed8384b3db883e1b466beb72a_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Sort options for the <span class="ph uicontrol">Employee Overview</span></h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the Demo Kit at <a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.11" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.11" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.11">Routing and Navigation - Step 11</a>
+				.</p>
+			<div><div class="fig"><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Folder Structure for this Step</h2></span></div>
+		</div></section><section>
+			<h2 class="title ">webapp/view/Home.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.Home"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Page title="{i18n&gt;homePageTitle}" class="sapUiResponsiveContentPadding"&gt;
+		&lt;content&gt;
+			&lt;Button id="displayNotFoundBtn" text="{i18n&gt;DisplayNotFound}" press=".onDisplayNotFound" class="sapUiTinyMarginEnd"/&gt;
+			&lt;Button id="employeeListBtn" text="{i18n&gt;ShowEmployeeList}" press=".onNavToEmployees" class="sapUiTinyMarginEnd"/&gt;
+			<span class="emphasis">&lt;Button id="employeeOverviewBtn" text="{i18n&gt;ShowEmployeeOverview}" press=".onNavToEmployeeOverview" class="sapUiTinyMarginEnd"/&gt;
+</span>
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;
+</pre></div></div></section>
+			<p>First we add a new button to the <code>Home</code> view and add an event handler
+				for the <code>press</code> event.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/Home.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.Home", {
+		...
+		onNavToEmployees : function () {
+			this.getRouter().navTo("employeeList");
+		}<span class="emphasis">,
+		onNavToEmployeeOverview : function ()  {
+			this.getRouter().navTo("employeeOverview");
+		}
+</span>
+	});
+});</pre></div></div></section>
+			<p>As you know already from the previous steps, we add the <code>press</code> event
+				handler <code>onNavToEmployeeOverview</code>. It navigates to the route
+					<code>employeeOverview</code> which does not exist yet, so let's create
+				it.</p>
+		</section><section>
+			<h2 class="title ">webapp/manifest.json</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"_version": "1.12.0",
+	"sap.app": {
+		...
+	},
+	"sap.ui": {
+		...
+	},
+	"sap.ui5": {
+		...
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "sap.ui.demo.nav.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				}
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "appHome",
+				"target": "home"
+			}, {
+				"pattern": "employees",
+				"name": "employeeList",
+				"target": "employees"
+			}, <span class="emphasis">{
+				"pattern": "employees/overview",
+				"name": "employeeOverview",
+				"target": ["employeeOverviewTop", "employeeOverviewContent"]
+			},</span> {
+				"pattern": "employees/{employeeId}",
+				"name": "employee",
+				"target": "employee"
+			}, {
+				"pattern": "employees/{employeeId}/resume:?query:",
+				"name": "employeeResume",
+				"target": "employeeResume"
+			}],
+			"targets": {
+				...
+				"resumeTabNotes": {
+					"id": "resumeNotes",
+					"parent": "employeeResume",
+					"path": "sap.ui.demo.nav.view.employee",
+					"name": "ResumeNotes",
+					"controlId": "notesTab",
+					"controlAggregation": "content"
+				}<span class="emphasis">,
+				"employeeOverview": {
+					"id": "employeeOverview",
+					"path": "sap.ui.demo.nav.view.employee.overview",
+					"name": "EmployeeOverview",
+					"level" : 2
+				},
+				"employeeOverviewTop": {
+					"id": "employeeOverviewTop",
+					"parent": "employeeOverview",
+					"path": "sap.ui.demo.nav.view.employee.overview",
+					"name": "EmployeeOverviewTop",
+					"controlId": "EmployeeOverviewParent",
+					"controlAggregation": "content"
+				},
+				"employeeOverviewContent": {
+					"id": "employeeOverviewContent",
+					"parent": "employeeOverview",
+					"path": "sap.ui.demo.nav.view.employee.overview",
+					"name": "EmployeeOverviewContent",
+					"controlId": "EmployeeOverviewParent",
+					"controlAggregation": "content"
+				}
+</span>
+			}
+		}
+	}
+}</pre></div></div></section>
+			<p>We extend our current routing configuration with a new route
+					<code>employeeOverview</code>. Note that this route has to be configured
+				before the <code>employee</code> route, else the <code>employee</code> route
+				would be matched with a hash like <code>/#/employees/overview</code>. The new
+				route <code>employeeOverview</code> references two targets at the same time with
+				an array notation: <code>employeeOverviewTop</code> and
+					<code>employeeOverviewContent</code>. As you can see here, a route can
+				reference an arbitrary number of targets that will be displayed when the route is
+				matched.</p>
+			<p>Both targets <code>employeeOverviewTop</code> and
+					<code>employeeOverviewContent</code> reference the target
+					<code>employeeOverview</code> as their parent target because we want to
+				place them both inside the parent. Please also note that we also introduce a new
+				layer <code>overview</code> in the <code>path</code> property.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The order of the routing configuration matters here, because the router stops
+						matching additional routes when the first match is found. You can override
+						this behavior if you set parameter <code>greedy</code> to
+							<code>true</code> on the route. Then the route will always be
+						matched when the pattern matches the current URL, even if another route has
+						been matched before. The <code>greedy</code> option comes from the
+						underlying <code>Crossroads.js</code> library, a popular routing
+						library. A common use case for using <code>greedy</code> is configuring
+						targets without views and then listening for route-matched events.</p>
+				<p></p></div></div><p></p>
+			<p>Now we create both targets <code>employeeOverviewTop</code> and
+					<code>employeeOverviewContent</code> as well as their parent target
+					<code>employeeOverview</code>. On the parent target we set
+					<code>level</code> to <code>2</code> to ensure a correct transition
+				animation. In the targets, we also configure where the corresponding views of the
+				children shall be displayed by setting the parameters <code>controlId</code> and
+					<code>controlAggregation</code> to a control ID of a
+					<code>sap.ui.layout.HorizontalLayout</code> that we are about to create in a
+				new view. You should be familiar with this configuration from the last step.</p>
+			<p>The router makes sure that the parent view is loaded in addition to the target view
+				when a corresponding route has been matched and the targets are displayed. The
+				referenced views are displayed automatically at the configured place in the parent's
+				view, in our case in the content aggregation of the page control. We have mentioned
+				three different views that we still need to add to the app to make the configuration
+				work: </p><ul class="ul ">
+					<li class="li">
+						<p><code>EmployeeOverview</code></p>
+					</li>
+					<li class="li">
+						<p><code>EmployeeOverviewTop</code></p>
+					</li>
+					<li class="li">
+						<p><code>EmployeeOverviewContent</code></p>
+					</li>
+				</ul><p></p>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/overview/EmployeeOverview.view.xml (New)</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.employee.overview.EmployeeOverview"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Page id="EmployeeOverviewParent" title="{i18n&gt;EmployeeOverview}"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+		class="sapUiResponsiveContentPadding"&gt;
+		&lt;content&gt;
+			&lt;!-- inserted by routing --&gt;
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;
+</span></pre></div></div></section>
+			<p>First we create the parent view by creating the folder <code>overview</code>
+				under <code>webapp/view/employee</code> and placing the file
+					<code>EmployeeOverview.view.xml</code> into that folder. This view contains
+				a <code>Page</code> control that is referenced from the targets in our
+					<code>manifest.json</code> descriptor file. The content aggregation of the
+				page will be filled by the router with the top and content part when the
+				corresponding route has been hit.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/employee/overview/EmployeeOverview.controller.js (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.overview.EmployeeOverview", {
+	});
+});</span></pre></div></div></section>
+			<p>The controller does not contain any logic yet, but we will add back navigation
+				features here in the next steps.</p>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/overview/EmployeeOverviewTop.view.xml (New)</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" class="sapUiMediumMarginBottom"&gt;
+	&lt;Title text="{i18n&gt;EmployeeOverviewTop}"/&gt;
+&lt;/mvc:View&gt;
+</span></pre></div></div></section>
+			<p>Create the file <code>EmployeeOverviewTop.view.xml</code> and place it in the
+					<code>webapp/view/employee/overview</code> folder. This view displays a
+				static text for illustration purposes. Change it according to your own requirements.
+				We don't need a controller for this view</p>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/overview/EmployeeOverviewContent.view.xml (New)</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.employee.overview.EmployeeOverviewContent"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Table id="employeesTable"
+		items="{/Employees}"&gt;
+		&lt;headerToolbar&gt;
+			&lt;Toolbar&gt;
+				&lt;Title text="{i18n&gt;Employees}" level="H2"/&gt;
+				&lt;ToolbarSpacer /&gt;
+				&lt;SearchField id="searchField" search=".onSearchEmployeesTable" width="50%"/&gt;
+				&lt;Button icon="sap-icon://sort" press=".onSortButtonPressed"/&gt;
+			&lt;/Toolbar&gt;
+		&lt;/headerToolbar&gt;
+		&lt;columns&gt;
+			&lt;Column id="employeeIDCol"&gt;&lt;Text text="{i18n&gt;EmployeeID}"/&gt;&lt;/Column&gt;
+			&lt;Column id="firstNameCol" demandPopin="true"&gt;&lt;Text text="{i18n&gt;FirstName}"/&gt;&lt;/Column&gt;
+			&lt;Column id="lastNameCol" demandPopin="true"&gt;&lt;Text text="{i18n&gt;LastName}"/&gt;&lt;/Column&gt;
+			&lt;Column id="addressCol" minScreenWidth="Tablet" demandPopin="true"&gt;&lt;Text text="{i18n&gt;Address}"/&gt;&lt;/Column&gt;
+			&lt;Column id="cityCol" minScreenWidth="Tablet" demandPopin="true"&gt;&lt;Text text="{i18n&gt;City}"/&gt;&lt;/Column&gt;
+			&lt;Column id="regionCol" minScreenWidth="Tablet" demandPopin="true"&gt;&lt;Text text="{i18n&gt;Region}"/&gt;&lt;/Column&gt;
+			&lt;Column id="postalCodeCol" minScreenWidth="Tablet" demandPopin="true"&gt;&lt;Text text="{i18n&gt;PostalCode}"/&gt;&lt;/Column&gt;
+			&lt;Column id="countryCol" minScreenWidth="Tablet" demandPopin="true"&gt;&lt;Text text="{i18n&gt;Country}"/&gt;&lt;/Column&gt;
+			&lt;Column id="homePhoneCol" minScreenWidth="Tablet" demandPopin="true" hAlign="Right"&gt;&lt;Text text="{i18n&gt;Phone}"/&gt;&lt;/Column&gt;
+		&lt;/columns&gt;
+		&lt;items&gt;
+			&lt;ColumnListItem&gt;
+				&lt;cells&gt;
+					&lt;Text text="{EmployeeID}"/&gt;
+					&lt;Text text="{FirstName}"/&gt;
+					&lt;Text text="{LastName}"/&gt;
+					&lt;Text text="{Address}"/&gt;
+					&lt;Text text="{City}"/&gt;
+					&lt;Text text="{Region}"/&gt;
+					&lt;Text text="{PostalCode}"/&gt;
+					&lt;Text text="{Country}"/&gt;
+					&lt;Text text="{HomePhone}"/&gt;
+				&lt;/cells&gt;
+			&lt;/ColumnListItem&gt;
+		&lt;/items&gt;
+	&lt;/Table&gt;
+&lt;/mvc:View&gt;
+</span></pre></div></div></section>
+			<p>Create the file EmployeeOverviewContent.view.xml in the
+					<code>webapp/view/employee/overview</code> folder. This view displays a
+				responsive table with several columns containing employee data like
+					<span class="ph uicontrol">Employee ID</span>, <span class="ph uicontrol">First Name</span>,
+					<span class="ph uicontrol">Last Name</span> and so on. In the
+					<code>headerToolbar</code>, we add the <code>SearchField</code> and a
+					<code>Button</code>. The <code>SearchField</code> in the header area
+				allows to search in the table. The <code>Button</code> next to it opens a dialog
+				to adjust the sorting of the table.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/employee/overview/EmployeeOverviewContent.controller.js
+				(New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/Sorter",
+	"sap/m/ViewSettingsDialog",
+	"sap/m/ViewSettingsItem"
+], function(
+	BaseController,
+	Filter,
+	FilterOperator,
+	Sorter,
+	ViewSettingsDialog,
+	ViewSettingsItem
+) {
+	"use strict";
+
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.overview.EmployeeOverviewContent", {
+
+		onInit: function () {
+			this._oTable = this.byId("employeesTable");
+			this._oVSD = null;
+			this._sSortField = null;
+			this._bSortDescending = false;
+			this._aValidSortFields = ["EmployeeID", "FirstName", "LastName"];
+			this._sSearchQuery = null;
+
+			this._initViewSettingsDialog();
+		},
+
+		onSortButtonPressed : function () {
+			this._oVSD.open();
+		},
+
+		onSearchEmployeesTable : function (oEvent) {
+			this._applySearchFilter( oEvent.getSource().getValue() );
+		},
+
+		_initViewSettingsDialog : function () {
+			this._oVSD = new ViewSettingsDialog("vsd", {
+				confirm: function (oEvent) {
+					var oSortItem = oEvent.getParameter("sortItem");
+					this._applySorter(oSortItem.getKey(), oEvent.getParameter("sortDescending"));
+				}.bind(this)
+			});
+
+			// init sorting (with simple sorters as custom data for all fields)
+			this._oVSD.addSortItem(new ViewSettingsItem({
+				key: "EmployeeID",
+				text: "Employee ID",
+				selected: true			// by default the MockData is sorted by EmployeeID
+			}));
+
+			this._oVSD.addSortItem(new ViewSettingsItem({
+				key: "FirstName",
+				text: "First Name",
+				selected: false
+			}));
+
+			this._oVSD.addSortItem(new ViewSettingsItem({
+				key: "LastName",
+				text: "Last Name",
+				selected: false
+			}));
+		},
+
+		_applySearchFilter : function (sSearchQuery) {
+			var aFilters, oFilter, oBinding;
+
+			// first check if we already have this search value
+			if (this._sSearchQuery === sSearchQuery) {
+				return;
+			}
+			this._sSearchQuery = sSearchQuery;
+			this.byId("searchField").setValue(sSearchQuery);
+
+			// add filters for search
+			aFilters = [];
+			if (sSearchQuery && sSearchQuery.length &gt; 0) {
+				aFilters.push(new Filter("FirstName", FilterOperator.Contains, sSearchQuery));
+				aFilters.push(new Filter("LastName", FilterOperator.Contains, sSearchQuery));
+				oFilter = new Filter({ filters: aFilters, and: false });  // OR filter
+			} else {
+				oFilter = null;
+			}
+
+			// update list binding
+			oBinding = this._oTable.getBinding("items");
+			oBinding.filter(oFilter, "Application");
+		},
+
+		/**
+		 * Applies sorting on our table control.
+		 * @param {string} sSortField		the name of the field used for sorting
+		 * @param {string} sortDescending	true or false as a string or boolean value to specify a descending sorting
+		 * @private
+		 */
+		_applySorter : function (sSortField, sortDescending){
+			var bSortDescending, oBinding, oSorter;
+
+			// only continue if we have a valid sort field
+			if (sSortField && this._aValidSortFields.indexOf(sSortField) &gt; -1) {
+
+				// convert  the sort order to a boolean value
+				if (typeof sortDescending === "string") {
+					bSortDescending = sortDescending === "true";
+				} else if (typeof sortDescending === "boolean") {
+					bSortDescending =  sortDescending;
+				} else {
+					bSortDescending = false;
+				}
+
+				// sort only if the sorter has changed
+				if (this._sSortField && this._sSortField === sSortField && this._bSortDescending === bSortDescending) {
+					return;
+				}
+
+				this._sSortField = sSortField;
+				this._bSortDescending = bSortDescending;
+				oSorter = new Sorter(sSortField, bSortDescending);
+
+				// sync with View Settings Dialog
+				this._syncViewSettingsDialogSorter(sSortField, bSortDescending);
+
+				oBinding = this._oTable.getBinding("items");
+				oBinding.sort(oSorter);
+			}
+		},
+
+		_syncViewSettingsDialogSorter : function (sSortField, bSortDescending) {
+			// the possible keys are: "EmployeeID" | "FirstName" | "LastName"
+			// Note: no input validation is implemented here
+			this._oVSD.setSelectedSortItem(sSortField);
+			this._oVSD.setSortDescending(bSortDescending);
+		}
+
+	});
+
+});
+</span></pre></div></div></section>
+			<p>Finally create the controller for the <span class="ph uicontrol">Employee Overview</span> page
+				in the <code>webapp/controller/employee/overview</code> folder. It basically
+				sets up a <code>ViewSettingsDialog</code> to sort and filter the table of
+				employees and implements event handlers for the search field and for the sorting of
+				the table.</p>
+			<p>There is nothing special about this implementation. If you are interested in how to
+				set up a table with sorting and filtering you can check the corresponding steps of
+				the <span class="ph uicontrol">Walkthrough</span> tutorial or the examples in the Demo Kit. We
+				will mainly make use of the UI and the functionality for showing additional
+				navigation and routing features. Therefore, we suggest copying the code and trying
+				it out.</p>
+			<p>Open <code>webapp/index.html#/employees/overview</code> and check the new views.
+				As you can see, the three views are wired together automatically by the router based
+				on our configuration in the descriptor. In the top area of the page, you see a
+				static text and below you see the table filled with data from our test service. The
+				whole routing functionality that we see in this example is implemented by
+				referencing two targets from one route.</p>
+			<p>Of course, you can also search the table and change the sorting. When the sorting
+				dialog opens, it creates a block layer so that the back button and other controls
+				cannot be accessed. However, you can still use the back button of the browser. As
+				you can see, the dialog is closed automatically by the router before navigating.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The default behavior of the <code>sap.m</code> router is that all dialogs
+						are closed when the hash changes (i.e. when calling <code>navTo</code>,
+							<code>display</code> or pressing the back button of the browser).
+						You can change this default behavior by calling
+							<code>getTargetHandler().setCloseDialogs(false)</code> on the router
+						or on the <code>Targets</code> object.</p>
+				<p></p></div></div><p></p>
+			<p>However, we have one problem yet to solve: the search and table ordering are not
+				bookmarkable. Fortunately, we have additional navigation features at hand and you
+				will see how this works in the next steps</p>
+		</section><section>
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">...
+EmployeeOverview=Employee Overview
+ShowEmployeeOverview=Show Employee Overview
+
+EmployeeOverviewTop=Employee Overview Top
+
+Region=Region
+EmployeeID=Employee ID
+Phone=Phone
+Employees=Employees</span></pre></div></div></section>
+			<p>Add the new texts to the <code>properties</code> file.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/cdab0a1123514cc08cf2c8deb22f312e">Step 10: Implement "Lazy Loading"</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/e85da535ea19430a90c381f3c2bd748e">Step 12: Make a Search Bookmarkable</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.m.routing.TargetHandler" title="api/sap.m.routing.TargetHandler" class="sap-doc" alt="api/sap.m.routing.TargetHandler">API Reference: sap.m.routing.TargetHandler</a></li>
+	</ul></section></div></section></div></body></html>

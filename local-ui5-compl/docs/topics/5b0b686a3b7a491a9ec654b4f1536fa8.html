@@ -1,0 +1,61 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5b0b686a3b7a491a9ec654b4f1536fa8" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/using-action-control-for-context-dependent-actions-5b0b686.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using Action Control for Context-Dependent Actions</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using Action Control for Context-Dependent Actions</h2></div><div class="shortdesc">Action control refers to the ability of applications to be able to configure app-specific actions so that they are only enabled for
+		certain instances of the object, but not others.</div><section id="section_dhs_mjc_2nb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+				Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>You can use action control to display actions by adding the
+					<span class="ph sap-technical-name">sap:action-for</span> and
+					<span class="ph sap-technical-name">sap:applicable-path</span> terms to your
+				action or function import.</p><p>Actions that you've defined using these annotations are context-dependent. This means
+				that users have to select an item or a line in a list. Only then are the actions
+				enabled.</p><p>In the applicable path, you specify a Boolean property for the entity type that
+				controls whether the function import can be invoked. SAP Fiori elements evaluates
+				the applicable path and sets the visibility of the corresponding action based on the
+				Boolean property value.</p><p>If the condition, as defined by the applicable-path variable, is not fulfilled, the
+				action is hidden or disabled as follows:</p><ul class="ul ">
+					<li class="li">
+						<p>The action is hidden if it is on a page header level or for line item
+							buttons in a table</p>
+					</li>
+					<li class="li">
+						<p>The action is disabled for header buttons in a table</p>
+						
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>In addition to <span class="ph sap-technical-name">sap:applicable-path</span>, it is not recommended to use
+									<code>UI.Hidden</code> for <code>DataFieldForAction</code> within page header. If
+									<code>UI.Hidden</code> is defined, it takes the precedence and may result in a deviation from the UX
+								recommended behaviour for button visibility.</p>
+						<p></p></div></div>
+						
+					</li>
+				</ul><p></p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;FunctionImport Name="SEPMRA_C_PD_ProductCopy" 
+                ReturnType="SEPMRA_PROD_MAN.SEPMRA_C_PD_ProductType" 
+                EntitySet="SEPMRA_C_PD_Product" m:HttpMethod="POST"
+                sap:action-for="SEPMRA_PROD_MAN.SEPMRA_C_PD_ProductType" 
+                sap:applicable-path="IsActiveEntity"&gt;
+    &lt;Parameter Name="ProductDraftUUID" Type="Edm.Guid" Mode="In"/&gt;
+    &lt;Parameter Name="ActiveProduct" Type="Edm.String" Mode="In" MaxLength="10"/&gt;
+&lt;/FunctionImport&gt;
+</pre></div></div></section>
+			<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If the function import action parameters are dynamic, and if for a selected
+					instance no parameter is required, then the parameter dialog is not displayed.
+					This behavior is applicable only for single-context select actions.</p>
+			<p></p></div></div></div></section><section id="section_hhv_qjc_2nb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+				Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>You can use action control to enable or disable actions by adding the
+					<code>OperationAvailable</code>
+				term.</p><p>For more information, see the
+				<a href="topic/cbf16c599f2d4b8796e3702f7d4aae6c.html#loiocbf16c599f2d4b8796e3702f7d4aae6c/subsection_xkx_gwq_nsb" title="cbf16c599f2d4b8796e3702f7d4aae6c.xml#loiocbf16c599f2d4b8796e3702f7d4aae6c/subsection_xkx_gwq_nsb" class="sap-doc">Enabling Custom Actions Defined Using
+				Annotations</a>
+				section in <a href="topic/cbf16c599f2d4b8796e3702f7d4aae6c" title="You can use generic actions provided by SAP Fiori elements and implement application-specific actions using annotations or extension points." class="sap-doc">Actions</a>.</p></div></section><section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If multi-select is available in a table, the action is allowed when at least one
+				of the marked entries fulfills the condition.</p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

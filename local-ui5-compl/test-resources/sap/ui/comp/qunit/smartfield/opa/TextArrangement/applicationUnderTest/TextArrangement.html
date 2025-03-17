@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField with local Metadata</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="mainView"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:core="sap.ui.core"
+				xmlns:mvc="sap.ui.core.mvc"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				height="100%">
+
+			<App>
+				<Page id="page" title="Smart Field Snippet">
+					<smartForm:SmartForm id="smartForm" editable="true" title="Smart Form" editTogglable="true">
+						<smartForm:Group>
+							<smartForm:GroupElement label="Name -> suggestions disabled">
+								<smartField:SmartField
+										id="Name"
+										value="{Name}"
+										textInEditModeSource="ValueList"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+						<smartForm:Group>
+							<smartForm:GroupElement label="ProductName -> suggestions disabled">
+								<smartField:SmartField
+										id="ProductName"
+										value="{ProductName}"
+										change="handleChange"
+										textInEditModeSource="ValueListNoValidation"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<Input id="productNameInput" value="{ProductName}"/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+						<smartForm:Group>
+							<smartForm:GroupElement label="FacilityName -> suggestions disabled">
+								<smartField:SmartField
+										id="FacilityName"
+										value="{FacilityName}"
+										change="handleChange"
+										textInEditModeSource="ValueListNoValidation"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+						<smartForm:Group>
+							<smartForm:GroupElement label="Name">
+								<smartField:SmartField
+										id="CompanyName"
+										value="{CompanyName}"
+										textInEditModeSource="ValueListNoValidation"
+								/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+						<smartForm:Group title="InOut Dependent fields">
+							<smartForm:GroupElement>
+								<smartField:SmartField
+										id="NameInOut1"
+										value="{NameInOut1}"
+										textInEditModeSource="ValueListNoValidation"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField
+										id="NameInOut2"
+										value="{NameInOut2}"
+										textInEditModeSource="ValueListNoValidation"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField
+										id="NameInOut3"
+										value="{NameInOut3}"
+										textInEditModeSource="ValueList"
+								/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+						<smartForm:Group>
+							<smartForm:GroupElement label="NameWithLocalText -> suggestions disabled">
+								<smartField:SmartField
+										id="NameWithLocalText"
+										value="{NameWithLocalText}"
+										change="handleChange"
+										textInEditModeSource="ValueListNoValidation"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<Input id="NameWithLocalTextInput" value="{NameWithLocalText}"/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+						<smartForm:Group>
+							<smartForm:GroupElement label="NameWithLocalText2">
+								<smartField:SmartField
+										id="NameWithLocalText2"
+										value="{NameWithLocalText2}"
+										change="handleChange"
+										textInEditModeSource="ValueList"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<Input id="NameWithLocalText2Input" value="{NameWithLocalText2}"/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+						<smartForm:Group>
+							<smartForm:GroupElement label="ValueListWarning">
+								<smartField:SmartField
+										id="NameVLFO"
+										value="{NameVLFO}"
+										textInEditModeSource="ValueListWarning"
+								/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<smartForm:SmartForm id="TARForm" editable="true" editTogglable="true" title="TextArrangementRead (singleton)">
+						<smartForm:Group>
+							<smartForm:GroupElement id="TARGE0" label="Model A - VL not loaded">
+								<smartField:SmartField
+										id="TAR0"
+										value="{Name}"
+										textInEditModeSource="ValueListNoValidation"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement id="TARGE1" label="Model A">
+								<smartField:SmartField
+										id="TAR1"
+										value="{Name}"
+										textInEditModeSource="ValueListNoValidation"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement id="TARGE2" label="Model B - VL not loaded">
+								<smartField:SmartField
+										id="TAR2"
+										value="{Name}"
+										textInEditModeSource="ValueListNoValidation"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement id="TARGE3" label="Model C - VL loaded">
+								<smartField:SmartField
+										id="TAR3"
+										value="{Name}"
+										textInEditModeSource="ValueListNoValidation"
+										showSuggestion="false"
+								/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<smartForm:SmartForm id="SuppressText" editable="false" title="Suppress Common.Text annotation">
+						<smartForm:Group>
+							<smartForm:GroupElement id="ge1">
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<HBox>
+									<Button id="suppressToEdit" text="Edit" type="Emphasized" press=".switchToEdit" class="sapUiMediumMarginEnd"/>
+									<Button id="suppressToDisplay" text="Display" press=".switchToDisplay"/>
+								</HBox>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<smartForm:SmartForm id="leftoverDescription" binding="{/Employees('0001')}" editable="false" editTogglable="true" title="SNOW: DINC0181926 Leftover description">
+						<smartForm:Group>
+							<smartForm:GroupElement>
+
+								<smartField:SmartField
+										id="leftoverDescriptionField"
+										value="{NameLeftover}">
+
+									<smartField:customData>
+										<core:CustomData key="defaultInputFieldDisplayBehaviour" value="descriptionAndId"/>
+										<core:CustomData key="defaultTextInEditModeSource" value="ValueList"/>
+									</smartField:customData>
+
+								</smartField:SmartField>
+
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<smartForm:SmartForm id="FiscalForm" binding="{/Employees('0001')}" editable="false" title="SNOW: DINC0092248 Fiscal fields should not fail">
+						<smartForm:Group>
+							<smartForm:GroupElement>
+
+								<smartField:SmartField
+										id="FiscalField"
+										value="{FiscalYear}">
+
+									<smartField:customData>
+										<core:CustomData key="defaultDropDownDisplayBehaviour" value="descriptionOnly"/>
+										<core:CustomData key="defaultInputFieldDisplayBehaviour" value="descriptionAndId"/>
+										<core:CustomData key="defaultTextInEditModeSource" value="ValueListNoValidation"/>
+									</smartField:customData>
+
+								</smartField:SmartField>
+
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<smartForm:SmartForm id="Space" binding="{/Employees('0001')}" editable="true" title="SNOW: DINC0232609 Entering space blocks the control in busy state">
+						<smartForm:Group>
+							<smartForm:GroupElement>
+
+								<smartField:SmartField
+										id="SpaceField"
+										value="{Space}">
+
+									<smartField:customData>
+										<core:CustomData key="defaultInputFieldDisplayBehaviour" value="descriptionAndId"/>
+										<core:CustomData key="defaultTextInEditModeSource" value="ValueListNoValidation"/>
+									</smartField:customData>
+
+								</smartField:SmartField>
+
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<!-- deprecated controlProposal>
+					<smartForm:SmartForm id="CorrectPath" editable="false" editTogglable="true" title="SNOW: DINC0046629 Correct path in VH request">
+						<smartForm:Group>
+							<smartForm:GroupElement>
+
+								<smartField:SmartField
+										id="CorrectPathField"
+										contextEditable="false"
+										uomEditable="false"
+										enabled="true"
+										clientSideMandatoryCheck="false"
+										value="{Name2}"
+										textInEditModeSource="ValueList"
+										binding="{/Employees('0001')}"
+										fetchValueListReadOnly="true">
+
+									<smartField:configuration>
+										<smartField:Configuration displayBehaviour="descriptionOnly"/>
+									</smartField:configuration>
+									<smartField:controlProposal>
+										<smartField:ControlProposal>
+											<smartField:objectStatus>
+												<smartField:ObjectStatus criticality="{LocalText}" criticalityRepresentationType="WithoutIcon"/>
+											</smartField:objectStatus>
+										</smartField:ControlProposal>
+									</smartField:contarolProposal>
+								</smartField:SmartField>
+
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>-->
+					<HBox>
+						<Button id="clearLog" text="Clear log" press=".clearLog" class="sapUiSmallMarginEnd"/>
+						<Button id="resetModel" text="Reset Model" press=".resetModel" class="sapUiSmallMarginEnd"/>
+						<Button id="emptyModelValues" text="Empty model values for compound keys" press=".emptyModelValues" class="sapUiSmallMarginEnd"/>
+						<Button id="bindTAR" text="Bind TAR Fields" press=".bindTARFields"/>
+					</HBox>
+					<List id="events" headerText="LOG:"/>
+				</Page>
+			</App>
+
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+
+						<Property Name="Name"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name"
+								  Nullable="false"/>
+
+						<Property Name="Name2"
+								  Type="Edm.String"
+								  sap:label="Name2"/>
+
+						<Property Name="NameVLFO"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name VLFO"
+								  Nullable="false"/>
+
+						<Property Name="NameWithLocalText"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name with local text"/>
+
+						<Property Name="NameWithLocalText2"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name with local text 2"/>
+
+						<Property Name="NameInOut1"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name1"/>
+
+						<Property Name="NameInOut2"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name 2"/>
+
+						<Property Name="NameInOut3"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name3"/>
+
+						<Property Name="ProductName"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Product Name"
+								  Nullable="false"/>
+
+						<Property Name="FacilityName"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Facility Name"/>
+
+						<Property Name="CompanyName"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name"
+								  Nullable="false"/>
+
+						<Property Name="LOCALKEY2"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:label="Local Key"
+								  sap:creatable="false"/>
+
+						<Property Name="LOCALKEY3"
+								  Type="Edm.String"
+								  MaxLength="4"
+								  sap:label="Local Key 3"
+								  sap:creatable="false"/>
+
+						<Property Name="LocalText"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Local text"
+								  Nullable="false"/>
+
+						<Property Name="NameNotExpanded"
+								  Type="Edm.String"
+								  sap:creatable="true"
+								  sap:updatable="true"
+								  sap:label="Name"/>
+
+						<Property Name="NameLeftover"
+								  Type="Edm.String"
+								  sap:label="NameLeftover"/>
+
+						<Property Name="FiscalYear"
+								  Type="Edm.String"
+								  sap:display-format="NonNegative"
+								  sap:label="FiscalYear"/>
+
+						<Property Name="Space"
+								  Type="Edm.String"
+								  sap:display-format="UpperCase"
+								  sap:label="Space"/>
+
+						<NavigationProperty Name="to_ProductCategories"
+											Relationship="EmployeesNamespace.ProductCategory"
+											FromRole="FromRole_ProductCategory"
+											ToRole="ToRole_ProductCategory"/>
+
+					</EntityType>
+
+					<EntityType Name="StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="KEY2" Type="Edm.String" sap:sortable="false" Nullable="false" MaxLength="20" sap:label="Key2"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+						<Property Name="DeprecationCode" Type="Edm.String" sap:label="Deprecation Code" />
+					</EntityType>
+
+					<EntityType Name="ProductVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+							<PropertyRef Name="KEY2" />
+							<PropertyRef Name="KEY3" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="KEY2" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key2"/>
+						<Property Name="KEY3" Type="Edm.String" MaxLength="20" sap:label="Key2"/>
+						<Property Name="CONSTANT" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Constant"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityType Name="CompanyVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" sap:text="TXT" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="KEY2" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key2"/>
+						<Property Name="CONSTANT" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Constant"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<Association Name="ProductCategory" sap:content-version="1">
+						<End Type="EmployeesNamespace.Employees" Multiplicity="1" Role="FromRole_ProductCategory"/>
+						<End Type="EmployeesNamespace.StringVH" Multiplicity="0..1" Role="ToRole_ProductCategory"/>
+						<ReferentialConstraint>
+							<Principal Role="ToRole_ProductCategory">
+								<PropertyRef Name="KEY"/>
+							</Principal>
+							<Dependent Role="FromRole_ProductCategory">
+								<PropertyRef Name="NameNotExpanded"/>
+							</Dependent>
+						</ReferentialConstraint>
+					</Association>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="true"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="StringVH"
+								   EntityType="EmployeesNamespace.StringVHType"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+
+						<EntitySet Name="ProductVH"
+								   EntityType="EmployeesNamespace.ProductVHType"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+
+						<EntitySet Name="CompanyVH"
+								   EntityType="EmployeesNamespace.CompanyVHType"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+
+						<AssociationSet Name="ProductCategoriesSet"
+										Association="EmployeesNamespace.ProductCategory"
+										sap:creatable="true"
+										sap:updatable="true"
+										sap:deletable="true"
+										sap:content-version="1">
+
+							<End EntitySet="Employees" Role="FromRole_ProductCategory"/>
+							<End EntitySet="StringVH" Role="ToRole_ProductCategory"/>
+						</AssociationSet>
+
+					</EntityContainer>
+
+					<Annotations Target="EmployeesNamespace.StringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="TXT">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst" />
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.StringVHType/DeprecationCode"
+								xmlns="http://docs.oasis-open.org/odata/ns/edm" >
+						<Annotation Term="com.sap.vocabularies.CodeList.v1.IsConfigurationDeprecationCode" Bool="true"/>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.ProductVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="TXT">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameWithLocalText"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="LocalText">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameWithLocalText"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameWithLocalText2"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="LocalText">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameWithLocalText2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Name"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Name"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="DeprecationCode"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Name2"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="LocalText">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+						</Annotation>
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueListWithFixedValues" Bool="true"/>
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Name2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameVLFO"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameVLFO"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="DeprecationCode"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FacilityName"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="ProductVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FacilityName"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY3"/>
+											<PropertyValue Property="ValueListProperty" String="KEY3"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterConstant">
+											<PropertyValue Property="Constant" String="Bulgaria"/>
+											<PropertyValue Property="ValueListProperty" String="CONSTANT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/ProductName"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="ProductVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="ProductName"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+											<PropertyValue Property="InitialValueIsSignificant" Bool="true"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY3"/>
+											<PropertyValue Property="ValueListProperty" String="KEY3"/>
+											<PropertyValue Property="InitialValueIsSignificant" Bool="true"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterConstant">
+											<PropertyValue Property="Constant" String="Bulgaria"/>
+											<PropertyValue Property="ValueListProperty" String="CONSTANT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/CompanyName"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="CompanyVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="CompanyName"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterConstant">
+											<PropertyValue Property="Constant" String="Bulgaria"/>
+											<PropertyValue Property="ValueListProperty" String="CONSTANT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameInOut1"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameInOut1"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameInOut2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LocalText"/>
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameInOut2"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameInOut2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameInOut1"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LocalText"/>
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameInOut3"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameInOut3"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameInOut1"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LocalText"/>
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameNotExpanded"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="LocalText">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameNotExpanded"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/NameLeftover"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="NameLeftover"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FiscalYear"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYear"/>
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYear"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Space"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Space"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+
+					</Annotations>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="application/json">
+		{
+			"d": {
+				"__count": "1",
+				"results": [
+					{
+						"__metadata": {
+							"uri": "testService.Employees/Employees('0001')",
+							"type": "EmployeesNamespace.Employee"
+						},
+						"Department": "Purchasing",
+						"Name": "1",
+						"Name2": "1",
+						"NameVLFO": "1",
+						"NameWithLocalText": "1",
+						"NameWithLocalText2": "1",
+						"NameNotExpanded": "1",
+						"NameInOut1": "",
+						"NameInOut2": "",
+						"NameInOut3": "",
+						"ProductName": "2",
+						"FacilityName": "2",
+						"CompanyName": "3",
+						"LOCALKEY2": "AAA",
+						"LOCALKEY3": "BBB",
+						"LocalText": "Local Text",
+						"NameLeftover": "1",
+						"FiscalYear": "2024",
+						"Space": "2",
+						"Id": "0001"
+					}
+				]
+			}
+		}
+	</script>
+
+	<script id="dataSectionVH" type="application/json">
+	{"d": {
+		"__count": "7",
+		"results": [
+			{
+				"__metadata": {
+					"uri": "testService.StringVH/StringVH('0001')",
+					"type": "MyNameSpace.StringVH"
+				},
+				"KEY": "1",
+				"KEY2": "2",
+				"TXT": "ValueList 1",
+				"DeprecationCode": ""
+			},
+			{
+				"__metadata": {
+					"uri": "testService.StringVH/StringVH('0002')",
+					"type": "MyNameSpace.StringVH"
+				},
+				"KEY": "2",
+				"KEY2": "1",
+				"TXT": "ValueList 2",
+				"DeprecationCode": ""
+			},
+			{
+				"__metadata": {
+					"uri": "testService.StringVH/StringVH('0003')",
+					"type": "MyNameSpace.StringVH"
+				},
+				"KEY": "3",
+				"KEY2": "3",
+				"TXT": "ValueList 3",
+				"DeprecationCode": ""
+			},
+			{
+				"__metadata": {
+					"uri": "testService.StringVH/StringVH('0004')",
+					"type": "MyNameSpace.StringVH"
+				},
+				"KEY": "4",
+				"KEY2": "4",
+				"TXT": "ValueList 4",
+				"DeprecationCode": ""
+			},
+			{
+				"__metadata": {
+					"uri": "testService.StringVH/StringVH('0005')",
+					"type": "MyNameSpace.StringVH"
+				},
+				"KEY": "5",
+				"KEY2": "5",
+				"TXT": "ValueList 4 - 5",
+				"DeprecationCode": ""
+			},
+			{
+				"__metadata": {
+					"uri": "testService.StringVH/StringVH('0007')",
+					"type": "MyNameSpace.StringVH"
+				},
+				"KEY": "7",
+				"KEY2": "7",
+				"TXT": "ValueList 7",
+				"DeprecationCode": "W"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.StringVH/StringVH('0008')",
+					"type": "MyNameSpace.StringVH"
+				},
+				"KEY": "8",
+				"KEY2": "8",
+				"TXT": "ValueList 8",
+				"DeprecationCode": "E"
+			}
+		]
+	}}
+</script>
+
+
+	<script id="dataSectionProductVH" type="application/json">
+	{"d": {
+		"__count": "4",
+		"results": [
+			{
+				"__metadata": {
+					"uri": "testService.ProductVH/ProductVH('0001')",
+					"type": "MyNameSpace.ProductVH"
+				},
+				"KEY": "1",
+				"KEY2": "AAA",
+				"KEY3": "BBB",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 1"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.ProductVH/ProductVH('0002')",
+					"type": "MyNameSpace.ProductVH"
+				},
+				"KEY": "2",
+				"KEY2": "AAA",
+				"KEY3": "BBB",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 2"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.ProductVH/ProductVH('0002')",
+					"type": "MyNameSpace.ProductVH"
+				},
+				"KEY": "2",
+				"KEY2": "BBB",
+				"KEY3": "BBB",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 23"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.ProductVH/ProductVH('0003')",
+					"type": "MyNameSpace.ProductVH"
+				},
+				"KEY": "3",
+				"KEY2": "AAA",
+				"KEY3": "BBB",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 3"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.ProductVH/ProductVH('0004')",
+					"type": "MyNameSpace.ProductVH"
+				},
+				"KEY": "4",
+				"KEY2": "AAA",
+				"KEY3": "BBB",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 4"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.ProductVH/ProductVH('0005')",
+					"type": "MyNameSpace.ProductVH"
+				},
+				"KEY": "5",
+				"KEY2": "AAA",
+				"KEY3": "BBB",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 4 - 5"
+			}
+		]
+	}}
+	</script>
+
+	<script id="dataSectionCompanyVH" type="application/json">
+	{"d": {
+		"__count": "4",
+		"results": [
+			{
+				"__metadata": {
+					"uri": "testService.CompanyVH/CompanyVH('0001')",
+					"type": "MyNameSpace.CompanyVH"
+				},
+				"KEY": "1",
+				"KEY2": "AAA",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 1"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CompanyVH/CompanyVH('0002')",
+					"type": "MyNameSpace.CompanyVH"
+				},
+				"KEY": "2",
+				"KEY2": "AAA",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 2"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CompanyVH/CompanyVH('0002')",
+					"type": "MyNameSpace.CompanyVH"
+				},
+				"KEY": "2",
+				"KEY2": "BBB",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 23"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CompanyVH/CompanyVH('0003')",
+					"type": "MyNameSpace.CompanyVH"
+				},
+				"KEY": "3",
+				"KEY2": "AAA",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 3"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CompanyVH/CompanyVH('0004')",
+					"type": "MyNameSpace.CompanyVH"
+				},
+				"KEY": "4",
+				"KEY2": "AAA",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 4"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CompanyVH/CompanyVH('0005')",
+					"type": "MyNameSpace.CompanyVH"
+				},
+				"KEY": "5",
+				"KEY2": "AAA",
+				"CONSTANT": "Bulgaria",
+				"TXT": "ValueList 4 - 5"
+			}
+		]
+	}}
+</script>
+
+</head>
+
+<script src="./TextArrangement.js"></script>
+
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+</html>

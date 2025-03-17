@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";function e(){this.depMap={}}e.prototype.getDependencies=function(){return this.depMap};e.prototype.addDependencies=function(e){var n=null;for(n in e){if(e.hasOwnProperty(n)){if(!this.depMap.hasOwnProperty(n)){this.depMap[n]=e[n]}}}};return{DependeciesHandler:e}},true);
+//# sourceMappingURL=dependenciesHandler.js.map

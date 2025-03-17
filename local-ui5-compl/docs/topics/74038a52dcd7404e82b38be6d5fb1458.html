@@ -1,0 +1,267 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio74038a52dcd7404e82b38be6d5fb1458" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/07_APF/descriptor-manifest-json-74038a5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Descriptor (manifest.json)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Descriptor (manifest.json)</h2></div><p>As of SAPUI5 version 1.30, APF uses the <code>manifest.json</code> file as descriptor. It
+			replaces the application configuration file. The <code>manifest.json</code> file
+			defines static information about the application, such as the name of the application or
+			the location of various files. It is written in JavaScript Object Notation (JSON)
+			format.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>If your application still uses the application configuration file, you can skip this
+				section. </p>
+			<p>You can also omit this step if you create an APF-based application using the generic APF
+				runtime application because the <code>manifest.json</code> file is already
+				contained in it. However, if you create your own BSP application with a component
+				that extends <code>sap.apf.base.Component</code>, you must also create a
+					<code>manifest.json</code> file. </p>
+		<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Customer modifications may conflict with the SAP namespace and can be overwritten
+				when updates are imported.</p>
+		<p></p></div></div><p>For information about the structure and content of the <code>manifest.json</code> file, see
+				<a href="topic/be0cf40f61184b358b5faedaec98b2da" title="The manifest (also known as descriptor for applications, components, and libraries, in short: app descriptor) is inspired by the WebApplication Manifest concept introduced by the W3C. The manifest provides a central, machine-readable, and easy-to-access location for storing metadata associated with an application, an application component, or a library." class="sap-doc">Manifest (Descriptor for Applications, Components, and Libraries)</a>.</p><p>APF expects certain entries in the manifest of a component that extends
+                                <code>sap.apf.core.Component</code>. Entries for four different
+                        data sources have to be defined in the <code>sap.app</code> namespace: </p><ul class="ul ">
+                        <li class="li">
+                                <p>For the data source
+                                                <code>AnalyticalConfigurationLocation</code>,
+                                        you must specify the location of the analytical
+                                        configuration file. Enter the relative path from the
+                                        Component.js.</p>
+                        </li>
+                        <li class="li">
+                                <p>The following three data sources are predefined and must not be
+                                        changed:</p>
+                                <ul class="ul ">
+                                        <li class="li">
+                                                <p><code>PathPersistenceServiceRoot</code></p>
+                                        </li>
+                                        <li class="li">
+                                                <p><code>SmartBusiness</code></p>
+                                        </li>
+                                        <li class="li">
+                                                <p><code>LogicalSystem</code></p>
+                                        </li>
+                                </ul>
+                                <p>The data sources differ depending on whether you use SAP Business
+                                        Suite powered by SAP HANA, or SAP S/4HANA. The following
+                                        table gives an overview about the relevant entries that you
+                                        must use in your own <code>manifest.json</code>
+                                        file:</p>
+                                <div class="tableWrapper "><div class="fig"><table border="1" id="table_hdk_f5f_rs" class=" ">
+                                                
+                                                
+                                                
+                                                <thead>
+                                                  <tr>
+                                                  <th colspan="1" rowspan="1">
+                                                  <p>Data Source</p>
+                                                  </th>
+                                                  <th colspan="1" rowspan="1">
+                                                  <p>...for SAP Business Suite powered by SAP HANA
+                                                  and SAP BW on SAP HANA</p>
+                                                  </th>
+                                                  <th colspan="1" rowspan="1">
+                                                  <p>...for SAP S/4HANA</p>
+                                                  </th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                  <td colspan="1" rowspan="1"><code>PathPersistenceServiceRoot</code></td>
+                                                  <td colspan="1" rowspan="1"><code>/sap/hba/r/apf/core/odata/apf.xsodata</code></td>
+                                                  <td colspan="1" rowspan="1"><code>/sap/opu/odata/sap/BSANLY_APF_RUNTIME_SRV</code></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td colspan="1" rowspan="1"><code>SmartBusiness</code></td>
+                                                  <td colspan="1" rowspan="1"><code>/sap/hba/r/sb/core/odata/runtime/SMART_BUSINESS.xsodata</code></td>
+                                                  <td colspan="1" rowspan="1">Not required</td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td colspan="1" rowspan="1"><code>LogicalSystem</code></td>
+                                                  <td colspan="1" rowspan="1"><code>/sap/hba/apps/wca/dso/s/odata/wca.xsodata</code></td>
+                                                  <td colspan="1" rowspan="1">Not required</td>
+                                                  </tr>
+                                                </tbody>
+                                        </table></div></div>
+                        </li>
+                </ul><p>The <code>sap.app</code> namespace also contains the title of the application. This
+			"title" entry references the text key <code>AnalyticalConfigurationName</code>. When
+			you export the text pool from APF Configuration Modeler, the up-to-date configuration
+			title is written into the .properties file with the text key
+				<code>AnalyticalConfigurationName</code>. Ensure you also keep the location of
+			the .properties file up to date in the <code>manifest.json</code> file (entry
+			"i18n"). At runtime, this title is displayed as the browser tab title.</p><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+        "_version": "1.1.0",
+        "sap.app": {
+                "_version": "1.1.0",
+                "id": "<var class="varname">component ID</var>",
+                "type": "application",
+                "i18n": "i18n/texts.properties",
+                "title": "{{AnalyticalConfigurationName}}",
+                "description": "{{<var class="varname">key in .properties file</var>}}",
+                "applicationVersion": {
+                        "version": "${project.version}"
+                },
+                "ach": "<var class="varname">ach</var>",
+                "dataSources": {
+                        "<var class="varname">data source for analytical request</var>": {
+                                "uri": "<var class="varname">service root of analytical request</var>",
+                                "type": "OData",
+                                "settings": {
+                                        "annotations": [
+                                                "<var class="varname">annotation data source</var>"
+                                        ],
+                                        "odataVersion": "2.0"
+                                }
+                        },
+                        "&lt;annotation data source&gt;": {
+                                "uri": "<var class="varname">location of annotation file</var>",
+                                "type": "ODataAnnotation",
+                                "settings": {
+                                        "localUri": "<var class="varname">location of local annotation file</var>"
+                                }
+                        },
+                        "PathPersistenceServiceRoot": {
+                                "uri": "<var class="varname">URI of path persistence</var>",
+                                "type": "OData",
+                                "settings": {
+                                        "odataVersion": "2.0"
+                                }
+                        },
+                        "SmartBusiness": {
+                                "uri": "/sap/hba/r/sb/core/odata/runtime/SMART_BUSINESS.xsodata",
+                                "type": "OData",
+                                "settings": {
+                                        "odataVersion": "2.0"
+                                }
+                        },
+                        "LogicalSystem": {
+                                "uri": "/sap/hba/apps/wca/dso/s/odata/wca.xsodata",
+                                "type": "OData",
+                                "settings": {
+                                        "odataVersion": "2.0"
+                                }
+                        }
+                },
+                "AnalyticalConfigurationLocation": {
+                        "uri": "./config/analyticalConfiguration.json",
+                        "type": "JSON"
+                },
+                "resources": "resources.json",
+                "offline": false
+        },
+        "sap.fiori": {
+                "_version": "1.1.0",
+                "registrationIds": [
+                        "<var class="varname">FioriId</var>"
+                ],
+                "archeType": "analytical"
+        },
+        "sap.ui": {
+                "_version": "1.1.0",
+                "technology": "UI5",
+                "deviceTypes": {
+                        "desktop": true,
+                        "tablet": true,
+                        "phone": false
+                },
+                "supportedThemes": [
+                        "sap_horizon_hcb",
+                        "sap_horizon"
+                ]
+        },
+        "sap.ui5": {
+                "_version": "1.1.0",
+                "dependencies": {
+                        "minUI5Version": "1.38.1",
+                        "libs": {
+                                "sap.ui.core": {
+                                        "minVersion": "1.38.1",
+                                        "lazy" : false
+                                },
+                                "sap.ca.ui": {
+                                        "minVersion": "1.38.1",
+                                        "lazy" : false
+                                },
+                                "sap.m": {
+                                        "minVersion": "1.38.1",
+                                        "lazy" : false
+                                },
+                                "sap.ui.layout": {
+                                        "minVersion": "1.38.1",
+                                        "lazy" : false
+                               },
+                                "sap.ushell": {
+                                        "minVersion": "1.38.1",
+                                        "lazy" : false
+                                },
+                                "sap.apf": {
+                                        "minVersion": "1.38.1",
+                                        "lazy" : false
+                                },
+                                "sap.viz": {
+                                        "minVersion": "1.38.1",
+                                        "lazy" : false
+                                }
+                        }
+                },
+                "extends": {
+                        "component": "sap.apf.base"
+                },
+                "contentDensities": {
+                        "compact": true,
+                        "cozy": true
+                },
+                "models": {
+                        "i18n": {
+                                "type": "sap.ui.model.resource.ResourceModel",
+                                "uri": "i18n/texts.properties"
+                        }
+                },
+                "config": {
+                        "sapFiori2Adaptation": true
+                }
+        }
+}</pre></div></div></section>
+		</div></section><section>
+			<h2 class="title ">APF-Specific Settings</h2>
+			<p>The following settings reside in the <code>sap.apf</code> name space:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.apf": {
+	"activateFilterReduction" : true,
+	"activateLrep" : true,
+	},
+</pre></div></div></section>
+			<ul class="ul ">
+				<li class="li">
+					<p>
+						<code>activateFilterReduction</code>:</p>
+					<p>This property is relevant if you use CDS views that are executed on the
+						Analytic Engine or BW OData queries. It defines whether filters that are
+						generated during a path update are reduced so that the Analytic Engine can
+						handle them.</p>
+					<p>Alternatively, you can use the equivalent boolean URL parameter
+							<code>sap-apf-filter-reduction</code>, which you can set to true. If
+						a URL parameter exists, it overrules the entry in the
+							<code>manifest.json</code>. If you use the generic APF runtime
+						application, you must use the URL parameter.</p>
+					<p>If you use filter reduction, make sure you don't use more than one property
+						in the filter mapping configuration.</p>
+				</li>
+				<li class="li">
+					<p><code>activateLrep</code></p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>If you use SAP S/4HANA, this property is mandatory and must be set to
+								<kbd class="ph userinput">true</kbd>.</p>
+					<p></p></div></div>
+					<p>This property defines that the layered repository of SAPUI5 flexibility is used for
+                                                persistence of the analytical configuration.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

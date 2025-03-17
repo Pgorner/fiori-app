@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/appRuntime/ui5/AppCommunicationMgr"],function(e){"use strict";function n(){this.sendMessageToOuterShell=function(n,s,t,r,u){const i=new jQuery.Deferred;e.sendMessageToOuterShell(n,s,t,r,u).then(i.resolve.bind(i)).catch(i.reject.bind(i));return i.promise()};this.postMessageToFLP=function(n,s,t,r,u){return e.sendMessageToOuterShell(n,s,t,r,u)}}return new n});
+//# sourceMappingURL=AppRuntimeService.js.map

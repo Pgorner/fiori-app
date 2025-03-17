@@ -1,0 +1,34 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio2803e2d911404ed890ed36adf7d22431" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/register-a-reveal-change-handler-2803e2d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Register a <cite>Reveal</cite> Change Handler</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Register a <cite>Reveal</cite> Change Handler</h2></div><div class="shortdesc">Register a <cite>Reveal</cite> change type with its change handler to a control.</div><p>Register a change type in the <code>library.js</code> file of the underlying control library for the <cite>reveal</cite> action, and map
+			it to the corresponding change handler.</p><p>In the following example of <code>sap.ui.comp.smartform.GroupElement</code>, the default
+			change type <code>unhideControl</code> under the default change handler
+				<code>sap.ui.fl.changeHandler.UnhideControl</code> is used.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Library.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/Lib"], function(Library) {
+  Library.init({
+     extensions: {
+        flChangeHandlers: {
+            "sap.ui.comp.smartform.GroupElement": {
+                "unhideControl": "default",
+            },
+        }
+     }
+  });
+});</pre></div></div></section><p></p></div></div><section id="section_ikq_hxr_gyb">
+			<h2 class="title ">The Default SAPUI5 Flexibility Change Handler </h2>
+			<p>Whenever the <cite>reveal</cite> action on a control can be performed by simply setting its <code>visible</code> attribute to
+					<code>true</code>, we recommend reusing the default change handler <code>UnhideControl</code> for the implementation.</p>
+		</section><section id="section_tkj_rxr_gyb">
+			<h2 class="title ">Custom Change Handler Implementation</h2>
+			<p>If the default <code>UnhideControl</code> change handler isn't sufficient, you have to implement a change handler for revealing a
+				control (see <a href="topic/6a346a293c724bd4bc33f0df92706008" title="If no default change handler is available for your use case, you need to implement your own custom change handler." class="sap-doc">Writing a Custom Change Handler</a>).</p>
+			<p>The change-specific information is usually empty, as the selector control is to be revealed, but for some composite controls where you tweaked
+				the design-time metadata you can deviate from this. You can then get the following information from SAPUI5 flexibility as change-specific information:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Change-specific info for the reveal action</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    revealedElementId : &lt;ID of the element being revealed&gt;
+    directParent:       &lt;parent control&gt;
+};</pre></div></div></section><p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/fc78d5182db8472f8af42a0208a94dee">Enabling the Reveal Action</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/75db2d1368f145ecae9a058727cfba59">Provide the Design-Time Metadata for the Reveal Action</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

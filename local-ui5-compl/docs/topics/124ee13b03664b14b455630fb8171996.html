@@ -1,0 +1,223 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio124ee13b03664b14b455630fb8171996" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/upload-collection-deprecated-124ee13.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Upload Collection (Deprecated)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Upload Collection (Deprecated)</h2></div><div class="shortdesc"><code>UploadCollection</code> is a list control for attachment management that provides the ability to upload, edit or delete
+		attachments.</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+			</p><p> Deprecated as of version 1.88, replaced by <a href="api/sap.m.plugins.UploadSetwithTable" title="api/sap.m.plugins.UploadSetwithTable" class="sap-doc" alt="api/sap.m.plugins.UploadSetwithTable"><code>sap.m.plugins.UploadSetwithTable</code></a>.</p>
+		<p></p></div></div><p>The <code>UploadCollection</code> control allows users to upload single or multiple
+			files from their devices (desktop PC, tablet or phone) to an app. Due to its
+			responsiveness, the upload collection can be used in containers of different sizes.</p><section>
+			<h2 class="title ">Overview</h2>
+			<p>You can use the <code>UploadCollection</code> control to show a list of files,
+				for example, attachments or uploads, that can be modified, or you can allow users to
+				add or remove files to or from this list. </p>
+			<p>The <code>UploadCollection</code> control can be used in the following
+					scenarios:</p><ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">Instant Upload</span></p>
+						<p>Allows users to upload single or multiple files from their devices and
+							attach them to the application immediately. The selection and upload
+							process is completed in one step and is automatically triggered by the
+								<code>UploadCollection</code> control.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Upload Pending</span></p>
+						<p>In this scenario, the upload process is divided into two steps. </p><ul class="ul ">
+								<li class="li">
+									<p>Users select attachments and add them to the upload list
+										(multiple selection is possible). Thereby, a user can delete
+										a file of this selection again without canceling the whole
+										upload of the other selected files.</p>
+								</li>
+							</ul><p></p>
+						<p>In a second step, the user uploads the selected files to the application.
+							The upload is provided by the application, for example, with an upload
+							button or similar. To trigger the upload, the control offers an
+							event.</p>
+					</li>
+				</ul><p></p>
+		</section><section>
+			<h2 class="title ">Details</h2>
+			<p><span class="emphasis">Interaction and Behaviour</span></p>
+			<ul class="ul ">
+				<li class="li">
+					<p><span class="emphasis">Upload files</span></p>
+					<p>The upload is triggered by the <span class="uilabel">Add</span> or
+							<span class="uilabel">Upload</span> pushbutton (depending on the scenario). In the
+						OS-native file picker dialog you can select one or multiple files. However,
+						the consuming application need to enable the upload of multiple files by
+						using the <code>multiple</code> property during the instantiation.
+						During the upload process, a progress indicator provides information about
+						the status. For upload, also Drag & Drop can be used.</p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Open files</span></p>
+					<p>To open a listed file, you can choose the icon or thumbnail of the attachment
+						as well as the filename itself. Depending on the file extension, browser
+						capabilities, and device type (Desktop or mobile), the file is handled
+						differently, for example, it is opened in a new tab or downloaded, if no
+						display capability is available in the browser.</p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Rename files</span></p>
+					<p>Choosing the <span class="ph uicontrol">Rename</span> pushbutton (pen icon) turns the
+						file name into an input field and allows modification. If the
+							<code>sameFilenameAllowed</code> property is set to
+							<code>false</code>, the new file name is validated and, if the file
+						name already exists in the current list, an error occurs, which indicates
+						that you need to change the file name.</p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Delete files</span></p>
+					<p>The user can delete files by using the <span class="ph uicontrol">Delete</span> button.
+						After choosing the <span class="ph uicontrol">Delete</span> button, a dialog appears,
+						asking the user to confirm the deletion of the respective file that removes
+						the file from the upload list or application (the delete behaviour depends
+						on the scenario that is used).</p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Sorting and filtering files</span></p>
+					<p>The application can provide the sorting and filtering feature for the Upload
+						Collection list. After setting the filtering criteria, the users get the
+						filtering information displayed in the info toolbar.</p>
+				</li>
+				<li class="li">
+					<p>For the instant upload scenario only, the following features are
+						available:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p><span class="emphasis">Download files</span></p>
+							<p>You can download a file item from the Upload Collection list and save
+								it on your device. For example, you can provide a
+									<span class="ph uicontrol">Download</span> button in the
+									<code>sap.m.OverflowToolbar</code> in the header, and once
+								you marked one of the items the download feature can be used. To use
+								this feature, API methods in the <code>UploadCollection</code>
+								control and the <code>UploadCollectionItem</code> control are
+								used. Using the <code>askForLocation</code> parameter, you can
+								configure that the browser should ask for the location where to
+								store the file or not (depending on the browser). When this
+								parameter is set to <code>false</code>, the download method acts
+								in the same way as when clicking on the file link. If the
+									<code>askForLocation</code> parameter is set to
+									<code>true</code>, the browser opens a <span class="ph uicontrol">Save
+									As</span> dialog.</p>
+						</li>
+						<li class="li">
+							<p><span class="emphasis">Upload a new version of a file</span></p>
+							<p>To upload a new version of a file to the Upload Collection list, the
+									<code>openFileDialog</code> method is available. You can
+								provide a button in the <code>sap.m.OverflowToolbar</code> in
+								the header and if one entry in the Upload Collection list is
+								selected, the API method shall be called. The uploading process of
+								the new version depends on the settings for the optional
+									<code>UploadCollectionItem</code> parameter:</p><ul class="ul ">
+									<li class="li">
+										<p> If the parameter is provided, the method removes the
+											selected item from the Upload Collection list
+											automatically to upload the new version. </p>
+									</li>
+									<li class="li">
+										<p>If the parameter is not provided, the select dialog of
+											the operating system opens and the further steps have to
+											be proceeded manually by the user.</p>
+									</li>
+								</ul><p></p>
+							<p>The detailed behavior of the feature depends on the app, in which the
+								control is used.</p>
+						</li>
+						<li class="li">
+							<p><span class="emphasis">Terminate uploading a file</span></p>
+							<p>During an upload process of a file, you can terminate the upload with
+								the <span class="ph uicontrol">Delete</span> pushbutton, for example, if the
+								data file is very big and the uploading process takes too long. With
+								the <code>terminationEnabled</code> property, you can decide for
+								your application to make the button for termination invisible to
+								prevent the user from terminating an instant upload in the
+									<code>sap.m.UploadCollection</code> control.</p>
+						</li>
+						<li class="li">
+							<p><span class="emphasis"><code>uploadButtonInvisible</code>
+								property</span></p>
+							<p>With the <code>uploadButtonInvisible</code> property, you can
+								decide for your application to make the <span class="uilabel">Upload</span>
+								button in the instant upload scenario invisible to prevent the user
+								from uploading a file.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">Layout</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>The <span class="ph uicontrol">Rename</span> and <span class="ph uicontrol">Delete</span>
+						pushbuttons are displayed for each item and are active and visible by
+						default. Both icons can be set to invisible or inactive. </p>
+				</li>
+				<li class="li">
+					<p>While most file types have generic icons (such as Word documents, Excel
+						sheets and PDFs), graphic files can be displayed with a small thumbnail
+						preview of its graphic if the respective URL is provided.</p>
+				</li>
+				<li class="li">
+					<p>The toolbar of the <code>UploadCollection</code> control can be
+						customized:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>To customize the toolbar, the <code>toolbar</code> aggregation
+								can be set to the <code>sap.m.OverflowToolbar</code> control
+								which can contain your preferred UI5 controls. To make the position
+								of the upload (<span class="ph uicontrol">+</span>) pushbutton configurable,
+								the <code>sap.m.ToolbarSpacer</code> type is used. To configure
+								the position of the button, you can set the placeholder element to
+								the designated position.</p>
+						</li>
+						<li class="li">If the toolbar is not customized it only provides the upload
+								(<span class="ph uicontrol">+</span>) button.</li>
+						<li class="li">In case the customizable toolbar has been configured and the placeholder
+							is missing, an exception will be thrown.</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>The <code>mode</code> property of the <code>UploadCollection</code>
+						control can be set. Therefore the <code>sap.m.ListMode</code> type is
+						used.</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>The listmode <code>Delete</code> is not supported and will be set
+								to listmode <code>None</code> if used.</p>
+						</li>
+						<li class="li">
+							<p>In chase of an upload pending scenario, the listmode
+									<code>MultiSelect</code> is not supported; in this case it
+								will be set to listmode <code>None</code> automatically.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">API Reference/Sample</h2>
+			<p>For more information, see the <a href="api/sap.m.UploadCollection" title="api/sap.m.UploadCollection" class="sap-doc" alt="api/sap.m.UploadCollection">API Reference</a> and the <a href="entity/sap.m.UploadCollection" title="entity/sap.m.UploadCollection" class="sap-doc" alt="entity/sap.m.UploadCollection">Samples</a> in the Demo Kit.</p>
+		</section><section>
+			<h2 class="title ">Constraints and Dependencies</h2>
+			<p>By using the <code>UploadCollection</code> control, you need to be aware of the
+				following constraints:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>The <code>UploadCollection</code> control does not work with IE9 because
+						of a missing header parameter handling needed for the upload.</p>
+				</li>
+				<li class="li">
+					<p>The file name of an upload item can contain any text and special characters
+						but not a URL.</p>
+				</li>
+			</ul>
+			<p>The <code>sap.m.UploadCollection</code> control uses the
+					<code>sap.ui.unified.FileUploader</code> control and contains dependencies
+				to this control. If you want to use the <code>UploadCollection</code> control,
+				you need to be aware of these dependencies. For more
+					information about the <code>FileUploader</code> control, see the <a href="api/sap.ui.unified.FileUploader" title="api/sap.ui.unified.FileUploader" class="sap-doc" alt="api/sap.ui.unified.FileUploader">API Reference Documentation</a>.
+				</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

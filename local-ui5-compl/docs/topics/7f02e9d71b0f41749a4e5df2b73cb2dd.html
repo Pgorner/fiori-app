@@ -1,0 +1,95 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7f02e9d71b0f41749a4e5df2b73cb2dd" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-23-filtering-typescript-7f02e9d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 23: Filtering (TypeScript)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 23: Filtering (TypeScript)</h2></div><div class="shortdesc">In this step, we add a search field for our product list and define a filter that
+		represents the search term. When searching, the list is automatically updated to show only
+		the items that match the search term.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio472ab6bf88674c23ba103efd97163133_LowRes.png" title="A filtered list of invoices is displayed below the panel" alt="A filtered list of invoices is displayed below the panel" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">A search field is displayed above the list</h2></span></div>
+		</section><section id="section_qx5_wch_ycb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view all files at <a href="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/23" title="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/23" class="external-link" target="_blank" rel="noopener">OpenUI5 TypeScript Walkthrough - Step 23: Filtering</a> and <a href="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-23.zip" title="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-23.zip" class="external-link" target="_blank" rel="noopener">download the solution as a zip file</a>.</p>
+		</section><section id="section_s2c_dsz_nzb">
+			<h2 class="title ">webapp/controller/InvoiceList.controller.js</h2>
+			<p>In the controller of the invoice list view we add a new <code>onFilterInvoices</code> event handler function with an
+					<code>event</code> of type <code>SearchField$SearchEvent</code> as import parameter.</p>
+			<p>The search field defines a parameter <code>query</code> that we access by calling <code>getParameter("query")</code> on the
+					<code>event</code> parameter.</p>
+			<p>If the query is not empty, we add a new filter object that searches in the <code>ProductName</code> for a given query string with
+				filter operator <code>Contains</code>. The filter operator <code>FilterOperator.Contains</code> is <span class="emphasis">not</span>
+				case-sensitive.</p>
+			<p>We get the invoice list by asking the view for the control with the ID "invoiceList". To achieve this, we make use of the helper
+				function <code>byId</code>. On the list control we access the binding of the <code>items</code> aggregation to filter it with
+				our newly constructed filter object. This will automatically filter the list by our search string, so that only the matching items are
+				shown when the search is triggered.</p>
+			<p>If the query is empty, we filter the binding with an empty array. This makes sure that we see all list elements again. We could also
+				add more filters to the array if we wanted to search more than one data field.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">import Controller from "sap/ui/core/mvc/Controller";
+import JSONModel from "sap/ui/model/json/JSONModel";
+<span class="emphasis">import { SearchField$SearchEvent } from "sap/m/SearchField";
+import Filter from "sap/ui/model/Filter";
+import FilterOperator from "sap/ui/model/FilterOperator";
+import ListBinding from "sap/ui/model/ListBinding";
+</span>
+
+/**
+ * @namespace ui5.walkthrough.controller
+ */
+export default class App extends Controller {
+    onInit(): void {
+        const viewModel = new JSONModel({
+            currency: "EUR"
+        });
+        this.getView()?.setModel(viewModel, "view");        
+    }
+
+    <span class="emphasis">onFilterInvoices(event: SearchField$SearchEvent): void {
+        // build filter array
+        const filter = [];
+        const query = event.getParameter("query");
+        if (query) {
+            filter.push(new Filter("ProductName", FilterOperator.Contains, query));
+        }
+        // filter binding
+        const list = this.byId("invoiceList");
+        const binding = list?.getBinding("items") as ListBinding;
+        binding?.filter(filter);
+    }
+</span>
+};</pre></div></div></section>
+		</section><section id="section_rx5_wch_ycb">
+			<h2 class="title ">webapp/view/InvoiceList.view.xml</h2>
+			<p>First, we specify "invoiceList" as an ID for the list control, so the event handler function
+					<code>onFilterInvoices</code> we added to the controller of the invoice list view can identify the list when triggered.</p>
+			<p>We then remove the <code>headerText</code> property in the list control and use the <code>headerToolbar</code> aggregation with the
+					<code>sap.m.Toolbar</code> assigned to it instead.. A toolbar control is way more flexible and can be adjusted as you like. To
+				the toolbar control we add an <code>sap.m.Title</code> control displaying the title in the text attribute, a spacer, and the
+					<code>sap.m.SearchField</code> with the width property set to 50% and the filter event handler function we defined in the
+				controller assigned to the search event.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+   controllerName="ui5.walkthrough.controller.InvoiceList"
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core"
+   xmlns:mvc="sap.ui.core.mvc"&gt;
+   &lt;List
+      <span class="emphasis">id="invoiceList"</span>
+      class="sapUiResponsiveMargin"
+      width="auto"
+      items="{invoice&gt;/Invoices}" &gt;
+      <span class="emphasis">&lt;headerToolbar&gt;
+         &lt;Toolbar&gt;
+            &lt;Title text="{i18n&gt;invoiceListTitle}"/&gt;
+            &lt;ToolbarSpacer/&gt;
+            &lt;SearchField 
+               width="50%" 
+               search=".onFilterInvoices"/&gt;
+         &lt;/Toolbar&gt;
+      &lt;/headerToolbar&gt;</span>
+      ...
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>The search field is part of the list header, and therefore each change on the list binding will trigger a rerendering of the whole list,
+				including the search field.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dad1905a07f849ce9c509721317d38d8">Walkthrough Tutorial (TypeScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/61d4e2b154a7449da198577dfbc75a22">Step 22: Custom Formatters (TypeScript)</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/86bbe132b9924c8496b70824af94a209">Step 24: Sorting and Grouping (TypeScript)</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.model.Filter" title="api/sap.ui.model.Filter" class="sap-doc" alt="api/sap.ui.model.Filter">API Reference: sap.ui.model.Filter</a></li>
+		<li><a href="api/sap.ui.model.FilterOperator" title="api/sap.ui.model.FilterOperator" class="sap-doc" alt="api/sap.ui.model.FilterOperator">API Reference: sap.ui.model.FilterOperator</a></li>
+		<li><a href="api/sap.m.SearchField" title="api/sap.m.SearchField" class="sap-doc" alt="api/sap.m.SearchField">API Reference: sap.m.SearchField</a></li>
+	</ul></section></div></section></div></body></html>

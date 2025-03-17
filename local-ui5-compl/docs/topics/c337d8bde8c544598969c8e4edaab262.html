@@ -1,0 +1,383 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc337d8bde8c544598969c8e4edaab262" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/navigation-to-an-app-inbound-navigation-c337d8b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Navigation to an App (Inbound Navigation)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Navigation to an App (Inbound Navigation)</h2></div><div class="shortdesc">This topic describes the key features when navigating into an SAP Fiori elements template, that is, inbound navigation.</div><p>When navigating to an SAP Fiori elements application that has a filter bar (with
+			the exception of the overview page), the incoming context is processed and the filter bar populated. This overrides the default
+			variant/filter settings of the SAP Fiori elements application.</p><section id="section_w52_g2z_cqb">
+			<h2 class="title ">Handling Incoming Filters</h2>
+			<p>An incoming value for a field that is also a filter field in the entity set of the target application is applied to the filter field.
+				If the field is not yet seen in the filter bar, upon finding a value for the field from the incoming context, the filter field is
+				brought into the visible area in the filter bar.</p>
+			
+			<section id="HandlingDefault">
+				<h3 class="title ">Handling Default Values from SAP Fiori launchpad (FLP)</h3>
+				<p>When dealing with incoming navigation, in addition to the navigation context passed by the source application, there are also other
+					values coming from the FLP, like the FLP target mapping default values. The FLP target mapping can have parameters to which you can assign default
+					values. These default values can also point to the FLP user default
+					values.</p>
+				<div><div class="fig"><img src="loio9c2ee88c5c5644c5b3e8f672e66344a7_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Handling Default Values from FLP</h2></span></div>
+				<ul class="ul ">
+					<li class="li">
+						<p>When you navigate into a list report app via intent-based navigation: Only those values that are added by the FLP via the standard target mapping mechanism are
+							considered.</p>
+					</li>
+					<li class="li">
+						<p>When you navigate into a list report app via a static FLP
+							tile (with no navigation context): If there is no user default variant available, then the FLP default values as passed via the target mapping mechanism
+							are considered.</p>
+					</li>
+					<li class="li">
+						<p>When you navigate into a list report app via a dynamic tile (for example an <cite>SAP Smart Business</cite> tile, where the
+							navigation context is passed): In this case, there is a special handling for <code>DisplayCurrency</code>. For all
+							other fields, the FLP default values are ignored (except
+							those that are added by the FLP via the standard target
+							mapping mechanism).</p>
+						
+					</li>
+				</ul>
+			</section>
+		</section><section id="section_krn_xk3_vlb">
+			<h2 class="title ">Deep Linking</h2>
+			<p>Navigation to the app uses deep linking. For more information, see <a href="https://experience.sap.com/fiori-design/concept/navigation/" title="https://experience.sap.com/fiori-design/concept/navigation/" class="sap-doc">Navigation</a> in the SAP
+				Fiori Design Guidelines and go to the <cite>Deep Links</cite> section.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>You need the SAP Fiori launchpad for this type of navigation. For a stand-alone app,
+				you need to change the links in the annotations as required.</p></div></div>
+			<p>For the SAP Fiori launchpad, the configuration steps for <a href="http://help.sap.com/saphelp_nw75/helpdata/en/bd/8ae3d327ab4541bcce8e7353c046fc/content.htm" title="http://help.sap.com/saphelp_nw75/helpdata/en/bd/8ae3d327ab4541bcce8e7353c046fc/content.htm" class="external-link" target="_blank" rel="noopener">Intent-Based
+					Navigation</a> are also relevant since it's the same mechanism.</p>
+			<p>If the source app provides all the key fields in the URL to uniquely identify an object page (or subobject page) record, then this will
+				be directly opened instead of the list report or analytical list page. Otherwise, the list report or analytical list page will be
+				opened.</p>
+			<section>
+				<h3 class="title ">Deep Linking to Object Pages</h3>
+				<p>Applications can trigger deep linking to object pages by providing all technical keys corresponding to the list report entity set.
+					Depending on the value of the <code>IsActiveEntity</code> technical key, the result is:</p>
+				<p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>either the active or draft page is loaded</p>
+							<p>or</p>
+						</li>
+						<li class="li">
+							<p>if the draft is requested from the URL and is not accessible for the user, the user sees an error page</p>
+						</li>
+					</ul>
+				<p></p>
+				<p>Technical keys are part of the metadata and are configured in the back end.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="SalesOrderManage"&gt;
+   &lt;Key&gt;
+      &lt;PropertyRef Name="ID"/&gt;
+      &lt;PropertyRef Name="IsActiveEntity"/&gt;
+   &lt;/Key&gt;  
+&lt;/EntityType&gt;</pre></div></div></section>
+				<p></p></div></div>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>Technical keys are passed in the URL that triggers deep linking:
+							…<code>?<span class="emphasis">ID</span>=11111111-aaaa-bbbb-cccc-ddddeeeeffff&<span class="emphasis">IsActiveEntity</span>=true</code>
+				</p></div></div>
+			</section>
+			<section>
+				<h3 class="title ">Deep Linking to Subobject Pages</h3>
+				<p>Applications can also trigger deep linking directly to the n-th level of a subobject page. Applications must provide the manifest
+					setting to indicate that deep linking is allowed for the subobject level. For more information, see the version-specific sections
+					in this topic below.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>To directly load the n-th level subobject page, <code>allowDeepLinking</code> has to be true for all the n levels
+								of the subobject page.</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p> To be able to directly load the 2nd-level subobject page,
+										<code>allowDeepLinking</code> has to be true for the 1st-level subobject page and the 2nd-level subobject
+									page.</p></div></div><p></p>
+							<p>If <code>allowDeepLinking</code> is false, then the last subobject page for which <code>allowDeepLinking</code>
+								is true is loaded.  </p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p> If <code>allowDeepLinking</code> is false for the 2nd-level subobject page, but
+									true for the 1st-level and 3rd-level subobject page, and you provide semantic keys up to the 3rd level of the
+									subobject page, then the 1st-level subobject page is loaded.</p></div></div><p></p>
+						</li>
+					</ul>
+					<ul class="ul ">
+						<li class="li">
+							<p><code>allowDeepLinking</code> is not required or relevant for the object page. Deep linking to an object page
+								always happens if the URL has all the technical or semantic keys of the entity set of the object page. It is only
+								required for the deep linking to subobject page.</p>
+						</li>
+					</ul>
+				<p></p></div></div>
+				
+				<div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+					</p><p>We don't support deep linking for applications that are configured with parameters or mandatory filters.</p>
+				<p></p></div></div>
+				
+			</section>
+		</section><section id="section_zst_cld_hmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><section>
+				<h3 class="title ">Inbound Navigation to Subobject Pages Using Deep Linking</h3>
+				<p>You can configure inbound navigation to any subobject page belonging to an app by using deep linking.</p>
+				<p>To do so, make the following settings:</p>
+				<ol>
+					<li class="li"><p>In the target application's manifest, for the corresponding subobject page, set <code>allowDeepLinking: true</code>.
+							The following
+							example shows the
+							subobject page section of the
+							<code>
+								manifest.json</code>:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"pages": {
+     "navigationProperty": "to_ProductText",
+     "entitySet": "STTA_C_MP_ProductText",
+     "component": {
+          "name": "sap.suite.ui.generic.template.ObjectPage",
+          "settings": {
+               "allowDeepLinking": true
+          }
+     }
+}
+</pre></div></div></section>
+						<p></p></div></div><p>If multiple pages on the same level have this property set to
+							<code>true</code>, the entry that comes first in the manifest is used.</p>Navigation to any level is possible by
+						setting <code>allowDeepLinking: true</code> for each level. Note that each level needs to have the setting <code>
+							allowDeepLinking: true</code>. In the following example, the navigation goes to subobject level 3:<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Object Page1: {
+     allowDeepLinking:true,
+     SubObjectPage1:{
+          allowDeepLinking:true
+          SubObjectPage2:{
+               allowDeepLinking:true
+               SubObjectPage3:{
+                    allowDeepLinking:true
+               }
+          }
+     }
+}
+</pre></div></div></section>
+						<p></p></div></div></li>
+					<li class="li">
+						<p>Provide the URL parameters for navigation, as described under <a href="https://help.sap.com/viewer/cc1c7615ee2f4a699a9272453379006c/7.5.5/en-US/bd8ae3d327ab4541bcce8e7353c046fc.html" title="https://help.sap.com/viewer/cc1c7615ee2f4a699a9272453379006c/7.5.5/en-US/bd8ae3d327ab4541bcce8e7353c046fc.html" class="external-link" target="_blank" rel="noopener">Configuring
+								Navigation</a>.</p>
+					</li>
+				</ol>
+			</section><section>
+				<h3 class="title ">Configuring Sort Order</h3>
+				<p>If the <code>xapp-state</code> carries the sort orders during inbound navigation to a target list report or an analytical list
+					page application, the target framework reads these sort parameters from the <code>xapp-state</code> and applies it as the
+					sorting criteria to the table in the list report or the analytical list page.</p>
+				<p>Although the sorters coming from the navigation is merged with the existing sorting criteria of the table, the sorters from the
+					navigation context always take the priority.</p>
+				<p>The following are some of the possible scenarios:</p><ul class="ul ">
+						<li class="li">
+							<p>If the user defined control variant exists as default with a sorter, the framework merges the navigation sorter on
+								priority followed by the sorter from control variant.</p>
+						</li>
+						<li class="li">
+							<p>If there is no default user defined variant with sorters, the framework merges the navigation sorter on priority
+								followed by the sorter from <code>PresentationVariant</code> annotations.</p>
+						</li>
+						<li class="li">
+							<p>If neither default user defined variant nor <code>PresentationVariant</code> is defined, the framework only uses
+								sorters coming from navigation.</p>
+						</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title ">Enabling Fullscreen Mode for Inbound Navigation in Flexible Column Layout Mode</h3>
+				<p>During inbound navigation to flexible column layout application, if the navigation context points to a unique object, you can open
+					the object in fullscreen mode by adding the configuration mentioned here. To experience better performance, set the
+						<code>"defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen"</code> for the main objects and
+						<code>"EndColumnFullScreen"</code> for sub-objects.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"pages": {
+    "ObjectPage|C_STTA_BusinessPartner": {
+        "entitySet": "C_STTA_BusinessPartner",
+        "defaultLayoutType": "TwoColumnsMidExpanded",
+        "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
+        "component": {
+            "name": "sap.suite.ui.generic.template.ObjectPage"
+             "settings':{"allowDeepLinking": true
+        }
+    },
+    "pages": {
+.....</pre></div></div></section>
+				<p></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>
+						</p><ul class="ul ">
+							<li class="li">
+								<p>If the navigation is external and flexible column layout is enabled, the flag
+										<code>defaultLayoutTypeIfExternalNavigation</code> is considered.</p>
+							</li>
+							<li class="li">
+								<p>If the app is launched from SAP Fiori launchpad and flexible column
+									layout is enabled, the flag <code>defaultLayout</code> is considered.</p>
+							</li>
+						</ul>
+					<p></p>
+				<p></p></div></div>
+			</section></div></section><section id="section_ibr_yvk_mmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+				<h3 class="title ">Special Handling of <code>DisplayCurrency</code></h3>
+				<p>The incoming navigation context will only have the source application context and the target Fiori elements application first
+					checks for a filter bar which has a filter field containing the technical name <code>DisplayCurrency</code>. If there is such
+					a filter field, SAP Fiori elements checks for the following
+					conditions:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>The <code>DisplayCurrency</code> filter field is marked as a mandatory filter field.</p>
+					</li>
+					<li class="li">
+						<p>There is no incoming value for this from the source application context.</p>
+					</li>
+				</ul>
+				<p>If both these conditions are fulfilled, the FLP user default values
+					are checked to see if there is a field called <code>DisplayCurrency</code>. If so, this value is used for the filter
+					field.</p>
+			</section><section>
+				<h3 class="title ">Inbound Navigation to Object Pages Using Deep Linking</h3>
+				<p>Applications can also trigger deep linking to object pages by only providing all semantic keys corresponding to the list report
+					entity set. In this case either the draft object page instance is loaded (if a draft exists for the user) or the active object
+					page is loaded (if no draft exists). </p>
+				<p>Semantic keys are semantically unique keys for the entity set that is defined by the application.</p>
+				<p>Here are the annotation snippets showing the semantic key annotation:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="Common.SemanticKey"&gt;
+   &lt;Collection&gt;
+      &lt;PropertyPath&gt;SalesOrder&lt;/PropertyPath&gt;
+   &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@ObjectModel: {
+  semanticKey: [ 'SalesOrder' ]
+}
+
+define view SALESORDERMANAGE {
+
+}</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Common.SemanticKey : [
+    SalesOrder
+]</pre></div></div></section><p></p></div></div>
+				<p>In addition, the manifest must have the route having the key configured for the level to which deep linking is desired.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Manifest Setting</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+...
+        "routing": {
+            "routes": [
+                {
+                    "pattern": "/yourEntity({key}):?query:",
+                    "name": "default",
+                    "target": "sample"
+                }
+            ],
+            "targets": {
+                "sample": {
+                    "type": "Component",
+                    "id": "Default",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "level": 1,
+                    "options": {
+                        "settings": {
+                            "contextPath": "/yourEntity"
+                        }
+                    }
+                }
+            }
+        },
+...
+}</pre></div></div></section><p></p></div></div>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>Semantic keys passed in the URL that triggers deep linking:
+					…<code>?<span class="emphasis">SalesOrder</span>=10025</code></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>When the application passes all the semantic keys and technical keys, then semantic keys take priority over technical keys.</p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Inbound Navigation to Subobject Pages Using Deep Linking</h3>
+				<p>To enable deep linking for a subobject page, you need to enable it in the
+						<code>manifest.json</code>
+					file.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					
+					</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage":{
+     "type":"Component",
+     "id":"SalesOrderManageObjectPage",
+     "name":"sap.fe.templates.ObjectPage",
+     "options":{
+          "settings":{
+               "contextPath":"/SalesOrderManage",
+               "allowDeepLinking":true,
+               ....
+               ...
+          }
+     }
+}</pre></div></div></section>
+				<p></p></div></div>
+				<p>Applications can trigger deep linking to a subobject page by providing all the semantic or technical keys for the entity sets of
+					the object page and semantic keys of the subobject page.</p>
+				<p>To directly load the n-th level subobject page, you need to provide the semantic or technical keys of the object page as well as
+					all the semantic keys of the subobject pages until the n-th level in the URL.</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p> If you want to directly load the
+						3rd level of the subobject page, then you need to pass the semantic or technical keys of the entity set of the object page and
+						all semantic keys of all the entity sets of the subobject pages (that is, the 1st-level entity set of the subobject page, the
+						2nd-level entity set of the subobject page, and the 3rd-level entity set of the subobject page).</p></div></div><p></p>
+				<p>Applications must ensure that the semantic keys across the different entity sets of the subobject pages are named uniquely to
+					ensure the correct deep linking behavior.</p>
+			</section><section>
+				<h3 class="title ">Handling Incoming Filters for Navigation Entity Set Properties</h3>
+				<p>An incoming value for a field that is also a filter field in the entity set of the target application is applied to the filter
+					field. If the field is not yet seen in the filter bar, upon finding a value for the field from the incoming context, the filter
+					field is brought into the visible area in the filter bar</p>
+				<p>This is also true for incoming filter values coming for navigation entity sets. Note that the fully qualified incoming name for the
+					navigation property must either exactly match the fully qualified property name in the target, OR there must be a match when the
+					leading entity set name from the incoming context is discarded.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>The incoming context is <code>"SO._PO.Status"</code>. SAP Fiori elements applies this to the first matching field in the target
+					application based on the following order:</p><ol>
+						<li class="li">
+							<p>The target application has a main entity set <code>"SO"</code> which has a navigation entity set
+									<code>"_PO"</code> with a <code>"Status"</code> filter field</p>
+						</li>
+						<li class="li">
+							<p>The target has a first-level navigation entity set <code>"SO"</code> that has a further navigation entity set
+								called <code>"_PO"</code> with a <code>"Status"</code> filter field.</p>
+						</li>
+					</ol><p>As with main entity set filter fields, an incoming value is also checked against a field that matches the name but
+						additionally has the prefix <code>"P_"</code> added (or removed, in cases where the incoming context has a field with the
+						prefix <code>"P_"</code>, but the target field does not have this prefix).</p><p></p></div></div>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

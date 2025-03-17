@@ -1,0 +1,30 @@
+<div><details>
+  <summary><b>1. How can I prevent OData requests from fetching value lists to display the description for a given key in read-only mode?</b></summary>
+
+<p>If the property <code>fetchValueListReadOnly</code> is set to false, no request is sent to fetch the value list, thus improving performance. However, if you would actually like to see the description for a key, you have to use the <code>sap:text</code> v2 annotation or the <code>com.sap.vocabularies.Common.v1.Text</code> v4 annotation to define the path to a property containing the description. This target property has to be defined in the model, which means that you as the application developer have to take care of fetching the data.</p>
+</details><details>
+  <summary><b>2. I have defined custom formatters for <code>SmartField</code> within my application. Why are they ignored?</b></summary>
+
+<p>If you define custom formatters, they will not be taken into consideration. <code>SmartField</code> always uses its own formatters for the external representation of values. In addition, custom data types, which you define for your application, are supported.
+For more information, see the <a href="entity/sap.ui.comp.smartfield.SmartField/sample/sap.ui.comp.sample.smartfield.ExtendedODataType">Sample</a>.</p>
+</details><details>
+  <summary><b>3. If I use composite binding for the <code>SmartField</code> control, the field does not show all elements. How can I use this type of binding?</b></summary>
+
+<p><code>SmartField</code> does not support composite binding. You can only use the standard two-way binding for the <code>SmartField</code> control.</p>
+</details><details>
+  <summary><b>4. How can I set the <code>SmartField</code> to show an empty indicator when in display mode there is no value?</b></summary>
+
+<p>When used within <code>SmartForm</code>, <code>SmartField</code> shows an empty indicator automatically. In all other cases, one of the <code>SmartField</code> parents should have the context class <code>sapMShowEmpty-CTX</code> and then the empty indicator will be shown.</p>
+</details><details>
+  <summary><b>5. What happens in a side-effect scenario if the user is changing some value, but at the same time the model receives a new value for the same field as a delayed response from the backend?</b></summary>
+
+<p>The value entered by the user should not be overwritten. The <code>SmartField</code> can successfully handle such cases and preserve the value entered by the user.
+For more information, see <a href="topic/18b17bdd49d1436fa9172cbb01e26544.html">Side Effects</a>.</p>
+</details></div>
+
+
+
+
+
+
+

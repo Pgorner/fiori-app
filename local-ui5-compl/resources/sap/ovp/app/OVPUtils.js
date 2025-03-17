@@ -1,0 +1,5 @@
+/*!
+ * Copyright (c) 2009-2014 SAP SE, All Rights Reserved
+ */
+sap.ui.define(["sap/base/util/isPlainObject"],function(e){"use strict";var t={bCRTLPressed:false};t.constants={explace:"explace",inplace:"inplace"};t.Annotations={dataPoint:"dataPoint",title:"title",subTitle:"subtitle",valueSelectionInfo:"value Selection Info",listFlavor:"listFlavor"};t.Layers={vendor:"VENDOR",customer:"CUSTOMER",customer_base:"CUSTOMER_BASE"};t.loadingState={ERROR:"Error",LOADING:"Loading",GLOBALFILTERFILLED:false};t.merge=function(){var t,i,n,a,o,r,l=arguments[0]||{},s=1,f=arguments.length,u=false;if(typeof l==="boolean"){u=l;l=arguments[1]||{};s=2}if(typeof l!=="object"&&typeof l!=="function"){l={}}if(f===s){l=this;--s}for(;s<f;s++){if((t=arguments[s])==null){continue}for(i in t){n=l[i];a=t[i];if(l===a){continue}if(u&&a&&(e(a)||(o=Array.isArray(a)))){if(o){o=false;r=n&&Array.isArray(n)?n:[]}else{r=n&&e(n)?n:{}}l[i]=this.merge(u,r,a)}else if(a!==undefined){l[i]=a}}}return l};return t},true);
+//# sourceMappingURL=OVPUtils.js.map

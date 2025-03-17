@@ -1,0 +1,151 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio756c49c9271248e7b980bee17668f617" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/stack-cards-756c49c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Stack Cards</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Stack Cards</h2></div><div class="shortdesc">Stack cards aggregate a set of cards of the same type, which are based on a common topic
+        or action. When clicked, up to 20 stacked cards can be displayed in the object
+        stream.</div><section><p>The left-hand side of the card contains the application title (which is also the title
+                of the object stream) and stack description (optional). Click this section of the
+                card or <span class="ph uicontrol">View All</span> to open the application. </p><section>
+                <h3 class="title ">Object Stream</h3>
+            </section><p>On the right-hand side of the card you can view the number of items in
+                the stack. Click this section to view the object stream (up to 20 quick view cards)
+                excluding the placeholder card that appears as the last card in the object
+                    stream).</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The placeholder card provides additional information and appears
+                    only when the object stream has 20 quick view cards.</p></div></div><p></p><p> You can
+                configure the quick view cards to provide actions (such as confirm or reject) and a
+                navigation link. The object stream's header is also navigable and navigates to the
+                same destination as the navigation from the header of the stack card.</p><p><img src="loioda0aa8b09f434c81bee71cbe0a67fd84_LowRes.png" usemap="#"></p><p>
+                Because of the relationship between the stack card and its object stream, some of
+                the configurations for the object stream cards are included in the stack card
+                definitions. </p><ul class="ul ">
+                    <li class="li"><code>entitySet</code> – the dominant entity set (for example,
+                            <code>SalesOrderSet</code>).</li>
+                    <li class="li"><code>objectStreamCardsNavigationProperty</code> – the navigation
+                        property used to display information from a secondary entity set. For
+                        example, to display sales orders by business partner, the entity set would
+                        be <code>BusinessPartnersSet</code> and the navigation property
+                            <code>SalesOrder</code>. <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This definition is not relevant for
+                            quick view cards. </p></div></div></li>
+                    <li class="li"><code>objectStreamCardsSettings</code> – an optional configuration of
+                        additional settings for the cards displayed in the object stream.<p>A
+                                <code>showFirstActionInFooter</code> flag is added to the
+                                <code>objectStreamCardsSettings</code> object in the stack card.
+                            The default value of the flag is <code>false</code>. If this flag is
+                            set to <i>true</i>, the first action on the footer of the quick view
+                            card will be a navigation action. If the flag is set to <i>false</i>,
+                            the navigation action on the footer of the quick view card won't be
+                            displayed. Other actions will be shown instead. </p></li>
+                    <li class="li"><code>itemText</code> - lets you include custom text along with the
+                        existing message in the placeholder card.</li>
+                </ul><p></p></section><section>
+            <h2 class="title ">Example</h2>
+            <p>In the following example, the stack card displays information about business partners
+                in a quick view card, using the information configured in
+                    <code>com.sap.vocabularies.UI.v1.Identification</code> with a qualifier.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ovp": {
+    ...
+    "cards": {
+        "card00": {
+            "model": "salesOrder",
+				"template": "sap.ovp.cards.stack",
+				"settings": {
+					"title": "Stack Card Title",
+					"subTitle": "Stack Card",
+					"requireAppAuthorization": "#Action-toappnavsample",
+					"itemText": "items awaiting approval",
+					"entitySet": "SalesOrderSet",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification,com.sap.vocabularies.UI.v1.Identification#item2",
+					"objectStreamCardsSettings": {
+						"showFirstActionInFooter": false
+					}
+				}
+        },
+        ...
+    }
+}
+</pre></div></div></section>
+            <p></p></div></div>
+            <p>Continuing the example above, the following metadata demonstrates the relationship
+                between the <code>BusinessPartner</code> and <code>SalesOrder</code> entity
+                sets. The <code>BusinessPartner</code> entity type contains the configured
+                navigation  <code>ToSalesOrders</code> property to the
+                    <code>SalesOrder</code> using the
+                    <code>Assoc_BusinessPartner_SalesOrders</code> association and the
+                    <code>Assoc_BusinessPartner_SalesOrders_AssocS</code> association set. </p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="BusinessPartner" sap:content-version="1"&gt;
+    &lt;Key&gt;
+        &lt;PropertyRef Name="BusinessPartnerID"/&gt;
+    &lt;/Key&gt;
+    &lt;Property Name="Address" Type="GWSAMPLE_BASIC.CT_Address" Nullable="false"/&gt;
+    &lt;Property Name="BusinessPartnerID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Bus. Part. ID" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="CompanyName" Type="Edm.String" MaxLength="80" sap:label="Company Name"/&gt;
+    &lt;Property Name="WebAddress" Type="Edm.String" sap:label="Web Address" sap:sortable="false" sap:filterable="false" sap:semantics="url"/&gt;
+    &lt;Property Name="EmailAddress" Type="Edm.String" MaxLength="255" sap:label="E-Mail Address" sap:semantics="email"/&gt;
+    &lt;Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:label="Phone No." sap:semantics="tel"/&gt;
+    &lt;Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:label="Fax Number"/&gt;
+    &lt;Property Name="LegalForm" Type="Edm.String" MaxLength="10" sap:label="Legal Form"/&gt;
+    &lt;Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:semantics="currency-code"/&gt;
+    &lt;Property Name="BusinessPartnerRole" Type="Edm.String" MaxLength="3" sap:label="Bus. Part. Role"/&gt;
+    &lt;Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;NavigationProperty Name="ToSalesOrders" Relationship="GWSAMPLE_BASIC.Assoc_BusinessPartner_SalesOrders" FromRole="FromRole_Assoc_BusinessPartner_SalesOrders" ToRole="ToRole_Assoc_BusinessPartner_SalesOrders"/&gt;
+    &lt;NavigationProperty Name="ToContacts" Relationship="GWSAMPLE_BASIC.Assoc_BusinessPartner_Contacts" FromRole="FromRole_Assoc_BusinessPartner_Contacts" ToRole="ToRole_Assoc_BusinessPartner_Contacts"/&gt;
+    &lt;NavigationProperty Name="ToProducts" Relationship="GWSAMPLE_BASIC.Assoc_BusinessPartner_Products" FromRole="FromRole_Assoc_BusinessPartner_Products" ToRole="ToRole_Assoc_BusinessPartner_Products"/&gt;
+&lt;/EntityType&gt;
+&lt;EntityType Name="SalesOrder" sap:content-version="1"&gt;
+    &lt;Key&gt;
+        &lt;PropertyRef Name="SalesOrderID"/&gt;
+    &lt;/Key&gt;
+    &lt;Property Name="SalesOrderID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Sa. Ord. ID" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="SalesOrderGuid" Type="Edm.Guid" Nullable="false" sap:label="SalesOrder GUID" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="Note" Type="Edm.String" MaxLength="255" sap:label="Description" sap:updatable="false" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="NoteLanguage" Type="Edm.String" MaxLength="1" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="CustomerID" Type="Edm.String" MaxLength="10" sap:label="Bus. Part. ID" sap:updatable="false"/&gt;
+    &lt;Property Name="CustomerName" Type="Edm.String" MaxLength="80" sap:label="Company Name" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:updatable="false" sap:semantics="currency-code"/&gt;
+    &lt;Property Name="GrossAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Gross Amt." sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Net Amt." sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="TaxAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Tax Amt." sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="LifecycleStatus" Type="Edm.String" MaxLength="1" sap:label="PO Lifecycle" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="LifecycleStatusDescription" Type="Edm.String" MaxLength="60" sap:label="Lifecycle Descript." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="BillingStatus" Type="Edm.String" MaxLength="1" sap:label="PO Confirmation" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="BillingStatusDescription" Type="Edm.String" MaxLength="60" sap:label="Billing Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="DeliveryStatus" Type="Edm.String" MaxLength="1" sap:label="PO Ordering" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="DeliveryStatusDescription" Type="Edm.String" MaxLength="60" sap:label="Delivery Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;NavigationProperty Name="ToBusinessPartner" Relationship="GWSAMPLE_BASIC.Assoc_BusinessPartner_SalesOrders" FromRole="ToRole_Assoc_BusinessPartner_SalesOrders" ToRole="FromRole_Assoc_BusinessPartner_SalesOrders"/&gt;
+    &lt;NavigationProperty Name="ToLineItems" Relationship="GWSAMPLE_BASIC.Assoc_SalesOrder_SalesOrderLineItems" FromRole="FromRole_Assoc_SalesOrder_SalesOrderLineItems" ToRole="ToRole_Assoc_SalesOrder_SalesOrderLineItems"/&gt;
+&lt;/EntityType&gt;
+&lt;Association Name="Assoc_BusinessPartner_SalesOrders" sap:content-version="1"&gt;
+    &lt;End Type="GWSAMPLE_BASIC.BusinessPartner" Multiplicity="1" Role="FromRole_Assoc_BusinessPartner_SalesOrders"/&gt;
+    &lt;End Type="GWSAMPLE_BASIC.SalesOrder" Multiplicity="*" Role="ToRole_Assoc_BusinessPartner_SalesOrders"/&gt;
+    &lt;ReferentialConstraint&gt;
+        &lt;Principal Role="FromRole_Assoc_BusinessPartner_SalesOrders"&gt;
+            &lt;PropertyRef Name="BusinessPartnerID"/&gt;
+        &lt;/Principal&gt;
+        &lt;Dependent Role="ToRole_Assoc_BusinessPartner_SalesOrders"&gt;
+            &lt;PropertyRef Name="CustomerID"/&gt;
+        &lt;/Dependent&gt;
+    &lt;/ReferentialConstraint&gt;
+&lt;/Association&gt;
+&lt;EntityContainer Name="GWSAMPLE_BASIC_Entities" m:IsDefaultEntityContainer="true"&gt;
+    &lt;EntitySet Name="BusinessPartnerSet" EntityType="GWSAMPLE_BASIC.BusinessPartner" sap:content-version="1"/&gt;
+    &lt;EntitySet Name="SalesOrderSet" EntityType="GWSAMPLE_BASIC.SalesOrder" sap:updatable="false" sap:content-version="1"/&gt;
+    &lt;AssociationSet Name="Assoc_BusinessPartner_SalesOrders_AssocS" Association="GWSAMPLE_BASIC.Assoc_BusinessPartner_SalesOrders" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"&gt;
+        &lt;End EntitySet="BusinessPartnerSet" Role="FromRole_Assoc_BusinessPartner_SalesOrders"/&gt;
+        &lt;End EntitySet="SalesOrderSet" Role="ToRole_Assoc_BusinessPartner_SalesOrders"/&gt;
+    &lt;/AssociationSet&gt;
+&lt;/EntityContainer&gt;
+</pre></div></div></section>
+            <p></p></div></div>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

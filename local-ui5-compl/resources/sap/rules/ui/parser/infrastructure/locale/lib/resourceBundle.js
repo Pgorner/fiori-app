@@ -1,0 +1,2 @@
+sap.ui.define(["sap/rules/ui/parser/infrastructure/locale/lib/resourceBundleContext"],function(n){"use strict";var r=null;function t(){return{getString:function(r,t,e){var u=n.lib.getString(r,t,e);return u}}}return{getInstance:function(){if(!r){r=new t;r.constructor=null}return r}}},true);
+//# sourceMappingURL=resourceBundle.js.map

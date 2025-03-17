@@ -1,0 +1,131 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4754094fbf4046e88271d9ca881ceaa1" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/creating-a-binding-change-4754094.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating a Binding Change</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating a Binding Change</h2></div><div class="shortdesc"> You can create property binding changes manually by using the Page Editor. Note that you can use only those properties whose data has
+		already been retrieved by the model. </div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig"><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+			<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>This procedure is only relevant for the following use cases described in <a href="topic/0d2f1a9ebd2d4a4c906216ded1d33783" title="Application developers can extend and customize specific features of the list report and object page." class="sap-doc">Adapting the UI: List Report and Object Page</a>:</p><ul class="ul ">
+						<li class="li">
+							<p>Object page: Show header content in edit mode</p>
+						</li>
+						<li class="li">
+							<p>Object page: Show content parts in the header according to a specific
+								mode</p>
+						</li>
+						<li class="li">
+							<p>Object page: Control the visibility of a section</p>
+						</li>
+					</ul><p></p>
+			<p></p></div></div>Perform the following steps to create a property binding change:</div></section><section class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">Open the Page Editor and for the application and page you want to add the binding change to.</span>
+			</li>
+			<li class="step">
+				<span class="cmd">Find the property you want to apply an expression (e.g. the visibility of an object page section), and change the value in the
+					property panel. You can select a value from the drop-down or compose your own expression. </span>
+			</li>
+			<li class="step">
+				<span class="cmd">In case you already have a change file of type <span class="ph uicontrol">propertyChange</span> like in the following example:</span>
+				<div class="itemgroup info">
+					<p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "fileName": "id_1460988346969_256_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "reference": "STTA_MP.Component",
+    "packageName": "$TMP",
+    "content": {
+        "property": "visible",
+        "oldValue": true,
+        "newValue": false
+    },
+    "selector": {        "id": "STTA_MP::sap.suite.ui.generic.template.ObjectPage.view.Details::STTA_C_MP_Product--action::STTA_PROD_MAN.STTA_PROD_MAN_Entities::STTA_C_MP_ProductCopywithparams",
+        "type": "sap.uxap.ObjectPageHeaderActionButton"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/STTA_MP/changes/",
+    "creation": "2016-04-18T14:05:47.149Z",
+    "originalLanguage": "EN",
+    "conditions": {},
+    "context": "",
+    "support": {
+        "generator": "Change.createInitialFileContent",
+        "service": "",
+        "user": ""
+    }
+}
+</pre></div></div></section>
+					<p></p>
+					<p>You can make the following replacements in this change:</p><ul class="ul ">
+							<li class="li">
+								<p>Change the value of the <code>changeType</code> from <code>propertyChange</code> to
+										<code>propertyBindingChange</code>.</p>
+							</li>
+							<li class="li"><p>In the <code>content</code>, replace <code>newValue</code> with <code>newBinding</code>, and its value
+									with your required binding, for example, <code>{myProperty}</code>. In this example,
+										<code>myProperty</code> contains the values <code>true</code> or <code>false</code> to change the
+									visibility.</p>The result looks as follows:<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "fileName": "id_1460988346969_256_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyBindingChange",
+    "reference": "STTA_MP.Component",
+    "packageName": "$TMP",
+    "content": {
+        "property": "visible",
+        "oldValue": true,
+        "newBinding": "{myProperty}"
+    },
+    "selector": {
+        "id": "STTA_MP::sap.suite.ui.generic.template.ObjectPage.view.Details::STTA_C_MP_Product--action::STTA_PROD_MAN.STTA_PROD_MAN_Entities::STTA_C_MP_ProductCopywithparams",
+        "type": "sap.uxap.ObjectPageHeaderActionButton"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/STTA_MP/changes/",
+    "creation": "2016-04-18T14:05:47.149Z",
+    "originalLanguage": "EN",
+    "conditions": {},
+    "context": "",
+    "support": {
+        "generator": "Change.createInitialFileContent",
+        "service": "",
+        "user": ""
+    }
+}
+</pre></div></div></section></li>
+						</ul><p></p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>You can also use an expression binding. For example, if you want to inverse your property you can use <code>newBinding:
+								"{= !${myProperty}}"</code>.</p>
+						<p>If the property of a control is bound to an OData property, the OData property must belong to the same node or the root
+							node.</p>
+						<p>The following expressions might be useful:</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>Object Page: Edit mode: <code>{ui&gt;/editable}</code></p>
+							</li>
+							<li class="li">
+								<p>Object Page: Display mode: <code>{= !${ui&gt;/editable}}</code></p>
+							</li>
+							<li class="li">
+								<p>Object Page: Create mode: <code>{ui&gt;/createMode}</code></p>
+								<p>Indicates whether the UI currently displays an entity that is about to be created (no active version exists
+									yet).</p>
+							</li>
+							<li class="li"><p>Object Page: Controls enabled: <code>{ui&gt;/enabled}</code></p>Indicates whether active UI elements (such as
+								buttons) should currently be enabled.</li>
+						</ul>
+						<p>You can set a binding to an i18n text. To do so, add the i18n model in front of the property. Example: <code>newBinding:
+								"{i18n&gt;xtol.MoveDown}"</code>.</p>
+					<p></p></div></div>
+				</div>
+			</li>
+		</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="/services_kiw/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/services_kiw/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/Communication.xml">
+        <edmx:Include Alias="vCard" Namespace="com.sap.vocabularies.Communication.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/cs01/vocabularies/Org.OData.Measures.V1.xml">
+        <edmx:Include Alias="CQP" Namespace="Org.OData.Measures.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/services_kiw/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/services_kiw/sap/opu/odata/sap/ZCOSTCENTERCOSTSQUERY0020_CDS/$metadata">
+        <edmx:Include Alias="ZCOSTCENTERCOSTSQUERY0020_CDS" Namespace="ZCOSTCENTERCOSTSQUERY0020_CDS"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/vocabularies/Org.OData.Core.V1.xml">
+		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/462030211/Analytics.xml">
+		<edmx:Include Alias="Analytics" Namespace="com.sap.vocabularies.Analytics.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Alias="ZCOSTCENTERCOSTSQUERY0020_CDSAnnotation" Namespace="sap.cbesh.cestbon.ZCOSTCENTERCOSTSQUERY0020_CDSAnnotation">
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>FiscalYear</PropertyPath>
+						<PropertyPath>FiscalYearPeriod</PropertyPath>
+						<PropertyPath>DeliveryCalendarYear</PropertyPath>
+						 <PropertyPath>DeliveryCalendarYearQuarter</PropertyPath>
+						 <PropertyPath>YearMonth</PropertyPath>
+						<PropertyPath>DeliveryCalendarYearWeek</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+	        	<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast"/>
+	        	<Annotation Term="UI.SelectionVariant" Qualifier="MainContent">
+					<Record>
+						<PropertyValue Property="SelectOptions">
+							<Collection>
+								<Record Type="UI.SelectOptionType">
+									<PropertyValue Property="PropertyName" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="Ranges">
+										<Collection>
+											<Record Type="UI.SelectionRangeType">
+												<PropertyValue EnumMember="UI.SelectionRangeSignType/I" Property="Sign"/>
+												<PropertyValue EnumMember="UI.SelectionRangeOptionType/EQ" Property="Option"/>
+												<PropertyValue Property="Low" String="USD"/>
+											</Record>
+										</Collection>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="MainContent">
+					<Record>
+						<PropertyValue Property="SortOrder" >
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="ActualCosts"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#Bar</AnnotationPath>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.LineItem#ActualCosts</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="Bar">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>DeliveryCalendarYearQuarter</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Bar"/>
+						<PropertyValue Property="Title" String="{@i18n&gt;@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n&gt;@TEST}"/>
+
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem" Qualifier="ActualCosts">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CostCenter"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CostElement"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+						<Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Supplier"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ActualCosts"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+       				</Collection>
+       			</Annotation>
+       		</Annotations>
+       		<!-- FiscalYear VF -->
+       		<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/FiscalYear">
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilter">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Center (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYear"/>
+									<PropertyValue Property="ValueListProperty" String="FiscalYear"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="ValueListProperty" String="DisplayCurrency"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					<PropertyValue Property="PresentationVariantQualifier" String="FiscalYear"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+       		<!-- FiscalYearPeriod VF -->
+       		<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/FiscalYearPeriod">
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilter">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Center (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="FiscalYearPeriod"/>
+									<PropertyValue Property="ValueListProperty" String="FiscalYearPeriod"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="ValueListProperty" String="DisplayCurrency"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					<PropertyValue Property="PresentationVariantQualifier" String="FiscalYearPeriod"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+       		<!-- DeliveryCalendarYear VF -->
+       		<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/DeliveryCalendarYear">
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilter">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Center (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DeliveryCalendarYear"/>
+									<PropertyValue Property="ValueListProperty" String="DeliveryCalendarYear"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="ValueListProperty" String="DisplayCurrency"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					<PropertyValue Property="PresentationVariantQualifier" String="DeliveryCalendarYear"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+       		<!-- DeliveryCalendarYearQuarter VF -->
+       		<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/DeliveryCalendarYearQuarter">
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilter">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Center (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DeliveryCalendarYearQuarter"/>
+									<PropertyValue Property="ValueListProperty" String="DeliveryCalendarYearQuarter"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="ValueListProperty" String="DisplayCurrency"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					<PropertyValue Property="PresentationVariantQualifier" String="DeliveryCalendarYearQuarter"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+       		<!-- YearMonth VF -->
+       		<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/YearMonth">
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilter">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Center (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0021"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="YearMonth"/>
+									<PropertyValue Property="ValueListProperty" String="YearMonth"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="ValueListProperty" String="DisplayCurrency"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					<PropertyValue Property="PresentationVariantQualifier" String="Linetwo2"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+       		<!-- DeliveryCalendarYearWeek VF -->
+       		<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type/DeliveryCalendarYearWeek">
+				<Annotation Term="Common.ValueList" Qualifier="VisualFilter">
+					<Record>
+						<PropertyValue Property="Label" String="Cost Center (VL)"/>
+						<PropertyValue Property="CollectionPath" String="ZCOSTCENTERCOSTSQUERY0020"/>
+						<PropertyValue Bool="false" Property="SearchSupported"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DeliveryCalendarYearWeek"/>
+									<PropertyValue Property="ValueListProperty" String="DeliveryCalendarYearWeek"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="DisplayCurrency"/>
+									<PropertyValue Property="ValueListProperty" String="DisplayCurrency"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					<PropertyValue Property="PresentationVariantQualifier" String="DeliveryCalendarYearWeek"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="FiscalYear">
+					<Record>
+						<PropertyValue Property="MaxItems" Int="6"/>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="FiscalYear"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#FiscalYear</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="FiscalYear">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>FiscalYear</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+						<PropertyValue Property="Title" String="{@i18n>@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n>@TEST}"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="FiscalYearPeriod">
+					<Record>
+						<PropertyValue Property="MaxItems" Int="6"/>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="FiscalYearPeriod"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#FiscalYearPeriod</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="FiscalYearPeriod">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>FiscalYearPeriod</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+						<PropertyValue Property="Title" String="{@i18n>@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n>@TEST}"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="DeliveryCalendarYear">
+					<Record>
+						<PropertyValue Property="MaxItems" Int="6"/>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="DeliveryCalendarYear"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#DeliveryCalendarYear</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="DeliveryCalendarYear">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>DeliveryCalendarYear</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+						<PropertyValue Property="Title" String="{@i18n>@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n>@TEST}"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="DeliveryCalendarYearQuarter">
+					<Record>
+						<PropertyValue Property="MaxItems" Int="6"/>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="DeliveryCalendarYearQuarter"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#DeliveryCalendarYearQuarter</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="DeliveryCalendarYearQuarter">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>DeliveryCalendarYearQuarter</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+						<PropertyValue Property="Title" String="{@i18n>@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n>@TEST}"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0021Type">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="Linetwo2">
+					<Record>
+						<PropertyValue Property="MaxItems" Int="6"/>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="YearMonth"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#Linetwo2</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="Linetwo2">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>YearMonth</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+						<PropertyValue Property="Title" String="{@i18n>@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n>@TEST}"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="ZCOSTCENTERCOSTSQUERY0020_CDS.ZCOSTCENTERCOSTSQUERY0020Type">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="DeliveryCalendarYearWeek">
+					<Record>
+						<PropertyValue Property="MaxItems" Int="6"/>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record Type="Common.SortOrderType">
+									<PropertyValue Property="Property" PropertyPath="DeliveryCalendarYearWeek"/>
+									<PropertyValue Property="Descending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart#DeliveryCalendarYearWeek</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="DeliveryCalendarYearWeek">
+					<Record>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ActualCosts</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>DeliveryCalendarYearWeek</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+						<PropertyValue Property="Title" String="{@i18n>@TEST}"/>
+						<PropertyValue Property="Description" String="{@i18n>@TEST}"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+        </Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

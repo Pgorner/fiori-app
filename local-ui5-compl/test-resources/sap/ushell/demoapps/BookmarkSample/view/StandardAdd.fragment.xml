@@ -1,0 +1,53 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:ushell="sap.ushell.ui"
+    xmlns:ushellfooterbar="sap.ushell.ui.footerbar" >
+    <f:SimpleForm title="{i18n>standard.add}" layout="ResponsiveGridLayout" >
+        <Label text="{i18n>standard.targetUrl}" />
+        <Input value="{/standard/bookmarkedUrl}" change="onTargetChanged" >
+            <customData >
+                <core:CustomData key="help-id" value="BookmarkSample-inputTarget" writeToDom="true" />
+            </customData >
+        </Input >
+        <Label text="{i18n>standard.title}" />
+        <Input value="{/standard/title}" >
+            <customData >
+                <core:CustomData key="help-id" value="BookmarkSample-inputTitle" writeToDom="true" />
+            </customData >
+        </Input >
+        <Label text="{i18n>standard.subtitle}" />
+        <Input value="{/standard/subtitle}" />
+        <Button text="use Timestamp" press="onResetSubtitle" icon="sap-icon://present" />
+        <Label text="{i18n>standard.info}" />
+        <Input value="{/standard/info}" />
+        <Label text="{i18n>standard.icon}" />
+        <Input value="{/standard/icon}" />
+        <core:Icon src="{/standard/icon}" size="32px" />
+        <Button text="{i18n>common.iconExplorer}" press="onOpenIconExplorer" />
+        <Label text="{i18n>standard.numberUnit}" />
+        <Input value="{/standard/numberUnit}" />
+        <Label text="{i18n>standard.serviceUrl}" />
+        <Input value="{/standard/serviceUrl}" />
+        <Label text="{i18n>standard.datasource.type}" />
+        <Input value="{/standard/dataSource/type}" />
+        <Label text="{i18n>standard.datasource.settings.odataVersion}" />
+        <Input value="{/standard/dataSource/settings/odataVersion}" />
+        <Label text="{i18n>standard.refreshInterval}" />
+        <Input value="{/standard/serviceRefreshInterval}" />
+        <Label text="{i18n>standard.contentProvider}" />
+        <Input value="{/standard/contentProviderId}" />
+        <Label text="Content Node" id="standardContentNodeLabel" />
+        <ushell:ContentNodeSelector id="standardSelectedNodesComboBox" />
+    </f:SimpleForm >
+    <Button id="addBookmarkButton" text="{i18n>standard.addBookmark}" press="onAddBookmark" icon="sap-icon://add" />
+    <ushellfooterbar:AddBookmarkButton id="addToHome" class="sapUiTinyMarginBegin"
+        tileIcon="{/standard/icon}" title="{/standard/title}"
+        subtitle="{ path:'/standard/subtitle', formatter: '._getStringOrTimestamp'}"
+        numberUnit="{/standard/numberUnit}" info="{/standard/info}"
+        serviceRefreshInterval="{/standard/serviceRefreshInterval}"
+        serviceUrl="{/standard/serviceUrl}"
+        dataSource= "{/standard/dataSource}" />
+
+</core:FragmentDefinition >

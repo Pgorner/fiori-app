@@ -1,0 +1,295 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0d2f1a9ebd2d4a4c906216ded1d33783" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adapting-the-ui-list-report-and-object-page-0d2f1a9.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adapting the UI: List Report and Object Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adapting the UI: List Report and Object Page</h2></div><div class="shortdesc">Application developers can extend and customize specific features of the list report and object page.</div><p>We recommend that you use <a href="https://help.sap.com/viewer/product/SAP_FIORI_tools/Latest/en-US" title="https://help.sap.com/viewer/product/SAP_FIORI_tools/Latest/en-US" class="external-link" target="_blank" rel="noopener">SAP
+				Fiori tools</a>, which is a set of extensions for SAP Business Application Studio and
+				Visual Studio Code, to adapt the list report and object page.</p><p>You can find details about how app developers can adapt the UI in SAP Fiori elements for OData
+                            V2
+			in the section below.</p><p>In SAP Fiori elements for OData
+                            V4, app developers adapt the UI using the manifest settings. You
+			can search for features and navigate to the related documentation for more details in the <a href="topic/62d3f7c2a9424864921184fd6c7002eb" title="This topic lists UI elements, controls, and features that are supported by SAP Fiori elements." class="sap-doc">SAP Fiori Elements Feature Map</a>.</p><section id="section_ndt_tlw_gnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Adapt the UI only for the use cases described here. Otherwise, you might experience issues regarding consistency, compatibility, or
+				other problems, immediately or in future releases.</p></div></div><p>You can also use SAP Fiori tools to extend and customize specific features of the
+				list report and object page. For more information, see <a href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/047507c86afa4e96bb3d284adb9f4726.html" title="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/047507c86afa4e96bb3d284adb9f4726.html" class="external-link" target="_blank" rel="noopener">Configure Page Elements</a>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In the Page Editor, a property is written with spaces in between for better readability. In SAP Fiori elements, whenever we provide a property, it is written in the
+					actual code format.</p>
+			<p></p></div></div><section>
+				<h3 class="title ">Adapting the UI: List Report</h3>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_a1y_gr1_wz" class=" ">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>Feature</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Setting</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Display/Hide the <span class="ph uicontrol">Export to Excel</span> button in the table toolbar</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Change the
+											<code>enableExport</code>
+										property to either 
+										<code>True</code> or <code>False</code>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Change the column
+										width.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Choose the column of a table in the outline of the Page Editor, and
+										change
+										the
+										<code>Width</code>
+										property as needed.</p>
+									
+									<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>Changing the width of custom columns using the Page Editor isn't supported; instead, the <code>Width</code> property can be defined
+											directly in the fragment.</p>
+									<p></p></div></div>
+									
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Center-align status columns</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									
+									<p>Choose
+										the column of the table in the outline of Page Editor, and set the
+											<code>hAlign</code>
+										property to <code>Center</code>.</p>
+									<p>For vertical alignment of the whole responsive table, see <a href="topic/c0f6592a592e47f9bb6d09900de47412" title="SAP Fiori elements supports several table types." class="sap-doc">Tables</a>.</p>
+									
+									<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>The <code>hAlign</code> property cannot be changed for custom columns through the Page Editor; instead, it can be defined directly in
+											the fragment.</p>
+									<p></p></div></div>
+									
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">Modify
+									the standard list report behavior for analytical, grid, and tree table types to not occupy the entire space available in the
+									container.</td>
+								<td colspan="1" rowspan="1">
+									
+									
+									<p>Set the <code>fitContent</code> property of the dynamic page to <code>false</code> with the Page Editor.</p>
+									<p>By default, <code>fitContent</code> is set to <code>true</code> for analytical, grid, and tree table types in list report pages.</p>
+									
+									
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Change the layout of the list report table for better readability for a high number of columns.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>In
+										the table, set the
+											<code>popinLayout</code>
+										property with the Page Editor to one of the
+										following values:</p><ul class="ul ">
+											<li class="li">
+												<p><code>Block</code></p>
+											</li>
+											<li class="li">
+												<p><code>GridSmall</code></p>
+											</li>
+											<li class="li">
+												<p><code>GridLarge</code></p>
+											</li>
+										</ul>The default layout is <code>Block</code>.<p></p>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Change the default value of the <code>scrollThreshold</code> parameter in grid tables, analytical tables, and tree tables on the list
+										report page. The default value is 300. </p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>In the outline, select the table whose value needs to be changed, and set the new value for the <code>scrollThreshold</code> parameter.
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Enable or disable live mode in the filter bar.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Change the <code>liveMode</code> property of the smart filter bar to either <code>True</code> or <code>False</code>. For more information, see the <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar#controlProperties" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar#controlProperties" class="sap-doc" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar#controlProperties">API
+												Reference</a>.</p>
+								</td>
+							</tr>
+							
+							
+						</tbody>
+					</table></div></div>
+			</section><section>
+				<h3 class="title ">Adapting the UI: Object Page</h3>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_ehl_z4b_wz" class=" ">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>Feature</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Setting</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">Change the avatar shape in the object page dynamic header from a square to a circle</td>
+								<td colspan="1" rowspan="1">
+									<p>On the header of the object page, set the <code>displayShape</code> property to
+										<code>Circle</code>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Hide the anchor bar</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>On the page layout node, set the
+											<code>showAnchorBar</code>
+										property to <code>false</code>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Switch to tabs</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>On the page layout node, set the property <code>useIconTabBar</code> to <code>true</code>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Display the <span class="ph uicontrol">Export to Excel</span> button in the table toolbar</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>In the table node, set the
+											<code>enableExport</code>
+										property to <code>true</code>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Show header content in edit mode</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>On the page layout node, set the <code>showHeaderContent</code> property to <code>true</code> or
+											<code>false</code>, to determine the header content visibility.</p>
+									<p>Alternatively, you can make a binding change if you need to change the value according to a property or an
+										expression. For more information, see <a href="topic/4754094fbf4046e88271d9ca881ceaa1" title="You can create property binding changes manually by using the Page Editor. Note that you can use only those properties whose data has already been retrieved by the model." class="sap-doc">Creating a Binding Change</a>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Don't collapse headers when scrolling down</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>On the page layout node, set the
+											<code>alwaysShowContentHeader</code>
+										property to <code>true</code>.</p>
+									<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>On tablets and mobile phones, the header collapses automatically.</p></div></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Change the default <code>growingThreshold</code> value for the object page's <code>sap.m.Table</code>.
+										The default value is 10.</p>
+									<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>When there is a single section with a single subsection holding a table, the default
+											<code>growingThreshold</code> value is 20 and it cannot be changed.</p></div></div>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p> In the outline, select the table whose value needs to be changed, and set the new value for the
+											<code>growingThreshold</code> property.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Set object page tables with non-editable content only, to not editable</p>
+									<p>By default, object page tables are automatically set to <code>editable</code> if the object page is in edit
+										mode. This means that users can only access editable table content when they navigate through the table using
+										the <span class="keyWrap"><kbd class="key">tab</kbd></span> key.</p>
+									<p>However, in a table with only non-editable content, there is no tab stop. </p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Set the <code>editable</code> property of the table to <code>false</code>. The inner table's
+											<code>navigationMode</code> property is set to <code>Navigation</code>.</p>
+									<p>Users can then navigate through the entire focusable table content, and not only through the editable
+										fields.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Enable <span class="ph uicontrol">Include Item In Selection</span> for tables.</p>
+									<p>By setting this property to true, the item selection is displayed even if a user navigates away from a
+										table.</p>
+								</td>
+								<td colspan="1" rowspan="1">On the table, set the <code>includeItemInSelection</code> property to <code>True</code>.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">Enable the <span class="ph uicontrol">Save and Edit</span> button in non-draft applications. Users can choose this button
+									to save the current changes. The object page stays in edit mode so that they can continue editing.</td>
+								<td colspan="1" rowspan="1">
+									
+									<p>In outline view of the object page select the <code>Save and Edit</code> action from the
+											<code>Actions</code> within <code>Footer</code> and change the visibility to
+											<code>{ui&gt;/editable}</code>.</p>
+									
+									
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Change the layout of the object table for better readability for a high number of columns.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>On the table, set the
+											<code>popinLayout</code>
+										property to one of the following values:</p><ul class="ul ">
+											<li class="li">
+												<p><code>Block</code></p>
+											</li>
+											<li class="li">
+												<p><code>GridSmall</code></p>
+											</li>
+											<li class="li">
+												<p><code>GridLarge</code></p>
+											</li>
+										</ul>The default layout is <code>Block</code>.<p></p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			</section><section>
+				<h3 class="title ">More Information</h3>
+				<p>For more information, see <a href="topic/4754094fbf4046e88271d9ca881ceaa1" title="You can create property binding changes manually by using the Page Editor. Note that you can use only those properties whose data has already been retrieved by the model." class="sap-doc">Creating a Binding Change</a>.</p>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

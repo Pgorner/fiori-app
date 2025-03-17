@@ -1,0 +1,2799 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobe0cf40f61184b358b5faedaec98b2da" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/manifest-descriptor-for-applications-components-and-libraries-be0cf40.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Manifest (Descriptor for Applications, Components, and Libraries)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Manifest (Descriptor for Applications, Components, and Libraries)</h2></div><div class="shortdesc">The manifest (also known as descriptor for applications, components, and libraries, in
+		short: app descriptor) is inspired by the WebApplication Manifest concept introduced by the
+		W3C. The manifest provides a central, machine-readable, and easy-to-access location for
+		storing metadata associated with an application, an application component, or a
+		library.</div><p>In general, the manifest describes the behavior of an app through attributes. It doesn't
+			directly influence that behavior itself for the most part. When a section in the
+			manifest does affect the behavior of an app, this is described in
+				the <a href="api/" title="api/" class="sap-doc" alt="api/">API Reference</a>.
+			 for the corresponding namespace.</p><p>The data of the manifest is stored in JSON format in the <code>manifest.json</code> file.
+			The developer creates the file with attributes in different namespaces. It contains, for
+			example, the app ID, the version, the data sources used, along with the required
+			components and libraries. The existence of the <code>manifest.json</code> file must
+			be declared in the component metadata, which is then delivered as part of the
+			application archive. After delivery, the file is read-only.</p><section id="section_mkz_dgh_1cb">
+			<h2 class="title ">General Information</h2>
+			<p>There is a new version of the manifest when the schema is changed. In the following table, you
+				can see how the SAPUI5
+				version is related to the manifest version and the value of
+					<code>_version.</code></p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_lqj_xgh_1cb" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Manifest Release</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>SAPUI5 Version</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>_version</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 2</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.30</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.1.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 3</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.32</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.2.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 4</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.34</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.3.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 5</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.38</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.4.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 6</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.42</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.5.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 7</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.46</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.6.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 8</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.48</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.7.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 9</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.50</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.8.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 10</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.52</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.9.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 11</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.54</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.10.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 12</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.56</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.11.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 13</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.58</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.12.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 14</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.61</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.13.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 15</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.62</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.14.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 16</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.66</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.15.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 17</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.70</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.16.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 18</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.71</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.17.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 19</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.74</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.18.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 20</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.75</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.19.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 21</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.76</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.20.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 22</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.77</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.21.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 23</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.78</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.22.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 24</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.79</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.23.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 25</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.80</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.24.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 26</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.81</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.25.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 27</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.82</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.26.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 28</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.83 (SAPUI5 1.83 was not released, see <a title="https://launchpad.support.sap.com/#/notes/" href="https://launchpad.support.sap.com/#/notes/2979657" target="_blank" rel="noopener noreferrer">2979657</a>)</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.27.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 29</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.84</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.28.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 30</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.85</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.29.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 31</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.86</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.30.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 32</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.87</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.31.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 33</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.88</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.32.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 34</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.90</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.33.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 35</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.92</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.34.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 36</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.93</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.35.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 37</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.95</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.36.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 38</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.96</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.37.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 39</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.98</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.38.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 40</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.99</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.39.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 41</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.100</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.40.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 42</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.101</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.41.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 43</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.102</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.42.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 44</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.103</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.43.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 45</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.104</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.44.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 46</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.105</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.45.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 47</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.106</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.46.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 48</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.107</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.47.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 49</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.108</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.48.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 50</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.109</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.49.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 51</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.110</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.50.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 52</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.111</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.51.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 53</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.112</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.52.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 54</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.113</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.53.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 55</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.114</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.54.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 56</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.115</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.55.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 57</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.116</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.56.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 58</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.117</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.57.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 59</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.118</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.58.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 60</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.119</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.59.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 61</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.120</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.60.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 62</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.121</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.61.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 63</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.122</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.62.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 64</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.123</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.63.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 65</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.124</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.64.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 66</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.126</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.65.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 67</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.129</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.66.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 68</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.130</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.67.0</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Version 69</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=1.131</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1.68.0</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>For more information on the new fields introduced in each version, check out <a href="topic/a110f762148a4933a33d30751a37a743" title="Information how to add new attributes of manifest (also known as descriptor) versions higher than V2 (SAPUI5 1.30) to the manifest file." class="sap-doc">Migration Information for Upgrading the Manifest File</a></p>
+		</section><section id="manifirst">
+			<h2 class="title ">Manifest First Function</h2>
+			<p>The component factory function <a href="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" title="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" class="sap-doc" alt="api/sap.ui.core.Component#methods/sap.ui.core.Component.create"><code>Component.create</code></a>, as introduced with 1.58, loads the <code>manifest.json</code> by
+				default before the component instance is created. With this, you can preload the dependencies (libraries and components) and, thus,
+				improve the performance for loading the component. The preload is also available for models, which can be flagged for preload during
+				component loading.</p>
+			<p>The <code>manifest</code> option allows you to configure when and from where the manifest
+				is loaded:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Default, equivalent to setting <code>manifest</code> to
+							<code>true</code>.</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Component" required from module "sap/ui/core/Component"
+// load manifest.json from default location and evaluate it before creating an instance of the component 
+Component.create({
+  name: "sap.my.component",
+});</pre></div></div></section>
+				</li>
+				<li class="li">Specify an alternative URL as parameter for <code>manifest</code> for the
+					component factory
+					function:<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Component" required from module "sap/ui/core/Component"
+// load via manifest URL
+Component.create({
+  name: "sap.my.component",
+  manifest: "any/location/sap/my/component/manifest.json"
+});</pre></div></div></section></li>
+				<li class="li">
+					<p>There are two possible scenarios for setting the <code>manifest</code>
+						flag to <code>false</code>:</p><ol>
+							<li class="li">
+								<p>The component defines <code>manifest: "json"</code> in its
+										<a href="topic/0187ea5e2eff4166b0453b9dcc8fc64f" title="The component class provides specific metadata for components by extending the ManagedObject class. The UIComponent class provides additional metadata for the configuration of user interfaces or the navigation between views." class="sap-doc">Component Metadata</a>.</p>
+								<p>In this case, the manifest is loaded and evaluated <span class="emphasis">after</span> the Component controller. All dependencies
+									defined in the manifest will then also be loaded. Afterwards,
+									the Component is instantiated.</p>
+							</li>
+							<li class="li">
+								<p>The component does not define <code>manifest: "json"</code>
+									in its <a href="topic/0187ea5e2eff4166b0453b9dcc8fc64f" title="The component class provides specific metadata for components by extending the ManagedObject class. The UIComponent class provides additional metadata for the configuration of user interfaces or the navigation between views." class="sap-doc">Component Metadata</a>.</p>
+								<p>This is typically the case for older legacy Components without a manifest. In this case,
+									only the Component's class metadata is evaluated. No additional
+									manifest file will be loaded.</p>
+							</li>
+						</ol><p></p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Component" required from module "sap/ui/core/Component"
+// load component without loading a manifest first
+//  - Case 1: the manifest.json is loaded after the Component controller
+//  - Case 2: no manifest.json is loaded (legacy)
+Component.create({
+  name: "sap.my.component",
+  manifest: false
+});</pre></div></div></section>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>When you enable <code>manifest</code>, all legacy component metadata needs to be
+				migrated into the manifest for applications/components. Only those entries in the
+				manifest for components will be respected by the component and all other entries
+				will be ignored.</p></div></div>
+			
+		</section><section id="section_rmc_3xj_mmb"><h2 class="title ">Special <code>ui5://</code>
+				URLs</h2><p>Inside the manifest, you can use special URLs prefixed with <code>ui5://</code>. These URLs
+				will be resolved automatically during component startup before any models are
+				created.</p><p>The <code>ui5://</code>
+				URLs have the following properties:</p><ul class="ul ">
+					<li class="li">only absolute URLs are allowed, e.g.
+							<code>ui5://my/path/to/sample</code>, but not
+							<code>ui5:my/app/path</code>,</li>
+					<li class="li">all URL prefixes to be used inside a <code>ui5://</code> URL must be
+						registered on the UI5 loader beforehand (see the example below),</li>
+					<li class="li"><code>sap.ui5/resourceRoots</code> can be part of a
+							<code>ui5://</code> URL,</li>
+					<li class="li">the component factory <a href="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" title="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" class="sap-doc" alt="api/sap.ui.core.Component#methods/sap.ui.core.Component.create"><code>Component.create</code></a> takes care of
+						defining the resource roots before any <code>ui5://</code> URLs are
+						resolved.</li>
+				</ul><p></p><section>
+				<h3 class="title ">Example</h3>
+				<p>One common use case is the resolution of local annotation files. By default the
+					local annotation files are resolved relative to the manifest. When using a
+						<code>ui5://</code> URL, you can enforce a different resolution, e.g. to
+					a server-absolute URL.</p>
+				<p>In this sample, we make sure that the component location is registered as a path
+					on the UI5 loader. Additionally, we assume that the host system is<code>
+						http://localhost:8080</code> :</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.loader.config({
+    paths: {
+        "my/url/prefix": "this/url/is/reachable"
+    }
+})</pre></div></div></section>
+				<p>The following snippet shows a sample annotation file configuration in the
+						<code>sap.app/dataSources</code> section of the manifest:</p>
+				<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    ...
+    "sap.app": {
+         "dataSources": {
+             "OData": {
+                "uri": "/path/to/odata/service",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "annotations": ["annotations"]
+                    ...
+                }
+            },
+            ...
+            "annotations": {
+                "uri": "ui5://my/url/prefix/annotations.xml",
+                "type": "ODataAnnotation"
+            }
+            ...
+         }
+    }
+    ...
+}</pre></div></div></section>
+				<p>During startup of the respective component the resolution of the
+						<code>ui5://</code> URL for the sample annotation will look like
+					this:</p>
+				<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">ui5://my/url/prefix/annotations.xml</pre></div></div></section>
+				<p>is resolved to:</p>
+				<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">http://localhost:8080/this/url/is/reachable/annotations.xml</pre></div></div></section>
+			</section></section><section id="section_mhs_vdp_znb">
+			<h2 class="title ">Manifest Content</h2>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>You can find an example <code>manifest.json</code> file with sample code for the
+				manifest content <a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_example" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_example" class="sap-doc">here</a>.</p></div></div>
+			<p>The content for the  is contained in the following namespaces: <code>without</code>,
+					<code>sap.app</code>, <code>sap.ui</code>, 
+				<code>sap.ui5</code>, <code>sap.platform.abap</code>,
+						<code>sap.platform.hcp</code>, and <code>sap.fiori</code>.  The
+				following tables show the application-specific attributes provided by the respective
+				namespaces:</p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_nonamespace" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_nonamespace" class="sap-doc">No
+					Namespace</a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_app" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_app" class="sap-doc"><code>sap.app</code></a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_ui" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_ui" class="sap-doc"><code>sap.ui</code></a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_ui5" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_ui5" class="sap-doc"><code>sap.ui5</code></a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_platform_abap" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_platform_abap" class="sap-doc"><code>sap.platform.abap</code></a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_platform_hcp" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_platform_hcp" class="sap-doc"><code>sap.platform.hcp</code></a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_fiori" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_fiori" class="sap-doc"><code>sap.fiori</code></a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_card" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_sap_card" class="sap-doc"><code>sap.card</code></a></p>
+			<p><a href="topic/be0cf40f61184b358b5faedaec98b2da.html#loiobe0cf40f61184b358b5faedaec98b2da/section_version" title="be0cf40f61184b358b5faedaec98b2da.xml#loiobe0cf40f61184b358b5faedaec98b2da/section_version" class="sap-doc"><code>_version</code></a></p>
+		</section><section id="section_nonamespace" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">No Namespace</h2></div><div class="fig"><div class="tableWrapper "><div class="fig"><table border="1" id="table_crz_g5r_tr" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>start_url</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Start page of your app, if available</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>$schema</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>JSON schema URI</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="section_sap_app" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>sap.app</code></h2></div><div class="fig"><div class="tableWrapper "><div class="fig"><table border="1" id="table_rvq_4fj_qr" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>id</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A mandatory attribute that has to be provided in dot notation and
+									specifies an ID for the project that must be unique in the
+									system. It must match the namespace provided in the
+									corresponding <code>Component.js</code>.</p>
+								<p>If, for example, a module is instantiated there as follows:</p>
+								<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">   return UIComponent.extend("sap.ui.demo.walkthrough.Component", {
+
+      metadata : {
+         manifest: "json"
+      },
+   ...
+</pre></div></div></section>
+								<p>then its <code>id</code> would be
+										<code>sap.ui.demo.walkthrough</code></p>
+								<p>It's used as a reference point for most operations involving the manifest. If the project
+									is the app variant of an existing application,
+										<code>sap.app/id</code> is the ID of this app variant.
+									The ID of the underlying application is then provided in
+										<code>sap.ui5/componentName</code>. </p>
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>The ID must not exceed 70 characters. It must be unique. This is checked
+											in consistency checks, for example for the SAPUI5 application index, which return an error in case of
+											duplicate IDs; see <a href="topic/c5e7098474274d3eb7379047ab792f1f" title="This index provides an indexing and caching mechanism for information related to apps, components, and libraries in the SAPUI5 ABAP repository and related to components and libraries in the SAPUI5 distribution layer." class="sap-doc">SAPUI5 Application Index</a>.</p>
+									<p>In case of <code>sap.app/type=application</code>, the
+											<code>sap.app/id</code> corresponds to the
+											<code>id</code> of the UI5 component.</p>
+								<p></p></div></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>type</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A mandatory attribute. The following values are possible:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>application</code>: use if your
+												<code>manifest.json</code> describes a
+												<span class="emphasis">UI5 application</span>. For an example
+											how to use a <code>manifest.json</code> for UI5
+											applications, see <a href="topic/8f93bf2b2b13402e9f035128ce8b495f" title="All application-specific configuration settings will now further be put in a separate descriptor file called manifest.json. This clearly separates the application coding from the configuration settings and makes our app even more flexible. For example, all SAP Fiori applications are realized as components and come with a descriptor file in order to be hosted in the SAP Fiori launchpad." class="sap-doc">Step 10: Descriptor for Applications</a></p>
+									</li>
+									<li class="li">
+										<p><code>component</code>: use if your
+												<code>manifest.json</code> describes a
+												<span class="emphasis">reuse component</span> that is used in
+											several apps. For further reuse component-specific
+											configuration options, see <a href="topic/7701636d088147569d99b4f08d418bd9" title="The descriptor for components contains a subset of the attributes in the descriptor for applications" class="sap-doc">Descriptor for Components (Inside Libraries)</a>.</p>
+									</li>
+									<li class="li">
+										<p><code>library</code>: use if your
+												<code>manifest.json</code> describes a
+												<span class="emphasis">UI5 library</span>. For further
+											library-specific configuration options, see <a href="topic/b229914587444025be986d81dcc77303" title="The descriptor for libraries contains a subset of the attributes in the descriptor for applications and components." class="sap-doc">Descriptor for Libraries</a>.</p>
+									</li>
+									<li class="li">
+										<p><code>card</code>: use if your
+												<code>manifest.json</code> describes a
+												<span class="emphasis">UI5 card</span>. For further card-specific configuration options,
+												see <a href="test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/overview/introduction" title="https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/overview/introduction" class="sap-doc">Integration
+												Cards</a>.</p>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>i18n</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The i18n property is an <span class="emphasis">optional</span> attribute
+									and contains one of the following: </p>
+								<ul class="ul ">
+									<li class="li">
+										<p>A URL string to the properties file that contains the text symbols for the manifest;
+											the URL is interpreted relative to the
+												<code>manifest</code>.</p>
+										<p>
+											</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+												</p><p>The path to the i18n file must not exceed 100
+												characters.</p>
+											<p></p></div></div>
+										<p></p>
+									</li>
+									<li class="li">
+										<p>An object that has been defined as described in <a href="topic/ec753bc539d748f689e3ac814e129563" title="You can configure a list of supported locales and a fallback locale in your app's manifest to control the loading of resource bundles and avoid '404 Not Found' network responses." class="sap-doc">Supported Locales and Fallback Chain</a> and
+												<a href="topic/eba8d25a31ef416ead876e091e67824e" title="By defining terminologies together with additional resource bundles, an application can easily be switched from one scenario or industry to another." class="sap-doc">Terminologies</a>.</p>
+										<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+											</p><p>The <code>sap.app/i18n</code> section only supports terminologies for Components.
+												Library manifests <b>do not support</b> additional
+												terminologies.</p>
+										<p></p></div></div>
+									</li>
+								</ul>
+								<p>If the manifest contains placeholders in <code>{{...}}</code>
+									syntax, but no <code>i18n</code> attribute has been
+									provided, the default value
+										<code>i18n/i18n.properties</code> is used to request a
+									ResourceBundle.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>applicationVersion</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Mandatory version of the app (semantic version with the following
+									format
+									<span class="emphasis"><code>major.minor.patch</code></span>)</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>embeds</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Array of relative paths to the nested
+										<code>manifest.json</code> files; attribute is mandatory
+									if a nested <code>manifest.json</code> exists</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>embeddedBy</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Relative path back to the <code>manifest.json</code> file of
+									an embedding component or library; attribute is mandatory for a
+									nested <code>manifest.json</code>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>title</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Mandatory attribute; to make this property language dependent
+									(recommended), use a key in double curly brackets:
+										<code>{{key}}</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>subTitle</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Subtitle; to make this property language dependent (recommended),
+									use a key in double curly brackets: <code>{{key}}</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>shortTitle</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Short version of the title; to make this property language
+									dependent (recommended), use a key in double curly brackets:
+										<code>{{key}}</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>info</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Needed for CDM (Common Data Model) conversion of tiles; to make
+									this property language dependent (recommended), use a key in
+									double curly brackets: <code>{{key}}</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>description</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Description; to make this property language dependent
+									(recommended), use a key in double curly brackets:
+										<code>{{key}}</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>tags</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Contains the following:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p>An array of
+												<span class="emphasis"><code>keywords</code></span>;
+											either text or a language-dependent entry to be
+											specified via <code>{{…}}</code> syntax, for example
+												<code>"keywords":
+												["{{keyWord1}}","{{keyWord2}}"]</code>.</p>
+									</li>
+									<li class="li">
+										<p>An array of
+												<span class="emphasis"><code>technicalAttributes</code></span>
+											(general technical attributes, for example, technical
+											catalog, upper case and language-independent
+											attributes).</p>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ach</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Application component hierarchy (SAP's component names for bug
+									reports); attribute is mandatory for SAP apps, but is not used
+									so far for apps developed outside SAP</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>dataSources</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Unique key/alias for specifying the used data sources; contains
+									the following information:</p><ul class="ul ">
+										<li class="li"><code>uri</code>: Mandatory relative URL in the
+											component; takes <code>embeddedBy</code> into
+											account, if filled, or the server absolute of the data
+											source, for example
+												<code>"/sap/opu/odata/snce/PO_S_SRV;v=2/"</code>.
+												<code>uri</code> should always be given in lower
+											case.</li>
+										<li class="li"><code>type</code>: Supported types:<ul class="ul ">
+												<li class="li"><code>OData</code> (default)</li>
+												<li class="li"><code>ODataAnnotation</code></li>
+												<li class="li"><code>INA</code></li>
+												<li class="li"><code>XML</code></li>
+												<li class="li"><code>JSON</code></li>
+												<li class="li"><code>FHIR</code></li>
+												<li class="li"><code>http</code></li>
+												<li class="li"><code>WebSocket</code></li>
+											</ul></li>
+										<li class="li"><code>customType</code> (As of 1.77):
+												<code>true</code>/<code>false</code>; if
+												<code>true</code>, there is no validation on the
+												<code>type</code> attribute</li>
+										<li class="li"><code>settings</code>: Data source type-specific
+											attributes (key, value pairs), which are:<ul class="ul ">
+												<li class="li"><code>odataVersion</code>: 2.0 (default),
+												4.0 </li>
+												<li class="li"><code>localUri</code>: Relative URL to local
+												metadata document or annotation URI </li>
+												<li class="li">
+												<p><code>annotations</code>: Array of
+												annotations which references an existing data
+												source of type <code>ODataAnnotation</code>
+												under <code>sap.app/dataSources</code></p>
+												</li>
+												<li class="li">
+												<p><code>maxAge</code>: Indicates the number
+												of seconds the client is willing to accept with
+												regard to the age of the data that is
+												requested</p>
+												</li>
+												<li class="li"><code>objects</code>: Dictionary of
+												(catalog) objects offered by the INA datasource
+												(as of 1.92) consisting of:<ul class="ul ">
+												<li class="li"><code>objectName</code>: Mandatory CDS
+												view name / analytical query name</li>
+												<li class="li"><code>objectType</code> - mandatory type
+												of object (<code>2C&lt;DDICNAME&gt;</code> or
+												<code>CDSViewName</code>); values:
+												<code>query</code>,
+												<code>cdsprojectionview</code>,
+												<code>view</code>,
+												<code>inamodel</code></li>
+												<li class="li"><code>packageName</code>: Name of the
+												package</li>
+												<li class="li"><code>schemaName</code>: Name of the
+												schema</li>
+												</ul></li>
+											</ul></li>
+									</ul><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>cdsViews</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Array of directly used CDS views</p>
+								<p>This attribute is optional and only added if used via INA
+									protocol directly, not if used via OData service.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>offline</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Indicates whether the app is running offline; default is
+										<code>false</code> (online)</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sourceTemplate</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>If an app has been generated from a template, this attribute is
+									filled automatically by the generation tool:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>id</code>: Mandatory ID of the template from
+											which the app was generated</p>
+									</li>
+									<li class="li">
+										<p><code>version</code>: Mandatory version of the
+											template from which the app was generated</p>
+									</li>
+									<li class="li">
+										<p><code>toolsId</code>: ID generated by the tool</p>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>openSourceComponents</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Array of directly used open source libraries for documentation
+									purposes; not used when open source libraries are used via SAPUI5 capsulation</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>name</code>: Mandatory name of the open source
+											component</p>
+									</li>
+									<li class="li">
+										<p><code>version</code>: Required if the open source
+											component is part of the app; not required if the open
+											source component is part of the SAPUI5 dist layer</p>
+									</li>
+									<li class="li">
+										<p><code>packagedWithMySelf</code>: Indicates if the
+											open source component is part of the app
+												(<code>true</code>) or not
+												(<code>false</code>)</p>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>provider</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Name of the provider that owns the application. Current supported
+									enum value is <span class="parmname">sfsf</span>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>crossNavigation</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Cross-navigation for specifying inbounds and outbounds</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>scopes</code>: Scope of a site</p>
+										<p><code>sapSite</code></p>
+									</li>
+									<li class="li">
+										<p><code>inbounds</code>: Unique key or alias to specify
+											inbounds (mandatory); contains:</p>
+										<ul class="ul ">
+											<li class="li">
+												<p><code>semanticObject</code> (mandatory)</p>
+											</li>
+											<li class="li">
+												<p><code>action</code> (mandatory)</p>
+											</li>
+											<li class="li">
+												<p><code>icon</code>: Used to overwrite
+												<code>sap.ui/icons/icon</code></p>
+											</li>
+											<li class="li">
+												<p><code>title</code>: Used to overwrite
+												<code>sap.app/title</code> (to make this
+												property language dependent (recommended), use a
+												key in double curly brackets:
+												<code>{{key}}</code>)</p>
+											</li>
+											<li class="li">
+												<p><code>subTitle</code>: Used to overwrite
+												<code>sap.app/subTitle</code> (to make this
+												property language dependent (recommended), use a
+												key in double curly brackets:
+												<code>{{key}}</code>)</p>
+											</li>
+											<li class="li">
+												<p><code>shortTitle</code>: Used to overwrite
+												<code>sap.app/shortTitle</code> (to make this
+												property language dependent (recommended), use a
+												key in double curly brackets:
+												<code>{{key}}</code>)</p>
+											</li>
+											<li class="li">
+												<p><code>info</code>: Additional information on
+												the title; to make this property language
+												dependent (recommended), use a key in double curly
+												brackets: <code>{{key}}</code></p>
+											</li>
+											<li class="li">
+												<p><code>displayMode</code>:
+												&lt;<code>ContentMode</code> or
+												<code>HeaderMode</code>&gt; Display mode for
+												an inbound which specifies what kind of tile is
+												displayed. A static tile can be displayed in
+												content mode or header mode. The tile in header
+												mode is a text only tile without an icon which
+												allows longer title and subtitle.</p>
+											</li>
+											<li class="li">
+												<p><code>hideLauncher</code>
+												(<code>true</code>/<code>false</code>):
+												Indicates that an inbound must not be represented
+												as a tile/link</p>
+											</li>
+											<li class="li">
+												<p><code>indicatorDataSource</code>; specifies
+												the data source; contains:</p>
+												<ul class="ul ">
+												<li class="li">
+												<p><code>dataSource</code>: reference to
+												<code>sap.app/dataSources</code>
+												(mandatory)</p>
+												</li>
+												<li class="li">
+												<p><code>path</code>: Relative path to
+												<code>sap.app/dataSources uri</code>
+												(mandatory)</p>
+												</li>
+												<li class="li">
+												<p><code>refresh</code>: Defines the refresh
+												interval</p>
+												</li>
+												</ul>
+											</li>
+											<li class="li">
+												<p><code>deviceTypes</code>: Contains objects
+												with device types on which the app is running; if
+												empty, use the default from
+												<code>sap.ui/deviceTypes</code>; the following
+												device types can be defined
+												(<code>true</code>/<code>false</code>):</p>
+												<ul class="ul ">
+												<li class="li">
+												<p><code>desktop</code></p>
+												</li>
+												<li class="li">
+												<p><code>tablet</code></p>
+												</li>
+												<li class="li">
+												<p><code>phone</code></p>
+												</li>
+												</ul>
+											</li>
+											<li class="li">
+												<p><code>signature</code>: Specifies the
+												signature; contains:</p>
+												<ul class="ul ">
+												<li class="li">
+												<p><code>parameters</code> (mandatory):
+												Contains parameter names with the following
+												information:</p>
+												<ul class="ul ">
+												<li class="li">
+												<p><code>required</code>
+												(<code>true</code>/<code>false</code>)</p>
+												</li>
+												<li class="li">
+												<p><code>filter</code>: Represents the filter
+												only if the input parameter matches the filter;
+												with a mandatory <code>value</code> and
+												<code>format</code> attribute ("plain",
+												"regexp", "reference")</p>
+												</li>
+												<li class="li">
+												<p><code>defaultValue</code>: Specifies the
+												default value; has mandatory attributes
+												<code>value</code> (depending on the format
+												this is a verbatim default value) and
+												<code>format</code> ("plain", "reference"). If
+												the <code>format</code> is "reference", the
+												syntax for the <code>value</code> is as
+												follows:
+												<code>"UserDefault.<var class="varname">parameterName</var>"</code>
+												for single-value parameters,
+												<code>"UserDefault.extended.<var class="varname">parameterName</var>"</code>
+												for sets of values and value ranges, or
+												<code>"User.env.<var class="varname">parameterName</var>"</code>
+												for supported user-specific settings.</p>
+												</li>
+												<li class="li">
+												<p><code>renameTo</code>: Used for parameter
+												mapping to specify the parameter name in legacy
+												ABAP applications, for example,
+												<code>RF05L_BUKRS</code> for the
+												<code>CompanyCode</code> parameter</p>
+												</li>
+												<li class="li">
+												<p><code>launcherValue</code>: Represents a
+												value to be used when creating an tile intent for
+												this inbound with value and format ("plain",
+												"array")</p>
+												</li>
+												</ul>
+												</li>
+												<li class="li">
+												<p><code>additionalParameters</code>
+												(mandatory): Indicates how additional parameters
+												to the declared signature are handled; values can
+												be, for example, "ignored", "notallowed",
+												"allowed"</p>
+												</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="li">
+										<p><code>outbounds</code>: Specifies outbounds with a
+											unique key or alias to describe intents that can be
+											triggered from the application to navigate
+											containing:</p>
+										<ul class="ul ">
+											<li class="li">
+												<p><code>semanticObject</code> (mandatory);
+												represents a business entity (such as
+												'Employee')</p>
+											</li>
+											<li class="li">
+												<p><code>action</code> (mandatory); represents
+												the action to perform on the business entity (such
+												as 'display')</p>
+											</li>
+											<li class="li">
+												<p><code>parameters</code> of navigation
+												intents: Specifies the parameter name</p>
+												<ul class="ul ">
+												<li class="li">
+												<p><code>value</code>: parameters of
+												navigation intents generated or triggered by the
+												application, with:</p><ul class="ul ">
+												<li class="li">a <code>value</code>; verbatim value (when
+												'<code>plain</code>' format is used), or a
+												pattern (when '<code>regexp</code>' format is
+												used), or a value coming from a UI5 model (when
+												'<code>binding</code>' format is used), or a
+												User Default reference (when
+												'<code>reference</code>' format is used) and
+												a</li>
+												<li class="li">
+												<p><code>format</code>; indicates how
+												<code>value</code> is to be interpreted:</p><ul class="ul ">
+												<li class="li">'<code>plain</code>':
+												'<code>value</code>' is taken as a literal
+												string value.</li>
+												<li class="li">'<code>reference</code>':
+												'<code>value</code>' is a reference to a
+												parameter maintained in the SAP Fiori launchpad (such as
+												'<code>UserDefault.CostCenter</code>'. The
+												parameter value is used on the outbound intent
+												parameter.</li>
+												<li class="li">'<code>regexp</code>': '<code>value</code>' matches the specified pattern.</li>
+																		<li class="li">'<code>binding</code>': '<code>value</code>' is a binding path.
+																		The value from the model at the specified binding path will be used on the
+																		outbound intent parameter.</li>
+												</ul><p></p>
+												</li>
+												</ul><p></p>
+												</li>
+												<li class="li">
+												<p><code>required</code>: Indicator whether
+												parameter is required (<code>true</code>,
+												<code>false</code>)</p>
+												</li>
+												</ul>
+											</li>
+											<li class="li">
+												<p><code>additionalParameters</code>: Indicates
+												whether additional context parameters are to be
+												used:</p>
+												<ul class="ul ">
+												<li class="li">
+												<p><code>ignored</code>: Parameters are not
+												used</p>
+												</li>
+												<li class="li">
+												<p><code>allowed</code>: Parameters are passed
+												on to application</p>
+												</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>resources</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Relative URL as a reference to a file (naming convention is
+										<code>resources.json</code>) that contains a list of all
+									resources needed by the app (all resources inside the app); the
+									file is generated  in an
+										SAP Fiori tools (in SAP Business Application Studio) build step.</p>
+								<p>For a description of <code>resources.json</code>, see <a href="topic/adcbcf8b50924556ab3f321fcd9353ea" title="The resources.json file lists all resources in a component or library folder. It resides next to each manifest.json in the generated results." class="sap-doc">The resources.json File</a>.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="section_sap_ui" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>sap.ui</code></h2></div><div class="fig"><div class="tableWrapper "><div class="fig"><table border="1" id="table_qw2_yhj_qr" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>technology</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A mandatory attribute that specifies the UI technology; value is <code>UI5</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>icons</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Contains object with app-specific icons, which are:</p><ul class="ul ">
+										<li class="li"><code>icon</code>: Icon of the app, can be chosen
+											from <a href="test-resources/sap/m/demokit/iconExplorer/webapp/index.html" title="https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html" class="sap-doc">Icon Explorer</a>
+											.</li>
+										<li class="li"><code>favIcon</code>: ICO file to be used inside the
+											browser and for desktop shortcuts
+												<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p><code>favIcon</code> is not set
+												automatically by the framework. The icons can be set
+												manually using the
+												<code>sap/ui/util/Mobile</code> module and the
+												<code>setIcons</code> function.</p></div></div></li>
+										<li class="li"><code>phone</code>: 120x120 pixel version for iPhones with low pixel density</li>
+										<li class="li"><code>phone@2</code>: 180x180 pixel version for iPhones with high pixel density</li>
+										<li class="li"><code>tablet</code>: 152x152 pixel version for iPads with low pixel density</li>
+										<li class="li"><code>tablet@2</code>: 167x167 pixel version for iPads with high pixel density</li>
+									</ul><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>deviceTypes</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Mandatory; contains objects with device types on which the app is
+									running, such as:</p><ul class="ul ">
+										<li class="li"><code>desktop</code>: Indicator for whether desktop devices are supported,
+												<code>true</code>, <code>false</code></li>
+										<li class="li"><code>tablet</code>: Indicator for whether tablet devices are supported,
+												<code>true</code>, <code>false</code></li>
+										<li class="li"><code>phone</code>: Indicator for whether phone devices are supported,
+												<code>true</code>, <code>false</code></li>
+									</ul><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>fullWidth</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Indicates whether SAP Fiori launchpad shall render the target application utilizing the full width of the viewport (<code>true</code>)
+									or not (<code>false</code>). For more information, see <a href="https://experience.sap.com/fiori-design-web/letter-boxing/" title="https://experience.sap.com/fiori-design-web/letter-boxing/" class="external-link" target="_blank" rel="noopener">Letterboxing</a>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>This parameter is currently subject to SAP Fiori launchpad only and has no effect on standalone or SAP
+											Fiori elements applications. Standalone applications can use <code>sap.m.Shell</code> to restrict the
+											application width.</p>
+									<p></p></div></div><p></p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="section_sap_ui5" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>sap.ui5</code></h2></div><div class="fig"><p>The <code>sap.ui5</code> namespace is aligned with the former concept of component
+				metadata and contributes the following SAPUI5-specific
+				attributes for the manifest, see <a href="topic/e282db2865e94f69972c407469b801e9" title="Overview, how the component metadata are mapped to the manifest (descriptor for applications, components and libraries)." class="sap-doc">Migrating from Component Metadata to Manifest</a> for more details.</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_c32_chk_qr" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>resources</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies additional <code>css</code> and <code>js</code>
+									resources of the Component.</p>
+								<p>CSS files are added to the head of the HTML page as a link tag.
+									JavaScript files are loaded by the <code>require</code>
+									mechanism.</p>
+								<p>Two settings can be defined per resource:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>uri</code> (mandatory): URLs are resolved
+											relative to the Component, taking the
+												<code>embeddedBy</code> setting into account (if
+											filled).</p>
+									</li>
+									<li class="li">
+										<p><code>id</code> (optional): Only for
+												<code>css</code> resources; the id for a CSS
+											file's <code>&lt;link&gt;</code> element.</p>
+									</li>
+								</ul>
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Since 1.94 the usage of <code>js</code> resources is
+									deprecated. Please use regular <code>dependencies</code>
+									instead.</p></div></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>dependencies</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Mandatory; specifies the external dependencies that are loaded by
+									the SAPUI5 core during the initialization phase of the component and
+									used afterwards. These are the following libraries or
+										components:</p><ul class="ul ">
+										<li class="li">
+											<p><code>minUI5Version</code>: Mandatory; Minimum version of SAPUI5 that
+												your component requires; this information ensures that the features of the SAPUI5 runtime version of the component
+												are available. This must be either a specific version or an array of versions where each major version
+												can only be included once. If you specify an array that contains more than one version, and if version
+												1 is included, it must be at least 1.120.x. As SAPUI5 does not currently enforce use of
+												the correct version, the <code>minUI5Version</code> is used for information purposes only. If the
+												minimum SAPUI5 version criteria is not
+												fulfilled, a warning is issued in the console log.</p>
+										</li>
+										<li class="li">
+											<p><code>libs</code>: ID (namespace) of the
+												libraries that the SAPUI5 core should load for use in the component. If
+												your app requires a minimum version of the lib,
+												specify the <code>minVersion</code> for
+												information purposes. Specify <code>lazy</code>
+												to indicate that the lib shall be lazy loaded.</p>
+										</li>
+										<li class="li">
+											<p><code>components</code>: ID (namespace) of the
+												components that the SAPUI5 core should load for use in your component. If
+												your app requires a minimum version of the
+												component, specify the <code>minVersion</code>
+												for information purposes. Specify
+												<code>lazy</code> to indicate that the
+												component shall be lazy loaded.</p>
+										</li>
+									</ul><p></p>
+								<p>For more information, see <a href="topic/8521ad1955f340f9a6207d615c88d7fd" title="Description of the performance-relevant attributes that are available for the descriptor for applications, components and libraries" class="sap-doc">Descriptor Dependencies to Libraries and Components</a>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>componentUsages</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the used components with the a unique key/alias.
+									Contains the following:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>name</code>: Mandatory name of the reuse
+											component</p>
+									</li>
+									<li class="li">
+										<p><code>settings</code>: Settings of the component</p>
+									</li>
+									<li class="li">
+										<p><code>componentData</code>: Component data of the
+											component</p>
+									</li>
+									<li class="li">
+										<p><code>lazy</code>: Indicates whether the component
+											usage should be lazily loaded. Default value:
+												<code>true</code></p>
+									</li>
+								</ul>
+								<p>For more information, see: <a href="topic/346599f0890d4dfaaa11c6b4ffa96312" title="You can use a ComponentContainer to wrap a UIComponent and reuse it anywhere within the SAPUI5 control tree. With the ComponentContainer you can nest components inside other components." class="sap-doc">Using and Nesting Components</a>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>models</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>For component manifests only. Libraries can not define models.</p>
+								<p></p></div></div>
+								<p>Defines models that should be created or destroyed along the
+									component's lifecycle. The key represents the model name. Use an
+									empty string ("") for the default model.</p><ul class="ul ">
+										<li class="li"><code>type</code>: Model class name </li>
+										<li class="li"><code>uri</code>: Relative URL in the component,
+											taking <code>embeddedBy</code> into account if
+											filled, or server for absolute model </li>
+										<li class="li"><code>settings</code>: Object that is passed to the
+											model constructor.<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+												</p><p>You can overwrite the default binding mode with
+												the <code>defaultBindingMode</code> attribute
+												(enumeration of type
+												<code>sap.ui.model.BindingMode</code>, with
+												values. <span class="parmname">Default</span>,
+												<span class="parmname">OneTime</span>,
+												<span class="parmname">OneWay</span>,
+												<span class="parmname">TwoWay</span>). For OData models
+												constructor see the following:</p><ul class="ul ">
+												<li class="li">
+												<p><a href="api/sap.ui.model.odata.v2.ODataModel/constructor" title="api/sap.ui.model.odata.v2.ODataModel/constructor" class="sap-doc" alt="api/sap.ui.model.odata.v2.ODataModel/constructor">sap.ui.model.odata.v2.ODataModel</a></p>
+												</li>
+												<li class="li">
+												<p><a href="api/sap.ui.model.odata.v4.ODataModel/constructor" title="api/sap.ui.model.odata.v4.ODataModel/constructor" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel/constructor">sap.ui.model.odata.v4.ODataModel</a></p>
+												</li>
+												</ul><p></p>
+												<p>For ResourceModel constructor see:</p><ul class="ul ">
+												<li class="li">
+												<p><a href="api/sap.ui.model.resource.ResourceModel/constructor" title="api/sap.ui.model.resource.ResourceModel/constructor" class="sap-doc" alt="api/sap.ui.model.resource.ResourceModel/constructor">sap.ui.model.resource.ResourceModel</a></p>
+												</li>
+												</ul><p></p>
+												<p>The attribute <code>enhanceWith</code> can be specified with <span class="parmname">bundleUrl</span>,
+														<span class="parmname">bundleUrlRelativeTo</span> (either <code>component</code> (default) or
+														<code>manifest</code>) or <span class="parmname">bundleName</span> to provide a list of additional
+													resource bundle configurations to enhance the <code>ResourceModel</code> with. Additional
+													attributes can be found in <a href="topic/ec753bc539d748f689e3ac814e129563" title="You can configure a list of supported locales and a fallback locale in your app's manifest to control the loading of resource bundles and avoid '404 Not Found' network responses." class="sap-doc">Supported Locales and Fallback Chain</a> and <a href="topic/eba8d25a31ef416ead876e091e67824e" title="By defining terminologies together with additional resource bundles, an application can easily be switched from one scenario or industry to another." class="sap-doc">Terminologies</a>.</p>
+											<p></p></div></div></li>
+										<li class="li"><code>dataSource</code>: String of key or alias from
+												<code>sap.app dataSources</code> to reference an
+											existing data source; the <code>type</code>,
+												<code>uri</code> and <code>settings</code>
+											properties are set according to the data source's
+												<code>type</code>, <code>uri</code> and
+												<code>settings</code> (if not already defined).
+											If the type under <code>sap.app dataSources</code>
+											is <code>OData</code>, an OData Model V2 is created
+											automatically. If you need an OData Model V1, specify
+											the <code>type</code> as well. </li>
+										<li class="li">
+											<p><code>preload</code>: Optional; Boolean with
+												<code>true</code>, <code>false</code>
+												(default)</p>
+											<p>Defines whether or not the model is initialized
+												(preloaded) before the component instance is created
+												and while loading the component preload and its
+												dependencies. </p>
+											<p>For more information, see <a href="topic/26ba6a5c1e5c417f8b21cce1411dba2c" title="The preload flag enables a preload mode for a model, thus improving the startup performance of an app or component." class="sap-doc">Manifest Model Preload</a>.</p>
+										</li>
+									</ul><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>rootView</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the root view that shall be opened; can be the view
+									name as a string for XML views, or the view configuration object
+									with <code>viewName</code> for the view name as a string
+									(see <a href="api/sap.ui.core.mvc.View#methods/sap.ui.core.mvc.View.create" title="api/sap.ui.core.mvc.View#methods/sap.ui.core.mvc.View.create" class="sap-doc" alt="api/sap.ui.core.mvc.View#methods/sap.ui.core.mvc.View.create">sap.ui.core.mvc.View.create</a>) and
+										<code>type</code> for the type (enumeration of <a href="api/sap.ui.core.mvc.ViewType" title="api/sap.ui.core.mvc.ViewType" class="sap-doc" alt="api/sap.ui.core.mvc.ViewType">sap.ui.core.mvc.ViewType</a>), <span class="emphasis">id</span>,
+										<span class="emphasis">async</span>, and other properties of
+										<code>sap.ui.core.mvc.view</code>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>autoPrefixId</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>true, false (default), Enables the auto prefixing for the
+									UIComponent for IDs of ManagedObjects (controls or elements)
+									which are created in the context of the
+										<code>createContent</code> function, or any other
+									invocation of the
+										<code>Component.prototype.runAsOwner()</code> function
+									(for example a component's router uses this method when creating
+									new views).</p>
+								<p>In former SAPUI5 releases this prefixing of the ID needed to be done with
+										<code>oComponent.createId</code> by overwriting the
+									method <code>getAutoPrefixId</code>. The same can now be
+									achieved declaratively by setting <code>autoPrefixId</code>
+									to true.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>handleValidation</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Possible values: <code>true</code> or <code>false</code>
+									(default); used to enable or disable validation handling by the
+									message manager for this component, see <a href="topic/62b1481d3e084cb49dd30956d183c6a0" title="SAPUI5 provides a central place for storing and managing info, warning, and error messages." class="sap-doc">Error, Warning, and Info Messages</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>config</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Static configuration; specify the name-value pairs that you need
+									in your component.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>routing</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Provides configuration parameters for route and router, see <a href="topic/3d18f20bd2294228acb6910d8e8a5fb5" title="SAPUI5 offers hash-based navigation, which allows you to build single-page apps where the navigation is done by changing the hash. In this way the browser does not have to reload the page; instead there is a callback to which the app and especially the affected view can react. A hash string is parsed and matched against patterns which will then inform the handlers." class="sap-doc">Routing and Navigation</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>extends</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Used to extend another component.</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>component</code>: ID (namespace) of the
+											component being extended</p>
+									</li>
+									<li class="li">
+										<p><code>minVersion</code>: Specifies the minimum
+											version of the component being extended, for information
+											purposes if your app requires a minimum version of the
+											component</p>
+									</li>
+									<li class="li">
+										<p><code>extensions</code>: Component or view
+											extensions, which enable you to replace and extend views
+											and controllers and also to modify the views, see <a href="topic/a264a9abf98d4caabbf9b027bc1005d8" title="You can adapt an SAPUI5 app to your specific requirements. For example, you can adapt or replace views, extend or replace controllers, or change language-specific texts." class="sap-doc">Extending Apps</a></p>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>contentDensities</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Mandatory; contains an object with the content density modes that
+									the app supports, see <a href="topic/e54f729da8e3405fae5e4fe8ae7784c1" title="The devices used to run apps that are developed with SAPUI5 run on various different operating systems and have very different screen sizes. SAPUI5 contains different content densities for certain controls that allow your app to adapt to the device in question, allowing you to display larger controls for touch-enabled devices and a smaller, more compact design for devices that are operated by mouse." class="sap-doc">Content Densities</a></p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>compact</code>: Mandatory; indicates whether
+											compact mode is supported (<code>true</code>,
+												<code>false</code>)</p>
+									</li>
+									<li class="li">
+										<p><code>cozy</code>: Mandatory; indicates whether cozy
+											mode is supported (<code>true</code>,
+												<code>false</code>)</p>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>resourceRoots</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Map of URL locations keyed by a resource name prefix; only
+									relative paths inside the component are allowed and no ".."
+									characters</p>
+								<p>This attribute is intended for actual sub-packages of the
+									component only, meaning that it must not be used for the
+									component namespace itself.</p>
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>When loading with <cite>manifest first </cite>(by using the
+										property <code>manifest</code>), the
+											<code>resourceRoots</code> are evaluated before the
+										component controller is loaded. Otherwise, the defined
+										resource roots will be registered after the component
+										controller is loaded and do not affect the modules being
+										declared as dependencies in the component controller.</p>
+								<p></p></div></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>componentName</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>An optional attribute that only has to be provided if your
+									project is a variant of an existing application. In this case
+									the <code>componentName</code> has to contain the
+										<code>sap.app/id</code> of the existing application
+									which is the basis of your variant.</p>
+							</td>
+						</tr>
+						
+						
+						
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>library/i18n</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>For library manifests only.</p>
+								<p></p></div></div>
+								<p>Determines whether the library contains an i18n resource. The value can be either a boolean, a string, or an object.</p>
+								<p>A string value represents a bundle URL. Relative URLs are always resolved to the library origin. If no value is set, the default
+										<code>messagebundle.properties</code> file is loaded.</p>
+								<p>An object value can contain additional resource bundle configuration, e.g. terminologies and supported locales. For the supported features
+									and for sample definitions, see the respective entries at <a href="topic/eba8d25a31ef416ead876e091e67824e" title="By defining terminologies together with additional resource bundles, an application can easily be switched from one scenario or industry to another." class="sap-doc">Terminologies</a>
+									(without <code>bundleUrlRelativeTo</code>) and <a href="topic/ec753bc539d748f689e3ac814e129563" title="You can configure a list of supported locales and a fallback locale in your app's manifest to control the loading of resource bundles and avoid '404 Not Found' network responses." class="sap-doc">Supported Locales and Fallback Chain</a> .</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>This attribute is beneficial if the name of the main resource bundle (properties file) used by your UI5
+											library differs from the default name <span class="parmname">messagebundle.properties</span></p>
+										
+									<p></p></div></div><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>flexEnabled</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Indicates whether the app is enabled for adaptation via SAPUI5
+									flexibility (for example, using stable IDs); possible values are
+										<code>true</code>, <code>false</code> or
+										<code>undefined</code> (default)</p>
+								<p>For more information, see <a href="topic/f1430c0337534d469da3a56307ff76af" title="Here's what you have to consider when developing apps that support UI adaptation." class="sap-doc">SAPUI5 Flexibility: Enable Your App for UI Adaptation</a>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>commands</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies provided commands with a unique key/alias.
+									Contains:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>shortcut</code>: String that describes a key
+											combination. When the user presses the key combination,
+											the command is triggered.</p>
+									</li>
+								</ul>
+								<p>The name of the command that contains the <code>shortcut</code> definition acts as a
+									prerequisite for using the <code>command</code> property of
+									the <code>sap.ui.core.CommandExecution</code> module. For more information, see the <a href="api/sap.ui.core.CommandExecution" title="api/sap.ui.core.CommandExecution" class="sap-doc" alt="api/sap.ui.core.CommandExecution">API Reference:
+												<code>sap.ui.core.CommandExecution</code></a>.
+									</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>flexExtensionPointEnabled</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Indicates whether SAPUI5
+									flexibility extension points are enabled for the corresponding
+									application variant; possible values are: <code>true</code>,
+										<code>false</code>; filled automatically during app
+									variant merge.</p>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table></div></div></div></section><section id="section_sap_platform_abap" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>sap.platform.abap</code></h2></div><div class="fig"><div class="tableWrapper "><div class="fig"><table border="1" id="table_tdx_sdt_tr" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>uri</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the app's URI in the ABAP system, for example
+										<code>/sap/bc/ui5_ui5/sap/appName</code>; filled during
+									deployment.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="section_sap_platform_hcp" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>sap.platform.hcp</code></h2></div><div class="fig"><div class="tableWrapper "><div class="fig"><table border="1" id="table_h5d_c2t_tr" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>uri</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the URI inside the SAP Business Technology Platform HTML5 application; filled during deployment, default is
+									""</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>providerAccount</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the name of the provider account; filled during
+									deployment</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>appName</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the name of the deployed HTML5 application; filled
+									during deployment</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>appVersion</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the version of the deployed HTML5 application; filled
+									during deployment</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="section_sap_fiori" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>sap.fiori</code></h2></div><div class="fig"><div class="tableWrapper "><div class="fig"><table border="1" id="table_h31_l2t_tr" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>registrationIds</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Array of registration IDs, for example, the SAP Fiori IDs
+									for SAP Fiori
+									apps</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>archeType</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Mandatory archetype of the app, possible values
+										<code>transactional</code>, <code>analytical</code>,
+										<code>factsheet</code>, <code>reusecomponent</code>,
+										<code>fpmwebdynpro</code>,
+									<code>designstudio</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>abstract</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Indicates whether an app is an abstract (generic) app, which may
+									not used directly, but needs to be specialized in the SAP Fiori launchpad
+									content (as of 1.87)</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>cloudDevAdaptationStatus</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Release status for the developer adaptation in the cloud. The supported types are <code>released</code>, <code>deprecated</code>,
+										<code>obsolete</code>, no value means not released (as of 1.110.0).</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="section_sap_card" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>sap.card</code></h2></div><div class="fig"><div class="tableWrapper "><div class="fig"><table border="1" id="table_fly_cmt_ngb" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Attribute</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>type</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Describes the card type; possible values are
+										<code>list</code> and <code>analytical</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>header</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the card's header area</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>content</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the type-dependent card content</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="section_version" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded"><code>_version</code></h2></div><div class="fig"><ul class="ul ">
+				<li class="li">
+					<p>On root level (no namespace): Describes the manifest format version (mandatory). Needs to be
+						updated when migrating to a new manifest format version, see <a href="topic/e282db2865e94f69972c407469b801e9" title="Overview, how the component metadata are mapped to the manifest (descriptor for applications, components and libraries)." class="sap-doc">Migrating from Component Metadata to Manifest</a></p>
+				</li>
+				<li class="li">
+					<p>Inside namespace: Describes the namespace format version (optional from
+						version 1.38 on)</p>
+				</li>
+			</ul></div></section><section id="section_descriptor_schema"><h2 class="title ">Manifest Schema</h2>The
+				newest flattened JSON schema is available on the SAP Open Source GitHub at <a href="https://github.com/sap/ui5-manifest/" title="https://github.com/sap/ui5-manifest/" class="external-link" target="_blank" rel="noopener">https://github.com/sap/ui5-manifest/</a> under Apache-2.0 License. The UI5
+				manifest is part of <a href="https://www.schemastore.org/json/" title="https://www.schemastore.org/json/" class="external-link" target="_blank" rel="noopener">JSON Schema Store</a> to enable schema validation, code
+				completion, and documentation in <a href="https://help.sap.com/viewer/584e0bcbfd4a4aff91c815cefa0bce2d/Cloud/en-US/38691d191bdf436ca0d6313918f2b1e6.html" title="https://help.sap.com/viewer/584e0bcbfd4a4aff91c815cefa0bce2d/Cloud/en-US/38691d191bdf436ca0d6313918f2b1e6.html" class="external-link" target="_blank" rel="noopener">SAP Business Application Studio</a> and
+					<a href="https://code.visualstudio.com/docs/languages/json" title="https://code.visualstudio.com/docs/languages/json" class="external-link" target="_blank" rel="noopener">Visual Studio Code</a>.</section><section id="section_example">
+			<h2 class="title ">Example</h2>
+			<p>Current version of the <code>manifest.json</code></p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The following sample contains the <span class="emphasis">full scope of all
+							available manifest properties</span>. Some properties might not be
+						applicable for all <code>manifest.json</code> variants. For example, the
+							<code>sap.ui5/models</code> section is not supported for library
+						manifests. For more information, see the above listing of namespaces and
+						properties.</p>
+				<p></p></div></div><p></p>
+			<section class="collapsible expanded"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "_version": "1.68.0",
+ 
+    "start_url": "index.html",
+ 
+    "sap.app": {
+        "id": "sap.fiori.appName",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.2.2"
+        },
+        "embeds": ["mycomponent1", "subpath/mycomponent2"],
+        "embeddedBy": "../../",
+        "title": "{{title}}",
+        "subTitle": "{{subtitle}}",
+        "shortTitle": "{{shorttitle}}",
+        "description": "{{description}}",
+        "info": "{{info}}",
+        "tags": {
+            "keywords": ["{{keyWord1}}", "{{keyWord2}}"],
+            "technicalAttributes": ["ATTRIBUTE1", "ATTRIBUTE2"]
+        },
+        "ach": "PA-FIO",
+        "dataSources": {
+            "equipment": {
+                "uri": "/sap/opu/odata/snce/po_s_srv;v=2/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "annotations": ["equipmentanno"],
+                    "localUri": "model/metadata.xml",
+                    "maxAge": 360
+                }
+            },
+            "equipmentanno": {
+                "uri": "/sap/bc/bsp/sap/nscbn_anf_eam/bscbn_equipment_srv.anno.xml",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "model/annotations.xml"
+                }
+            },
+            "cdsService": {
+                "uri": "/sap/bc/ina/ina1/sap/example_cds",
+                "type": "INA",
+                "settings": {
+                    "localUri": "localService/metadata.xml",
+                    "objects": {
+                        "assets": {
+                            "objectName": "SAPFinAssets",
+                            "objectType": "cdsprojectionview",
+                            "packageName": "package",
+                            "schemaName":  "schema"
+                        },
+                        "liabilities": {
+                            "objectName": "SAPFinLiabilities",
+                            "objectType": "cdsprojectionview"  
+                        }
+                    }
+                }
+            }
+        },
+        "cdsViews": [
+            "VIEW1", "VIEW2"
+        ],
+        "resources": "resources.json",
+        "offline": true,
+        "sourceTemplate": {
+            "id": "sap.ui.ui5-template-plugin.1worklist",
+            "version": "1.0.0",
+            "toolsId": "C12345678"
+        },
+        "destination": {
+            "name": "SAP_ERP_FIN"
+        },
+        "openSourceComponents": [{
+            "name": "D3.js",
+            "packagedWithMySelf": false
+        }],
+        "crossNavigation": {
+            "scopes": {
+                "sapSite": {
+                    "value": "123"
+                }
+            },
+            "inbounds": {
+                "contactCreate": {
+                    "semanticObject": "Contact",
+                    "action": "create",
+                    "icon": "sap-icon://add-contact",
+                    "title": "{{title}}",
+                    "subTitle": "{{subtitle}}",
+                    "shortTitle": "{{shorttitle}}",
+                    "info": "{{info}}",
+                    "displayMode": "HeaderMode",
+                    "indicatorDataSource": {
+                        "dataSource": "equipment",
+                        "path": "TaskListSet/$count",
+                        "refresh": 5
+                    },
+                    "deviceTypes": {
+                        "desktop": true,
+                        "tablet": true,
+                        "phone": false
+                    },
+                    "signature": {
+                        "parameters": {
+                            "id": {
+                                "required": true
+                            },
+                            "ContactName": {
+                                "defaultValue": {
+                                    "value": "anonymous"
+                                },
+                                "required": false,
+                                "renameTo": "NAME2"
+                            },
+                            "Gender": {
+                                "filter": {
+                                    "value": "(male)|(female)",
+                                    "format": "regexp"
+                                },
+                                "required": true,
+                                "renameTo": "SEX",
+                                "launcherValue": {
+                                    "value": "female",
+                                    "format": "plain"
+                                }
+                            }
+                        },
+                        "additionalParameters": "ignored"
+                    }
+                },
+                "contactDisplay": {
+                    "semanticObject": "Contact",
+                    "action": "display",
+                    "signature": {
+                        "parameters": {
+                            "id": {
+                                "required": true
+                            },
+                            "Language": {
+                                "filter": {
+                                    "value": "EN"
+                                },
+                                "required": true
+                            },
+                            "SomeValue": {
+                                "filter": {
+                                    "value": "4711"
+                                }
+                            },
+                            "GLAccount": {
+                                "defaultValue": {
+                                    "value": "1000"
+                                },
+                                "filter": {
+                                    "value": "(1000)|(2000)",
+                                    "format": "regexp"
+                                }
+                            }
+                        },
+                        "additionalParameters": "allowed"
+                    }
+                },
+                "contactDisplayAlt": {
+                    "semanticObject": "Contact",
+                    "action": "display",
+                    "hideLauncher": true,
+                    "signature": {
+                        "parameters": {
+                            "GLAccount": {
+                                "defaultValue": {
+                                    "value": "UserDefault.GLAccount",
+                                    "format": "reference"
+                                },
+                                "filter": {
+                                    "value": "\\d+",
+                                    "format": "regexp"
+                                },
+                                "required": true
+                            },
+                            "SomePar": {
+                                "filter": {
+                                    "value": "UserDefault.CostCenter",
+                                    "format": "reference"
+                                },
+                                "required": true
+                            }
+                        },
+                        "additionalParameters": "allowed"
+                    }
+                }
+            },
+            "outbounds": {
+                "addressDisplay": {
+                    "semanticObject": "Address",
+                    "action": "display",
+                    "additionalParameters": "ignored",
+                    "parameters": {
+                        "CompanyName": {
+                            "value": {
+                                "value": "companyName",
+                                "format": "plain"
+                            },
+                            "required": true
+                        }
+                    }
+                },
+                "companyDisplay": {
+                    "semanticObject": "Company",
+                    "action": "display",
+                    "additionalParameters": "allowed",
+                    "parameters": {
+                        "CompanyName": {
+                            "value": {
+                                "value": "companyName",
+                                "format": "plain"
+                            },
+                            "required": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+ 
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://add-contact",
+            "favIcon": "icon/F1373_Approve_Purchase_Orders.ico",
+            "phone": "icon/launchicon/57_iPhone_Desktop_Launch.png",
+            "phone@2": "icon/launchicon/114_iPhone-Retina_Web_Clip.png",
+            "tablet": "icon/launchicon/72_iPad_Desktop_Launch.png",
+            "tablet@2": "icon/launchicon/144_iPad_Retina_Web_Clip.png"
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": false
+        },
+        "fullWidth": true
+    },
+ 
+    "sap.ui5": {
+        "resources": {
+            "css": [{
+                "uri": "component.css",
+                "id": "componentcss"
+            }]
+        },
+        "dependencies": {
+            "minUI5Version": "1.131.0",
+            "libs": {
+                "sap.m": {
+                    "minVersion": "1.34.0"
+                },
+                "sap.ui.commons": {
+                    "minVersion": "1.34.0",
+                    "lazy": true
+                }
+            },
+            "components": {
+                "sap.ui.app.other": {
+                    "minVersion": "1.1.0",
+                    "lazy": true
+                }
+            }
+        },
+        "componentUsages": {
+            "myusage": {
+                "name": "my.used",
+                "lazy": false,
+                "settings": {},
+                "componentData": {}
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties",
+                "settings": {
+                    "enhanceWith": [{
+                        "bundleUrl": "i18n/i18n.properties",
+                        "bundleUrlRelativeTo": "manifest"
+                    }]
+                }
+            },
+            "equipment": {
+                "preload": true,
+                "dataSource": "equipment",
+                "settings": {}
+            }
+        },
+        "rootView": {
+            "viewName": "sap.ui.test.view.Main",
+            "id" : "rootView",
+            "async": true,
+            "type": "XML"
+        },
+        "handleValidation": true,
+        "config": {
+ 
+        },
+        "routing": {
+ 
+        },
+        "extends": {
+            "component": "sap.fiori.otherApp",
+            "minVersion": "0.8.15",
+            "extensions": {}
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": false
+        },
+        "resourceRoots": {
+            ".myname": "./myname"
+        },
+        "componentName": "sap.fiori.appName",
+        "autoPrefixId": true,
+        "appVariantId": "hcm.leaverequest.oil",
+        "appVariantIdHierarchy": [
+            {"layer": "VENDOR", "appVariantId": "abc", "version": "1.0.0"}
+        ],
+        "services": {
+            "myLocalServiceAlias": {
+                "factoryName": "sap.ushell.LaunchPadService",
+                "optional": true
+            }
+        },
+        "library": {
+            "i18n": true
+        },
+        "flexEnabled": true,
+        "flexExtensionPointEnabled": true,
+        "commands": {
+            "Save": {
+                "shortcut": "Ctrl+S"
+            }
+        }
+    },
+
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/appName",
+        "uriNwbc": ""
+    },
+ 
+    "sap.platform.hcp": {
+        "uri": "",
+        "uriNwbc": "",
+        "providerAccount": "fiori",
+        "appName": "sapfioriappName",
+        "appVersion": "1.0.0",
+        "multiVersionApp": true
+    },
+ 
+    "sap.fiori": {
+        "registrationIds": [
+            "F1234"
+        ],
+        "archeType": "transactional",
+        "abstract": false
+    },
+ 
+    "sap.mobile": {},
+    "sap.flp": {},
+    "sap.ui.generic.app": {},
+    "sap.ovp": {},
+    "sap.ui.smartbusiness.app": {},
+    "sap.wda": {},
+    "sap.gui": {},
+    "sap.cloud.portal": {},
+    "sap.apf": {},
+    "sap.platform.cf": {},
+    "sap.copilot": {},
+    "sap.map": {},
+    "sap.url": {},
+    "sap.platform.sfsf": {},
+    "sap.wcf": {},
+    "sap.cloud": {},
+    "sap.integration": {},
+    "sap.platform.mobilecards": {},
+    "sap.artifact": {},
+    "sap.package": {},
+    "sap.insights": {},
+    "sap.bpa.task": {},
+    "sap.cards.ap": {},
+    "sap.fe": {},
+    "sap.card": {}
+}</pre></div></div></section>
+			<p>For the following namespaces, the indicated teams are responsible: </p><ul class="ul ">
+					<li class="li">
+						<p>sap.mobile - in Mobile responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.flp - in SAP Fiori launchpad
+							responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.ui.generic.app - in SAP Fiori elements
+							responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.ovp - in Overview Page responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.ui.smartbusiness.app - in Smart Business responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.wda - in Web Dynpro ABAP responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.gui - in SAP GUI responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.cloud.portal - in SAP BTP
+							responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.apf - in Analysis Path Framework responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.platform.cf - in Cloud Foundry/XSA responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.copilot - in Copilot responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.map - in SAP Visual Business responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.url - in SAP Fiori launchpad
+							responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.platform.sfsf - for SAP SuccessFactors specific attributes</p>
+					</li>
+					<li class="li">
+						<p>sap.wcf - for WCF Application specific attributes</p>
+					</li>
+					<li class="li">
+						<p>sap.cloud - for SAP BTP-specific attributes</p>
+					</li>
+					<li class="li">
+						<p>sap.integration - in Application Integration responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.platform.mobilecards - in Mobile Cards responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.artifact - in SAP Work Zone responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.package - in SAP Work Zone responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.insights - for My Insights inside My Home</p>
+					</li>
+					<li class="li">
+						<p>sap.bpa.task - in SAP Build Process Automation responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.fe - in SAP Fiori elements responsibility </p>
+					</li>
+					<li class="li">
+						<p>sap.card - in SAPUI5
+							responsibility</p>
+					</li>
+					<li class="li">
+						<p>sap.cards.ap - in Cards for signature micro experience responsibility</p>
+					</li>
+				</ul><p></p>
+		</section><section>
+			<h2 class="title ">Declaration in Component Metadata</h2>
+			<p>The component declares the existence of the manifest by specifying <code>manifest:
+					"json"</code> in the component metadata. Setting this flag makes the component
+				load the <code>manifest.json</code> file and read the relevant entries for SAPUI5. This metadata
+				is used to define the dependencies that need to be loaded in order to start the
+				component. The following code snippet shows how to add the manifest link: </p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/UIComponent"
+], (UIComponent) =&gt; {
+	"use strict";
+	return UIComponent.extend("my.sample.Component", {
+		metadata  : { 
+			manifest: "json",
+			interfaces: [
+				"sap.ui.core.IAsyncContentCreation"
+			]
+		}
+	});
+});</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">SAPUI5 API</h2>
+			<p>At runtime, the manifest content can be accessed from the component via the following <code>sap.ui.core.Component</code> APIs: </p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// Given: oComponent === instance of sap.ui.core.Component (e.g. returned by sap.ui.core.mvc.Controller#getOwnerComponent)
+oComponent.getManifest(); // returns reference to the entire manifest object if it exists; otherwise returns null
+oComponent.getManifestEntry("sap.app"); // returns reference to the configuration section of the manifest
+oComponent.getManifestEntry("/sap.ui5/dependencies/libs"); // returns reference or value of the manifest configuration by path; the syntax must start with a slash</pre></div></div></section>
+		</section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/e282db2865e94f69972c407469b801e9">Migrating from Component Metadata to Manifest</a></li><li><a href="topic/b229914587444025be986d81dcc77303">Descriptor for Libraries</a></li><li><a href="topic/7701636d088147569d99b4f08d418bd9">Descriptor for Components (Inside Libraries)</a></li><li><a href="topic/adcbcf8b50924556ab3f321fcd9353ea">The resources.json File</a></li><li><a href="topic/3a9babace121497abea8f0ea66e156d9">Creating a Descriptor File for Existing Apps</a></li><li><a href="topic/8521ad1955f340f9a6207d615c88d7fd">Descriptor Dependencies to Libraries and Components</a></li><li><a href="topic/26ba6a5c1e5c417f8b21cce1411dba2c">Manifest Model Preload</a></li><li><a href="topic/0635156f3950494885ca314a13e15e29">Enabling the Automatic SAP Fiori 2.0 Header Adaptation in the Manifest</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		
+			<li><a href="api/sap.ui.core.UIComponent" title="api/sap.ui.core.UIComponent" class="sap-doc" alt="api/sap.ui.core.UIComponent">sap.ui.core.UIComponent</a></li>
+			<li><a href="topic/0187ea5e2eff4166b0453b9dcc8fc64f" title="The component class provides specific metadata for components by extending the ManagedObject class. The UIComponent class provides additional metadata for the configuration of user interfaces or the navigation between views." class="sap-doc">Component Metadata</a></li>
+			
+			
+			
+		
+	</ul></section></div></section></div></body></html>

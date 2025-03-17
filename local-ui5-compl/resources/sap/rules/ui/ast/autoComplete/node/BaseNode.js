@@ -1,0 +1,2 @@
+sap.ui.define(function(){"use strict";var t=function(){this._name="";this._label="";this._previous=null};t.prototype.getName=function(){return this._name};t.prototype.setName=function(t){this._name=t;return this};t.prototype.setLabel=function(t){this._label=t;return this};t.prototype.getLabel=function(){return this._label};t.prototype.setPrevious=function(t){this._previous=t;return this};t.prototype.getPrevious=function(){return this._previous};return t},true);
+//# sourceMappingURL=BaseNode.js.map

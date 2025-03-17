@@ -1,0 +1,50 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7cd046f2fd6d4bdd87a46395cdf719ab" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/register-a-remove-change-handler-7cd046f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Register a <cite>Remove</cite> Change Handler</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Register a <cite>Remove</cite> Change Handler</h2></div><div class="shortdesc">Register a <cite>Remove</cite> change type with its change handler to a control.</div><p>In the <code>library.js</code> file of the control library, map the change type for the <cite>remove</cite> action to the corresponding
+            change handler.</p><p>If the default change type and change handler of the SAPUI5 flexibility library are
+            suitable for the <cite>remove</cite> action of your control, simply enter <code>default</code> as the change handler. However, if at
+            least one change type for a control does <span class="emphasis">not</span> use the <code>default</code> change handler,
+            create a <code>&lt;control\&gt;.flexibility.js</code> file and refer to it as in the <code>RemoveGroup</code> example in the next
+            code sample. </p><p>Let's take a look at an example. In the case of <code>sap.ui.comp.smartform.Group</code>, the change type <code>hideControl</code>
+            is used, along with the default handler for this change type. On the other hand, for <code>sap.ui.comp.smartform.SmartForm</code>, a
+            custom change handler is used to remove a group.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Snippet of
+            library.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(['sap/ui/core/Lib'], function(Library) {
+  /**
+  * SAPUI5 library with smart controls.
+  *
+  * @namespace
+  * @name sap.ui.comp
+  * @public
+  */
+  Library.init({
+    extensions: {
+        flChangeHandlers: {
+            "sap.ui.comp.smartform.SmartForm": {
+                "removeGroup": "sap/ui/comp/smartform/flexibility/changes/RemoveGroup",
+            },
+            "sap.ui.comp.smartform.Group": {
+                "hideControl": "default"
+            }
+        }
+    }
+  });
+});</pre></div></div></section><p></p></div></div><section id="section_yxq_hbd_gyb">
+			<h2 class="title ">The Default SAPUI5 Flexibility Change Handler</h2>
+			<p>Whenever the <cite>Remove</cite> action on a control can be performed by simply setting its <code>visible</code> attribute to
+					<code>false</code>, we recommend to reuse the default change handler <code>HideControl</code> for the implementation.</p>
+		</section><section id="section_ysx_pbd_gyb">
+			<h2 class="title ">Custom Change Handler Implementation</h2>
+			<p>If the default <code>HideControl</code> change handler is not sufficient, you can implement a change handler for removing a control (see
+                    <a href="topic/6a346a293c724bd4bc33f0df92706008" title="If no default change handler is available for your use case, you need to implement your own custom change handler." class="sap-doc">Writing a Custom Change Handler</a>).</p>
+			<p>The change handler will get the following information as change-specific information:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Change specific info for the remove
+                action</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    removedElement : &lt;element being removed&gt;
+}</pre></div></div></section><p></p></div></div>
+			<p>Usually the <code>removedElement</code> equals the selector, but for some composite controls where you tweaked the design-time
+				metadata you can deviate from this.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dd58b6a03ea343cd8a0ab5a9ae91f075">Enabling the Remove Action</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/747768ef03c14c0cb9c2cb89d1cfd2db">Provide the Design-Time Metadata for the Remove Action</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

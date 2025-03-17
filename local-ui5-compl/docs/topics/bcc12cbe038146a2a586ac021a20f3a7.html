@@ -1,0 +1,224 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobcc12cbe038146a2a586ac021a20f3a7" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/rating-indicator-facet-bcc12cb.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Rating Indicator Facet</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Rating Indicator Facet</h2></div><div class="shortdesc">You can add a read-only rating indicator to the object page header.</div><p>The rating indicator allows you to visually represent the rating types described below.</p><section>
+			<h2 class="title ">Aggregated Rating</h2>
+			<p>This rating shows an average of all ratings recorded for the object and is displayed as shown below in the object page header
+					(<span class="ph uicontrol">Display</span> mode):</p>
+			<div><div class="fig"><img src="loio4811ec83a34a46979b90cafba5120dc8_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Aggregated Rating Indicator</h2></span></div>
+			<p>When the rating indicator shows an aggregated rating, it contains the following elements:</p><ul class="ul ">
+					<li class="li">
+						<p>Title</p>
+					</li>
+					<li class="li">
+						<p>Subtitle, displaying the total number of ratings </p>
+						<p>
+							</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>You have the option to specify a text in the subtitle to be more descriptive (example: <span class="ph uicontrol">139 user
+										reviews</span>, where "139" is the number of reviews received, and "user reviews" is the text added). For
+									information, see the code sample below.</p>
+							<p></p></div></div>
+						<p></p>
+					</li>
+					<li class="li">
+						<p><code>Rating</code> control, displaying the visual representation of the rating (stars)</p>
+					</li>
+					<li class="li">
+						<p>Footer text, displaying the calculated average of all ratings </p>
+					</li>
+				</ul><p></p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If you wish to use an aggregated rating, you must use local annotations (as opposed to CDS annotations). For information, see the
+					code sample below.</p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">Non-Aggregated Rating</h2>
+			<p>This rating shows a single rating, such the user's own rating for the object. In the examples below, the non-aggregated rating is used
+				to display the user's own rating. This rating type is displayed as shown below:</p>
+			<div><div class="fig"><img src="loioe8f6dd124f2b4b5c9fd092312917b8dd_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Non-Aggregated Rating Indicator</h2></span></div>
+			<p>When the rating indicator shows a non-aggregated rating, it contains the following elements:</p><ul class="ul ">
+					<li class="li">
+						<p>Title</p>
+					</li>
+					<li class="li">
+						<p>Subtitle</p>
+					</li>
+					<li class="li">
+						<p><code>Rating</code> control, displaying the visual representation of the rating (stars)</p>
+					</li>
+				</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>There is no footer for this rating type.</p>
+					<p>If you wish to use a non-aggregated rating, you can use either local annotations or CDS annotations. See the code samples
+						below.</p>
+				<p></p></div></div><p></p>
+		</section><section>
+			<h2 class="title ">Rating Indicator in Edit Mode</h2>
+			<p>When the object page is in <span class="ph uicontrol">Edit</span> mode, the rating indicator moves into the header facet and appears as shown
+				below with the title only. For an aggregated rating, the number of ratings is shown in parentheses after the stars. Note that the
+				rating indicator is still read-only in this mode.</p>
+			<div><div class="fig"><img src="loiob9fe8adfef7b4023bacbf1830060c691_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Rating Indicator in Edit Mode</h2></span></div>
+		</section><section><h2 class="title ">Code Samples</h2><p>To add a rating indicator facet to the object page header,
+				use a <code>UI.ReferenceFacet</code> that points to a
+					<code>UI.DataPoint</code> with <code>Rating</code> as the
+					<code>UI.VisualizationType</code> as shown in the code sample below.</p><p>
+				The rating indicator uses the values of the <code>UI.DataPoint</code>, which
+				contains the path to the field in the back-end system that provides the rating
+				value.</p><section>
+				<h3 class="title ">Set the Maximum Number of Stars</h3>
+				<p>The maximum number of stars (<code>TargetValue</code>) can be set in one of
+					the following ways:</p><ul class="ul ">
+						<li class="li">
+							<p>Specified in the annotation, as shown in the sample code for the
+								aggregated rating</p>
+						</li>
+						<li class="li">
+							<p>Determined by a path to a specific field in the back-end system, as
+								shown in the sample code for the non-aggregated rating </p>
+						</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title ">Change the Subtitle</h3>
+				<p>The subtitle is set differently for the aggregated and non-aggregated ratings. </p>
+				<p>To render a subtitle for an aggregated rating, set the
+						<code>SampleSize</code> property for the term
+						<code>UI.DataPoint</code>. The <code>SampleSize</code> property
+					value (for example, <span class="ph uicontrol">139</span>) is then concatenated with a text
+					(for example, <span class="ph uicontrol">user reviews</span>). You can change this text by
+					annotating the <code>SampleSize</code> with <code>Common.Label</code>,
+					as shown in the sample code for the aggregated rating. Otherwise, the default
+					text (<span class="ph uicontrol">ratings</span>) is used.</p>
+				<p>To render a subtitle for a non-aggregated rating, the
+						<code>Description</code> property needs to be set for the term
+						<code>UI.DataPoint</code>, as shown in the sample code for the
+					non-aggregated rating.</p>
+			</section><section>
+				<h3 class="title ">Aggregated Rating</h3>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.Facets"&gt;
+    &lt;Record Type="UI.ReferenceFacet"&gt;
+        &lt;PropertyValue Property="Target" AnnotationPath="to_ProductRating/@UI.DataPoint#Aggregated" /&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+&lt;Annotation Term="UI.DataPoint" Qualifier="Aggregated"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="Title" String="{@i18n&gt;@ProductAverageRating}" /&gt;
+        &lt;PropertyValue Property="Value" Path="AverageRating" /&gt;
+        &lt;PropertyValue Property="TargetValue" Int="3" /&gt;
+        &lt;PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Rating" /&gt;
+        &lt;PropertyValue Property="SampleSize" Path="ReviewCount" /&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.headerInfo: {
+  typeName: 'Sales Order',
+  typeNamePlural: 'Sales Orders',
+  title: {
+    value: 'SO_ID',
+    type: #STANDARD
+  }
+}
+annotate view STTA_C_MP_PRODUCT with {
+
+}
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP
+					CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.Facets : {
+    $Type : 'UI.ReferenceFacet',
+    Target : 'to_ProductRating/@UI.DataPoint#Aggregated'
+},
+UI.DataPoint #Aggregated : {
+    Title : '{@i18n&gt;@ProductAverageRating}',
+    Value : AverageRating,
+    TargetValue : 3,
+    Visualization : #Rating,
+    SampleSize : ReviewCount
+}</pre></div></div></section><p></p></div></div>
+			</section><section>
+				<h3 class="title ">Non-Aggregated Rating</h3>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="UI.ReferenceFacet"&gt;
+    &lt;PropertyValue Property="Target" AnnotationPath="to_ProductRating/@UI.DataPoint#NonAggregated"/
+&lt;/Record&gt;
+&lt;!-- non aggregated rating --&gt;
+&lt;Annotation Term="UI.DataPoint" Qualifier="NonAggregated"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="Title" String="{@i18n&gt;@ProductUserRating}"/&gt;
+      &lt;PropertyValue Property="Description" String="@i18n&gt;@MyRating}"/&gt;
+      &lt;PropertyValue Property="Value" Path="Rating"/&gt;
+      &lt;PropertyValue Property="TargetValue" Path="MaxRating"/&gt;
+      &lt;PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Rating"/&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt; 
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+					Annotation</p><section class="collapsible "><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.facet: [
+ {
+  id:           'rating',
+  type:         #DATAPOINT_REFERENCE,
+  targetElement: '_ProductRating',
+  targetQualifier: 'NonAggregated'
+ }
+]
+product;
+
+@UI.dataPoint: {
+  title: '{@i18n&gt;@ProductUserRating}',
+  description: '@i18n&gt;@MyRating}',
+  targetValueElement: 'MaxRating',
+  visualization: #RATING
+}
+Rating;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP
+					CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.Facets : {
+    $Type : 'UI.ReferenceFacet',
+    Target : 'to_ProductRating/@UI.DataPoint#NonAggregated'
+},
+
+UI.DataPoint #NonAggregated : {
+    Title : '{@i18n&gt;@ProductUserRating}',
+    Description : '@i18n&gt;@MyRating}',
+    Value : Rating,
+    TargetValue : MaxRating,
+    Visualization : #Rating
+}
+</pre></div></div></section><p></p></div></div>
+			</section></section><section id="section_zr3_dlm_bmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p><span class="emphasis">CDS
+				Annotation</span></p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI: DataPoint #Rating               : {
+        Value         : Rating,
+        TargetValue   : 5.0,
+        Title         : 'Rating',
+        Visualization : #Rating
+    }
+</pre></div></div></section><p></p></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

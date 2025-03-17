@@ -1,0 +1,57 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio64bdd33d236340908fe2659162492b39" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/troubleshooting-the-support-assistant-64bdd33.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Troubleshooting the Support Assistant</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Troubleshooting the Support Assistant</h2></div><div class="shortdesc">There are certain scenarios in which the Support Assistant does not behave as expected.
+		In this section you can find tips on how to recognize and resolve some of these
+		cases.</div><section>
+			<p>
+				</p><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_sxj_lnn_cdb" class=" "><thead>
+						<tr><th colspan="1" rowspan="1">
+							<p>Support Assistant Behavior</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Root Cause</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Solution</p>
+						</th>
+					</tr></thead><tbody><tr>
+						<td colspan="1" rowspan="1">
+							<p>What does it mean when the following errors appear in the browser console?</p>
+							<p>"Access to XMLHttpRequest at &lt;URL&gt; from origin &lt;ORIGIN&gt; has been blocked by the CORS policy: No
+								'Access-Control-Allow-Origin' header is present on the requested resource."</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>This usually happens when serving SAPUI5 from a different origin. The Support
+								Assistant tries to load support rule definitions from there, but cannot load them - a 404 response is sent by the
+								origin server. The issue is usually caused by missing or misconfigured CORS headers on the 404 response specifically.
+								Besides some support rules not being loaded, this should not affect normal operation of Support Assistant.</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>SAPUI5 library owners are encouraged to provide a
+									<code>.supportrc</code> as specified by Support Assistant documentation to avoid causing 404 responses.</p>
+							<p>For more information, see <a href="topic/b5a51358b3574aea9143fa50ae4e0e2a" title="The Support Assistant allows you to create your own ruleset." class="sap-doc">Create a Ruleset for a Library</a> and <a href="topic/fe1a6dba940e479fb7c3bc753f92b28c" title="Content Security Policy (CSP) adds an additional layer of security that can detect and mitigate certain types of attacks, such as cross-site scripting and data injection." class="sap-doc">Content Security Policy</a>.</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">
+							<p>When you choose a custom location, you get an error message: 'The syntax of the location address is incorrect. The
+								correct syntax is ... '.</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>URL doesn't match the protocol of the application.</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>If the application is HTTP, the location should also be HTTP. If it is HTTPS, the location should be HTTPS. Also, the
+								URL should end in sap/ui/support/.</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">
+							<p>Temporary rules are not available in the current environment due to Content Security Policy (CSP) restrictions.</p>
+						</td>
+						<td colspan="1" rowspan="1">Content Security Policy is forbidding the execution of temporary rules.</td>
+						<td colspan="1" rowspan="1">
+							<p>Run the Support Assistant in a development environment, where the <code>script-src</code> directive is set to
+									<code>unsafe-eval</code>. For more information about CSP, see <a href="topic/fe1a6dba940e479fb7c3bc753f92b28c" title="Content Security Policy (CSP) adds an additional layer of security that can detect and mitigate certain types of attacks, such as cross-site scripting and data injection." class="sap-doc">Content Security Policy</a>.</p>
+						</td>
+					</tr></tbody></table></div></div>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

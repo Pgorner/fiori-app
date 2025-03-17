@@ -1,0 +1,48 @@
+<mvc:View controllerName="sap.ui.mdc.internal.chart.Test"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:mdc="sap.ui.mdc"
+	xmlns:chart="sap.ui.mdc.chart"
+	xmlns:l="sap.ui.layout"
+	xmlns:fl="sap.ui.fl.variants"
+	xmlns:ce="sap.ui.codeeditor"
+	displayBlock="true"
+	xmlns="sap.m" class="sapUiSizeCompact">
+	<App>
+		<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true">
+		<l:Grid containerQuery="true" defaultSpan="XL6 L6 M12">
+		<l:VerticalLayout width="100%">
+			<HBox fitContainer="true">
+				<Title text="Retrieve Chart State" />
+				<Button text="Retrieve" press="onRetrieveChartState" />
+				<Button text="Copy -->" press="onCopyPressed" />
+			</HBox>
+			<ce:CodeEditor id="CEretrieveChartState" width="100%" height="300px" type="jsoniq" lineNumbers="false" value=""/>
+		</l:VerticalLayout>
+		<l:VerticalLayout width="100%">
+			<HBox fitContainer="true">
+				<Title text="Assign Chart State" />
+				<Button text="Apply" press="onApplyChartState" tooltip="Apply State for Chart"/>
+			</HBox>
+			<ce:CodeEditor id="CEapplyChartState" width="100%" height="300px" type="jsoniq" lineNumbers="false" value=""/>
+		</l:VerticalLayout>
+	</l:Grid>
+			<VBox>
+				<mdc:Chart id="mdcChart"
+					data="{path: '/SalesDenormalized'}"
+					p13nMode="Item,Sort,Type"
+					delegate='{
+						"name": "sap/ui/mdc/odata/v4/ChartDelegate",
+						"payload": {
+							collectionName: "SalesDenormalized"
+							}
+						}' chartType="column" header="MDC: Chart Sample" height="400px" width="1000px">
+					<mdc:items>
+						<chart:DimensionItem id="ProductName" key="ProductName" role="category" label="Product Name"/>
+						<chart:DimensionItem id="Date" key="Date" label="Date" role="series"/>
+						<chart:MeasureItem id="Amount" key="Amount" role="axis1"/>
+					</mdc:items>
+				</mdc:Chart>
+			</VBox>
+		</ScrollContainer>
+	</App>
+</mvc:View>

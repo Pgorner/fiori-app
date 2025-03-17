@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField with local Metadata</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="mainView"
+				xmlns:mvc="sap.ui.core.mvc"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				height="100%">
+			<App>
+				<Page id="page" title="Smart Field Snippet">
+					<smartForm:SmartForm id="smartForm" editable="true" editTogglable="true" title="Smart Form">
+						<smartForm:Group>
+							<smartForm:GroupElement>
+
+								<smartField:SmartField id="Name" value="{Name}" url="{LocalText}"/>
+
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<Label text="Request for ValueHelp:"/>
+					<FormattedText id="request"/>
+				</Page>
+			</App>
+
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+
+						<Property Name="Name"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name"
+								  Nullable="false"/>
+
+						<Property Name="LocalText"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Local text"
+								  Nullable="false"/>
+
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+					</EntityContainer>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="metadata2" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+
+						<Property Name="LocalText"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Local text"
+								  Nullable="false"/>
+
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+					</EntityContainer>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+	{"d": {
+		"__count": "1",
+		"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+					"Department": "Purchasing",
+					"Name": "1",
+					"LocalText": "Local Text",
+					"Id": "0001"
+				}
+			]
+	}}
+</script>
+
+	<script id="dataSection2" type="text/json">
+	{"d": {
+		"__count": "1",
+		"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+					"Department": "Purchasing",
+					"LocalText": "Local Text",
+					"Id": "0001"
+				}
+			]
+	}}
+</script>
+
+</head>
+
+<script src="./MixOfModelsAndContexts.js"></script>
+
+<body class='sapUiBody'>
+<div id='content'></div>
+</body>
+</html>

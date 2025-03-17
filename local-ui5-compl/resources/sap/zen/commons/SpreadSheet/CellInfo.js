@@ -1,0 +1,7 @@
+/*!
+ * SAPUI5
+    (c) Copyright 2009-2020 SAP SE. All rights reserved
+  
+ */
+sap.ui.define("sap/zen/commons/SpreadSheet/CellInfo",["sap/zen/commons/SpreadSheet/CXpDataCellValueType","sap/zen/commons/SpreadSheet/CXpStyle"],function(e,t){function n(){var n=this;var u;var l;var a;var r;var o;var i;var f=0;var c=0;n.setValue=function(e){u=e;if(u===null){u=n.getValue()}};n.setValueType=function(e){l=e;if(n.mCellValueType==null){l=n.getValueType()}};n.setFormattedValue=function(e){a=e;if(a==null){a=n.getFormattedValue()}};n.setFormatString=function(e){r=e;if(r==null){r=n.getFormatString()}};n.setFormula=function(e){o=e;if(o==null){o=this.getFormula()}};n.setStyle=function(e){i=e;if(i==null){i=n.getStyle()}};n.setRowSpan=function(e){f=e};n.setColSpan=function(e){c=e};n.getValue=function(){if(u==null){u=""}return u};n.getValueType=function(){if(l==null){l=e.STANDARD}return l};n.getFormattedValue=function(){if(a==null){a=n.getValue()}return a};n.getFormatString=function(){if(r==null){r=""}return r};n.getFormula=function(){return o};n.getStyle=function(){if(i==null){i=t.STANDARD}return i};n.getRowSpan=function(){return f};n.getColSpan=function(){return c}}return n});
+//# sourceMappingURL=CellInfo.js.map

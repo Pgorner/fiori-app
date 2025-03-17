@@ -1,0 +1,24 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio23b9c779c2274213a281c1fc46b4962b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/fragments-with-multiple-root-nodes-23b9c77.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Fragments with Multiple Root Nodes</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Fragments with Multiple Root Nodes</h2></div><div class="shortdesc">XML fragments and JS fragments can have more than one root control.</div><p>In JS fragments, the <code>createContent()</code> method can optionally return an array of controls:
+			</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// fragment is located in a file named: sap/ui/core/fragmenttest/MultiRootFragment.fragment.js,
+sap.ui.define(["sap/m/Label", "sap/m/Input", "sap/m/Button"], function(Label, Input, Button) {
+    return {
+        createContent: function(oController) {
+            var oLabel = new Label({text:"These controls are within one multi-root Fragment:"});
+            var oInput = new Input();
+            var oButton = new Button({text: "Still in the same Fragment"});
+            return [ oLabel, oInput, oButton ];
+        }
+    }
+});</pre></div></div></section><p></p><p>As XML documents need to have exactly one root node, to achieve XML fragments with
+			multiple root nodes, an additional <code>&lt;FragmentDefinition&gt;</code> tag needs to
+			be added as root element containing the actual root controls. This
+				<code>&lt;FragmentDefinition&gt;</code> tag will not have any representation in
+			HTML at runtime; the children are added directly to wherever this fragment is placed. </p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core"&gt;
+    &lt;Label text="These controls are within one multi-root Fragment:" /&gt;
+    &lt;Input /&gt;
+    &lt;Button text="Still in the same Fragment" /&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>For HTML fragments this feature is currently not available. </p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,864 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transpile: generateAdaptiveCard Call with empty integration card 1`] = `
+{
+  "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+  "body": [],
+  "metadata": {},
+  "type": "AdaptiveCard",
+  "version": "1.6",
+}
+`;
+
+exports[`Transpile: generateAdaptiveCard Generate adaptive Object card 1`] = `
+{
+  "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+  "body": [
+    {
+      "color": "Default",
+      "maxLines": 1,
+      "size": "default",
+      "spacing": "none",
+      "text": "[ \${{salesOrderHeaderTitle}} ](https://my313815.s4hana.ondemand.com/ui#SalesOrder-manageV2&/C_STTA_SalesOrder_WD_20(node_key='fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity='true'))",
+      "type": "TextBlock",
+      "weight": "bolder",
+      "wrap": false,
+    },
+    {
+      "columns": [
+        {
+          "items": [
+            {
+              "$when": "\${ ('{so_id}') ? true: false}",
+              "color": "Default",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "\${so_id}",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+        {
+          "items": [
+            {
+              "$when": "\${ ('{so_id}' && '{currency_code}') ? true: false}",
+              "color": "Default",
+              "horizontalAlignment": "Center",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "|",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+        {
+          "items": [
+            {
+              "$when": "\${ ('{currency_code}') ? true: false}",
+              "color": "Default",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "\${currency_code}",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+      ],
+      "spacing": "none",
+      "type": "ColumnSet",
+    },
+    {
+      "color": "Default",
+      "maxLines": 1,
+      "size": "extraLarge",
+      "spacing": "none",
+      "text": "\${overall_status}",
+      "type": "TextBlock",
+      "weight": "default",
+      "wrap": false,
+    },
+    {
+      "items": [
+        {
+          "items": [
+            {
+              "color": "Default",
+              "maxLines": 2,
+              "size": "small",
+              "spacing": "medium",
+              "text": "General Information",
+              "type": "TextBlock",
+              "weight": "bolder",
+              "wrap": true,
+            },
+            {
+              "items": [
+                {
+                  "columns": [
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "{{netAmountLabel}}:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${if(trim(string(net_amount)) == '', '&minus;', string(net_amount))}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "Tax Amount:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${if(trim(string(tax_amount)) == '', '&minus;', string(tax_amount))}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "Gross Amount:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${if(trim(string(gross_amount)) == '', '&minus;', string(gross_amount))}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                  ],
+                  "type": "ColumnSet",
+                },
+              ],
+              "spacing": "small",
+              "type": "Container",
+            },
+          ],
+          "spacing": "medium",
+          "type": "Container",
+        },
+        {
+          "items": [
+            {
+              "color": "Default",
+              "maxLines": 2,
+              "size": "small",
+              "spacing": "medium",
+              "text": "Additional Information",
+              "type": "TextBlock",
+              "weight": "bolder",
+              "wrap": true,
+            },
+            {
+              "items": [
+                {
+                  "columns": [
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "{{productLabel}}:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${if(trim(string(Product)) == '', '&minus;', string(Product))}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "Language:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${if(trim(string(Language)) == '', '&minus;', string(Language))}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                  ],
+                  "type": "ColumnSet",
+                },
+              ],
+              "spacing": "small",
+              "type": "Container",
+            },
+          ],
+          "spacing": "medium",
+          "type": "Container",
+        },
+      ],
+      "spacing": "large",
+      "type": "Container",
+    },
+    {
+      "actions": [
+        {
+          "$when": "\${__OperationControl.SetBillingBlock ? true : false}",
+          "card": {
+            "actions": [
+              {
+                "data": {
+                  "contextURL": "https://my313815.s4hana.ondemand.com/sap/opu/odata/sap/salesorder/C_STTA_SalesOrder_WD_20(node_key='fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity='true')",
+                  "isConfirmationRequired": false,
+                },
+                "style": "positive",
+                "title": "OK",
+                "type": "Action.Execute",
+                "verb": "com.sap.gateway.srvd.ui_creditmemorequestmanage.v0001.SetBillingBlock",
+              },
+            ],
+            "body": [
+              {
+                "choices": [
+                  {
+                    "$data": "\${I_BillingBlockReason}",
+                    "title": "\${BillingBlockReason_Text} (\${BillingBlockReason})",
+                    "value": "\${BillingBlockReason}",
+                  },
+                ],
+                "errorMessage": "This is a required input",
+                "id": "HeaderBillingBlockReason",
+                "isMultiline": false,
+                "isRequired": true,
+                "label": "HeaderBillingBlockReason",
+                "placeholder": "Please choose",
+                "type": "Input.ChoiceSet",
+              },
+            ],
+            "type": "AdaptiveCard",
+          },
+          "isEnabled": "\${__OperationControl.SetBillingBlock}",
+          "style": "default",
+          "title": "Set Billing Block",
+          "type": "Action.ShowCard",
+        },
+        {
+          "$when": "\${salesorderID ? true : false}",
+          "data": {
+            "actionParams": {
+              "keys": [
+                "SalesPlanUUID",
+                "IsActiveEntity",
+              ],
+            },
+            "contextURL": "https://my313815.s4hana.ondemand.com/sap/opu/odata/sap/salesorder/C_STTA_SalesOrder_WD_20(node_key='fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity='true')",
+            "isConfirmationRequired": false,
+          },
+          "isEnabled": "\${salesorderID}",
+          "style": "default",
+          "title": "Release",
+          "type": "Action.Execute",
+          "verb": "C_SalesPlanTPRelease",
+        },
+      ],
+      "type": "ActionSet",
+    },
+  ],
+  "metadata": {
+    "sap.cards.ap": {
+      "cardType": "LEAN_DT",
+      "parentAppId": "cus.sd.salesorderv2.manage",
+      "templateName": "ObjectPage",
+      "versions": {
+        "ui5": "1.120.1-202405021611",
+      },
+    },
+    "webUrl": "https://my313815.s4hana.ondemand.com/sap/opu/odata/sap/salesorder/C_STTA_SalesOrder_WD_20(node_key='fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity='true')",
+  },
+  "msteams": {
+    "width": "full",
+  },
+  "type": "AdaptiveCard",
+  "version": "1.6",
+}
+`;
+
+exports[`Transpile: generateAdaptiveCard Generate adaptive Object card when manifest may or may not have values for group items 1`] = `
+{
+  "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+  "body": [
+    {
+      "color": "Default",
+      "maxLines": 1,
+      "size": "default",
+      "spacing": "none",
+      "text": "",
+      "type": "TextBlock",
+      "weight": "bolder",
+      "wrap": false,
+    },
+    {
+      "columns": [
+        {
+          "items": [
+            {
+              "$when": "\${ (false) ? true: false}",
+              "color": "Default",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+        {
+          "items": [
+            {
+              "$when": "\${ ( false) ? true: false}",
+              "color": "Default",
+              "horizontalAlignment": "Center",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "|",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+        {
+          "items": [
+            {
+              "$when": "\${ (false) ? true: false}",
+              "color": "Default",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+      ],
+      "spacing": "none",
+      "type": "ColumnSet",
+    },
+    {
+      "color": "Default",
+      "maxLines": 1,
+      "size": "extraLarge",
+      "spacing": "none",
+      "text": "",
+      "type": "TextBlock",
+      "weight": "default",
+      "wrap": false,
+    },
+    {
+      "items": [
+        {
+          "items": [
+            {
+              "color": "Default",
+              "maxLines": 2,
+              "size": "small",
+              "spacing": "medium",
+              "text": "Group 1",
+              "type": "TextBlock",
+              "weight": "bolder",
+              "wrap": true,
+            },
+            {
+              "items": [
+                {
+                  "columns": [
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "Gross Amount:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${gross_amount} \${currency_code}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                  ],
+                  "type": "ColumnSet",
+                },
+              ],
+              "spacing": "small",
+              "type": "Container",
+            },
+          ],
+          "spacing": "medium",
+          "type": "Container",
+        },
+        {
+          "items": [
+            {
+              "color": "Default",
+              "maxLines": 2,
+              "size": "small",
+              "spacing": "medium",
+              "text": "Group 2",
+              "type": "TextBlock",
+              "weight": "bolder",
+              "wrap": true,
+            },
+            {
+              "items": [
+                {
+                  "columns": [
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "Net Amount:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${net_amount} \${currency_code}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                  ],
+                  "type": "ColumnSet",
+                },
+              ],
+              "spacing": "small",
+              "type": "Container",
+            },
+          ],
+          "spacing": "medium",
+          "type": "Container",
+        },
+        {
+          "items": [
+            {
+              "color": "Default",
+              "maxLines": 2,
+              "size": "small",
+              "spacing": "medium",
+              "text": "Group 3",
+              "type": "TextBlock",
+              "weight": "bolder",
+              "wrap": true,
+            },
+            {
+              "items": [
+                {
+                  "columns": [
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                  ],
+                  "type": "ColumnSet",
+                },
+              ],
+              "spacing": "small",
+              "type": "Container",
+            },
+          ],
+          "spacing": "medium",
+          "type": "Container",
+        },
+      ],
+      "spacing": "large",
+      "type": "Container",
+    },
+  ],
+  "metadata": {
+    "sap.cards.ap": undefined,
+    "webUrl": undefined,
+  },
+  "msteams": {
+    "width": "full",
+  },
+  "type": "AdaptiveCard",
+  "version": "1.6",
+}
+`;
+
+exports[`Transpile: generateAdaptiveCard Generate adaptive Object card with formatter Expressions in manifest value 1`] = `
+{
+  "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+  "body": [
+    {
+      "color": "Default",
+      "maxLines": 1,
+      "size": "default",
+      "spacing": "none",
+      "text": "[ \${{salesOrderHeaderTitle}} ](https://my313815.s4hana.ondemand.com/ui#SalesOrder-manageV2&/C_STTA_SalesOrder_WD_20(node_key='fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity='true'))",
+      "type": "TextBlock",
+      "weight": "bolder",
+      "wrap": false,
+    },
+    {
+      "columns": [
+        {
+          "items": [
+            {
+              "$when": "\${ ('{so_id}') ? true: false}",
+              "color": "Default",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "\${so_id}",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+        {
+          "items": [
+            {
+              "$when": "\${ ('{so_id}' && '{currency_code}') ? true: false}",
+              "color": "Default",
+              "horizontalAlignment": "Center",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "|",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+        {
+          "items": [
+            {
+              "$when": "\${ ('{currency_code}') ? true: false}",
+              "color": "Default",
+              "isSubtle": true,
+              "maxLines": 1,
+              "size": "default",
+              "spacing": "none",
+              "text": "\${currency_code}",
+              "type": "TextBlock",
+              "weight": "default",
+              "wrap": false,
+            },
+          ],
+          "type": "Column",
+          "width": "auto",
+        },
+      ],
+      "spacing": "none",
+      "type": "ColumnSet",
+    },
+    {
+      "color": "\${if(toLower(net_amount) == 'critical', 'Warning', if(toLower(net_amount) == 'error', 'Attention', if(toLower(net_amount) == 'good', 'Good', if(int(net_amount) == 3, 'Good', if(int(net_amount) == 1, 'Attention', if(int(net_amount) == 2, 'Warning', 'Default'))))))}",
+      "maxLines": 1,
+      "size": "extraLarge",
+      "spacing": "none",
+      "text": "\${gross_amount}",
+      "type": "TextBlock",
+      "weight": "default",
+      "wrap": false,
+    },
+    {
+      "items": [
+        {
+          "items": [
+            {
+              "color": "Default",
+              "maxLines": 2,
+              "size": "small",
+              "spacing": "medium",
+              "text": "General Information",
+              "type": "TextBlock",
+              "weight": "bolder",
+              "wrap": true,
+            },
+            {
+              "items": [
+                {
+                  "columns": [
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "{{netAmountLabel}}:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${if(trim(string(net_amount)) == '', '&minus;', string(net_amount))}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "items": [
+                        {
+                          "color": "Default",
+                          "isSubtle": true,
+                          "maxLines": 1,
+                          "size": "small",
+                          "spacing": "default",
+                          "text": "Created on:",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": false,
+                        },
+                        {
+                          "color": "Default",
+                          "maxLines": 2,
+                          "size": "small",
+                          "spacing": "none",
+                          "text": "\${if(CreationDateTime && CreationDateTime != '', convertToUTC(CreationDateTime, 'UTC', 'ddd d MMM YYYY HH:mm'), '&minus;')}",
+                          "type": "TextBlock",
+                          "weight": "default",
+                          "wrap": true,
+                        },
+                      ],
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                    },
+                  ],
+                  "type": "ColumnSet",
+                },
+              ],
+              "spacing": "small",
+              "type": "Container",
+            },
+          ],
+          "spacing": "medium",
+          "type": "Container",
+        },
+      ],
+      "spacing": "large",
+      "type": "Container",
+    },
+  ],
+  "metadata": {
+    "sap.cards.ap": {
+      "cardType": "LEAN_DT",
+      "parentAppId": "sales.order.wd20",
+      "templateName": "ObjectPage",
+      "versions": {
+        "ui5": "1.120.1-202405021611",
+      },
+    },
+    "webUrl": "https://my313815.s4hana.ondemand.com/sap/opu/odata/sap/salesorder/C_STTA_SalesOrder_WD_20(node_key='fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity='true')",
+  },
+  "msteams": {
+    "width": "full",
+  },
+  "type": "AdaptiveCard",
+  "version": "1.6",
+}
+`;

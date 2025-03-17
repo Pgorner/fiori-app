@@ -1,0 +1,209 @@
+<mvc:View
+	controllerName="sap.gantt.sample.GanttChartTimezone.GanttChartTimezone"
+	xmlns:core="sap.ui.core" displayBlock="true" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:table="sap.ui.table" xmlns="sap.gantt.simple" xmlns:rm="sap.ui.table.rowmodes"
+	xmlns:m="sap.m" xmlns:at="sap.gantt.axistime" xmlns:gc="sap.gantt.config"
+	xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	height="100%">
+	<m:VBox>
+		<f:SimpleForm id="form" editable="true" layout="ColumnLayout"
+			columnsM="2" columnsL="3" columnsXL="3">
+			<f:content>
+				<m:Label text="Total Horizon" />
+				<m:DateTimePicker id="tHorStartDate"
+					value="{path:'/root/tHorizon/start', type:'sap.ui.model.type.DateTime'}">
+					<m:layoutData>
+						<f:ColumnElementData cellsSmall="6" cellsLarge="4" />
+					</m:layoutData>
+				</m:DateTimePicker>
+				<m:DateTimePicker id="tHorEndDate"
+					value="{path:'/root/tHorizon/end', type:'sap.ui.model.type.DateTime'}">
+					<m:layoutData>
+						<f:ColumnElementData cellsSmall="6" cellsLarge="4" />
+					</m:layoutData>
+				</m:DateTimePicker>
+				<m:Label
+					text="Configuration Timezone (FLP)" />
+
+				<m:Input
+					id="flpTimezoneInput"
+					value="{/root/ConfigurationTimezone}"
+					liveChange=".onFLPTimezoneChange"
+					placeholder="ex: Europe/Berlin"
+					showSuggestion="true"
+					suggestionItems="{/root/Timezones}">
+					<m:suggestionItems>
+						<core:Item
+							text="{key}"
+						/>
+					</m:suggestionItems>
+				</m:Input>
+
+
+				<m:Label
+					text="Custom Timezone (Applies only to the Gantt Control)" />
+				<m:Input
+					id="timezoneInput"
+					value="{/root/Timezone}"
+					liveChange=".onTimezoneChange"
+					placeholder="ex: Europe/Berlin"
+					showSuggestion="true"
+					suggestionItems="{/root/Timezones}">
+					<m:suggestionItems>
+						<core:Item
+							text="{key}"
+						/>
+					</m:suggestionItems>
+				</m:Input>
+			</f:content>
+		</f:SimpleForm>
+	</m:VBox>
+	<m:VBox class="sapUiSmallMarginTop">
+		<table:Table selectionMode="None" visibleRowCountMode="Fixed"
+			visibleRowCount="3" alternateRowColors="true"
+			rows="{dates>/contents}">
+			<table:columns>
+				<table:Column>
+					<m:Label text="Timezone" textAlign="Center" />
+					<table:template>
+						<m:ObjectIdentifier class="sapUiTinyMargin" text="{dates>title}"
+							title="{= ${dates>timezone} || '--'}" />
+					</table:template>
+				</table:Column>
+				<table:Column headerSpan="2">
+					<table:multiLabels>
+						<m:Label text="Total Horizon" />
+						<m:Label text="Start" />
+					</table:multiLabels>
+					<table:template>
+						<m:Text
+							text="{parts: ['dates>timezone', '/root/tHorizon/start'], formatter: '.dateFormatter'}" />
+					</table:template>
+				</table:Column>
+				<table:Column headerSpan="2">
+					<table:multiLabels>
+						<m:Label text="Total Horizon" />
+						<m:Label text="End" />
+					</table:multiLabels>
+					<table:template>
+						<m:Text
+							text="{parts: ['dates>timezone', '/root/tHorizon/end'], formatter: '.dateFormatter'}" />
+					</table:template>
+				</table:Column>
+				<table:Column headerSpan="2">
+					<table:multiLabels>
+						<m:Label text="Visible Horizon" />
+						<m:Label text="Start" />
+					</table:multiLabels>
+					<table:template>
+						<m:Text
+							text="{parts: ['dates>timezone', '/root/currentVHorizon/start'], formatter: '.dateFormatter'}" />
+					</table:template>
+				</table:Column>
+				<table:Column headerSpan="2">
+					<table:multiLabels>
+						<m:Label text="Visible Horizon" />
+						<m:Label text="End" />
+					</table:multiLabels>
+					<table:template>
+						<m:Text
+							text="{parts: ['dates>timezone', '/root/currentVHorizon/end'], formatter: '.dateFormatter'}" />
+					</table:template>
+				</table:Column>
+			</table:columns>
+
+			<table:rowSettingsTemplate>
+				<table:RowSettings
+					highlight="{parts: ['dates>timezone', '/root/locale/timezone'], formatter: '.highlightFormatter'}" />
+			</table:rowSettingsTemplate>
+		</table:Table>
+	</m:VBox>
+
+	<GanttChartContainer enableStatusBar="true" statusBarTimePattern="hh:mm:ss a (z)" height="300px"
+		class="sapGanttContainer sapUiSmallMarginTop">
+		<toolbar>
+			<ContainerToolbar id="toolbar" design="Auto">
+				<m:DateTimePicker width="400px" id="tHorStartDateWithTimezone"
+					value="{
+					parts:[{
+							path: '/root/tHorizon/start',
+							type: 'sap.ui.model.odata.type.DateTimeOffset'
+						},
+						{
+							path: '/root/locale/timezone',
+							type: 'sap.ui.model.odata.type.String'
+						}
+					],
+					type: 'sap.ui.model.odata.type.DateTimeWithTimezone'
+				}">
+				</m:DateTimePicker>
+			</ContainerToolbar>
+		</toolbar>
+		<GanttChartWithTable id="gantt" enableNowLine="true" nowLineInUTC="false"
+			shapeMouseEnter=".shapeMouseEnter"
+			shapeMouseLeave=".shapeMouseLeave">
+			<table>
+				<table:TreeTable selectionMode="Single"
+					selectionBehavior="RowSelector"
+					rows="{path: '/root', parameters: {arrayNames: ['children'], numberOfExpandedLevels: 1}}">
+					<table:columns>
+						<table:Column>
+							<m:Text text="Label"/>
+							<table:template>
+								<m:Text text="{name}" />
+							</table:template>
+						</table:Column>
+					</table:columns>
+					<table:rowMode>
+						<rm:Auto/>
+					</table:rowMode>
+					<table:rowSettingsTemplate>
+						<GanttRowSettings rowId="{id}"
+							shapes1="{path: 'rectangles', templateShareable: true}"
+							shapes2="{path: 'chevrons', templateShareable: true}">
+							<shapes1>
+								<BaseRectangle hoverable="true"
+									fill="{path: '', formatter: '.formatFill'}"
+									time="{path: 'startTime'}" endTime="{path: 'endTime'}" />
+							</shapes1>
+							<shapes2>
+								<BaseChevron hoverable="true"
+									fill="{path: '', formatter: '.formatFill'}"
+									time="{path: 'startTime'}" endTime="{path: 'endTime'}" />
+							</shapes2>
+						</GanttRowSettings>
+					</table:rowSettingsTemplate>
+				</table:TreeTable>
+			</table>
+			<axisTimeStrategy>
+				<at:ProportionZoomStrategy id="StepwiseZoomStrategy">
+					<at:totalHorizon>
+						<gc:TimeHorizon
+							startTime="{path: '/root/tHorizon/start', formatter: '.dateToAbapTimestamp'}"
+							endTime="{path: '/root/tHorizon/end', formatter: '.dateToAbapTimestamp'}" />
+					</at:totalHorizon>
+					<at:visibleHorizon>
+						<gc:TimeHorizon
+							startTime="{path: '/root/vHorizon/start', formatter: '.dateToAbapTimestamp'}"
+							endTime="{path: '/root/vHorizon/end', formatter: '.dateToAbapTimestamp'}" />
+					</at:visibleHorizon>
+				</at:ProportionZoomStrategy>
+			</axisTimeStrategy>
+
+		</GanttChartWithTable>
+	</GanttChartContainer>
+
+	<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+		<m:FlexBox>
+			<core:Icon
+				src="sap-icon://future"
+				class="size2"
+				color="#E6600D">
+			</core:Icon>
+			<m:Text class="sapUiTinyMarginBegin" text="- Day Light Saving Time"></m:Text>
+		</m:FlexBox>
+	</m:VBox>
+	<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd" id="chartArea">
+
+	</m:VBox>
+</mvc:View>

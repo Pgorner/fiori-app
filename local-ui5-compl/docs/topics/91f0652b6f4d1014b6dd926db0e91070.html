@@ -1,0 +1,276 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f0652b6f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/property-binding-91f0652.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Property Binding</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Property Binding</h2></div><div class="shortdesc">With property binding, you can initialize properties of a control automatically and
+		update them based on the data of the model.</div><p>To define property binding on a control, you have the following options:</p><ul class="ul ">
+			<li class="li">
+				<p>As part of the control's declaration in an XML view</p>
+			</li>
+			<li class="li">
+				<p>Using JavaScript, in the <code>settings</code> object in the constructor of a
+					control, or in special cases, using the <code>bindProperty</code> method of
+					a control</p>
+			</li>
+		</ul><p>Once you have defined the property binding, the property is updated automatically every
+			time the property value of the bound model is changed, and vice versa.</p><p>Let's say, we have the following JSON
+			data:</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"company" : {
+		"name"  : "Acme Inc.",
+		"street": "23 Franklin St.",
+		"city"  : "Claremont",
+		"state" : "New Hampshire",
+		"zip"   : "03301",
+		"revenue": "1833990"
+	}
+}</pre></div></div></section><p></p><p>To define property binding in the control declaration in the <span class="emphasis">XML view</span>, just include the binding path within curly brackets
+			(see also <a href="topic/2888af49635949eca14fa326d04833b9" title="Binding paths address the different properties and lists in a model and define how a node in the hierarchical data tree can be found." class="sap-doc">Binding Path</a>):</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View 
+	controllerName="sap.ui.sample.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Input value="{/company/name}"/&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p></p><p>In <span class="emphasis">JavaScript</span>, you can include the binding path within curly brackets as a
+			string literal in the <code>settings</code>
+			object:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Input" required from module "sap/m/Input"
+var oInput = new sap.m.Input({
+	value: "{/company/name}"
+});</pre></div></div></section><p></p><p>You can also use a complex syntax for property bindings. This complex syntax allows you
+			to define additional binding information to be contained in the
+				<code>settings</code> object, such as a formatter function. </p><p>You can then set the <code>bindingMode</code> or other additional properties like
+			this:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.sample.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Input
+		value="{
+			path:'/company/name', 
+			mode: 'OneWay' 
+		}"/&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p>In <span class="emphasis">JavaScript</span> views or controllers, you use a JS object instead of a
+			string literal. This must contain a <code>path</code> property containing the
+			binding path, and can contain additional properties:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Input" required from module "sap/m/Input"
+// "BindingMode" required from module "sap/ui/model/BindingMode"
+
+var oInput = new Input ({
+	value: {
+		path: "/company/name",
+		mode: BindingMode.OneWay
+	}
+});</pre></div></div></section><p>Depending on the use case, it may be useful to define the binding at a later time, using
+			the <code>bindProperty</code> method:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oInput.bindProperty("value", "/company/name");</pre></div></div></section><p>This option also allows you to use the same object literal that you used in the
+			constructor to define the binding:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "TypeInteger" required from module "sap/ui/model/type/Integer"
+
+oInput.bindProperty("value", {
+	path: "/company/name",
+	type: new TypeInteger()
+});</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Some controls offer convenience methods for their main properties that are most likely to be
+			bound by an
+			application:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oTextField.bindValue("/company/name");</pre></div></div></section><p></p></div></div><p>To <span class="emphasis">remove</span> a property binding, you can use the
+				<code>unbindProperty</code> method. The property binding is removed
+			automatically whenever a control is destroyed:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oTextField.unbindProperty("value");</pre></div></div></section><p>You can also bind multiple paths by combining them as parts of a binding. For more information, see <a href="topic/a2fe8e763014477e87990ff50657a0d0" title="Calculated fields enable the binding of multiple properties in different models to a single property of a control." class="sap-doc">Composite Binding</a>.</p><section id="section_N10078_N10013_N10001"><h2 class="title ">Formatting Property Values</h2><p>Values in data are often represented in an internal format
+				and need to be converted to an external format for visual representation, especially numbers, dates, and times with locale-dependent
+				external formats. SAPUI5 provides two different options for converting
+				data. You can use both options for each binding, you don't have to use one option consistently throughout your app: </p><ul class="ul ">
+					<li class="li">
+						<p>Formatter functions for one-way conversion</p>
+					</li>
+					<li class="li">
+						<p>Data types in two-way binding</p>
+						<p>Data types can be used to parse user input in addition to formatting values.</p>
+					</li>
+				</ul><p></p><section>
+				<h3 class="title ">Using a Formatter Function</h3>
+			</section><p>If you define the property binding in the <span class="emphasis">XML view</span>, you need to define a formatter function
+					(<code>roundToMillion</code>) in the view
+				controller:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/json/JSONModel"
+], function (Controller, JSONModel) {
+	"use strict";
+	return Controller.extend("sap.ui.sample.App", {
+		……………
+		roundToMillion: function(fValue) {
+			if (fValue) {
+				return "&gt; " + Math.floor(fValue/1000000) + "M";
+			}
+			return "0";
+		}
+	});
+}); </pre></div></div></section><p></p><p>The <code>this</code> context of a formatter function is generally set to the control (or managed object) that owns the binding. In XML views,
+				however, the view should contain a reference to the formatter function, which resides in the view controller. This is done by putting
+				a dot (<code>.</code>) in front of the name of the formatter function (<code>{ formatter: '.myformatter' }</code>). In this
+				case, the formatter's <code>this</code> context is bound to the controller.</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.sample.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Input
+		value="{ 
+			path:'/company/revenue',
+			formatter: '<span class="emphasis">.</span>roundToMillion'
+		}"/&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p>If
+				you use <span class="emphasis">JavaScript</span>, you can pass the formatter function as a third parameter to the <code>bindProperty</code>
+				method, or you can add the binding info with the <code>formatter</code> key. The <code>formatter</code> has a single parameter
+					<code>value</code>, which is the value that is to be formatted, and is executed as a member of the control, meaning it can
+				access additional control properties or model data.
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//"Input" required from module sap/m/Input
+
+oTextField.bindProperty("value", "/company/title", function(sValue) {
+	return sValue && sValue.toUpperCase();
+});
+
+oControl = new Input({
+	value: {
+		path:"/company/revenue",
+		formatter: function(fValue) {
+			if (fValue) {
+				return "&gt; " + Math.floor(fValue/1000000) + "M";
+			}
+			return "0";
+		}
+	}
+})</pre></div></div></section><p>Because
+				it can contain any JavaScript, the formatter function can be used for formatting a value and also for performing type conversions or
+				calculating results, for example, to show a special traffic light image depending on a Boolean
+				value:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oImage.bindProperty("src", "/company/trusted", function(bValue) {
+	return bValue ? "green.png" : "red.png";
+}); </pre></div></div></section><p></p><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+				</p><p>The framework only updates a binding when one of the properties included in the binding changes. If the formatter uses another
+					property value that is not part of the binding definition, the framework won't know that the result depends on that additional
+					property and could miss necessary updates. Therefore, make sure that you declare a composite binding referencing all necessary
+					properties (maybe even from different models).</p>
+			<p></p></div></div><section>
+				<h3 class="title ">Using Data Types</h3>
+				<p>The data type system enables you to format and parse data, as well as to validate whether the entered data lies within any defined
+					constraints. SAPUI5 comes with several predefined and ready-to-use
+					types, referred to as simple types. For more information, see <a href="topic/07e4b920f5734fd78fdaa236f26236d8" title="Data that is presented on the UI often has to be converted so that is human readable and fits to the locale of the user. On the other hand, data entered by the user has to be parsed and validated to be understood by the data source. For this purpose, you use formatters and data types." class="sap-doc">Formatting, Parsing, and Validating Data</a>.</p>
+				<p>Here's how you can use these types in an XML
+					view:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.sample.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Input
+		value="{ 
+			path:'/company/revenue',
+			type: 'sap.ui.model.type.Integer'
+		}"/&gt;
+&lt;/mvc:View&gt;
+</pre></div></div></section><p></p>
+				<p>You can also provide parameter values for some of the simple types in your XML view. These are declared as
+						<code>formatOptions</code>, as you can see in the Float type sample below. Permitted <code>formatOptions</code> are
+					properties of the corresponding data type. For more information, see the <span class="ph uicontrol">API Reference</span> in the Demo
+					Kit.</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+   controllerName="sap.ui.sample.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"&gt;
+   &lt;Input
+	value="{ 
+		path:'/company/revenue', 
+		type: 'sap.ui.model.type.Float',
+		formatOptions: {
+			minFractionDigits: 2,
+			maxFractionDigits: 2
+		}
+	}"/&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p></p>
+				<p>Using JavaScript, you can define a type to be used for a property binding by passing it as a third parameter in
+						<code>bindProperty</code> or by adding it to the binding information by using the key <code>type</code>, as shown
+					here:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "TypeString" required from module "sap/ui/model/type/String"
+// "Input" required from module "sap/m/Input"
+// "TypeFloat" required from module "sap/ui/model/type/Float"
+
+oTextField.bindProperty("value", "/company/name", new sap.ui.model.type.String());
+
+oControl = new sap.m.Input({
+	value: {
+		path:"/company/revenue",
+		type: new TypeFloat({
+			minFractionDigits: 2,
+			maxFractionDigits: 2
+		})
+	}
+})</pre></div></div></section><p></p>
+				<p>Predefined data types also offer visual feedback for erroneous user input. To turn this feature on, add the following line to your controller's
+						<code>init</code> function:
+					</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Messaging" required from module "sap/ui/core/Messaging"
+Messaging.registerObject(this.getView(), true);</pre></div></div></section><p></p>
+				<p>For other ways to activate this feature, such as using the <code>handleValidation</code> property, see <a href="topic/a90d93df5a024e8bb18826b699c9aaa7" title="Validation messages are either created by the framework and processed by the sap.ui.core.message.ControlMessageProcessor or manually by the application." class="sap-doc">Validation Messages</a>.</p>
+				<p>You can define <span class="emphasis">custom types</span> by inheriting from <code>sap.ui.model.SimpleType</code> and implementing the
+					three methods <code>formatValue</code>, <code>parseValue</code>, and <code>validateValue</code>.
+						<code>formatValue</code> is called whenever the value in the model is changed to convert it to the type of the control
+					property it is bound to, and may throw a <code>FormatException</code>. <code>parseValue</code> is called whenever the user
+					has modified a value in the UI and the change is transported back into the model. It may throw a <code>ParseException</code>
+					if the value cannot be converted. If parsing is successful, <code>validateValue</code> is called to check additional
+					constraints, such as minimum or maximum value, and throws a <code>ValidateException</code> if any constraints are
+					violated.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "SimpleType" required from module "sap/ui/model/SimpleType"
+// "ValidateException" required from module "sap/ui/model/ValidateException"
+
+var Zipcode = SimpleType.extend("sap.ui.sample.Zipcode", {
+    formatValue: function(oValue) {
+        return oValue;
+    },
+    parseValue: function(oValue) {
+        return oValue;
+    },
+    validateValue: function(oValue) {
+       if (!/^(\d{5})?$/.test(oValue)) {
+            throw new ValidateException("Zip code must have 5 digits!");
+       }
+    }
+});</pre></div></div></section><p></p>
+				<p>You can use your custom types in XML views or JavaScript in the same way as you would apply predefined
+					types:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+   controllerName="sap.ui.sample.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"&gt;
+   &lt;Input
+      value="{
+		path:'/company/zip',
+		type: 'sap.ui.sample.Zipcode'
+     }"/&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p></p>
+			</section></section><section id="section_N100DE_N10013_N10001">
+			<h2 class="title ">Changing the Binding Mode</h2>
+			<p>By default, all bindings of a model instance have the default binding mode of the
+				model, but you can change this behavior if needed. When creating a
+					<code>PropertyBinding</code>, you can specify a different binding mode,
+				which is then used exclusively for this specific binding. Of course, a binding can
+				only have a binding mode that is supported by the model in question.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "JSONModel" required from module "sap/ui/model/json/JSONModel"
+// "Input" required from module "sap/m/Input"
+// "BindingMode" required from module "sap/ui/model/BindingMode"
+	var oModel = new JSONModel();
+	// default binding mode is two-way
+	oModel.setData(myData);
+	var oInputFirstName = new Input ();
+	oInputFirstName.setModel(oModel);
+
+	// bind value property one way only
+	// propertyname, formatter function, binding mode
+	oInputFirstName.bindValue("/firstName", null, BindingMode.OneWay);
+	oInputFirstName.placeAt("target1");
+
+	var oInputLastName = new Input();
+	oInputLastName.setModel(oModel);
+	// bind value property two way (default)
+	oInputLastName.bindValue("/lastName");
+	oInputLastName.placeAt("target2");</pre></div></div></section>
+			<p>In the example above, two <code>Input</code> fields are created and their
+					<code>value</code> property is bound to the same property in the model. The
+				first <code>Input</code> binding has a one-way binding mode, whereas the second
+					<code>Input</code> has the default binding mode of the model instance, which
+				is two-way. For this reason, when text is entered in the first
+					<code>Input</code>, the value will <span class="emphasis">not</span> be changed in
+				the model. This only happens if text is entered in the second
+				<code>Input</code>. Then, of course, the value of the first
+					<code>Input</code> will be updated as it has a one-way binding, that is,
+				from model to view.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/d70e9894c09b4c27a98d4850d4e90f2c" title="Although there is no visible difference, the text on the screen is now derived from model data." class="sap-doc">Data Binding Tutorial Step 3: Create Property Binding</a></li>
+		<li><a href="api/sap.ui.base.ManagedObject#methods/bindProperty" title="api/sap.ui.base.ManagedObject#methods/bindProperty" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/bindProperty">API Reference:
+				sap.ui.base.ManagedObject.bindProperty</a></li>
+		<li><a href="topic/e2e6f4127fe4450ab3cf1339c42ee832" title="You bind UI elements to data of a data source by defining a binding path to the model that represents the data source in the app." class="sap-doc">Binding Syntax</a></li>
+		<li><a href="topic/07e4b920f5734fd78fdaa236f26236d8" title="Data that is presented on the UI often has to be converted so that is human readable and fits to the locale of the user. On the other hand, data entered by the user has to be parsed and validated to be understood by the data source. For this purpose, you use formatters and data types." class="sap-doc">Formatting, Parsing, and Validating Data</a></li>
+	</ul></section></div></section></div></body></html>

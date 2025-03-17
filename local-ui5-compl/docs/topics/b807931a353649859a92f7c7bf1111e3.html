@@ -1,0 +1,27 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob807931a353649859a92f7c7bf1111e3" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/inline-definition-and-instantiation-of-fragments-b807931.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Inline Definition and Instantiation of Fragments</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Inline Definition and Instantiation of Fragments</h2></div><div class="shortdesc">Instead of defining fragments externally in a separate file, they can also be defined
+		inline and can be instantiated immediately.</div><p>The content definition and also the instantiation syntax are just the same compared to an
+			instantiation in a program. However, instead of the "fragmentName" the "fragmentContent"
+			needs to be given. This feature can both be used for prototyping or for dynamic fragment
+			composition or for loading fragment content from sources which are not accessible by the
+			normal module loading mechanism. In general, inline definition of fragments plays only a
+			minor role. </p><p>JS fragment definitions can be done both inline and within a separate file without any changes. An example inline definition of an XML fragment
+			is given below: </p><section>
+			<h2 class="title ">Example of an Inline XML Fragment</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// define the XML fragment as a string (or load it from anywhere)
+var myXml = '&lt;Panel xmlns="sap.m" text="Hello World"&gt;&lt;Button text="Hello World"&gt;&lt;/Button&gt;&lt;/Panel&gt;';
+
+// use this XML string as "fragmentContent"
+sap.ui.require(["sap/ui/core/Fragment"], function(Fragment){
+    Fragment.load({
+        type: "XML",
+        definition: myXml
+    }).then(function(oFragment){
+        // put the Fragment content into the document
+        oFragment.placeAt('content');
+    });
+});</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/3cff5d0fa6754c0d9fdacd80653b81fb" title="For each fragment type, SAPUI5 provides a method that can be used to programmatically instantiate a fragment." class="sap-doc">Programmatically Instantiating JS Fragments</a></li>
+	</ul></section></div></section></div></body></html>

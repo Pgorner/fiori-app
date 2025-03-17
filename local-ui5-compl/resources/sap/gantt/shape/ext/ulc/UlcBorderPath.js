@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/base/Log","sap/gantt/shape/Path","sap/gantt/misc/Format"],function(t,e,i){"use strict";var a=e.extend("sap.gantt.shape.ext.ulc.UlcBorderPath",{});a.prototype.getD=function(e,a){var r="";if(this.mShapeConfig.hasShapeProperty("d")){r=this._configFirst("d",e)}else if(e.values){for(var s=0;s<e.values.length;s++){var o=this.getAxisTime();var n=o.timeToView(i.abapTimestampToDate(e.values[s].from));var h=o.timeToView(i.abapTimestampToDate(e.values[s].to));var p=e.values[s].value;if(isNaN(p)){p=0}var f=25;if(this.mShapeConfig.hasShapeProperty("maxVisibleRatio")){f=this._configFirst("maxVisibleRatio",e)}if(p>100+f){p=100+f}var u=a.y+a.rowHeight-a.rowHeight*(p/(100+f));var g=a.y+a.rowHeight;r=r+(e.values[s].firstOne?" M "+n+" "+g:"")+" L "+n+" "+u+" L "+h+" "+u+(e.values[s].lastOne?" L "+h+" "+g:"")}}if(this.isValid(r)){return r}else{t.warning("UlcBorderPath shape generated invalid d: "+r+" from the given data: "+e);return null}};a.prototype.getStroke=function(t,e){if(this.mShapeConfig.hasShapeProperty("stroke")){return this._configFirst("stroke",t)}var i;if(this.mShapeConfig.hasShapeProperty("utilizationCurves")){i=this._configFirst("utilizationCurves",t);return i[t.dimension].color}};a.prototype.getStrokeWidth=function(t,e){if(this.mShapeConfig.hasShapeProperty("strokeWidth")){return this._configFirst("strokeWidth",t)}return 1};return a},true);
+//# sourceMappingURL=UlcBorderPath.js.map

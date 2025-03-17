@@ -1,0 +1,92 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod59dbec411f04a64bd6d6dda898fdc84" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-the-upload-functionality-d59dbec.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling the Upload Functionality</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling the Upload Functionality</h2></div><p>The SAP Fiori elements Table building block provides a built-in upload
+			functionality that allows users to upload files to the server. The user can to the following:</p><ul class="ul ">
+			<li class="li">
+				<p>Upload files either by dragging and dropping them onto the table, or by clicking the <span class="ph uicontrol">Upload</span> button</p>
+			</li>
+			<li class="li">
+				<p>Download the uploaded files by clicking on the file name in the table</p>
+			</li>
+			<li class="li">
+				<p>Delete the uploaded files by selecting the lines and clicking on the <span class="ph uicontrol">Delete</span> button, or by using the table's
+					context menu</p>
+			</li>
+		</ul><p>Uploading and deleting is only available in edit mode.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>To avoid security issues, you must enable SAP Fiori elements to check for
+				allowed file types. To do that, define <code>@Core.AcceptableMediaTypes</code>. The back-end service framework must ensure a virus
+				scan and other security measures, such as maximum file size limitations and MIME-type restrictions, are in place.</p>
+		<p></p></div></div><section id="section_uty_tp2_2cc">
+			<h2 class="title ">Prerequisites</h2>
+			<p>To enable upload functionality, ensure the following prerequisites are met:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>The entity type must have an <code>Edm.Stream</code> type property that is used to store the uploaded file.</p>
+				</li>
+				<li class="li">
+					<p>The <code>UI.LineItem</code> annotation must contain a reference to the <code>Edm.Stream</code> type property that is
+						used to store the uploaded file.</p>
+				</li>
+				<li class="li">
+					<p>The entity type must have the <code>UI.MediaResource</code> annotation with the <code>Stream</code> property
+						referencing the <code>Edm.Stream</code> type property that is used to store the uploaded file.</p>
+				</li>
+			</ul>
+			<p>Here is an example of how to define the entity type with the required annotations:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				XML
+				Annotation</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="Namespace.EntityType"&gt;
+    &lt;Annotation Term="UI.LineItem"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="UI.DataField"&gt;
+                &lt;PropertyValue Property="Value" Path="PropertyOfEdmStreamType"/&gt;
+                &lt;PropertyValue Property="Label" String="File"/&gt;
+            &lt;/Record&gt;
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+    &lt;Annotation Term="UI.MediaResource"&gt;
+        &lt;Record Type="UI.MediaResourceType"&gt;
+            &lt;PropertyValue Property="Stream" Path="file"/&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+			
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><p>No ABAP CDS annotation sample is available. Please use the local XML
+				annotation.</p><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS annotation</p><p>You can use the
+						<code>Attachments</code> plug-in to define the entity type. For more information about the plug-in, see <a href="https://cap.cloud.sap/docs/plugins/#attachments" title="https://cap.cloud.sap/docs/plugins/#attachments" class="external-link" target="_blank" rel="noopener">Attachments</a>.</p><p></p></div></div>
+			
+			<p>Check out our live example in the flexible programming model explorer at
+					<a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableUpload" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableUpload" class="sap-doc">Table - File Upload</a>.</p>
+		</section><section id="section_zny_452_2cc">
+			<h2 class="title ">Additional Configuration</h2>
+			<section>
+				<h3 class="title ">Add Additional Columns and Actions to the Table</h3>
+				<p>You can add additional columns and actions to the table by either defining further <code>UI.LineItem</code> annotations or by
+					adding custom columns and actions into the <code>manifest.json</code>, as described in <a href="topic/f0e1e1743bef4f519c34025ad4351f77" title="f0e1e1743bef4f519c34025ad4351f77.xml" class="sap-doc">Defining Line Items</a>.</p>
+			</section>
+			<section>
+				<h3 class="title ">Control the Visibility and Enablement of the <span class="ph uicontrol">Upload</span> Button</h3>
+				<p>You can control the visibility and the enablement of the <span class="ph uicontrol">Upload</span> button in the same way as you can control
+					the <span class="ph uicontrol">Create</span> button for any other table. A new instance is created through uploading a file, so the
+						<span class="ph uicontrol">Upload</span> button has the same semantic meaning as the <span class="ph uicontrol">Create</span> button. For more
+					information about controlling the visibility and enablement of the <span class="ph uicontrol">Create</span> button, see <a href="topic/b623e0bbbb2b4147b2d0516c463921a0" title="The table control offers the possibility to show generic actions, such as Create and Delete, as well as application-specific actions." class="sap-doc">Adding Actions to Tables</a>.</p>
+			</section>
+			<section>
+				<h3 class="title ">Restrict File Type and Size</h3>
+				<p>The back-end service framework must ensure a virus scan and other security measures, such as maximum file size limitations and
+					MIME-type restrictions, are in place.</p>
+				<p>You can restrict the file type and the size of the files to be uploaded with the <code>MaxLength</code> and
+						<code>Core.AcceptableMediaTypes</code> annotation, as described in <a href="topic/b236d32d48b74304887b3dd5163548c1" title="End users of SAP Fiori elements can upload, download, and delete files." class="sap-doc">Enabling Stream Support</a>.</p>
+			</section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

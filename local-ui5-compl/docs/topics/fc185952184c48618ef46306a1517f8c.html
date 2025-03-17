@@ -1,0 +1,81 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiofc185952184c48618ef46306a1517f8c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/if-fc18595.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">if</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">if</h2></div><div class="shortdesc">The <code>&lt;template:if&gt;</code> instruction evaluates a condition expressed
+		via existing SAPUI5 data
+		binding features, such as extended syntax; in the preprocessing it is removed or replaced by
+		its child elements based on the value of this condition. </div><p>For more information, see <a href="topic/ec79a5d5918f4f7f9cbc2150e66778cc" title="ec79a5d5918f4f7f9cbc2150e66778cc.xml" class="sap-doc">Sorting, Grouping, and Filtering for List Binding</a>.</p><p>You set the condition to the <code>test</code> attribute of the <code>if</code>
+			instruction. It is recommended to use expression binding if you need to write logical
+			expressions or convert values into Booleans. You can also use formatter functions, as
+			with any SAPUI5 binding,
+			such as <code>sap.ui.model.odata.AnnotationHelper.isMultiple</code>. For more
+			information, see <code>sap.ui.model.odata.AnnotationHelper.isMultiple</code> in the
+			API Reference.</p><p>
+			</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The test condition is treated as a property binding and the result is converted to
+				the Boolean type according to the usual JavaScript rules, with the exception of the
+				string <code>"false"</code>, which is converted to the Boolean
+					<code>false</code> for convenience. For more information about the
+				JavaScript rules, see the ECMAScript® Language Specification on the <a href="http://www.ecma-international.org/" title="http://www.ecma-international.org/" class="external-link" target="_blank" rel="noopener">ECMA
+					International</a> website.</p></div></div>
+		<p></p><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">"if" Instruction to Include an Image Only if the URL is Set</h2>
+			<p>The output of the template below after preprocessing is as follows: If the test
+				condition does not hold, the <code>&lt;template:if&gt;</code> node is dropped
+				and if the test condition holds, the node is replaced by its content.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;template:if test="{meta&gt;ImageUrl}"&gt;
+  &lt;Image src="{path: 'meta&gt;ImageUrl', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" /&gt;
+&lt;/template:if&gt;</pre></div></div></section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The example above shows a shortcut syntax where
+						<code>&lt;template:then&gt;</code> can be omitted in case no
+						<code>&lt;template:else&gt;</code> is present.</p>
+			<p></p></div></div>
+		</div></section><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">"if/then/else" Instruction to Include an Image Only if the URL is Set and Display
+				a Title Otherwise</h2>
+			<p>The syntax of this example is more complex due to the additional
+					<code>&lt;template:then&gt;</code>/<code>&lt;template:else&gt;</code>
+				elements. The output is the <code>&lt;template:if&gt;</code> node replaced by
+				the content of the appropriate child node.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;template:if test="{meta&gt;ImageUrl}"&gt;
+  &lt;template:then&gt;
+    &lt;Image src="{path: 'meta&gt;ImageUrl', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" /&gt;
+  &lt;/template:then&gt;
+  &lt;template:else&gt;
+    &lt;Text text="{path: 'meta&gt;Title/Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" /&gt;
+  &lt;/template:else&gt;
+&lt;/template:if&gt;</pre></div></div></section>
+			<p></p></div></div>
+		</div></section><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">if/then/else Instruction</h2>
+			<p>It is even possible to check multiple conditions in one
+					<code>&lt;template:if&gt;</code> construct using the
+					<code>&lt;template:elseif&gt;</code> element as shown in the example
+				below.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;template:if test="{meta&gt;ImageUrl}"&gt;
+  &lt;template:then&gt;
+    &lt;m:Image src="{path: 'meta&gt;ImageUrl', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" /&gt;
+  &lt;/template:then&gt;
+  &lt;template:elseif test="{meta&gt;TypeImageUrl}"&gt;
+    &lt;commons:Image src="{path: 'meta&gt;TypeImageUrl', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" /&gt;
+  &lt;/template:elseif&gt;
+  &lt;template:else&gt;
+    &lt;commons:Text text="{path: 'meta&gt;Title/Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" /&gt;
+  &lt;/template:else&gt;
+&lt;/template:if&gt;</pre></div></div></section>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/daf6852a04b44d118963968a1239d2c0" title="Expression binding is an enhancement of the SAPUI5 binding syntax, which allows for providing expressions instead of custom formatter functions." class="sap-doc">Expression Binding</a></li>
+		<li><a href="topic/5ee619fc1370463ea674ee04b65ed83b" title="The XML templating concept enables you to use an XML view as a template. This template is transformed by an XML preprocessor on the source level, the XML DOM, at runtime just before an SAPUI5 control tree is created from the XML source." class="sap-doc">XML Templating</a></li>
+	</ul></section></div></section></div></body></html>

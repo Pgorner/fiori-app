@@ -1,0 +1,87 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0ec1d91487aa43058914ba80ccefbc9b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/important-flexbox-layout-concepts-0ec1d91.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Important FlexBox Layout Concepts</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Important FlexBox Layout Concepts</h2></div><div class="shortdesc">Introduction of important concepts for FlexBox layouts.</div><section id="section_N10018_N10011_N10001">
+			<h2 class="title ">Main Axis and Cross Axis</h2>
+			<p>A FlexBox layout has a direction in which child elements are laid out. The default
+				direction is <b>Row</b> and rows are laid out horizontally in reading direction.
+				This defines the <b>main axis</b>. The <b>cross axis</b> in this case is
+				vertical.</p>
+			<p>You can change the layout direction property to <b>Column</b>, which results in a
+				vertical main axis and a horizontal cross axis. This is important for the align
+				properties.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If browsers support vertical text flows, the direction of a row can also be
+					vertical. For now this is not an issue and can be ignored.</p>
+			<p></p></div></div>
+			<p>In addition to Row and Column, the flex direction can be set to <b>RowReverse</b> and
+					<b>ColumnReverse</b> which will reverse the layout direction.</p>
+		</section><section id="section_N1004D_N10011_N10001">
+			<h2 class="title ">Two-Dimensional Alignment</h2>
+			<p>You can determine where the flex items are aligned in a FlexBox layout. For the
+				alignment you use the following two properties: <b>justifyContent</b> and
+					<b>alignItems</b>. The <code>justifyContent</code> property sets the
+				alignment along the main axis while <code>alignItems</code> acts on the cross
+				axis.</p>
+			<p>Both properties accept the values <b>Start</b>, <b>Center</b> and <b>End</b>. This
+				results in nine possible combinations, for example</p>
+			<ul class="ul ">
+				<li class="li"><i>justifyContent = End</i> and <i>alignItems: Start</i> places the items in the
+					upper right corner of a horizonzal FlexBox</li>
+				<li class="li">If you set the direction property to <i>Column</i>, the main axis would be
+					vertical. Combined with <i>justifyContent = End</i> and <i>alignItems:
+					Start</i>, the items are placed in the lower left corner.</li>
+				<li class="li">By reversing the main axis with <i>direction = ColumnReverse</i> the layout
+					starts from the bottom. In this case, <i>justifyContent = End</i> refers to the
+					top of the FlexBox.</li>
+				<li class="li"><i>justifyContent</i> has the additional value <i>SpaceBetween</i>. This setting places the
+					first and the last item at the extremes of the main axis. Any other items will
+					be distributed evenly between these two.</li>
+			</ul>
+			<p>For <i>alignItems</i> two additional values exist: <i>Baseline</i> and
+				<i>Stretch</i>. <i>Baseline</i> takes the first line of text of each flex item and
+				aligns their baselines. This can be useful if different font sizes are used.
+					<i>Stretch</i> makes the flex items take up the whole space along the cross axis
+				of the FlexBox. This is useful if all items should have the same size regardless of
+				the amount of content.</p>
+		</section><section id="section_N100C9_N10011_N10001">
+			<h2 class="title ">Flexibility</h2>
+			<p>You can let the browser handle the distribution of elements. This ensures that they
+				always fill the available space along the main axis. To do this, set a flexibility
+				factor on the flex items.</p>
+			<p>The property to control the flexibility is called <code>growFactor</code>. It is
+				set on a flex item object by means of <code>FlexItemData</code> on the
+					<code>layoutData</code> aggregation. The flex layout algorithm determines
+				the "natural" width of the flex items. If there is space left, this space is
+				distributed among the flex items according to their relative
+					<code>growFactor</code>. If, for example, a horizonzal flex container is
+				300px wide and contains two elements of 100px each, 100px would remain. If the
+					<code>growFactor</code> for both flex items is set to 1, both get 50px
+				extra, thus making them 150px wide. If the <code>growFactor</code>  is set to 3
+				for one item and to 1 for the other item, the first item gets additional 75px (¾ of
+				100px) of the remaining space and the second item 25px (¼ of 100px). If the
+					<code>growFactor</code> is set to its default value of 0, the item is
+				inflexible and both items would keep their width of 100px.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The flex algorithm distributes the <b>remaining</b> space, and <b>not</b> the whole space in
+					the FlexBox. Therefore, the resulting widths of the items are not necessarily
+					proportional to the <code>growFactor</code>.</p>
+			<p></p></div></div>
+			<p>To achieve a proportional width according to the <code>growFactor</code>, set the width of
+				all items to 0 via CSS. The sum of the "natural" widths of all items is then also 0.
+				The remaining space, however, now equals the full space of the
+					<code>FlexBox</code>. This space is then distributed based on the
+					<code>growFactor</code>. For the example above with
+					<code>growFactor</code> set to 3 and 1, setting the width of the flex items
+				to 0 via CSS results in a width of 225px (¾ of 300px) for the first item and 75px (¼
+				of 300px) for the second item. </p>
+			<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>Once you set a <code>growFactor</code> for any item, the flex
+				layout algorithm ignores the <code>justifyContent</code> property of the FlexBox
+				because the items take up all available space anyway. There would be no difference
+				between the different values.</p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

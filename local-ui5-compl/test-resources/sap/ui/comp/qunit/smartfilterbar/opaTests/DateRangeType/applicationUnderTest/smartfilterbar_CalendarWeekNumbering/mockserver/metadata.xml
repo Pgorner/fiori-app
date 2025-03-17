@@ -1,0 +1,58 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZEPM_C_SALESORDERITEMQUERY_CDS" xml:lang="en" sap:schema-version="1">
+
+			<EntityType Name="ZEPM_C_SALESORDERITEMQUERYResult" sap:semantics="aggregate" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ID" />
+				</Key>
+				<Property Name="DTR_SINGLE" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="single-value" sap:label="DateRangeType DateTime Single"/>
+				<Property Name="DTR_MULTIPLE" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="multi-value" sap:label="DateRangeType DateTime Multiple"/>
+				<Property Name="DTR_INTERVAL" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="interval" sap:label="DateRangeType DateTime Interval"/>
+				<Property Name="DTR_AUTO" Type="Edm.DateTime" sap:display-format="Date" sap:label="DateRangeType DateTime"/>
+
+				<Property Name="DT_SINGLE" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="single-value" sap:label="DateTime Single"/>
+				<Property Name="DT_MULTIPLE" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="multi-value" sap:label="DateTime Multiple"/>
+				<Property Name="DT_INTERVAL" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="interval" sap:label="DateTime Interval"/>
+				<Property Name="DT_AUTO" Type="Edm.DateTime" sap:display-format="Date" sap:label="DateTime"/>
+
+				<Property Name="DTO_SINGLE" Type="Edm.DateTimeOffset" sap:display-format="Date" sap:filter-restriction="single-value" sap:label="DateTimeOffset Single"/>
+				<Property Name="DTO_MULTIPLE" Type="Edm.DateTimeOffset" sap:display-format="Date" sap:filter-restriction="multi-value" sap:label="DateTimeOffset Multiple"/>
+				<Property Name="DTO_INTERVAL" Type="Edm.DateTimeOffset" sap:display-format="Date" sap:filter-restriction="interval" sap:label="DateTimeOffset Interval"/>
+				<Property Name="DTO_AUTO" Type="Edm.DateTimeOffset" sap:display-format="Date" sap:label="DateTimeOffset"/>
+
+				<Property Name="STRING_SINGLE" Type="Edm.String" sap:filter-restriction="single-value" sap:label="String Single IsCalendarDate"/>
+				<Property Name="STRING_MULTIPLE" Type="Edm.String" sap:filter-restriction="multi-value" sap:label="String Multiple IsCalendarDate"/>
+				<Property Name="STRING_INTERVAL" Type="Edm.String" sap:filter-restriction="interval" sap:label="String Interval IsCalendarDate"/>
+				<Property Name="STRING_AUTO" Type="Edm.String" sap:label="String Auto IsCalendarDate"/>
+			</EntityType>
+
+			<EntityContainer Name="ZEPM_C_SALESORDERITEMQUERY_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="ZEPM_C_SALESORDERITEMQUERYResults" EntityType="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1" />
+			</EntityContainer>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRING_SINGLE"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRING_MULTIPLE"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRING_INTERVAL"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRING_AUTO"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

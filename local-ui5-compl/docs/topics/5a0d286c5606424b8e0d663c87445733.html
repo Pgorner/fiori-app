@@ -1,0 +1,59 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5a0d286c5606424b8e0d663c87445733" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/performance-aspects-5a0d286.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Performance Aspects</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Performance Aspects</h2></div><div class="shortdesc">The OData V4 model offers the features described below which influence
+		performance.</div><section>
+			<h2 class="title "><code>odata.metadata=minimal</code></h2>
+			<p>The OData V4 model uses an <code>odata.metadata=minimal</code> header in its requests to
+				reduce the amount of data that is sent from server to client. For more information,
+				see section "3.1.1 odata.metadata=minimal" in the <a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/os/odata-json-format-v4.0-os.html" title="http://docs.oasis-open.org/odata/odata-json-format/v4.0/os/odata-json-format-v4.0-os.html" class="external-link" target="_blank" rel="noopener">OData JSON Format Version 4.0</a> specification.</p>
+		</section><section>
+			<h2 class="title "><code>$expand</code> and <code>$select</code></h2>
+			<p>An application can either specify <code>$expand</code> and
+					<code>$select</code> parameters to read all data to be displayed in one
+				request, or create bindings dynamically to load only part of the data with one
+				request per binding. The application needs to decide whether to have less roundtrips
+				with a bigger payload or more roundtrips with smaller payload. </p>
+			<p>To reduce payload, applications should only select properties that are needed using
+					<code>$select</code> (see the code sample in the <a href="topic/1ab4f62de6ab467096a2a98b363a1373" title="1ab4f62de6ab467096a2a98b363a1373.xml" class="sap-doc">Parameters</a> topic). Besides the properties
+				needed on the UI, the binding must select key properties to support features such as
+				read requests sent from a child binding, write requests, or bound operations on the
+				respective entity.</p>
+		</section><section>
+			<h2 class="title ">Batching Requests or Not</h2>
+			<p>By default, the OData V4 model collects all requests made to the OData service in a batch request to reduce the number of roundtrips. The
+				disadvantage of a batch request is that it cannot be cached by the browser. If some of the requests (e.g. value help requests) are
+				"cacheable", it is a good idea to request these resources directly and use the browser cache to improve the performance of the
+				application. In such cases, use the <code>$direct</code> group as described in the section <a href="topic/74142a38e3d4467c8d6a70b28764048f" title="OData V4 allows you to group multiple operations into a single HTTP request payload, as described in the official OData V4 specification Part 1, Batch Requests (see the link under Related Information for more details)." class="sap-doc">Batch Control</a>. For that reason, unit and currency code lists are fetched with
+					<code>$direct</code> by the model. See also <a href="topic/4d1b9d44941f483f9b7f579873d38685" title="For amounts or measures, you may sometimes need different currencies or units than defined in the CLDR. The data types sap.ui.model.odata.type.Currency and sap.ui.model.odata.type.Unit enable you to use code lists with customizing for currency codes and units." class="sap-doc">Currency and Unit Customizing in OData V4</a> for more information on unit
+				and currency code lists.</p>
+		</section><section>
+			<h2 class="title ">Data Reuse</h2>
+			<p>The reuse of data in different bindings may help to avoid unnecessary requests. The available options are described in detail in the chapter
+					<a href="topic/648e360fa22d46248ca783dc6eb44531" title="The OData V4 model keeps data with respect to bindings. This allows different views on the same data but also means that data is not automatically shared between bindings. There are mechanisms for sharing data to avoid redundant requests and to keep the same data in different controls in sync." class="sap-doc">Data Reuse</a>. </p>
+		</section><section id="section_ER4MST">
+			<h2 class="title ">Early Requests for Metadata and Security Token</h2>
+			<p>The requests for the service's root <code>$metadata</code> document and annotation files and for the security token may be on the "critical
+				invocation path": By default, these requests are sent lazily when the SAPUI5 application starts, for example only when the corresponding
+				information is needed. This delays application startup until these requests have returned.</p>
+			<p>If you construct the model with an <span class="parmname">earlyRequests</span> parameter, the requests are sent as early as possible and
+				application startup performance may improve. Consider using the <a href="topic/26ba6a5c1e5c417f8b21cce1411dba2c" title="The preload flag enables a preload mode for a model, thus improving the startup performance of an app or component." class="sap-doc">Manifest Model Preload</a>, so that the
+				requests are submitted even earlier.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p> Modern browsers typically can process up to six parallel requests. If and how much the performance improves therefore strongly
+					depends on the number of requests sent initially by the application.</p>
+			<p></p></div></div>
+			<div class="note remember  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Remember
+				</strong></div></div><div class="fig"><p>
+				</p><p>The default value for <code>earlyRequests</code> is <code>false</code> in SAPUI5 1.54. This may, however, change in later releases. If you wish
+					to ensure that requests are not sent early, do not rely on the default and explicitly set <code>earlyRequests</code> to
+						<code>false</code>.</p>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="http://docs.oasis-open.org/odata/odata-json-format/v4.0/os/odata-json-format-v4.0-os.html" title="http://docs.oasis-open.org/odata/odata-json-format/v4.0/os/odata-json-format-v4.0-os.html" class="external-link" target="_blank" rel="noopener">OData JSON Format Version 4.0</a></li>
+		<li><a href="topic/54e0ddf695af4a6c978472cecb01c64d" title="Bindings connect SAPUI5 view elements to model data, allowing changes in the model to be reflected in the view element and vice versa." class="sap-doc">Bindings</a></li>
+		<li><a href="topic/74142a38e3d4467c8d6a70b28764048f" title="OData V4 allows you to group multiple operations into a single HTTP request payload, as described in the official OData V4 specification Part 1, Batch Requests (see the link under Related Information for more details)." class="sap-doc">Batch Control</a></li>
+		<li><a href="topic/966d67c8cc5046419d1b35556cd9e447.html#loio966d67c8cc5046419d1b35556cd9e447/section_LLAOD" title="966d67c8cc5046419d1b35556cd9e447.xml#loio966d67c8cc5046419d1b35556cd9e447/section_LLAOD" class="sap-doc">Loading Large Amounts of Data</a></li>
+	</ul></section></div></section></div></body></html>

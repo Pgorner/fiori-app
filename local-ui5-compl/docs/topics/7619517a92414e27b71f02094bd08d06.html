@@ -1,0 +1,919 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7619517a92414e27b71f02094bd08d06" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adding-custom-actions-using-extension-points-7619517.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adding Custom Actions Using Extension Points</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adding Custom Actions Using Extension Points</h2></div><div class="shortdesc">You can use extension points to add custom actions to the list report and the object page.</div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+			<p></p><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+                </p><p>Use app extensions with caution and only if you cannot produce the required
+                    behavior by other means, such as manifest settings or annotations. To correctly
+                    integrate your app extension coding with SAP Fiori elements, use
+                    only the <code>extensionAPI</code> of SAP Fiori elements. For
+                    more information, see <a href="topic/bd2994b69ef542998becbc69ab093f7e" title="The extensionAPI consists of several elements that are described below. It can be used for the list report and object page." class="sap-doc">Using the extensionAPI</a>.</p>
+                <p>After you've created an app extension, its display (for example, control
+                    placement and layout) and system behavior (for example, model and binding usage,
+                    busy handling) lies within the application's responsibility. SAP Fiori elements
+                    provides support only for the official <code>extensionAPI</code> functions.
+                    Don't access or manipulate controls, properties, models, or other internal
+                    objects created by the SAP Fiori elements
+                    framework.</p>
+                
+            <p></p></div></div>You can define custom actions for:<ul class="ul ">
+					<li class="li">List reports (global action)<p>For global actions, you do not have to select a line in the list report table. This type of
+							action refers to the whole list report, for example, <span class="uinolabel">Display Log</span>. Global actions are placed in the
+							list report filter bar next to the <span class="uinolabel">Share</span> button.</p></li>
+					<li class="li">Table toolbar of the list report</li>
+					<li class="li">Header of the object page</li>
+					<li class="li">Table toolbar for a specific table on the object page</li>
+					<li class="li">Form in a section on the object page</li>
+					<li class="li">Footer bar<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>In SAP Fiori elements for OData
+                            V4, footer bar actions are available only on
+								the object page.</p>
+						<p></p></div></div></li>
+				</ul>These custom actions are displayed as buttons on the UI. When the user selects the action, the system calls a handler function
+				that can be implemented within a controller extension.<p></p>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section><section id="task_q5c_vrl_d4b" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adding-custom-actions-using-extension-points-7619517.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><section id="steps_qpd_3tl_d4b" class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+				<li class="step">
+					<span class="cmd">Implement controller extension</span>
+					<ol class="substeps">
+						<li class="substep">
+							<span class="cmd">In your app, create a <code>.controller.js</code> file for your extension.</span>
+							<div class="itemgroup info">
+								<p>In the code sample below, we assume the following:</p><ul class="ul ">
+										<li class="li">
+											<p>App name: <code>my_app</code></p>
+										</li>
+										<li class="li">
+											<p>File names: <code>MyListReportExt.controller.js</code> (extending the
+													<code>ListReport</code> controller), <code>MyObjectPageExt.controller.js</code> (extending
+												the <code>MainObjectPage</code> controller), <code>MySubObjectPageExt.controller.js</code>
+												(extending the <code>SubObjectPage</code> controller). Individual Controller extensions can be
+												created for each object page. For more information, see <a href="topic/358cf2598d71462b8ac2bd8c944efbfd" title="App extensions can be used to extend your app." class="sap-doc">Extending&amp;nbsp;SAP&amp;nbsp;Fiori Elements-Based Apps</a>.</p>
+										</li>
+										<li class="li">Location of controller files: <code>my_app/webapp/ext/controller</code></li>
+									</ul><p></p>
+							</div>
+						</li>
+						<li class="substep">
+							<span class="cmd">In your controller extension, implement the event handler functions to be executed when the user selects the action.
+								For example, if you want to extend the <code>ListReport</code> controller, your controller extension should look
+								like this: </span>
+							<div class="itemgroup info">
+								<p>
+									</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([], function() {
+    return {
+        onCustomAction1 : function(oEvent) { … },
+        onCustomAction2 : function(oEvent) { … },
+        …
+    }
+  })
+</pre></div></div></section>
+								<p></p>
+							</div>
+						</li>
+					</ol>
+					<div class="itemgroup info">
+						<p>When implementing the handler functions for your custom actions, you must use the <a href="topic/bd2994b69ef542998becbc69ab093f7e" title="The extensionAPI consists of several elements that are described below. It can be used for the list report and object page." class="sap-doc">Using the extensionAPI</a>.</p>
+					</div>
+				</li>
+				<li class="step">
+					<span class="cmd">Extend the <code>manifest.json</code> file</span>
+					<div class="itemgroup info">
+						<p>In your app's <code>manifest.json</code> file, under <code>sap.ui5 → extends → extensions</code>, you can
+							specify extensions for the <code>ListReport</code> and the <code>ObjectPage</code> controllers.</p>
+						<p>Specify the following information and extend the manifest files as described below: </p>
+						<div class="tableWrapper "><div class="fig"><table border="1" id="table_ccj_hrz_51b" class=" ">
+								
+								
+								<tbody>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;entity set&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Entity set that is displayed on the list report or on the object page (for example,
+													<code>SMART_C_Product</code>)</p>
+											<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+												</p><p>If you use multiple views with different <code>entity sets</code> on the list report page,
+														<code>Actions</code> need to be defined only for main entity set. It is not possible to
+													execute <code>Actions</code> defined for other <code>entity sets</code>.</p>
+											<p></p></div></div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;Action 1&gt;</code>, <code>&lt;Action 2&gt;</code>, …</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Action names</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;id&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>ID to be used for the action button</p>
+											<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The values of the action name and the ID should be identical.</p></div></div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;button text&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>nullText to be displayed on the button (typically a binding to an i18n entry, for example,
+												null&lt;button text&gt;nullnull<code>{i18n&gt;MY_BUTTON_TEXT}</code>)</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;handler function&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Handler function that is called when the user selects the action button </p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;global&gt; </code>(required)</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Indicates whether this is a global action. The default value is <code>false</code>.</p>
+											<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If a determining property is set along with the global property, the action is rendered as a global
+												action since this takes precedence.</p></div></div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>Relevant only for table toolbar actions in the list report and object page:
+													<code>&lt;requiresSelection&gt;</code> (optional)</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p> Property that indicates whether the action requires a selection of items. The default value is
+													<code>true</code>.</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>Relevant only for list report actions and object page header actions:
+													<code>&lt;determining&gt;</code> (optional)</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Property that indicates whether the action should be displayed in the footer of the
+												page.
+												The default value is <code>false</code>.</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>Relevant only for object page actions: <code>&lt;SmartTable Facet ID&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>ID that either comes from the annotation in which you have provided an ID for the facet or that's made
+												up of the annotation term plus the navigation property. For example: &lt;entity type
+												association&gt;::com.sap.vocabularies.UI.v1.LineItem</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;applicablePath&gt; </code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Determines if a custom action should be visible or enabled.</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;command&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Represents the command mapped to a keyboard shortcut defined under <code>sap.ui.commands</code></p>
+											<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+												</p><p>If you are adding the command settings to an existing custom action, the parameter i.e.,
+														<code>oEvent</code> passed to the event handler of that custom action, is changed. It
+													requires code adaptation if the code in the event handler depends on the <code>oEvent</code>
+													parameter.</p>
+												<p>You must not use a keyboard shortcut that is provided by default as custom action keyboard
+													shortcut. For example, <span class="keys">
+														<span class="keyWrap"><kbd class="key">Ctrl</kbd></span>
+														<span class="keyWrap"><kbd class="key">E</kbd></span>
+													</span>, <span class="keys">
+														<span class="keyWrap"><kbd class="key">Ctrl</kbd></span>
+														<span class="keyWrap"><kbd class="key">Enter</kbd></span>
+													</span> and all other default keyboard shortcut should not be overridden.</p>
+											<p></p></div></div>
+										</td>
+									</tr>
+								</tbody>
+							</table></div></div>
+					</div>
+					<div class="itemgroup info">
+						<p>
+							</p><ul class="ul ">
+								<li class="li">
+									<p>Table toolbar action for the list report</p>
+									<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+"extends": {
+    "extensions": {
+        "sap.ui.commands": {
+            "&lt;ComponentName&gt;#&lt;Component ID without app ID prefix&gt;": {
+                "&lt;CustomActionCommandName&gt;": {
+                    "shortcut": "Ctrl+G"
+                }
+            }
+        },
+        "sap.ui.controllerExtensions": {
+            "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                "controllerName": "my_app.ext.controller.ListReportExtension",
+                    "sap.ui.generic.app": {
+                    "&lt;entity set&gt;": {
+                        "EntitySet": "&lt;entity set&gt;",
+                            "Actions": {
+                                "&lt;Action 1&gt;": {
+                                    "id": "&lt;id&gt;",
+                                    "text": "&lt;button text&gt;",
+                                    "press": "&lt;handler function&gt;",
+                                    "requiresSelection": &lt;true| false &gt;,
+                                    "applicablePath": &lt;path&gt;,
+                                    "command": "&lt;CustomActionCommandName&gt;"
+                                 },
+                                "&lt;Action 2&gt;": {
+                                    ...
+                                },
+                            ...
+                        }
+                        ...
+                    }
+                }
+            }
+        }
+    }
+}
+</pre></div></div></section>
+									<p>An example of <code>&lt;ComponentName&gt;#&lt;Component ID without app ID prefix&gt;</code> is
+											<code>sap.suite.ui.generic.template.ListReport#sap.suite.ui.generic.template.ListReport::STTA_C_MP_Product</code>.</p>
+									<p>In order to construct this string, you need the following information:</p><ul class="ul ">
+											<li class="li">
+												<p><code>&lt;ComponentName&gt;</code>: You can use the component name used in the pages structure
+													of <code>sap.ui.generic.app</code> namespace in the manifest. For example,
+														<code>sap.suite.ui.generic.template.ListReport</code>.</p>
+											</li>
+											<li class="li">
+												<p><code>&lt;Component ID without app ID prefix&gt;</code>: You can get the corresponding component first,
+													that can be fetched in the following ways:</p><ul class="ul ">
+														<li class="li">
+															<p>Using the
+																corresponding
+																xml view</p>
+															<p>For example,
+																	<code>Element.getElementById('STTA_MP::sap.suite.ui.generic.template.ListReport.view.ListReport::STTA_C_MP_Product').getController().getOwnerComponent().getId()</code>
+																where
+																	<code>STTA_MP::sap.suite.ui.generic.template.ListReport.view.ListReport::STTA_C_MP_Product</code>
+																is the <code>XmlView</code> ID, and <code>Element</code> is required from
+																module <code>sap/ui/core/Element</code>.</p>
+														</li>
+														<li class="li">
+															<p>Using <code>ComponentContainer</code></p>
+															<p><code>Element.getElementById('__xmlview0-__clone0--host').getComponent()</code>
+																where <code>__xmlview0-__clone0--host</code> is the
+																	<code>ComponentContainer</code> ID, and <code>Element</code> is requred
+																from module <code>sap/ui/core/Element</code>.</p>
+														</li>
+													</ul><p></p>
+												<p>The result is generated in this <code>&lt;app component prefix&gt;---&lt;local component
+														ID&gt;</code> format. For example,
+														a<code>pplication-EPMProduct-manage_st-component---sap.suite.ui.generic.template.ListReport::STTA_C_MP_Product</code>.
+													You can remove the app component prefix from the string along with the dashes.</p>
+											</li>
+										</ul><p></p>
+								</li>
+								<li class="li">
+									<p>Action for the object page header</p>
+									<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+"extends": {
+    "extensions": {
+        "sap.ui.commands": {
+            "&lt;ComponentName&gt;#&lt;Component ID without app ID prefix&gt;": {
+                "&lt;CustomCommandName&gt;": {
+                    "shortcut": "Ctrl+K"
+                }
+            }
+        },
+        "sap.ui.controllerExtensions": {
+            ...
+            "sap.suite.ui.generic.template.ObjectPage.view.Details#my_app::sap.suite.ui.generic.template.ObjectPage.view.Details:: &lt;entity set&gt;": {
+                "controllerName": "my_app.ext.controller.DetailsExtension",
+                    "sap.ui.generic.app": {
+                    "&lt;entity set&gt;": {
+                        "EntitySet": "&lt;entity set&gt;",
+                            "Header" : {
+                            "Actions": {
+                                "&lt;Action 1&gt;": {
+                                    "id" : "&lt;id&gt;",
+                                    "text" : "&lt;button text&gt;",
+                                    "press" : "&lt;handler function&gt;"
+                                    "applicablePath": &lt;path&gt;,
+                                    "command": "&lt;CustomCommandName&gt;"
+                                },
+                                "&lt;Action 2&gt;": { 
+                                    ... 
+                                }
+                            }
+                        },
+...
+
+</pre></div></div></section>
+								</li>
+								<li class="li">
+									<p>Table toolbar action for the object page</p>
+									<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+"extends": {
+  "extensions": {
+    "sap.ui.controllerExtensions": {
+      ...
+      "sap.suite.ui.generic.template.ObjectPage.view.Details#my_app::sap.suite.ui.generic.template.ObjectPage.view.Details:: &lt;entity set&gt;":  {
+        "controllerName": "my_app.ext.controller.DetailsExtension",
+          "sap.ui.generic.app": {
+            "&lt;entity set&gt;": {
+              "EntitySet": "&lt;entity set&gt;",
+              "Sections": {
+                "&lt;SmartTable Facet ID&gt;": {
+                  "id" : "&lt;SmartTable Facet ID&gt;",
+                  "Actions": {
+                    "&lt;SmartTable Action 1&gt;": {
+                      "id" : "&lt;id&gt;",
+                      "text" : "&lt;button text&gt;",
+                      "press" : "&lt;handler function&gt;",
+                      "applicablePath": &lt;path&gt;,
+                      "requiresSelection": &lt;true|false&gt;
+                    },
+                    "&lt;SmartTable Action 2&gt;": { ... }
+                  }
+...
+</pre></div></div></section>
+								</li>
+								<li class="li">
+									<p>Form action for the object page</p>
+									<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">
+...
+"extends": {
+  "extensions": {
+    "sap.ui.controllerExtensions": {
+      ...
+      "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+        "controllerName": "my_app.ext.controller.DetailsExtension",
+          "sap.ui.generic.app": {
+            "&lt;entity set&gt;": {
+              "EntitySet": "&lt;entity set&gt;",
+              "Sections": {
+                "&lt;Form Facet ID&gt;": {
+                  "id": "&lt;Form Facet ID&gt;",
+                  "Actions": {
+                    "&lt;Action 1&gt;": {
+                      "id" : "&lt;id&gt;",
+                      "text" : "&lt;button text&gt;",
+                      "press" : "&lt;handler function&gt;"
+                      "applicablePath": &lt;path&gt;,
+                    },
+                    "&lt;Action 2&gt;": { ... }
+                  }
+...
+</pre></div></div></section>
+								</li>
+								<li class="li">
+									<p>Footer bar action in the list report:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+   "extends": {
+      "extensions": {
+         "sap.ui.controllerExtensions": {
+            "sap.suite.ui.generic.template.ObjectPage.view.Details#my_app::sap.suite.ui.generic.template.ObjectPage.view.Details:: &lt;entity set&gt;":  {
+               "controllerName": "my_app.ext.controller.ListReportExtension",
+               "sap.ui.generic.app": {
+                  "&lt;entity set&gt;": {
+                     "EntitySet": "&lt;entity set&gt;",
+                     "Actions": {
+                        "&lt;Action 1&gt;": {
+                           "id": "&lt;id&gt;",
+                           "text": "&lt;button text&gt;",
+                           "press": "&lt;handler function&gt;",
+                           "determining": true
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+</pre></div></div></section><p></p>
+								</li>
+								<li class="li">
+									<p>Footer bar action in the object page:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+   "extends": {
+      "extensions": {
+         "sap.suite.ui.generic.template.ObjectPage.view.Details#my_app::sap.suite.ui.generic.template.ObjectPage.view.Details:: &lt;entity set&gt;":  {
+            "sap.suite.ui.generic.template.ObjectPage.view.Detail": {
+               "controllerName": "my_app.ext.controller.DetailsExtension",
+               "sap.ui.generic.app": {
+                  "&lt;entity set&gt;": {
+                     "EntitySet": "&lt;entity set&gt;",
+                     "Header": {
+                        "Actions": {
+                           "&lt;Action 1&gt;": {
+                              "id": "&lt;id&gt;",
+                              "text": "&lt;button text&gt;",
+                              "press": "&lt;handler function&gt;",
+                              "applicablePath": &lt;path&gt;,
+                              "determining": true
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+</pre></div></div></section><p></p>
+								</li>
+								<li class="li">
+									<p>List report (global action)</p>
+									<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+"extends": {
+   "extensions": {
+      "sap.ui.controllerExtensions": {
+         "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+            "controllerName": "my_app.ext.controller.ListReportExtension",
+            "sap.ui.generic.app": {
+               "&lt;entity set&gt;": {
+                  "EntitySet": "&lt;entity set&gt;",
+                  "Actions": {
+                     "&lt;Action 1&gt;": {
+                        "id" : "&lt;id&gt;",
+                        "text" : "&lt;button text&gt;",
+                        "press" : "&lt;handler function&gt;",
+                     "global": &lt;true|false&gt;
+                     },
+                     "&lt;Action 2&gt;": {
+                        ...
+                     },
+                     ...
+                  }
+               ...
+</pre></div></div></section>
+								</li>
+							</ul>
+						<p></p>
+					</div>
+				</li>
+			</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section><section id="task_mpc_ktl_d4b" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adding-custom-actions-using-extension-points-7619517.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><section id="steps_a55_xtl_d4b" class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+				<li class="step">
+					<span class="cmd">Create a custom action handler function in JavaScript.</span>
+					<div class="itemgroup info">
+						<p>
+					</p></div>
+				</li>
+				<li class="step">
+					<span class="cmd">Extend the <code>manifest.json</code> file.</span>
+					<div class="itemgroup info">
+						<p>In your app's <code>manifest.json</code> file, under <code>sap.ui5 → routing → targets → &lt;target name&gt; →
+								options → settings → controlConfiguration → &lt;control&gt; → actions</code>, or in the footer, add actions as
+							follows:</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+							Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"&lt;Action name&gt;": {
+     "press": "&lt;handler function&gt;",
+     "visible": &lt;true|false|handler function&gt;,
+     "enabled": &lt;true|false|handler function&gt;,
+     "text": "&lt;button text&gt;",
+     "position": {
+          "placement": &lt;"Before"|"After"&gt;,
+          "anchor": "&lt;Anchor action name&gt;"
+     }
+}</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"myCustomEnablement": {
+     "press": "SalesOrder.ext.CustomActions.navigateExternal",
+     "enabled": "SalesOrder.ext.CustomActions.enabledForCompletedOnly",
+     "text": "Enabled for Completed"
+}</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Example for Handler
+							Function:</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">enabledForCompletedOnly: function(oBindingContext, aSelectedContexts) {
+     if (aSelectedContexts && aSelectedContexts.length === 1) {
+          return true;
+     }
+    
+    return false;
+}</pre></div></div></section><p></p></div></div>
+						<div class="tableWrapper "><div class="fig"><table border="1" id="table_rdn_1wl_d4b" class=" ">
+								
+								
+								<thead>
+									<tr>
+										<th colspan="1" rowspan="1">Property</th>
+										<th colspan="1" rowspan="1">Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>The first parameter of&lt;Action name&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Name of the custom action</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;handler function&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Handler function that is called when the user selects the action button</p>
+											<p>It is of the format <code>&lt;app ID from manifest&gt;.&lt;Folder Name&gt;.&lt;Script
+													file&gt;.&lt;Method Name&gt;</code></p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;button text&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Text to be displayed on the button (typically a binding to an i18n entry, for example
+													<code>{i18n&gt;BUTTON_TEXT}</code>)</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p><code>&lt;Anchor action name&gt;</code></p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>Name of another action with reference to which this action should be placed.</p>
+											<p>Here are some examples:</p>
+											<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+												</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"position": {
+     "placement": "Before",
+     "anchor": "DataFieldForAction::Action"
+}</pre></div></div></section>
+											<p></p></div></div>
+											<p>This places the current action before the <code>DataFieldForAction</code> by the name
+													<code>Action</code>.</p>
+											<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+												</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"position": {
+     "placement": "After",
+     "anchor": "DataFieldForIntentBasedNavigation::SO::Action"
+}</pre></div></div></section>
+											<p></p></div></div>
+											<p>This places the current action after the <code>DataFieldForIntentBasedNavigation</code> by the name
+													<code>Action</code> defined on the semantic object <code>SO</code>.</p>
+										</td>
+									</tr>
+								</tbody>
+							</table></div></div>
+					</div>
+				</li>
+				<li class="step">
+					<span class="cmd">Define a handler function.</span>
+					<ol class="substeps">
+						<li class="substep">
+							<span class="cmd">For a custom action, proceed as follows:</span>
+							<div class="itemgroup info">
+								<p>
+									</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+										</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"controlConfiguration": {
+     "&lt;NavigationPropertyFromRootEntityType&gt;/@com.sap.vocabularies.UI.v1.LineItem": {
+          "actions": {
+               "myCustomAction": {
+                    "press": "TestApplication.ext.CustomActions.message"
+                    ....
+               }
+          }
+     }
+}</pre></div></div></section>
+									<p></p></div></div>
+								<p></p>
+							</div>
+						</li>
+						<li class="substep">
+							<span class="cmd">Create a folder called <span class="uinolabel">ext</span> in the webapp folder of the application.</span>
+						</li>
+						<li class="substep">
+							<span class="cmd">Create a file called <span class="uinolabel">CustomActions.js</span> in the <span class="uinolabel">ext</span> folder.</span>
+						</li>
+						<li class="substep">
+							<span class="cmd">Create a method called <span class="uinolabel">message</span> in the <span class="uinolabel">CustomActions.js</span> file.</span>
+							<div class="itemgroup info">
+								<p>The signature of the method <span class="uinolabel">message</span> looks as follows:</p>
+								<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+									</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(
+     [],
+     function () {
+          "use strict";
+          return {
+               message: function (oContext, aSelectedContexts) {
+                    // oContext :  is the binding context of the current entity
+                    // aSelectedContexts : contains an array of binding contexts corresponding to
+                    //       selected items in case of table action (or)
+                    //
+                    alert("message");
+               },
+          };
+     }
+);</pre></div></div></section>
+								<p></p></div></div>
+							</div>
+						</li>
+					</ol>
+				</li>
+			</ol></section><section id="result_nkw_dbm_d4b" class="section result  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Results</h2></div><div class="fig">
+				<ul class="ul ">
+					<li class="li">
+						<p>Table toolbar action for the list report</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "sap.ui5": {
+        "routing": {
+            "targets": {
+                "&lt;ListReportTargetName&gt;": {
+                    "options": {
+                        "settings": {
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "actions": {
+                                        "&lt;ActionName&gt;": {
+                                            "press": "&lt;ApplicationId.FolderName.ScriptFilename.methodName&gt;",
+                                            "text": "&lt;button text&gt;",
+                                            "enabled": &lt;true|false|handler function&gt;,
+                                            "visible": &lt;true|false|handler function&gt;
+                                        }
+                                    }
+                                }
+                            }
+                         }
+                    }
+                }</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Action for the object page header</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+     "sap.ui5": {
+          "routing": {
+               "targets": {
+                    "&lt;ObjectPageTargetName&gt;": {
+                         "options": {
+                               "settings": {
+                                    "content": {
+                                         "header": {
+                                              "actions": {
+                                                   "&lt;ActionName&gt;": {
+                                                   }
+                                              }
+                                         }
+                                    }
+                               }
+                         }
+                    }
+               }
+          }
+     }
+}</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Table toolbar action for the object page</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+     "routing": {
+          "targets": {
+               "&lt;ObjectPageTargetName&gt;": {
+                    "options": {
+                         "settings": {
+                              "controlConfiguration": {
+                                   &lt;NavigationPropertyFromRootEntityType&gt;/@com.sap.vocabularies.UI.v1.LineItem": {
+                                        "actions": {
+                                             "&lt;ActionName&gt;": {
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+          }
+     }
+}</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Footer bar action in the object page:</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+     "routing": {
+          "targets": {
+               "&lt;ObjectPageTargetName&gt;": {
+                    "options": {
+                         "settings": {
+                              "content": {
+                                   "footer": {
+                                        "actions": {
+                                             "&lt;ActionName&gt;": {
+                                                  ...
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+          }
+     }
+}
+</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>List report (global action)</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+    "routing": {
+        "targets": {
+            "&lt;ListReportTargetName&gt;": {
+                "options": {
+                    "settings": {
+                        "content": {
+                            "header": {
+                                "actions": {
+                                    "&lt;ActionName&gt;": {
+                                        ...
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Section action</p>
+						<p>To define a custom action in a section, you must extend the <code>controlConfiguration</code> of any of the
+								<code>FieldGroups</code> in that section with an actions block in a structure as follows:</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+        "routing": {
+            "targets": {
+                "SalesOrderManageObjectPage": {
+                    "options": {
+                        "settings": {
+                            "enhanceI18n": "i18n/SalesOrderObjectPage.properties",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.FieldGroup#OrderData": {
+                                    "actions": {
+                                        "customSectionAction": {
+                                            "press": "SalesOrder.ext.CustomActions.alert",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "Alert",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "DataFieldForIntentBasedNavigation::SalesOrder::manageInline"
+                                            }
+                                        },
+                                        "sectionAction2": {
+                                            "press": "SalesOrder.ext.CustomActions.accountDetails",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "Display account details",
+                                            "position": {
+                                                "placement": "Before",
+                                                "anchor": "customSectionAction"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Form toolbar action</p>
+						<p>When you set <code>inline=true</code>, a given action from a <code>FieldGroup</code> shows up directly in the form
+							toolbar instead of the section toolbar.</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+    "routing": {
+        "targets": {
+            "SalesOrderManageObjectPage": {
+                "options": {
+                    "settings": {
+                        "controlConfiguration": {
+                            "@com.sap.vocabularies.UI.v1.FieldGroup#OrderData": {
+                                "actions": {
+                                    "customSectionAction": {
+                                        "press": "SalesOrder.ext.CustomActions.alert",
+                                        "visible": true,
+                                        "enabled": false,
+                                        "text": "Action on Form",
+                                        "inline": true
+                                    },
+                                    "customSectionAction2": {
+                                        "press": "SalesOrder.ext.CustomActions.alert",
+                                        "visible": true,
+                                        "enabled": true,
+                                        "text": "Action not on Form"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre></div></div></section>
+						<p></p></div></div>
+						<div><div class="fig"><img src="loiod513ccfca07142049cc9b17e353abfaf_LowRes.png" usemap="#"></div></div>
+					</li>
+				</ul>
+			</div></section><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+				<p>You can explore and work with the coding yourself. Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/customElements/customElementsOverview/customActionContent" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/customElements/customElementsOverview/customActionContent" class="sap-doc">Custom Action</a>.</p>
+			</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></section></div></body></html>

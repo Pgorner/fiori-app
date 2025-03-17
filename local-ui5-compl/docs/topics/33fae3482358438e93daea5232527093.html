@@ -1,0 +1,244 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio33fae3482358438e93daea5232527093" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/screen-reader-support-33fae34.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Screen Reader Support</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Screen Reader Support</h2></div><div class="shortdesc">SAPUI5 application developers need to be aware
+		of how the screen reader reads out the contents of the UI. Labels, headings, and
+		descriptions help you describe the contents and visual elements of an application. </div><section><h2 class="title ">General Recommendations</h2><p>The following rules and guidelines will help you
+				avoid common pitfalls and show you best practices. You still need to be aware that
+				there may be deviations between the interpretation of the markup by the different
+				screen readers.</p><section>
+				<h3 class="title ">Generate valid HTML</h3>
+				<p>The screen reader software gets the information about the page directly from the DOM.
+					Therefore, if the DOM is invalid, the information presented to the user might be
+					invalid as well. Ideally, if the DOM is correct, the screen reader software will
+					interpret it correctly. The nesting of the elements is also important and plays
+					role for the validity, and can be validated in the app context (for example the
+					heading levels). When you need to create new controls or change the HTML
+					structure of existing ones for some reason, you have to check the validity of
+					the resulting HTML.</p>
+			</section><section>
+				<h3 class="title ">Use titles for complex components</h3>
+				<p>Complex controls like pages, panels, and tables need a title to summarize the
+					contents they hold. If you use the standalone <code>Title</code> control,
+					make sure that it is associated with the element that needs the title. </p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+      xmlns:mvc="sap.ui.core.mvc"
+      xmlns="sap.m"&gt;
+   <span class="emphasis">&lt;Title id="rbGroupTitle" text="Select an option" textAlign="Center"/&gt;
+</span>
+   &lt;RadioButtonGroup columns="2" selectedIndex="2" <span class="emphasis">ariaLabelledBy="rbGroupTitle"</span>&gt;
+      &lt;buttons&gt;
+         &lt;RadioButton id="RB2-1" text="Option 1"/&gt;
+         &lt;RadioButton id="RB2-2" text="Option 2" editable="false"/&gt;
+         &lt;RadioButton id="RB2-3" text="Option 3"/&gt;
+      &lt;/buttons&gt;
+   &lt;/RadioButtonGroup&gt;
+&lt;/mvc:View&gt;
+</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Use labels</h3>
+				<p>Make sure that all edit boxes, search fields, and column headers have labels. If
+					not, use the <code>Label</code> control and add one. Labels have to be
+					connected to each control, for example by using one of the following:</p><ul class="ul ">
+						<li class="li">
+							<p><code>labelFor="…"</code></p>
+						</li>
+						<li class="li">
+							<p><code>aria-label="…"</code></p>
+						</li>
+						<li class="li">
+							<p><code>aria-labelledby="…"</code></p>
+						</li>
+						<li class="li">
+							<p><code>placeholder="…"</code></p>
+						</li>
+						<li class="li">
+							<p><code>title="…"</code></p>
+						</li>
+					</ul>
+				<p></p>
+			</section><section>
+				<h3 class="title ">Titles in headings</h3>
+				<p>For headings (table toolbar, page header, form toolbar, panel toolbar) the text
+					should be in a <code>sap.m.Title</code> control (make sure that it is
+					associated with the element that needs the title and, if not, add the reference
+					using <code>aria-labelledby</code>).</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+      xmlns:mvc="sap.ui.core.mvc"
+      xmlns="sap.m"&gt;
+   &lt;Panel expandable="true"&gt;
+      &lt;headerToolbar&gt;
+         &lt;Toolbar height="3rem"&gt;
+           <span class="emphasis"> &lt;Title text="Header"/&gt;
+</span>
+            &lt;ToolbarSpacer/&gt;
+            &lt;Button icon="sap-icon://settings"/&gt;
+            &lt;Button icon="sap-icon://drop-down-list"/&gt;
+         &lt;/Toolbar&gt;
+      &lt;/headerToolbar&gt;
+      &lt;content&gt;
+         &lt;Text text="Lorem ipsum"/&gt;
+      &lt;/content&gt;
+   &lt;/Panel&gt;
+&lt;/mvc:View&gt;
+
+</pre></div></div></section>
+					<p></p></div></div><p></p>
+			</section><section>
+				<h3 class="title ">Labels and descriptions for input controls</h3>
+				<p>When using <code>Input</code> controls, always provide a label (make sure it
+					is connected with the input). You can also use the <code>description</code>
+					property to add additional information. If you use <code>sap.m.Input</code>,
+					the description is usually used for showing the unit of measurement (for
+					example. "EUR").</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+   xmlns:l="sap.ui.layout"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns="sap.m"&gt;
+   &lt;l:VerticalLayout
+      class="sapUiContentPadding"
+      width="100%"&gt;
+      &lt;l:content&gt;
+         &lt;Label text="Product price" labelFor="productPriceInput"/&gt;
+         &lt;Input
+            id="productPriceInput"
+            value="220"
+            description="EUR / 5 pieces"
+            width="200px"
+            fieldWidth="60px" /&gt;
+      &lt;/l:content&gt;
+   &lt;/l:VerticalLayout&gt;
+&lt;/mvc:View&gt;
+</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Empty labels in drop-down lists</h3>
+				<p>In some cases, you may need to provide an empty option in a drop-down field such
+					as <code>Select</code>. This way you want to indicate that none of the items
+					in the drop-down is applicable, or offer the empty option as a way to clear the
+					selection. In this case, you should properly label the empty option with
+						<cite>(None)</cite> and not leave it blank.</p>
+				<p>The labeling on the empty option will be read by the screen reader and the end
+					user will be correctly informed about the semantics of the empty option.</p>
+				<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+					</p><p>The empty label <cite>(None)</cite> should always be the first item in the
+						drop-down. </p>
+				<p></p></div></div>
+				<p>For more information, see <a href="https://experience.sap.com/fiori-design-web/designing-for-empty-states/" title="https://experience.sap.com/fiori-design-web/designing-for-empty-states/" class="external-link" target="_blank" rel="noopener">Fiori Guidelines for Empty states</a>.</p>
+			</section><section>
+				<h3 class="title ">List with info toolbar</h3>
+				<p>When using the <code>List</code> control with visible non-active info toolbar
+					with plain text content, you need to associate the
+						<code>aria-labelledby</code> of the list with the text content of the
+						<code>infoToolbar</code> aggregation.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+&lt;List ariaLabelledBy="textInInfoToolbarId"&gt;
+                &lt;infoToolbar&gt;
+                               &lt;OverflowToolbar active="false"&gt;
+                                               &lt;Label id="textInInfoToolbarId" text="Announce this text when the first list item is focused" /&gt;
+                               &lt;/OverflowToolbar&gt;
+                &lt;/infoToolbar&gt;
+                &lt;items&gt;
+			  ...
+&lt;/List&gt;
+...</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Provide additional information when there are changes in the
+					screen</h3>
+			</section><p>Make sure to provide additional information to the user, when changes in
+				the screen are done, based on user interaction. You can use one of the following
+				informative techniques:</p><ul class="ul ">
+					<li class="li">
+						<p>Include additional text description via
+								<code>ariaDescribedBy</code>/<code>ariaLabelledBy</code> API
+							for the control triggering the update (Button, Search Field, or other
+							interactive control). For example: When search results will be placed in
+							the area below, you can add a text describing how/where the users can
+							locate the results.</p>
+					</li>
+					<li class="li">
+						<p>Include additional text description via
+								<code>ariaDescribedBy</code>/<code>ariaLabelledBy</code> on
+							the parent control level. For example: In the case of apps using the
+							list-detail pattern, where the list is on the left side and results are
+							presented on the right side, you should add additional text describing
+							that upon selection in the list, the details will be loaded in the
+							details panel.</p>
+					</li>
+					<li class="li">
+						<p>When something is opening on the screen, you can move the focus there, if
+							your use case requires it. For example, for apps using the list-detail
+							pattern when the user needs to browse the available items, the focus
+							should stay in the list area. And in cases when the user has selected an
+							item from the list and needs to perform an action, the focus should move
+							to the details area.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>For controls that are toggling/opening regions and are still
+									present after the toggling, then the focus should remain on
+									them. But if the control is hidden afterwards – the focus needs
+									to be moved, into the default focus position in the
+									toggled/opened region.</p>
+							<p></p></div></div><p></p>
+					</li>
+					<li class="li">The <code>sap.ui.core.InvisibleMessage</code> enables developers to
+						specify the message to be announced when something dynamically changes on
+						the user interface. For more information, see <a href="topic/b9a7d6f607f049988797b68b65e60901" title="The Invisible Message class provides a way to grammatically expose dynamic content changes in a way that can be announced by screen readers." class="sap-doc">Invisible Messaging</a>.</li>
+				</ul><p></p></section><section>
+			<h2 class="title ">Tips for Testing</h2>
+			<p>Start a screen reader, start the application, walk through the application using the keyboard
+				and listen. For example, you can also use <cite>Reading mode</cite> or similar
+				functions of your screen reader because some elements do not need to have the focus
+				to be readable by screen readers.</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Is everything that you need to use the application read correctly?</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>Each element's role, name, state, label, tooltip, further information
+								(attached errors, usage hints)?</p>
+						</li>
+						<li class="li">
+							<p>Is this the case for interactive and semantic/non-semantic
+								elements?</p>
+						</li>
+						<li class="li">
+							<p>Actively check that all visible UI elements are read.</p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>Is it read correctly? </p>
+					<ul class="ul ">
+						<li class="li">
+							<p>No duplicates? </p>
+						</li>
+						<li class="li">
+							<p>No strange pronunciation, like reading English with German words or
+								vice versa?</p>
+						</li>
+						<li class="li">
+							<p>No nonsense, wrong values, another element's attributes? </p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>Are screen updates like application messages, dialogs (popups), and similar dynamic content
+						read correctly and at the right time?</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/fd7f9d41ca9c46d891c45f1dcc0682bf">Landmark API</a></li><li><a href="topic/329a029f39e249a1bf89e3ffc006c8e1">Labeling and Tooltips</a></li><li><a href="topic/b9a7d6f607f049988797b68b65e60901">Invisible Messaging</a></li><li><a href="topic/5709e73d51f2401a9a5a89d8f5479132">Dialogs, Popups, and Popovers</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

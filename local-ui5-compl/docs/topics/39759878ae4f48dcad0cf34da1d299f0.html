@@ -1,0 +1,93 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio39759878ae4f48dcad0cf34da1d299f0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-13-make-table-sorting-bookmarkable-3975987.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 13: Make Table Sorting Bookmarkable</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 13: Make Table Sorting Bookmarkable</h2></div><div class="shortdesc">In this step, we will create a button at the top of the table which will change the
+		sorting of the table. When the current sorting state of the table is changed, the sorting
+		state will be reflected in the URL. This illustrates how to make the table sorting
+		bookmarkable.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio7ec54ef9b041497aaa70694e80016a9c_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Bookmarkable search and sorting</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.13" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.13" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.13">Routing and Navigation - Step
+					13</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/employee/overview/EmployeeOverviewContent.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/Sorter",
+	"sap/m/ViewSettingsDialog",
+	"sap/m/ViewSettingsItem"
+], function(
+	BaseController,
+	Filter,
+	FilterOperator,
+	Sorter,
+	ViewSettingsDialog,
+	ViewSettingsItem
+) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.overview.EmployeeOverviewContent", {
+		onInit: function () {
+			...
+		},
+		_onRouteMatched: function (oEvent) {
+			// save the current query state
+			this._oRouterArgs = oEvent.getParameter("arguments");
+			this._oRouterArgs["?query"] = this._oRouterArgs["?query"] || {};
+			<span class="emphasis">var oQueryParameter = this._oRouterArgs["?query"];</span>
+
+			// search/filter via URL hash
+			<span class="emphasis">this._applySearchFilter(oQueryParameter.search);</span>
+
+			<span class="emphasis">// sorting via URL hash
+			this._applySorter(oQueryParameter.sortField, oQueryParameter.sortDescending);</span>
+			
+		},
+		...
+		_initViewSettingsDialog: function () {
+			<span class="emphasis">var oRouter = this.getRouter();</span>
+			this._oVSD = new ViewSettingsDialog("vsd", {
+				confirm: function (oEvent) {
+					var oSortItem = oEvent.getParameter("sortItem");
+					<span class="emphasis">this._oRouterArgs["?query"].sortField = oSortItem.getKey();
+					this._oRouterArgs["?query"].sortDescending = oEvent.getParameter("sortDescending");
+					oRouter.navTo("employeeOverview", this._oRouterArgs, true /*without history*/);</span>
+				}.bind(this) 
+			});
+			...
+		},
+		...
+	});
+});</pre></div></div></section>
+			<p>We enhance the <code>EmployeeOverviewContent</code> controller further to add
+				support for bookmarking the table's sorting options. We expect two query parameters
+					<code>sortField</code> and <code>sortDescending</code> from the URL for
+				configuring the sorting of the table. In the matched handler of the route
+					<code>employeeOverview</code>, we store the query parameter in the
+					<code>oQueryParameter</code> variable and add an additional call to
+					<code>this._applySorter(oQueryParameter.sortField,
+					oQueryParameter.sortDescending)</code> . This triggers the sorting action
+				based on the two query parameters <code>sortField</code> and
+					<code>sortDescending</code> from the URL.</p>
+			<p>Next we change the <code>confirm</code> event handlers of our
+					<code>ViewSettingsDialog</code>. The <code>confirm</code> handler
+				updates the current router arguments with the parameters from the event accordingly.
+				Then we call <code>oRouter.navTo("employeeOverview", this._oRouterArgs,
+					true)</code> with the updated router arguments to persist the new sorting
+				parameters in the URL. Both the previous arguments (i.e. <code>search</code>)
+				and the new arguments for the sorting will then be handled by the matched event
+				handler for the <code>employeeOverview</code> route.</p>
+			<p>Congratulations! Even the sorting options of the table can now be bookmarked. Try to
+				access the following pages: </p><ul class="ul ">
+					<li class="li">
+						<p><code>webapp/index.html#/employees/overview?sortField=EmployeeID&sortDescending=true</code></p>
+					</li>
+					<li class="li">
+						<p><code>webapp/index.html#/employees/overview?search=an&sortField=EmployeeID&sortDescending=true</code></p>
+					</li>
+				</ul> When changing the table's sorting options, you will see that the hash updates
+				accordingly.<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/e85da535ea19430a90c381f3c2bd748e">Step 12: Make a Search Bookmarkable</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/5cc3147afc8d4854b5d3c5fc20923f77">Step 14: Make Dialogs Bookmarkable</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

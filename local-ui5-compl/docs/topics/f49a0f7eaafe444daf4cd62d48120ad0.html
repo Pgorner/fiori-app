@@ -1,0 +1,867 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof49a0f7eaafe444daf4cd62d48120ad0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/further-features-of-the-field-f49a0f7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Further Features of the Field</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Further Features of the Field</h2></div><div class="shortdesc">Application developers can control important features of the field.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is only applicable to SAP Fiori elements for OData
+                            V4.</p>
+		<p></p></div></div><section id="section_kfc_wzf_k4b">
+			<h2 class="title ">Text Annotation and Text Arrangement Annotation</h2>
+			<p>The value displayed within the field can show either only the textual description of
+				the value, or show it together with the ID representation of the value. Consider the
+				following example data set:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_yvj_hfb_q4b" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">SalesOrderID</th>
+							<th colspan="1" rowspan="1">PlantID</th>
+							<th colspan="1" rowspan="1">PlantName</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">100</td>
+							<td colspan="1" rowspan="1">A1</td>
+							<td colspan="1" rowspan="1">ABC</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">101</td>
+							<td colspan="1" rowspan="1">A2</td>
+							<td colspan="1" rowspan="1">DEF</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>In this example, <code>PlantID</code> represents the unique ID of the object
+				"Plant". But this is not easily readable for the end
+				user,
+				and typically, the field <code>PlantID</code> would have a reference to the
+				corresponding text.</p>
+			<p>You can define a text using the <code>Common.Text</code> annotation on a
+				property.</p>
+			<p>Application developers can define the arrangement of a code or ID value and its text
+				using the <code>UI.TextArrangement</code> annotation.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_f4h_2gb_q4b" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">TextArrangement</th>
+							<th colspan="1" rowspan="1">Display Format</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">TextFirst - (default value)</td>
+							<td colspan="1" rowspan="1">ABC (A1)</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">TextLast</td>
+							<td colspan="1" rowspan="1">A1 (ABC)</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">TextOnly</td>
+							<td colspan="1" rowspan="1">ABC</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">TextSeparate</td>
+							<td colspan="1" rowspan="1">A1</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd/SalesOrganization"&gt;
+   …
+   &lt;Annotation Term="Common.Text" Path="SalesOrganization_Text"&gt;
+      &lt;Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/&gt;
+   &lt;/Annotation&gt;
+   …
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+@ObjectModel.text.element:  [ ' SalesOrganization_Text,' ]
+@UI.textArrangement: #TEXT_ONLY
+SalesOrganization
+…
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate com.c_salesordermanage_sd with {
+    ...
+    SalesOrganization @(
+             Common : {
+              Text: SalesOrganization_Text,
+              TextArrangement : #TextOnly
+            })
+    ...
+};
+
+</pre></div></div></section><p></p></div></div>
+			<p>The text arrangement can also be done centrally for all properties of an entity
+				set.</p>
+			<p>The <code>TextArrangement</code> value at entity set level is considered as a
+				fallback only if you have not specified the <code>TextArrangement</code> at
+				property level. So the <code>TextArrangement</code> at property level takes
+				precedence over the one defined at entity set level.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SalesOrder"&gt; //Main EntitySet
+  &lt;Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+			<p>For more information about using a text arrangement annotation in a value help, see
+				the <a href="topic/a5608eabcc184aee99e1a7d88b28816c.html#loioa5608eabcc184aee99e1a7d88b28816c/text_textarrangement_valuehelp" title="a5608eabcc184aee99e1a7d88b28816c.xml#loioa5608eabcc184aee99e1a7d88b28816c/text_textarrangement_valuehelp" class="sap-doc">Using the Text and TextArrangement Annotation</a> subsection in <a href="topic/a5608eabcc184aee99e1a7d88b28816c" title="A field can be associated with a helper control, depending on how the field is configured." class="sap-doc">Field Help</a>.</p>
+		</section><section id="section_fy3_gpy_gbc">
+			<h2 class="title ">Displaying Readable IDs Instead of <code>Edm.Guid</code> Values Using <code>Common.ExternalID</code></h2>
+			<p>For the properties of <code>Edm.Guid</code> type, you can define a <code>Common.ExternalID</code> annotation that displays a
+				readable identifier of an item. Using this, the readable ID is displayed on the UI instead of the <code>Edm.Guid</code> value. The
+					<code>Common.ExternalID</code> annotation is supported for both the fields and filter fields.</p>
+			<p>The following code snippets show a <code>Common.ExternalID</code> annotation at the <code>myGuidProperty</code> that is an
+					<code>Edm.Guid</code> property. It points to the readable ID that is the <code>externalId</code> property.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">      &lt;Annotations Target="ExternalIdService.Entities/myGuidProperty"&gt;
+        &lt;Annotation Term="Common.ExternalID" Path="externalId"/&gt;
+      &lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate ExternalIdService.Entities : myGuidProperty with @(Common: {ExternalID: externalId});
+</pre></div></div></section><p></p></div></div>
+			<p>The <code>Common.Text</code> and <code>Common.TextArrangement</code> annotations are evaluated only for the readable ID
+				property instead of the <code>GUID</code> property. However, while the <code>GUID</code> property is not visible on the UI, it
+				is a part of the field as a technical identifier of an item or for filter fields.</p>
+			<p>Value helps for a field with an <code>ExternalID</code> property are to be defined at the <code>Edm.Guid</code> property. The
+				entity type that is shown in the value help (defined in the <code>collectionPat</code>h of the <code>Common.ValueList</code>
+				annotation) can have <code>Edm.Guid</code> properties pointing to the readable ID properties.</p>
+		</section><section id="section_xg1_4mw_kwb">
+			<h2 class="title ">Fiscal Annotations</h2>
+			<p><code>Edm.String</code> properties can be annotated to indicate that they are based on a fiscal date.</p>
+			<p>The following annotations are available for fiscal dates with the following
+				patterns:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_jtp_krw_kwb" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">CAP CDS Annotation</th>
+							<th colspan="1" rowspan="1">Pattern</th>
+							<th colspan="1" rowspan="1">ABAP CDS Annotation</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsFiscalYearPeriod</code></td>
+							<td colspan="1" rowspan="1">YYYYPPP</td>
+							<td colspan="1" rowspan="1"><code>Semantics.fiscal.yearPeriod</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsDayOfFiscalYear</code></td>
+							<td colspan="1" rowspan="1">d</td>
+							<td colspan="1" rowspan="1"><code>N/A</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsFiscalPeriod</code></td>
+							<td colspan="1" rowspan="1">PPP</td>
+							<td colspan="1" rowspan="1"><code>Semantics.fiscal.period</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsFiscalQuarter</code></td>
+							<td colspan="1" rowspan="1">Q</td>
+							<td colspan="1" rowspan="1"><code>Semantics.fiscal.quarter</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsFiscalWeek</code></td>
+							<td colspan="1" rowspan="1">WW</td>
+							<td colspan="1" rowspan="1"><code>Semantics.fiscal.week</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsFiscalYear</code></td>
+							<td colspan="1" rowspan="1">YYYY</td>
+							<td colspan="1" rowspan="1"><code>Semantics.fiscal.year</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsFiscalYearQuarter</code></td>
+							<td colspan="1" rowspan="1">YYYYQ</td>
+							<td colspan="1" rowspan="1"><code>Semantics.fiscal.yearQuarter</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>IsFiscalYearWeek</code></td>
+							<td colspan="1" rowspan="1">YYYYWW</td>
+							<td colspan="1" rowspan="1"><code>Semantics.fiscal.yearWeek</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>N/A</code></td>
+							<td colspan="1" rowspan="1">
+							</td><td colspan="1" rowspan="1"><code>Semantics.fiscal.yearVariant</code></td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>For example, <code>IsFiscalYearPeriod</code> indicates that the annotated <code>Edm.String</code> property is a string based on
+				a fiscal date following the YYYYPPP pattern.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalYearPeriod"&gt;
+  &lt;Annotation Term="Common.IsFiscalYearPeriod" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Year Period"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalDayOfYear"&gt;
+  &lt;Annotation Term="Common.IsDayOfFiscalYear" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Day Of Year"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalPeriod"&gt;
+  &lt;Annotation Term="Common.IsFiscalPeriod" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Period"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalQuarter"&gt;
+  &lt;Annotation Term="Common.IsFiscalQuarter" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Quarter"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalWeek"&gt;
+  &lt;Annotation Term="Common.IsFiscalWeek" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Week"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalYear"&gt;
+  &lt;Annotation Term="Common.IsFiscalYear" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Year"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalYearQuarter"&gt;
+  &lt;Annotation Term="Common.IsFiscalYearQuarter" Bool="true"/&gt;
+  &lt;Annotation Term="Common.IsDigitSequence" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Year Quarter"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="sap.fe.manageitems.TechnicalTestingService.LineItems/fiscalWeekYear"&gt;
+  &lt;Annotation Term="Common.IsFiscalYearWeek" Bool="true"/&gt;
+  &lt;Annotation Term="Common.Label" String="Fiscal Week Year"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">DEFINE VIEW SalesOrderItemHistoryOvw as select from ... 
+{
+    ...
+    
+    @Semantics.fiscal.yearPeriod: true
+    fiscalYearPeriod,
+    
+    @Semantics.fiscal.period: true
+    fiscalPeriod,
+    
+    @Semantics.fiscal.year: true
+    fiscalYear,
+    
+    ...   
+}
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">fiscalYearPeriod  : String     @title: 'Fiscal Year Period'   @Common.IsFiscalYearPeriod : true;
+fiscalDayOfYear   : String     @title: 'Fiscal Day Of Year'   @Common.IsDayOfFiscalYear  : true;
+fiscalPeriod      : String     @title: 'Fiscal Period'        @Common.IsFiscalPeriod     : true;
+fiscalQuarter     : String(1)  @title: 'Fiscal Quarter'       @Common.IsFiscalQuarter    : true;
+fiscalWeek        : String     @title: 'Fiscal Week'          @Common.IsFiscalWeek       : true;
+fiscalYear        : String     @title: 'Fiscal Year'          @Common.IsFiscalYear       : true;
+fiscalYearQuarter : String(5) @title: 'Fiscal Year Quarter' @Common.IsFiscalYearQuarter: true @Common.IsDigitSequence: true;
+fiscalWeekYear    : String     @title: 'Fiscal Week Year'     @Common.IsFiscalYearWeek   : true;
+</pre></div></div></section><p></p></div></div>
+			
+			<p>For more information about ABAP and CDS semantics annotations, see <a href="https://help.sap.com/docs/abap-cloud/abap-rap/semantics-annotations" title="https://help.sap.com/docs/abap-cloud/abap-rap/semantics-annotations" class="sap-doc">Semantics
+					Annotations</a>.</p>
+			
+			<p>Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/fieldFiscals" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/fieldFiscals" class="sap-doc">Field - Fiscal types</a>.</p>
+		</section><section id="section_v5m_xzf_k4b">
+			<h2 class="title ">Visibility and Enablement of the Field</h2>
+			<p>The visibility of the field is affected by the <code>UI.Hidden</code> annotation, that can be given either at property level or
+				field level.</p>
+			<section>
+				<h3 class="title "><code>UI.Hidden</code> Within a <code>DataField</code></h3>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="UI.DataField"&gt;
+   &lt;PropertyValue Property="Value" Path="TotalNetAmount" /&gt;
+   &lt;Annotation Term="UI.Hidden" Bool="false" /&gt;
+&lt;/Record&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    value: 'TOTALNETAMOUNT',
+    type: #STANDARD
+}
+@UI.hidden: true
+TOTALNETAMOUNT;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    $Type : 'UI.DataField',
+    Value : 'TotalNetAmount',
+    ![@UI.Hidden] : false
+}
+</pre></div></div></section><p></p></div></div>
+			</section>
+			<section>
+				<h3 class="title "><code>UI.Hidden</code> Within a <code>Property</code></h3>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd.SalesOrderManage/TotalNetAmount"&gt;
+    &lt;Annotation Term="Common.Label" String="Net Amount"/&gt;
+    &lt;Annotation Term="Measures.ISOCurrency" Path="TransactionCurrency"/&gt;
+    &lt;Annotation Term="UI.Hidden" Bool="true" /&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><p>ABAP CDS does not support <code>Measures.ISOCurrency</code>. Use the local XML
+						annotation.</p><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate com.c_salesordermanage_sd. SalesOrderManage with {
+  TotalNetAmount
+  @UI.Hidden
+  @Common.Label : 'Net Amount'
+  @Measures.ISOCurrency :  TransactionCurrency ;
+};
+</pre></div></div></section><p></p></div></div>
+			</section>
+			<section>
+				<h3 class="title ">The property ID of the entity <code>ProductsType</code> is always hidden</h3>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.ProductsType/ID"&gt;
+    &lt;Annotation Term="SAP__UI.Hidden"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view PRODUCTSTYPE with {
+@UI.hidden: true
+id;
+}
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate ProductsType with {
+  ID @UI.Hidden;
+};
+</pre></div></div></section><p></p></div></div>
+			</section>
+			<section>
+				<h3 class="title "><code>UI.Hidden</code>: Path-Based</h3>
+				<p>The property <code>ModifiedAt</code> is hidden in the <code>FieldGroup</code> with the qualifier
+						<code>AdministrativeData</code> if the property <code>HasDraftEntity</code> is set to <code>true</code> – all
+					other appearances of the property <code>ModifiedAt</code> are not influenced. </p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.ProductsType"&gt;
+    &lt;Annotation Term="SAP__UI.FieldGroup" Qualifier="AdministrativeData"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Data"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="SAP__UI.DataField"&gt;
+                        &lt;Annotation Term="SAP__UI.Hidden" Path=="HasDraftEntity"/&gt;
+                        &lt;PropertyValue Property="Label" String="Modified at"/&gt;
+                        &lt;PropertyValue Property="Value" Path="ModifiedAt"/&gt;
+                    &lt;/Record&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.fieldGroup: [{ qualifier: ' AdministrativeData', position: 10, label: 'ModifiedAt' }]
+@UI.hidden: true
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity ProductsType : {
+    UI.FieldGroup #AdministrativeData : {
+    Data : [
+        {
+            $Type : 'UI.DataField',
+            Label : 'Modified at',
+            Value : ModifiedAt,
+            ![@UI.Hidden] : HasDraftEntity,
+        },
+    ],
+},
+}
+</pre></div></div></section><p></p></div></div>
+			</section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>ABAP CDS does not allow a <code>UI.hidden</code> annotation pointing to a path. Please use the local XML annotation.</p>
+			<p></p></div></div>
+			<p>The property <code>ModifiedAt</code> is always hidden (wherever the property appears) if the property
+					<code>HasDraftEntity</code> is set to <code>true</code> – in all other cases it's visible.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.ProductsType/ModifiedAt"&gt;
+    &lt;Annotation Term="SAP__UI.Hidden" Path="HasDraftEntity"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view PRODUCTSTYPE with {
+@UI.hidden: true
+modifiedat;
+}
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity ProductsType :{
+    ModifiedAt : {
+               ![@UI.Hidden] : HasDraftEntity
+    }
+}
+</pre></div></div></section><p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>ABAP CDS does not allow a <code>UI.hidden</code> annotation pointing to a path. Use the local XML annotation.</p>
+			<p></p></div></div>
+			<section>
+				<h3 class="title ">Metadata Showing <code>FieldControl</code></h3>
+				<p>In addition, the value of the <code>FieldControl</code> determines how the field behaves. It uses an enumeration
+						(<code>FieldControlType</code>) as possible values (the values are provided in the table below). You can statically set a
+					property to read only (similar to <code>Core.Computed</code>), but you can also refer to a property that uses the enumeration
+					values as possible data values.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.ArtistsType/Name"&gt;
+   &lt;Annotation Term="SAP__common.FieldControl" EnumMember="SAP__common.FieldControlType/Mandatory"/&gt;
+   ....
+   ....
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@ObjectModel.mandatory: true
+Name;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity Artist : {
+    Name : {
+        FieldControl : #Mandatory
+    }
+}
+</pre></div></div></section><p></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p><code>@ObjectModel.mandatory</code> can be applied on the ABAP CDS view only. This is <span class="emphasis">not</span> possible
+						using metadata extensions. Furthermore, only <code>@ObjectModel.mandatory</code> is exposed and not
+							<code>@ObjectModel.readOnly</code>.</p>
+				<p></p></div></div>
+			</section>
+			<section>
+				<h3 class="title ">Metadata Showing <code>FieldControl</code> Within a <code>DataField</code> Definition</h3>
+				<p>In SAP Fiori elements for OData
+                            V4, you can use the <code>common.FieldControl</code>
+					annotation within the usage of properties (as in <code>UI.LineItem</code> or <code>UI.FieldGroup</code>). With this option
+					you can control the enablement of a property within a specific field group, for example, or you can define a property to be read
+					only in a tabular visualization, but to be editable as a form field.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="UI.DataField"&gt;
+   &lt;PropertyValue Property="Value" Path="TotalNetAmount" /&gt;
+   &lt;Annotation Term=" SAP__common.FieldControl" EnumMember="SAP__common.FieldControlType/ReadOnly"/&gt;
+&lt;/Record&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    value: 'TOTALNETAMOUNT',
+    type: #STANDARD
+  }
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+            $Type : 'UI.DataField',
+            Value : TotalNetAmount,
+            ![@Common.FieldControl] : #ReadOnly,
+}
+</pre></div></div></section><p></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>ABAP CDS only supports <code>@ObjectModel.mandatory</code> but <span class="emphasis">not</span>
+						<code>@ObjectModel.readOnly</code>.</p>
+				<p></p></div></div>
+			</section>
+			
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_jr2_bxh_fdc" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Value of the <code>FieldControl</code></p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Behavior</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p><code>EnumMember</code> to Use for <code>FieldControl</code> Values</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Mandatory</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Property must have a non-null value whenever a save or an update is triggered. This validation must be done by the
+									back end, since it's not done by SAP Fiori elements.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>If a field has the <code>FieldControl</code> annotation set to <code>mandatory</code>, its column
+											header will be marked as mandatory in edit mode.</p>
+									<p></p></div></div><p></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>SAP__common.FieldControlType/Mandatory</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Optional</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Property can have a null value.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>SAP__common.FieldControlType/Optional</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>ReadOnly</p>
+							</td>
+							<td colspan="1" rowspan="1"><p>Property value cannot be changed. In edit mode, this property will not show up as an editable field</p>.</td>
+							<td colspan="1" rowspan="1">
+								<p><code>SAP__common.FieldControlType/ReadOnly</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Inapplicable</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Property has no meaning in the current entity state and will show up in disabled state.</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>In a travel
+										expense report, the property <code>DestinationCountry</code> is <code>Inapplicable</code> if the trip
+										type is domestic, and <code>mandatory</code> if the trip type is international.</p></div></div><p></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>SAP__common.FieldControlType/Inapplicable</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>When using a path-based value for <code>FieldControl</code>, you must ensure that the path of <code>FieldControl</code>
+					points to a property based on <code>Edm.Byte</code>.</p>
+			<p></p></div></div>
+			
+			
+			<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+				</p><p>Fields that are part of <code>InsertRestrictions</code>/<code>RequiredProperties</code> or
+						<code>UpdateRestrictions</code>/<code>RequiredProperties</code> are marked as mandatory only in the
+						<code>create</code>/<code>update</code> flow. For more information, see <a href="topic/b623e0bbbb2b4147b2d0516c463921a0" title="The table control offers the possibility to show generic actions, such as Create and Delete, as well as application-specific actions." class="sap-doc">Adding Actions to Tables</a>.</p>
+			<p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Handling of <code>FieldControl=Inapplicable</code></p>
+				<ul class="ul ">
+					<li class="li">
+						<p>SAP Fiori elements ignores the static
+								<code>Inapplicable</code> value because it is similar to the absence of the property in the service. Applications
+							have to ensure that the service does not include fields that are marked as inapplicable.</p>
+					</li>
+					<li class="li">
+						<p>Regarding the dynamic <code>Inapplicable</code> value, the fields for which the <code>FieldControl</code> evaluates
+							to inapplicable are rendered as disabled.</p>
+					</li>
+				</ul>
+			<p></p></div></div>
+		</section><section id="section_b14_xzf_k4b">
+			<h2 class="title ">Editability of the Field</h2>
+			<p>There are different ways in which a field can be marked as editable:</p>
+			<ol>
+				<li class="li">
+					<p><code>Core.Computed</code></p>
+				</li>
+				<li class="li"><code>Core.Immutable</code></li>
+				<li class="li"><code>Common.FieldControl</code></li>
+			</ol>
+			<p>While the first two options are only used with the static values <code>true</code> and <code>false</code>, the third option is
+				also used dynamically by referring to another property.</p>
+			<p>If a property is annotated with <code>Core.Computed true</code>, it is always displayed in a non-editable way.</p>
+			<p><code>Core.Immutable</code> has the same result in edit mode, but in create mode the property is editable.</p>
+			<p><code>Common.FieldControl</code> is a term using an enumeration with <code>ReadOnly</code> as a possible value. You can
+				statically set a property to read-only (similar to <code>Core.Computed</code>), but you can also refer to a property that uses the
+				enumeration values as possible data values.</p>
+			<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+				</p><p>Not all field representations are editable in the object page header. Only the plain text facet and form facets are considered for
+					editability. Semantic links are also displayed in edit mode, but only when the field is associated with a value help.</p>
+			<p></p></div></div>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><p>1. The property <code>CreatedAt</code> of the entity <code>ProductsType</code> is always read
+						only.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+						Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.ProductsType/CreatedAt"&gt;
+    &lt;Annotation Term="SAP__Core.Computed"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><p>Core vocabulary annotations are not supported in
+							ABAP CDS.</p><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+						Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity ProductsType : {
+    CreatedAt : {
+        Core.Computed: true
+    }
+}
+</pre></div></div></section><p></p></div></div><p></p>
+				<p>2. The property <code>SupplierName</code> is always read only in <span class="emphasis">this</span>
+						application.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+						Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.ProductsType/SupplierName"&gt;
+    &lt;Annotation Term="SAP__Common.FieldControl" EnumMember="com.sap.vocabularies.Common.v1.FieldControl/ReadOnly"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><p>No ABAP CDS annotation sample is available.
+							Please use the local XML annotation.</p><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+						Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity ProductsType : {
+    SupplierName : {
+        Common.FieldControl : #ReadOnly
+    }
+}
+</pre></div></div></section><p></p></div></div><p></p>
+				<p>
+					</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>ABAP CDS only supports <code>@ObjectModel.mandatory</code> but <span class="emphasis">not</span>
+							<code>@ObjectModel.readOnly</code>.</p>
+					<p></p></div></div>
+				<p></p>
+				<p>3. The property <code>AvailabilityCode</code> is always read only if the property
+						<code>_FieldControl/AvailabilityCode_FC</code> has the value
+						1.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+						Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.ReviewsType/AvailabilityCode"&gt;
+    &lt;Annotation Term=" SAP__Common.FieldControl" Path="__FieldControl/AvailabilityCode_FC"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><p>No ABAP CDS annotation sample is available.
+							Please use the local XML annotation.</p><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+						Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity ReviewsType : {
+    Common.FieldControl : __FieldControl.AvailabilityCode_FC
+}
+</pre></div></div></section><p></p></div></div><p></p>
+			<p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>ABAP CDS does <span class="emphasis">not</span> allow a path-based value for the field control (the field element can only be annotated with
+						<code>@ObjectModel.mandatory</code>).</p>
+			<p></p></div></div>
+		</section><section id="section_itx_ksx_2pb">
+			<h2 class="title ">Tooltip for a Data Point</h2>
+			<p>A data point supports a tooltip that can be shown if no explicit label exists for that data point, that is, in a field group inside a
+				table cell or in a header facet.</p>
+			<p>The tooltip is determined by the OData annotation <code>Common.QuickInfo</code>.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.DataPoint" Qualifier="Rating"&gt;
+    &lt;Record Type="UI.DataPointType"&gt;
+        &lt;Annotation Term="Common.QuickInfo" String="Rating Indicator "/&gt;
+        &lt;PropertyValue Property="TargetValue" Int="5"/&gt;
+        &lt;PropertyValue Property="Title" String="Rating"/&gt;
+        &lt;PropertyValue Property="Value" Path="Rating"/&gt;
+        &lt;PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Rating"/&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.dataPoint: {
+  title: 'Rating',
+  visualization: #RATING
+  targetValue: 5
+}
+Rating;
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.DataPoint #Rating : {
+    $Type : 'UI.DataPointType',
+    TargetValue : 5,
+    Title : 'Rating',
+    Value : Rating,
+    Visualization : #Rating,
+    ![@Common.QuickInfo] : 'Rating Indicator ',
+}
+</pre></div></div></section><p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In ABAP CDS, <code>Common.QuickInfo</code> is <span class="emphasis">not</span> supported for the <code>dataPoint</code> and the
+					qualifier is always auto-generated with the same value as the field (<code>'Rating'</code> in the example above).</p>
+			<p></p></div></div>
+			<p>The following screenshot shows the result on the UI:</p>
+			<div><div class="fig"><img src="loioec5aa428bdf74de682b65f060aa412d9_LowRes.png" usemap="#"></div></div>
+		</section><section id="section_gss_hxf_qcc">
+			<h2 class="title ">Disabling Standard Validation of Decimal Places for Units of Measure</h2>
+			<p>You can use the <code>com.sap.vocabularies.UI.v1.DoNotCheckScaleOfMeasuredQuantity</code> annotation with a Boolean value to
+				disable the standard validation of decimal places for units of measure. </p>
+			<ul class="ul ">
+				<li class="li">
+					<p>When you set this annotation to <code>false</code>, the validation is performed to ensure that the maximum number of
+						decimal places for a unit of measure corresponds to what is determined in the code list customizing the currency codes and
+						units.</p>
+				</li>
+				<li class="li">
+					<p>If you set the annotation to <code>true</code>, the validation is not performed. Skipping the validation of decimals allows
+						the user to add more fractional digits than the number of digits defined for the corresponding unit of measure.</p>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The number of allowed decimals specified in the field definition itself is not affected by the
+						<code>com.sap.vocabularies.UI.v1.DoNotCheckScaleOfMeasuredQuantity</code> annotation. The central check always takes
+					place. For example, if a field has been defined as having no more than 3 decimal places, it will never allow the user to enter
+					more than 3 decimal places even if you disable the validation of decimal places for units of measure in this field.</p>
+			<p></p></div></div>
+			<p>For more information about specifying decimal places for units of measure, see <a href="topic/4d1b9d44941f483f9b7f579873d38685" title="For amounts or measures, you may sometimes need different currencies or units than defined in the CLDR. The data types sap.ui.model.odata.type.Currency and sap.ui.model.odata.type.Unit enable you to use code lists with customizing for currency codes and units." class="sap-doc">Currency and Unit Customizing in OData V4</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

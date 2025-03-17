@@ -1,0 +1,51 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="sap.ushell.demo.AppNavSample2.view.Detail">
+    <Page title="Detail" id="pgView2">
+        <content>
+            <Text text="Detail view ..." />
+            <Button text="toView1" press="handleBtn1Press" />
+            <VBox>
+                <Toolbar>
+                    <Input
+                        id="search"
+                        value="{/ContainerName}"
+                        type="Text"
+                        placeholder="Enter icon search criteria, e.g. 'Suite sub' or 'Fiori7'"
+                        tooltip="split at space, search anywhere in key, AND operation (e.g. 'SuiteInApp sub')"
+                        data-change="handleChange" />
+                    <ToolbarSpacer />
+                    <Button id="onClearSearch" text="clear" tooltip="clear search" press="onClearSearch" />
+                </Toolbar>
+                <Table id="itemTable" inset="false" items="{/icons}">
+                    <columns>
+                        <Column>
+                            <Text text="Icon" width="6em" hAlign="Center" />
+                        </Column>
+                        <Column>
+                            <Text text="Key" />
+                        </Column>
+                        <Column>
+                            <Text text="CollectionName" />
+                        </Column>
+                        <Column width="10em" hAlign="Center">
+                            <Text text="index" tooltip="index in collection" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <core:Icon src="{Key}" tooltip="{Key}" height="38px" width="38px" size="2rem" />
+                                <Text text="{Key}" />
+                                <Text text="{CollectionName}" />
+                                <Text text="{Index}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

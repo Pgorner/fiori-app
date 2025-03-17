@@ -1,0 +1,55 @@
+<mvc:View
+	id="customEditFlow"
+	height="100%"
+	controllerName="sap.fe.core.fpmExplorer.customEditFlow.CustomPage"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:macros="sap.fe.macros"
+>
+	<Page>
+		<content>
+			<VBox>
+				<Text
+					text="Selecting a table line populates the form fields and sets the edit button to visible"
+					class="sapUiSmallMargin"
+				/>
+				<l:HorizontalLayout
+					id="macroTableContainer"
+					allowWrapping="true"
+					class="sapUiSmallMarginTopBottom sapUiMediumMarginBeginEnd"
+				>
+					<macros:Table
+						metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.LineItem"
+						readOnly="true"
+						selectionMode="None"
+						id="rootEntityTable"
+						selectionChange=".onSelectionChange"
+						rowPress=".onSelectionChange"
+					/>
+				</l:HorizontalLayout>
+
+				<Panel id="myFormContent" class="sapUiSmallMarginTopBottom sapUiMediumMarginBeginEnd" width="90%">
+					<headerToolbar>
+						<OverflowToolbar>
+							<Title text="Editing the object" />
+							<ToolbarSpacer />
+							<Button text="Edit" press=".onEditPressed" visible="{= !${ui>/isEditable} }" />
+						</OverflowToolbar>
+					</headerToolbar>
+					<content>
+						<macros:Form
+							metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.FieldGroup#HeaderGeneralInformation"
+							id="formContent"
+						/>
+						<Toolbar>
+							<ToolbarSpacer />
+							<Button text="Save" press=".onSavePressed" visible="{ui>/isEditable}" />
+							<Button text="Cancel" press=".onCancelPressed" visible="{ui>/isEditable}" />
+						</Toolbar>
+					</content>
+				</Panel>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

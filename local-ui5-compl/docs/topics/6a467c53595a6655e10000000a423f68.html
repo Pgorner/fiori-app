@@ -1,0 +1,377 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio6a467c53595a6655e10000000a423f68" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/07_APF/the-representation-object-6a467c5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">The Representation Object</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">The Representation Object</h2></div><p>The <span class="ph sap-technical-name">representation</span> object defines the relation
+            between the requested data and the representation type, for example, a particular chart
+            type or a list. The format is as follows: </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  "type" : "representation",    // optional
+  "id" : "&lt;id&gt;"
+  "representationTypeId" : "&lt;representation type ID&gt;",
+  "parameter" : {
+    "type" : "parameter"
+    "dimensions" : [ &lt;dimensions&gt;* ]    //optional
+    "measures" : [ &lt;measures&gt;* ]    // optional
+    "properties" : [ &lt;properties&gt;* ]    //optional
+    "hierarchicalProperty" : [ &lt;hierarchical property&gt; ]    //optional
+    "width" : "&lt;width&gt;"
+    "alternateRepresentationType" : "TableRepresentation"       //optional
+    "top" : "&lt;number&gt;"       //optional
+    "orderby" : [ &lt;orderby&gt;* ]             //optional
+            }
+}</pre></div></div></section><p>The properties used in the <span class="ph sap-technical-name">representation</span> object
+            denote the following:</p><div class="tableWrapper "><div class="fig"><table border="1" class=" ">
+                
+                
+                <thead>
+                    <tr>
+                        <th colspan="1" rowspan="1"><p>Property</p>
+                        </th>
+                        <th colspan="1" rowspan="1"><p>Description</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="1" rowspan="1"><p><span class="ph sap-technical-name">id</span></p>
+                        </td>
+                        <td colspan="1" rowspan="1"><p>Unique ID of type string.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" rowspan="1"><p><span class="ph sap-technical-name">representationTypeId</span></p>
+                        </td>
+                        <td colspan="1" rowspan="1"><p>ID of the <span class="ph sap-technical-name">representation
+                                    type</span></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" rowspan="1"><p><span class="ph sap-technical-name">parameter</span></p>
+                        </td>
+                        <td colspan="1" rowspan="1"><p>Defines specific information for the representation, for example, dimensions, measures,
+                                properties, the optional alternate table representation, and the
+                                column width for table representations. Dimensions, measures,
+                                properties and hierarchical property are all optional, but at least
+                                one of them must exist, depending on the representation type: Charts
+                                have dimensions and measures, tables have properties, and tree
+                                tables have a hierarchical property and optionally more
+                                properties.</p>
+                            <p>At runtime, the constructor defined in the object, which contains a
+                                label, an image, and a reference to the constructor function of the
+                                representation type <span class="ph sap-technical-name">representation
+                                    type</span> object is called with the parameters
+                                defined by this property.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table></div></div><section id="section_jmd_psn_v1b">
+            <h2 class="title ">Properties</h2>
+            <p>The <span class="ph sap-technical-name">properties</span> property has the following
+                format:</p>
+            <section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"properties": [
+    {
+        "fieldName": "Customer",
+        "kind": "column",
+        "fieldDesc": {
+            "type": "label",
+            "kind": "text",
+            "key": "&lt;key&gt;"
+        }
+    }
+],
+</pre></div></div></section>
+        </section><section id="section_wx1_fqn_v1b">
+            <h2 class="title ">Hierarchical Properties</h2>
+            <p>The <span class="ph sap-technical-name">hierarchicalProperty</span> property has the
+                following format:</p>
+            <section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"hierarchicalProperty": [
+    {
+        "fieldName": "Customer",
+        "kind": "hierarchicalColumn",
+        "fieldDesc": {
+            "type": "label",
+            "kind": "text",
+            "key": "&lt;key&gt;"
+        },
+		"labelDisplayOption": "text"
+    }
+],
+</pre></div></div></section>
+        </section><section><h2 class="title ">Dimensions and Measures</h2>
+            <p>The <span class="ph sap-technical-name">parameter</span> property can contain
+                dimensions and measures for the representation.</p>
+            <p>The <span class="ph sap-technical-name">dimensions</span> property has the following
+                format:</p>
+            <section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">*  object, which contains a"dimensions" : [
+    {
+        "fieldName" : "&lt;field name&gt;",
+        "kind" : "&lt;value&gt;",
+        "fieldDesc" : {
+            "type" : "label",
+            "kind" : "text",
+            "key" : "&lt;key&gt;"
+        },
+        "labelDisplayOption": "text"
+    }
+]</pre></div></div></section>
+            <p>The kind attribute provides the option to maintain multiple dimensions. It is mapped
+                to <span class="ph sap-technical-name">feedItemId</span>. The following table lists
+                the <span class="ph sap-technical-name">feedItemId</span> for the available
+                charts:</p>
+            <div class="tableWrapper "><div class="fig"><table border="1" id="table_sqs_fxp_gr" class=" ">
+                    
+                    
+                    
+                    <thead>
+                        <tr>
+                            <th colspan="1" rowspan="1">
+                                <p>Chart Type</p>
+                            </th>
+                            <th colspan="1" rowspan="1">
+                                <p>Dimension</p>
+                            </th>
+                            <th colspan="1" rowspan="1">
+                                <p>feedItemId</p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="1" rowspan="2">
+                                <p>Line chart, line chart with two vertical axes, column chart, bar
+                                    chart, stacked column chart, stacked bar chart, 100% stacked
+                                    column chart, 100% stacked bar chart, combined column line
+                                    chart, combined stacked column line chart, combined column line
+                                    chart with two vertical axes, combined stacked column line chart
+                                    with two vertical axes</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>First dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>categoryAxis</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Second dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>color</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="2">
+                                <p>Line chart with time axis</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>First dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>timeAxis</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Second dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>color</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="2">
+                                <p>Heatmap chart</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>First dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>categoryAxis</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Second dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>valueAxis</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Pie chart, donut chart</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>Dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>color</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="2">
+                                <p>Scatter chart, bubble chart</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>First dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>color</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Second dimension</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>shape</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table></div></div>
+            <p>The <span class="ph sap-technical-name">measures</span> property has the following
+                format:</p>
+            <section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"measures" : [
+    {
+        "fieldName" : "&lt;field name&gt;",
+        "kind" : "&lt;value&gt;",
+        "fieldDesc" : {
+            "type" : "label",
+            "kind" : "text",
+            "key" : "&lt;key&gt;"
+        },
+        "measureDisplayOption" : "bar"
+    }
+]</pre></div></div></section>
+            <p>The kind attribute provides the option to maintain multiple measures. It is mapped to
+                    <span class="ph sap-technical-name">feedItemId</span>. The following table lists
+                the <span class="ph sap-technical-name">feedItemId</span> for the available
+                charts:</p>
+            <div class="tableWrapper "><div class="fig"><table border="1" id="table_kwy_yyp_gr" class=" ">
+                    
+                    
+                    
+                    <thead>
+                        <tr>
+                            <th colspan="1" rowspan="1">
+                                <p>Chart Type</p>
+                            </th>
+                            <th colspan="1" rowspan="1">
+                                <p>Measure</p>
+                            </th>
+                            <th colspan="1" rowspan="1">
+                                <p>feedItemId</p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Line chart, line chart with time axis, column chart, bar chart,
+                                    stacked column chart, stacked bar chart, 100% stacked column
+                                    chart, 100% stacked bar chart, combined column line chart,
+                                    combined stacked column line chart</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>Measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>valueAxis</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Heatmap chart</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>Measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>Color</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Pie chart, donut chart</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>Measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>size</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="2">
+                                <p>Scatter chart, line chart with two vertical axes, combined column
+                                    line chart with two vertical axes, combined stacked column line
+                                    chart with two vertical axes</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>First measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>valueAxis</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Second measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>valueAxis2</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="3">
+                                <p>Bubble chart</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>First measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>valueAxis</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Second measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">
+                                <p>valueAxis2</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">
+                                <p>Third measure</p>
+                            </td>
+                            <td colspan="1" rowspan="1">bubbleWidth</td>
+                        </tr>
+                    </tbody>
+                </table></div></div>
+            <p>The optional <span class="ph sap-technical-name">fieldDesc</span> property of the
+                    <span class="ph sap-technical-name">dimensions</span> and
+                    <span class="ph sap-technical-name">measures</span> properties can be used for
+                rendering the axis titles in the chart. For more information, see <a href="topic/0bdb7d53b5c19456e10000000a423f68" title="0bdb7d53b5c19456e10000000a423f68.xml" class="sap-doc">Rendering of Charts</a>.</p>
+        </section><section>
+            <h2 class="title ">Alternate Representation</h2>
+            <p>For each representation, you can define an alternate representation. A user can
+                switch to the alternate representation directly from any representation without
+                having to access the gallery of available representation types.</p>
+            <p>To define an alternate representation, the configuration file must contain the
+                following parameter:</p>
+            <p><span class="ph sap-technical-name">"alternateRepresentationType" :
+                    "tableRepresentation"</span></p>
+            <p>The property <span class="ph sap-technical-name">alternateRepresentationType</span>
+                contains a reference to the <span class="ph sap-technical-name">representation type
+                    ID</span> that is configured with details such as the constructor.
+                The constructor of an alternate representation type is handed over to the
+                representation instance using the parameter object.</p>
+        </section><section>
+            <h2 class="title ">Ordering</h2>
+        </section><p>Using the <span class="ph sap-technical-name">orderby</span> property, you can define the
+            properties by which the data depicted in the representation is ordered. You can also
+            specify the ordering direction (true = ascending, false = descending).</p><p>The <span class="ph sap-technical-name">orderby</span> property has the following
+            format:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"orderby" : [{             //optional
+        "property" : "&lt;property name&gt;",
+        "ascending" : &lt;boolean&gt;
+        }*]</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

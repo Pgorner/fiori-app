@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ui/core/Control"],function(e){"use strict";var a=e.extend("sap.ushell.ui.launchpad.VizInstanceBase",{metadata:{library:"sap.ushell",properties:{active:{type:"boolean",defaultValue:false}}},renderer:(e,a)=>{e.openStart("div",a);e.class("sapUshellVizInstanceBase");e.close("div")}});return a});
+//# sourceMappingURL=VizInstanceBase.js.map

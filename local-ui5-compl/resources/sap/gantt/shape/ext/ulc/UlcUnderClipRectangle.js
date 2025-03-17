@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/shape/ext/ulc/UlcRectangle"],function(t){"use strict";var i=t.extend("sap.gantt.shape.ext.ulc.UlcUnderClipRectangle",{});i.prototype.getY=function(t,i){if(this.mShapeConfig.hasShapeProperty("y")){return this._configFirst("y",t)}var e=25;if(this.mShapeConfig.hasShapeProperty("maxVisibleRatio")){e=this._configFirst("maxVisibleRatio",t)}return i.y+i.rowHeight*e/(100+e)};i.prototype.getHeight=function(t,i){if(this.mShapeConfig.hasShapeProperty("height")){return this._configFirst("height",t)}var e=25;if(this.mShapeConfig.hasShapeProperty("maxVisibleRatio")){e=this._configFirst("maxVisibleRatio",t)}return i.rowHeight-i.rowHeight*e/(100+e)};i.prototype.getFill=function(t,i){if(this.mShapeConfig.hasShapeProperty("fill")){return this._configFirst("fill",t)}return"#F2F2F2"};i.prototype.getStrokeOpacity=function(t,i){if(this.mShapeConfig.hasShapeProperty("strokeOpacity")){return this._configFirst("strokeOpacity",t)}return.3};i.prototype.getFillOpacity=function(t,i){if(this.mShapeConfig.hasShapeProperty("fillOpacity")){return this._configFirst("fillOpacity",t)}return.3};i.prototype.getClipPath=function(t,i){if(this.mShapeConfig.hasShapeProperty("clipPath")){return this._configFirst("clipPath",t)}var e=i.uid;var r=new RegExp("\\[|\\]|:|\\|","g");var a=e.replace(r,"_");return"url(#"+a+"_"+t.id+"_"+t.dimension+")"};return i},true);
+//# sourceMappingURL=UlcUnderClipRectangle.js.map

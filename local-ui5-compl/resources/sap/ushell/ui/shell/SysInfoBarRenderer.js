@@ -1,0 +1,3 @@
+//Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/resources"],function(e){"use strict";var o={apiVersion:2};o.render=function(o,r){o.openStart("div",r);o.accessibilityState(r,{role:"complementary",label:e.i18n.getText("SysInfoBarAriaLabel",[r._oText.getText(),r._oSubText.getText()])});o.class("sapUshellSysInfoBar");if(!r._isMappedColor(r.getColor())){o.style("border","1px solid "+r.getColor());o.style("background-color",r.getColor())}o.openEnd();o.renderControl(r.getAggregation("_bar"));o.close("div")};return o},true);
+//# sourceMappingURL=SysInfoBarRenderer.js.map

@@ -1,0 +1,70 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio45ac9f19d9414b30b121c6e00f57433c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/behavior-driven-development-with-gherkin-45ac9f1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Behavior-driven Development with Gherkin</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Behavior-driven Development with Gherkin</h2></div><div class="shortdesc">A software development process driven by app behavior.</div><p>With behavior-driven development (BDD), you as a developer start with a user story that
+			defines the business value that the developed app should have. Next, you write a test
+			that verifies the new functionality (this test initially fails). Finally, you write the
+			needed functionality and your test passes. Gherkin is a test framework that supports
+			this approach.</p><p>At first, as you are learning BDD, it will take a long time to implement new tests. Resist the temptation to abandon automated testing. The most important
+			software development phase for successful software is the maintenance phase. Automated tests are the best way to ensure an effective maintenance
+			phase, and help ensure that the code quality remains high over time.</p><p>It's true that when you first try automated testing it might take a long time, but even this first attempt will be worthwhile and pay dividends later. In
+			your future projects, when you implement your tests much faster, your initial investment in learning how to do integration testing will really pay
+			off.</p><p>One good way to ensure that you get the most value for your investment of time into automated testing is to ensure that you test the right things.
+			Integration testing is best for testing the main path of the major business scenarios. These are what are called "face-saving tests", in the sense
+			that you will lose face if you try to deliver the software when these major business scenarios are failing. Hence, integration tests are a great way
+			to do a quick and painless smoke test every time you commit a change to your software, to ensure that you haven't broken anything important.</p><p>Since writing integration tests can be time-consuming, it's better to use unit testing to test all of the nuances and failure cases of your software. Unit
+			tests are cheap and easy to write, and are better suited to achieving full test coverage for the software. </p><section>
+			<h2 class="title ">Gherkin</h2>
+			<p>Gherkin is written in JavaScript and is fully compatible with SAPUI5, OPA, and QUnit. It is
+				based on the "cucumber" tool.</p>
+			<p>The advantages of using Gherkin are:</p><ul class="ul ">
+					<li class="li">
+						<p>You write executable specifications that are easy to understand and that allow the easy generation of integration tests.</p>
+					</li>
+					<li class="li">
+						<p>Product specification and documentation are <span class="emphasis">always up to date</span>; they evolve during the development project.</p>
+					</li>
+					<li class="li">
+						<p>Single source of truth: Reduce communication errors across your development team, because the product owner, developers, and testers are all working
+							from the same specification.</p>
+					</li>
+					<li class="li">
+						<p>Maximize the business value you get out of the time spent writing tests, and keep your focus on the customer and their requirements.</p>
+					</li>
+				</ul><p></p>
+			<p>The Gherkin library contains the following parts:</p><ul class="ul ">
+					<li class="li">
+						<p>Feature file</p>
+						<p>Software specification written in Gherkin syntax. Feature files are human-readable
+							specifications that are also machine-readable. Features are composed of
+								<span class="emphasis">test scenarios</span>, which are themselves composed
+							of <span class="emphasis">test steps</span>.
+							</p><section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><code>#!feature</code>Feature: Wearing sunscreen stops skin cancer
+
+  Scenario: Apply sunscreen
+    Given the sun is dangerous
+    When I apply sunscreen
+    Then I protect my skin</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Steps file</p>
+						<p>Translates the feature file into something a computer can understand and execute. The steps
+							file also contains the tests to be executed to ensure that the software
+							behaves according to its specification. The main elements of a steps
+							file are called <span class="emphasis">step
+							definitions</span>.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">this.register(/^I protect my skin$/i, function() {
+  this.assert.assertEqual(this.mySkin, 'protected');
+});</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Test harness</p>
+						<p>Stitches together the feature file and steps file and executes runtime tests on the result using a test framework such as QUnit.</p>
+					</li>
+					<li class="li">
+						<p><span class="keynote apiname">DataTableUtils</span></p>
+						<p>Convenience library for handling data tables and string normalization.</p>
+					</li>
+				</ul><p></p>
+		</section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/9113397cd27e4a1090590e1c4f6edf5f">Feature Files</a></li><li><a href="topic/4b0c51965ebd40059daf3419ba35f694">Basic Example How to Use Gherkin</a></li><li><a href="topic/c689cd83e2524251a75d694b09263d07">Gherkin and OPA Page Objects</a></li><li><a href="topic/20737a4c64f448d2af9b9745fbe5d762">Code Coverage</a></li><li><a href="topic/ebcf60c3b0e24c348b88603bbb8eb16c">Logging</a></li><li><a href="topic/02ef39f70a244c7cb0cb4d65be6ae396">Frequently Asked Questions</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="https://cucumber.io/" title="https://cucumber.io/" class="external-link" target="_blank" rel="noopener">cucumber Home Page</a></li>
+		<li><a href="https://github.com/cucumber/cucumber/wiki/Gherkin" title="https://github.com/cucumber/cucumber/wiki/Gherkin" class="external-link" target="_blank" rel="noopener">Gherkin documentation on GitHub</a></li>
+	</ul></section></div></section></div></body></html>

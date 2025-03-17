@@ -1,0 +1,32 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9c069828d0064136ac6a499aa2cdace3" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/js-fragments-9c06982.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">JS Fragments</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">JS Fragments</h2></div><div class="shortdesc">The structure of JS fragments is similar to the structure of the respective views:
+		They have a name and an object with a <code>createContent()</code> function.</div><p>You define a simple JS fragment named <code>my.useful.UiPartX</code> as shown in the
+			following code snippet:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// fragment is located in a file named: "my/useful/UiPartX.fragment.js"
+sap.ui.define(["sap/m/Button"], function(Button) {
+	return {
+		createContent: function(oController) {
+			var oButton  = new Button({
+				text: "Hello World" ,
+				press:oController.doSomething
+			});
+			return oButton;
+		}
+	}; 
+});</pre></div></div></section><p>The <code>createContent()</code> function is responsible for the UI definition and
+			has to return a control. The definition can be created either inline or in a separate
+			file, for instance in <code>…/my/useful/UiPartX.fragment.js</code>. The
+				<code>oController</code> is either already defined or it is null. In the first
+			case, its methods can be used for the event handlers of controls.</p><p>Despite the many similarities to views, there are also differences: First of all, there
+			is no <code>getControllerName()</code> method. Fragments cannot specify whether they
+			have a controller. Whether <code>oController</code> is defined or not is not a
+			decision of the fragment itself. Instead, it is decided by the code instantiating the
+			fragment. If that code is part of a controller, it can pass a reference to itself to the
+			fragment. This means there can be a dependency between controllers and fragments:
+			Fragments may expect a controller to exist and to have certain methods. And controllers
+			may expect certain controls to be in the fragment. This is in line with the purpose of
+			fragments - to be very light-weight re-use entities that provide little encapsulation.
+			For more encapsulation, views or even components are better suited.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/958ead51e2e94ab8bcdc90fb7e9d53d0" title="Components are independent and reusable parts used in SAPUI5 applications." class="sap-doc">Components</a></li>
+		<li><a href="topic/91f27e3e6f4d1014b6dd926db0e91070" title="The view in the Model-View-Controller (MVC) concept is responsible for defining and rendering the UI. SAPUI5 supports predefined view types." class="sap-doc">Views</a></li>
+	</ul></section></div></section></div></body></html>

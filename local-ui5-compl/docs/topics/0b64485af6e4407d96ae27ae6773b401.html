@@ -1,0 +1,198 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0b64485af6e4407d96ae27ae6773b401" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/how-to-replace-sap-ui-comp-variants-variantmanagement-0b64485.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">How to replace <code>sap.ui.comp.variants.VariantManagement</code></h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">How to replace <code>sap.ui.comp.variants.VariantManagement</code></h2></div><div class="shortdesc">This documentation is meant to ease the transition from
+			<code>sap.ui.comp.variants.VariantManagement</code> (deprecated) to
+			<code>sap.m.VariantManagement</code>.</div><p>As of 1.120, <code>sap.ui.comp.variants.VariantManagement</code> has been deprecated
+			and replaced by <code>sap.m.VariantManagement</code>. For more
+				information about this control, see the <a href="api/sap.m.VariantManagement" title="api/sap.m.VariantManagement" class="sap-doc" alt="api/sap.m.VariantManagement">API Reference</a> and the <a href="entity/sap.m.VariantManagement/sample/sap.m.sample.VariantManagement" title="entity/sap.m.VariantManagement/sample/sap.m.sample.VariantManagement" class="sap-doc" alt="entity/sap.m.VariantManagement/sample/sap.m.sample.VariantManagement">sample</a>.
+		</p><section id="section_qx2_d2b_mzb">
+			<h2 class="title ">Differences of Controls</h2>
+			<p>There are some differences between the two controls that are listed in the following
+				table, which compares the main attributes of the controls:</p>
+			<p>
+				</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_twr_x2b_mzb" class=" ">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p><code>sap.ui.comp.variants.VariantManagement</code></p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p><code>sap.m.VariantManagement</code></p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Standard variant available</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>No standard variant available, which is usually shown first </p>
+									<p>The application has to implement the standard variant via the
+											<code>items</code> aggregation as required. A newly
+										added standard variant has to be inserted at position 0.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Reordering of items </p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>No reordering of items </p>
+									<p>The application has to implement ordering via the <code>items</code> aggregation as
+										required. A newly added
+										variant
+										view has to be inserted at the required
+										position (otherwise, it is listed alphabetically).</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Default for title style H4 available</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><code>titleStyle</code> property must be set to H4</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			<p></p>
+		</section><section id="section_jft_kfb_mzb">
+			<h2 class="title ">What applications need to do</h2>
+			<p>Applications need to ensure the following: </p><ul class="ul ">
+					<li class="li">
+						<p>Create a
+							standard
+							variant item with the <code>rename</code> and
+								<code>remove</code> properties (<code>variantItem</code> ) </p>
+					</li>
+				</ul>The following code sample shows the way the former
+					<code>VariantManagement</code> handled this: <p></p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">			var aVariants = [{
+				key: "key1",
+				text: "text1",
+				author: "author1"
+			}, {
+				key: "key2",
+				text: "text2",
+				author: "author2"
+			}];
+			var oModel = new sap.ui.model.json.JSONModel({
+				variants: aVariants
+			});
+			var oVariantManagement = new sap.ui.comp.variants.VariantManagement({
+				variantItems: {
+					path: "/variants",
+					template: new sap.ui.comp.variants.VariantItem({
+						key: "{key}",
+						text: "{text}",
+						author: "{author}"
+					})
+				},
+				save: function (oEvent) {
+					var oParameters = oEvent.getParameters();
+					var aNewVariants = oModel.getProperty("/variants");
+					
+					aNewVariants.push({
+						key: oParameters.key,
+						text: oParameters.name,
+						author: "authorX"
+					});
+					
+					oModel.setProperty("/variants", aNewVariants);
+				}
+			}).setModel(oModel);
+</pre></div></div></section>
+			<p>The following code sample shows the way it is handled now. It also shows the creation of a
+				standard
+				variant:
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">			var aVariants = [{
+				key: "keyStandard",
+				text: "Standard",
+				rename: false,
+				author: "SAP"
+			}, {			
+				key: "key1",
+				text: "text1",
+				remove:true,				
+				author: "author1"
+			}, {
+				key: "key2",
+				text: "text2",
+				remove:true,				
+				author: "author2"
+			}];
+			var oModel = new sap.ui.model.json.JSONModel({
+				variants: aVariants
+			});
+			var oVariantManagement = new sap.m.VariantManagement({
+				supportFavorites: false,
+				supportPublic: false,
+				supportApplyAutomatically: false,
+				selectedKey: "keyStandard",
+				defaultKey: "keyStandard",
+				popoverTitle: "My Views",
+				titleStyle: "H4",
+				items: {
+					path: "/variants",
+					template: new sap.m.VariantItem({
+						key: "{key}",
+						title: "{text}",
+						rename: "{rename}",						
+						remove: "{remove}",							
+						author: "{author}"
+					})
+				},
+				save: function (oEvent) {
+					var oParameters = oEvent.getParameters();
+					var aNewVariants = oModel.getProperty("/variants");
+					
+					aNewVariants.push({
+						key: oParameters.key,
+						text: oParameters.name,
+						author: "authorX"
+					});
+					
+					oModel.setProperty("/variants", aNewVariants);
+				}
+			}).setModel(oModel);
+</pre></div></div></section><p></p>
+			<p>The following code sample shows the way the former <code>VariantManagement</code>
+				handled the XML view definition: </p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		&lt;core:View
+			id="view1"
+			height="100%"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:core="sap.ui.core"
+			xmlns="sap.m"
+			xmlns:variant="sap.ui.comp.variants"
+			&gt; 
+			&lt;variant:VariantManagement standardItemText="Standard" enabled="true" showExecuteOnSelection="false" showShare="false" id="variantManagement"&gt;
+				&lt;variant:variantItems&gt;
+					&lt;variant:VariantItem text="variant1" key="variant1"/&gt;
+				&lt;/variant:variantItems&gt;
+			&lt;/variant:VariantManagement&gt;
+				
+		&lt;/core:View&gt;
+</pre></div></div></section>
+			<p>The following code sample shows the way it is handled now:</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		&lt;mvc:View
+			id="view1"
+			height="100%"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:core="sap.ui.core"
+			xmlns="sap.m"
+			&gt; 
+			&lt;VariantManagement supportApplyAutomatically="false" supportPublic="false" id="variantManagement"
+			      titleStyle="H4" supportFavorites="false" selectedKey="keyStandard" defaultKey="keyStandard" popoverTitle="My Views"&gt;
+				&lt;items&gt;
+					&lt;VariantItem title="Standard" key="keyStandard" rename="false"/&gt;				
+					&lt;VariantItem title="variant1" key="variant1" remove="true"/&gt;
+				&lt;/items&gt;
+			&lt;/VariantManagement&gt;
+				
+		&lt;/mvc:View&gt;
+</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

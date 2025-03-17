@@ -1,0 +1,32 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	controllerName="sap.fe.plugins.managecache.comp.controller.settings"
+	xmlns="sap.m"
+>
+	<f:SimpleForm id="userActivitiesForm" layout="ResponsiveGridLayout">
+		<f:content>
+			<HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+				<VBox>
+					<VBox>
+						<Label text="{i18n>T_EXPIRY}" />
+						<StepInput
+							value="{path: '/period', type: 'sap.ui.model.type.Integer'}"
+							displayValuePrecision="{displayValuePrecision}"
+							min="0"
+							max="360"
+							width="80%"
+							step="30"
+							textAlign="Center"
+							description="{i18n>T_DAYS}"
+							change="onChange"
+						/>
+						<Button id="clearRequestCache" width="40%" text="{i18n>B_CLEANUP_CACHE}" press="onCleanup" />
+						<Text class="sapUshellFlpSettingsWideDescription" text="{i18n>T_CACHE_INFORMATION_MSG}" />
+					</VBox>
+				</VBox>
+			</HBox>
+		</f:content>
+	</f:SimpleForm>
+</mvc:View>

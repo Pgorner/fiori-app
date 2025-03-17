@@ -1,0 +1,45 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:launchpad="sap.ushell.ui.launchpad"
+    controllerName="sap.ushell.playground.controller.ExtendedChangeDetection">
+    <Page title="ExtendedChangeDetection" class="sapUiStdPage sapUiContentPadding">
+        <Panel height="450px">
+            <launchpad:Section
+                id="playgroundSection"
+                enableVisualizationReordering="true"
+                visualizationDrop=".reorderVisualizations"
+                visualizations="{
+                    path: '/visualizations',
+                    factory: '._visualizationsFactory',
+                    key: 'id'
+                }" />
+        </Panel>
+        <Table items="{/visualizations}">
+            <columns>
+                <Column>
+                    <Text text="Tile" />
+                </Column>
+                <Column>
+                    <Text text="Title" />
+                </Column>
+                <Column>
+                    <Text text="Subtitle" />
+                </Column>
+                <Column>
+                    <Text text="DisplayFormat" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <ObjectIdentifier title="{id}" />
+                        <Input value="{title}" />
+                        <Input value="{subtitle}" />
+                        <Text text="{displayFormatHint}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
+</mvc:View>

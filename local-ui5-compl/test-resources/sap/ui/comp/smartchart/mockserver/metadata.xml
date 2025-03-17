@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+		   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+		   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+		   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI/v1">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="EPM_DEVELOPER_SCENARIO_SRV"
+				sap:schema-version="0" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="Product" sap:service-schema-version="1"
+						sap:service-version="1" sap:semantics="aggregate"
+						sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ProductId"/>
+				</Key>
+				<Property Name="ProductId" Type="Edm.String" Nullable="false"
+						  MaxLength="10" sap:aggregation-role="dimension" sap:label="Product ID"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Category" Type="Edm.String" Nullable="false"
+						  MaxLength="40" sap:aggregation-role="dimension" sap:label="Product Category"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Name" Type="Edm.String" Nullable="false"
+						  MaxLength="255" sap:aggregation-role="dimension" sap:label="Name"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Description" Type="Edm.String" Nullable="false"
+						  MaxLength="255" sap:aggregation-role="dimension" sap:label="Description"
+						  sap:sortable="true" sap:filterable="false"/>
+				<Property Name="SupplierName" Type="Edm.String" Nullable="false"
+						  MaxLength="80" sap:aggregation-role="dimension" sap:label="Company Name"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Quantity" Type="Edm.Decimal" Nullable="false"
+						  MaxLength="3" sap:aggregation-role="measure" sap:label="Quantity"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="WeightMeasure" Type="Edm.Decimal" Nullable="false"
+						  Precision="13" Scale="3" sap:aggregation-role="measure" sap:label="Weight"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="WeightUnit" Type="Edm.String" Nullable="false"
+						  MaxLength="3" sap:aggregation-role="dimension" sap:label="Weight Unit"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Price" Type="Edm.Decimal" Nullable="false"
+						  Precision="23" Scale="4" sap:aggregation-role="measure" sap:label="Price"
+						  sap:sortable="true" sap:filterable="true" sap:unit="CurrencyCode"/>
+
+				<Property Name="StatusKey" Type="Edm.String" Nullable="false"
+						  MaxLength="2" sap:aggregation-role="dimension" sap:label="Status"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Status" Type="Edm.String" Nullable="false"
+						  MaxLength="20" sap:aggregation-role="dimension" sap:label="Status Desc."
+						  sap:sortable="true" sap:filterable="true"/>
+
+				<Property Name="CurrencyCode" Type="Edm.String" Nullable="false"
+						  MaxLength="5" sap:aggregation-role="dimension" sap:label="Currency Code"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Width" Type="Edm.Decimal" Nullable="false"
+						  Precision="13" Scale="3" sap:aggregation-role="measure" sap:label="Dimension Width"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Depth" Type="Edm.Decimal" Nullable="false"
+						  Precision="13" Scale="3" sap:aggregation-role="measure" sap:label="Dimension Depth"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Height" Type="Edm.Decimal" Nullable="false"
+						  Precision="13" Scale="3" sap:aggregation-role="measure" sap:label="Dimension Height"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="DimUnit" Type="Edm.String" Nullable="false"
+						  MaxLength="3" sap:aggregation-role="dimension" sap:label="Dimension Unit"
+						  sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Date" Type="Edm.DateTime" Nullable="false"
+						  sap:display-format="Date" sap:aggregation-role="dimension"
+						  sap:label="Date" Precision="0" sap:sortable="true" sap:filterable="true"/>
+				<Property Name="Bool" Type="Edm.Boolean" Nullable="false"
+						  sap:aggregation-role="dimension"
+						  sap:label="Boolean" sap:sortable="true" sap:filterable="true"/>
+				<Property Name="SaleDate" Type="Edm.DateTimeOffset" sap:label="Sale Date"
+						  sap:aggregation-role="dimension" sap:sortable="true"
+						  sap:filterable="true">
+						   <!-- <Annotation Term="Common.Timezone" Path="TimezoneID"/> -->
+				</Property>
+				<Property Name="TimezoneID" Type="Edm.String" sap:label="Timezone" sap:aggregation-role="dimension"
+						  sap:filterable="true" sap:sortable="true" MaxLength="120">
+					<!-- <Annotation Term="Common.IsTimezone" Bool="true"/> -->
+				</Property>
+				<Property Name="YearMonthDay" Type="Edm.String" Nullable="false"
+						  MaxLength="6" sap:aggregation-role="dimension"
+						  sap:label="Year Month Day" sap:sortable="true" sap:filterable="true"/>
+				<Property Name="ProductPicUrl" Type="Edm.String" Nullable="false"
+						  MaxLength="255" sap:aggregation-role="dimension" sap:label="Product Image URL"
+						  sap:sortable="false" sap:filterable="false"/>
+				<!--isCalendar Properties -->
+				<Property Name="DeliveryCalendarYear" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension"
+						  sap:display-format="NonNegative" sap:semantics="year"
+						  sap:label="Calendar Year"/>
+				<Property Name="DeliveryCalendarYearQuarter" Type="Edm.String" MaxLength="5"
+						  sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:semantics="yearquarter"
+						  sap:label="Calendar Year Quarter"/>
+				<Property Name="DeliveryCalendarYearMonth" Type="Edm.String" MaxLength="6"
+						  sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:semantics="yearmonth"
+						  sap:label="Calendar Year Month"/>
+				<Property Name="DeliveryCalendarYearWeek" Type="Edm.String" MaxLength="6"
+						  sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:semantics="yearweek"
+						  sap:label="Calendar Year Week" />
+				<Property Name="DeliveryCalendarQuarter" Type="Edm.String" MaxLength="1"
+						  sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:semantics="quarter"
+						  sap:label="Calendar Quarter"/>
+				<Property Name="DeliveryCalendarMonth" Type="Edm.String" MaxLength="2"
+						  sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:semantics="month"
+						  sap:label="Calendar Month"/>
+				<Property Name="DeliveryCalendarWeek" Type="Edm.String" MaxLength="2"
+						  sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:semantics="week"
+						  sap:label="Calendar Week"/>
+				<!--isFiscal Properties -->
+				<Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension"
+						  sap:label="Fiscal Year" sap:semantics="fiscalyear"/>
+				<Property Name="FiscalPeriod" Type="Edm.String" MaxLength="3" sap:aggregation-role="dimension"
+						  sap:semantics="fiscalperiod" sap:display-format="NonNegative"
+						  sap:label="Fiscal Period"/>
+				<Property Name="FiscalQuarter" Type="Edm.String" MaxLength="1" sap:aggregation-role="dimension"
+						  sap:semantics="fiscalquarter" sap:display-format="NonNegative"
+						  sap:label="Fiscal Quarter"/>
+				<Property Name="FiscalWeek" Type="Edm.String" MaxLength="2" sap:aggregation-role="dimension"
+						  sap:semantics="fiscalweek" sap:display-format="NonNegative"
+						  sap:label="Fiscal Week"/>
+				<Property Name="FiscalYearPeriod" Type="Edm.String" MaxLength="7" sap:aggregation-role="dimension"
+						  sap:semantics="fiscalyearperiod" sap:display-format="NonNegative"
+						  sap:label="Fiscal Year Period"/>
+				<Property Name="FiscalYearQuarter" Type="Edm.String" MaxLength="7" sap:aggregation-role="dimension"
+						  sap:semantics="fiscalyearquarter" sap:display-format="NonNegative"
+						  sap:label="Fiscal Year Quarter"/>
+				<Property Name="FiscalYearWeek" Type="Edm.String" MaxLength="7" sap:aggregation-role="dimension"
+						  sap:semantics="fiscalyearweek" sap:display-format="NonNegative"
+						  sap:label="Fiscal Year Week"/>
+
+
+			</EntityType>
+			<EntityType Name="VL_SH_H_CATEGORY" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Text"/>
+				</Key>
+				<Property Name="Text" Type="Edm.String" Nullable="false"
+						  sap:label="Category"/>
+			</EntityType>
+			<EntityType Name="VL_SH_H_STATUS" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Text"/>
+				</Key>
+				<Property Name="Text" Type="Edm.String" Nullable="false"
+						  sap:label="Status"/>
+			</EntityType>
+			<EntityType Name="VL_SH_H_CURRENCY" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Text"/>
+				</Key>
+				<Property Name="Text" Type="Edm.String" Nullable="false"
+						  sap:label="Currency Code"/>
+			</EntityType>
+			<EntityContainer Name="EPM_DEVELOPER_SCENARIO_SRV"
+							 m:IsDefaultEntityContainer="true">
+				<EntitySet Name="ProductCollection" EntityType="EPM_DEVELOPER_SCENARIO_SRV.Product"
+						   sap:creatable="false" sap:updatable="false" sap:deletable="false"
+						   sap:pageable="false" sap:content-version="1"/>
+				<EntitySet Name="VL_SH_H_CATEGORY"
+						   EntityType="EPM_DEVELOPER_SCENARIO_SRV.VL_SH_H_CATEGORY"
+						   sap:creatable="false" sap:updatable="false" sap:deletable="false"
+						   sap:content-version="1" sap:countable="false"/>
+				<EntitySet Name="VL_SH_H_STATUS"
+						   EntityType="EPM_DEVELOPER_SCENARIO_SRV.VL_SH_H_STATUS"
+						   sap:creatable="false" sap:updatable="false" sap:deletable="false"
+						   sap:content-version="1" sap:countable="false"/>
+				<EntitySet Name="VL_SH_H_CURRENCY"
+						   EntityType="EPM_DEVELOPER_SCENARIO_SRV.VL_SH_H_CURRENCY"
+						   sap:creatable="false" sap:updatable="false" sap:deletable="false"
+						   sap:content-version="1" sap:countable="false"/>
+			</EntityContainer>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant">
+					<Record>
+						<PropertyValue Property="Visualizations">
+							<Collection>
+								<AnnotationPath>@com.sap.vocabularies.UI.v1.Chart
+								</AnnotationPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record>
+									<PropertyValue Property="Property">
+										<PropertyPath>Name</PropertyPath>
+									</PropertyValue>
+									<PropertyValue Property="Descending">
+										<Bool>true</Bool>
+									</PropertyValue>
+								</Record>
+								<Record>
+									<PropertyValue Property="Property">
+										<PropertyPath>Category</PropertyPath>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.Chart">
+					<Record>
+						<PropertyValue Property="ChartType"
+									   EnumMember="com.sap.vocabularies.UI.v1.ChartType/Column"/>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>Name</PropertyPath>
+								<PropertyPath>Category</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>Price</PropertyPath>
+								<PropertyPath>Quantity</PropertyPath>
+								<PropertyPath>Width</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record>
+									<PropertyValue Property="Measure" PropertyPath="Price"/>
+									<PropertyValue Property="Role"
+												   EnumMember="com.sap.vocabularies.UI.v1.ChartMeasureRoleType/Axis1"/>
+									<PropertyValue Property="DataPoint"
+												   AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<!-- <Annotation Term="com.sap.vocabularies.UI.v1.DataPoint">
+					<Record Type="com.sap.vocabularies.UI.v1.DataPointType">
+						<PropertyValue Property="Title" String="Unit Price"/>
+						<PropertyValue Property="Description" Path="Name"/>
+						<PropertyValue Property="Value" Path="Price"/>
+						<PropertyValue Property="ValueFormat">
+							<Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+								<PropertyValue Property="ScaleFactor" Decimal="1000"/>
+								<PropertyValue Property="NumberOfFractionalDigits"
+											   int="1"/>
+							</Record>
+						</PropertyValue>
+						<PropertyValue Property="CriticalityCalculation">
+							<Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType">
+								<PropertyValue Property="ImprovementDirection"
+											   EnumMember="com.sap.vocabularies.UI.v1.ImprovementDirectionType/Maximize"/>
+								<PropertyValue Property="ToleranceRangeLowValue"
+											   Int="50"/>
+								<PropertyValue Property="DeviationRangeLowValue"
+											   Int="30"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation> -->
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/Category"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.SemanticObject"
+							String="smartchart01_SemanticObjectCategory"/>
+				<Annotation Term="com.sap.vocabularies.Common.v1.SemanticObject"
+							Qualifier="additional" String="smartchart01_SemanticObjectName"/>
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Categories"/>
+						<PropertyValue Property="CollectionPath" String="VL_SH_H_CATEGORY"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty"
+												   PropertyPath="Category"/>
+									<PropertyValue Property="ValueListProperty"
+												   String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/Status"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Status"/>
+						<PropertyValue Property="CollectionPath" String="VL_SH_H_STATUS"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty"
+												   PropertyPath="Status"/>
+									<PropertyValue Property="ValueListProperty"
+												   String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/CurrencyCode"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="CurrencyCode"/>
+						<PropertyValue Property="CollectionPath" String="VL_SH_H_CURRENCY"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty"
+												   PropertyPath="CurrencyCode"/>
+									<PropertyValue Property="ValueListProperty"
+												   String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/Name"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.SemanticObject"
+							String="smartchart01_SemanticObjectName"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/SaleDate"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Timezone" Path="TimezoneID"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/timezoneID"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsTimezone" Bool="true"/>
+			</Annotations>
+			<!--isCalendar Annotations -->
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/YearMonthDay"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/DeliveryCalendarYear"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYear" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/DeliveryCalendarYearQuarter"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYearQuarter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/DeliveryCalendarYearMonth"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYearMonth" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/DeliveryCalendarYearWeek">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYearWeek" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/DeliveryCalendarQuarter"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarQuarter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/DeliveryCalendarMonth"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarMonth" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/DeliveryCalendarWeek">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarWeek" Bool="true"/>
+			</Annotations>
+			<!--isFiscal Annotations -->
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/FiscalYear"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalYear" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/FiscalPeriod"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalPeriod" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/FiscalQuarter"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalQuarter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/FiscalWeek"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalWeek" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/FiscalYearPeriod"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalYearPeriod" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/FiscalYearQuarter"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalYearQuarter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/FiscalYearWeek"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalYearWeek" Bool="true"/>
+			</Annotations>
+
+			<!-- make the Status Field (the description part) hidden  -->
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/Status"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="UI.Hidden"/>
+			</Annotations>
+
+			<Annotations Target="EPM_DEVELOPER_SCENARIO_SRV.Product/StatusKey"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="Status">
+					<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly"/>
+			</Annotation>
+
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+		   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+		   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+		   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="MyNamespace" sap:schema-version="1">
+
+			<EntityType Name="MyEntityType">
+				<Key>
+					<PropertyRef Name="ID" />
+				</Key>
+				<Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Product ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+				<Property Name="EmptyKey1" Type="Edm.String" MaxLength="2" sap:label="Value List standard"/>
+				<Property Name="EmptyKey2" Type="Edm.String" MaxLength="2" sap:label="Value List fixed-values" sap:value-list="fixed-values"/>
+				<Property Name="EmptyKey3" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Value List standard not nullable"/>
+				<Property Name="EmptyKey4" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Value List fixed-values not nullable" sap:value-list="fixed-values"/>
+
+				<Property Name="textInEditModeSourceNone" Type="Edm.String" MaxLength="5" sap:label="textInEditModeSource None" sap:value-list="fixed-values"/>
+				<Property Name="textInEditModeSourceValueList" Type="Edm.String" MaxLength="5" sap:label="textInEditModeSource ValueList" sap:value-list="fixed-values"/>
+				<Property Name="textInEditModeSourceNoValidation" Type="Edm.String" MaxLength="5" sap:label="textInEditModeSource ValueListNoValidation" sap:value-list="fixed-values"/>
+				<Property Name="textInEditModeSourceWarning" Type="Edm.String" MaxLength="5" sap:label="textInEditModeSource ValueListWarning" sap:value-list="fixed-values"/>
+			</EntityType>
+
+			<EntityType Name="EmptyKeyVHType">
+				<Key>
+					<PropertyRef Name="KEY" />
+				</Key>
+				<Property Name="KEY" Type="Edm.String" sap:text="DESCRIPTION" Nullable="false" sap:label="Key"/>
+				<Property Name="DESCRIPTION" Type="Edm.String" sap:label="Description"/>
+			</EntityType>
+
+			<EntityType Name="ValidationVHType">
+				<Key>
+					<PropertyRef Name="KEY" />
+				</Key>
+				<Property Name="KEY" Type="Edm.String" sap:text="DESCRIPTION" Nullable="false" sap:label="Key" MaxLength="2"/>
+				<Property Name="DESCRIPTION" Type="Edm.String" sap:label="Description" MaxLength="8" />
+			</EntityType>
+
+			<EntityContainer m:IsDefaultEntityContainer="true"
+							 sap:supported-formats="atom json">
+				<EntitySet Name="EmptyKey" EntityType="MyNamespace.MyEntityType" sap:creatable="true" sap:updatable="true" sap:deletable="false" sap:addressable="false" sap:content-version="1" />
+				<EntitySet Name="EmptyKeyVH" EntityType="MyNamespace.EmptyKeyVHType" />
+				<EntitySet Name="ValidationVH" EntityType="MyNamespace.ValidationVHType" />
+			</EntityContainer>
+
+			<Annotations Target="MyNamespace.MyEntityType/EmptyKey1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Handling Empty Keys"/>
+						<PropertyValue Property="CollectionPath" String="EmptyKeyVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EmptyKey1"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+									<PropertyValue Property="InitialValueIsSignificant" Bool="true"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="MyNamespace.MyEntityType/EmptyKey2" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Handling Empty Keys"/>
+						<PropertyValue Property="CollectionPath" String="EmptyKeyVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EmptyKey2"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+									<PropertyValue Property="InitialValueIsSignificant" Bool="true"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="MyNamespace.MyEntityType/EmptyKey3" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Handling Empty Keys"/>
+						<PropertyValue Property="CollectionPath" String="EmptyKeyVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EmptyKey3"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="MyNamespace.MyEntityType/EmptyKey4" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Handling Empty Keys"/>
+						<PropertyValue Property="CollectionPath" String="EmptyKeyVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="EmptyKey4"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="MyNamespace.MyEntityType/textInEditModeSourceNone" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text">
+					<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="textInEditModeSource None"/>
+						<PropertyValue Property="CollectionPath" String="ValidationVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="textInEditModeSourceNone"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="MyNamespace.MyEntityType/textInEditModeSourceValueList" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text">
+					<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="textInEditModeSource None"/>
+						<PropertyValue Property="CollectionPath" String="ValidationVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="textInEditModeSourceValueList"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="MyNamespace.MyEntityType/textInEditModeSourceNoValidation" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text">
+					<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="textInEditModeSource None"/>
+						<PropertyValue Property="CollectionPath" String="ValidationVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="textInEditModeSourceNoValidation"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="MyNamespace.MyEntityType/textInEditModeSourceWarning" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text">
+					<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="textInEditModeSource None"/>
+						<PropertyValue Property="CollectionPath" String="ValidationVH"/>
+						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="textInEditModeSourceWarning"/>
+									<PropertyValue Property="ValueListProperty" String="KEY"/>
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCRIPTION"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="MyNamespace.ValidationVHType/KEY" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

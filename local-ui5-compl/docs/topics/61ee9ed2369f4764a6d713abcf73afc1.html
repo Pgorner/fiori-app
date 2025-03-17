@@ -1,0 +1,29 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio61ee9ed2369f4764a6d713abcf73afc1" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/sapui5-library-location-used-for-testing-61ee9ed.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">SAPUI5 Library Location Used for Testing</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">SAPUI5 Library Location Used for Testing</h2></div><div class="shortdesc">The location of the SAPUI5 library that is used for testing may differ depending on
+		several parameters.</div><p>If the SAPUI5 bootstrap tag contains <code>src="resources/sap-ui-core.js"</code>, the
+			SAPUI5 runtime libraries from the Eclipse plugin are used.</p><p>If you want to test your SAPUI5 application in Eclipse against a different SAPUI5 Library
+			location, for example on the ABAP server when running in the SAP NetWeaver UI AddOn
+			scenario, you can configure the ResourceServlet. For that, open the web.xml file located
+			in the &lt;WebContent folder name&gt;/WEB-INF folder and configure the parameter
+				<code>com.sap.ui5.resource.REMOTE_LOCATION</code> and
+				<code>com.sap.ui5.resource.PREFER_REMOTE_LOCATION</code> of the ResourceServlet
+			where the placeholders {protocol}, {host name}, {port number}, {path to UI5 library} are
+			to be exchanged by the real protocol, host name, port number and path to the SAPUI5
+			library, see <a href="topic/91f2b4d66f4d1014b6dd926db0e91070" title="The handling of resources in SAPUI5 is divided in a client-side and a server-side part. The two parts are complementary and don't depend on each other." class="sap-doc">Resource
+				Handling</a>, section <i>Tunneling a Remote Location</i>.</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  &lt;servlet&gt;
+    &lt;display-name&gt;ResourceServlet&lt;/display-name&gt;
+    &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.sap.ui5.resource.ResourceServlet&lt;/servlet-class&gt;
+ &lt;/servlet&gt;
+  ...
+  &lt;!-- force to use the remote location --&gt;
+ &lt;context-param&gt;
+    &lt;param-name&gt;com.sap.ui5.resource.PREFER_REMOTE_LOCATION&lt;/param-name&gt;
+    &lt;param-value&gt;true&lt;/param-value&gt;
+ &lt;/context-param&gt;
+ &lt;!-- add the remote location for the UI5 libraries --&gt;
+ &lt;context-param&gt;
+    &lt;param-name&gt;com.sap.ui5.resource.REMOTE_LOCATION&lt;/param-name&gt;
+    &lt;param-value&gt;{protocol}://{host name}:{port number}/{path to UI5 library}&lt;/param-value&gt;
+ &lt;/context-param&gt;</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

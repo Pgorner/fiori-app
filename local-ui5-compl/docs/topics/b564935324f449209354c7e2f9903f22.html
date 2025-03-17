@@ -1,0 +1,54 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob564935324f449209354c7e2f9903f22" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/using-css-style-sheets-in-xml-views-deprecated-b564935.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using CSS Style Sheets in XML Views (deprecated)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using CSS Style Sheets in XML Views (deprecated)</h2></div><div class="shortdesc">Style sheets are included in XML views in the same way as plain HTML. To add further
+		CSS classes to SAPUI5 controls,
+		use the <code>class</code> attribute.</div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+			<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>Deprecated as of SAPUI5 version 1.120. Refer to an
+				external style sheet instead.</p></div></div>
+			<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>We recommend to carefully choose the
+				elements that you style as the CSS always affects the whole page and is <b>not</b>
+				restricted to the view. </p></div></div>
+		</div></section><section class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">Here's how you would add a style definition and define a button that uses it in an XML view:</span>
+				<div class="stepxmp">
+					<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View controllerName="sap.hcm.Address" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+           xmlns:html="http://www.w3.org/1999/xhtml"&gt;
+   &lt;html:style&gt;
+      .mySuperRedButton {
+         color: red;
+      }
+   &lt;/html:style&gt;
+   &lt;Panel&gt;
+      &lt;Button class="mySuperRedButton" text="Press Me"/&gt;
+   &lt;/Panel&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>To allow your view to be used in an environment with a Content Security Policy denying inline styles (i.e. without the
+								<code>unsafe-inline</code> source for the <code>style-src</code> directive), you need to refer to an external
+							style sheet instead of embedding the style sheet into your XML view. For more information, see the Walkthrough tutorial,
+								<a href="topic/723f4b2334e344c08269159797f6f796" title="Sometimes we need to define some more fine-granular layouts and this is when we can use the flexibility of CSS by adding custom style classes to controls and style them as we like." class="sap-doc">Step 14: Custom CSS and Theme Colors</a>.</p>
+					<p></p></div></div>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The XML view offers special handling for style classes. You can specify them via the <code>class</code> attribute on a
+							control's XML node. Please be aware that this attribute is not a property of the respective control and thus is not
+							supported by a control's constructor.</p>
+					<p></p></div></div>
+					<p>To refer to a style class in JavaScript, for example in a controller, use the <code>addStyleClass</code> method on a
+						control:</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">    myButton.addStyleClass("mySuperRedButton");</pre></div></div></section>
+					<p>and add the style definition to your CSS file.</p>
+				</div>
+			</li>
+		</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.core.Control#methods/addStyleClass" title="api/sap.ui.core.Control#methods/addStyleClass" class="sap-doc" alt="api/sap.ui.core.Control#methods/addStyleClass">API Reference: sap.ui.core.Control#addStyleClass</a></li>
+		<li><a href="api/sap.ui.core.mvc.XMLView" title="api/sap.ui.core.mvc.XMLView" class="sap-doc" alt="api/sap.ui.core.mvc.XMLView">API Reference: sap.ui.core.mvc.XMLView</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,41 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:m="sap.m"
+	xmlns="sap.ui.comp.navpopover"
+	xmlns:sap.ui.dt="sap.ui.dt"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	controllerName="sap.ui.comp.sample.smartlink.example_07.Example">
+
+	<l:VerticalLayout class="sapUiContentPadding" width="100%" sap.ui.dt:designtime="not-adaptable-tree">
+		<l:content>
+
+			<l:VerticalLayout width="100%">
+				<l:content>
+					<m:Text class="sapUiSmallMarginTop,	sapUiLargeMarginBottom"
+							text="The Name and ProductId properties are annotated with the com.sap.vocabularies.Common.v1.SemanticObjectUnavailableActions annotation. For the property Name the action displayFactSheet is defined as unavailable action and for the property ProductId the action create is defined as unavailable action."/>
+					<m:Text class="sapUiSmallMarginTop, sapUiLargeMarginBottom"
+							text="Link personalization is disabled."/>
+				</l:content>
+			</l:VerticalLayout>
+
+
+			<l:VerticalLayout width="100%">
+				<l:content>
+					<m:Text class="sapUiLargeMarginTop" text="Default behavior of SmartTable"/>
+				</l:content>
+			</l:VerticalLayout>
+			<smartTable:SmartTable tableType="ResponsiveTable"
+								   entitySet="ProductCollection" enableAutoBinding="true"
+								   useVariantManagement="false" useTablePersonalisation="false"
+								   showRowCount="false" enableExport="false" enableAutoColumnWidth="true">
+				<smartTable:semanticObjectController>
+					<SemanticObjectController
+							enableAvailableActionsPersonalization='\{"Name":false, "ProductId":false\}'/>
+				</smartTable:semanticObjectController>
+			</smartTable:SmartTable>
+
+		</l:content>
+	</l:VerticalLayout>
+
+</mvc:View>

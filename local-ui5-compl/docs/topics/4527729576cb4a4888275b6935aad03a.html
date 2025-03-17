@@ -1,0 +1,181 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4527729576cb4a4888275b6935aad03a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/object-page-blocks-4527729.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Object Page Blocks</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Object Page Blocks</h2></div><div class="shortdesc">The contents of the subsections in the <code>ObjectPageLayout</code> control are
+		organized into blocks.</div><p>The blocks are used to group the app content that is displayed in the sections and
+			subsections of the <code>ObjectPageLayout</code>.</p><div><div class="fig"><img src="loioda91fe47966e4c43bd5fd1a318756c7d_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Object Page content grouped in Blocks</h2></span></div><p>To add blocks, use the <code>blocks</code> aggregation of
+				<code>sap.uxap.ObjectPageSubSection</code>:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"> &lt;ObjectPageLayout id="ObjectPageLayout" subSectionLayout="titleOnTop"&gt;
+        &lt;sections&gt;
+            &lt;ObjectPageSection title="Payroll" &gt;
+                &lt;subSections&gt;
+                    &lt;ObjectPageSubSection title="sub payroll title"&gt;
+                        &lt;blocks&gt;
+                            &lt;myNameSpace:myBlock/&gt;
+                            &lt;myNameSpace:myBlock/&gt;
+                            &lt;myNameSpace:myBlock/&gt;
+                        &lt;/blocks&gt;
+                    &lt;/ObjectPageSubSection&gt;
+                &lt;/subSections&gt;
+            &lt;/ObjectPageSection&gt;
+        &lt;/sections&gt;
+    &lt;/ObjectPageLayout&gt;</pre></div></div></section><p></p><p>Any control can be a block. However, the blocks that extend
+				<code>sap.uxap.BlockBase</code> provide additional features:</p><ul class="ul ">
+				<li class="li">
+					<p>Lazy loading: Only the blocks that are currently displayed and those in their
+						direct proximity are instantiated</p>
+				</li>
+				<li class="li">
+					<p>Column layout: Blocks provide information to the subsection only on the width
+						they should be using for an optimal experience</p>
+				</li>
+			</ul><p></p><section>
+			<h2 class="title ">Blocks API & Guidelines</h2>
+			<p>Blocks that are used in an <code>ObjectPageLayout</code> have to comply with the
+				following rules regarding their API. They must: </p><ul class="ul ">
+					<li class="li">
+						<p>Extend <code>sap.uxap.BlockBase</code></p>
+						<p>
+							</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.uxap.BlockBase.extend</span>("&lt;BlockName&gt;", {
+        metadata: {
+         }
+     });</pre></div></div></section>
+						<p></p>
+					</li>
+					<li class="li">
+						<p>Support the modes described in
+								<code>sap.uxap.ObjectPageSubSectionMode.type</code> -
+								<code>Collapsed</code> and <code>Expanded</code>. For each
+							mode, declare its associated view. It is recommended you use the XML
+							view if no templating is needed:</p>
+						<p>
+							</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.uxap.BlockBase.extend("&lt;BlockName&gt;", {
+        metadata: {
+            views: {
+                <span class="emphasis">Collapsed: {
+                    viewName: "&lt;collapsedViewName&gt;",
+                    type: "XML"
+                },
+                Expanded: {
+                    viewName: "&lt;expendedViewName&gt;",
+                    type: "XML"
+</span>
+                }
+            }
+         }
+     });</pre></div></div></section>
+						<p></p>
+					</li>
+					<li class="li">
+						<p>Come with their own controller (if needed). This controller should just
+							react to the internal events of the block, as the
+								<code>ObjectPageLayout</code>'s own controller should only
+							manage the page and its sections and subsections.</p>
+					</li>
+					<li class="li">
+						<p>Follow the SAPUI5
+							naming guidelines: see <cite>Related Information</cite></p>
+					</li>
+					<li class="li">
+						<p>Use the <code>modelMapping</code> mechanism to declare distinct model
+							per logical entity.</p>
+					</li>
+				</ul><p></p>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><p>Let's consider an <span class="ph uicontrol">Employee Goals</span> block that displays an
+					employee together with his or her goals.</p>
+				<p>One <span class="ph uicontrol">Employee</span> model for the employee entity:
+					</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Text text="{Employee&gt;FirstName}"&gt;&lt;/Text&gt;</pre></div></div></section><p></p>
+				<p>One <span class="ph uicontrol">Goals</span> model for the goal collections:
+					</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;List items="{Goals&gt;}"&gt;</pre></div></div></section><p></p>
+			<p></p></div></div>
+			<p>In one backend service, goals may be a navigation property of employees, but in
+				another this may not be the case. For this reason, when implementing the
+					<span class="ph uicontrol">Employee Goals</span> block, you should use two distinct models
+				in the block views.</p>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><p>An app wants to use the <span class="ph uicontrol">Employee Goals</span> blocks described
+					above. These are therefore embedded into a page that has a model named
+						<code>ApplicationModel</code>, in which <code>Goals</code> are a
+					navigation property of
+					employees:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EmployeeGoals&gt;
+    &lt;mappings&gt;
+        &lt;uxap:ModelMapping externalModelName="ApplicationModel" externalPath="/Employee('121')" internalModelName="Employee" /&gt;
+        &lt;uxap:ModelMapping externalModelName="ApplicationModel" externalPath="<span class="emphasis">/Employee('121')</span>/Goals" internalModelName="Goals" /&gt;
+    &lt;/mappings&gt;
+&lt;/EmployeeGoals&gt;</pre></div></div></section><p></p>
+				<p>A second app uses the same blocks, but in its service, <code>Goals</code> and
+						<code>Employees</code> are unrelated
+					entities:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EmployeeGoals&gt;
+    &lt;mappings&gt;
+        &lt;uxap:ModelMapping externalModelName="ApplicationModel2" externalPath="/Employee('121')" internalModelName="Employee" /&gt;
+        &lt;uxap:ModelMapping externalModelName="ApplicationModel2" externalPath="/Goals" internalModelName="Goals" /&gt;
+    &lt;/mappings&gt;
+&lt;/EmployeeGoals&gt;</pre></div></div></section><p></p>
+			<p></p></div></div>
+			<p><code>BlockBase</code> interprets this in the following order:</p><ol>
+					<li class="li">
+						<p>Looks for a model with the name specified in the
+								<code>externalModelName</code>.</p>
+					</li>
+					<li class="li">
+						<p>Sets this model on itself with the name specified in the
+								<code>internalModelName</code>.</p>
+					</li>
+					<li class="li">
+						<p>Creates a context corresponding to the path.</p>
+					</li>
+				</ol><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This model mapping is not mandatory as models used in a view can also be
+					provided by standard SAPUI5 techniques
+					(model inheritance, setModel).</p></div></div><p></p>
+		</section><section>
+			<h2 class="title ">Standard Block Implementation</h2>
+			<p>The standard block implementation is to extend the
+					<code>sap.uxap.BlockBase</code> control and inherit the default
+				implementation of <code>setMode</code> and rendering. <code>setMode</code>
+				in <code>BlockBase</code> supports two different ways of building blocks:</p>
+			<p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p>Single view blocks: A single XML view is used for all layout modes. This
+							XML view should be named <code>&lt;name&gt;.view.xml</code>.</p>
+					</li>
+					<li class="li">
+						<p>Multiple view blocks: Different views are provided for the different
+							layout modes.</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>These views should be added in the <code>views</code> section
+									of the block metadata (this section is added by the
+										<code>BlockBase</code> class).</p>
+							</li>
+							<li class="li">
+								<p>For each mode, the <code>BlockBase</code> class must declare
+									a view name and type:
+									</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.uxap.BlockBase.extend("&lt;BlockName&gt;", {
+        metadata: {
+            views: {
+                Collapsed: {
+                    viewName: "&lt;collapsedViewName&gt;",
+                    type: "XML"
+                },
+                Expanded: {
+                    viewName: "&lt;expendedViewName&gt;",
+                    type: "XML"
+                }
+            }
+         }
+     });</pre></div></div></section><p></p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/2978f6064742456ebed31c5ccf4d051d" title="Important points when creating blocks for the sap.uxap.ObjectPageLayout" class="sap-doc">Creating Blocks</a></li>
+		<li><a href="api/sap.uxap.BlockBase" title="api/sap.uxap.BlockBase" class="sap-doc" alt="api/sap.uxap.BlockBase">API Reference: sap.uxap.BlockBase</a></li>
+	</ul></section></div></section></div></body></html>

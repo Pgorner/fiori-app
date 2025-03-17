@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+	<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+		<edmx:DataServices m:DataServiceVersion="2.0">
+			<Schema Namespace="HEPM_OVP_TECH_VAL" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+				<EntityType Name="SEPM_I_AddressType" sap:label="EPM Demo: Address" sap:content-version="1">
+					<Key>
+						<PropertyRef Name="AddressUUID" />
+					</Key>
+					<Property Name="AddressUUID" Type="Edm.Guid" Nullable="false" sap:label="Address UUID" />
+					<Property Name="Latitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Latitude" />
+					<Property Name="Longitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Longitude" />
+					<Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="City" />
+					<Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Postal Code" />
+					<Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Street" />
+					<Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Building" />
+					<Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Country" />
+					<Property Name="AddressType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Address Type" />
+					<Property Name="AddressValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid From" />
+					<Property Name="AddressValidityEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until" />
+					<Property Name="Criticality" Type="Edm.String" MaxLength="40" sap:label="Criticality" />
+				</EntityType>
+
+				<EntityType Name="SEPM_I_Address_SpotType" sap:label="EPM Demo: Address" sap:content-version="1">
+					<Key>
+						<PropertyRef Name="AddressUUID" />
+					</Key>
+					<Property Name="AddressUUID" Type="Edm.Guid" Nullable="false" sap:label="Address UUID" />
+					<Property Name="Latitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Latitude" />
+					<Property Name="Longitude" Type="Edm.Decimal" Precision="15" Scale="12" sap:label="Longitude" />
+					<Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="City" />
+					<Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Postal Code" />
+					<Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Street" />
+					<Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Building" />
+					<Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Country" />
+					<Property Name="AddressType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Address Type" />
+					<Property Name="AddressValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid From" />
+					<Property Name="AddressValidityEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until" />
+					<Property Name="Criticality" Type="Edm.String" MaxLength="40" sap:label="Criticality" />
+				</EntityType>
+
+				<EntityType Name="SEPM_I_Address_Spot_SmartType" sap:label="EPM Demo: Address" sap:content-version="1">
+					<Key>
+						<PropertyRef Name="AddressUUID" />
+					</Key>
+					<Property Name="AddressUUID" Type="Edm.Guid" Nullable="false" sap:label="Address UUID" />
+					<Property Name="Latitude" Type="Edm.Float" Precision="15" Scale="12" sap:label="Latitude" Nullable="true" />
+					<Property Name="Longitude" Type="Edm.Float" Precision="15" Scale="12" sap:label="Longitude" Nullable="true" />
+					<Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="City" />
+					<Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Postal Code" />
+					<Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Street" />
+					<Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Building" />
+					<Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Country" />
+					<Property Name="AddressType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Address Type" />
+					<Property Name="AddressValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid From" />
+					<Property Name="AddressValidityEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until" />
+					<Property Name="Criticality" Type="Edm.String" MaxLength="40" sap:label="Criticality" />
+				</EntityType>
+
+				<EntityContainer Name="HEPM_OVP_TECH_VAL_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+					<EntitySet Name="SEPM_I_Address" EntityType="HEPM_OVP_TECH_VAL.SEPM_I_AddressType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" />
+					<EntitySet Name="SEPM_I_Address_Spot" EntityType="HEPM_OVP_TECH_VAL.SEPM_I_Address_SpotType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" />
+					<EntitySet Name="SEPM_I_Address_Spot_Smart" EntityType="HEPM_OVP_TECH_VAL.SEPM_I_Address_Spot_SmartType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" />
+				</EntityContainer>
+
+			</Schema>
+		</edmx:DataServices>
+	</edmx:Edmx>

@@ -1,0 +1,124 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:gnt="sap.gantt"
+	xmlns:gnt2="sap.gantt.simple"
+	xmlns:gch2="sap.gantt.multiactivity.test"
+	xmlns:gnt2Overlays="sap.gantt.overlays"
+	xmlns:core="sap.ui.core">
+	<gch2:CustomRowSettings chevrons="{path:'data>ProjectCustomRowShapes',templateShareable: 'true'}"
+		charts="{path:'data>ProjectChartShapes',templateShareable: 'true'}"
+		overlays4 ="{path:'data>ProjectOverlays4Shapes',templateShareable: 'true'}" 
+		overlays5 ="{path:'data>ProjectOverlays5Shapes',templateShareable: 'true'}" 
+	 				rowId="{data>ProjectElemID}" >
+						<gch2:chevrons connectable="true" draggable="true" selectable="true" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" scheme="scheme_for_shape1" expandable="true" hoverable="true" resizable="true" highlightable="true" shapeId="chev">
+							<gnt2:BaseChevron connectable="true" countInBirdEye= "{data>countInBirdEye}" scheme="scheme_for_shape1" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+												showTitle="true" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+												fill="yellow"/>
+						</gch2:chevrons>
+				<gch2:charts expandable="true">
+			<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}" expandable="true"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}" 
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension 
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+		</gch2:charts>		
+		<gch2:overlays4> 
+		<gnt2Overlays:GanttRowOverlay
+		 expandedOverlay = "{path:'data>Overlays4ToOverlay',templateShareable: 'true'}" >
+		 <!-- <gnt2Overlays:staticOverlay>
+                <gnt2Overlays:Overlay>
+                	<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}" 
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension 
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+                </gnt2Overlays:Overlay>
+            </gnt2Overlays:staticOverlay> -->
+            <gnt2Overlays:expandedOverlay>
+                <gnt2Overlays:Overlay overlayLevel = "{data>overlayLevel}">
+                	<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}" 
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension 
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+                </gnt2Overlays:Overlay>
+            </gnt2Overlays:expandedOverlay>
+        </gnt2Overlays:GanttRowOverlay>
+   	    </gch2:overlays4> 
+		<gch2:overlays5> 
+		<gnt2Overlays:GanttRowOverlay
+		 expandedOverlay = "{path:'data>Overlays5ToOverlay',templateShareable: 'true'}" >
+		 <!-- <gnt2Overlays:staticOverlay>
+                <gnt2Overlays:Overlay>
+                	<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}" 
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension 
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+                </gnt2Overlays:Overlay>
+            </gnt2Overlays:staticOverlay> -->
+            <gnt2Overlays:expandedOverlay>
+			<gnt2Overlays:Overlay  overlayLevel = "{data>overlayLevel}" overlayShapeId= "{data>overlayShapeId}">
+			<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}" 
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension 
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+				</gnt2Overlays:Overlay>
+            </gnt2Overlays:expandedOverlay>
+        </gnt2Overlays:GanttRowOverlay>
+   	    </gch2:overlays5> 
+						<!-- <gch2:pseudoShapeTemplate>
+							<gnt2:BasePseudoShape 
+								typeOfOverlapIndicator="Both">
+								<gnt2:task>
+									<gnt2:BaseRectangle horizontalTextAlignment="Start" title="Overlaps" fill="#a0f2c6" height="21" />
+								</gnt2:task>
+								<gnt2:indicators>
+									<gnt2:BaseRectangle  fill="#a401d1" height="2" yBias="14"/>
+								</gnt2:indicators>
+							</gnt2:BasePseudoShape>
+						</gch2:pseudoShapeTemplate> -->
+						
+					</gch2:CustomRowSettings>
+</core:FragmentDefinition>

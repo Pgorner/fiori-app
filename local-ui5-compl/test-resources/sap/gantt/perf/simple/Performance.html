@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+		<title>Gantt2 Performance page</title>
+		<script id="sap-ui-bootstrap"
+			src="../../../../../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m, sap.gantt"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-xx-bindingSyntax="complex"
+			data-sap-ui-resourceroots='{"sap.gantt2.simple": "./"}'>
+		</script>
+		<!--<link rel="stylesheet" href="../css/style.css">-->
+		<script>
+			sap.ui.require(["sap/ui/core/Core"], async function(Core) {
+				Core.ready().then(function() {
+					sap.ui.require(["sap/ui/core/mvc/View"], function(View) {
+						View.create({
+							id: "myView",
+							viewName: "sap.gantt2.simple.PerfView",
+							type: sap.ui.core.mvc.ViewType.XML
+						}).then(function(oView){
+							oView.placeAt("content");
+						})
+					});
+				});
+			});
+		</script>
+	</head>
+	<body id="body" class="sapUiBody">
+		<div id="content" class="sapUiSizeCompact" style="width: 100%; height: 100vh;"></div>
+	</body>
+</html>

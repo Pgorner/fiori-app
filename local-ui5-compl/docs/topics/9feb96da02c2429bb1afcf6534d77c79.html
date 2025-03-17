@@ -1,0 +1,114 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9feb96da02c2429bb1afcf6534d77c79" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/compatibility-version-information-9feb96d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Compatibility Version Information</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Compatibility Version Information</h2></div><div class="shortdesc">Compatibility version flags were introduced to allow applications to react to incompatible changes in SAPUI5.</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+			</p><p>The concept of compatibility versions has been abandoned as of SAPUI5 version 1.28.
+				Therefore, no new compatibility version flags will be introduced in the future. If you start building a new application, please set
+					<code>data-sap-ui-compat-version="edge"</code> on your SAPUI5
+				bootstrap tag.</p>
+			<p>This ensures that the newest behavior of all features is applied. <span class="emphasis">Other version definitions, including the default value, are
+					deprecated.</span></p>
+		<p></p></div></div><section id="section_dxf_c4r_zcc">
+			<h2 class="title ">Previous Function of the Compatibility Version Flag (deprecated)</h2>
+			<p>As described in the compatibility rules, changes to SAPUI5 features are compatible;
+				see <a href="topic/91f087396f4d1014b6dd926db0e91070" title="The following sections describe what SAP can change in major, minor, and patch releases. Always consider these rules when developing apps, features, or controls with or for SAPUI5." class="sap-doc">Compatibility Rules</a> for more information. In some cases, however, it used to make sense to
+				change the behavior of a feature, for example, in order to change the default values or to use an optimized implementation. These
+				changes could result in incompatibilities.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>We recommend adopting new feature versions as soon as possible.</p></div></div>
+			<p>The compatibility version configuration worked as follows:</p>
+			<ul class="ul ">
+				<li class="li">A version flag was introduced if a feature change was incompatible.</li>
+				<li class="li">
+					<p>The version flag had to be defined in the SAPUI5 bootstrap tag, either globally
+						(via <code>data-sap-ui-compat-version</code>) or individually for each feature (for example
+							<code>data-sap-ui-compat-version-xyz</code>). Example with <code>compat-version "1.18"</code>:</p>
+					<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id="sap-ui-bootstrap" 
+        type="text/javascript"
+        src="resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-libs="sap.m"
+        data-sap-ui-compat-version="1.18"
+        data-sap-ui-compat-version-xyz="1.16"
+        &gt;
+&lt;/script&gt; </pre></div></div></section>
+				</li>
+				<li class="li">If no compatibility version is defined, the default behavior of the feature applies.</li>
+				<li class="li">If an explicit version is specified, the behavior of the specified version is applied (deprecated).</li>
+				<li class="li">If <span class="emphasis"><code>edge</code></span> is specified as the compatibility version, the newest behavior of the feature is applied.</li>
+				<li class="li">
+					<p>A fallback mechanism is implemented. The following table is an example of possible configuration options for feature "xyz":</p>
+					<div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_xf5_bg5_pm" class=" "><thead>
+							<tr><th colspan="1" rowspan="1">data-sap-ui-compat-version</th>
+							<th colspan="1" rowspan="1">data-sap-ui-compat-version-xyz</th>
+							<th colspan="1" rowspan="1">Default feature xyz</th>
+							<th colspan="1" rowspan="1">Resulting compatibility version </th>
+						</tr></thead><tbody><tr>
+							<td colspan="1" rowspan="1">--</td>
+							<td colspan="1" rowspan="1">--</td>
+							<td colspan="1" rowspan="1">1.14</td>
+							<td colspan="1" rowspan="1">1.14</td>
+						</tr><tr>
+							<td colspan="1" rowspan="1">
+								<p>1.16</p>
+								<p>(deprecated)</p>
+							</td>
+							<td colspan="1" rowspan="1">--</td>
+							<td colspan="1" rowspan="1">1.14</td>
+							<td colspan="1" rowspan="1">1.16</td>
+						</tr><tr>
+							<td colspan="1" rowspan="1">--</td>
+							<td colspan="1" rowspan="1">1.16</td>
+							<td colspan="1" rowspan="1">1.14</td>
+							<td colspan="1" rowspan="1">1.16</td>
+						</tr><tr>
+							<td colspan="1" rowspan="1">
+								<p>1.18</p>
+								<p>(deprecated)</p>
+							</td>
+							<td colspan="1" rowspan="1">1.16</td>
+							<td colspan="1" rowspan="1">1.14</td>
+							<td colspan="1" rowspan="1">1.16</td>
+						</tr><tr>
+							<td colspan="1" rowspan="1">edge</td>
+							<td colspan="1" rowspan="1">..</td>
+							<td colspan="1" rowspan="1">1.14</td>
+							<td colspan="1" rowspan="1">1.18</td>
+						</tr></tbody></table></div></div>
+				</li>
+			</ul>
+			<p>SAPUI5 supports the following compatibility version flags:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_dj3_gg5_pm" class=" "><thead>
+					<tr><th colspan="1" rowspan="1">Flag </th>
+					<th colspan="1" rowspan="1">Description </th>
+				</tr></thead><tbody><tr>
+					<td colspan="1" rowspan="1"><code>data-sap-ui-compat-version-sapMeTabContainer</code></td>
+					<td colspan="1" rowspan="1">
+						<p>The <code>TabContainer</code> was deprecated in 1.15. When the compatibility version is 1.16 or higher, an error is
+							logged to the console indicating that <code>sap.m.IconTabBar</code> should be used instead.</p>
+						<p>Default value: 1.14</p>
+					</td>
+				</tr><tr>
+					<td colspan="1" rowspan="1"><code>data-sap-ui-compat-version-sapMeProgessIndicator</code></td>
+					<td colspan="1" rowspan="1">--</td>
+				</tr><tr>
+					<td colspan="1" rowspan="1"><code>data-sap-ui-compat-version-sapMGrowingList</code></td>
+					<td colspan="1" rowspan="1">--</td>
+				</tr><tr>
+					<td colspan="1" rowspan="1"><code>data-sap-ui-compat-version-sapMListAsTable</code></td>
+					<td colspan="1" rowspan="1">--</td>
+				</tr><tr>
+					<td colspan="1" rowspan="1"><code>data-sap-ui-compat-version-sapMDialogWithPadding</code></td>
+					<td colspan="1" rowspan="1">
+						<p>By default, the content area of <code>Dialog</code> had paddings. To make the padding consistent with other popups, the
+							padding is removed for compatibility versions 1.16 or higher. If the padding is still needed inside the content area of
+								<code>Dialog</code>, you can use the <a href="topic/c71f6df62dae47ca8284310a6f5fc80a" title="For many container controls in SAPUI5, such as a Dialog or a Page, you can define whether the container should have a padding within the content area. A padding clears the area between the container layout and the controls that are displayed in the content area." class="sap-doc">Container Content Padding
+								CSS Classes</a>. </p>
+						<p>Default value: 1.14</p>
+					</td>
+				</tr></tbody></table></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f087396f4d1014b6dd926db0e91070" title="The following sections describe what SAP can change in major, minor, and patch releases. Always consider these rules when developing apps, features, or controls with or for SAPUI5." class="sap-doc">Compatibility Rules</a></li>
+	</ul></section></div></section></div></body></html>

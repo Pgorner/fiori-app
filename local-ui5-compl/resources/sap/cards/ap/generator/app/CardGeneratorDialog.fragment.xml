@@ -1,0 +1,72 @@
+<!--
+  SAP UI development toolkit for HTML5 (SAPUI5)
+   * (c) Copyright 2009-2025 SAP SE. All rights reserved
+-->
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" width="90%">
+	<Dialog contentWidth="90%" draggable="true" resizable="true" id="cardGeneratorDailog">
+		<customHeader>
+			<Bar design="Header">
+				<contentMiddle>
+					<Text text="{i18n>GENERATOR_CARD_GENERATOR} ({/title})" />
+					<ToolbarSpacer />
+					<ToggleButton text="{i18n>GENERATOR_ADVANCED_PANEL}" press=".toggleAdvancedSetting" />
+				</contentMiddle>
+			</Bar>
+		</customHeader>
+		<content>
+			<l:Splitter id="contentSplitter" height="700px" class="bg-light">
+				<Page id="editor" showHeader="false" backgroundDesign="Transparent">
+					<VBox>
+						<FlexBox direction="Column">
+							<items>
+								<Panel expandable="false" width="auto" class="sapUiSmallMargin" headerText="{i18n>GENERATOR_CARD_HEADER}">
+									<content>
+										<core:Fragment
+											fragmentName="sap.cards.ap.generator.app.fragments.configuration.Header"
+											type="XML"
+										/>
+									</content>
+								</Panel>
+								<Panel
+									expanded="true"
+									stickyHeader="true"
+									expandable="true"
+									width="auto"
+									class="sapUiSmallMargin"
+									headerText="{i18n>GENERATOR_CARD_CONTENT}"
+								>
+									<content>
+										<core:Fragment
+											fragmentName="sap.cards.ap.generator.app.fragments.configuration.ObjectGroup"
+											type="XML"
+										/>
+									</content>
+								</Panel>
+								<Panel
+									expanded="true"
+									stickyHeader="true"
+									expandable="true"
+									width="auto"
+									class="sapUiSmallMargin"
+									headerText="{i18n>GENERATOR_CARD_FOOTER}"
+								>
+									<content>
+										<core:Fragment
+											fragmentName="sap.cards.ap.generator.app.fragments.configuration.Footer"
+											type="XML"
+										/>
+									</content>
+								</Panel>
+							</items>
+						</FlexBox>
+					</VBox>
+				</Page>
+				<core:Fragment fragmentName="sap.cards.ap.generator.app.fragments.CardPreview" type="XML" />
+			</l:Splitter>
+		</content>
+		<buttons>
+			<Button text="{i18n>GENERATOR_SAVE}" press=".okPressed" />
+			<Button text="{i18n>GENERATOR_CLOSE}" press=".cancelPressed" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

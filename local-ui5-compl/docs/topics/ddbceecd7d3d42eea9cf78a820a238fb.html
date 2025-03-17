@@ -1,0 +1,87 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioddbceecd7d3d42eea9cf78a820a238fb" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-3-controls-ddbceec.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 3: Controls</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 3: Controls</h2></div><div class="shortdesc">Now it is time to build our first little UI by replacing the "Hello World" text in the HTML body by the SAPUI5 control <code>sap/m/Text</code>. In the beginning, we will use the
+		JavaScript control API to set up the UI, the control instance is then placed into the HTML body. </div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio30a42d381b9e4388bf7fdc0b941e5381_LowRes.png" title="Hello World" alt="Hello World" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The "Hello World" text is now displayed by a SAPUI5
+					control</h2></span></div>
+		</section><section id="section_ccm_jyv_xfb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.03" title="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.03" class="sap-doc" alt="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.03">Walkthrough - Step 3</a>.</p>
+		</section><section id="section_dcm_jyv_xfb">
+			<h2 class="title ">webapp/index.html</h2>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI5 Walkthrough&lt;/title&gt;
+	&lt;script
+		id="sap-ui-bootstrap"
+		src="resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-libs="sap.m"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-on-init="module:ui5/walkthrough/index"
+		data-sap-ui-resource-roots='{
+			"ui5.walkthrough": "./"
+		}'&gt;
+	&lt;/script&gt;
+&lt;/head&gt;
+<span class="emphasis">&lt;body class="sapUiBody" id="content"&gt;
+&lt;/body&gt;</span>
+&lt;/html&gt;</pre></div></div></section>
+			<p>The class <code>sapUiBody</code> adds additional theme-dependent styles for
+				displaying SAPUI5
+				apps.</p>
+		</section><section id="section_yk4_kyv_xfb">
+			<h2 class="title ">webapp/index.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+<span class="emphasis">	"sap/m/Text"</span>
+], (<span class="emphasis">Text</span>) =&gt; {
+	"use strict";
+
+<span class="emphasis">	new Text({
+		text: "Hello World"
+	}).placeAt("content");</span>
+});</pre></div></div></section>
+			<p>Instead of using native JavaScript to display a dialog we want to use a simple SAPUI5 control.
+				Controls are used to define appearance and behavior of parts of the screen. </p>
+			<p>In the example above, the callback of the <code>init</code> event is where we now
+				instantiate a SAPUI5
+				text control. The name of the control is prefixed by the namespace of its control
+				library <code>sap/m/</code> and the options are passed to the constructor with a
+				JavaScript object. For our control we set the <code>text</code> property to the
+				value "Hello World".</p>
+			<p>We chain the constructor call of the control to the standard method
+					<code>placeAt</code> that is used to place SAPUI5 controls inside
+				a node of the document object model (DOM) or any other SAPUI5 control
+				instance. We pass the ID of a DOM node as an argument. As the target node we use the
+				body tag of the HTML document and give it the ID <code>content</code>.</p>
+			<p>All controls of SAPUI5 have a
+				fixed set of properties, aggregations, and associations for configuration. You can
+				find their descriptions in the Demo Kit. In addition, each control comes with a set
+				of public functions that you can look up in the API reference.</p>
+			<p>Don't forget to remove the <code>&lt;div&gt;Hello World&lt;/div&gt;</code> from the <code>index.html</code>.</p>
+			<p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Only instances of <code>sap.ui.core.Control</code> or their subclasses
+						can be rendered stand-alone and have a <code>placeAt</code> function.
+						Each control extends <code>sap.ui.core.Element</code> that can only be
+						rendered inside controls. Check the API reference to learn more about the
+						inheritance hierarchy of controls. The API documentation of each control
+						refers to the directly known subclasses. </p>
+				<p></p></div></div>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/fe12df2e338e43598977d09f3d191b7b">Step 2: Bootstrap</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/1409791afe4747319a3b23a1e2fc7064">Step 4: XML Views</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f0a22d6f4d1014b6dd926db0e91070" title="Controls are used to define the appearance and behavior of screen areas." class="sap-doc">Working with Controls</a></li>
+		<li><a href="api/sap.m.Text" title="api/sap.m.Text" class="sap-doc" alt="api/sap.m.Text">API Reference: sap.m.Text</a></li>
+		<li><a href="entity/sap.m.Text" title="entity/sap.m.Text" class="sap-doc" alt="entity/sap.m.Text">Samples: sap.m.Text
+			</a></li>
+
+		<li><a href="api/sap.ui.core.Control" title="api/sap.ui.core.Control" class="sap-doc" alt="api/sap.ui.core.Control">API Reference: sap.ui.core.Control</a></li>
+		<li><a href="api/sap.ui.core.Element" title="api/sap.ui.core.Element" class="sap-doc" alt="api/sap.ui.core.Element">API Reference: sap.ui.core.Element</a></li>
+		<li><a href="api/sap.ui.base.ManagedObject" title="api/sap.ui.base.ManagedObject" class="sap-doc" alt="api/sap.ui.base.ManagedObject">API Reference: sap.ui.base.ManagedObject</a></li>
+	</ul></section></div></section></div></body></html>

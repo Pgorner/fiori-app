@@ -1,0 +1,43 @@
+<mvc:View
+	xmlns="sap.ui.comp.smartform"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:s="sap.ui.comp.smartfield"
+	controllerName="sap.ui.comp.sample.smartform.smartformSemanticGroupElement.SemanticGroupElement"
+	height="100%">
+
+		<SmartForm id="smartformSemanticGroupElement"
+			editTogglable="true" title="{Name}"
+			validationMode="Async"
+			editToggled="handleEditToggled">
+			<layout>
+				<ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+			</layout>
+			<Group title="Main Information (Only SemanticGroupElement with 3 SmartFields)">
+				<SemanticGroupElement label="Id / Name / Category">
+					<s:SmartField value="{ProductId}" />
+					<s:SmartField textLabel="{Name}" value="{Name}" />
+					<s:SmartField value="{ProductCategory}"/>
+				</SemanticGroupElement>
+			</Group>
+			<Group title="Extra Information (Standard GroupElement)">
+				<GroupElement>
+					<s:SmartField value="{SupplierName}" />
+				</GroupElement>
+				<GroupElement>
+					<s:SmartField value="{Description}"/>
+				</GroupElement>
+				<GroupElement>
+					<s:SmartField value="{ProductPicUrl}"/>
+				</GroupElement>
+			</Group>
+			<Group title="Stock Information (Mixed GroupElement and SemanticGroupElement with 2 SmartFields)">
+				<SemanticGroupElement label="Sale Date / Status">
+					<s:SmartField value="{SaleDate}" />
+					<s:SmartField value="{Status}" />
+				</SemanticGroupElement>
+				<GroupElement>
+					<s:SmartField value="{Price}" />
+				</GroupElement>
+			</Group>
+		</SmartForm>
+</mvc:View>

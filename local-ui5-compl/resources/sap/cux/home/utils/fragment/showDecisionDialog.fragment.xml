@@ -1,0 +1,119 @@
+<!--
+  SAP UI development toolkit for HTML5 (SAPUI5)
+   * (c) Copyright 2009-2025 SAP SE. All rights reserved
+-->
+<Dialog
+	id="decisionDialog"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:fesr="http://schemas.sap.com/sapui5/extension/sap.ui.core.FESR/1"
+	title="{/dialogSettings/title}"
+	type="Message"
+	ariaDescribedBy="confirmDialogText"
+	afterClose=".handleAfterClose"
+	contentWidth="22.375rem"
+	contentHeight="17.8125rem"
+	class="sapUiDecisionDialog"
+>
+	<customHeader>
+		<Bar id="decisionDialogHeader" class="sapUiDecisionDialogHeader">
+			<contentLeft>
+				<VBox id="icon-container" renderType="Bare" justifyContent="Center" width="100%">
+					<Avatar
+						id="icon"
+						backgroundColor="Placeholder"
+						src="sap-icon://workflow-tasks"
+						displaySize="S"
+						displayShape="Square"
+						badgeIcon="{/dialogSettings/badgeIcon}"
+						badgeValueState="{/dialogSettings/badgeValueState}"
+					/>
+				</VBox>
+			</contentLeft>
+			<contentMiddle>
+				<VBox id="title-container" renderType="Bare" justifyContent="Start" class="sapUiDecisionDialogTitleContainer">
+					<Text id="task-title" textAlign="Begin" text="{/dialogSettings/title}" />
+					<Text id="task-priority-text" text="{/dialogSettings/priorityText}" class="sapUiTaskPriority" />
+				</VBox>
+			</contentMiddle>
+		</Bar>
+	</customHeader>
+	<content>
+		<VBox id="decision-approval-container" renderType="Bare" visible="{= !${/dialogSettings/showFeedbackMessage} }">
+			<Label id="confirmDialogText" text="{/dialogSettings/question}" />
+			<FlexBox id="reasonOptionFlex" direction="Column" renderType="Bare">
+				<items>
+					<Label
+						id="label_reasonOptionsSelect"
+						text="{i18n>XFLD_ComboBox_Decision_Reason}"
+						required="{/dialogSettings/reasonOptionsSettings/required}"
+						class="sapUiSmallMarginTop"
+						visible="{/dialogSettings/reasonOptionsSettings/show}"
+						labelFor="reasonOptionsSelect"
+					/>
+					<ComboBox
+						width="100%"
+						selectedKey="defaultSelectedKey"
+						id="reasonOptionsSelect"
+						visible="{/dialogSettings/reasonOptionsSettings/show}"
+						valueStateText="{i18n>XMSG_DECISION_REASON_ERR}"
+						change=".handleReasonOptionChange"
+						items="{/dialogSettings/reasonOptionsSettings/reasonOptions}"
+					>
+						<core:Item id="reasonItem" key="{Code}" text="{Name}" />
+					</ComboBox>
+					<Label
+						id="label_confirmDialogTextarea"
+						text="{/dialogSettings/textAreaLabel}"
+						required="{/dialogSettings/noteMandatory}"
+						visible="{/dialogSettings/showNote}"
+						labelFor="confirmDialogTextarea"
+						class="sapUiSmallMarginTop"
+					/>
+					<TextArea
+						width="100%"
+						height="12.2rem"
+						id="confirmDialogTextarea"
+						visible="{/dialogSettings/showNote}"
+						maxLength="10000"
+						liveChange="._toggleSubmitButtonState"
+					/>
+				</items>
+			</FlexBox>
+		</VBox>
+		<VBox
+			id="successMessageContainer"
+			visible="{/dialogSettings/showFeedbackMessage}"
+			renderType="Bare"
+			height="16rem"
+			justifyContent="Center"
+		>
+			<IllustratedMessage
+				id="successMessage"
+				illustrationSize="Spot"
+				illustrationType="sapIllus-BalloonSky"
+				enableDefaultTitleAndDescription="false"
+				title="{i18n>actionSuccess}"
+			/>
+		</VBox>
+	</content>
+	<beginButton>
+		<Button
+			id="confirmButton"
+			text="{/dialogSettings/confirmButtonLabel}"
+			visible="{= !${/dialogSettings/showFeedbackMessage} }"
+			type="Emphasized"
+			enabled="{/submitButtonEnabled}"
+			press=".confirmActionHandler"
+			fesr:press="submitDecisionDialog"
+		/>
+	</beginButton>
+	<endButton>
+		<Button
+			id="cancelButton"
+			text="{= ${/dialogSettings/showFeedbackMessage} ? ${i18n>XBUT_CLOSE} : ${i18n>XBUT_CANCEL} }"
+			press=".handleCancel"
+			fesr:press="cancelDecisionDialog"
+		/>
+	</endButton>
+</Dialog>

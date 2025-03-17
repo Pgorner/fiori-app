@@ -1,0 +1,43 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio76b7d5065cf64304a1d2841046043c34" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/implementing-animation-modes-76b7d50.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Implementing Animation Modes</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Implementing Animation Modes</h2></div><div class="shortdesc">Some UI elements can have animations like page transitions or dynamic buttons. There may be cases where the animation has to be suppressed, for example, for performance reasons or for specific users. As a control developer, you have to make sure that your control supports the animation modes that are offered to the users.</div><p>The following animation modes are available:</p><ul class="ul ">
+				<li class="li">
+					<p><code>full</code>: all animations are shown</p>
+				</li>
+				<li class="li">
+					<p><code>basic</code>: a reduced, more light-weight set of animations</p>
+				</li>
+				<li class="li">
+					<p><code>minimal</code>: no animations are shown, except animations of
+						fundamental functionality</p>
+				</li>
+				<li class="li">
+					<p><code>none</code>: deactivates the animation completely</p>
+				</li>
+			</ul>The animation mode can either be set using the configuration parameter
+				<code>window['sap-ui-config]['animationMode']</code> or as URL parameter (see
+				<a href="topic/91f2d03b6f4d1014b6dd926db0e91070" title="The following tables show available configuration options." class="sap-doc">Configuration Options and URL Parameters</a>).<p></p><p>The value for the attribute <code>data-sap-ui-animation-mode</code> on the
+				<code>&lt;html&gt;</code> document root element is injected automatically on
+			loading with the return value by using the <code>getAnimationMode</code> method of
+			the configuration object.</p><p>If the mode is changed, the value of <code>data-sap-ui-animation-mode</code> is updated
+			correspondingly.</p><p>The attribute can be selected in CSS with
+				<code>html[data-sap-ui-animation-mode="&lt;mode&gt;"]</code>.</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>The following implementation defines the duration for
+			animation mode <code>full</code> with 1 sec, <code>minimal</code> and
+				<code>basic</code> with 0.1 sec, and <code>none</code> with 0.0 sec.</p><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">html[data-sap-ui-animation-mode="full"] .someClassName{
+    transition-duration: 1.0s;
+}
+html[data-sap-ui-animation-mode="minimal"] .someClassName,
+html[data-sap-ui-animation-mode="basic"] .someClassName {
+    transition-duration: 0.1s;
+}
+
+html[data-sap-ui-animation-mode="none"] .someClassName {
+    transition-duration: 0.0s;
+}</pre></div></div></section>
+			<p></p><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		
+		<li><a href="topic/91f2d03b6f4d1014b6dd926db0e91070" title="The following tables show available configuration options." class="sap-doc">Configuration Options and URL Parameters</a></li>
+	</ul></section></div></section></div></body></html>

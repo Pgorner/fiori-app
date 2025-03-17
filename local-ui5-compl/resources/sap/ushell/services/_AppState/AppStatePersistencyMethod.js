@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/base/Log"],function(t){"use strict";function e(){this.PersonalState="PersonalState";this.ACLProtectedState="ACLProtectedState";this.PublicState="PublicState";this.AuthorizationProtectedState="AuthorizationProtectedState"}t.error("sap/ushell/services/_AppState/AppStatePersistencyMethod is deprecated and will be removed in an upcoming release!");return new e});
+//# sourceMappingURL=AppStatePersistencyMethod.js.map

@@ -1,0 +1,528 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio307ced1bc98c4e3d93ecbe9658dc9176" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-quick-views-for-link-navigation-307ced1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling Quick Views for Link Navigation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling Quick Views for Link Navigation</h2></div><div class="shortdesc">You can enrich the popovers for link navigation with additional information to display quick views.</div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section><section id="task_v3l_y2y_xmb" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-quick-views-for-link-navigation-307ced1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><section id="context_w3l_y2y_xmb" class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+                <p>You can display information about the navigation target already on the source entity. This information - the quick view - is stored
+                    in the association end type. To enable the quick views, you must annotate
+                        <code>com.sap.vocabularies.UI.v1.QuickViewFacets</code> and <code>QuickViewFacets</code> for the popover. A new title
+                    area and additional information, such as a field group, is displayed according to the association end type of the property that
+                    has been annotated as a semantic object. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                        </p><p><code>QuickViewFacets</code> can only be annotated for those <code>EntityTypes</code> that are in the same service.
+                            Only these are referenced with referential constraints in the metadata document.</p>
+                    <p></p></div></div>
+                <p></p>
+                <p>
+                    </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+            </p><p>We've removed videos showing step-by-step procedures using SAP Web IDE, which SAP
+                no longer actively supports. You can still access the video using an older version of this document.</p>
+        <p></p></div></div>
+                <p></p>
+                <p>To do so, perform the following steps:</p>
+            </div></section><section id="steps_x3l_y2y_xmb" class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+                <li class="step">
+                    <span class="cmd">Identify the property that has been annotated as a semantic object. In this case, the field is shown as a link. For more
+                        information, see <a href="topic/d782acf8bfd74107ad6a04f0361c5f62" title="You can either specify a URL or associate a semantic object (intent-based navigation) for external navigation targets." class="sap-doc">Navigation from an App (Outbound Navigation)</a>.</span>
+                    <div class="itemgroup info">
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_PROD_MAN.STTA_C_MP_ProductType/Supplier"&gt;
+   &lt;Annotation Term="Common.SemanticObject" String="EPMProduct"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                            </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view STTA_C_MP_PRODUCT with {
+  @Consumption.semanticObject: 'EPMProduct'
+  supplier;
+}ABAP CDS
+                            Annotation</pre></div></div></section>
+                        <p></p></div></div>
+                        
+                        
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="cmd">In the metadata document, you can find the reference to the association end type. Check for a referential constraint that
+                        includes the identified property as <code>Dependent</code>. For the <code>Supplier</code> property in the entity type
+                        STTA_C_MP_ProductType, that has a set of navigation properties, only <code>to_Supplier</code> includes the
+                            <code>Supplier</code> property as <code>Dependent</code>.</span>
+                    <div class="itemgroup info">
+                        <p>
+                            </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">ABAP CDS
+&lt;Association Name="assoc_2CCAF987BA334B3BD1DF2404F50BC9C5" sap:content-version="1"&gt;
+    &lt;End Type="STTA_PROD_MAN.STTA_C_MP_ProductType" Multiplicity="1" Role="FromRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"/&gt;
+    &lt;End Type="STTA_PROD_MAN.STTA_C_MP_SupplierType" Multiplicity="0..1" Role="ToRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"/&gt;
+    &lt;ReferentialConstraint&gt;
+        &lt;Principal Role="ToRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"&gt;
+            &lt;PropertyRef Name="Supplier"/&gt;
+        &lt;/Principal&gt;
+        &lt;Dependent Role="FromRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"&gt;
+            &lt;PropertyRef Name="Supplier"/&gt;
+        &lt;/Dependent&gt;
+    &lt;/ReferentialConstraint&gt;
+&lt;/Association&gt;
+</pre></div></div></section>
+                        <p></p>
+                        
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="cmd">Annotate <code>UI.QuickViewFacets</code> under the association end type of the <code>Dependent</code> property as
+                        follows:</span>
+                    <div class="itemgroup info">
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!-- QuickViewFacets annotation for Supplier--&gt;
+
+&lt;Annotations Target="STTA_PROD_MAN.STTA_C_MP_SupplierType"&gt;
+    &lt;Annotation Term="UI.QuickViewFacets"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="UI.ReferenceFacet"&gt;
+                &lt;PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#SupplierQuickViewPOC_FieldGroup_1" /&gt;
+            &lt;/Record&gt; 
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+    &lt;Annotation Term="UI.FieldGroup" Qualifier="SupplierQuickViewPOC_FieldGroup_1"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Data"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="UI.DataField"&gt;
+                        &lt;PropertyValue Property="Label" String="Company Name" /&gt;
+                        &lt;PropertyValue Property="Value" Path="CompanyName"/&gt;
+                    &lt;/Record&gt;
+                    &lt;Record Type="UI.DataField"&gt;
+                        &lt;PropertyValue Property="Label" String="Supplier" /&gt;
+                        &lt;PropertyValue Property="Value" Path="Supplier"/&gt;
+                    &lt;/Record&gt;
+                    &lt;Record Type="UI.DataField"&gt;
+                        &lt;PropertyValue Property="Label" String="Email Address" /&gt;
+                        &lt;PropertyValue Property="Value" Path="EmailAddress"/&gt;
+                    &lt;/Record&gt;                           
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;    
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                            Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view STTA_C_MP_SUPPLIER with {
+@UI.Facet: [
+  {
+    targetQualifier: 'SupplierQuickViewPOC_FieldGroup_1',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #QUICK_VIEW
+  }
+]
+@UI.fieldGroup: [
+  {
+    label: 'Company Name',
+    value: 'COMPANYNAME',
+    type: #STANDARD,
+    position: 1 ,
+    qualifier: 'SupplierQuickViewPOC_FieldGroup_1'
+  }
+]
+companyname;
+@UI.fieldGroup: [
+  {
+    label: 'Supplier',
+    value: 'SUPPLIER',
+    type: #STANDARD,
+    position: 2 ,
+    qualifier: 'SupplierQuickViewPOC_FieldGroup_1'
+  }
+]
+supplier;
+@UI.fieldGroup: [
+  {
+    label: 'Email Address',
+    value: 'EMAILADDRESS',
+    type: #STANDARD,
+    position: 3 ,
+    qualifier: 'SupplierQuickViewPOC_FieldGroup_1'
+  }
+]
+emailaddress;
+}
+</pre></div></div></section><p></p></div></div>
+                        
+                    </div>
+                </li>
+            </ol></section><section id="result_y3l_y2y_xmb" class="section result  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Results</h2></div><div class="fig">A quick view for link navigation is generated and can look like this:<div><div class="fig"><img src="loio3c33cc2ab657428c8eb8d89fb34256f5_LowRes.png" usemap="#"></div></div><p>For more information about the system behavior and configuration options, see <a href="topic/c245ad757dc64694842e00c40e677cd8" title="You can configure the content area of the quick views to display specific data." class="sap-doc">Configuring the Content of Quick Views</a>.</p></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section><section id="task_hck_y5k_hmb" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-quick-views-for-link-navigation-307ced1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><section id="context_a12_bvk_hmb" class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+                <p>You can display information about the navigation target already on the source entity. This information – the quick view – is stored
+                    in the association end type. To enable the quick views, you have to annotate
+                        <code>com.sap.vocabularies.UI.v1.QuickViewFacets</code> at the association end type of the property that has been
+                    annotated as a semantic object. If you annotate <code>QuickViewFacets</code> for the popover, a new title area and additional
+                    information, such as a field group, are displayed according to the <code>QuickViewFacets</code>.</p>
+                <p>Quick views are supported as follows:</p>
+                <ul class="ul ">
+                    <li class="li">
+                        <p>For a source property defined with a <code>ReferentialConstraint</code> on a target entity</p>
+                    </li>
+                    <li class="li">
+                        <p>For a source property where the target property is a semantic key or an entity key</p>
+                    </li>
+                </ul>
+                <p>To define a quick view for a source property with a <code>ReferentialConstraint</code> on a target entity, perform the
+                    following steps:</p>
+                <ol>
+                    <li class="li">
+                        <p>Identify the property that has been annotated as a semantic object.</p>
+                        <ul class="ul ">
+                            <li class="li">
+                                <p>The <code>SemanticObject</code> annotation as a string </p>
+                                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd.ProductSupplier/Supplier"&gt;
+   &lt;Annotation Term="Common.SemanticObject" String="EPMProduct"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view ProductSupplier with {
+  @Consumption.semanticObject: 'EPMProduct'
+  supplier;
+}</pre></div></div></section><p></p></div></div>
+                                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                                    Annotation:</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate ProductSupplier with {
+Supplier @Common.SemanticObject: 'EPMProduct';
+}</pre></div></div></section><p></p></div></div>
+                            </li>
+                            <li class="li">The <code>SemanticObject</code> annotation defined using a path<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                                    Annotation</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd.ProductSupplier/Supplier"&gt;
+             &lt;Annotation Term="Common.SemanticObject" Path="supplierSemanticObject"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div></li>
+                            <li class="li">
+                                <p>Semantic object defined with an <code>EdmJson</code> expression</p>
+                                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                                    Annotation</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd.ProductSupplier/Supplier "&gt;
+           &lt;Annotation Term="Common.SemanticObject"&gt;
+               &lt;If&gt;
+                  &lt;Eq&gt;
+                      &lt;Path&gt;SupplierType&lt;/Path&gt;
+                      &lt;Int&gt;2&lt;/Int&gt;
+                  &lt;/Eq&gt;
+                  &lt;String&gt;EPMProduct&lt;/String&gt;
+                  &lt;String&gt;NoTarget&lt;/String&gt;
+               &lt;/If&gt;        
+            &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                            </li>
+                        </ul>
+                        <p>Additionally, when using the <code>Field</code> building block, you can use a formatter or a binding expression to
+                            provide either a single semantic object or an array of semantic objects. For more information, see <a href="api/sap.fe.macros.Field" title="api/sap.fe.macros.Field" class="sap-doc" alt="api/sap.fe.macros.Field">Macros API</a>.</p>
+                        <p>Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/field/fieldQuickView" title="https://sapui5.hana.ondemand.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/field/fieldQuickView" class="sap-doc">Quick View</a>.</p>
+                    </li>
+                    <li class="li">
+                        <p>In the metadata document, you can find the reference to the association end type. In the
+                                <code>navigationProperties</code> of your entity, check for a <code>ReferentialConstraint</code> that includes
+                            the previously identified property (<code>Supplier</code>). This property must be in the property attributes of the
+                                <code>ReferentialConstraint</code>. In this example, it references the "<code>CustomerID</code>" property of
+                            the "<code>Customer</code>" entity (the association end type).</p>
+                        <p>
+                            </p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;NavigationProperty Name="_ShipToPartyVH" Type="com.c_salesordermanage_sd.Customer"&gt;
+      &lt;ReferentialConstraint Property="Supplier" ReferencedProperty="CustomerID" /&gt;
+&lt;/NavigationProperty&gt;
+</pre></div></div></section>
+                        <p></p>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CDS
+                            Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">_ShipToPartyVH  : Association to Customer
+                    on _ShipToPartyVH.CustomerID = Supplier;</pre></div></div></section><p></p></div></div>
+                    </li>
+                    <li class="li">
+                        <p>Annotate <code>UI.QuickViewFacets</code> under the association end type of the <code>referentialConstraint</code>
+                            property as follows:</p>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                            Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd.Customer"&gt;
+&lt;Annotation Term="UI.QuickViewFacets"&gt;
+   &lt;Collection&gt;
+    &lt;Record Type="UI.ReferenceFacet"&gt;
+      &lt;PropertyValue Property="Label" String="Address"/&gt;
+      &lt;PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#SoldToQuickView"/&gt;
+    &lt;/Record&gt;
+   &lt;/Collection&gt;
+&lt;/Annotation&gt;
+&lt;Annotation Term="UI.FieldGroup" Qualifier="SoldToQuickView"&gt;
+   &lt;Record Type="UI.FieldGroupType"&gt;
+     &lt;PropertyValue Property="Data"&gt;
+      &lt;Collection&gt;
+       &lt;Record Type="UI.DataField"&gt;
+        &lt;PropertyValue Property="Value" Path="PostalCode"/&gt;
+       &lt;/Record&gt;
+       &lt;Record Type="UI.DataField"&gt;
+        &lt;PropertyValue Property="Value" Path="CityName"/&gt;
+       &lt;/Record&gt;
+       &lt;Record Type="UI.DataField"&gt;
+        &lt;PropertyValue Property="Value" Path="Country"/&gt;
+       &lt;/Record&gt;
+      &lt;/Collection&gt;
+     &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view CUSTOMER with {
+@UI.Facet: [
+  {
+    label: 'Address',
+    targetQualifier: 'SoldToQuickView',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #QUICK_VIEW
+  }
+]
+@UI.fieldGroup: [
+  {
+    value: 'POSTALCODE',
+    type: #STANDARD,
+    position: 1 ,
+    qualifier: 'SoldToQuickView'
+  }
+]
+postalcode;
+@UI.fieldGroup: [
+  {
+    value: 'CITYNAME',
+    type: #STANDARD,
+    position: 2 ,
+    qualifier: 'SoldToQuickView'
+  }
+]
+cityname;
+@UI.fieldGroup: [
+  {
+    value: 'COUNTRY',
+    type: #STANDARD,
+    position: 3 ,
+    qualifier: 'SoldToQuickView'
+  }
+]
+country;
+}
+</pre></div></div></section><p></p></div></div>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                            Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate schema.Customer with @(UI : {
+QuickViewFacets             : [
+    {
+        $Type  : 'UI.ReferenceFacet',
+        Label  : 'Address',
+        Target : '@UI.FieldGroup#SoldToQuickView'
+    }
+],
+FieldGroup #SoldToQuickView : {Data : [
+    {
+        $Type : 'UI.DataField',
+        Value : PostalCode
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : CityName
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : Country
+    }
+]}
+})</pre></div></div></section><p></p></div></div>
+                    </li>
+                </ol>
+                <p>To define a quick view for a source property where the target property is a semantic key or an entity key, perform the following
+                    steps:</p>
+                <ol>
+                    <li class="li">
+                        <p>On the source entity define an association to the target entity:</p>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                            Annotation:</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity ProductSupplier {
+     CustomerReference: String;
+     _NavigationProperty: Association to Customer
+          on _NavigationProperty.Customer = CustomerReference @(Common : {
+               SemanticObject             : 'Customer'
+           });
+}</pre></div></div></section><p></p></div></div>
+                    </li>
+                    <li class="li">
+                        <p>The property on the target entity must be defined as a semantic key or an entity key:</p>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                            Annotation:</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate Customer with @(
+     //…
+     Common.SemanticKey : [CustomerName],
+     //…
+) {
+ key Customer: String;
+     CustomerName: String;
+}</pre></div></div></section><p></p></div></div>
+                    </li>
+                    <li class="li">
+                        <p>Annotate <code>UI.QuickViewFacets</code> on the target entity of the navigation property as follows:</p>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                            Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd.Customer"&gt;
+    &lt;Annotation Term="UI.QuickViewFacets"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="UI.ReferenceFacet"&gt;
+                &lt;PropertyValue Property="Label" String="Address" /&gt;
+                &lt;PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#SoldToQuickView" /&gt;
+            &lt;/Record&gt;
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+    &lt;Annotation Term="UI.FieldGroup" Qualifier="SoldToQuickView"&gt;
+        &lt;Record Type="UI.FieldGroupType"&gt;
+            &lt;PropertyValue Property="Data"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="UI.DataField"&gt;
+                        &lt;PropertyValue Property="Value" Path="PostalCode" /&gt;
+                    &lt;/Record&gt;
+                    &lt;Record Type="UI.DataField"&gt;
+                        &lt;PropertyValue Property="Value" Path="CityName" /&gt;
+                    &lt;/Record&gt;
+                    &lt;Record Type="UI.DataField"&gt;
+                        &lt;PropertyValue Property="Value" Path="Country" /&gt;
+                    &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view CUSTOMER with {
+@UI.Facet: [
+  {
+    label: 'Address',
+    targetQualifier: 'SoldToQuickView',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #QUICK_VIEW
+  }
+]
+@UI.fieldGroup: [
+  {
+    value: 'POSTALCODE',
+    type: #STANDARD,
+    position: 1 ,
+    qualifier: 'SoldToQuickView'
+  }
+]
+postalcode;
+@UI.fieldGroup: [
+  {
+    value: 'CITYNAME',
+    type: #STANDARD,
+    position: 2 ,
+    qualifier: 'SoldToQuickView'
+  }
+]
+cityname;
+@UI.fieldGroup: [
+  {
+    value: 'COUNTRY',
+    type: #STANDARD,
+    position: 3 ,
+    qualifier: 'SoldToQuickView'
+  }
+]
+country;
+}
+</pre></div></div></section><p></p></div></div>
+                        <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                            Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate schema.Customer with @(UI : {
+QuickViewFacets             : [
+    {
+        $Type  : 'UI.ReferenceFacet',
+        Label  : 'Address',
+        Target : '@UI.FieldGroup#SoldToQuickView'
+    }
+],
+FieldGroup #SoldToQuickView : {Data : [
+    {
+        $Type : 'UI.DataField',
+        Value : PostalCode
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : CityName
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : Country
+    }
+]}
+})</pre></div></div></section><p></p></div></div>
+                    </li>
+                </ol>
+            </div></section><section id="result_xjz_wzk_hmb" class="section result  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Results</h2></div><div class="fig">A quick view for link navigation is generated and can
+                look like this:<div><div class="fig"><img src="loioc61cade5f1154ede9831f2207e824c87_LowRes.png" usemap="#"></div></div><p>
+                    </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+            </p><p>We've removed videos showing step-by-step procedures using SAP Web IDE, which SAP
+                no longer actively supports. You can still access the video using an older version of this document.</p>
+        <p></p></div></div>
+                <p></p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                    </p><p>If the user can't navigate to the target application, no link is
+                        displayed.</p>
+                <p></p></div></div><p>For more information about the system behavior and configuration options,
+                    see <a href="topic/c245ad757dc64694842e00c40e677cd8" title="You can configure the content area of the quick views to display specific data." class="sap-doc">Configuring the Content of Quick Views</a>.</p></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></section></div></body></html>

@@ -1,0 +1,49 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio6a0a050e91474d4780dd5e3604642928" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adapting-logic-before-save-operation-6a0a050.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adapting Logic Before Save Operation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adapting Logic Before Save Operation</h2></div><div class="shortdesc">You can use an extension API to execute any logic
+		before the save operation.</div><p>The
+			extension
+			API is triggered just before starting the save operations.</p><p>When this extension API returns a promise, it can be resolved or rejected.</p><section id="section_ulw_k5g_fsb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In draft applications, the extension API is called only once while saving the
+					root object page. For non-draft applications, the extension API is called for
+					save operations from any object page.</p>
+			<p></p></div></div><p>If the extension does not return a result, the save operation starts without waiting
+				for the extension to be completed.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">beforeSaveExtension: function () {
+			var fnResolve, fnReject;
+			var oPromise = new Promise(function (resolve, reject){
+				fnResolve = resolve;
+				fnReject = reject;
+			});
+			this.oDialog = new sap.m.Dialog({
+				title: "BeforeSaveExtension",
+				content: new sap.m.Text({
+					text: "This is an exmpale to check the beforeSaveExtension"
+				}),
+				beginButton: new sap.m.Button({
+					text: "Continue to Save",
+					press: function () {
+						fnResolve();
+						this.oDialog.close();
+					}.bind(this)
+				}),
+				endButton: new sap.m.Button({
+					text: "Cancel Save",
+					press: function () {
+						fnReject();
+						this.oDialog.close();
+					}.bind(this)
+				})
+			});
+			this.getView().addDependent(this.oDialog);
+			this.oDialog.open();
+			return oPromise;
+		}
+
+</pre></div></div></section>
+			<p></p></div></div><p>For more information, see <a href="api/sap.suite.ui.generic.template.ObjectPage.controllerFrameworkExtensions#methods/sap.suite.ui.generic.template.ObjectPage.controllerFrameworkExtensions.beforeSaveExtension" title="api/sap.suite.ui.generic.template.ObjectPage.controllerFrameworkExtensions#methods/sap.suite.ui.generic.template.ObjectPage.controllerFrameworkExtensions.beforeSaveExtension" class="sap-doc" alt="api/sap.suite.ui.generic.template.ObjectPage.controllerFrameworkExtensions#methods/sap.suite.ui.generic.template.ObjectPage.controllerFrameworkExtensions.beforeSaveExtension">beforeSaveExtension</a> in the Demo
+					Kit.</p></div></section><section id="section_zt2_fvg_fsb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>For more information, see <a href="topic/877e5ff4e9e243e4a821811b183f8937" title="You can add custom coding before calling standard methods provided by SAP Fiori elements." class="sap-doc">Using Custom Code Before Standard Operations</a>.</p></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

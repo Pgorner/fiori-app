@@ -1,0 +1,235 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:codeeditor="sap.ui.codeeditor"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:form="sap.ui.layout.form"
+    controllerName="sap.ushell.demo.NavigationSample.controller.GetLinks"
+>
+    <Page title="{i18n>pages.getLinks}">
+        <content>
+            <form:SimpleForm
+                id="form"
+                width="auto"
+                layout="ResponsiveGridLayout"
+                editable="true"
+                labelSpanL="3"
+                labelSpanM="3"
+                emptySpanL="4"
+                emptySpanM="4"
+                columnsL="1"
+                columnsM="1"
+                title="{i18n>getLinks.form.title}"
+                maxContainerCols="2"
+            >
+                <VBox>
+                    <Label
+                        text="{i18n>getLinks.form.callArgs}"
+                        design="Bold"
+                        class="sapUiSmallMarginTop sapUiSmallMarginBottom"
+                    />
+                    <HBox>
+                        <Label
+                            textAlign="Right"
+                            width="100px"
+                            text="{i18n>getLinks.form.sematicObj}"
+                            class="sapUiSmallMarginEnd sapUiSmallMarginTop"
+                        />
+                        <Input
+                            id="f2"
+                            type="Text"
+                            value="{mdlInput>/SO}"
+                            placeholder="{i18n>getLinks.form.sematicObj.placeholder}"
+                            liveChange="handleTextLiveChange"
+                        />
+                    </HBox>
+                    <HBox>
+                        <Label
+                            textAlign="Right"
+                            width="100px"
+                            text="{i18n>getLinks.form.action}"
+                            class="sapUiSmallMarginTop sapUiSmallMarginEnd"
+                        />
+                        <Input
+                            id="f3"
+                            value="{mdlInput>/action}"
+                            type="Text"
+                            liveChange="handleTextLiveChange"
+                        />
+                    </HBox>
+
+                    <HBox>
+                        <Label
+                            textAlign="Right"
+                            width="100px"
+                            text="{i18n>getLinks.form.sortResult}"
+                            class="sapUiSmallMarginTop sapUiSmallMarginEnd"
+                        />
+                        <ComboBox
+                            value="intent"
+                            change="onSortResultsByChanged"
+                        >
+                            <core:Item
+                                key="default"
+                                text="{i18n>getLinks.form.intent}"
+                            />
+                            <core:Item text="{i18n>getLinks.form.text}" />
+                            <core:Item text="{i18n>getLinks.form.priority}" />
+                        </ComboBox>
+                    </HBox>
+                    <HBox>
+                        <Switch state="{mdlInput>/treatTechHintAsFilter}" />
+                        <Label
+                            class="sapUiTinyMarginBegin sapUiSmallMarginTop"
+                            text="{i18n>getLinks.form.treatHint}"
+                        />
+                    </HBox>
+                    <HBox>
+                        <Switch state="{mdlInput>/withAtLeastOneUsedParam}" />
+                        <Label
+                            class="sapUiTinyMarginBegin sapUiSmallMarginTop"
+                            text="{i18n>getLinks.form.atLeastOneParam}"
+                        />
+                    </HBox>
+                    <HBox>
+                        <Switch state="{mdlInput>/ignoreFormFactor}" />
+                        <Label
+                            class="sapUiTinyMarginBegin sapUiSmallMarginTop"
+                            text="{i18n>getLinks.form.ignoreFormfactor}"
+                        />
+                    </HBox>
+                    <HBox>
+                        <Switch state="{mdlInput>/compactIntents}" />
+                        <Label
+                            class="sapUiTinyMarginBegin sapUiSmallMarginTop"
+                            text="{i18n>getLinks.form.compactIntents}"
+                        />
+                    </HBox>
+                    <Button
+                        id="btnGSOLinks"
+                        text="Call {v1>/callMethod}"
+                        press="handleBtnGSOPress"
+                    />
+                </VBox>
+            </form:SimpleForm>
+            <Panel
+                expandable="true"
+                expanded="false"
+                headerText="{i18n>getLinks.panel.header}"
+            >
+                <FlexBox
+                    direction="Column"
+                    alignItems="Start"
+                >
+                    <items>
+                        <HBox>
+                            <Label
+                                text="{i18n>getLinks.panel.status.isIntentSupported}"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <core:Icon
+                                src="sap-icon://status-error"
+                                color="{v1>/supportedColor}"
+                            />
+                            <Text text="{v1>/supported}" />
+                        </HBox>
+                        <HBox>
+                            <Label
+                                text="{i18n>getLinks.panel.status.isNavigaitonSupported}?"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <core:Icon
+                                src="sap-icon://status-error"
+                                color="{v1>/navSupportedColor}"
+                            />
+                            <Text text="{v1>/navSupported}" />
+                        </HBox>
+                        <HBox>
+                            <Label
+                                text="{i18n>getLinks.panel.status.hashLength}"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Text text="{v1>/hashFragmentLength} characters" />
+                        </HBox>
+                        <HBox>
+                            <Label
+                                text="{i18n>getLinks.panel.status.hash}"
+                                class="sapUiSmallMarginEnd"
+                            />
+                            <Text text="{v1>/hashFragment}" />
+                        </HBox>
+                        <HBox>
+                            <Label
+                                text="{i18n>getLinks.panel.status.methodCallCount}"
+                                class="sapUiSmallMarginEnd"
+                            />
+                            <Text text="{v1>/callCount}" />
+                        </HBox>
+                        <VBox>
+                            <Label text="{i18n>getLinks.panel.status.methodCall}" />
+                            <!--
+                                Note that the CrossApplicationNavigation service is already loded
+                                at the moment when the "value" is evaluated. See controller.updateFromInputModel
+                            -->
+                            <codeeditor:CodeEditor
+                                editable="false"
+                                height="300px"
+                                width="800px"
+                                id="callInfo"
+                                type="javascript"
+                                value=""
+                                lineNumbers="false"
+                            />
+                        </VBox>
+                    </items>
+                </FlexBox>
+            </Panel>
+            <Panel
+                expandable="true"
+                expanded="true"
+                class="sapUiNoMargin sapUiNoPadding"
+                headerText="{i18n>getLinks.panel.results.header} #{v1>/callCount} of {v1>/callMethod} ({= ${v1>/links}.length})"
+            >
+                <List
+                    id="categoryList"
+                    class="sapUiNoMargin"
+                    mode="SingleSelectMaster"
+                    items="{v1>/links}"
+                >
+                    <items>
+                        <InputListItem>
+                            <FlexBox
+                                alignItems="Center"
+                                justifyContent="SpaceBetween"
+                            >
+                                <items>
+                                    <Text
+                                        maxLines="2"
+                                        width="250px"
+                                        text="{v1>name}"
+                                    />
+                                    <Link
+                                        textAlign="Begin"
+                                        text="{v1>link}"
+                                        width="500px"
+                                        href="{v1>escapedLink}"
+                                    />
+                                    <Text
+                                        maxLines="2"
+                                        text="{v1>json}"
+                                    />
+                                    <Button
+                                        icon="sap-icon://expand"
+                                        customData:linkText="{v1>linkData}"
+                                        press="handleBtnExpandPress"
+                                    />
+                                </items>
+                            </FlexBox>
+                        </InputListItem>
+                    </items>
+                </List>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

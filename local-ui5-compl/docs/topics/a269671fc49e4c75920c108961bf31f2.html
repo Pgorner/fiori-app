@@ -1,0 +1,149 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa269671fc49e4c75920c108961bf31f2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adaptation-extension-example-adding-a-button-to-the-table-toolbar-in-the-list-report-a269671.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adaptation Extension Example: Adding a Button to the Table Toolbar in the List
+		Report</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adaptation Extension Example: Adding a Button to the Table Toolbar in the List
+		Report</h2></div><div class="shortdesc">In this example, you add a button to the table toolbar in the list report and extend
+		it to filter only the records which have a price that is greater than or equal to
+		1000.</div><section id="prereq_u32_mjk_kfb" class="section prereq  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Prerequisites</h2></div><div class="fig">
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+			<p></p></div></div>
+			<p>You have performed the steps described in <a href="topic/52fc48b479314d0688be24f699778c47" title="You can extend delivered apps based on SAP Fiori elements by using the Adaptation Editor in SAP Business Application Studio. It allows you to create adaptation projects on top of delivered apps." class="sap-doc">Extending Delivered Apps Using Adaptation Extensions</a>.</p>
+		</div></section><section class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">Select the table tool bar and choose <span class="ph uicontrol">Add Fragment</span>.</span>
+				<div class="itemgroup info">
+					<div><div class="fig"><img src="loioe13933b8234443e5a332958b9ea0b8ee_LowRes.png" usemap="#"></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Under <span class="ph uicontrol">Target Aggregation</span>, select
+						<span class="ph uicontrol">content</span> and choose your preferred index value. Choose
+						<span class="ph uicontrol">Create New</span> to create the fragment. If the fragment is
+					already there, you can search for it.</span>
+				<div class="itemgroup info">
+					<div><div class="fig"><img src="loio978b2536c39c467a9cd5e210777a0bd7_LowRes.png" usemap="#"></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Enter a fragment name, for example, <code>FilterPriceButton</code>, and
+					choose <span class="ph uicontrol">Create</span>.</span>
+			</li>
+			<li class="step">
+				<span class="cmd">Write the following code in the auto-generated
+						<span class="ph sap-technical-name">FilterPriceButton.fragment.xml</span>
+					file. Note that the bold code needs a supporting function in the extension
+					controller. This is described in the next step.</span>
+				<div class="itemgroup info">
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition xmlns:core='sap.ui.core' xmlns='sap.m'&gt;
+&lt;Button id="PriceBtnID" text="Filter Price" <span class="emphasis">press=".extension.ProdMan.AdaptProject.ListReportExtension.handleFilterPricePress"</span>&gt;&lt;/Button&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section>
+					<p></p></div></div>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						<code>".extension.ProdMan.AdaptProject.ListReportExtension.handleFilterPricePress"</code>
+						consists of the following elements that are connected with a dot
+								(.).</p><p><code>.extension</code>: Required according to the UI
+							adaptation tool guidelines</p><p><code>ProdMan.AdaptProject</code>:
+							Name of the project</p><p><code>ListReportExtension</code>:
+							Controller extension file
+								name</p><p><code>handleFilterPricePress</code>: Function in the
+							controller extension file</p><p></p></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Create a controller extension. Select the table toolbar as described under step
+					1 and choose <span class="ph uicontrol">Extend with Controller</span>.</span>
+				<div class="itemgroup info">
+					<div><div class="fig"><img src="loio03287806ffec4f33929141290ad516b6_LowRes.png" usemap="#"></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Enter the controller name, for example, <code>ListReportExtension</code>,
+					and choose <span class="ph uicontrol">Extend</span>. </span>
+				<div class="itemgroup info">The system generates the controller extension file <span class="ph sap-technical-name">ListReportExtension.js</span>.<p>This auto-generated
+						file contains predefined life-cycle functions under the <span class="uinolabel">Override</span> block. All extensibility functions
+						provided by SAP Fiori elements should be consumed inside <span class="uinolabel">Override</span>. The custom-defined functions should
+						be consumed outside the <span class="uinolabel">Override</span> block.</p><p>To complete the example, copy and paste the code shown
+						below to <span class="ph sap-technical-name">ListReportExtension.js</span>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p><code>handleFilterPricePress</code> is
+						a custom-defined function and <code>addFilters</code> is the extensibility function provided by SAP Fiori
+						elements.</p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>In this example, there is a property named <span class="uinolabel">Price</span> in your list
+						report entity
+						type.</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/**
+*@controller Name: sap.suite.ui.generic.template.ListReport.view.ListReport,
+*@viewId:STTA_MP::sap.suite.ui.generic.template.ListReport.view.ListReport::STTA_C_MP_Product
+*/
+sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/mvc/ControllerExtension"], function (Controller, ControllerExtension) {
+return ControllerExtension.extend("ProdMan.AdaptProject.ListReportExtension", {
+ 
+
+handleFilterPricePress : function() {
+     this.iPriceRestriction = "1000";
+     var oExtensionAPI = this.base.templateBaseExtension.getExtensionAPI();
+     oExtensionAPI.rebindTable(); 
+},
+//override an existing method of the Main.controller
+override: {
+//adding a life cycle method
+/**
+* Called when a controller is instantiated and its View controls (if available) are already created.
+* Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
+* @memberOf src.client.uiadaptation
+*/
+onInit: function () {
+},
+/**
+* Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
+* (NOT before the first rendering! onInit() is used for that one!).
+* @memberOf src.client.uiadaptation
+*/
+onBeforeRendering: function () {
+},
+/**
+* Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
+* This hook is the same one that SAPUI5 controls get after being rendered.
+* @memberOf src.client.uiadaptation
+*/
+onAfterRendering: function () {
+},
+/**
+* Called when the Controller is destroyed. Use this one to free resources and finalize activities.
+* @memberOf src.client.uiadaptation
+*/
+onExit: function () {
+},
+"templateBaseExtension": {
+addFilters : function(fnAddFilter, sControlId){
+if(this.iPriceRestriction){
+fnAddFilter(this, new sap.ui.model.Filter("Price", "GE", this.iPriceRestriction));
+}
+}
+}
+}
+});
+});</pre></div></div></section><p></p></div></div></div>
+			</li>
+			<li class="step">
+				<span class="cmd">In the adaptation editor, choose the <span class="ph uicontrol">Preview</span> tab page
+					and choose <span class="ph uicontrol">Go</span>. Check the value in the
+						<span class="ph uicontrol">Price</span> field for all records.</span>
+			</li>
+			<li class="step">
+				<span class="cmd">Choose <span class="ph uicontrol">Filter Price</span> and check the value in the
+						<span class="ph uicontrol">Price</span> field for the filtered records.</span>
+				<div class="itemgroup info">
+					<div><div class="fig"><img src="loio8c525dd25aa649028993ddd1c080618a_LowRes.png" usemap="#"></div></div>
+				</div>
+			</li>
+		</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

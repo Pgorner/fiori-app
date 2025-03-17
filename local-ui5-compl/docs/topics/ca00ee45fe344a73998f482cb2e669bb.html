@@ -1,0 +1,504 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioca00ee45fe344a73998f482cb2e669bb" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/hiding-features-using-the-ui-hidden-annotation-ca00ee4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Hiding Features Using the <code>UI.Hidden</code>
+        Annotation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Hiding Features Using the <code>UI.Hidden</code>
+        Annotation</h2></div><div class="shortdesc">You can use the <code>UI.Hidden</code> annotation to hide or display specific features on the object page.</div><p>The default value of the <code>UI.Hidden</code> annotation is <code>true</code>, that is, a feature using the <code>UI.Hidden</code> annotation term isn't
+            visible on the UI. These are the values you can set: </p><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_pbl_mgl_fmb" class=" "><thead>
+                <tr><th colspan="1" rowspan="1">Annotation</th>
+                <th colspan="1" rowspan="1">System Behavior</th>
+            </tr></thead><tbody><tr>
+                <td colspan="1" rowspan="1"><code>&lt;Annotation Term="UI.Hidden"/&gt;</code></td>
+                <td colspan="1" rowspan="1">
+                    <p>The default value is <code>true</code>, so the properties or facets annotated with this term are hidden.</p>
+                </td>
+            </tr><tr>
+                <td colspan="1" rowspan="1"><code>&lt;Annotation Term="UI.Hidden" Bool="false"/&gt;</code></td>
+                <td colspan="1" rowspan="1">
+                    <p>Properties or facets annotated with this term are not hidden, as<code> UI.Hidden</code> is set to <code>false</code>.</p>
+                </td>
+            </tr><tr>
+                <td colspan="1" rowspan="1"><code>&lt;Annotation Term="UI.Hidden" Bool="true"/&gt;</code></td>
+                <td colspan="1" rowspan="1">
+                    <p>Properties or facets annotated with this term are hidden, as <code>UI.Hidden</code> is set to <code>true</code>.</p>
+                </td>
+            </tr><tr>
+                <td colspan="1" rowspan="1"><code>&lt;Annotation Term="UI.Hidden" Path="edit_mode"/&gt;</code></td>
+                <td colspan="1" rowspan="1">
+                    <p>Properties or facets annotated with this term are not hidden if the path (<code>edit_mode</code>) evaluates to <code>false</code>; however, they are
+                        hidden if the same path evaluates to <code>true</code>.</p>
+                    <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The path associated with <code>UI.Hidden</code> must always point to a Boolean property.
+                        You can use <code>edmJSON</code> instead as
+                            SAPUI5 expression binding isn't supported.
+                        </p></div></div>
+                </td>
+            </tr><tr>
+                <td colspan="1" rowspan="1">
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                        </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.Hidden"&gt; 
+    &lt;If&gt;
+        &lt;Or&gt;
+            &lt;Eq&gt;
+                &lt;Path&gt;displayCriteria&lt;/Path&gt;
+                &lt;String&gt;value_A&lt;/String&gt;
+            &lt;/Eq&gt;
+            &lt;Eq&gt;
+                &lt;Path&gt;displayCriteria&lt;/Path&gt;
+                &lt;String&gt;value_B&lt;/String&gt;
+            &lt;/Eq&gt;
+        &lt;/Or&gt;
+    &lt;/If&gt;
+&lt;/Annotation&gt;</pre></div></div></section>
+                    <p></p></div></div>
+                    
+                </td>
+                <td colspan="1" rowspan="1">
+                    <p><code>edmJSON</code> can be used to apply <code>UI.Hidden</code> based on conditions. Properties or facets annotated with this term are hidden if the
+                        path (<code>displayCriteria</code>) evaluates to <code>value_A</code> or <code>value_B</code>; however, they are not hidden if the path
+                        evaluates to any other value.</p>
+                    
+                    <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                        </p><p>This is applicable only to SAP Fiori elements for OData
+                            V4. </p>
+                    <p></p></div></div>
+                    
+                </td>
+            </tr></tbody></table></div></div><section id="section_wr1_hxz_dnb">
+            <h2 class="title ">Header Facets on Object Page</h2>
+            <p>You can hide header facets on the object page, as shown in the following sample code:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.HeaderFacets"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Net Amount" /&gt;
+            &lt;PropertyValue Property="ID" String="NetValueDataHeader" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#NetValue" /&gt;
+            &lt;Annotation Term="UI.Hidden" Bool="true" /&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Contact Info" /&gt;
+            &lt;PropertyValue Property="ID" String="ContactHeader" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="_SoldToParty/@Communication.Contact" /&gt;
+             &lt;Annotation Term="UI.Hidden" /&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Credit Limit Consumption" /&gt;
+            &lt;PropertyValue Property="ID" String="CreditLimitChartHeader" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="_CreditLimitDetails/@UI.Chart#CreditLimitChart" /&gt;
+             &lt;Annotation Term="UI.Hidden" Path="editActionIsEnabled" /&gt;
+        &lt;/Record&gt;                       
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Facet: [
+  {
+    hidden: true,
+    label: 'Net Amount',
+    id: 'NetValueDataHeader',
+    targetQualifier: 'NetValue',
+    type: #DATAPOINT_REFERENCE,
+    purpose: #HEADER
+  },
+  {
+    hidden: true,
+    label: 'Contact Info',
+    id: 'ContactHeader',
+    targetElement: '_SOLDTOPARTY',
+    type: #CONTACT_REFERENCE,
+    purpose: #HEADER
+  },
+  {
+    hidden: #('editActionIsEnabled'),
+    label: 'Credit Limit Consumption',
+    id: 'CreditLimitChartHeader',
+    targetQualifier: 'CreditLimitChart',
+    targetElement: '_CREDITLIMITDETAILS',
+    type: #CHART_REFERENCE,
+    purpose: #HEADER
+  }
+]
+Test;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">HeaderFacets                                    : [
+    {
+        $Type             : 'UI.ReferenceFacet',
+        Label             : 'Net Amount',
+        ID                : 'NetValueDataHeader',
+        Target            : '@UI.DataPoint#NetValue',
+        ![@UI.Hidden] : true   
+     },
+    {
+        $Type             : 'UI.ReferenceFacet',
+        Label             : Contact Info',
+        ID                : 'ContactHeader',
+        Target            : '_SoldToParty/@Communication.Contact',
+        ![@UI.Hidden] : true 
+    },
+    {
+        $Type             : 'UI.ReferenceFacet',
+        Label             : 'Credit Limit Consumption',
+        ID                : 'CreditLimitChartHeader',
+        Target            : '_CreditLimitDetails/@UI.Chart#CreditLimitChart',
+        ![@UI.Hidden] : editActionIsEnabled
+    }
+    ]</pre></div></div></section><p></p></div></div>
+            
+            <p>You cannot use the <code>UI.Hidden</code> annotation to hide the entire <code>UI.FieldGroup</code> and <code>UI.Identification</code>. To hide them, you
+                must hide all the <code>DataField</code> records within them. </p>
+            <p>In SAP Fiori elements for OData
+                            V4, you can use the <code>UI.Hidden</code> annotation to hide the wrapper around the
+                    <code>FieldGroup</code> which is normally the <code>ReferenceFacet</code> or the <code>DataFieldForAnnotation</code>. </p>
+            
+        </section><section id="section_ng3_mxz_dnb">
+            <h2 class="title ">Sections on Object Page</h2>
+            <p>You can hide an entire section and a specific subsections within it. To hide a subsection, hide the content within the subsection. For more information, see the
+                    <a href="topic/ca00ee45fe344a73998f482cb2e669bb.html#loioca00ee45fe344a73998f482cb2e669bb/section_ivf_xxz_dnb" title="ca00ee45fe344a73998f482cb2e669bb.xml#loioca00ee45fe344a73998f482cb2e669bb/section_ivf_xxz_dnb" class="sap-doc">DataField Records in Header Facets</a> section in this topic.</p>
+            <p>
+            </p><div><div class="fig"><img src="loio4d0d97044f9c4777861f1fc3b8e155b1_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Sections on Object Page</h2></span></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.Facets"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="UI.CollectionFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Header" /&gt;
+            &lt;PropertyValue Property="ID" String="HeaderInfo" /&gt;
+            &lt;PropertyValue Property="Facets"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="UI.CollectionFacet"&gt;
+                        &lt;PropertyValue Property="ID" String="GeneralInfo" /&gt;
+                        &lt;PropertyValue Property="Label" String="General Information" /&gt;
+                        &lt;PropertyValue Property="Facets"&gt;
+                            &lt;Collection&gt;
+                                ……..
+                               …….
+                            &lt;/Collection&gt;
+                        &lt;/PropertyValue&gt;
+                       &lt;Annotation Term="UI.Hidden" Bool="true" /&gt;
+                   &lt;/Record&gt;
+               &lt;/Collection&gt;
+           &lt;/PropertyValue&gt;
+       &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Facet: [
+  {
+    label: 'Header',
+    id: 'HeaderInfo',
+    type: #COLLECTION,
+    purpose: #STANDARD
+  },
+  {
+    hidden: true,
+    id: 'GeneralInfo',
+    label: 'General Information',
+    parentId: 'HeaderInfo',
+    purpose: #STANDARD
+  },
+  …..
+  …..
+]
+Test;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Facets                                          : [
+{
+        $Type  : 'UI.CollectionFacet',
+s
+        Label  : 'Header',
+        ID     : 'HeaderInfo',
+        Facets : [
+        {
+                $Type             : 'UI.CollectionFacet',
+                ID                : 'GeneralInfo',
+                Label             : 'General Information',
+                Facets            : [
+                    ……
+                   ……
+                ],
+                ![@UI.Hidden]     : true
+        }]
+}]
+</pre></div></div></section><p></p></div></div>
+        </section><section id="section_mxq_rxz_dnb">
+            <h2 class="title ">Content in Quick Views</h2>
+            <p>You can hide content in quick views, such as field groups, as shown in the following image:</p>
+            <div><div class="fig"><img src="loio5ee9d69a75c9482d896d8af3ec8546bc_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Field Groups in Quick Views on Object Page</h2></span></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.QuickViewFacets"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Material" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@Communication.Contact" /&gt;
+            &lt;Annotation Term="UI.Hidden" Bool="true" /&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Address" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#SoldToQuickView" /&gt;
+            &lt;Annotation Term="UI.Hidden" Path="edit_Ac" /&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Facet: [
+  {
+    hidden: true,
+    label: 'Material',
+    type: #CONTACT_REFERENCE,
+    purpose: #QUICK_VIEW
+  },
+  {
+    hidden: #('edit_Ac'),
+    label: 'Address',
+    targetQualifier: 'SoldToQuickView',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #QUICK_VIEW
+  }
+]
+Test;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.QuickViewFacets        : [
+   {
+        $Type  : 'UI.ReferenceFacet',
+        Label  : 'Material',
+        Target : '@Communication.Contact',
+        ![@UI.Hidden]     : true
+    },
+    {
+        $Type  : 'UI.ReferenceFacet',
+        Label  : 'Address',
+        Target : '@UI.FieldGroup#SoldToQuickView',
+        ![@UI.Hidden]     : edit_Ac
+   }
+]</pre></div></div></section><p></p></div></div>
+            <p>You can also use the aforementioned annotation to hide content in quick views within the list report.</p>
+        </section><section id="section_ivf_xxz_dnb">
+            <h2 class="title "><code>DataField</code> Records in Header Facets</h2>
+            <p>You can hide <code>DataField</code> records, for example, <code>UI.DataField</code>, <code>UI.DataFieldForAnnotation</code> in facets as shown in the
+                following image:</p>
+            <div><div class="fig"><img src="loioba72afcfa4af412e9e7af2855ad3d085_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">DataField Records in Header Facets</h2></span></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.FieldGroup" Qualifier="OrgData"&gt;
+    &lt;Record Type="UI.FieldGroupType"&gt;
+        &lt;PropertyValue Property="Data"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="UI.DataField"&gt;
+                    &lt;PropertyValue Property="Value" Path="SalesOrganization" /&gt;
+                    &lt;Annotation Term="UI.Hidden" Bool="true" /&gt;
+                &lt;/Record&gt;
+               &lt;Record Type="UI.DataField"&gt;
+                   &lt;PropertyValue Property="Value" Path="DistributionChannel" /&gt;
+                   &lt;Annotation Term="UI.Hidden" Path="Delivered" /&gt;
+               &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.fieldGroup: [
+  {
+    hidden: true,
+    value: 'SALESORGANIZATION',
+    type: #STANDARD,
+    qualifier: 'OrgData'
+  }
+]
+SALESORGANIZATION;
+
+@UI.fieldGroup: [
+  {
+    hidden: #('Delivered'),
+    value: 'DISTRIBUTIONCHANNEL',
+    type: #STANDARD,
+    qualifier: 'OrgData'
+  }
+]
+DISTRIBUTIONCHANNEL;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">FieldGroup #OrgData                             : [
+{
+        Label : 'Org Data',
+        Data  : [
+        {
+            $Type             : 'UI.DataField',
+            Value             : SalesOrganization,
+            ![@UI.Hidden]     : true
+        }
+        {
+            $Type             : 'UI.DataField',
+            Value             : DistributionChannel,
+            ![@UI.Hidden]     : Delivered
+        }]
+}]
+
+ </pre></div></div></section><p></p></div></div>
+        </section><section id="section_odp_cyz_dnb">
+            <h2 class="title "><code>DataField</code> Records in Facets</h2>
+            <p>You can hide <code>DataField</code> records, for example, <code>UI.DataField</code>, <code>UI.DataFieldForAnnotation</code> in facets as shown in the
+                following image:</p>
+            <div><div class="fig"><img src="loiob6dea7ae7b6d40efa2ca72e347d15ff1_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">DataField Records in Facets</h2></span></div>
+            
+            <p>You cannot use the <code>UI.Hidden</code> annotation to hide an entire <code>UI.FieldGroup</code> or <code>UI.Identification</code>. To hide them, you
+                must hide all <code>DataField</code> records within them or use the <code>UI.Hidden</code> annotation to hide the wrapper around the
+                    <code>FieldGroup</code>, which is typically the <code>ReferenceFacet</code> or the <code>DataFieldForAnnotation</code>, as shown in the following
+                sample code: </p>
+            
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.FieldGroup" Qualifier="OrderData"&gt;
+     &lt;Record Type="UI.FieldGroupType"&gt;
+         &lt;PropertyValue Property="Data"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="UI.DataField"&gt;
+                    &lt;PropertyValue Property="Value" Path="SoldToParty" /&gt;
+                    &lt;Annotation Term="UI.Hidden" Bool="true" /&gt;
+                &lt;/Record&gt;
+                &lt;Record Type="UI.DataField"&gt;
+                    &lt;PropertyValue Property="Value" Path="ImageUrl" /&gt;
+                    &lt;Annotation Term="UI.Hidden" Path="edit_Ac" /&gt;
+                &lt;/Record&gt;
+                 …..
+                   ……
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.fieldGroup: [
+  {
+    hidden: true,
+    value: 'SOLDTOPARTY',
+    type: #STANDARD,
+    qualifier: 'OrderData'
+  }
+]
+SOLDTOPARTY;
+
+@UI.fieldGroup: [
+  {
+    hidden: #('edit_Ac'),
+    value: 'IMAGEURL',
+    type: #STANDARD,
+    qualifier: 'OrderData'
+  }
+]
+IMAGEURL;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">FieldGroup #OrderData                           : {Data : [
+   {
+        $Type             : 'UI.DataField',
+        Value             : SoldToParty,
+        ![@UI.Hidden]     : true
+   },
+   {
+        $Type             : 'UI.DataField',
+        Value             : ImageUrl,
+        ![@UI.Hidden]     : edit_Ac
+    },
+    …..
+   ……
+]}</pre></div></div></section><p></p></div></div>
+        </section><section id="section_f3c_sv2_vwb">
+            <h2 class="title "><code>DataField</code> Records in Tables</h2>
+            <p>A table column isn't rendered if the static value of <code>UI.Hidden</code> is <code>true</code>. </p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.LineItem"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="UI.DataFieldForAction"&gt;
+            &lt;PropertyValue Property="Label" String="Bound Action with params" /&gt;
+            &lt;PropertyValue Property="Action" String="com.c_salesordermanage_sd_aggregate.CreateWithSalesOrderType" /&gt;
+            &lt;Annotation Term="UI.Hidden" Bool="true" /&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.lineItem: [
+  {
+    hidden: true,
+    label: 'Bound Action with params',
+    dataAction: 'com.c_salesordermanage_sd_aggregate.CreateWithSalesOrderType',
+    type: #FOR_ACTION
+  },
+]
+TEST;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">LineItem                                        : {
+        $value             : [
+        {
+            $Type  : 'UI.DataFieldForAction',
+            Label  : 'Bound Action with params',
+            Action : 'com.c_salesordermanage_sd.CreateWithSalesOrderType',
+            ![@UI.Hidden] : true
+        },    
+]</pre></div></div></section><p></p></div></div>
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>Even if you hide all determining actions in the footer, the UI still displays the footer because it is required to show any bound messages from the back end.</p>
+            <p></p></div></div>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

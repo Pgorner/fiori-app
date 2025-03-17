@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/base/Log","sap/ushell/plugins/BaseRTAPlugin"],function(e,s){"use strict";var n=s.extend("sap.ushell.plugins.rta-personalize.Component",{sType:"rta-personalize",metadata:{manifest:"json",library:"sap.ushell"},init:function(){e.error("[Deprecated] The FLP plugin for RTA Personalization (sap.ushell.plugins.rta-personalize) is no longer supported.")}});return n});
+//# sourceMappingURL=Component.js.map

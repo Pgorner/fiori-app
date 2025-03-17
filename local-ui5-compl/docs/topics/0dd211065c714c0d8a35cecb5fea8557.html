@@ -1,0 +1,77 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0dd211065c714c0d8a35cecb5fea8557" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/busy-indicators-0dd2110.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Busy Indicators</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Busy Indicators</h2></div><div class="shortdesc">You use busy indicators to inform users that something is going on in the background,
+		for example, some data is being fetched from the back end and the user has to wait. As long
+		as the busy indicator is shown, either all or a specific part of the UI is blocked, and no
+		user interaction is possible.</div><p>Whenever busy indication is triggered, the default delay until the busy indicator is
+			displayed on the UI is 1000 ms (1 second). If this delay were not in place, the busy
+			indicator would always be displayed, even if there is no negotiable waiting time.</p><p>You can choose between the following busy indicators, depending on your use case:</p><ul class="ul ">
+				<li class="li">
+					<p><code>sap.ui.core.BusyIndicator</code></p>
+				</li>
+				<li class="li">
+					<p><code>sap.m.BusyDialog</code></p>
+				</li>
+				<li class="li">
+					<p><code>sap.m.BusyIndicator</code></p>
+				</li>
+			</ul><p></p><section>
+			<h2 class="title ">Blocking the Whole UI</h2>
+			<p>You can use the <code>sap.ui.core.BusyIndicator</code> busy indicator to block
+				the whole UI. You can set the delay in ms by specifying the number:
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.core.BusyIndicator.show(<span class="emphasis">&lt;number&gt;</span>);</pre></div></div></section><p></p>
+			<p>To release the UI again, the busy indication must be hidden again. This function call
+				hides the busy indication
+				immediately:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.core.BusyIndicator.hide();</pre></div></div></section><p></p>
+			<p><a href="api/sap.ui.core.BusyIndicator" title="api/sap.ui.core.BusyIndicator" class="sap-doc" alt="api/sap.ui.core.BusyIndicator">API Reference:
+						<code>sap.ui.core.BusyIndicator</code></a></p>
+		</section><section>
+			<h2 class="title ">Busy Indication with Dialog</h2>
+			<p>With the <code>sap.m.BusyDialog</code> busy indicator, you can block the whole UI
+				like you do with <code>sap.ui.core.BusyIndicator</code>, but you can also show a
+				dialog box. In this dialog box, you can also include a <span class="ph uicontrol">Cancel</span>
+				button that users can choose to stop the activity that's running in the
+				background.</p>
+			<p><a href="api/sap.m.BusyDialog" title="api/sap.m.BusyDialog" class="sap-doc" alt="api/sap.m.BusyDialog">API Reference: <code>sap.m.BusyDialog</code></a></p>
+			<p><a href="entity/sap.m.BusyDialog" title="entity/sap.m.BusyDialog" class="sap-doc" alt="entity/sap.m.BusyDialog">API Overview and Samples:
+						<code>sap.m.BusyDialog</code></a></p>
+		</section><section>
+			<h2 class="title ">Busy Indication on Control Level</h2>
+			<p>The <code>sap.m.BusyIndicator</code> busy indicator blocks specific UI areas that
+				are defined by a control. For example, if a table in a complex UI is loading, only
+				the table is blocked - the user can still carry on working with the rest of the
+				UI.</p>
+			<p> If a control is set to busy, the complete control will be covered with a block
+				layer, so no mouse events or keyboard interaction with the control are possible. If
+				keyboard navigation is being used to step through the controls, controls that are
+				set to <code>busy</code> are skipped and the focus jumps to the next
+				control.</p>
+			<p>Here's how to do it:
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	var oInput = new sap.m.Input({
+		value:'Hello World'
+	});
+...
+	<span class="emphasis">oInput.setBusy(true);</span>
+</pre></div></div></section>The
+				following code shows how you define the default state of a control as
+					<code>busy</code> so that it will be displayed as busy when it has been
+				rendered:<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	var oInput = new sap.m.Input({
+		value:'Hello World',
+		<span class="emphasis">busy: true
+</span>
+	});
+</pre></div></div></section><p></p>
+			<p>To release the control's busy state again, the same API can be used. This has to be
+				done by the application after some data has been loaded, for example with the
+				following
+				command:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oMyListBox.setBusy(false);</pre></div></div></section><p></p>
+			<p>To change the default delay of the local busy indicator,
+				use:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oMyListBox.setBusyIndicatorDelay(<span class="emphasis">&lt;number&gt;</span>);</pre></div></div></section><p></p>
+			<p><a href="api/sap.m.BusyIndicator" title="api/sap.m.BusyIndicator" class="sap-doc" alt="api/sap.m.BusyIndicator">API Reference:
+						<code>sap.m.BusyIndicator</code></a></p>
+			<p><a href="entity/sap.m.BusyIndicator" title="entity/sap.m.BusyIndicator" class="sap-doc" alt="entity/sap.m.BusyIndicator">API Overview and Samples:
+						<code>sap.m.BusyIndicator</code></a></p>
+			<p><a href="entity/sap.ui.core.Control" title="entity/sap.ui.core.Control" class="sap-doc" alt="entity/sap.ui.core.Control">API Overview and Samples:
+						<code>sap.ui.core.Control</code></a></p>
+			
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

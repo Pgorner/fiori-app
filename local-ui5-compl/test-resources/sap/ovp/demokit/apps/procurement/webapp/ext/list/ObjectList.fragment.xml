@@ -1,0 +1,107 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    xmlns:build="sap.build"
+    template:require="{
+		CardAnnotationhelper: 'sap/ovp/cards/AnnotationHelper'
+	}"    
+>
+    <items>
+        <!-- Title is first Row first Column -->
+        <!-- number is first Row second Column -->
+        <ObjectListItem
+            core:require="{CardAnnotationhelper: 'sap/ovp/cards/AnnotationHelper'}"
+            class="sapOvpObjectListItem sapOvpListFragment"
+            title="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataFieldValue'}"
+            number="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0 ? ${path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointValue'} : ${path: 'lineItem>', formatter: 'CardAnnotationhelper.formatThirdDataFieldValue'} }"
+            numberState="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0 ? ${path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFirstDataPointState'} : 'None' }"
+            type="Active"
+            press="onListItemPress"
+            build:metadata="#pattern:GenericCard>ObjectList;prop::ItemTitle:\{lineItem>/0/Value\};prop::ItemNumber:\{lineItem>/3/Target@@Value\};prop::ItemNumberToleranceRangeLowValue:\{lineItem>/3/Target@@CriticalityCalculation/ToleranceRangeLowValue\};prop::ItemNumberDeviationRangeLowValue:\{lineItem>/3/Target@@CriticalityCalculation/DeviationRangeLowValue\};set:ovpCardProperties>/annotationPath:com.sap.vocabularies.UI.v1.LineItem;set:ovpCardProperties>/listType:extended" >
+            <attributes>
+                <!--This is second Row first Column -->
+                <ObjectAttribute 
+                    text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatSecondDataFieldValue'}"
+                    build:metadata="#pattern:GenericCard>ObjectList;prop::ItemFirstAttribute:\{lineItem>/1/Value\};"/>
+                <!--This is third Row first Column -->
+                <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 1}" >
+                    <template:then>
+                        <ObjectAttribute 
+                            text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatThirdDataFieldValue'}"
+                            build:metadata="#pattern:GenericCard>ObjectList;prop::ItemSecondAttribute:\{lineItem>/2/Value\};"/>
+                    </template:then>
+                    <template:else>
+                        <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0}" >
+                            <template:then>
+                                <ObjectAttribute text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFourthDataFieldValue'}" />
+                            </template:then>
+                            <template:else>
+                                <ObjectAttribute text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFifthDataFieldValue'}" />
+                            </template:else>
+                        </template:if>
+                    </template:else>
+                </template:if>
+            </attributes>
+            <!-- This is Second Row Second Column -->
+            <firstStatus>
+                <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 1}" >
+                    <template:then>
+                        <ObjectStatus
+                            text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatSecondDataPointValue'}"
+                            state="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatSecondDataPointState'}"
+                            build:metadata="#pattern:GenericCard>ObjectList;prop::ItemFirstStatus:\{lineItem>/4/Target@@Value\};prop::ItemFirstStatusToleranceRangeLowValue:\{lineItem>/4/Target@@CriticalityCalculation/ToleranceRangeLowValue\};prop::ItemFirstStatusDeviationRangeLowValue:\{lineItem>/4/Target@@CriticalityCalculation/DeviationRangeLowValue\};"/>
+                    </template:then>
+                    <template:else>
+                        <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0}" >
+                            <template:then>
+                                <ObjectStatus
+                                    text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatThirdDataFieldValue'}"
+                                    state="None" />
+                            </template:then>
+                            <template:else>
+                                <ObjectStatus
+                                    text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFourthDataFieldValue'}"
+                                    state="None" />
+                            </template:else>
+                        </template:if>
+                    </template:else>
+                </template:if>
+            </firstStatus>
+            <!-- This is Third Row Second Column -->
+            <secondStatus>
+                <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 2}" >
+                    <template:then>
+                        <ObjectStatus
+                            text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatThirdDataPointValue'}"
+                            state="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatThirdDataPointState'}"
+                            build:metadata="#pattern:GenericCard>ObjectList;prop::ItemSecondStatus:\{lineItem>/5/Target@@Value\};prop::ItemSecondStatusToleranceRangeLowValue:\{lineItem>/5/Target@@CriticalityCalculation/ToleranceRangeLowValue\};prop::ItemSecondStatusDeviationRangeLowValue:\{lineItem>/5/Target@@CriticalityCalculation/DeviationRangeLowValue\};"/>
+                    </template:then>
+                    <template:else>
+                        <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 1}" >
+                            <template:then>
+                                <ObjectStatus
+                                    text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFourthDataFieldValue'}"
+                                    state="None" />
+                            </template:then>
+                            <template:else>
+                                <template:if test="{= ${path: 'lineItem>', formatter: 'CardAnnotationhelper.getDataPointsCount'} > 0}" >
+                                    <template:then>
+                                        <ObjectStatus
+                                            text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatFifthDataFieldValue'}"
+                                            state="None" />
+                                    </template:then>
+                                    <template:else>
+                                        <ObjectStatus
+                                            text="{path: 'lineItem>', formatter: 'CardAnnotationhelper.formatSixthDataFieldValue'}"
+                                            state="None" />
+                                    </template:else>
+                                </template:if>
+                            </template:else>
+                        </template:if>
+                    </template:else>
+                </template:if>
+            </secondStatus>
+        </ObjectListItem>
+    </items>
+</core:FragmentDefinition>

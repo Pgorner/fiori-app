@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+					Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common/v1">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="sample" sap:schema-version="1"
+			xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="Product" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ProductId" />
+				</Key>
+				<Property Name="ProductId" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Product ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" />
+				<Property Name="Price" Type="Edm.Decimal" Nullable="true" sap:unit="CurrencyCode" sap:label="Price" sap:creatable="false" sap:updatable="true" sap:sortable="false" Precision="10" Scale="3" sap:variable-scale="true"/>
+				<Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Currency" sap:creatable="false" sap:semantics="currency-code" sap:updatable="true" sap:sortable="false" />
+			</EntityType>
+
+			<EntityType Name="Currencies" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Code" />
+				</Key>
+				<Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="Description" sap:label="Currency Code" />
+				<Property Name="Description" Type="Edm.String" MaxLength="25" sap:label="Description" />
+			</EntityType>
+
+			<EntityContainer Name="sample_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="Products" EntityType="sample.Product" sap:creatable="false" sap:updatable="true" sap:deletable="false" sap:pageable="false" sap:content-version="1" />
+				<EntitySet Name="Currencies" EntityType="sample.Currencies" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="false" />
+			</EntityContainer>
+
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="sample.Product/CurrencyCode">
+				<Annotation Term="Common.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Currencies" />
+						<PropertyValue Property="CollectionPath" String="Currencies" />
+						<PropertyValue Property="SearchSupported" Bool="true" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="CurrencyCode" />
+									<PropertyValue Property="ValueListProperty" String="Code" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Description" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

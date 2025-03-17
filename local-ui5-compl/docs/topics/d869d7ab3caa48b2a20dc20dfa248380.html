@@ -1,0 +1,236 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod869d7ab3caa48b2a20dc20dfa248380" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/including-reuse-components-on-an-object-page-d869d7a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Including Reuse Components on an Object Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Including Reuse Components on an Object Page</h2></div><div class="shortdesc">You can embed a reuse component as a section in the object page of your
+		app.</div><p>A reuse component is an encapsulated UI area that can be included (embedded) into an SAP
+			Fiori elements-based application. Reuse components are mainly used for reusable UIs
+			which are used consistently across several applications, for example, output management
+			or attachment services. However, you can also create a one-time reuse component which is
+			used in only one application on one page.</p><p>Not every piece of reusable code should be encapsulated into a reuse component. Reuse
+			components are always rectangular UI areas.</p><p>Reuse components that are used on an object page are often used on several pages. If this
+			is not the case, consider whether they can be realized via view or fragment
+			extensions.</p><p>To include a reuse component on an object page, adapt the <code>manifest.json</code> of your app, in
+			the pages section of the object page which is to contain the reuse component.</p><p>The sample definitions given in the separate sections below show two options for
+			addressing a reuse component:</p><ul class="ul ">
+				<li class="li">
+					<p>Facilitating a use of the component that has been defined in the corresponding section of
+						the manifest. For more information, see the <span class="ph uicontrol">API
+							Reference</span> for <a href="api/sap.ui.core.Component#methods/createComponent" title="api/sap.ui.core.Component#methods/createComponent" class="sap-doc" alt="api/sap.ui.core.Component#methods/createComponent"><code>createComponent</code></a>.</p>
+				</li>
+				<li class="li">
+					<p>Directly addressing the component name within the definition</p>
+				</li>
+			</ul>
+		<p></p><p>Use the <code>title</code> property to provide a title for the section that is to
+			contain the reuse component. To provide a translatable title, this property must point
+			to a key in the i18n file of the app.</p><p>If the reuse component exposes properties other than the predefined ones, the embedding
+			may contain binding information for these properties. See the property settings under
+				<code>myFirstComponentEmbedding</code> above. The corresponding property in this
+			case is <code>documentNumber</code>. The value for this property can be any valid
+			binding string, for example, "<code>{documentNumber}</code>" can also be replaced by
+			an expression binding like "<code>{= ${documentNumber} || ${documentId} }</code>" if
+			relevant for your app.</p><p>The reuse component instance cannot only receive information about the object that is on
+			the embedding object page by transferring dedicated properties. The binding context that
+			has been set for the OData model for the embedding page is also valid for the reuse
+			component.</p><section id="section_bmg_ypt_kmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in
+					SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>A reuse component that can be used within an SAP Fiori elements-based application
+					cannot be used in a freestyle SAPUI5 application. If reuse component
+					owners want to provide the functionality for both types of applications, they need to provide two components, one for each use
+						case.</p><p>We recommend factoring out as much coding as possible into artifacts that are shared by both components.</p><p></p></div></div>
+			<p></p><p>The following example embeds two reuse components:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...   
+ "sap.ui.generic.app": { 
+    ...  
+    "pages": {
+        "ListReport|myRootEntity": {    
+
+            "entitySet": "myRootEntity",    
+            "component": {      
+                "name": "sap.suite.ui.generic.template.ListReport",      
+                "list": true,      
+                ...
+            },
+            "pages": {      
+                "ObjectPage|myRootEntity": {       
+                    "entitySet": "myRootEntity",       
+                    "component": {        
+                        "name": "sap.suite.ui.generic.template.ObjectPage",
+                        ...
+                    },        
+                    "embeddedComponents": {        
+                        "myFirstComponentEmbedding": {         
+                            "id": "myFirstComponentEmbedding",         
+                            "componentUsage": "myUsage",         
+                            "title": "{{I18N_KEY_FOR_FIRST_REUSE_COMPONENT_TITLE}}",
+                            "settings": {
+                                "documentNumber": "{documentNumber}"
+                            }                 
+                        },        
+                        "mySecondComponentEmbedding": {         
+                            "id": "mySecondComponentEmbedding",         
+                            "componentName": "theOtherReuseComponentQualifiedName",         
+                            "title": "{{I18N_KEY_FOR_SECOND_REUSE_COMPONENT_TITLE}}",
+                            "binding": "myNavProperty",     
+                        }       
+                    },
+                    "pages": {
+                        // add list of sub-pages of the root object page here
+                    }
+                }
+            }
+        }
+    }</pre></div></div></section><p></p></div></div><p>The logical names of the embedded components
+					(<code>myFirstComponentEmbedding</code> and
+					<code>mySecondComponentEmbedding</code>) each appear twice within the
+				codeblock. This is because the name of the property (within
+					<code>embeddedComponents</code>) which defines the reuse component instance
+				and the value of the property ID in this definition must be identical.</p><p>Within
+				the definition of the embedding, the binding context might be modified using the
+					<code>binding</code> property. See the second embedding definition for this.
+				The path that is in the value for this property defines a path relative to the
+				current binding context for the whole object page. Thus, the binding context that is
+				valid for the second reuse component instance is determined by applying this
+				relative path to the binding context that is valid for the whole page.</p><section>
+				<h3 class="title ">Defining the Default Visibility</h3>
+				<p>Most reuse components are always visible on the object page they have been placed
+					on. However, you can define that a reuse component is only visible for specific
+					instances of the corresponding entity. In your reuse component implementation,
+					use the <code>setSectionHidden</code> method of the extensionAPI to show or
+					hide the reuse component on the object page. For more information, see <a href="topic/6314fcd2510648fbaad3cee8a421030d" title="Follow these guidelines when developing reuse components that are to be included as sections in object pages." class="sap-doc">Developing Reuse Components</a>.</p>
+				<p>Set the default visibility to the value that is correct for most cases. You can
+					use the <code>hiddenByDefault</code> property for this purpose, on the same
+					level as ID, title, settings, and so on. If this property is set to
+						<code>true</code>, the section is hidden by default when the object page
+					is opened with a new instance. It is only visible when the reuse component
+					unhides itself using the <code>setSectionHidden</code> method.</p>
+			</section><section>
+				<h3 class="title ">Placing Reuse Component Instances</h3>
+				<p>Each reuse component instance defined for an object page of a SAP Fiori elements-based app is
+					realized by a section that contains a sub-section which in turn contains the
+					content of the reuse component. By default, these sections are added to the end
+					of the object page in the same order the reuse component instances are defined
+					in the manifest. You can move these sections using the
+						Adaptation Editor. For more options, see <a href="topic/1ba7f888dbf04121a62965b664496616" title="Each reuse component instance defined for an object page belonging to an SAP Fiori elements-based app is realized by a section." class="sap-doc">Placing Reuse Component Instances on the Object Page</a>.</p>
+			</section><section>
+				<h3 class="title ">Dependencies</h3>
+				<p>If the reuse component uses its own OData service, make sure you declare it as a
+					dependency both under <code>"sap.ui5"/"dependencies"/"libs"</code> and
+						under<code> "sap.ui5"/"dependencies"/"component"</code>.</p>
+			</section></div></section><section id="section_ky1_nqt_kmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>SAP Fiori elements for OData
+                            V4 is compatible with freestyle SAPUI5 reuse components, but incompatible with SAP Fiori elements for OData
+                            V2 reuse components.</p>
+				<p></p></div></div>
+			<p></p><p>The following example embeds
+				one
+				reuse
+				component:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "sap.ui5": {
+        "routing": {
+            "routes": [
+                {
+                    "pattern": "myEntitySet({key}):?query:",
+                    "name": "myObjectPage",
+                    "target": "myObjectPage"                }
+            ],
+            "targets": {
+                "myObjectPage": {
+                    "options": {
+                        "settings": {
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "customSectionReuse": {
+                                            "title": "{i18n&gt;customSectionReuse}",
+                                            "embeddedComponent": {
+                                                "name": "path.to.reuseComponent",
+                                                "settings": {
+                                                    "exampleSettings": "{somePropertyName}"                                                }
+                                            },
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "someOtherSection"                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div><p>We recommend using the above example. If you prefer, however, you can also add all
+				settings directly using SAPUI5.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"sap.ui5": {
+		"routing": {
+			"routes": [
+				{
+					"pattern": "myEntitySet({key}):?query:",
+					"name": "myObjectPage",
+					"target": ["myObjectPage", "ReuseComponent"]
+				}
+			],
+			"targets": {
+				"myObjectPage": {
+					"type": "Component",
+					"id": "myObjectPage",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"content": {
+								"body": {
+									"sections": {
+										"ReuseComponentContainer": {
+											"position": {
+												"placement": "Before",
+												"anchor": "GeneralInfo"
+											},
+											"title": "Reuse Container",
+											"subSections": {
+												"ReuseContainer": {
+													"id": "ReuseComponentContainer"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"ReuseComponent": {
+					"type": "Component",
+					"id": "Reuse",
+					"name": "path.to.reuseComponent",
+					"options": {
+						"settings": {
+							"exampleSettings": "{somePropertyName}"
+						}
+					},
+					"parent": "myObjectPage",
+					"controlId": "ReuseComponentContainer",
+					"controlAggregation": "blocks",
+					"clearControlAggregation": true
+				}
+			}
+		}
+	}
+}</pre></div></div></section><p></p></div></div><section>
+				<h3 class="title ">Defining the Default Visibility</h3>
+				<p>SAP Fiori elements for OData
+                            V4 uses the
+					standard SAPUI5 reuse component visibility. If there is a value set for a sales
+					order, for example, and you want the reuse component to be visible, use the
+					following setting: <code>visible="{= !!${SalesOrder}"</code>.</p>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

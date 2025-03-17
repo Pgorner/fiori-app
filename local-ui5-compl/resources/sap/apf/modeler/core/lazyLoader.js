@@ -1,0 +1,7 @@
+/*!
+ * SAP APF Analysis Path Framework
+ *
+ * (c) Copyright 2012-2014 SAP SE. All rights reserved
+ */
+sap.ui.define(["sap/apf/utils/exportToGlobal"],function(n){"use strict";function i(n,i,e){var t=n.constructors.Hashtable;var s={id:null,instance:null,messageObject:null,isInitializing:false,callbacksFromAsyncGet:new t(n.instances.messageHandler)},a=null;if(e){s.id=e.id;s.instance=e.instance}this.type="lazyLoader";this.getId=function(){return s.id};this.getInstance=function(){return s.instance};this.isInitializing=function(){return s.isInitializing};this.reset=function(){a=s.instance;s={id:null,instance:null,messageObject:null,isInitializing:false,callbacksFromAsyncGet:new t(n.instances.messageHandler)}};this.asyncGetInstance=function(n,e){function t(n){if(n===null){return undefined}return n}var r;if(!n){return}if(s.id&&n!==s.id){this.reset()}if(s.id&&(s.instance||s.messageObject)){r=t(s.messageObject);e(s.instance,r,s.id);return}l(e);if(!s.isInitializing){s.isInitializing=true;s.id=n;i(n,c,a)}};function c(n,i,e){if(n!==s.id){return}s.isInitializing=false;if(!e){s.instance=i}else{s.messageObject=e}s.callbacksFromAsyncGet.each(function(n,i){i.forEach(function(n){n(s.instance,e,s.id)})});s.callbacksFromAsyncGet=null}function l(n){var i;var e,t;t=s.callbacksFromAsyncGet.getItem(n);if(!t){s.callbacksFromAsyncGet.setItem(n,[n]);return}e=false;for(i=0;i<t.length;i++){if(t[i]===n){e=true;break}}if(!e){t.push(n)}}}n("sap.apf.modeler.core.LazyLoader",i);return i});
+//# sourceMappingURL=lazyLoader.js.map

@@ -1,0 +1,139 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.rteSection",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/rteSection/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "RootEntityList",
+					"target": "RootEntityList"
+				},
+				{
+					"pattern": "RootEntity({key}):?query:",
+					"name": "RootEntityObjectPage",
+					"target": "RootEntityObjectPage"
+				},
+				{
+					"pattern": "RootEntity({key})/items({key2}):?query:",
+					"name": "ChildEntityObjectPage",
+					"target": "ChildEntityObjectPage"
+				}
+			],
+			"targets": {
+				"RootEntityList": {
+					"type": "Component",
+					"id": "LR",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"variantManagement": "Page",
+							"initialLoad": true,
+							"navigation": {
+								"RootEntity": {
+									"detail": {
+										"route": "RootEntityObjectPage"
+									}
+								}
+							}
+						}
+					}
+				},
+				"RootEntityObjectPage": {
+					"type": "Component",
+					"id": "Default",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"navigation": {
+								"items": {
+									"detail": {
+										"route": "ChildEntityObjectPage"
+									}
+								}
+							},
+							"editableHeaderContent": false,
+							"content": {
+								"body": {
+									"sections": {
+										"customSection": {
+											"template": "sap.fe.core.fpmExplorer.rteSection.ext.fragment.CustomSection",
+											"title": "Custom Section",
+											"position": {
+												"placement": "Before"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"ChildEntityObjectPage": {
+					"type": "Component",
+					"id": "ChildEntityObjectPage",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity/items",
+							"content": {
+								"body": {
+									"sections": {
+										"customSection": {
+											"template": "sap.fe.core.fpmExplorer.rteSection.ext.fragment.CustomSectionInSubOP",
+											"title": "Custom Section"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

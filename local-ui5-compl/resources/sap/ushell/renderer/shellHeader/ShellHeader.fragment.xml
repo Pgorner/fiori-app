@@ -1,0 +1,34 @@
+<core:FragmentDefinition
+    xmlns="sap.ushell.ui"
+    xmlns:core="sap.ui.core"
+    xmlns:shell="sap.ushell.ui.shell"
+    core:require="{
+        BindingHelper: 'sap/ushell/state/BindingHelper'
+    }">
+    <ShellHeader
+        id="shell-header"
+        showLogo="{shellModel>/header/home/showLogo}"
+        visible="{shellModel>/header/visible}"
+        headItems="{
+            path: 'shellModel>/header/headItems',
+            factory: 'BindingHelper.factory'
+        }"
+        headEndItems="{
+            path: 'shellModel>/header/headEndItems',
+            factory: 'BindingHelper.factory',
+            filters: [{ path: '', test: '.isHeadEndItemNotInOverflow' }]
+        }"
+        centralAreaElement="{shellModel>/header/centralAreaElement}"
+        showNewExperienceSwitch="{newExperience>/showInShellHeader}"
+        title="{shellModel>/header/secondTitle}">
+        <appTitle>
+            <shell:ShellAppTitle
+                id="shellAppTitle"
+                text="{shellModel>/application/title}"
+                title="{shellModel>/application/title}"
+                icon="{shellModel>/application/icon}"
+                subTitle="{shellModel>/header/secondTitle}"
+            />
+        </appTitle>
+    </ShellHeader>
+</core:FragmentDefinition>

@@ -1,0 +1,102 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.customFormElementContent",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/customFormElementContent/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleUrl": "i18n/i18n.properties"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleUrl": "i18n/i18n.properties"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": "/RootEntity({key}):?query:",
+					"name": "default",
+					"target": "sample"
+				}
+			],
+			"targets": {
+				"sample": {
+					"type": "Component",
+					"id": "Default",
+					"name": "sap.fe.templates.ObjectPage",
+					"viewLevel": 1,
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"editableHeaderContent": true,
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.Identification": {
+									"fields": {
+										"customFormElementIdentification1": {
+											"template": "sap.fe.core.fpmExplorer.customFormElementContent.CustomFormElement1",
+											"label": "Custom FormElement 1",
+											"property": "NameProperty"
+										}
+									}
+								},
+								"@com.sap.vocabularies.UI.v1.FieldGroup#FieldGroup2": {
+									"fields": {
+										"customFormElementIdentification2": {
+											"template": "sap.fe.core.fpmExplorer.customFormElementContent.CustomFormElement2",
+											"label": "Custom FormElement 2"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

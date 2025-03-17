@@ -1,0 +1,88 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio6e9c6bd2054c4425b7f15cac31aa675c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-14-adding-tabs-6e9c6bd.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 14: Adding Tabs</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 14: Adding Tabs</h2></div><div class="shortdesc">We want to display statistics for posts, for example, how many times it was viewed. To
+      achieve this, we implement an icon tab bar with an <span class="ph uicontrol">Info</span> tab and a
+         <span class="ph uicontrol">Statistics</span> tab. The existing content should be placed on the
+         <span class="ph uicontrol">Info</span> tab and the view count on the <span class="ph uicontrol">Statistics</span>
+      tab.</div><section>
+         <h2 class="title ">Preview</h2>
+         <div><div class="fig"><img src="loio1d8248aaaac34e1185b36090859cf47c_LowRes.jpg" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">An icon tab bar with statistics</h2></span></div>
+      </section><section>
+         <h2 class="title ">Coding</h2>
+         <p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+            Kit at <a href="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.14" title="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.14" class="sap-doc" alt="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.14">Testing - Step 14</a>.</p>
+      </section><section>
+         <h2 class="title ">webapp/view/Post.view.xml</h2>
+         <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+      controllerName="sap.ui.demo.bulletinboard.controller.Post"
+      xmlns="sap.m"
+      <span class="emphasis">xmlns:form="sap.ui.layout.form"</span>
+      xmlns:mvc="sap.ui.core.mvc"
+      xmlns:semantic="sap.m.semantic"&gt;
+   &lt;semantic:FullscreenPage
+         id="page"
+         busy="{postView&gt;/busy}"
+         busyIndicatorDelay="0"
+         navButtonPress=".onNavBack"
+         showNavButton="true"
+         title="{i18n&gt;objectTitle}"&gt;
+      &lt;semantic:content&gt;
+         &lt;ObjectHeader
+               id="objectHeader"
+               title="{Title}"
+               number="{
+                  path: 'Price',
+                  formatter: '.formatter.numberUnit'
+               }"
+               numberUnit="{Currency}"
+               backgroundDesign="Translucent"&gt;
+         &lt;/ObjectHeader&gt;
+         <span class="emphasis">&lt;IconTabBar id="iconTabBar"
+                  expanded="{device&gt;/isNoPhone}"
+                  class="sapUiNoContentPadding"&gt;
+            &lt;items&gt;
+               &lt;IconTabFilter icon="sap-icon://hint" key="info" &gt;
+                  &lt;form:SimpleForm&gt;
+                     &lt;form:content&gt;
+                        &lt;Label text="{i18n&gt;postDateLabel}"/&gt;
+                        &lt;Text text="{Timestamp}"/&gt;
+                        &lt;Label text="{i18n&gt;postDescriptionLabel}"/&gt;
+                        &lt;Text text="{Description}"/&gt;
+                     &lt;/form:content&gt;
+                  &lt;/form:SimpleForm&gt;
+               &lt;/IconTabFilter&gt;
+               &lt;IconTabFilter icon="sap-icon://inspection" key="statistics"&gt;
+                  &lt;Text text="Viewed 55555 times" id="viewCounter"/&gt;
+               &lt;/IconTabFilter&gt;
+            &lt;/items&gt;
+         &lt;/IconTabBar&gt;
+</span>
+      &lt;/semantic:content&gt;
+   &lt;/semantic:FullscreenPage&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+         <p>We add a <code>sap.m.IconTabBar</code> with the two tabs <code>info</code> and
+               <code>statistics</code>. The <code>statistics</code> tab we have already
+            referred to in our test case.</p>
+         <p>Inside the first tab there is a <code>sap.ui.layout.form.SimpleForm</code> with a
+            date and a description field that are mapped to the model data. In the second tab we
+            place a new <code>Text</code> control.</p>
+         <p>In this very simple example, we just put a static text in the tab. In a real
+            application, we would bind the value to the model.</p>
+      </section><section>
+         <h2 class="title ">webapp/i18n/i18n.properties</h2>
+         <section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">#~~~ Object View ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#XTIT: Object view title
+objectTitle=Post
+
+<span class="emphasis">
+#XTIT: Post view date label
+postDateLabel=Posted At
+
+#XTIT: Post view description label
+postDescriptionLabel=Description
+</span>
+
+#~~~ Footer Options ~~~~~~~~~~~~~~~~~~~~~~~</pre></div></div></section>
+         <p>We add the missing texts to the <code>i18n.properties</code> file.</p>
+      </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/291c9121e6044ab381e0b51716f97f52">Testing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/19ccd473c9a14c2ab7529303a2232d2c">Step 13: Testing User Interaction</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/bc4114a88e4d4ac1a0f53b2a7a92b226">Step 15: Writing a Short Date Formatter Using TDD</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

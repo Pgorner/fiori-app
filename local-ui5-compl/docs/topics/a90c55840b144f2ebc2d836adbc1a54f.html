@@ -1,0 +1,174 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa90c55840b144f2ebc2d836adbc1a54f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/non-draft-apps-a90c558.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Non-Draft Apps</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Non-Draft Apps</h2></div><div class="shortdesc">By default, you need to create apps that use draft handling.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+		<p></p></div></div><p>For general information about draft handling, see <a href="https://experience.sap.com/fiori-design-web/draft-handling/" title="https://experience.sap.com/fiori-design-web/draft-handling/" class="external-link" target="_blank" rel="noopener">https://experience.sap.com/fiori-design-web/draft-handling/</a> and <a href="topic/ed9aa41c563a44b18701529c8327db4d" title="A draft is an interim version of a business entity that has not yet been explicitly saved as an active version. SAP Fiori elements supports the creation of apps using draft handling." class="sap-doc">Draft Handling</a>.</p><p>You can also create non-draft apps, however, you need to consider the specific features and restrictions listed below, as compared to those for
+			draft apps. Create non-draft apps only for simple scenarios without complex flows.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Example of a complex flow: Creating items and subitems in a single step, before saving.</p>
+			<p>Example of a simple flow: An app used occasionally to change specific fields.</p>
+		<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Do not combine draft and non-draft entity sets in one app. Exception: A draft-enabled entity
+			set can contain a non-draft child for display purposes only. For example, a sales order
+			might contain a non-draft contact sub-object. However, performing actions or external
+			navigation from the non-draft child is not possible.</p></div></div><section id="section_tzc_3mr_nz">
+			<h2 class="title ">Saving Data</h2>
+			<p>In non-draft scenarios, data is not automatically saved to the back-end system when a user
+				changes data on the UI. Users always have to save the new or changed data when they
+				leave a page, for example, in these cases:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Creating new subitems</p>
+				</li>
+				<li class="li">
+					<p>Editing existing subitems</p>
+				</li>
+				<li class="li">
+					<p>Navigating away, for example, by using a chevron in a table</p>
+				</li>
+				<li class="li">
+					<p>Navigating back to the list report</p>
+				</li>
+			</ul>
+			<p>The <span class="ph uicontrol">Save</span> button is also available on subobject pages. If a user wants
+				to navigate away from the edit screen that contains unsaved data, a data-loss
+				message is displayed.</p>
+			<p>The following features are also <span class="emphasis">not</span> available in non-draft apps: </p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Start working on an object, save it as incomplete, and continue later</p>
+				</li>
+				<li class="li">
+					<p>Automatic saving and data-loss prevention: Keep working while data is saved
+						automatically and asynchronously</p>
+				</li>
+				<li class="li">
+					<p>Navigation within the app to different pages without having to keep saving in between</p>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>On the object page, for fields that contain a combination of a value and text, for example,
+				currency and EUR or text arrangement and unit, changed values are displayed
+				correctly after saving, only if you have defined a dedicated side effect.</p></div></div>
+		</section><section id="section_ilb_lmr_nz">
+			<h2 class="title ">Locking</h2>
+			<p>This system doesn't lock objects when data is being edited.  Data might be lost if two users
+				work on the same object at the same time. The data of the last user to save is the
+				data in the final version. Consequently, data is not read again from the back-end
+				system when the user starts editing.</p>
+		</section><section id="section_ulw_mmr_nz">
+			<h2 class="title ">Navigation</h2>
+			<p>The following navigation actions or events discard the entered data:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>SAP Fiori actions: For example, Back or Home</p>
+					<p>When performing these actions, the SAP Fiori data-loss message is
+						displayed.</p>
+				</li>
+				<li class="li">
+					<p>Launchpad sign out</p>
+					<p>Data is lost, no data-loss message is displayed.</p>
+				</li>
+				<li class="li">
+					<p>Browser actions: For example, back, forward, open bookmark, change URL, refresh, and closing
+						the browser.</p>
+					<p>When performing these actions, the data is lost, and no data-loss message is
+						displayed.</p>
+				</li>
+			</ul>
+		</section><section id="section_dsp_pmr_nz">
+			<h2 class="title ">Extension Points and Secured Execution</h2>
+			<p>Various checks can be executed. For example, check for the needed busy indicator or to see
+				whether the data loss popup is needed. The following table contains the input
+				parameters for the method used in the check, and the corresponding system
+				behavior:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_rzw_3vq_bz" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Parameter</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>System Behavior</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><span class="ph sap-technical-name">busy.set=true</span></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Triggers a busy indicator when a function is being executed. Can be set to false in case of immediate completion.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><span class="ph sap-technical-name">busy.check=true</span></p>
+							</td>
+							<td colspan="1" rowspan="1"><p>Checks whether the application is currently busy. The function is executed only if
+									it's not busy.</p>Has to be set to false if the function is not
+								triggered by direct user interaction, but as a result of another
+								function that set the application to busy.</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><span class="ph sap-technical-name">dataloss.popup=true </span></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Displays a data-loss message before execution of the function if
+									needed (that is, in non-draft cases when the model or registered
+									methods contain pending changes).</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><span class="ph sap-technical-name">dataloss.navigation=false</span></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Indicates that execution of the function leads to navigation, that is, leaves the current
+									page, which induces a slightly different text for the data-loss
+									message.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section id="section_zbz_ygq_bz">
+			<h2 class="title ">Further Draft Features that Are not Available in Non-Draft Apps</h2>
+			<p>The following draft app features are <span class="emphasis">not available</span> in non-draft
+				apps:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>No data loss, connectivity disruption or session time-out</p>
+				</li>
+				<li class="li">
+					<p>Device switch: Start on one device and continue on another </p>
+				</li>
+				<li class="li">
+					<p>Action and field control adjustments during data entry</p>
+				</li>
+				<li class="li">
+					<p>Checks during data entry</p>
+				</li>
+				<li class="li">
+					<p>Actions on entered data (without saving or triggering side effects)</p>
+				</li>
+				<li class="li">
+					<p>Calculations and defaulting during data entry</p>
+				</li>
+				<li class="li">
+					<p>Context-dependent value helps (based on currently entered data)</p>
+				</li>
+				<li class="li">
+					<p>Sorting and filtering in editable tables for data entry</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

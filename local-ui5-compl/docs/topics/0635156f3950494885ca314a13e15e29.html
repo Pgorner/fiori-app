@@ -1,0 +1,129 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0635156f3950494885ca314a13e15e29" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/enabling-the-automatic-sap-fiori-2-0-header-adaptation-in-the-manifest-0635156.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling the Automatic SAP Fiori 2.0 Header Adaptation in the Manifest</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling the Automatic SAP Fiori 2.0 Header Adaptation in the Manifest</h2></div><div class="shortdesc">Application developers can enable automatic adaptation of their existing applications
+		from the <code>manifest.json</code> file (also known as descriptor for applications,
+		components and libraries). This helps to easily convert applications to the new
+		look-and-feel of SAP Fiori 2.0. </div><section>
+			<h2 class="title ">SAP Fiori 2.0</h2>
+			<p>SAP Fiori 2.0 is the next evolution step of the SAP Fiori UX. SAP Fiori 2.0 features
+				new themes, a more unified user experience, and smoother, more intuitive application
+				interactions.</p>
+			<p>Application headers, written based on older SAP Fiori design guidelines, can now be easily
+				adapted to the new SAP Fiori 2.0 look-and-feel by using the automatic adaptation
+				mechanism in the manifest. </p>
+		</section><section>
+			<h2 class="title ">The SAP Fiori 2.0 Header</h2>
+			<p>The SAP Fiori 2.0 design concept requires changes with regards to the headers of
+				applications and the SAP Fiori launchpad (FLP). If your application
+				has a header, it needs to be merged into the standardized SAP Fiori 2.0 header. SAPUI5 offers an
+				adapter mechanism to let existing apps automatically adjust their header layout
+				according to the SAP Fiori 2.0 guidelines. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The screenshots in this topic are mockups and are used to visually outline
+						the adaptations. The final apps will look somewhat different. </p>
+				<p></p></div></div><p></p>
+			<div><div class="fig"><img src="loiod78b4f43624842a894908bbcf9c8dd20_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">SAP Fiori 2.0 header of a fullscreen application</h2></span></div>
+			<p>The complete adaptation of a fullscreen app to SAP Fiori 2.0 consists of five main
+				steps:</p>
+			<ol>
+				<li class="li">
+					<p>Remove the app-specific header bar. The header is made transparent and
+						collapsed if there is no content in it after the adaptation. </p>
+				</li>
+				<li class="li">
+					<p>Display the title in the center of the FLP header</p>
+				</li>
+				<li class="li">
+					<p>Move the action buttons from the app header to the header content area below
+						the FLP
+						header.</p>
+				</li>
+				<li class="li">
+					<p>Move the <span class="ph uicontrol">Back</span> button from the app-specific header to
+						the FLP
+						header.</p>
+				</li>
+				<li class="li">
+					<p>Drill-down hierarchy levels can be added to the dropdown menu adjacent to the
+						FLP title. </p>
+				</li>
+			</ol>
+			<p>You can see how the elements are moved and transformed from the old SAP Fiori version
+				(below) to the new SAP Fiori 2.0 design in the screenshot below.</p>
+			<div><div class="fig"><img src="loiofba5d251f36145f285963be29070219a_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">SAP Fiori 2.0 header adaptation</h2></span></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>These adaptations are primarily valid only for <span class="emphasis">fullscreen</span>
+					apps. Other floorplans, like List-Detail, are affected differently and the
+					adaptation there will not be the same. </p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">Enabling the Adaptation in the Manifest</h2>
+			<p>You can override the adapter default behavior for a single application by adding an entry in
+				the manifest in the <code>sap.ui5/config</code> section. Setting
+					<code>sapFiori2Adaptation</code> to <span class="emphasis">true</span> enables the
+				full functionality of the SAP Fiori 2.0 Adapter. </p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"config": {
+            ...
+            "sapFiori2Adaptation": true,
+            ...
+}
+</pre></div></div></section>
+			<p>Alternatively, you can use five fine-grained settings to enable only some of the
+				adaptations. In the following example, you can see how to trigger transparent
+				headers (<code>style</code> attribute) and title propagation to FLP
+					(<code>title</code> attribute). The other adaptations are not applied. </p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"config": {
+            ...
+            "sapFiori2Adaptation": {
+                  "style": true,       
+                  "collapse": false,   
+                  "title": true,       
+                  "back": false,       
+                  "hierarchy": false   
+            },
+            ...
+}
+</pre></div></div></section>
+			<p>In the list below, you can see what each of the settings enables.</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>style</code> - Triggers header transparency</p>
+				</li>
+				<li class="li">
+					<p><code>collapse</code> - Triggers collapsing of the header when empty</p>
+				</li>
+				<li class="li">
+					<p><code>title</code> - Triggers moving the header to FLP</p>
+				</li>
+				<li class="li">
+					<p><code>back</code> - Triggers the <span class="ph uicontrol">Back</span> button
+						visibility in the app</p>
+				</li>
+				<li class="li">
+					<p><code>hierarchy</code> - Triggers propagation of the hierarchy to FLP</p>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In rare cases this automatic adaptation of the header area may not work, due to
+					the application structure or other reasons. In this case the headers will still
+					appear in the old design, but the apps will continue to be usable. </p>
+			<p></p></div></div>
+			<p>Some old SAP Fiori applications do not have a manifest yet. If you consider the effort to
+				provide proper manifests for all applications as too high, there is a second way to
+				do this configuration. This alternative configuration is done in the
+					<code>metadata</code> section of
+					<code><span class="emphasis">Component.js</span></code> (the app's root component),
+				which also has a <code>config</code> section. The configuration options can be
+				done there in the same manner.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If both the metadata and manifest are configured, and contradict each other, the
+					configuration in <span class="emphasis">manifest.json</span> is applied.</p>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,35 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioac5751f89cb142b7a6d53eaf8a0f6339" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/alias-ac5751f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">alias</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">alias</h2></div><div class="shortdesc">The <code>&lt;template:alias&gt;</code> instruction can be used to define a shortcut
+		alias name for a JavaScript value, for example a static helper class, a formatter function,
+		or a helper function.</div><p>The shortcut alias is only available in the scope of the <code>alias</code> instruction.
+			Each nested scope can redefine aliases.</p><p>A proper relative name must be used. This proper name must not contain or consist of a dot. The
+			value to which the alias refers to can be any JavaScript object or property including a
+			function that is available at that point. Exisiting alias names can be used in new alias
+			definitions to refer to values, for example, <code>&lt;template:alias name="format"
+				value="AH.format"&gt;</code>. Aliases are inherited into fragments, but of course a
+			fragment may (re)define its own set of aliases. For compatibility reasons, aliases can
+			also start with a dot, both in definition and in references.</p><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">"alias" Template</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;template:alias name="AH" value="sap.ui.model.odata.AnnotationHelper"&gt;
+  &lt;template:with path="meta&gt;com.sap.vocabularies.UI.v1.Badge" var="badge"&gt;
+    &lt;form:SimpleForm&gt;
+      &lt;form:title&gt;
+        &lt;core:Title text="{path: 'badge&gt;HeadLine', formatter: 'AH.format'}"/&gt;
+      &lt;/form:title&gt;
+      &lt;Label text="{path: 'badge&gt;Title/Label', formatter: 'AH.format'}"/&gt;
+      &lt;Text text="{path: 'badge&gt;Title/Value', formatter: 'AH.format'}"/&gt;
+      &lt;Label text="{path: 'badge&gt;MainInfo/Label', formatter: 'AH.format'}"/&gt;
+      &lt;template:with path="badge&gt;MainInfo" var="field"&gt;
+        &lt;core:Fragment fragmentName="sap.ui.core.sample.ViewTemplate.tiny.Field" type="XML"/&gt;
+      &lt;/template:with&gt;
+      &lt;Label text="{path: 'badge&gt;SecondaryInfo/Label', formatter: 'AH.format'}"/&gt;
+      &lt;template:with path="badge&gt;SecondaryInfo" var="field"&gt;
+        &lt;core:Fragment fragmentName="sap.ui.core.sample.ViewTemplate.tiny.Field" type="XML"/&gt;
+      &lt;/template:with&gt;
+    &lt;/form:SimpleForm&gt;
+  &lt;/template:with&gt;
+&lt;/template:alias&gt;</pre></div></div></section>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

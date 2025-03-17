@@ -1,0 +1,75 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4cfe7eff3001447a9d4b0abeaba95166" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/cache-buster-for-sapui5-application-resources-4cfe7ef.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Cache Buster for SAPUI5
+		Application Resources</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Cache Buster for SAPUI5
+		Application Resources</h2></div><div class="shortdesc">To avoid the need for end users to clean up the browser cache after a software update
+		on the server, you can activate the cache buster for the following:</div><ul class="ul ">
+			<li class="li">
+				<p>SAPUI5 application
+					resources (see <a href="topic/ff7aceda0bd24039beb9bca8e882825d" title="The application cache buster (short AppCacheBuster) is similar to the cache buster but is used for application resources." class="sap-doc">Application Cache Buster</a>)</p>
+			</li>
+			<li class="li">
+				<p>SAPUI5 core resources
+					(see <a href="topic/91f080966f4d1014b6dd926db0e91070" title="A cache buster allows SAPUI5 to notify the browser to refresh the resources only when the SAPUI5 resources have been changed. As long as they are not changed, the resources can always be fetched from the browser's cache." class="sap-doc">Cache Buster for SAPUI5</a>)</p>
+			</li>
+		</ul><p>To activate cache busting on the level of single application resources and cache busting
+			for SAPUI5 core resources,
+			change the script tag with the ID <code>sap-ui-bootstrap</code> in the start page of
+			the underlying SAPUI5 app:</p><ul class="ul ">
+			<li class="li">
+				<p>Change the value of the <code>src</code> attribute pointing to the SAPUI5 core to
+						<code>resources/sap-ui-cachebuster/sap-ui-core.js</code>.</p>
+			</li>
+			<li class="li">
+				<p>Add the attribute <code>data-sap-ui-app-cache-buster="./"</code>.</p>
+			</li>
+		</ul><p>Example (snippet from the sample app <code>/UI5/SIMPLETEST</code>):</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;html&gt;
+  &lt;head&gt;
+    &lt;script src="resources/sap-ui-cachebuster/sap-ui-core.js"
+      id="sap-ui-bootstrap"
+      data-sap-ui-libs="sap.m"
+      data-sap-ui-theme="sap_horizon"
+      data-sap-ui-app-cache-buster="./"&gt;
+    &lt;/script&gt;
+  …
+&lt;/html&gt;</pre></div></div></section><p>For more information, see <a href="topic/94e0c33e22474538a65f5f5b4920cdaf" title="The enhanced concept for application cache buster takes care about most of the URLs in a general way." class="sap-doc">Application Cache Buster: Enhanced Concept</a>.</p><p>Both the ICM server cache on the ABAP front-end server as well as the browser cache are
+			used to optimize the performance of your SAPUI5 app. The cache buster
+			mechanisms ensure that all application and core resources are up to date at any time and
+			are requested only if needed.</p><p><span class="emphasis">Further Technical Information</span></p><ul class="ul ">
+			<li class="li">
+				<p>For proper operation you need to schedule the report
+						<code>/UI5/APP_INDEX_CALCULATE</code> (replacing the report
+						<code>/UI5/UPDATE_CACHEBUSTER</code> used in the user interface add-on
+					1.0 for SAP NetWeaver) periodically. Then the recalculation and caching of meta
+					data for SAPUI5 apps
+					potentially needed after any system and language import for an SAPUI5 app are done
+					automatically in the background.</p>
+			</li>
+			<li class="li">
+				<p>Under typical conditions, for example when using SAPUI5 apps or when
+					developing with the SAPUI5 repository team
+					provider or the SAPUI5
+					repository upload and download reports, the application cache buster and the
+					cache buster of the SAPUI5 core work fully
+					automatically.</p>
+			</li>
+			<li class="li">
+				<p>You can trigger a refresh of the cache buster and application meta data for a
+					specific SAPUI5
+					repository (and the application or component inside) manually by calling the URL
+						<code>&lt;URL to SAPUI5 application or
+						component&gt;/do-update-meta-data</code> in the browser. See SAP Note
+					2187043.</p>
+			</li>
+			<li class="li">
+				<p>In addition to cache busting on the level of a single application resource
+					mentioned above, the cache buster for SAPUI5 application
+					resources supports also cache busting on the level of multiple and all
+					application resources.</p>
+			</li>
+			<li class="li">
+				<p>The cache buster technology is used by SAP Fiori launchpad, and SAP Fiori
+					and High Performance Analytic (HPA) apps.</p>
+			</li>
+			<li class="li">Fore more information, see SAP Notes 2075016 and 2085648.</li>
+		</ul><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

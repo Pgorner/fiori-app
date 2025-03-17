@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
+
+<title>Visual Business - 3D Cylinder Editor</title>
+
+<!-- This is to test 3D Cylinder object, creation/update of all it's properties -->
+
+<script id="sap-ui-bootstrap"
+		data-sap-ui-libs="sap.ui.vbm, sap.ui.unified, sap.m, sap.ui.layout"
+		data-sap-ui-theme="sap_fiori_3"
+		src="../../../../resources/sap-ui-core.js"
+>
+</script>
+
+<script>
+	sap.ui.getCore().attachInit(function() {
+		"use strict";
+
+		sap.ui.require([
+			"sap/m/FlexItemData",
+			"sap/m/HBox",
+			"sap/m/VBox",
+			"sap/ui/vbm/Viewport",
+			"sap/ui/vbm/Adapter3D",
+			"sap/ui/model/json/JSONModel",
+			"sap/m/Button",
+			"sap/m/Input",
+			"sap/m/Select",
+			"sap/m/Label",
+			"sap/m/Page",
+			"sap/m/App",
+			"sap/m/MessageToast"
+		], function(FlexItemData, HBox, VBox, Viewport, Adapter3D, JSONModel, Button, Input, Select, Label, Page, App, MessageToast) {
+
+			var viewport = new Viewport();
+
+			// hack to display VB world axis
+			var helper = new THREE.AxesHelper(5);
+			helper.layers.set(1); // prevent hit test
+			viewport._root.add(helper);
+
+			var adapter3D = new Adapter3D("adapter3d", {viewport: viewport});
+
+			function load(url) {
+				return $.ajax({
+					url: url,
+					dataType: "json",
+					success: function(data, status, xhr) {
+						try {
+							adapter3D.load(JSON.stringify(data));
+						} catch (ex) {
+							alert(ex);
+						}
+					}
+				});
+			}
+
+			function get(id) {
+				return sap.ui.getCore().byId(id);
+			}
+
+			new App().addPage(new Page({
+				title: "Visual Business - 3D Cylinder Editor",
+				enableScrolling: false,
+				content: [
+					new VBox({
+						height: "100%",
+						renderType: sap.m.FlexRendertype.Bare,
+						items: [
+							new HBox({
+								width: "100%",
+								renderType: sap.m.FlexRendertype.Bare,
+								items: [
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Position"}),
+											new Input("position", {
+												width: "100px",
+												type: sap.m.InputType.Text,
+												placeholder: "0;0;0",
+												value: "0;0;0"
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Rotation"}),
+											new Input("rotation", {
+												width: "100px",
+												type: sap.m.InputType.Text,
+												placeholder: "0;0;0",
+												value: "0;0;0"
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Scale"}),
+											new Input("scale", {
+												width: "100px",
+												type: sap.m.InputType.Text,
+												placeholder: "1;1;1",
+												value: "1;1;1"
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Normalize"}),
+											new Select("normalize", {
+												items: {path:'/', template: new sap.ui.core.Item({key: "{key}", text: "{text}"})}
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Open"}),
+											new Select("open", {
+												items: {path:'/', template: new sap.ui.core.Item({key: "{key}", text: "{text}"})}
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "[Texture]"}),
+											new Select("texture", {
+												items: {path:'/', template: new sap.ui.core.Item({key: "{key}", text: "{text}"})}
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "[Texture Cap]"}),
+											new Select("textureCap", {
+												items: {path:'/', template: new sap.ui.core.Item({key: "{key}", text: "{text}"})}
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Color"}),
+											new Input("color", {
+												type: sap.m.InputType.Text,
+												placeholder: "RGBA(127,127,127,255)",
+												value: "RGBA(127,127,127,255)"
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Select Color"}),
+											new Input("selectColor", {
+												type: sap.m.InputType.Text,
+												placeholder: "RGBA(255,100,100,255)",
+												value: "RGBA(255,100,100,255)"
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Hot Color"}),
+											new Input("hotColor", {
+												type: sap.m.InputType.Text,
+												placeholder: "RGBA(100,255,100,255)",
+												value: "RGBA(100,255,100,255)"
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "[Border Color]"}),
+											new Input("borderColor", {
+												type: sap.m.InputType.Text,
+												placeholder: "RGBA(0,0,0,255)",
+												value: "RGBA(0,0,0,255)"
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new VBox({
+										renderType: sap.m.FlexRendertype.Bare,
+										items: [
+											new Label({text: "Selected"}),
+											new Select("selected", {
+												items: {path:'/', template: new sap.ui.core.Item({key: "{key}", text: "{text}"})}
+											})
+										]
+									}).addStyleClass("sapUiTinyMarginBegin")
+								]
+							}).addStyleClass("sapUiTinyMarginTop sapUiTinyMarginBottom"),
+							viewport,
+							new HBox({
+								width: "100%",
+								renderType: sap.m.FlexRendertype.Bare,
+								items: [
+									new Button("create", {
+										text: "Create",
+										enabled: false
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new Button("update", {
+										text: "Update",
+										enabled: false
+									}).addStyleClass("sapUiTinyMarginBegin"),
+									new Button("delete", {
+										text: "Delete",
+										enabled: false
+									}).addStyleClass("sapUiTinyMarginBegin")
+								]
+							}).addStyleClass("sapUiTinyMarginTop sapUiTinyMarginBottom")
+						]
+					})
+				]
+			})).placeAt("body");
+
+			get("normalize").setModel(new JSONModel([
+				{text: "yes", key: "true"},
+				{text: "no", key: "false"}
+			]));
+
+			get("open").setModel(new JSONModel([
+				{text: "no", key: "false"},
+				{text: "yes", key: "true"}
+			]));
+
+			get("texture").setModel(new JSONModel([
+				{text: "<empty>", key: ""},
+				{text: "wood", key: "wood_texture.png"},
+				{text: "barrel body", key: "barrel_body_texture.png"},
+				{text: "cross frame", key: "cross_frame_transparent_2x2.png"}
+			]));
+
+			get("textureCap").setModel(new JSONModel([
+				{text: "<empty>", key: ""},
+				{text: "wood", key: "wood_texture.png"},
+				{text: "barrel end", key: "barrel_end_texture.png"},
+				{text: "wood box", key: "wood_box_texture_2x2.jpg"},
+				{text: "cross frame", key: "cross_frame_transparent_2x2.png"}
+			]));
+
+			get("selected").setModel(new JSONModel([
+				{text: "no", key: "false"},
+				{text: "yes", key: "true"}
+			]));
+
+			load("media/3d/cylinder_editor.json").then(function() {
+				get("create").setEnabled(true);
+			});
+
+			function preparePayload() {
+				var position = get("position").getValue();
+				var rotation = get("rotation").getValue();
+				var scale = get("scale").getValue();
+				var normalize = get("normalize").getSelectedKey();
+				var open = get("open").getSelectedKey();
+				var texture = get("texture").getSelectedKey();
+				var textureCap = get("textureCap").getSelectedKey();
+				var selected = get("selected").getSelectedKey();
+				var color = get("color").getValue();
+				var selectColor = get("selectColor").getValue();
+				var hotColor = get("hotColor").getValue();
+				var borderColor = get("borderColor").getValue();
+
+				if (position !== "" && rotation !== "" && scale !== "" && color !== "" && selectColor !== "" && hotColor !== "") {
+					var payload = {
+						"SAPVB": {
+							"version": "2.0",
+							"xmlns:VB": "VB",
+							"Data": {
+								"Set": [{
+									"name": "Cylinders",
+									"type": "N",
+									"N": {
+										"name": "Cylinders",
+										"E": [
+											{
+												"K": "cylinder",
+												"A": position,
+												"Y": rotation,
+												"S": scale,
+												"M": normalize,
+												"O" : open,
+												"I" : texture,
+												"IC" : textureCap,
+												"C" : color,
+												"SC" : selectColor,
+												"HC" : hotColor,
+												"BC" : borderColor,
+												"VB:s" : selected
+											}
+										]
+									}
+								}]
+							}
+						}
+					};
+					return JSON.stringify(payload, null, 2);
+				}
+				return null;
+			};
+
+			get("create").attachPress(function() {
+				var payload = preparePayload();
+				if (payload) {
+					get("adapter3d").load(payload).then(function() {
+						get("create").setEnabled(false);
+						get("update").setEnabled(true);
+						get("delete").setEnabled(true);
+					}).catch(function() {
+						MessageToast.show("Failed to create Cylinder");
+					});
+				} else {
+					MessageToast.show("Failed to create Cylinder, all parameters must be specified");
+				}
+			});
+
+			get("update").attachPress(function() {
+				var payload = preparePayload();
+				if (payload) {
+					get("adapter3d").load(payload).catch(function() {
+						MessageToast.show("Failed to update Cylinder");
+					});
+				} else {
+					MessageToast.show("Failed to update Cylinder, all parameters must be specified");
+				}
+			});
+
+			get("delete").attachPress(function() {
+				var payload = {
+					"SAPVB": {
+						"version": "2.0",
+						"xmlns:VB": "VB",
+						"Data": {
+							"Remove": {
+								"name": "Cylinders",
+								"type": "E",
+								"N": {
+									"name": "Cylinders",
+									"E": [
+										{"K": "cylinder"}
+									]
+								}
+							}
+						}
+					}
+				};
+				payload = JSON.stringify(payload, null, 2);
+				get("adapter3d").load(payload).then(function() {
+					get("create").setEnabled(true);
+					get("update").setEnabled(false);
+					get("delete").setEnabled(false);
+				}).catch(function() {
+					MessageToast.show("Failed to delete Cylinder");
+				});
+			});
+		});
+	});
+</script>
+</head>
+<body id="body" class="sapUiBody">
+</body>
+</html>

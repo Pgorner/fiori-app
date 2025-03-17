@@ -1,0 +1,81 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f285256f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/json-view-deprecated-91f2852.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">JSON View (deprecated)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">JSON View (deprecated)</h2></div><div class="shortdesc">The JSON view type is defined in a file. The file name has to either end with <code>.view.json</code> or as a JSON string. The file
+		name and the folder structure together specify the name of the view that equals the SAPUI5 module name within the modularization concept.</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+			</p><p> Deprecated as of UI5 version 1.120, replaced by <a href="topic/91f292806f4d1014b6dd926db0e91070" title="The XML view type is defined in an XML file, with a file name ending in .view.xml. The file name and the folder structure together specify the name of the view that equals the SAPUI5 module name." class="sap-doc">XML View</a>.</p>
+		<p></p></div></div><p>For the file <code>resources/sap/hcm/Address.view.json</code>, the view name is <code>sap.hcm.Address</code>. The application uses
+			this view name for displaying an instance of this view. </p><p>The file looks as follows: </p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{ 
+   "Type":"sap.ui.core.mvc.JSONView",
+   "controllerName":"sap.hcm.Address",
+   "content": [{
+      "Type":"sap.m.Image",
+      "id":"MyImage",
+      "src":"http://www.sap.com/global/ui/images/global/sap-logo.png"
+   },
+   {
+      "Type":"sap.m.Button",
+      "id":"MyButton",
+      "text":"Press Me"
+
+   }]
+
+}</pre></div></div></section><p>Nest the JSON objects analogous to the nesting of SAPUI5 controls and add the
+			property values as attributes. The syntax is the same as the syntax of a JSON constructor for any control.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>You can use strings, Boolean values, and null in your JSON view.</p>
+		<p></p></div></div><section id="section_37BCAE29E4604ABBA78979649D54CF04">
+			<h2 class="title ">Aggregation Handling</h2>
+			<p>You add child controls as arrays. This is shown in the example above where an image and a button have been added to the view content
+				aggregation. </p>
+		</section><section>
+			<h2 class="title ">Event Handling</h2>
+			<p>In JSON views, event handlers are bound as attributes with the attribute name as event name like <code>press</code> for a button
+				and the attribute value as event handler name.</p>
+			<p>The following declaration causes <code>controller.doSomething()</code> to be executed when the button is
+				pressed:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+   {
+      "Type":"sap.m.Button",
+      "id":"MyButton",
+      "text":"Press Me",
+      "press":"doSomething"
+   }
+...</pre></div></div></section>
+			<p></p>
+			<p>The location in which an event handler is looked up, are similar to XML views (see <a href="topic/b0fb4de7364f4bcbb053a99aa645affe" title="XML views use event handlers as attributes: The attribute name is the event name, such as &quot;press&quot; for a button, and the attribute value is the event handler name." class="sap-doc">Handling Events in XML Views</a>).</p>
+		</section><section>
+			<h2 class="title ">Data Binding</h2>
+			<p>You can bind data in JSON views. To bind the texts of a control to a language-dependent resource bundle, define the resource bundle via
+				name (<code>resourceBundleName</code> property) or a URL (<code>resourceBundleUrl</code> property) and assign an alias
+					(<code>resourceBundleAlias</code> property) for the bundle within the view definition. The binding path is the same for all
+				other SAPUI5 data bindings.</p>
+			<p>Resource bundle content:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">MY_TEXT=Hello World</pre></div></div></section>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><p>
+					</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{   "Type": "sap.ui.core.JSONView",
+    "controllerName":"my.own.views.test",
+    "resourceBundleName":"myBundle",
+    "resourceBundleAlias":"i18n",
+    "content": [{
+        "Type":"sap.m.Panel",
+        "id":"myPanel",
+        "content":[{
+            "Type":"sap.m.Button",
+            "id":"Button1",
+            "text":"{i18n&gt;MY_TEXT}",
+            "press": "doIt"
+        }]
+    }]
+}
+</pre></div></div></section>
+				<p></p>
+			<p></p></div></div>
+			<p>The <code>ResourceModel</code> for binding this texts is created during view instantiation. The model is set as secondary model
+				with the given alias to the view instance. To bind other properties to another model, create the model in the corresponding controller
+				or HTML page and attach it to the view with another alias.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

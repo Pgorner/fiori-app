@@ -1,0 +1,215 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio152f84f322f34d6f91917f8f1a35833c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/input-history-152f84f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Input History</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Input History</h2></div><div class="shortdesc">SAP Fiori applications using SAPUI5 can store recent history.</div><section id="section_dz5_mf5_w4b">
+			<h2 class="title ">Overview</h2>
+			<p>The <code>SmartFilterBar</code> and the <code>SmartField</code> filter fields
+				can use the <span class="ph uicontrol">Recently Used</span> feature, which is enabled centrally
+				by a parameter in SAP Fiori launchpad.</p>
+			<p>The feature only works in the context of SAP Fiori launchpad, so
+				standalone apps can't benefit from it. The reason is that we use the <code>UI2
+					Personalization</code> service for storing the values of each field. The
+					<code>Personalization</code> service is part of the SAP Fiori
+					launchpad offering and provides us with a standard and secure way of
+				storing data. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The possibility to store recently used values was introduced with version
+						1.78 of SAPUI5, but we recommend using it with the long-term
+						supported version 1.84 when the option to turn this feature on and off was
+						introduced.</p>
+					<p>For more information about how to enable the feature in SAP Fiori
+							launchpad, see <cite>Manage Launchpad Settings</cite> and
+							<cite>User Actions Menu</cite> in the <a href="https://help.sap.com/viewer/4fc8d03390c342da8a60f8ee387bca1a/latest/en-US" title="https://help.sap.com/viewer/4fc8d03390c342da8a60f8ee387bca1a/latest/en-US" class="external-link" target="_blank" rel="noopener">SAP Fiori launchpad</a>
+						documentation.</p>
+				<p></p></div></div><div class="note remember  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Remember
+				</strong></div></div><div class="fig"><p>
+					</p><p>Keep in mind that the feature is not supported by default for all fields, but
+						only for those annotated with the <code>ValueList</code> annotation. If
+						you have fields that contain personal sensitive data, you can use the
+							<code>com.sap.vocabularies.PersonalData.v1.IsPotentiallySensitive</code>
+						annotation to disable the storing of data. At the same time, the behavior of
+						the <span class="ph uicontrol">Recently Used</span> feature doesn't depend on
+						annotations and it doesn't take into consideration the application business
+						logic that might apply to a field. For example, if a user's role has changed
+						and a field contains data that shouldn't be visible to this user anymore,
+						then do not enable history for this field at all. If enabled, this user will
+						still see the stored values. There is a
+						possible
+						workaround on user level only. You can ask the user to delete history or
+						enter 5 random values in order to remove the last 5 stored
+						values.</p>
+				<p></p></div></div><p></p>
+		</section><section id="section_j1h_mr5_w4b"><h2 class="title ">Usage and Technical Specifications</h2><section>
+				<h3 class="title ">When to use</h3>
+				<p>This feature should be used only when necessary, otherwise it could have the
+					reverse effect. </p>
+				<p>Use this feature when: </p><ul class="ul ">
+						<li class="li">
+							<p>The user needs to select one or several values out of a larger number
+								of values.</p>
+						</li>
+						<li class="li">
+							<p>The user regularly uses the application.</p>
+						</li>
+						<li class="li">
+							<p>It is highly probable that the user will select the same values
+								repeatedly.</p>
+						</li>
+					</ul><p></p>
+				<p>Don't use this feature when:</p><ul class="ul ">
+						<li class="li">You have a field with only a few options, for example, true, false and
+							N/A.</li>
+						<li class="li">The user only uses the application from time to time.</li>
+						<li class="li">It is highly probable that the user will select a different value each
+							time.</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title ">User settings</h3>
+				<p>When the recently used values feature is enabled by the SAP Fiori
+						launchpad parameter, you can see the <span class="ph uicontrol">Input History
+						Settings</span> option in the user actions
+					menu.
+					Otherwise, this item is not visible in the menu.</p>
+				<div><div class="fig"><img src="loio0d10b5112dc64fd19b265238d636e03c_HiRes.png" usemap="#"></div></div>
+				<p>When you select <span class="ph uicontrol">Input History Settings</span>, a dialog opens
+					offering the possibility to switch off the recently used values feature. This
+					setting is available on the user level and it's applicable for all applications
+					for this user. There is also the option to delete all stored entries for all
+						SAPUI5 applications running on this SAP Fiori
+						launchpad instance. This doesn't affect the input history of other
+					UI technologies that the applications use.</p>
+				<div><div class="fig"><img src="loio9d7b39fee942481383c40e00f01e7b67_HiRes.png" usemap="#"></div></div>
+			</section><section>
+				<h3 class="title ">How it works</h3>
+				<p>In addition to the SAP Fiori launchpad property that needs to be
+					enabled, we've introduced the <code>historyEnabled</code> property to switch
+					the feature on and off on the <code>SmartField</code> level and on filter
+					field level in the <code>SmartFilterBar</code>. The default value for
+						<code>SmartField</code> and <code>SmartFilterBar</code> filter
+					fields depends on what type of control they're rendered as. Here are the
+					possible options for the <code>SmartField</code>, where true means that
+					you'll get the value history:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_j4f_kl3_lpb" class=" ">
+							
+							
+							<thead>
+								<tr>
+									<th colspan="1" rowspan="1">Control Type</th>
+									<th colspan="1" rowspan="1">Default Value</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="1" rowspan="1"><code>Input</code>
+									</td>
+									<td colspan="1" rowspan="1"><code>true</code></td>
+								</tr>
+								<tr>
+									<td colspan="1" rowspan="1"><code>ComboBox</code></td>
+									<td colspan="1" rowspan="1"><code>false</code></td>
+								</tr>
+							</tbody>
+						</table></div></div>These are the values for the <code>SmartFilterBar</code> filter
+						fields:<div class="tableWrapper "><div class="fig"><table border="1" id="table_dgt_dm3_lpb" class=" ">
+							
+							
+							<thead>
+								<tr>
+									<th colspan="1" rowspan="1">Control Type</th>
+									<th colspan="1" rowspan="1">Default Value</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="1" rowspan="1"><code>MultiInput</code></td>
+									<td colspan="1" rowspan="1"><code>true</code></td>
+								</tr>
+								<tr>
+									<td colspan="1" rowspan="1"><code>MultiComboBox</code></td>
+									<td colspan="1" rowspan="1"><code>false</code></td>
+								</tr>
+							</tbody>
+						</table></div></div>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The default values for <code>ComboBox</code> and
+								<code>MultiComboBox</code> are false because on existing
+							applications fields of these control types might have too few options to
+							select from. In these cases, instead of being helpful, the recently used
+							values feature clutters up your screen.</p>
+					<p></p></div></div><p></p>
+				<p>You can override the <code>historyEnabled</code> property using standard
+					means in the XML view definition.</p>
+				<p>Here is an example of how to disable the feature for the
+						<code>SmartField</code>:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;smartField:SmartField id="idCategory" value="{Category}" historyEnabled="false"&gt;</pre></div></div></section>
+				<p></p></div></div>
+			</section><p>For the <code>SmartFilterBar</code>, the
+					<code>historyEnabled</code> property is in the
+					<code>ControlConfiguration</code> object so that it can control individual
+				fields in <code>SmartFilterBar</code>. Here is an example of how to disable it
+				for <code>SmartFilterBar</code>:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;smartFilterBar:controlConfiguration&gt;
+  &lt;smartFilterBar:ControlConfiguration key="Bukrs" historyEnabled="false" /&gt; 
+&lt;/smartFilterBar:controlConfiguration&gt;</pre></div></div></section>
+				<p></p></div></div><p></p><p>This configuration will switch off history only for the
+				field with the <code>Bukrs</code> ID and the <span class="ph uicontrol">Company Code</span>
+				description. All other filter fields whose default value is <code>on</code> in
+				the <code>SmartFilterBar</code> will have the functionality on.</p><div><div class="fig"><img src="loioff0c24e6b7d54ba18d556ee8eaabfde2_HiRes.png" usemap="#"></div></div><section>
+				<h3 class="title ">How suggestions are visualized</h3>
+				<div><div class="fig"><img src="loio1009ebee5320453ca53d0e25f07929c4_HiRes.png" usemap="#"></div></div>
+				<p>If there have been previously entered values, a dropdown opens up when focusing
+					on the input. On a mobile device, the dropdown opens as a full-screen dialog. If
+					no previous history values are stored, the dropdown will not open. When you
+					start typing, you'll get filtered suggestions and recommendations, if
+					available.</p>
+				<p>Suggested values can be part of several groups. If you have stored recently used
+					values, they appear below the group header title <span class="ph uicontrol">Recently
+						Used</span>. <span class="ph uicontrol">Others</span> shows the rest of the
+					suggested values. If you have recommended values, as in a machine learning
+					scenario, the <span class="ph uicontrol">Recommended</span> values come on top, followed by
+						<span class="ph uicontrol">Recently Used</span> and <span class="ph uicontrol">Others</span>.</p>
+				<p>If a value is already in the <span class="ph uicontrol">Recently Used</span> list, it will
+					not also appear in the <span class="ph uicontrol">Others</span> group. If a value in the
+						<span class="ph uicontrol">Recommended</span> group is part of <span class="ph uicontrol">Recently
+						Used</span> or <span class="ph uicontrol">Others</span>, it is only shown in
+						<span class="ph uicontrol">Recommended</span> to avoid multiple instances of the same
+					value.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The recently used values feature is an input support tool for fast keyboard
+						entry. As such, it's not meant to be part of the
+							<code>ValueHelpDialog</code> result list, but it can be used in the
+						filter fields.</p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Language Settings</h3>
+				<p>As of version 1.85 of SAPUI5, the input value is stored together
+					with the language information and shows only input history for the selected
+					language. For applications using the recently used values feature before this
+					release, all stored values are considered as entered in English and
+					are
+					only seen when English is chosen as application language.</p>
+			</section><section>
+				<h3 class="title ">Restrictions</h3>
+				<ul class="ul ">
+					<li class="li">
+						<p>For <code>ValueList</code> annotations, if there are defined
+								<code>In/Out</code> parameters, they are not taken into account
+							for <code>ComboBox</code> and <code>MultiComboBox</code>.</p>
+					</li>
+					<li class="li">
+						<p>The invoking filtering function on the internal input control is not
+							supported. This is because we use an internal JSON model combining all
+							data sources that need to be displayed in the dropdown. This data model
+							can't be accessed and manipulated from the outside.</p>
+					</li>
+				</ul>
+			</section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

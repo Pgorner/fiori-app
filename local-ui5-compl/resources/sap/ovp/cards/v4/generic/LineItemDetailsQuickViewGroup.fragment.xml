@@ -1,0 +1,117 @@
+<core:FragmentDefinition
+    xmlns="sap.m" 
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:build="sap.build"
+    xmlns:ovp="sap.ovp.ui"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    template:require="{
+        ModelAnnotationhelperV4: 'sap/ui/model/odata/v4/AnnotationHelper',
+        CardAnnotationhelperV4: 'sap/ovp/cards/v4/V4AnnotationHelper'
+	}"
+>
+    <customData>
+        <ovp:CustomData key="aria-label" value="{ovplibResourceBundle>quickViewCard}" writeToDom="true" />
+    </customData>
+    <template:with 
+        path="entityType>@com.sap.vocabularies.UI.v1.HeaderInfo" 
+        var="header">
+        <template:with 
+            path="entityType>@com.sap.vocabularies.UI.v1.Facets" 
+            var="facets">
+            <QuickViewPage
+                core:require="{CardAnnotationhelperV4: 'sap/ovp/cards/v4/V4AnnotationHelper'}"
+                header="{= ${header>TypeNamePlural} ? ${header>TypeNamePlural@@ModelAnnotationhelperV4.format} :  '{ovplibResourceBundle>LineItem_Detail_Text}' }"
+                icon="{= ${header>ImageUrl} ? ${header>ImageUrl@@ModelAnnotationhelperV4.format} : (${header>TypeImageUrl} ? ${header>TypeImageUrl@@ModelAnnotationhelperV4.format} : '') }"
+                title="{= ${header>Title/Value} ? ${path: 'header>Title/Value@@ModelAnnotationhelperV4.format'} :  '' }"
+                description="{= ${header>Description/Value} ? ${header>Description/Value@@ModelAnnotationhelperV4.format} :  '' }">
+                <template:repeat 
+                    list="{path:'facets>'}" 
+                    var="referenceFacet">
+                    <template:if test="{referenceFacet>com.sap.vocabularies.UI.v1.IsSummary}">
+                        <template:with 
+                            path="referenceFacet>Target/$AnnotationPath"
+                            helper="ModelAnnotationhelperV4.resolve$Path"
+                            var="target">
+                            <QuickViewGroup heading="{target>Label@@ModelAnnotationhelperV4.format}">
+                                <template:repeat 
+                                    list="{path:'target>Data'}" 
+                                    var="dataField">
+                                    <template:if test="{dataField>Url}">
+                                        <template:then>
+                                            <template:if test="{dataField>Url/UrlRef}">
+                                                <template:then>
+                                                    <QuickViewGroupElement
+                                                        label="{dataField>Label@@ModelAnnotationhelperV4.format}"
+                                                        value="{dataField>Value@@ModelAnnotationhelperV4.format}"
+                                                        url="{dataField>Url/UrlRef@@ModelAnnotationhelperV4.format}"
+                                                        type="link">
+                                                    </QuickViewGroupElement>
+                                                </template:then>
+                                                <template:else>
+                                                    <QuickViewGroupElement
+                                                        label="{dataField>Label@@ModelAnnotationhelperV4.format}"
+                                                        value="{dataField>Value@@ModelAnnotationhelperV4.format}"
+                                                        url="{dataField>Url@@ModelAnnotationhelperV4.format}"
+                                                        type="link">
+                                                    </QuickViewGroupElement>
+                                                </template:else>
+                                            </template:if>
+                                        </template:then>
+                                        <template:else>
+                                            <template:if test="{dataField>Value}">
+                                                <template:with 
+                                                    path="dataField>Value/$AnnotationPath"
+                                                    helper="ModelAnnotationhelperV4.resolve$Path"
+                                                    var="fValue">
+                                                    <template:if test="{= ${fValue>sap:semantics} === 'url'}">
+                                                        <template:then>
+                                                            <QuickViewGroupElement
+                                                                label="{dataField>Label@@ModelAnnotationhelperV4.format}"
+                                                                value="{dataField>Value@@ModelAnnotationhelperV4.format}"
+                                                                url="{dataField>Value@@ModelAnnotationhelperV4.format}"
+                                                                type="url">
+                                                            </QuickViewGroupElement>
+                                                        </template:then>
+                                                        <template:else>
+                                                            <template:if test="{= ${fValue>sap:semantics} === 'email'}">
+                                                                <template:then>
+                                                                    <QuickViewGroupElement
+                                                                        label="{dataField>Label@@ModelAnnotationhelperV4.format}"
+                                                                        value="{dataField>Value@@ModelAnnotationhelperV4.format}"
+                                                                        type="email">
+                                                                    </QuickViewGroupElement>
+                                                                </template:then>
+                                                                <template:else>
+                                                                    <template:if test="{= ${fValue>sap:semantics} === 'tel'}">
+                                                                        <template:then>
+                                                                            <QuickViewGroupElement
+                                                                                label="{dataFie\ld>Label@@ModelAnnotationhelperV4.format}"
+                                                                                value="{dataField>Value@@ModelAnnotationhelperV4.format}"
+                                                                                type="phone">
+                                                                            </QuickViewGroupElement>
+                                                                        </template:then>
+                                                                        <template:else>
+                                                                            <QuickViewGroupElement
+                                                                                label="{dataField>Label@@ModelAnnotationhelperV4.format}"
+                                                                                value="{path: 'dataField>', formatter: 'CardAnnotationhelperV4.formatField'}">
+                                                                            </QuickViewGroupElement>
+                                                                        </template:else>
+                                                                    </template:if>
+                                                                </template:else>
+                                                            </template:if>
+                                                        </template:else>
+                                                    </template:if>
+                                                </template:with>
+                                            </template:if>
+                                        </template:else>
+                                    </template:if>
+                                </template:repeat>
+                            </QuickViewGroup>
+                        </template:with>
+                    </template:if>
+                </template:repeat>
+            </QuickViewPage>
+        </template:with>
+    </template:with>
+</core:FragmentDefinition>

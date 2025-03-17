@@ -1,0 +1,125 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio1dd2aa91115d43409452a271d11be95b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/sap-ui-mdc-1dd2aa9.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">sap.ui.mdc</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">sap.ui.mdc</h2></div><div class="shortdesc">The <code>sap.ui.mdc</code> library contains composite, metadata-driven controls
+		that assemble UI elements with predefined user experience and various functionalities. The
+		controls can be used as a basis for scalable application development and can be implemented
+		for use with any SAPUI5 model
+		and data protocol. </div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>For SAPUI5 applications for
+				OData V4, SAP Fiori elements provides a flexible programming model
+				based on the <code>sap.ui.mdc</code> library. It offers building blocks that can
+				be used without additional integration effort. For more information, see <a href="topic/24c1304739dd4f19af0ce2482c4d9bbe" title="SAP Fiori elements provides you with building blocks that allow you to create a visual representation of your data in a convenient way." class="sap-doc">Building Blocks</a>.
+			</p>
+		<p></p></div></div><p>
+			</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The following sections only provide additional information for some of the controls. For a
+					complete list of all controls and their documentation, see the <a href="api" title="api" class="sap-doc" alt="api">API Reference</a> and the <a href="controls" title="controls" class="sap-doc" alt="controls">Samples</a>.
+					</p>
+			<p></p></div></div>
+		<p></p><p>For more
+				information about this control, see the <a href="api/sap.ui.mdc" title="api/sap.ui.mdc" class="sap-doc" alt="api/sap.ui.mdc">API Reference</a> and the <a href="entity/sap.ui.mdc" title="entity/sap.ui.mdc" class="sap-doc" alt="entity/sap.ui.mdc">samples</a>.</p><p>For more information, see also the <a href="https://github.com/SAP-samples/ui5-mdc-json-tutorial" title="https://github.com/SAP-samples/ui5-mdc-json-tutorial" class="external-link" target="_blank" rel="noopener">SAPUI5 MDC
+				Tutorial</a>.</p><section id="section_y3w_kvf_qxb">
+			<h2 class="title ">Overview</h2>
+			<section>
+				<h3 class="title ">Smart Composite Controls</h3>
+				<p>The <code>sap.ui.mdc</code> applications for library aims at providing a predefined user
+					experience through metadata-driven UI controls. The generic behavior of those
+					controls is decoupled from the application- or protocol-specific requirements to
+					ensure a flexible usage of those controls independent of the back-end
+					technology. The
+					well-known
+						SAPUI5 key
+					features and development concepts are supported out of the
+					box.</p>
+			</section>
+			<section>
+				<h3 class="title ">Extensibility of APIs</h3>
+				<p>The controls can be extended by implementable delegates and well-defined APIs for metadata in
+					a unified format. They facilitate XML pre-processing and include as much network
+					request-dependent information in the XML view cache as possible to speed up the
+					application startup. </p>
+			</section>
+			<section>
+				
+				<h3 class="title ">Adaptation via
+						SAPUI5
+					Flexibility</h3>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>SAPUI5 flexibility
+						features, such as end user personalization and key user adaptation, only
+						work when using SAPUI5 applications
+						hosted on SAP BTP, SAP S/4HANA, or ABAP platform. For more information, see
+							<a href="https://help.sap.com/docs/UI5_FLEXIBILITY/430e2c1a4ff241bc8162df4bf51e0730/41ada93054994698ab9067855bb85fe1.html" title="https://help.sap.com/docs/UI5_FLEXIBILITY/430e2c1a4ff241bc8162df4bf51e0730/41ada93054994698ab9067855bb85fe1.html" class="external-link" target="_blank" rel="noopener">Features and Availability</a>.</p>
+				<p></p></div></div>
+				<p>The controls offer integrated end user personalization and key user adaptation
+					and support private, shared, and key user variants. A seamless integration with
+					the <code>sap.ui.fl</code> library is built into the
+						<code>sap.ui.mdc</code> controls, which enables the previously mentioned
+					features while improving application performance at the same time.</p>
+			</section>
+		</section><section id="section_hg5_2dm_qxb">
+			<h2 class="title ">Architecture</h2>
+			<section>
+				<h3 class="title ">Controls and Delegates</h3>
+				<p>Each <code>sap.ui.mdc</code> control consists of a central control part and a
+					delegate that implements the non-generic parts, such as protocol- and model- or
+					application-specific requirements. The implemented delegate encapsulates network
+					requests and the retrieval of cacheable information. </p>
+				<p>Controls and delegates can be extended from the base classes by the
+					developers
+					leveraging the predefined default behavior. Only in combination with a delegate
+					does a control offer all the advantages outlined initially.</p>
+				<p>The following graphic illustrates this behavior: </p>
+				<div><div class="fig"><img src="loio175859c197a7491d91ab81c09b3104d1_LowRes.png" title="Each control is used in combination with a delegate. Controls and their related delegates form a unit that can then be used as described and together with other controls and their respective delegates." alt="Each control is used in combination with a delegate. Controls and their related delegates form a unit that can then be used as described and together with other controls and their respective delegates." usemap="#"></div></div>
+			</section>
+			<section>
+				<h3 class="title ">Metadata APIs</h3>
+				<p>As <code>sap.ui.mdc</code> controls are supposed to work metadata-driven,
+					service-specific metadata is translated into <code>propertyInfo</code>
+					objects. They can include basic information, such as a label for a
+						<code>Field</code> control, but also more intricate information, such as
+					the information if a table column supports sorting. The
+						<code>propertyInfo</code> objects are provided
+					by
+					the application via the delegate but can also be provided at XML view level to
+					be cached and hence speed up the initial rendering.</p>
+				<p>The following graphic illustrates this behavior:</p>
+				<div><div class="fig"><img src="loioa36e1106565d48c08b10fafca377f66a_LowRes.png" title="The control fetches data from the delegate and retrieves this metadata from a related PropertyInfo object via the delegate. " alt="The control fetches data from the delegate and retrieves this metadata from a related PropertyInfo object via the delegate. " usemap="#"></div></div>
+			</section>
+			<section>
+				<h3 class="title ">
+					SAPUI5 Flexibility
+					Integration</h3>
+				<p>For the integration of SAPUI5
+					flexibility and its features, the delegates offer specific and
+					easy-to-adopt
+					APIs that enable personalization changes, such as adding items to aggregations
+					or removing them, for example, from table columns, as well as applying filtering
+					or sorting. </p>
+				<p>The integration of SAPUI5 flexibility is taken over by the <code>sap.m.p13n.Engine</code>. It can
+					also be used stand-alone to enable personalization including persistency of any
+						SAPUI5
+					control.</p>
+				<p>The following graphic shows the personalization process: </p>
+				<div><div class="fig"><img src="loio82a3a3262e9c42c59b0a3ac1e15f73e5_LowRes.png" title="The controls and their delegates work together with the " alt="The controls and their delegates work together with the " usemap="#"></div></div>
+			</section>
+			<section>
+				<h3 class="title ">Built-in Performance Advantages</h3>
+				<p>The application startup time benefits from the metadata APIs and the SAPUI5 flexibility
+					integration. The XML view cache can store the results of the delegate's metadata
+					processing and the subsequent modification of the XML view by SAPUI5 flexibility change
+					handlers. This behavior should result in a significantly improved performance
+					and fewer requests to the back end, which makes applications cost-efficient.</p>
+				<p>The following graphic illustrates this behavior:</p>
+				<div><div class="fig"><img src="loio7a21af4655af428f8791f31a98c89513_LowRes.png" title="Based on the cache check in the XML view, the delegate fetches the metadata. After that, the XML view is modified by SAPUI5 flexibility, which results in the creation of a control using the cached scenario." alt="Based on the cache check in the XML view, the delegate fetches the metadata. After that, the XML view is modified by SAPUI5 flexibility, which results in the creation of a control using the cached scenario." usemap="#"></div></div>
+			</section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/363cd16eba1f45babe3f661f321a7820" title="SAPUI5 provides a set of JavaScript and CSS libraries, which can be combined in an application using the combinations that are supported." class="sap-doc">Supported Library Combinations</a></li>
+		<li><a href="topic/74b59efa0eef48988d3b716bd0ecc933" title="Here you can find information on the browser and platform support for the SAPUI5 libraries on iOS, Android, macOS, and Windows platforms." class="sap-doc">Browser and Platform Support</a></li>
+	</ul></section></div></section></div></body></html>

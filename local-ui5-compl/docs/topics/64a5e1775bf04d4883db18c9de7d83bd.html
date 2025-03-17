@@ -1,0 +1,220 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio64a5e1775bf04d4883db18c9de7d83bd" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/aggregation-forwarding-64a5e17.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Aggregation Forwarding</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Aggregation Forwarding</h2></div><div class="shortdesc">A mechanism used for aggregations of composite controls.</div><section id="section_kyq_3m5_scb">
+			<h2 class="title ">Overview</h2>
+			<p>Aggregration forwarding is used when application developers
+				want
+				to add child controls
+				to
+				an aggregation of a composite control, but the composite control does not keep these
+				controls as direct children. Instead, it moves or forwards them to an aggregation of
+				one of its internal controls. </p>
+			<p>This technique is often used when a control with an aggregation is wrapped by a composite
+				control to add functionality, but the application
+				still
+				has control over the content of the
+				wrapped
+				control.
+				In
+				other cases, the composite control uses layout controls
+				internally
+				to define the placement of aggregated children.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>While aggregation forwarding as described here is mainly aimed at composite
+					controls, it has also been implemented for the <code>ManagedObject</code>
+					base class. The forwarding can also be used for other entities which are not
+					controls, but inherit directly from <code>ManagedObject</code> or one of its
+					subclasses.</p>For more
+						information about this class, see the <a href="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend" title="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend">API Reference:
+							<code>ManagedObject</code></a>.
+				
+			<p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Sometimes the controls that have been added to an aggregation of a composite control have
+				to be transformed into different controls, which are then added to an aggregation of
+				an internal control. This is a different use case and not covered by aggregation
+				forwarding. With aggregation forwarding, aggregated child controls are moved
+					<span class="emphasis">without</span> transforming them.</p></div></div>
+		</section><section id="section_vlk_km5_scb">
+			<h2 class="title ">Configuration</h2>
+			<p>Aggregation forwarding requires a simple additional setting in the definition of a
+				control aggregation. SAPUI5 needs to know to
+				which internal control all aggregated children need to be forwarded and to which
+				aggregation of this internal control.</p>
+			<p>Aggregation forwarding is defined in the aggregation definition inside the control
+				metadata.</p>
+			<p>The <code>forwarding</code> property can be set as an object defining the following:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>getter</code> or <code>idSuffix</code>: A way how SAPUI5
+						determines the internal control instance to which the aggregation is
+						forwarded at runtime, which is what you could call the target control. This
+						can either be done by specifying the <code>getter</code>, the name of a
+						function of the composite control which always returns the target control
+						instance, or the <code>idSuffix</code>, a string which is appended to
+						the ID of the composite control to construct the ID of the target
+						control.</p>
+				</li>
+				<li class="li">
+					<p><code>aggregation</code>: The name of the aggregation of the target
+						control to which this aggregation is forwarded</p>
+				</li>
+				<li class="li">
+					<p><code>forwardBinding</code>
+						(optional): Determines whether any binding is done
+						at
+						the target control or only at the outer composite
+						control.
+						This can be crucial if the forwarding target control has functionality that
+						requires the aggregation to be bound. </p>
+				</li>
+			</ul>
+			<p>When such a forwarding definition is done, SAPUI5 moves all
+				aggregated child controls to the target control. All calls to
+					<code>addAggregation</code>, <code>removeAggregation</code>,
+					<code>indexOfAggregation</code> and so on are forwarded. When asked for the
+				forwarded child control, both the composite control and the forwarding target act
+				like the child control belongs to their aggregation. However, the inner forwarding
+				target control is the actual parent of all forwarded children.</p>
+		</section><section id="section_pmd_qm5_scb">
+			<h2 class="title ">Examples</h2>
+			<p>Here is an example that demonstrates aggregation forwarding: The new
+					<code>FilterableList</code> control is supposed to display a list of items
+				with an input field above the list. The list items are filtered while the
+				user
+				is entering the input. This <code>FilterableList</code>
+				control can be implemented as a composite control, using the
+					<code>sap.m.List</code> and <code>sap.m.Input</code> controls as inner
+				controls to take advantage of their existing implementation, design, and set of
+				features. Application developers using <code>FilterableList</code>
+				cannot
+				change all
+				attributesof
+				the inner <code>List</code> control. However, they should be able to provide the
+				actual list items. Hence, the new <code>FilterableList</code> composite control
+				has an <code>items</code> aggregation and forwards all items to the inner
+					<code>sap.m.List</code> control, so, for example, the layouting, events, and
+				selection can be handled
+				there.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">aggregations: {
+	 // The items forwarded from the FilterableList to the internal sap.m.List
+	 items : {type: "sap.m.ListItemBase", multiple: true, forwarding: {
+		   idSuffix: "-myInternalList",
+		   aggregation: "items"
+	 }},
+</pre></div></div></section>
+			<p>Another example would be a new <code>ButtonList</code> control that is supposed
+				to contain and display an arbitrary number of <code>sap.m.Button</code> controls
+				in a grid. Hence it has a <code>buttons</code> aggregation. For this control,
+				control-specific HTML could be written that provides screen-size-dependent CSS for a
+				proper grid layout of the buttons. However, this effort can be avoided, and a
+					<code>sap.ui.layout.Grid</code> control used internally instead to do the
+				layouting. The buttons given to the <code>ButtonList</code> control then need to
+				be forwarded to the <code>content</code> aggregation of the
+					<code>Grid</code> control.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">aggregations: {
+	 // The items forwarded from the ButtonList to the internal sap.ui.layout.Grid
+	 buttons: {type: "sap.m.Button", multiple: true, forwarding: {
+		   getter: "_getInternalGrid",
+		   aggregation: "content"
+	 }},</pre></div></div></section>
+		</section><section id="section_fbk_l3q_ddb">
+			<h2 class="title ">Aggregation Forwarding in XML Composite Controls (Deprecated)</h2>
+			<p>If you use aggregation forwarding with <code>idSuffix</code> for an XML composite control
+				(deprecated), you define this as follows:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/XMLComposite"], 
+    function( XMLComposite ) {
+    "use strict";
+    var TextList = XMLComposite.extend("fragments.TextList", {
+        metadata: {
+            aggregations: {
+                texts: { 
+                    type: "sap.ui.core.Item",
+                    multiple: true, forwarding: {
+                           idSuffix: "<span class="emphasis">--</span>myInternalVBox",
+                           aggregation: "items"
+                     }
+                }
+            }
+        }
+    })
+    return TextList;
+});</pre></div></div></section>
+			<p>In this case, the fragment definition XML file looks like this:</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition xmlns:m="sap.m" xmlns:core="sap.ui.core"&gt;
+    &lt;m:VBox id="myInternalVBox"/&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p><code>myInternalVBox</code> is prefixed with <code>--</code>. Other than that, the coding looks exactly the same as the one
+				for aggregation forwarding for standard composite controls.</p></div></div>
+		</section><section id="section_b14_ym5_scb">
+			<h2 class="title ">Dos and Don'ts</h2>
+			<p>If you use aggregation forwarding, you have to keep the following in mind:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Do not call any methods (such as <code>add</code>,
+							<code>insert</code>, <code>remove</code> , or
+							<code>destroy</code>) that modify the aggregation in the forwarding
+						target, but call them in the control that defines the forwarding. </p>
+					<p>For example, if you create something like a <code>CustomList</code>
+						control that uses forwarding for its <code>items</code> aggregation to
+						an internal <code>List</code> control, do not call
+							<code>this._internalList.destroyItems()</code>, but call
+							<code>this.destroyItems()</code>.</p>
+				</li>
+				<li class="li">
+					<p>Aggregations can only be forwarded to non-hidden aggregations of the same or a greater
+						multiplicity (single-to-single, single-to-multi, multi-to-multi).</p>
+				</li>
+				<li class="li">
+					<p>The target aggregation and the source aggregation have to be compatible: Any child elements
+						given
+						to the source aggregation must be valid in the target
+						aggregation as well (otherwise the target element will throw a validation
+						error).</p>
+				</li>
+				<li class="li">
+					<p>The aggregation target control for a particular instance of a composite control must stay
+						the same across the entire
+						lifecycle
+						of the composite control.</p>
+				</li>
+				<li class="li">
+					<p>If the content in the target aggregation is modified by other
+						entities
+						or actions, such as the target control itself or another
+						forwarding from a different source aggregation, this
+						will
+						lead to an unexpected behavior of the aggregation forwarding. Hence, these
+						modifications are not allowed.</p>
+				</li>
+				<li class="li">
+					<p>Forwarded child controls always have the same models that were also available at their
+						original location <span class="emphasis">before</span> the forwarding. They will not
+						use any
+						models
+						that are only set for the inner control to which they are forwarded. This
+						way, models set by an application will not be overridden.</p>
+					<p>Also, this is in accordance with what application developers would expect
+						regarding the models set for the child control: Any bindings they define
+						should work regardless of how aggregation forwarding is used within the
+						controls.</p>
+				</li>
+				<li class="li">
+					<p>Never clone children in public aggregations even if the aggregation is
+						forwarded to an inner control. They are cloned automatically by the
+						framework.</p>
+					<p>Also, do not clone inner controls created by your composite control, for
+						example, inside the <code>init()</code> method: If your control is
+						cloned, the <code>init()</code> method of the clone is called, and the
+						inner control is created
+						as
+						well.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

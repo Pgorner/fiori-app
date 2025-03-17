@@ -1,0 +1,31 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns:sf="sap.ui.comp.smartfield"
+	xmlns:form="sap.ui.comp.smartform"
+	xmlns:m="sap.m" height="100%" controllerName="sap.ui.comp.sample.smartfield.ExtendedODataType.Main">
+	<m:ScrollContainer id="SC1" height="100%" horizontal="false" vertical="true">
+		<form:SmartForm id="SF1" class="editableForm" editTogglable="true" editable="true" title="{Title}" binding="{/Items('1239102')}">
+			<form:layout>
+				<form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+			</form:layout>
+			<form:Group id="G1" title="{Subtitle}">
+				<form:GroupElement id="GE-String">
+					<sf:SmartField id="idString" value="{String}" placeholder="{StringPlaceholder}"/>
+				</form:GroupElement>
+				<form:GroupElement id="GE-StringExtended">
+
+					<sf:SmartField id="idStringExtended"
+						value='{
+								path: "StringExtended",
+								type: "sap.ui.comp.sample.smartfield.ExtendedODataType.StringExtended"
+						}'
+						placeholder="{StringExtendedPlaceholder}"
+						/>
+
+				</form:GroupElement>
+				<form:GroupElement id="GE-Description">
+					<m:Text id="idDescription" text="{Description}"/>
+				</form:GroupElement>
+			</form:Group>
+		</form:SmartForm>
+	</m:ScrollContainer>
+</mvc:View>

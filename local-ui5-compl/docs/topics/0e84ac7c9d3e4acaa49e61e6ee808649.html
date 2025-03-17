@@ -1,0 +1,214 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0e84ac7c9d3e4acaa49e61e6ee808649" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/prerequisites-0e84ac7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Prerequisites</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Prerequisites</h2></div><div class="shortdesc">Preparation steps for the <span class="ph uicontrol">Smart Controls</span> tutorial </div><p>You have already gone through the following tutorials:</p><ul class="ul ">
+				<li class="li">
+					<p><a href="topic/3da5f4be63264db99f2e5b04c5e853db" title="In this tutorial we will introduce you to all major development paradigms of SAPUI5." class="sap-doc">Walkthrough Tutorial (JavaScript)</a></p>
+				</li>
+				<li class="li">
+					<p><a href="topic/e5310932a71f42daa41f3a6143efca9c" title="In this tutorial, we explain the concepts of data binding in SAPUI5." class="sap-doc">Data Binding Tutorial</a></p>
+				</li>
+			</ul><p></p><p>In addition, you need some background knowledge about OData and annotations that you can
+			find here: <a href="http://www.sap.com/protocols/SAPData" title="http://www.sap.com/protocols/SAPData" class="external-link" target="_blank" rel="noopener">http://www.sap.com/protocols/SAPData</a>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The smart controls require a default OData model, and named models are not
+			supported.</p></div></div><section id="section_p4v_21b_mzb"><h2 class="title ">File Structure</h2><p> For each step we will create the following files:</p><img src="loio8d57ac022a4348e18f38e5c19c42413a_LowRes.png" usemap="#"><p>In some steps, additional files are needed. They will be
+				explained in those steps. Since many of these files are almost identical from step to step, we show their content here but only
+				briefly point to interesting points in these files if necessary. Please refer to the <span class="ph uicontrol">Walkthrough</span> tutorial for
+				further details on the general setup and the content of the outer <code>Component.js</code> file (the top-level file on the same
+				level as the webapp folder) in which we define that the <code>index.html</code> will be shown in an iFrame.</p></section><section id="section_lv5_lvy_zbc">
+			<h2 class="title ">Setup</h2>
+			<p>Open a terminal and install UI5 Tooling globally on your machine by executing the following command:</p>
+			<p><code>npm install --global @ui5/cli</code></p>
+		</section><section id="section_jwr_b1b_mzb">
+			<h2 class="title ">Coding</h2>
+			<p>
+				</p><ol>
+					<li class="li">Create a folder on your local machine which will contain all the sources of the app we're going to build. We'll refer to this
+						folder as the "app root folder".</li>
+					<li class="li">
+						<p>Create a new file called <code>package.json</code> which will enable you to execute commands and consume packages from
+								the<a href="https://www.npmjs.com/" title="https://www.npmjs.com/" class="external-link" target="_blank" rel="noopener"> npm registry</a> via the npm command line
+							interface. Enter the following content:</p>
+						<p><span class="emphasis">package.json (New)</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">{
+  "name": "ui5.smartcontrols",
+  "version": "1.0.0",
+  "description": "The smart controls tutorial",
+  "scripts": {
+      "start": "ui5 serve -o index.html"
+  }
+}</span>
+</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Create a new folder named <code>webapp</code> in the app root folder. It will contain all the sources that become
+							available in the browser later. We'll refer to this folder as the "webapp folder".</p>
+					</li>
+					<li class="li">
+						<p>Create a new HTML file named <code>index.html</code> in your webapp folder and enter the following content:</p>
+						<p><span class="emphasis">webapp/index.html (New)</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+	&lt;title&gt;Smart Controls Tutorial&lt;/title&gt;
+
+	&lt;script id="sap-ui-bootstrap"
+		src="resources/sap-ui-core.js"
+		data-sap-ui-resource-roots='{
+			"sap.ui.demo.smartControls": "./"
+		}'
+		data-sap-ui-on-init="module:sap/ui/demo/smartControls/initMockServer"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-async="true"
+		data-sap-ui-frame-options="trusted"&gt;
+	&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body class="sapUiBody"&gt;
+	&lt;div data-sap-ui-component data-name="sap.ui.demo.smartControls" data-id="container" data-settings='{"id" : "smartControls"}'&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>In this <code>index.html</code>, you will recognize that we reference the library <code>sap.ui.comp</code>, since
+							this is the <b>main library</b> for the smart controls. This <code>index.html</code> file references the
+								<code>Component.js</code> (through the name: "sap.ui.demo.smartControls") which always looks like this: </p>
+						<p><span class="emphasis">webapp/Component.js (New)</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/UIComponent"
+], function(UIComponent) {
+	"use strict";
+
+	return UIComponent.extend("sap.ui.demo.smartControls.Component", {
+		metadata: {
+			manifest: "json"
+		}
+	});
+});
+</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>In the <code>Component.js</code> file, we refer to the <code>manifest.json</code> file:</p>
+						<p><span class="emphasis">webapp/manifest.json (New)</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  "_version": "1.8.0",
+  "sap.app": {
+	"id": "sap.ui.demo.smartControls",
+	"type": "application",
+	"title": "SAPUI5 Smart Controls",
+	"description": "A simple app that explains the most important concepts of smart controls in SAPUI5",
+	"applicationVersion": {
+		"version": "1.0.0"
+	},
+	"dataSources": {
+	  "mainService": {
+		"uri": "/here/goes/your/serviceUrl/",
+		"type": "OData",
+		"settings": {
+		  "odataVersion": "2.0",
+		  "localUri": "localService/metadata.xml"
+		}
+	  }
+	}
+  },
+  "sap.ui": {
+	"technology": "UI5"
+  },
+  "sap.ui5": {
+	"rootView": {
+		"viewName": "sap.ui.demo.smartControls.SmartField",
+		"type": "XML",
+		"async": true
+	},
+	"dependencies": {
+	  "minUI5Version": "1.30",
+	  "libs": {
+	    "sap.m": {},
+	    "sap.ui.comp": {},
+	    "sap.ui.layout": {}
+	  }
+	},
+	"models": {
+	   "": {
+		"dataSource": "mainService",
+		"settings": {
+			"defaultBindingMode": "TwoWay"
+		}
+	  }
+	}
+  }
+}</pre></div></div></section><p></p>
+						<p>In the <code>manifest.json</code> file we define the <code>rootView</code> and also the model of the application.
+							Please note that the <code>TwoWay</code> binding mode ensures that an input validation is done automatically based on
+							the metadata.</p>
+					</li>
+					<li class="li">Create a new file called <code>mockserver.js</code> where we define a mock server handling the server
+								requests.<p><span class="emphasis">webapp/localService/mockserver.js
+							(New)</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/util/MockServer"
+], function(MockServer) {
+	"use strict";
+
+	return {
+		init: function() {
+			// mock the service call from manifest.json
+			var oMockServer = new MockServer({
+				rootUri: "/sap/opu/odata/sap/EPM_REF_APPS_PROD_MAN_SRV/"
+			});
+
+			// configure
+			MockServer.config({
+				autoRespond: true,
+				autoRespondAfter: 500
+			});
+
+			// simulate
+			var sPath = sap.ui.require.toUrl("sap/ui/demo/smartControls/localService");
+			oMockServer.simulate(sPath + "/metadata.xml", {
+				sMockdataBaseUrl: sPath + "/mockdata",
+				bGenerateMissingMockData: true
+			});
+
+			// start
+			oMockServer.start();
+		}
+	};
+});</pre></div></div></section><p></p></li>
+					<li class="li">The last file that we wish to list here is the <code>initMockServer.js</code>. In this file we require the
+							<code>mockserver.js</code> module and start the mock server.<p><span class="emphasis">webapp/initMockServer.js
+							(New)</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/smartControls/localService/mockserver"
+], function (mockserver) {
+	"use strict";
+
+	// initialize the mock server
+	mockserver.init();
+
+	// initialize the embedded component on the HTML page
+	sap.ui.require(["sap/ui/core/ComponentSupport"]);
+});</pre></div></div></section><p></p></li>
+					<li class="li">
+						<p>Open a terminal in the app root folder and execute <code>npm i -D @ui5/cli</code> to install UI5 Tooling.</p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 init</code> in the app root folder.</p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 use SAPUI5</code></p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 add sap.m sap.ui.core sap.ui.comp sap.ui.layout themelib_sap_horizon</code></p>
+					</li>
+					<li class="li">
+						<p>Execute <code>npm start</code> to start the web server and to open a new browser window hosting your newly created
+								<code>index.html</code>.</p>
+					</li>
+				</ol>
+			<p></p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>You might notice the rather flat setup of the files that is different from the setup propagated in the
+						<span class="ph uicontrol">Walkthrough</span> tutorial where the <code>Model-View-Controller</code> paradigm is reflected in the
+					folder structure. We have chosen the flat setup for this tutorial since our examples all have exactly <b>one</b> single file for
+					the view and <b>one</b> single file for the controller. Additional folders would add a complexity that we would like to avoid.</p>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/64bde9a8879d4f418e2849f7285dd757">Smart Controls Tutorial</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/ed8fda66cd3b406cbd22f6019188ce82">Step 1: Smart Field</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

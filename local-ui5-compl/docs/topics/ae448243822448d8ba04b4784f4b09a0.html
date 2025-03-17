@@ -1,0 +1,176 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioae448243822448d8ba04b4784f4b09a0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/test-automation-ae44824.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Test Automation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Test Automation</h2></div><div class="shortdesc">To make sure that the code is always tested thoroughly before it is included in a
+		productive app, you should use a test runner that automates tests. The test runner can be
+		included in your project setup so that it is called whenever code changes are
+		submitted.</div><p>In the following section, we describe the setup with <span class="ph uicontrol">Karma</span>, but you can
+			of course choose a different solution.</p><p><span class="ph uicontrol">Karma</span> uses plugins to add support for various framworks. For SAPUI5, you can use the
+				<code>karma-ui5</code> plugin that helps with testing SAPUI5 projects.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="https://karma-runner.github.io/" title="https://karma-runner.github.io/" class="external-link" target="_blank" rel="noopener">Karma Home Page</a></li>
+		<li><a href="https://github.com/SAP/karma-openui5/" title="https://github.com/SAP/karma-openui5/" class="external-link" target="_blank" rel="noopener">karma-ui5 on GitHub</a></li>
+	</ul></section><section id="loioa182676ed3714bd5b4f011eb29076f6c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/test-automation-ae44824.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Installing Karma for Automated Testing</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Installing Karma for Automated Testing</h2></div><div class="shortdesc">Initial setup of the application testing environment with Karma.</div><section id="prereq_opk_1my_bcb" class="section prereq  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Prerequisites</h2></div><div class="fig">
+			<p>You have installed the <span class="ph uicontrol">current</span> or <span class="ph uicontrol">LTS</span> version of <span class="ph uicontrol">Node.js</span> from <a href="https://nodejs.org/en/download/" title="https://nodejs.org/en/download/" class="external-link" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
+		</div></section><section id="steps_av1_rfy_bcb" class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">Install the <span class="ph uicontrol">Karma CLI</span> globally via <span class="ph uicontrol">npm</span> so that you can run <span class="ph uicontrol">Karma</span> by
+					typing the <code>karma</code> command in the command-line interface (CLI).</span>
+				<div class="itemgroup info">
+					<p>For more information, see the <a href="http://karma-runner.github.io/latest/intro/installation.html" title="http://karma-runner.github.io/latest/intro/installation.html" class="external-link" target="_blank" rel="noopener">Karma Installation Guide on GitHub</a>.</p>
+					<p>Use the following
+						command:</p><section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">npm install --global karma-cli</pre></div></div></section><p></p>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Create a <code>package.json</code> file.</span>
+				<ul>
+					<li>
+						<p>If you already have an <span class="ph uicontrol">npm</span> project, you can skip
+							this step.</p>
+					</li>
+					<li>
+						<p>If not, use the following
+							command:</p><section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">npm init --yes</pre></div></div></section><p></p>
+					</li>
+				</ul>
+			</li>
+			<li class="step">
+				<span class="cmd">Install <span class="ph uicontrol">Karma</span> locally in your working directory.</span>
+				<div class="itemgroup info">
+					<p>Use the following
+						command:</p><section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">npm install --save-dev karma</pre></div></div></section><p></p>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Install the <span class="ph uicontrol">Karma UI5 plugin</span> locally in your working directory.</span>
+				<div class="itemgroup info">
+					<p>Use the following
+						command:</p><section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">npm install --save-dev karma-ui5</pre></div></div></section><p></p>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Install the <span class="ph uicontrol">Karma Chrome Launcher</span> locally in your working
+					directory.</span>
+				<div class="itemgroup info">
+					<p>Use the following
+						command:</p><section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">npm install --save-dev karma-chrome-launcher</pre></div></div></section><p></p>
+					<p>In this example, we use Google Chrome as browser. You can find an overview of availabler
+						browser launchers by searching for packages with the keywords
+							<code>karma-launcher</code> on the <span class="ph uicontrol">npm</span> home
+						page.</p>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Create a <code>karma.conf.js</code> file in your working directory with
+					the following content.</span>
+				<div class="itemgroup info">
+					<p>
+						</p><ul class="ul ">
+							<li class="li">
+								<p> If you are using UI5 Tooling in your project, you can use the
+									following configuration:</p>
+							</li>
+						</ul>
+					<p></p>
+				</div>
+				<div class="itemgroup info">
+					<p>
+						</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">      module.exports = function(config) {
+        config.set({
+
+          frameworks: ["ui5"],
+
+          browsers: ["Chrome"]
+    
+    });
+  };</pre></div></div></section>
+						<ul class="ul ">
+							<li class="li">
+								<p>If you are <span class="emphasis">not</span> using UI5 Tooling in your
+									project, you can use the following configuration:</p>
+							</li>
+						</ul>
+						<section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">module.exports = function(config) {
+        config.set({
+
+          frameworks: ["ui5"],
+
+          ui5: {
+            url: "https://&lt;&lt;server\&gt;\&gt;:&lt;&lt;port\&gt;\&gt;"
+          },
+
+          browsers: ["Chrome"]
+
+        });
+      };</pre></div></div></section>
+					<p></p>
+					<p>Adapt the URL
+							(<code><var class="varname">server\</var>:<var class="varname">port\</var></code>
+						to the SAPUI5
+						resources according to your installation. You can also use SAPUI5 from a
+						content delivery network, see <a href="topic/2d3eb2f322ea4a82983c1c62a33ec4ae" title="SAPUI5 can either be loaded locally with a relative path from an SAP Web server or externally from a Content Delivery Network (CDN)." class="sap-doc">Variant for Bootstrapping from Content Delivery Network</a>.</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The SAPUI5
+						plugin uses sensible defaults to detect your type of project and the
+						relevant folders. If you have a project with a different structure, you need
+						to add some more configuration options. For more information, see the <a href="https://github.com/SAP/karma-ui5#about" title="https://github.com/SAP/karma-ui5#about" class="external-link" target="_blank" rel="noopener">Karma UI5 documentation</a> on GitHub.</p></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">You can now run the tests with the following command:</span>
+				<div class="itemgroup info">
+					<section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">karma start</pre></div></div></section>
+				</div>
+			</li>
+		</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="https://karma-runner.github.io/" title="https://karma-runner.github.io/" class="external-link" target="_blank" rel="noopener">Karma Home Page</a></li>
+		<li><a href="http://nodejs.org/" title="http://nodejs.org/" class="external-link" target="_blank" rel="noopener">Node.js Home Page</a></li>
+		<li><a href="https://www.npmjs.com/" title="https://www.npmjs.com/" class="external-link" target="_blank" rel="noopener">npm Home Page</a></li>
+		<li><a href="https://github.com/SAP/karma-openui5" title="https://github.com/SAP/karma-openui5" class="external-link" target="_blank" rel="noopener">karma-ui5 on GitHub</a></li>
+	</ul></section></div></section><section id="loio8c27b0ab239242c69f181208c9b8fb1d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/test-automation-ae44824.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Continuous Integration With Headless Chrome</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Continuous Integration With Headless Chrome</h2></div><div class="shortdesc">For running tests in CI scenarios, such as Travis CI in GitHub, Headless Chrome needs to
+		be used. Headless Chrome is a Chromium Browser without GUI (in a headless
+		environment).</div><p>You can use Headless Chrome standalone, but also with Karma. To launch Karma with
+			Headless Chrome, you need to add the following changes to the karma config.</p><ol>
+			<li class="li">
+				<p>Add <code>karma-chrome-launcher</code> to the project dev dependencies.</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">npm install -D karma-chrome-launcher</pre></div></div></section>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This is only required, if Chrome is <span class="emphasis">not</span> used as browser,
+					that means, it was not defined during karma initialization. In some cases, for
+					example for running tests in a docker container, we recommend to add puppeteer
+					as dependency which includes the latest Chrome version. For more details, see
+					the karma-chrome-launcher repository on GitHub.</p></div></div>
+			</li>
+			<li class="li">
+				<p>Define the browser environment for running karma. For this, update the
+						<code>config</code> object in <code>karma.conf.js</code> as
+					follows:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">module.exports = function(config) {
+  config.set({
+    [...]
+    browsers: ['ChromeHeadless'],
+    singleRun: true
+    [...]
+  })
+}</pre></div></div></section>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Make sure to set the <code>singleRun</code> flag to <code>true</code>.
+					Otherwise, the script ends up in watch mode, listening for file changes.</p></div></div>
+			</li>
+		</ol><p>You can launch karma also with a specific config file. It might make sense, for example,
+			to define a config file (default: <code>karma.conf.js</code>) for the local
+			environment, and one config file, for example <code>karma-ci.conf.js</code> for the
+			CI scenario. To launch karma with a different config file, add the file name as third
+			parameter as follows:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">karma start karma-ci.conf.js</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section><section id="loio1851a066b0e34d84ae00f887445239e5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/test-automation-ae44824.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Code Coverage</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Code Coverage</h2></div><p>To measure the code coverage, you can use the <a href="https://github.com/karma-runner/karma-coverage" title="https://github.com/karma-runner/karma-coverage" class="external-link" target="_blank" rel="noopener"><span class="ph uicontrol">Coverage</span> plugin</a> for
+			<span class="ph uicontrol">Karma</span>.</p><p>In case your application is started within a frame (<code>iStartMyAppInAFrame</code>)
+			you need to enable iFrame coverage reporting. See the <a href="https://github.com/SAP/karma-ui5#configureiframecoverage" title="https://github.com/SAP/karma-ui5#configureiframecoverage" class="external-link" target="_blank" rel="noopener">Karma UI5 documentation</a> for details.</p><p>For more information
+			about OPA5, see the <a href="api/sap.ui.test.Opa5" title="api/sap.ui.test.Opa5" class="sap-doc" alt="api/sap.ui.test.Opa5">API Reference:
+				<code>sap.ui.test.Opa5</code></a>.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></section></div></body></html>

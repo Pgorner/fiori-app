@@ -1,0 +1,37 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio20737a4c64f448d2af9b9745fbe5d762" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/code-coverage-20737a4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Code Coverage</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Code Coverage</h2></div><div class="shortdesc">It can be handy to calculate the code coverage of your integration tests, for example, to figure out whether you forgot to test something or to
+		provide statistics on your test quality.</div><p>At test execution time, Gherkin offers the option <span class="ph uicontrol">Enable coverage</span> at the top left of the test results. Enabling the option reruns
+			the tests and then lists the files that were tested at the bottom of the page.</p><p>Gherkin calculates code coverage for any JavaScript file that is loaded after the test harness. This may cause some system libraries to appear in
+			the results. You can specify which files to calculate code coverage for by adding code to your HTML bootstrap file (after loading SAPUI5, but before running your tests), as follows.</p><section id="section_ISTANBUL">
+			<h2 class="title ">Istanbul</h2>
+			<p>Code coverage with <code>Istanbul</code> relies on a <a href="https://sap.github.io/ui5-tooling/stable/pages/Server/" title="https://sap.github.io/ui5-tooling/stable/pages/Server/" class="external-link" target="_blank" rel="noopener">UI5 server</a> and <a href="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" title="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" class="external-link" target="_blank" rel="noopener">UI5
+					Middleware Code Coverage</a>.</p>
+			<p>If you use UI5 Tooling's <code>ui5
+					serve</code>, you would need to enable it in <code>ui5.yaml</code> and <code>package.json</code> of your project.</p>
+			<p>
+				</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script
+  src="path/to/resources/sap/ui/qunit/qunit-coverage-istanbul.js"
+  data-sap-ui-cover-only="GherkinWithOPA5/"
+  data-sap-ui-cover-never="sap/ui/"&gt;
+&lt;/script&gt;</pre></div></div></section>
+			<p></p>
+			<p>For more information, see the <a href="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" title="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" class="external-link" target="_blank" rel="noopener">documentation</a>.</p>
+		</section><section id="section_k3n_wz4_fwb">
+			<h2 class="title ">Blanket.js (Legacy)</h2>
+			<p><code>Blanket.js</code> offers code coverage and instrumentation for JavaScript up to ECMAScript Language Specification 5. As of SAPUI5 version 1.113.0, code coverage measurement via <a href="topic/20737a4c64f448d2af9b9745fbe5d762.html#loio20737a4c64f448d2af9b9745fbe5d762/section_ISTANBUL" title="20737a4c64f448d2af9b9745fbe5d762.xml#loio20737a4c64f448d2af9b9745fbe5d762/section_ISTANBUL" class="sap-doc"><code>Istanbul</code></a> is the recommended option.</p>
+			<p>
+				</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script
+  src="../../resources/sap/ui/qunit/qunit-coverage.js"
+  data-sap-ui-cover-only="GherkinWithOPA5/"
+  data-sap-ui-cover-never="sap/ui/"&gt;
+&lt;/script&gt;</pre></div></div></section>
+			<p></p>
+			<p>For more information, see the documentation for <code>Blanket.js</code> on GitHub. Keep in mind that the attribute name is slightly
+				different in the SAPUI5 implementation
+					(<code>data-sap-ui-cover-only</code> instead of <code>data-cover-only</code>).</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="https://github.com/alex-seville/blanket/blob/-/docs/intermediate_browser.md" title="https://github.com/alex-seville/blanket/blob/-/docs/intermediate_browser.md" class="external-link" target="_blank" rel="noopener">Blanket.js Documentation on GitHub</a></li>
+		<li><a href="https://github.com/SAP/ui5-tooling-extensions/blob/-/packages/middleware-code-coverage" title="https://github.com/SAP/ui5-tooling-extensions/blob/-/packages/middleware-code-coverage" class="external-link" target="_blank" rel="noopener">UI5 Middleware Code Coverage repo on GitHub</a></li>
+		<li><a href="topic/7ef32428dc7c4c048a8d7e8de0a556fb" title="You can measure the code coverage either via HTML or JavaScript code using a code coverage tool like Istanbul (default) or Blanket.js (legacy)." class="sap-doc">Code Coverage Measurement</a></li>
+	</ul></section></div></section></div></body></html>

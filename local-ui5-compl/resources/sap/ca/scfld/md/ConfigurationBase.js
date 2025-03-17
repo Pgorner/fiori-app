@@ -1,0 +1,5 @@
+/*
+ * Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+ */
+jQuery.sap.declare("sap.ca.scfld.md.ConfigurationBase");jQuery.sap.require("sap.ca.scfld.md.ApplicationFacade");jQuery.sap.require("sap.ca.scfld.md.app.ConnectionManager");jQuery.sap.require("sap.ca.scfld.md.app.ApplicationImplementation");jQuery.sap.require("sap.ca.scfld.md.app.Application");sap.ui.base.ManagedObject.extend("sap.ca.scfld.md.ConfigurationBase",{metadata:{properties:{identifier:"string"},publicMethods:["setApplicationFacade"]},_setApplicationFacade:function(e){this.oApplicationFacade=e;this.setApplicationFacade(e)},setApplicationFacade:function(e){},isMock:function(){var e=jQuery.sap.getUriParameters().get("responderOn");return e==="true"},keepMultiSelection:function(){return false},getMasterKeyAttributes:function(){return null},getServiceList:function(){return null},getExcludedQueryStringParameters:function(){return null},getDetailTitleKey:function(){return"DETAIL_TITLE"},getDefaultEmptyMessageKey:function(){return"NO_ITEMS_AVAILABLE"},isUsingStableIds:function(){return false}});
+//# sourceMappingURL=ConfigurationBase.js.map

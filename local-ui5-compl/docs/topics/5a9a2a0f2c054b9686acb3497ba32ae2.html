@@ -1,0 +1,107 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5a9a2a0f2c054b9686acb3497ba32ae2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adding-custom-messages-5a9a2a0.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adding Custom Messages</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adding Custom Messages</h2></div><div class="shortdesc">You can use the <code>securedExecution</code> method from the API for developers of template extensions to add and display custom
+		messages.</div><p>This concept for message handling is based on the SAPUI5 Messaging. For more information, see the API Reference for <a href="api/module:sap/ui/core/Messaging" title="api/module:sap/ui/core/Messaging" class="sap-doc" alt="api/module:sap/ui/core/Messaging">Messaging</a>.</p><p>SAP Fiori elements provides the <code>securedExecution</code> method that
+			starts a 'busy session'.</p><p>When a busy session starts, all transition messages are removed automatically, since the system assumes that they belong to previous user
+			interaction.</p><p>When the busy session ends, all transition messages that have been collected by the <code>Messaging</code> are automatically displayed
+			to the user in a well-defined way, based on the severity of the message. This applies to (transition) messages that have been pushed into
+			the <code>Messaging</code> automatically (for example, because they come from the OData model), and also to transition messages that
+			are pushed to the <code>Messaging</code> explicitly by way of application coding.</p><p>See the separate sections for SAP Fiori elements for OData
+                            V2 and SAP Fiori elements for OData
+                            V4 for sample codes and further details.</p><p>For more information on the <code>securedExecution</code> method, see <a href="topic/6a39150ad3e548a8b5304d32d560790a" title="The API for developers of extensions for SAP Fiori elements provides the securedExecution method that can be used for various purposes." class="sap-doc">Using the SecuredExecution Method</a> and the API
+			Reference for <a href="api/sap.suite.ui.generic.template.ListReport.extensionAPI.ExtensionAPI#methods/securedExecution" title="api/sap.suite.ui.generic.template.ListReport.extensionAPI.ExtensionAPI#methods/securedExecution" class="sap-doc" alt="api/sap.suite.ui.generic.template.ListReport.extensionAPI.ExtensionAPI#methods/securedExecution">securedExecution</a>.</p><p>For general information on messages, see <a href="topic/239b1922758645e7b451e01ded7f56bc" title="The system generates messages in response to what users do in the SAP system. A message presents information, an instruction, or a warning to users in a given situation." class="sap-doc">Using Messages</a>.</p><section id="section_hyn_xjx_gpb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">onCustomButtonPressed: function(oEvent){
+  var oSource = oEvent.getSource();
+  var oModel = oSource.getModel();
+  var sBindingPath = ...; // binding path to retrieve some information
+  var fnFunction = function(){
+    return new Promise(function(fnResolve, fnReject){
+      oModel.read(sBindingPath, {
+        success: function(oResponse){
+          var oMessage = new sap.ui.core.message.Message({
+            message: "We have received the following response: " + oResponse,
+            persistent: true, // create message as transition message
+            type: sap.ui.core.MessageType.Success
+          });
+          //"Messaging" required from module "sap/ui/core/Messaging";
+          Messaging.addMessages(oMessage);
+          fnResolve();
+        },
+        error: fnReject
+    });  
+  };
+  var mParameters = {
+        sActionLabel:  oSource.getText() // or "Your custom text" 
+   };
+  this.extensionAPI.securedExecution(fnFunction, mParameters);
+} </pre></div></div></section>
+			<p></p></div></div><p>The sample code shows that a message is created as a transition message by setting the attribute <code>persistent</code> to
+					<code>true</code>. This attribute describes the lifetime of this message from the perspective of the SAPUI5
+				<code>Messaging</code>. The lifecycle of transition messages is not relevant to the <code>Messaging</code>. This means that
+				they are persisted until another agent deletes them from the <code>Messaging</code>. The SAP Fiori elements framework triggers the deletions, which effectively limits
+				the lifetime of these messages.</p><p>The lifecycle of messages with the attribute <code>persistent</code> : <code>false</code> is controlled by the
+					<code>Messaging</code>. This kind of message is automatically removed when the entity this message has been bound to is
+				reloaded from the back end.</p><div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+				</p><p>The <code>sActionLabel</code><span class="uinolabel"> Messages</span>. For a single transition info message,
+						<code>sActionLabel</code> has no effect, since a message toast is shown.</p>
+			<p></p></div></div><p>In some cases, you may need to display messages, even though no asynchronous operation is executed. The following code snippet shows
+				how you can display messages in such a scenario:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">onCustomButtonPressed: function(oEvent){
+    var oSource = oEvent.getSource();
+    var fnAddMessage = function(){
+    return new Promise(function(fnResolve){
+          var oMessage = new sap.ui.core.message.Message({
+            message: "Custom button was pressed",
+            persistent: true, // create message as transition message
+            type: sap.ui.core.MessageType.Success
+          });
+          //"Messaging" required from module "sap/ui/core/Messaging";
+          Messaging.addMessages(oMessage);
+          fnResolve();
+   });
+};
+var mParameters = {
+      sActionLabel:  oSource.getText() // or "Your custom text" 
+ };
+this.extensionAPI.securedExecution(fnAddMessage, mParameters);
+} 
+</pre></div></div></section>
+			<p></p></div></div></div></section><section id="section_ejz_jkx_gpb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">securedExecution: function(oContext, aSelectedContexts) {
+   this.editFlow.securedExecution( 
+      function() { 
+&gt;          // "Messaging" required from module "sap/ui/core/Messaging"
+&gt;          // "Message" required from module "sap/ui/core/message/Message"
+&gt;          Messaging.addMessages(new Message({
+&gt;             message: "Server says hello", 
+&gt;             target: "", 
+&gt;             persistent: true, 
+&gt;             type: sap.ui.core.MessageType.Success, 
+&gt;             code: "123" 
+&gt;          }));
+      } 
+   ); 
+}, </pre></div></div></section>
+			<p></p></div></div><p>The sample code shows that a message is created as a transition message by setting the attribute <code>persistent</code> to
+					<code>true</code>. This attribute describes the lifetime of this message from the perspective of the SAPUI5
+				<code>Messaging</code>. The lifecycle of
+				transition messages is not relevant to the
+					<code>Messaging</code>. This means
+				that they are persisted until another agent deletes them from the
+					<code>Messaging</code>. The SAP Fiori elements framework triggers the deletions, which effectively limits
+				the lifetime of these messages.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Both a code and a target are mandatory. If a target doesn't exist, you must provide an empty string.</p>
+			<p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/6a39150ad3e548a8b5304d32d560790a" title="The API for developers of extensions for SAP Fiori elements provides the securedExecution method that can be used for various purposes." class="sap-doc">Using the SecuredExecution Method</a></li>
+		<li><a href="topic/239b1922758645e7b451e01ded7f56bc" title="The system generates messages in response to what users do in the SAP system. A message presents information, an instruction, or a warning to users in a given situation." class="sap-doc">Using Messages</a></li>
+	</ul></section></div></section></div></body></html>

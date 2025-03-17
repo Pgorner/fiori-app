@@ -1,0 +1,5 @@
+/*! SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+   */
+sap.ui.define("sap/sac/df/model/Measure",["sap/ui/base/Object"],function(e){"use strict";var t=e.extend("sap.sac.df.model.Measure",{constructor:function(e,t,r){Object.assign(this,Object.getPrototypeOf(this));this._DataProvider=e;this._FFMeasure=r;Object.assign(this,t)}});t.prototype.getDecimalPlaces=function(){return this._FFMeasure.getNumericScale()&&this._FFMeasure.getNumericScale().getInteger()};t.prototype.setDecimalPlaces=function(e){var t=this;this._DataProvider._executeModelOperation(function(){return t._FFMeasure.setNumericScale(e)})};t.prototype.getScalingFactor=function(){return this._FFMeasure.getNumericShift()?-1*this._FFMeasure.getNumericShift().getInteger():0};t.prototype.setScalingFactor=function(e){var t=this;this._DataProvider._executeModelOperation(function(){return t._FFMeasure.setNumericShift(-1*e)})};return t});
+//# sourceMappingURL=Measure.js.map

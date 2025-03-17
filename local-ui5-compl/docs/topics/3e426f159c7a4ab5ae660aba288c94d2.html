@@ -1,0 +1,204 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3e426f159c7a4ab5ae660aba288c94d2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/custom-list-item-3e426f1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Custom List Item</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Custom List Item</h2></div><div class="shortdesc">You can use the <code>sap.m.CustomListItem</code> control to create your own
+		layout if the other list items available in SAPUI5 do not fit your
+		needs.</div><section>
+			<h2 class="title ">Available List Items in SAPUI5</h2>
+			<p>SAPUI5 contains several
+				list items that are used with the <code>sap.m.List</code> control to serve
+				different standard scenarios. These are outlined in the table below, along with
+					<code>sap.m.ColumnListItem</code>, which is used together with the
+					<code>sap.m.Table</code> control:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_fpv_rp3_sr" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>List Item</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Used for...</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.StandardListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Displaying list content with a title description, icon and
+									info</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.DisplayListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Displaying name/value pairs</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.InputListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Building a form-like user interface on phones</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.ActionListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Triggering an action directly from a list</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.FeedListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Displaying a standard UI for feeds. For more information, see
+										<a href="topic/14a9900bcb514f89877c115046da4ff7" title="This control provides a set of properties for a feed, such as text, sender information and timestamp." class="sap-doc">Feed List Item</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.ObjectListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Providing a quick overview for an object within a list</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.ColumnListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Providing responsive table design in combination with
+										<code>sap.m.Table</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.m.CustomListItem</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Creating custom list items if none of the list items above are
+									suitable</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>If none of the predefined list items (the first seven entries in the table above) fit
+				your scenario, you can also create your own layout by using
+					<code>sap.m.CustomListItem</code> directly, or create a new control that
+				inherits from <code>sap.m.CustomListItem</code>.</p>
+			<p>For more
+					information about the different list items, refer to the corresponding <a href="api/sap.m.List" title="api/sap.m.List" class="external-link" target="_blank" rel="noopener" alt="api/sap.m.List">API documentation</a>.
+				</p>
+		</section><section>
+			<h2 class="title ">Structure of a List Item</h2>
+			<p>A list item can be split into three parts, as shown in the following graphic:</p>
+			<div><div class="fig"><img src="loio2f72dfbe658448e2bd1af66b4b25794f_LowRes.png" usemap="#"></div></div>
+			<p>The parts that are to the left and right of the dotted area are part of the
+					<code>ListItemBase</code> and are used to display the selection and deletion
+				mode, as well as different list item type indicators such as navigation, details,
+				and counter. The <code>Unread</code> indicator also comes from the
+					<code>ListItemBase</code> and when it is set, any unread text will be
+				displayed in bold format.</p>
+			<p>The dotted area is the area in which the content of a list item is placed. If you are
+				using <code>sap.m.CustomListItem</code>, <span class="emphasis">all</span> of the content
+				will be placed there. The section below explains how to use
+					<code>sap.m.CustomListItem</code> in more detail.</p>
+		</section><section>
+			<h2 class="title ">Using the <code>sap.m.CustomListItem</code> Control</h2>
+			<p>As mentioned above, you can either use <code>sap.m.CustomListItem</code> directly
+				by adding any content via content aggregation, or you can create your own control
+				that inherits from <code>sap.m.CustomListItem</code> if you need a more
+				sophisticated list item featuring your own properties, styling, and complex layout.
+				Below is an example showing how you can use the
+					<code>sap.m.CustomListItem</code> together with <code>sap.m</code>
+				controls.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;List headerText="Custom Content" mode="Delete" items="{path: '/ProductCollection'}" &gt;
+	&lt;CustomListItem&gt;
+		&lt;HBox&gt;
+			&lt;core:Icon size="2rem" src="sap-icon://attachment-photo" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" /&gt;
+			&lt;VBox  class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" &gt;
+				&lt;Link text="{Name}" target="{ProductPicUrl}" press="handlePress"/&gt;
+				&lt;Label text="{ProductId}"/&gt;
+			&lt;/VBox&gt;
+		&lt;/HBox&gt;
+	&lt;/CustomListItem&gt;
+&lt;/List&gt;</pre></div></div></section>
+			<p>The example above creates an attachment list item that displays an attachment title
+				as a link, as shown in the graphic below. Clicking on the link will open the
+				attachment. Below the attachment title, we want to display the details of the
+				attachment, so we have used <code>sap.m.HBox</code> and
+					<code>sap.m.VBox</code> for basic layouting. Data binding is also supported,
+				and here it assumes that a model featuring <code>ProductPicUrl</code> and
+					<code>ProductId</code> properties is used.</p>
+			<div><div class="fig"><img src="loio6c6af3e7f34947cd8820c56a2b7fe0db_LowRes.png" usemap="#"></div></div>
+			<p>The following example shows how to use a notepad control as a reusable control in an
+					<code>sap.m.CustomListItem</code>. It assumes you want to build a product
+				list item that shows an image of the product and displays its details:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/Control", "sap/m/Image"], function (Control, Image) {
+    var MyListItemContent = Control.extend("my.control.ListItemContent", {
+        metadata: {
+            properties : {
+                "name": {type: "string", defaultValue: ""},
+                "description": {type: "string", defaultValue: ""},
+                "price": {type: "string", defaultValue: ""},
+                "currency": {type: "string", defaultValue: ""},
+                "image": {type: "string", defaultValue: ""}
+            },
+            events: {
+                "myTap": {},
+            },
+        },
+        init: function(){
+            this._image = new Image({src:"&lt;myImageSrc&gt;"}).addStyleClass("myImageCSS").setParent(this);
+        },
+ renderer: {
+            apiVersion: 2,  // see 'Renderer Methods' for an explanation of this flag
+            render: function(oRm, oControl) {
+                oRm.openStart("div", oControl);
+                oRm.class("listItemCSS");
+                oRm.openEnd();
+                    oRm.renderControl(oControl._image);
+                    oRm.openStart("div").class("descCSS").openEnd();
+                    oRm.text(oControl.getDescription());
+                    oRm.close("div");
+                    oRm.openStart("div").class("priceCSS").openEnd();
+                    oRm.text(oControl.getPrice());
+                    oRm.close("div");
+                    oRm.openStart("div").class("curCSS").openEnd();
+                    oRm.text(oControl.getCurrency());
+                    oRm.close("div");
+                    oRm.openStart("div").class("nameCSS").openEnd();
+                    oRm.text(oControl.getName());
+                    oRm.close("div");
+                oRm.close("div");
+            }
+        }
+    });
+
+    //example how to react on browser events and convert them to control events
+    ListItemContent.prototype.ontap = function(){
+        //your own tap logic
+        this.fireMyTap({});
+    };
+
+    return ListItemContent;
+});</pre></div></div></section>
+			<p>After we've created this notepad control above, we consume it in the
+					<code>sap.m.CustomListItem</code> as a content aggregation, as shown
+				here:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "CustomListItem" required from "sap/m/CustomListItem"
+var oCustomListItem = new CustomListItem({content: [new MyListItemContent({
+    //usual control setup
+})]});</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

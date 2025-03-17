@@ -1,0 +1,847 @@
+{
+  "QueryBuilder": {
+    "DragDropFromBuilderPanelToTable": true,
+    "WindowingSettings": {
+      "HorizontalLazyLoad": true
+    },
+    "FilterLineLazyMode": true,
+    "Calculations": false,
+    "PanelSettings": {
+      "NavigationPanel": {
+        "ShowGroupPresentationMenu": true,
+        "ShowGroupExpandCollapseOptions": true,
+        "DefaultGroupPresentation": "allCollapsed"
+      }
+    },
+    "DialogSettings": {
+      "VariableDialog": {
+        "NewSettingsEnabled": true,
+        "SettingsPopOverEnabled": true,
+        "GridLayoutEnabled": true,
+        "MultiInputEnabled": true
+      }
+    },
+    "MenuSettings": {
+      "EngineVersion": "0.0.2",
+      "LoggingEnabled": false,
+      "Menus": [
+        {
+          "Name": "Gds.Qb.Table.Toolbar",
+          "UiContext": [
+            "Gds.Qb.Table.Toolbar"
+          ],
+          "Items": [
+            {
+              "Action": "Olap.ResetToMetadata"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Action": "Olap.Resultset.ForceRefresh"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Action": "Olap.OpenCurrencyConversionDialog"
+            },
+            {
+              "Action": "Olap.OpenVariableDialog"
+            },
+            {
+              "Action": "Olap.OpenQueryInfoDialog"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Document.Export",
+              "LocalizationKey": "FF_GLOBAL_MENU_DOCUMENT_EXPORT",
+              "Icon": "fpa/export",
+              "Items": [
+                {
+                  "Action": "Document.Export.Excel"
+                },
+                {
+                  "Action": "Document.Export.Csv"
+                }
+              ]
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Action": "Panel.Show.Line.Filter"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Action": "Olap.Resultset.PauseRefresh"
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Builder.PresentationSettings",
+          "UiContext": [
+            "Gds.Qb.Builder.PresentationSettings"
+          ],
+          "Items": [
+            {
+              "Action": "Panel.Presentation"
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Table.ContextMenu.Dimensions",
+          "UiContext": [
+            "Gds.Qb.Table.ContextMenu"
+          ],
+          "DataContext": [
+            "Olap.Dimension.* && ! Olap.Member.*"
+          ],
+          "Items": [
+            {
+              "Submenu": "Dimension.Settings",
+              "Flat": true
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "DataContext": [
+                "Selection.Rows.Dimension.Headers"
+              ],
+              "Submenu": "Axis.Rows.Settings"
+            },
+            {
+              "DataContext": [
+                "Selection.Columns.Dimension.Headers"
+              ],
+              "Submenu": "Axis.Columns.Settings"
+            },
+            {
+              "Submenu": "Query.Settings"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GridControl.Settings"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GenericActions"
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Table.ContextMenu.Members",
+          "UiContext": [
+            "Gds.Qb.Table.ContextMenu"
+          ],
+          "DataContext": [
+            "Olap.Dimension.* && Olap.Member.*"
+          ],
+          "Items": [
+            {
+              "Submenu": "Member.Settings",
+              "Flat": true
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "Query.Settings"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GridControl.Settings"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GenericActions"
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Table.ContextMenu.Cells",
+          "UiContext": [
+            "Gds.Qb.Table.ContextMenu"
+          ],
+          "DataContext": [
+            "Selection.Columns.Data && Selection.Rows.Data"
+          ],
+          "Items": [
+            {
+              "Submenu": "Member.Settings",
+              "Flat": true
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "Axis.Rows.Settings"
+            },
+            {
+              "Submenu": "Axis.Columns.Settings"
+            },
+            {
+              "Submenu": "Query.Settings"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GridControl.Settings"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GenericActions"
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Table.ContextMenu.Default",
+          "UiContext": [
+            "Gds.Qb.Table.ContextMenu"
+          ],
+          "Items": [
+            {
+              "Submenu": "Query.Settings",
+              "Flat": true
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GridControl.Settings",
+              "Flat": true
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "GenericActions"
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Builder.ContextMenu.Dimensions",
+          "UiContext": [
+            "Gds.Qb.Builder.ContextMenu"
+          ],
+          "DataContext": [
+            "Olap.Dimension.Single.*"
+          ],
+          "Items": [
+            {
+              "Submenu": "Dimension.Settings",
+              "Flat": true
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Builder.ContextMenu.Members",
+          "UiContext": [
+            "Gds.Qb.Builder.ContextMenu"
+          ],
+          "DataContext": [
+            "Olap.Structure.Member.*.Single"
+          ],
+          "Items": [
+            {
+              "Submenu": "Member.Settings",
+              "Flat": true
+            }
+          ]
+        },
+        {
+          "Name": "Gds.Qb.Builder.ContextMenu.Axis",
+          "UiContext": [
+            "Gds.Qb.Builder.ContextMenu"
+          ],
+          "DataContext": [
+            "Olap.Axis.*"
+          ],
+          "Items": [
+            {
+              "Submenu": "Axis.Settings",
+              "Flat": true
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Submenu": "Query.Settings"
+            }
+          ]
+        }
+      ],
+      "Submenus": [
+        {
+          "Type": "Submenu",
+          "Name": "Query.Settings",
+          "Icon": "wrench",
+          "LocalizationKey": "FF_GDS_QB_OLAP_QUERY",
+          "Items": [
+            {
+              "Action": "Olap.OpenCurrencyConversionDialog"
+            },
+            {
+              "Action": "Olap.SwapAxis"
+            },
+            {
+              "Action": "Olap.OpenVariableDialog"
+            },
+            {
+              "Action": "Olap.OpenQueryInfoDialog"
+            }
+          ]
+        },
+        {
+          "Type": "Submenu",
+          "Name": "Axis.Rows.Settings",
+          "Icon": "table-row",
+          "LocalizationKey": "FF_GDS_QB_AXIS_ROWS",
+          "RefocusContext": "Olap.QueryModel/Olap.Axis.Rows",
+          "Items": [
+            {
+              "Submenu": "Axis.Settings"
+            }
+          ]
+        },
+        {
+          "Type": "Submenu",
+          "Name": "Axis.Columns.Settings",
+          "Icon": "table-column",
+          "LocalizationKey": "FF_GDS_QB_AXIS_COLUMNS",
+          "RefocusContext": "Olap.QueryModel/Olap.Axis.Columns",
+          "Items": [
+            {
+              "Submenu": "Axis.Settings"
+            }
+          ]
+        },
+        {
+          "Type": "Submenu",
+          "Name": "Axis.Settings",
+          "Flat": true,
+          "Items": [
+            {
+              "Action": "Olap.Axis.SuppressZero"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Axis.UDH",
+              "Icon": "tree",
+              "LocalizationKey": "FF_GDS_QB_DRILL_COMPACT_DISPLAY",
+              "Items": [
+                {
+                  "Action": "Olap.Axis.UDH.ToggleUniversalDisplayHierarchy",
+                  "LocalizationKey": "FF_GDS_QB_DRILL_MERGE_DIMENSIONS_ON_AXIS"
+                },
+                {
+                  "Action": "Olap.Axis.UDH.SelectDisplayLevel",
+                  "HideIfLessThanNItems": 0,
+                  "FlatIfLessThanNItems": 0
+                }
+              ]
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Action": "Olap.Axis.Totals.Pos"
+            }
+          ]
+        },
+        {
+          "Type": "Submenu",
+          "Name": "Dimension.Settings",
+          "Icon": "dimension",
+          "LocalizationKey": "FF_GDS_QB_DIMENSION",
+          "Items": [
+            {
+              "Action": "Olap.OpenDimensionDialog"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Dimension.Move",
+              "LocalizationKey": "FF_GDS_QB_DIMENSION_MOVE",
+              "Items": [
+                {
+                  "Type": "Submenu",
+                  "Name": "Olap.Field.Move",
+                  "DataContext": [
+                    "Olap.Dimension.Single.*/Olap.Field.*"
+                  ],
+                  "LocalizationKey": "FF_GDS_QB_DIMENSION_FIELDS",
+                  "Items": [
+                    {
+                      "Action": "Olap.Dimension.Field.MoveBefore"
+                    },
+                    {
+                      "Action": "Olap.Dimension.Field.MoveAfter"
+                    }
+                  ]
+                },
+                {
+                  "Type": "Submenu",
+                  "Name": "Olap.Attribute.Move",
+                  "LocalizationKey": "FF_GDS_QB_DIMENSION_ATTRIBUTES",
+                  "Items": [
+                    {
+                      "Action": "Olap.Dimension.Attribute.MoveBefore"
+                    },
+                    {
+                      "Action": "Olap.Dimension.Attribute.MoveAfter"
+                    }
+                  ]
+                },
+                {
+                  "Action": "Olap.Dimension.MoveBefore"
+                },
+                {
+                  "Action": "Olap.Dimension.MoveAfter"
+                },
+                {
+                  "Type": "Separator"
+                },
+                {
+                  "Action": "Olap.Dimension.MoveToRows"
+                },
+                {
+                  "Action": "Olap.Dimension.MoveToColumns"
+                }
+              ]
+            },
+            {
+              "Action": "Olap.Dimension.MoveToFree"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Dimension.Presentation.Setting",
+              "LocalizationKey": "FF_GDS_QB_PRESENTATIONS",
+              "Items": [
+                {
+                  "Flat": true,
+                  "Action": "Olap.Dimension.Presentation"
+                },
+                {
+                  "Type": "Separator"
+                },
+                {
+                  "Type": "Submenu",
+                  "Name": "Olap.Dimension.Presentation.KeyType.Advanced",
+                  "LocalizationKey": "FF_GDS_QB_PRESENTATION_KEY_TYPE",
+                  "Items": [
+                    {
+                      "Action": "Olap.Dimension.Presentation.KeyType",
+                      "Flat": true
+                    },
+                    {
+                      "Type": "Separator"
+                    },
+                    {
+                      "Action": "Olap.Dimension.Presentation.KeyType.Default"
+                    }
+                  ]
+                },
+                {
+                  "Type": "Submenu",
+                  "Name": "Olap.Dimension.Presentation.TextType.Advanced",
+                  "LocalizationKey": "FF_GDS_QB_PRESENTATION_TEXT_TYPE",
+                  "Items": [
+                    {
+                      "Action": "Olap.Dimension.Presentation.TextType",
+                      "Flat": true
+                    },
+                    {
+                      "Type": "Separator"
+                    },
+                    {
+                      "Action": "Olap.Dimension.Presentation.TextType.Default"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Dimension.Field.ToggleDisplay",
+              "LocalizationKey": "FF_GDS_QB_DIMENSION_FIELDS",
+              "OverflowIfMoreThanNItems": 10,
+              "OverflowLocalizationKey": "FF_GDS_QB_OVERFLOW_NEXT_PAGE",
+              "Items": [
+                {
+                  "ContextIteration": "Olap.Dimension.Single.*/Olap.Field.*",
+                  "Action": "Olap.Dimension.Field.ToggleDisplay"
+                }
+              ]
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Dimension.Sort.Generic",
+              "LocalizationKey": "FF_GDS_QB_SORT",
+              "Items": [
+                {
+                  "Action": "Olap.Dimension.Sort",
+                  "Name": "Olap.Dimension.Sort.Ascending",
+                  "LocalizationKey": "FF_GDS_QB_SORT_ASCENDING",
+                  "Items": [
+                    {
+                      "Option": "Olap.Dimension.Sort.Dir.Ascending.ByKey",
+                      "LocalizationKey": "FF_GDS_QB_SORT_BY_KEY"
+                    },
+                    {
+                      "Option": "Olap.Dimension.Sort.Dir.Ascending.ByText",
+                      "LocalizationKey": "FF_GDS_QB_SORT_BY_TEXT"
+                    }
+                  ]
+                },
+                {
+                  "Action": "Olap.Dimension.Sort",
+                  "Name": "Olap.Dimension.Sort.Descending",
+                  "LocalizationKey": "FF_GDS_QB_SORT_DESCENDING",
+                  "Items": [
+                    {
+                      "Option": "Olap.Dimension.Sort.Dir.Descending.ByKey",
+                      "LocalizationKey": "FF_GDS_QB_SORT_BY_KEY"
+                    },
+                    {
+                      "Option": "Olap.Dimension.Sort.Dir.Descending.ByText",
+                      "LocalizationKey": "FF_GDS_QB_SORT_BY_TEXT"
+                    }
+                  ]
+                },
+                {
+                  "Action": "Olap.Dimension.Sort",
+                  "Name": "Olap.Dimension.Sort.Default",
+                  "Flat": true,
+                  "Items": [
+                    {
+                      "Option": "Olap.Dimension.Sort.Dir.DefaultOrder"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Dimension.Attributes.ToggleDisplay",
+              "LocalizationKey": "FF_GDS_QB_DIMENSION_ATTRIBUTES",
+              "OverflowIfMoreThanNItems": 10,
+              "OverflowLocalizationKey": "FF_GDS_QB_OVERFLOW_NEXT_PAGE",
+              "Items": [
+                {
+                  "ContextIteration": "Olap.Dimension.Single.*/Olap.Attribute.*",
+                  "Type": "Submenu",
+                  "Name": "Olap.Attribute.Presentation.Setting",
+                  "Items": [
+                    {
+                      "Action": "Olap.Attribute.Presentation",
+                      "Flat": true
+                    },
+                    {
+                      "Type": "Separator"
+                    },
+                    {
+                      "Type": "Submenu",
+                      "Name": "Olap.Attribute.Presentation.KeyType.Advanced",
+                      "LocalizationKey": "FF_GDS_QB_PRESENTATION_KEY_TYPE",
+                      "Items": [
+                        {
+                          "Action": "Olap.Attribute.Presentation.KeyType",
+                          "Flat": true
+                        },
+                        {
+                          "Type": "Separator"
+                        },
+                        {
+                          "Action": "Olap.Attribute.Presentation.KeyType.Default"
+                        }
+                      ]
+                    },
+                    {
+                      "Type": "Submenu",
+                      "Name": "Olap.Attribute.Presentation.TextType.Advanced",
+                      "LocalizationKey": "FF_GDS_QB_PRESENTATION_TEXT_TYPE",
+                      "Items": [
+                        {
+                          "Action": "Olap.Attribute.Presentation.TextType",
+                          "Flat": true
+                        },
+                        {
+                          "Type": "Separator"
+                        },
+                        {
+                          "Action": "Olap.Attribute.Presentation.TextType.Default"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Hierarchy",
+              "FlatIfLessThanNItems": 1,
+              "Icon": "tree",
+              "LocalizationKey": "FF_GDS_QB_DRILL_HIERARCHY",
+              "Items": [
+                {
+                  "Action": "Olap.OpenHierarchyDialog.Simple"
+                },
+                {
+                  "Action": "Olap.Dimension.Hierarchy.SelectDisplayLevel"
+                },
+                {
+                  "Action": "Olap.OpenDimensionDialog.Hierarchy"
+                }
+              ]
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Dimension.Filter",
+              "LocalizationKey": "FF_GDS_QB_FILTER",
+              "Items": [
+                {
+                  "Action": "Olap.OpenFilterDialog"
+                },
+                {
+                  "Action": "Olap.Filter.ClearSelectedDimension"
+                }
+              ]
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Action": "Olap.Dimension.ReadMode.Toggle.GracefulUnbooked",
+              "LocalizationKey": "FF_GDS_QB_READMODE_UNBOOKED_INCLUDE"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Dimension.Totals",
+              "LocalizationKey": "FF_GDS_QB_TOTALS",
+              "Items": [
+                {
+                  "Action": "Olap.Dimension.Totals.Visibility",
+                  "Flat": true
+                },
+                {
+                  "Type": "Separator"
+                },
+                {
+                  "Action": "Olap.Dimension.Totals.Member.Including.Visibility.Toggle"
+                },
+                {
+                  "Action": "Olap.Dimension.Totals.Member.Remaining.Visibility.Toggle"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Type": "Submenu",
+          "Name": "Member.Settings",
+          "Items": [
+            {
+              "Action": "Olap.Dialogs.OpenAccountDialog"
+            },
+            {
+              "Action": "Olap.Dialogs.OpenDataCellDialog"
+            },
+            {
+              "Action": "Olap.DataCell.Sort"
+            },
+            {
+              "DataContext": [
+                "!Olap.QueryModel/Olap.Capabilities.DataCellSorting"
+              ],
+              "Action": "Olap.Measure.Sort"
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Cellchart",
+              "LocalizationKey": "FF_GDS_QB_CELLCHART",
+              "Items": [
+                {
+                  "Action": "Olap.CellChart.ActivateOnMeasure"
+                },
+                {
+                  "Action": "Olap.CellChart.KeepValueToggle"
+                },
+                {
+                  "Action": "Olap.CellChart.Type"
+                },
+                {
+                  "Action": "Olap.CellChart.Orientation"
+                },
+                {
+                  "Action": "Olap.CellChart.LineColorSelection"
+                },
+                {
+                  "Action": "Olap.CellChart.BarColorSelection"
+                }
+              ]
+            },
+            {
+              "Type": "Separator"
+            },
+            {
+              "Action": "Olap.Filter.SelectedMember"
+            },
+            {
+              "Action": "Olap.Filter.ExcludeSelectedMember"
+            },
+            {
+              "Action": "Olap.Filter.SelectedMemberAndDrill"
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Olap.Filter.FilterAndExchange",
+              "LocalizationKey": "FF_GDS_QB_FILTER_DRILL_REPLACE_DIMENSION",
+              "OverflowIfMoreThanNItems": 10,
+              "OverflowLocalizationKey": "FF_GDS_QB_OVERFLOW_NEXT_PAGE",
+              "Items": [
+                {
+                  "ContextIteration": "Olap.QueryModel/Olap.Dimension.Free.*",
+                  "Action": "Olap.Filter.SelectedMemberAndExchangeDimension"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Type": "Submenu",
+          "Name": "GenericActions",
+          "Flat": true,
+          "Items": [
+            {
+              "Action": "Olap.ResetToMetadata"
+            }
+          ]
+        },
+        {
+          "Type": "Submenu",
+          "Name": "GridControl.Settings",
+          "Icon": "provision",
+          "LocalizationKey": "FF_GDS_QB_GRID",
+          "Items": [
+            {
+              "Type": "Submenu",
+              "Name": "Grid.Freeze",
+              "Icon": "locked",
+              "LocalizationKey": "FF_GDS_QB_GRID_FREEZE",
+              "Items": [
+                {
+                  "Action": "Grid.Freeze.Columns"
+                },
+                {
+                  "Action": "Grid.Freeze.Rows"
+                },
+                {
+                  "Action": "Grid.Freeze.Headers"
+                },
+                {
+                  "Type": "Separator"
+                },
+                {
+                  "Action": "Grid.Freeze.None"
+                },
+                {
+                  "Action": "Grid.Freeze.UpToRow"
+                },
+                {
+                  "Action": "Grid.Freeze.UpToColumn"
+                },
+                {
+                  "Type": "Separator"
+                },
+                {
+                  "Action": "Grid.Freeze.Lines"
+                }
+              ]
+            },
+            {
+              "Type": "Submenu",
+              "Name": "Grid.Toggle.Display",
+              "Icon": "show",
+              "LocalizationKey": "FF_GDS_QB_GRID_SHOW",
+              "Items": [
+                {
+                  "Action": "Grid.Toggle.Display.Lines"
+                },
+                {
+                  "Action": "Grid.Toggle.Display.Headers"
+                },
+                {
+                  "Action": "Grid.Toggle.Display.Title"
+                },
+                {
+                  "Action": "Grid.Toggle.Display.SubTitle"
+                },
+                {
+                  "Type": "Separator"
+                },
+                {
+                  "Action": "ResultsetRender.Striping.Toggle.Rows"
+                },
+                {
+                  "Action": "ResultsetRender.Striping.Toggle.Columns"
+                },
+                {
+                  "Type": "Separator"
+                },
+                {
+                  "Action": "ResultsetRender.Display.Title.Toggle"
+                },
+                {
+                  "Action": "ResultsetRender.Highlight.Sections123.Toggle"
+                },
+                {
+                  "Action": "ResultsetRender.Highlight.Totals.Toggle"
+                },
+                {
+                  "Action": "ResultsetRender.MemberRepetition.Toggle"
+                },
+                {
+                  "Action": "ResultsetRender.MemberMerge.Toggle"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "FeatureConfiguration": {
+    "ContextMenuVariant": "dwc",
+    "GroupDimensions": true
+  }
+}

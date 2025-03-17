@@ -1,0 +1,120 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio851bde42e4e1410c96abbe402fa9128c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-1-ready-851bde4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 1: Ready...</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 1: Ready...</h2></div><div class="shortdesc">Let's get you ready for your journey! We bootstrap SAPUI5 in an HTML page and
+		implement a simple "Hello World" example.</div><section id="section_cpm_14c_1gb">
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio9c157e9764b846fea7de519d141c33ac_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The browser shows a "Ready" button that triggers a "Hello World" message</h2></span></div>
+		</section><section id="section_lv5_lvy_zbc">
+			<h2 class="title ">Setup</h2>
+			<p>Open a terminal and install UI5 Tooling globally on your machine by executing the following command:</p>
+			<p><code>npm install --global @ui5/cli</code></p>
+		</section><section id="section_zzy_mpc_1gb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.m.tutorial.quickstart.01/preview" title="sample/sap.m.tutorial.quickstart.01/preview" class="sap-doc" alt="sample/sap.m.tutorial.quickstart.01/preview">Quick
+						Start - Step 1</a>.</p>
+			<p>
+				</p><ol>
+					<li class="li">Create a folder on your local machine which will contain all the sources of the app we're going to build. We'll refer to this
+						folder as the "app root folder".</li>
+					<li class="li">
+						<p>Create a new file called <code>package.json</code> which will enable you to execute commands and consume packages from
+								the<a href="https://www.npmjs.com/" title="https://www.npmjs.com/" class="external-link" target="_blank" rel="noopener"> npm registry</a> via the npm command line
+							interface. Enter the following content:</p>
+						<p><span class="emphasis">package.json (New)</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">{
+  "name": "ui5.quickstart",
+  "version": "1.0.0",
+  "description": "The UI5 quickstart tutorial",
+  "scripts": {
+      "start": "ui5 serve -o index.html"
+  }
+}</span>
+</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Create a new folder named <code>webapp</code> in the app root folder. It will contain all the sources that become
+							available in the browser later. We'll refer to this folder as the "webapp folder".</p>
+					</li>
+					<li class="li">
+						<p>Create a new HTML file named <code>index.html</code> in your webapp folder and enter the following content:</p>
+						<p><span class="emphasis">webapp/index.html (New)</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Quickstart Tutorial&lt;/title&gt;
+	&lt;script id="sap-ui-bootstrap"
+		src="resources/sap-ui-core.js"
+		data-sap-ui-libs="sap.m"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-on-init="module:ui5/quickstart/index"
+		data-sap-ui-resource-roots='{
+			"ui5.quickstart": "./"
+		}'&gt;
+	&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="sapUiBody" id="content"&gt;&lt;/body&gt;
+&lt;/html&gt;</span></pre></div></div></section><p></p>
+						<p>With the <code>script</code> tag, we load and initialize SAPUI5 with typical bootstrap parameters. We define, for
+							example, a theme, control libraries, as well as performance and compatibility flags.</p>
+						<p>First, we need a source to load SAPUI5 from. In this tutorial, we will use UI5
+							Tooling to host the OpenUI5 resources.</p>
+						<p>The bootstrap property <code>resourceroots</code> defines the namespace for all resources of the app. This way, we can
+							easily reference additional files that we are about to create in this step.</p>
+						<p>The <code>index</code> module that we load with the <code>onInit</code> parameter will hold the application
+							logic.</p>
+						<p>The <code>body</code> tag is defined with the <code>sapUiBody</code> class and the <code>content</code> ID.
+							This is where we will add the content of the app in the next steps.</p>
+					</li>
+					<li class="li">
+						<p>In your <code>webapp</code> folder, create a new file <code>index.js</code> that will be called as soon as SAPUI5 is loaded and initialized.</p>
+						<p><span class="emphasis">webapp/index.js (New)</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/m/Button",
+	"sap/m/MessageToast"
+], (Button, MessageToast) =&gt; {
+	"use strict";
+
+	new Button({
+		text: "Ready...",
+		press() {
+			MessageToast.show("Hello World!");
+		}
+	}).placeAt("content");
+
+});</span></pre></div></div></section><p></p>
+						<p>We load two UI controls - a button and a message toast - and place the button in the element with the
+								<code>content</code> ID. The button is defined with a <code>text</code> property and a callback attached to
+							its <code>press</code> event.</p>
+					</li>
+					<li class="li">
+						<p>Create a new file named <code>manifest.json</code> in the webapp folder; it's also known as the "app descriptor". All
+							application-specific configuration options which we'll introduce in this tutorial will be added to this file. Enter the
+							following content:</p>
+						<p><span class="emphasis">webapp/manifest.json (New)</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">{
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "ui5.quickstart"
+  }
+}</span></pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Open a terminal in the app root folder and execute <code>npm i -D @ui5/cli</code> to install UI5 Tooling.</p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 init</code> in the app root folder.</p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 use OpenUI5</code></p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 add sap.m sap.tnt sap.ui.core sap.ui.layout themelib_sap_horizon</code></p>
+					</li>
+					<li class="li">
+						<p>Execute <code>npm start</code> to start the web server and to open a new browser window hosting your newly created
+								<code>index.html</code>.</p>
+					</li>
+				</ol>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/592f36fd077b45349a67dcb3efb46ab1">Quickstart Tutorial</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/128214a9b2754b15aec5e365780b03fd">Step 2: Steady...</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/7bb04e05f9484e1b95b38a2e48ecef4f" title="This part of the documentation introduces you to some common and recommended use cases for the installation, configuration, and setup of SAPUI5 development environments." class="sap-doc">Development Environment</a></li>
+		<li><a href="topic/2d3eb2f322ea4a82983c1c62a33ec4ae" title="SAPUI5 can either be loaded locally with a relative path from an SAP Web server or externally from a Content Delivery Network (CDN)." class="sap-doc">Variant for Bootstrapping from Content Delivery Network</a></li>
+	</ul></section></div></section></div></body></html>

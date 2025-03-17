@@ -1,0 +1,71 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio17b87fbafb5a4474982760d2a3a73e69" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-13-margins-and-paddings-17b87fb.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 13: Margins and Paddings</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 13: Margins and Paddings</h2></div><div class="shortdesc">Our app content is still glued to the corners of the letterbox. To fine-tune our
+		layout, we can add margins and paddings to the controls that we added in the previous step. </div><p>Instead of manually adding CSS to the controls, we will use the standard classes provided
+			by SAPUI5. These classes
+			take care of consistent sizing steps, left-to-right support, and responsiveness.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio0becf3ee81f5486a864e3b39ba036402_LowRes.png" title="The graphic has an explanatory text." alt="The graphic has an explanatory text." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The layout of the panel and its content now has margins and padding</h2></span></div>
+		</section><section id="section_wl1_jq2_syb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.13" title="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.13" class="sap-doc" alt="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.13">Walkthrough - Step 13</a>.</p>
+		</section><section id="section_xl1_jq2_syb">
+			<h2 class="title ">webapp/view/App.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="ui5.walkthrough.controller.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true"&gt;
+	&lt;Shell&gt;
+		&lt;App&gt;
+			&lt;pages&gt;
+				&lt;Page title="{i18n&gt;homePageTitle}"&gt;
+					&lt;content&gt;
+						&lt;Panel
+							headerText="{i18n&gt;helloPanelTitle}"
+							<span class="emphasis">class="sapUiResponsiveMargin"
+							width="auto"</span>&gt;
+							&lt;content&gt;
+								&lt;Button
+									text="{i18n&gt;showHelloButtonText}"
+									press=".onShowHello"
+									<span class="emphasis">class="sapUiSmallMarginEnd"</span>/&gt;
+								&lt;Input
+									value="{/recipient/name}"
+									valueLiveUpdate="true"
+									width="60%"/&gt;
+								<span class="emphasis">&lt;Text
+									text="Hello {/recipient/name}"
+									class="sapUiSmallMargin"/&gt;</span>
+							&lt;/content&gt;
+						&lt;/Panel&gt;
+					&lt;/content&gt;
+				&lt;/Page&gt;
+			&lt;/pages&gt;
+		&lt;/App&gt;
+	&lt;/Shell&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>To layout the panel, we add the CSS class <code>sapUiResponsiveMargin</code> that will add some space around the panel. We have to
+				set the width of the panel to <code>auto</code> since the margin would otherwise be added to the default width of 100% and exceed
+				the page size. </p>
+			<p>If you decrease the screen size, then you can actually see that the margin also decreases. As the name suggests, the margin is
+				responsive and adapts to the screen size of the device. Tablets will get a smaller margin and phones in portrait mode will not get a
+				margin to save space on these small screens. </p>
+			<p>Margins can be added to all kinds of controls and are available in many different options. We can even add space between the button and
+				the input field by adding class <code>sapUiSmallMarginEnd</code> to the button.</p>
+			<p>To format the output text individually, we remove the description from the input field and add a new <code>Text</code> control with
+				the same value. Here we also use a small margin to align it with the other content. Similarly, we could add the standard padding
+				classes to layout the inner parts of container controls such as our panel, but as it already brings a padding by default, this is not
+				needed here.</p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Use the standard SAPUI5 CSS
+						classes for the layout if possible.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/4df1d914e52d4b1aa0805eb01522537e">Step 12: Shell Control as Container</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/723f4b2334e344c08269159797f6f796">Step 14: Custom CSS and Theme Colors</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/777168ffe8324873973151dae2356d1c" title="SAPUI5 gives you the option of adding spacing in between controls by adding a margin. A margin clears an area around its respective control, outside of its border." class="sap-doc">Using Predefined CSS Margin Classes</a></li>
+		<li><a href="topic/c71f6df62dae47ca8284310a6f5fc80a" title="For many container controls in SAPUI5, such as a Dialog or a Page, you can define whether the container should have a padding within the content area. A padding clears the area between the container layout and the controls that are displayed in the content area." class="sap-doc">Using Container Content Padding CSS Classes</a></li>
+	</ul></section></div></section></div></body></html>

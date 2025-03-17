@@ -1,0 +1,77 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5f215c172f9644758cbb2b21c6c87926" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/how-to-enable-personalization-for-sapui5-controls-5f215c1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">How to Enable Personalization for SAPUI5 Controls</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">How to Enable Personalization for SAPUI5 Controls</h2></div><div class="shortdesc">Here's how control developers can enable their controls for personalization by end users.</div><p>Personalization allows users without any special roles or permissions to make changes to controls. This personalization is applied on top of
+			existing changes made with SAPUI5 flexibility by a developer or a key user.</p><p>In general, to enable personalization you need to ensure that the control provides the user interface and calls the APIs offered by SAPUI5 flexibility.</p><p>An example for a personalization UI is the <span class="ph uicontrol">View Settings</span> dialog for a SmartTable. The user can change the visibility and
+			the order of the columns and can personalize the sorting and filtering of the table's content.</p><p>The lifecycle of UI changes created with personalization depends on whether the corresponding
+			control operates in the context of a <code>VariantManagement</code> control. For
+			more information, see <a href="topic/5f215c172f9644758cbb2b21c6c87926.html#loio5f215c172f9644758cbb2b21c6c87926/section_fwf_mzt_qbc" title="5f215c172f9644758cbb2b21c6c87926.xml#loio5f215c172f9644758cbb2b21c6c87926/section_fwf_mzt_qbc" class="sap-doc">Calling the Personalization API to Apply and Persist the Changes</a>.</p><section id="section_rcf_syt_qbc">
+			<h2 class="title ">Providing the Change Handler</h2>
+			<p>To correctly set up change handlers for personalization, you need to register them in the <code>library.js</code> file. You need to
+				define a new change handler for each change type. Set the <code>"layers"</code> property explicitly to <code>"USER":
+					true</code>. If you want to use a default change handler, set the <code>"changeHandler"</code> property to
+					<code>"default"</code>. Otherwise, provide the path to the custom change handler as shown below:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">extensions: {
+    flChangeHandlers: {
+        "sap.ui.comp.smartform.Group": {
+            // with default change handler
+            "hideControl": {
+                "changeHandler": "default",
+                "layers": {
+                    "USER": true
+                }
+            },
+            // with custom change handler
+            "newChangeType": {
+                "changeHandler": "sap/ui/comp/smartform/flexibility/changeHandler/NewChangeHandler",
+                "layers": {
+                    "USER": true
+                }
+            },
+        },
+        // ... other components ...
+    },
+    // ... other extensions ...
+}
+```</pre></div></div></section>
+			<p></p></div></div>
+		</section><section id="section_fwf_mzt_qbc">
+			<h2 class="title ">Calling the Personalization API to Apply and Persist the Changes</h2>
+			<p>The <code>ControlPersonalizationWriteAPI</code> provides all the relevant actions that you need to handle personalization changes.</p>
+			<p>To ensure proper processing by the <code>ControlPersonalizationWriteAPI</code>, the
+					<code>PersonalizationChange</code> must be structured as follows:</p>
+			<ul class="ul ">
+				<li class="li"><code>selectorElement</code>: Control to be used as the selector for the
+					change</li>
+				<li class="li"><code>changeSpecificData</code>: Map of change-specific data to create a
+					flex change</li>
+				<li class="li"><code>changeType</code>: Type of change for which a change handler is
+					registered</li>
+				<li class="li"><code>content</code>: Content for the change</li>
+				<li class="li"><code>transient</code> (optional, default = false): Transient changes are
+					not persisted</li>
+			</ul>
+			<p>For more information about the change content, see <a href="topic/41c69621fb554fec8476429056fbe7a3" title="This section provides examples how to enable different actions." class="sap-doc">How to Enable Different Actions</a>.</p>
+			<p>For more detailed
+				information, see the <a href="api/sap.ui.fl.write.api.ControlPersonalizationWriteAPI" title="api/sap.ui.fl.write.api.ControlPersonalizationWriteAPI" class="sap-doc" alt="api/sap.ui.fl.write.api.ControlPersonalizationWriteAPI">API Reference:
+						<code>ControlPersonalizationWriteApi</code></a>.</p>
+			
+			<section>
+				<h3 class="title ">Personalization Without Variant Management</h3>
+				<p>For personalization without variant management, the control must provide a user interface for saving and independently invoke the
+						<code>ControlPersonalizationWriteApi.save</code> method.</p>
+			</section>
+			<section>
+				<h3 class="title ">Personalization With Variant Management</h3>
+				<p>If you have a variant management control in your application and you want personalization changes to be saved with it, you need to link the
+					variant management control to the control on which personalization is enabled.</p>
+				<p>Example:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;sap.ui.fl.variants:VariantManagement id="&lt;VariantManagementId&gt;" for="&lt;ControlId&gt;"/&gt;</pre></div></div></section>
+				<p></p></div></div>
+			</section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

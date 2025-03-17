@@ -1,0 +1,29 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioff7aceda0bd24039beb9bca8e882825d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/application-cache-buster-ff7aced.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Application Cache Buster</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Application Cache Buster</h2></div><div class="shortdesc">The application cache buster (short <code>AppCacheBuster</code>) is similar to the cache buster but is used for application
+		resources.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>SAPUI5 supports the
+				application cache buster on SAP NetWeaver AS for
+                                ABAP only.</p>
+			
+			<p>For Java apps on SAP NetWeaver AS for
+                                Java and SAP HANA XS the
+				application cache buster concept is <span class="emphasis">not</span> supported.</p>
+		<p></p></div></div><p>Applications provide an index file named <code>sap-ui-cachebuster-info.json</code> (created on the fly) containing the last modified timestamps of
+			all included files (like scripts, properties, or any other file that we load via XHR programmatically). Technically this file is a mapping between
+			the request path (below the context path of the application) and the last modified time stamp. </p><p>The server instructs the client to cache all the above resources (not using the 304/not modified mechanism). For the index file we are using the 304/not
+			modified mechanism to avoid to load when it has not been changed. </p><p>On the client side, we initially load this file of the application when enabled via configuration option <code>sap-ui-app-cache-buster</code>
+			and use this for the XHR requests. If the request path is contained in the above mentioned index file we simply add the time stamp as
+			leading path segment to this request. If the time stamp doesn't change the URL is unique and therefore it will be taken from cache. Once
+			the file is modified the URL parameter will be changed and therefore loaded again from the back end. </p><p>The server has to delete the time stamp from this URL to look up the file properly. For SAP NetWeaver AS for
+                                ABAP, the logic is implemented in the ICF handler. Both back end implementations,
+				SAP NetWeaver AS for
+                                Java and SAP NetWeaver AS for
+                                ABAP, also generate the index file on-the-fly. </p><p>
+			</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The application cache buster does <b>not</b> work across application borders. If you require resources from
+				another application they are not loaded via this mechanism.</p></div></div>
+		<p></p><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/fef5340250134900843a23329c90097b">Application Cache Buster: Index File</a></li><li><a href="topic/c1c3e2f70066465dbb794c866b933ed5">Application Cache Buster: Configuration</a></li><li><a href="topic/d415dd8911a645759373dc1a70b93f3d">Application Cache Buster: Request Flow</a></li><li><a href="topic/94e0c33e22474538a65f5f5b4920cdaf">Application Cache Buster: Enhanced Concept</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

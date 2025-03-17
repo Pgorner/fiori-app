@@ -1,0 +1,8 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define(["../i18n","./SuggestionType"],function(e,t){"use strict";function r(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const n=r(e);const i=r(t);const o=t["Type"];function a(e){const t=e.getProperty("/breadcrumbsHierarchyNodePaths").length;if(t>0){let r="";let i=" > ";let o=e.getProperty("/breadcrumbsHierarchyNodePaths").slice();if(document.documentElement.getAttribute("dir")==="rtl"){i=" < ";o=o.reverse()}o.forEach((e,n)=>{r+=e.label;if(++n<t){r+=i}});return n.getText("resultsIn",["<span>"+e.getSearchBoxTerm()+"</span>",r])}if(e.getProperty("/dataSources").length>1){return n.getText("resultsIn",["<span>"+e.getSearchBoxTerm()+"</span>",e.getDataSource().labelPlural])}return e.getSearchBoxTerm()}function c(e){const t=e.getProperty("/uiFilter");const r=t.dataSource;const n=r.getStaticHierarchyAttributeMetadata()?.id;const i=e.config?.dimensionNameSpace_Description;const o=t.rootCondition.getAttributes().filter(e=>{if(n&&n===e){return false}if(i&&i===e){return false}return true});return o.length>0}function u(e){const t=e.getSearchBoxTerm();if(!t||t==="*"||t==="")return;return{label:a(e),icon:"sap-icon://search",titleNavigation:e.createSearchNavigationTargetCurrentState(),uiSuggestionType:o.Search,position:i.properties.Search.position,filterIcon:c(e)?"sap-icon://filter":""}}var s={__esModule:true};s.createSearchSuggestionForCurrentSearch=u;return s})})();
+//# sourceMappingURL=SearchSuggestionFactory.js.map

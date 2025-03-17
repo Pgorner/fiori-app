@@ -1,0 +1,5 @@
+/*
+ * Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+ */
+jQuery.sap.declare("sap.ca.scfld.md.ApplicationFacade");sap.ui.base.Object.extend("sap.ca.scfld.md.ApplicationFacade",{constructor:function(t){this.oApplicationImplementation=t},getResourceBundle:function(){return this.oApplicationImplementation.getResourceBundle()},getODataModel:function(t){return this.oApplicationImplementation.getODataModel(t)},isMock:function(){return this.oApplicationImplementation.isMock()},setApplicationModel:function(t,e){this.oApplicationImplementation.setApplicationModel(t,e)},getApplicationModel:function(t){return this.oApplicationImplementation.getApplicationModel(t)},getUiLibResourceModel:function(){return this.oApplicationImplementation.getUiLibResourceBundle()},registerOnMasterListRefresh:function(t,e){return this.oApplicationImplementation.attachEvent("_scfldOnMasterListRefresh",t,e)},deRegisterOnMasterListRefresh:function(t,e){return this.oApplicationImplementation.detachEvent("_scfldOnMasterListRefresh",t,e)}});
+//# sourceMappingURL=ApplicationFacade.js.map

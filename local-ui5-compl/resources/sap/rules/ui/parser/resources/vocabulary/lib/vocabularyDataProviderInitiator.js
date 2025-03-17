@@ -1,0 +1,2 @@
+sap.ui.define(["sap/rules/ui/parser/resources/vocabulary/lib/vocabularyDataProviderContextFactory","sap/rules/ui/parser/resources/vocabulary/lib/vocabularyDataProviderFactory"],function(r,a){"use strict";var t=new r.vocaDataProviderContextFactoryLib;var o=new a.vocaDataProviderFactoryLib;function e(){}e.prototype.init=function(r){var a;a=t.getRTSContext(r);return o.getVocabularyDataProvider(a)};return{vocaDataProviderInitiatorLib:e}},true);
+//# sourceMappingURL=vocabularyDataProviderInitiator.js.map

@@ -1,0 +1,271 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc9723f8265f644af91c0ed941e114d46" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/creating-an-entity-c9723f8.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating an Entity</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating an Entity</h2></div><div class="shortdesc">The <code>sap.ui.model.odata.v4.ODataListBinding#create</code> method creates a
+		new entity. Users can interact with a newly created entity even before it has been sent to
+		the server.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>The <code>sap.ui.model.odata.v4.ODataListBinding#create</code> method is also used for creating records in controller code. For
+				more information, see <a href="topic/17b30ac2d5474078be31e695e97450cc" title="In the OData V4 model, bindings are used to access and modify back-end data also if the data is accessed or modified in controller code." class="sap-doc">Accessing Data in Controller Code</a>.</p>
+		<p></p></div></div><p>To create new entities, <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>ODataListBinding#create</code></a> uses the
+			list binding's update group ID as group ID. For more information how this group ID is
+			determined, see the documentation for the binding-specific parameter
+				<code>$$updateGroupID</code> of <a href="api/sap.ui.model.odata.v4.ODataModel#methods/bindList" title="api/sap.ui.model.odata.v4.ODataModel#methods/bindList" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/bindList"><code>ODataModel#bindList</code></a>.</p><p>A newly created entity can be inserted at the start or at the end of the list. This new entity is transient until it is successfully submitted,
+			see <a href="api/sap.ui.model.odata.v4.Context#methods/isTransient" title="api/sap.ui.model.odata.v4.Context#methods/isTransient" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/isTransient"><code>Context#isTransient</code></a>. The initial data for the created entity can be supplied via the
+			parameter <code>oInitialData</code> and modified via property bindings or <a href="api/sap.ui.model.odata.v4.Context#methods/setProperty" title="api/sap.ui.model.odata.v4.Context#methods/setProperty" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/setProperty"><code>Context#setProperty</code></a>. Properties that are not part of the initial data show the default value from the
+			service metadata on the UI, but they are not sent to the server. If there is no default value, null is used instead, even if the property
+			is not nullable. Updates for the transient entity are collected and added to the POST request which creates the entity on the server. The
+			initial data may contain instance annotations.</p><p>Inserting an entity at the end of the list is done via the <code>bAtEnd</code> parameter in the <code>create</code> call. The first call
+			determines the overall position of created contexts within the binding's context list. When creating the first new entity at the beginning
+			of the list, every succeeding insertion is relative to the created contexts within this list. Creation at the end of the list is only
+			possible if the list's length has been requested via the <code>$count</code> system query option. <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/isFirstCreateAtEnd" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/isFirstCreateAtEnd" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/isFirstCreateAtEnd"><code>ODataListBinding#isFirstCreateAtEnd</code></a> can be used to determine whether any entries have already been created,
+			and whether the first created entry was placed at the end of the list.</p><p>To delete transient entities, use <a href="api/sap.ui.model.odata.v4.Context#methods/delete" title="api/sap.ui.model.odata.v4.Context#methods/delete" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/delete"><code>Context#delete</code></a>. Active transient entities are also deleted when you reset the changes
+			for the list binding on which the entity has been created, see <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/resetChanges" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/resetChanges" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/resetChanges"><code>ODataListBinding#resetChanges</code></a> and <a href="api/sap.ui.model.odata.v4.ODataModel#methods/resetChanges" title="api/sap.ui.model.odata.v4.ODataModel#methods/resetChanges" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/resetChanges"><code>ODataModel#resetChanges</code></a>. The promise returned by <a href="api/sap.ui.model.odata.v4.Context#methods/created" title="api/sap.ui.model.odata.v4.Context#methods/created" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/created"><code>Context#created</code></a>
+			 is rejected in all cases
+			where the created entity is deleted before it is created in the back end. As long as the list binding has a transient entity, <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/hasPendingChanges" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/hasPendingChanges" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/hasPendingChanges"><code>ODataListBinding#hasPendingChanges</code></a> returns <code>true</code>. Transient entities
+			are handled by the following methods:</p><ul class="ul ">
+				<li class="li"><code>setContext</code> for all bindings,</li>
+				<li class="li"><code>changeParameters</code>, <code>filter</code>, <code>refresh</code>/<code>requestRefresh</code>,
+						<code>sort</code>, and <code>suspend</code>/<code>resume</code> for root bindings and bindings using
+						<code>$$ownRequest</code>; for other bindings, these methods raise an error.</li>
+			</ul><p></p><p>Use the <code>bIgnoreKeptAlive</code> parameter of <code>ODataListBinding#hasPendingChanges</code> to check for pending changes
+			which cannot be ignored. The deletion of another entity of the same list binding is possible.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The position of the created entity may change after the methods
+				<code>refresh</code>, <code>filter</code>, or <code>sort</code> of an
+				<a href="api/sap.ui.model.odata.v4.ODataListBinding" title="api/sap.ui.model.odata.v4.ODataListBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding"><code>ODataListBinding</code></a>.</p></div></div><p>If you have called <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>ODataListBinding#create</code></a> on a list binding where the update group ID has <a href="api/sap.ui.model.odata.v4.SubmitMode" title="api/sap.ui.model.odata.v4.SubmitMode" class="sap-doc" alt="api/sap.ui.model.odata.v4.SubmitMode"><code>SubmitMode.API</code></a> and the creation of the entity on the server fails, the creation is
+			repeated with the next call of <a href="api/sap.ui.model.odata.v4.ODataModel#methods/submitBatch" title="api/sap.ui.model.odata.v4.ODataModel#methods/submitBatch" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/submitBatch"><code>submitBatch</code></a> for this group. If the update group ID has <a href="api/sap.ui.model.odata.v4.SubmitMode" title="api/sap.ui.model.odata.v4.SubmitMode" class="sap-doc" alt="api/sap.ui.model.odata.v4.SubmitMode"><code>SubmitMode.Auto</code></a> or <a href="api/sap.ui.model.odata.v4.SubmitMode" title="api/sap.ui.model.odata.v4.SubmitMode" class="sap-doc" alt="api/sap.ui.model.odata.v4.SubmitMode"><code>SubmitMode.Direct</code></a> and the creation fails, the creation is repeated automatically with
+			the next update for the entity. <code>submitBatch</code> can also be used for update group IDs with <code>SubmitMode.Auto</code>
+			to repeat, independently of an update. The error returned by the server is passed to the <a href="api/sap.ui.core.message.MessageManager" title="api/sap.ui.core.message.MessageManager" class="sap-doc" alt="api/sap.ui.core.message.MessageManager"><code>MessageManager</code></a> and the promise you get via <a href="api/sap.ui.model.odata.v4.Context#methods/created" title="api/sap.ui.model.odata.v4.Context#methods/created" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/created"><code>Context.created</code></a> is not rejected. Each time the data for the created entity is sent to the server, a <a href="api/sap.ui.model.odata.v4.ODataListBinding/events/createSent" title="api/sap.ui.model.odata.v4.ODataListBinding/events/createSent" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding/events/createSent"><code>v4.ODataListBinding.createSent</code></a> event is fired. Each time the client receives a response for the creation, a <a href="api/sap.ui.model.odata.v4.ODataListBinding/events/createCompleted" title="api/sap.ui.model.odata.v4.ODataListBinding/events/createCompleted" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding/events/createCompleted"><code>v4.ODataListBinding.createCompleted</code></a> event is fired, independent of whether the creation was successful or not.</p><div class="note other recommendation "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Recommendation
+				</strong></div></div><div class="fig"><p>
+			</p><p>Lock the UI each time the (<code>POST</code>) request for the creation is sent to
+				the server and unlock it, when the response from the server for that
+					(<code>POST</code>) request is processed, because updates in between result
+				in errors. If the update group ID is <a href="api/sap.ui.model.odata.v4.SubmitMode" title="api/sap.ui.model.odata.v4.SubmitMode" class="sap-doc" alt="api/sap.ui.model.odata.v4.SubmitMode"><code>SubmitMode.API</code></a>, you can lock the UI when calling <a href="api/sap.ui.model.odata.v4.ODataModel#methods/submitBatch" title="api/sap.ui.model.odata.v4.ODataModel#methods/submitBatch" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/submitBatch"><code>ODataModel#submitBatch</code></a> and unlock it again when the
+				promise returned by <code>ODataModel#submitBatch</code> is resolved or rejected.
+				However, if the update group ID is <code>SubmitMode.Auto</code> or
+					<code>SubmitMode.Direct</code>, use the <code>createSent</code> event to
+				lock the related UI and the <code>createCompleted</code> event to unlock it.</p>
+		<p></p></div></div><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// suppose this list binding has no own update group; it uses the model's update group instead (an application group)
+...
+        onCreateSalesOrder : function (oEvent) {
+            var oContext = this.getView().byId("SalesOrders").getBinding("items")
+                    .create({
+                        "Note" : "My new Sales Order",
+                        "NoteLanguage" : "E",
+                        "BuyerID" : "0100000000",
+                        "CurrencyCode" : "EUR"
+                    });
+ 
+            // Note: This promise fails only if the transient entity is canceled, 
+            //   i.e. deleted by either deleting the transient context or by resetting pending changes
+            oContext.created().then(function () {
+                    // sales order successfully created
+                }, function (oError) {
+                    // handle rejection of entity creation; if oError.canceled === true then the transient entity has been deleted
+                        if (!oError.canceled) {
+                            throw oError; // unexpected error
+                        }
+                });
+        },
+ 
+        onDeleteSalesOrder : function () {
+            var oSalesOrderContext = this.getView().byId("SalesOrders").getSelectedItem().getBindingContext();
+ 
+            oSalesOrderContext.delete("$auto").then(function () {
+                    // sales order successfully deleted
+               }, function (oError) {
+                    // do error handling
+               });
+        },
+ 
+        onSaveSalesOrder : function () {
+            var oView = this.getView();
+ 
+            function resetBusy() {
+                oView.setBusy(false);
+            }
+ 
+            // lock UI until submitBatch is resolved, to prevent errors caused by updates while submitBatch is pending
+            oView.setBusy(true);
+             
+            oView.getModel().submitBatch(oView.getModel().getUpdateGroupId()).then(resetBusy, resetBusy);
+        },
+...</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>To ensure that for a list binding all expanded data is available as soon as the
+				promise returned by <a href="api/sap.ui.model.odata.v4.Context#methods/created" title="api/sap.ui.model.odata.v4.Context#methods/created" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/created"><code>Context#created</code></a>
+				 is resolved, an
+				additional single <code>GET</code> request for the newly created entity is sent
+				automatically once the <code>POST</code> request has arrived.</p>
+			<p>If you want to skip this additional single <code>GET</code> request, call <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>ODataListBinding#create</code></a> with
+				parameter <code>bSkipRefresh=true</code>.</p>
+		<p></p></div></div><p>The <code>promise</code> returned by <a href="api/sap.ui.model.odata.v4.Context#methods/created" title="api/sap.ui.model.odata.v4.Context#methods/created" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/created"><code>Context#created</code></a>
+			 is resolved when the entity
+			represented by this context has been created in the backend. Once the promise is resolved, <a href="api/sap.ui.model.Context#methods/getPath" title="api/sap.ui.model.Context#methods/getPath" class="sap-doc" alt="api/sap.ui.model.Context#methods/getPath"><code>sap.ui.model.Context#getPath</code></a>
+			 returns a path including the key
+			predicate of the new entity. For returning the path including the key predicates, all key properties need to be available.</p><section id="section_DCR">
+			<h2 class="title ">Deep Create</h2>
+			<p>It is also possible to create nested entities in a navigation property with a single request together with their parent entity (so-called "deep
+				create"; the request itself is called "deep insert" in the <a href="http://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html#sec_CreateRelatedEntitiesWhenCreatinganE" title="http://docs.oasis-open.org/odata/odata/v4.01/os/part1-protocol/odata-v4.01-os-part1-protocol.html#sec_CreateRelatedEntitiesWhenCreatinganE" class="external-link" target="_blank" rel="noopener">OData specification</a>).</p>
+			<section>
+				<h3 class="title ">Nested Collection</h3>
+				<p>Bind the list for the nested collection relative to the transient context of the created main entity. A <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>create</code></a> in
+					the nested table then creates a row which contributes to the POST request of the main entity. A deep create is not restricted to
+					one level; it is also possible that a nested entity has a nested collection itself.</p>
+				<p>"Deep create" supports a simple collection-valued navigation property (no path like "detail/items"). It requires that the
+						<code>autoExpandSelect</code>
+					<a href="api/sap.ui.model.odata.v4.ODataModel/constructor" title="api/sap.ui.model.odata.v4.ODataModel/constructor" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel/constructor">model</a> parameter is <code>true</code>. There must
+					be no context binding in the binding hierarchy between the top-level and nested list binding.</p>
+				<p><span class="emphasis">Example: Creating a sales order with line
+						items</span></p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p><span class="emphasis">View</span></p><section class="language-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;SimpleForm id="form"&gt;
+    &lt;Table id="items" items="{path : 'SO_2_SOITEM', parameters : {$$ownRequest : true}}"&gt;
+         &lt;ColumnListItem&gt;
+             &lt;Input value="{ProductID}"/&gt;
+             &lt;Input value="{Amount}"/&gt;
+             &lt;Input value="{Unit}"/&gt;
+           &lt;/ColumnListItem&gt;
+    &lt;/Table&gt;
+&lt;/SimpleForm&gt;</pre></div></div></section><p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p><span class="emphasis">Controller</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">   createNewSalesOrder : function () {
+       var oSalesOrderBinding = this.getView().getModel().bindList("/SalesOrderList");
+       this.oNewSalesOrderContext = oSalesOrderBinding.create();
+       this.oNewSalesOrderContext.created().then(function () {
+           // successfully created
+       }, function () {
+           // creation canceled (if the request failed, it will be
+           // automatically queued again)
+       };
+       this.byId("form").setBindingContext(this.oNewSalesOrderContext);
+   },
+   addItem : function () {
+       oNewItemContext = this.byId("items").getBinding("items").create();
+   },
+   deleteItem : function () {
+       this.byId("items").getSelectedItem().getBindingContext().delete();
+   },
+   save : function () {
+       var oModel = this.getView().getModel();
+       oModel.submitBatch(oModel.getUpdateGroupId());
+   },
+   cancel : function () {
+         this.oNewSalesOrderContext.delete();
+        // alternatively
+        // oModel.resetChanges(oModel.getUpdateGroupId());
+   }</pre></div></div></section><p></p></div></div><p></p>
+				<p>The <code>createNewSalesOrder</code> function creates a sales order and binds it to the form. Initially this is no deep create.
+					The <code>addItem</code> and <code>deleteItem</code> functions show that you can create and delete nested items exactly
+					like top-level items. They automatically add and remove an item in the nested collection of the top-level POST request. As soon as
+					the first item has been added to the "items" table, the <code>create</code> becomes a deep create. <code>create</code>
+					returns a context allowing to access the transient item's data. The <a href="api/sap.ui.model.odata.v4.Context#methods/isTransient" title="api/sap.ui.model.odata.v4.Context#methods/isTransient" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/isTransient"><code>isTransient</code></a> value of such a nested context is <code>true</code>, and it has a <a href="api/sap.ui.model.odata.v4.Context#methods/created" title="api/sap.ui.model.odata.v4.Context#methods/created" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/created"><code>created</code></a>
+					 promise. But there are two important
+						differences:</p><ul class="ul ">
+						<li class="li">A nested context becomes invalid after a successful deep create. New contexts are created for the nested collection,
+							because it is not possible to reliably assign the response entities to those of the request, especially if the count
+							differs.</li>
+						<li class="li">Never use the <code>created</code> promise of a nested context! This context is about to be destroyed anyway, and it
+							is not possible to access the created data through it. So the promise is always rejected, even if the creation
+							succeeded.</li>
+					</ul><p></p>
+				<p>It is also possible to create a sales order already having items in the initial data. These items then show up in the table
+					immediately. They have transient contexts in the "items" table's binding, which can be accessed via <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/getAllCurrentContexts" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/getAllCurrentContexts" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/getAllCurrentContexts"><code>getAllCurrentContexts</code></a>:</p>
+				<p>
+					</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p><span class="emphasis"></span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">this.oNewSalesOrderContext = oSalesOrderBinding.create({
+    SO_2_SOITEM : [
+        {ProductID : "1", Amount : "1", Unit : "EA"},
+        {ProductID : "2", Amount : "3.7", Unit : "kg"}
+    ]
+});
+aInitialItemsContexts = this.byId("items").getBinding("items").getAllCurrentContexts();</pre></div></div></section><p></p></div></div>
+				<p></p>
+				<p>The usage of the <code>bSkipRefresh</code> parameter when calling <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>create</code></a> is
+					not recommended for a deep create. It leads to multiple single row requests if the POST response did not supply all properties of
+					the nested list. If it is not set, the model checks whether all required properties and child entities are available on the client
+					and requests only data that is missing.</p>
+				<p>Canceling a deep create or deleting the top-level entity removes the request, the top-level entity, and all its subentities.
+					Deleting a nested entity also deletes its subentities.</p>
+			</section>
+			<p>As long as the parent context is still transient, requesting data from the server does not make sense. Hence, API functions leading to
+				a server request (like <code>refresh</code>, <code>sort</code>, <code>filter</code>, <code>requestSideEffects</code>)
+				are forbidden. When the parent entity including its nested entities has been created, the binding is fully functional.</p>
+			<section>
+				<h3 class="title ">Nested Single Entity</h3>
+				<p>No API is required here. Simply bind the properties of the nested entity relative to the transient context of the created main
+					entity. If the user enters a value in such a field, this value is automatically added to the payload of the POST request, making
+					it a deep create.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p><span class="emphasis">View</span></p><section class="language-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;SimpleForm&gt;
+     &lt;Text text="{SalesOrderID}"/&gt;
+     &lt;Text text="{SO_2_BP/BusinessPartnerID}"/&gt;
+     &lt;Input value="{SO_2_BP/CompanyName}"/&gt;
+&lt;/SimpleForm&gt;</pre></div></div></section><p></p></div></div>
+				<p>In this (unrealistic) example, it is possible to create the business partner together with the sales order. As soon as the user
+					enters a company name, the POST request for the sales order contains the <code>SO_2_BP</code> navigation property and thus
+					becomes a deep create.</p>
+				<p>It is also possible to have this navigation property in the initial data.</p>
+			</section>
+		</section><section id="section_ICR">
+			<h2 class="title ">Inline Creation Rows</h2>
+			<p>In some applications users need to be able to quickly enter a large amount of new records. A "Create" button or the related keyboard
+				shortcut that needs to be explicitly pressed would slow down the user. To avoid this, the application could provide multiple
+					<span class="emphasis">inline creation rows</span> in the table that are initially filled with default values and are not persisted in the
+				back end. </p>
+			<p>You can create such an inline creation row by calling <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>sap.ui.model.odata.v4.ODataListBinding#create</code></a> with the <code>bInactive</code>
+				parameter. Call it multiple times for multiple rows. These rows are called inactive because they are not sent to the server. Once the
+				user modifies a property of such an inactive row, and the modification passes the client-side validation, a <a href="api/sap.ui.model.odata.v4.ODataListBinding#events/createActivate" title="api/sap.ui.model.odata.v4.ODataListBinding#events/createActivate" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#events/createActivate"><code>v4.ODataListBinding.createActivate</code></a>
+				 event is fired and the row
+				will be sent to the server with the next batch for the binding's update group. You could use the event for additional custom
+				validation, and it supports calling <a href="api/sap.ui.base.Event#methods/preventDefault" title="api/sap.ui.base.Event#methods/preventDefault" class="sap-doc" alt="api/sap.ui.base.Event#methods/preventDefault"><code>sap.ui.base.Event#preventDefault</code></a> to prevent the row from being sent to the server. You could
+				use this, for example, to require certain properties to be set before sending the row to the server. You could also reset the row back
+				to the initial state via <a href="api/sap.ui.model.odata.v4.Context#methods/resetChanges" title="api/sap.ui.model.odata.v4.Context#methods/resetChanges" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/resetChanges"><code>Context#resetChanges</code></a>. The event can also be used to create a new inline creation row. While inactive,
+				an inline creation row does not count as a pending change and does not contribute to the collection's count.</p>
+		</section><section id="section_CST">
+			<h2 class="title ">Context States</h2>
+			<p>
+				</p><ul class="ul ">
+					<li class="li"><code>persisted</code>: An already existing entity that was read from the server.</li>
+					<li class="li"><code>inactive</code>: An inline creation row without any property update yet; it is waiting for a property change
+						before adding a POST to the batch queue.</li>
+					<li class="li"><code>transient</code>: A POST is waiting in the batch queue.</li>
+					<li class="li"><code>createPending</code>: The POST has been sent to the server; the entity is waiting for the response.</li>
+					<li class="li"><code>parked</code>: A POST via an auto group that failed is parked until a property update takes place.</li>
+					<li class="li"><code>createdPersisted</code>: The POST succeeded, and the entity now exists on the server. If the binding is
+						refreshed, the context's reaction depends on its <code>isKeepAlive</code> state. If it's set to
+						<code>false</code>, the context is dropped and created anew when it's read from the server. If it's set to
+						<code>true</code>, it is refreshed with a special request and remains in the <code>createdPersisted</code>
+						state.</li>
+				</ul>
+			<p></p>
+			<div><div class="fig"><img src="loiof359082361f445868c75940f778a8c2e_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Internal States of an OData V4 Binding Context</h2></span></div>
+			<p>The state of a context can be checked via the following API functions:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>
+						<a href="api/sap.ui.model.odata.v4.Context#methods/isTransient" title="api/sap.ui.model.odata.v4.Context#methods/isTransient" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/isTransient"><code>Context#isTransient</code></a>. This function does not distinguish between the
+						<code>transient</code>, <code>createPending</code>, and <code>parked</code> states of a context. It
+						returns <code>true</code> for any of them; the internal state of a such a context should not matter to the
+						application. <code>Context#isTransient</code> also returns <code>true</code> for <code>inactive</code>
+						contexts. It returns <code>false</code> for <code>createdPersisted</code> contexts, and <code>undefined</code>
+						for <code>persisted</code> contexts. The value of <code>isTransient()</code> can also be observed via the bindable
+						annotation <code>@$ui5.context.isTransient</code>.</p>
+				</li>
+				<li class="li"><a href="api/sap.ui.model.odata.v4.Context#methods/isInactive" title="api/sap.ui.model.odata.v4.Context#methods/isInactive" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/isInactive"><code>Context#isInactive</code></a>: This function returns <code>true</code> for
+					<code>inactive</code> contexts, <code>false</code> for contexts that were created in the <code>inactive</code>
+					state and have been activated, and <code>undefined</code> otherwise. The value of <code>isInactive()</code> can also
+					be observed via the bindable annotation <code>@$ui5.context.isInactive</code>.</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.model.odata.v4.ODataListBinding" title="api/sap.ui.model.odata.v4.ODataListBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding">sap.ui.model.odata.v4.ODataListBinding</a></li>
+		<li><a href="api/sap.ui.model.odata.v4.ODataModel" title="api/sap.ui.model.odata.v4.ODataModel" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel">sap.ui.model.odata.v4.ODataModel</a></li>
+		<li><a href="api/sap.ui.model.odata.v4.Context" title="api/sap.ui.model.odata.v4.Context" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context">sap.ui.model.odata.v4.Context</a></li>
+		<li><a href="api/sap.ui.core.message.MessageManager" title="api/sap.ui.core.message.MessageManager" class="sap-doc" alt="api/sap.ui.core.message.MessageManager">sap.ui.core.message.MessageManager</a></li>
+		<li><a href="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.DeepCreate" title="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.DeepCreate" class="sap-doc" alt="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.DeepCreate">See also our Deep Create demo app</a></li>
+	</ul></section></div></section></div></body></html>

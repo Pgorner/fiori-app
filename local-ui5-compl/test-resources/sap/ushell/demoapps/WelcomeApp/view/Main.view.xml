@@ -1,0 +1,110 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="sap.ushell.demoapps.WelcomeApp.controller.Main"
+    displayBlock="true">
+    <App class="AppBackground">
+        <layout:VerticalLayout width="100%" class="sapUiResponsiveMargin">
+            <layout:content>
+                <HBox alignItems="Center" direction="Column" justifyContent="Center">
+                    <items>
+                        <Image
+                            src="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg.adapt.svg/1493030643828.svg"
+                            class="logo-image-ui5" />
+                        <Title class="WelcomeSplash" text="Welcome back, {/userName}" wrapping="true" width="100%" />
+                        <Input
+                            id="realInput"
+                            showSuggestion="true"
+                            width="600px"
+                            suggestionItemSelected="onSuggestionSelect"
+                            submit="onInputSubmit"
+                            suggestionItems="{/allApps}"
+                            placeholder="search for apps and transactions">
+                            <suggestionItems>
+                                <core:ListItem text="{text}" additionalText="{intent}" key="{intent}" />
+                            </suggestionItems>
+                        </Input>
+                    </items>
+                </HBox>
+                <Panel backgroundDesign="Transparent" class="buttons-panel">
+                    <HBox alignItems="Start" justifyContent="Center">
+                        <items>
+                            <Panel backgroundDesign="Transparent">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <ToolbarSpacer />
+                                        <Title titleStyle="H3" class="title" text="My Frequent Apps" />
+                                        <ToolbarSpacer />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <layout:Grid width="25rem" content="{/frequents}" defaultSpan="L12 M12 S12">
+                                        <layout:content>
+                                            <StandardListItem
+                                                icon="{icon}"
+                                                title="{text}"
+                                                description="{subTitle}"
+                                                app:intent="{intent}"
+                                                press="onItemPress"
+                                                type="Active"
+                                                class="recent-list-item" />
+                                        </layout:content>
+                                    </layout:Grid>
+                                </content>
+                            </Panel>
+                            <Panel backgroundDesign="Transparent">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <ToolbarSpacer />
+                                        <Title titleStyle="H3" class="title" text="My Recent Apps" />
+                                        <ToolbarSpacer />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <layout:Grid width="45rem" content="{/recents}" defaultSpan="L6 M12 S12">
+                                        <layout:content>
+                                            <StandardListItem
+                                                icon="{icon}"
+                                                title="{text}"
+                                                description="{subTitle}"
+                                                app:intent="{intent}"
+                                                press="onItemPress"
+                                                class="recent-list-item"
+                                                type="Active" />
+                                        </layout:content>
+                                    </layout:Grid>
+                                </content>
+                            </Panel>
+                            <Panel backgroundDesign="Transparent">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <ToolbarSpacer />
+                                        <Title titleStyle="H3" class="title" text="My Spaces" />
+                                        <ToolbarSpacer />
+                                    </Toolbar>
+                                </headerToolbar>
+                                <content>
+                                    <layout:Grid width="25rem" content="{/spaces}" defaultSpan="L12 M12 S12">
+                                        <layout:content>
+                                            <StandardListItem
+                                                icon="{icon}"
+                                                title="{title}"
+                                                description="{description}"
+                                                app:target="{target}"
+                                                press="onSpacePress"
+                                                type="Active"
+                                                class="recent-list-item" />
+                                        </layout:content>
+                                    </layout:Grid>
+                                </content>
+                            </Panel>
+                        </items>
+                    </HBox>
+                </Panel>
+            </layout:content>
+        </layout:VerticalLayout>
+    </App>
+</mvc:View>

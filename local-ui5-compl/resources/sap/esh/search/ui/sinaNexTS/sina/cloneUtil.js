@@ -1,0 +1,8 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define(["../core/clone","./AttributeMetadata","./DataSource","./NavigationTarget","./SearchResultSet","./SearchResultSetItem","./SearchResultSetItemAttribute"],function(t,e,a,i,r,n,o){"use strict";const s=t["CloneService"];const c=e["AttributeMetadata"];const u=a["DataSource"];const l=i["NavigationTarget"];const g=r["SearchResultSet"];const d=n["SearchResultSetItem"];const p=o["SearchResultSetItemAttribute"];const f=new s({classes:[{class:g,properties:["items"]},{class:d,properties:["attributes","attributesMap","dataSource","defaultNavigationTarget","detailAttributes","navigationTargets","titleAttributes","titleDescriptionAttributes"]},{class:p,properties:["id","value","valueFormatted","valueHighlighted","defaultNavigationTarget","isHighlighted","metadata","navigationTargets"]},{class:u,properties:["id","label","labelPlural"]},{class:c,properties:["id","label","type","isKey","format"]},{class:l,cloneFunction:t=>{const e=t;return{text:t.text,tooltip:t.tooltip,icon:t.icon,target:t.target,targetUrl:t.targetUrl,targetFunction:typeof t.targetFunction==="function"?t.targetFunction.bind(e):undefined,performNavigation:typeof t.performNavigation==="function"?t.performNavigation.bind(e):undefined}}}]});function S(t){return f.clone(t)}var b={__esModule:true};b.clonePublic=S;return b})})();
+//# sourceMappingURL=cloneUtil.js.map

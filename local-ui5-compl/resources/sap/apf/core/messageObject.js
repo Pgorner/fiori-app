@@ -1,0 +1,7 @@
+/*!
+ * SAP APF Analysis Path Framework
+ * 
+ * (c) Copyright 2012-2018 SAP AG. All rights reserved
+ */
+sap.ui.define(["sap/apf/utils/exportToGlobal","sap/ui/Global","sap/ui/thirdparty/jquery"],function(t,e,jQuery){"use strict";function r(t){var r=t.code;var n=t.aParameters||[];var i=t.oCallingObject;var s="";var u="";var a;var o=new Date;var c=t.rawText;this.type="messageObject";this.getCode=function(){return r};this.setCode=function(t){r=t};this.hasRawText=function(){return c!==undefined};this.getRawText=function(){return c};this.getMessage=function(){return s};this.setMessage=function(t){s=t};this.setSeverity=function(t){u=t};this.getSeverity=function(){return u};this.setPrevious=function(t){a=t};this.getPrevious=function(){return a};this.getCallingObject=function(){return i};this.getParameters=function(){return n};this.getStack=function(){if(this.stack){return this.stack}return""};this.getTimestamp=function(){return o.getTime()};this.getTimestampAsdateObject=function(){return o};this.getJQueryVersion=function(){return jQuery().jquery};this.getSapUi5Version=function(){return e.version}}r.prototype=new Error;r.prototype.constructor=r;t("sap.apf.core.MessageObject",r);return r},true);
+//# sourceMappingURL=messageObject.js.map

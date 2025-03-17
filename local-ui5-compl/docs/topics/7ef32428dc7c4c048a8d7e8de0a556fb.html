@@ -1,0 +1,168 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7ef32428dc7c4c048a8d7e8de0a556fb" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/code-coverage-measurement-7ef3242.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Code Coverage Measurement</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Code Coverage Measurement</h2></div><div class="shortdesc">You can measure the code coverage either via HTML or JavaScript code using a code coverage tool like <code>Istanbul</code> (default)
+		or <code>Blanket.js</code> (legacy).</div><section id="section_STAMBUL">
+			<h2 class="title ">Istanbul</h2>
+			<p><code>Istanbul</code> offers code coverage and instrumentation for JavaScript files. It also supports branching and correctly identifies
+				visited scopes in conditional clauses.</p>
+			<p><a href="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" title="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" class="external-link" target="_blank" rel="noopener">UI5
+					Middleware Code Coverage</a> is a <a href="https://sap.github.io/ui5-tooling/stable/pages/Server/" title="https://sap.github.io/ui5-tooling/stable/pages/Server/" class="external-link" target="_blank" rel="noopener">UI5 server</a> middleware that enables <a href="https://istanbul.js.org/" title="https://istanbul.js.org/" class="external-link" target="_blank" rel="noopener"><code>Istanbul</code></a> in UI5 Tooling.</p>
+			<p>If you use UI5 Tooling's <code>ui5 serve</code>, you would need to enable it in <code>ui5.yaml</code> and <code>package.json</code>
+				of your project.</p>
+			<p>For more information, see the <a href="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" title="https://github.com/SAP/ui5-tooling-extensions/tree/main/packages/middleware-code-coverage" class="external-link" target="_blank" rel="noopener">documentation</a>.</p>
+			<section>
+				<h3 class="title ">Enablement</h3>
+				<p>You have two options to enable code coverage measurement by <code>Istanbul</code>:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">HTML:</span></p>
+						<p>In your HTML file bootstrapping your tests, you have to add the following line to the head
+							tag:</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage-istanbul.js"&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">JS:</span></p>
+						<p>Inside your test page, you have to add these lines before running the
+							tests:</p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/qunit/qunit-coverage-istanbul"], function(/*coverage*/){
+    // code
+});</pre></div></div></section><p></p>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3 class="title ">Configuration</h3>
+				<p>By default all files that are executed during the test run are instrumented and added to the result. If you would like to limit the
+					instrumented files, you can use the following code (use either the HTML or the JS option):</p>
+				<p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>Limit instrumentation to a single file:</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage-istanbul.js"
+	data-sap-ui-cover-<span class="emphasis">only</span>="sap/ui/core/Popup.js"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">    var oScript = document.querySelector('script[src$="qunit/qunit-coverage-istanbul.js"]');
+    if (oScript) {
+        oScript.setAttribute("data-sap-ui-cover-<span class="emphasis">only</span>", "sap/ui/core/Popup.js");
+    }</pre></div></div></section><p></p>
+						</li>
+						<li class="li">
+							<p>Limit instrumentation to multiple files (provide an array with comma-separated sources that should occur in the
+								result):</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage-istanbul.js"
+	data-sap-ui-cover-<span class="emphasis">only</span>="[sap/ui/core/Popup.js, sap/ui/core/EventProvider]"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">    var oScript = document.querySelector('script[src$="qunit/qunit-coverage-istanbul.js"]');
+    if (oScript) {
+        oScript.setAttribute("data-sap-ui-cover-<span class="emphasis">only</span>", "['sap/ui/core/Popup.js', 'sap/ui/core/EventProvider']");
+    }</pre></div></div></section><p></p>
+						</li>
+						<li class="li">
+							<p>Limit instrumentation to a specific library:</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage-istanbul.js"
+	data-sap-ui-cover-<span class="emphasis">only</span>="sap/ui/core/"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">    var oScript = document.querySelector('script[src$="qunit/qunit-coverage-istanbul.js"]');
+    if (oScript) {
+        oScript.setAttribute("data-sap-ui-cover-<span class="emphasis">only</span>", "sap/ui/core/");
+    }</pre></div></div></section><p></p>
+						</li>
+						<li class="li">
+							<p>Exclude specific objects:</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage-istanbul.js"
+	data-sap-ui-cover-<span class="emphasis">never</span>="sap/ui/example/thirdparty/"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">    var oScript = document.querySelector('script[src$="qunit/qunit-coverage-istanbul.js"]');
+    if (oScript) {
+        oScript.setAttribute("data-sap-ui-cover-<span class="emphasis">never</span>", "sap/ui/example/thirdparty/");
+    }</pre></div></div></section><p></p>
+						</li>
+					</ul>
+				<p></p>
+			</section>
+			<section>
+				<h3 class="title ">Results</h3>
+				<p>To view the results of the measurement, select the <span class="ph uicontrol">Enable coverage</span> checkbox on the test page. This will
+					trigger a new test run. </p>
+				<p>In this example the coverage is limited to one specific file - the only one that is important for this test.</p>
+				<p>
+					</p><div><div class="fig"><img src="loio8b7a4a50633747348ca16d4be8fb9b87_LowRes.png" usemap="#"></div></div>
+				<p></p>
+			</section>
+		</section><section>
+			<h2 class="title ">Blanket.js (Legacy)</h2>
+			<p><code>Blanket.js</code> offers code coverage and instrumentation for JavaScript up to ECMAScript Language Specification 5. As of SAPUI5 version 1.113.0, code coverage measurement via <a href="topic/7ef32428dc7c4c048a8d7e8de0a556fb.html#loio7ef32428dc7c4c048a8d7e8de0a556fb/section_STAMBUL" title="7ef32428dc7c4c048a8d7e8de0a556fb.xml#loio7ef32428dc7c4c048a8d7e8de0a556fb/section_STAMBUL" class="sap-doc"><code>Istanbul</code></a> is the recommended option.</p>
+			<section>
+				<h3 class="title ">Enablement</h3>
+				<p>You have two options to enable code coverage measurement by <code>Blanket.js</code>:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">HTML</span></p>
+						<p>In your HTML file bootstrapping your tests, you have to add the following line to the head
+							tag:</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage.js"&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">JS</span></p>
+						<p>Inside your test page, you have to add these lines before running the
+							tests:</p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/qunit/qunit-coverage"], function(/*coverage*/){
+    // code
+});</pre></div></div></section><p></p>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3 class="title ">Configuration</h3>
+				<p>By default all files that are executed during the test run are instrumented and added to the result. If you would like to limit the
+					instrumented files, you can use the following code (use either the HTML or the JS option):</p>
+				<p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>Limit instrumentation to a single file:</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage.js"
+	data-sap-ui-cover-<span class="emphasis">only</span>="sap/ui/core/Popup.js"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">if (window.blanket) {
+	blanket.options("sap-ui-cover-<span class="emphasis">only</span>", "sap/ui/core/Popup.js");
+}</pre></div></div></section><p></p>
+						</li>
+						<li class="li">
+							<p>Limit instrumentation to multiple files (provide an array with comma-separated sources that should occur in the result):</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage.js"
+	data-sap-ui-cover-<span class="emphasis">only</span>="[sap/ui/core/Popup.js, sap/ui/core/EventProvider]"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">if (window.blanket) {
+	blanket.options("sap-ui-cover-<span class="emphasis">only</span>", "[sap/ui/core/Popup.js, sap/ui/core/EventProvider]");
+}</pre></div></div></section><p></p>
+						</li>
+						<li class="li">
+							<p>Limit instrumentation to a specific library:</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage.js"
+	data-sap-ui-cover-<span class="emphasis">only</span>="sap/ui/core/"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">if (window.blanket) {
+	blanket.options("sap-ui-cover-<span class="emphasis">only</span>", "sap/ui/core/");
+}</pre></div></div></section><p></p>
+						</li>
+						<li class="li">
+							<p>Exclude specific objects:</p>
+							<p><span class="emphasis">HTML:</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script type="text/javascript" src="../../resources/sap/ui/qunit/qunit-coverage.js"
+	data-sap-ui-cover-<span class="emphasis">never</span>="sap/ui/example/thirdparty/"
+&gt;&lt;/script&gt;</pre></div></div></section><p></p>
+							<p><span class="emphasis">JS:</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">if (window.blanket) {
+	blanket.options("sap-ui-cover-<span class="emphasis">never</span>", "sap/ui/example/thirdparty/");
+}</pre></div></div></section><p></p>
+						</li>
+					</ul>
+				<p></p>
+			</section>
+			<section>
+				<h3 class="title ">Results</h3>
+				<p>To view the results of the measurement, select the <span class="ph uicontrol">Enable coverage</span> checkbox on the test page. This will
+					trigger a new test run. </p>
+				<p>In this example the coverage is limited to one specific file - the only one that is important for this test.</p>
+				<p>
+					</p><div><div class="fig"><img src="loio358de53ac5684012b55fb043e1f6e999_LowRes.jpg" usemap="#"></div></div>
+				<p></p>
+			</section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="https://github.com/SAP/ui5-tooling-extensions/blob/-/packages/middleware-code-coverage" title="https://github.com/SAP/ui5-tooling-extensions/blob/-/packages/middleware-code-coverage" class="external-link" target="_blank" rel="noopener">UI5 Middleware Code Coverage</a></li>
+		<li><a href="https://github.com/alex-seville/blanket/blob/-/docs/intermediate_browser.md" title="https://github.com/alex-seville/blanket/blob/-/docs/intermediate_browser.md" class="external-link" target="_blank" rel="noopener">More information about Blanket.js</a></li>
+	</ul></section></div></section></div></body></html>

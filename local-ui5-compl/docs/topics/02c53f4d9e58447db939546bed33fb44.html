@@ -1,0 +1,198 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio02c53f4d9e58447db939546bed33fb44" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/coloring-cards-based-on-threshold-values-02c53f4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Coloring Cards Based on Threshold Values</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Coloring Cards Based on Threshold Values</h2></div><div class="shortdesc">With overview pages, column chart cards can be semantically colored based on threshold
+		values.</div><p> The threshold values used to semantically color column charts come from the data point
+			annotation that is associated with the measure used in the analytic card. We recommend
+			to only use one measure in the chart if you intend to use this feature.</p><p>When you color the chart card, the threshold value that influences the semantic color would
+			also be displayed in the legend; however, in instances where you have more than one
+			measure, then the chart legend would only show "good", "bad" or "neutral" values. For
+			example, a measure can be linked with a data point
+			as
+			follows, if the following two conditions are met:</p><ul class="ul ">
+				<li class="li">This
+					data point should have a value that provides the improvement direction. This
+					typically depicts whether we are dealing with: <ul class="ul ">
+						<li class="li">a maximizing measure where a higher value of a measure is better, or</li>
+						<li class="li">a minimizing measure where a lesser value of a measure is better, or</li>
+						<li class="li">a target measure where the measure value is preferred within a certain
+							range </li>
+					</ul></li>
+				<li class="li">It is also required to have all the threshold values based on the examples below. </li>
+			</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>We recommend configuring only one measure in the chart if you want to use semantic coloring.
+					If more than one measure is used and all the measures satisfy the above two
+					conditions, then the chart would still be colored semantically with each measure
+					colored based on its own threshold values. The legends, however, won't be very
+					meaningful. </p>
+				<p>If more than one measure is used and some of the measures don't satisfy the required
+					conditions, those measures will be colored black and the measures that do
+					satisfy the conditions will be semantically colored based on the threshold
+					values.</p>
+			<p></p></div></div><p></p><section><h2 class="title ">Examples of Measures</h2><section>
+				<h3 class="title ">Target Measure (for example, temperature)</h3>
+			</section><p><img src="loio9329c7a68d354f63b43e6167aaae9c8c_LowRes.png" usemap="#"></p><div class="tableWrapper "><div class="fig"><table border="1" id="table_o5v_mzc_nx" class=" ">
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>From</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p> To</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Measure Value</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Negative</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=  ThresholdValues.DeviationRangeLowValue</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Positive</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;=  ThresholdValues.ToleranceRangeLowValue</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Positive</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;  ThresholdValues.ToleranceRangeHighValue</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Negative</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>&gt;  ThresholdValues.DeviationRangeHighValue</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><section>
+				<h3 class="title ">Maximizing Measure (for example, sales)</h3>
+			</section><p><img src="loio0f242d390ae04adcbe308b220f971f1a_LowRes.png" usemap="#"></p><p>
+				</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_kdn_zyq_gx" class=" ">
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>From</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p> To</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Measure Value</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Negative</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Critical</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>&gt;=  ThresholdValues.DeviationRangeLowValue </p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Critical</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Positive</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>&gt;=  ThresholdValues.ToleranceRangeLowValue</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			<p></p><section>
+				<h3 class="title ">Example of Target and Maximizing Measures</h3>
+			</section><p>
+				</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_gkb_vbr_gx" class=" ">
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1"><img src="loiob57af6339c6842599ad93597f741c3b3_LowRes.png" usemap="#"></td>
+								<td colspan="1" rowspan="1"><img src="loioc16efecd1104409fb02a1c2d62783709_LowRes.png" usemap="#"></td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Semantic coloring with target KPIs</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Semantic coloring with maximizing KPIs</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			<p></p><section>
+				<h3 class="title ">Minimizing Measure (for example, cost)</h3>
+			</section><p><img src="loio60eca15fc53b465687af94872e09bc00_LowRes.png" usemap="#"></p><p>
+				</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_nxv_yzc_nx" class=" ">
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>From</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p> To</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Measure Value</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Positive</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Critical</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>&gt;  ThresholdValues.ToleranceRangeHighValue</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Critical</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Negative</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>&gt;  ThresholdValues.DeviationRangeHighValue </p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			<p></p></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,220 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio609c39a7498541559dbef503c1ffd194" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adapting-the-filter-bar-609c39a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adapting the Filter Bar</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adapting the Filter Bar</h2></div><div class="shortdesc">
+		You can adapt the filter bar using additional annotations or configuring the <code>manifest.json</code>
+		file.</div><section id="section_spb_4vm_kmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>To set default filter value, refer <a href="topic/f27ad7bc1f9c4b0d947b1fb18c37e94c" title="You can set default filter values for filter bar fields, for example." class="sap-doc">Configuring Default Filter Values</a>.</p><p>For more information about the smart filter bar
+				API, see <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar" class="sap-doc" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar">SmartFilterBar</a>.</p><section>
+				<h3 class="title "> Including Navigation Properties</h3>
+				<p>From SAPUI5 version 1.126.0 onwards, the filters in the <span class="ph uicontrol">Adapt
+						Filters</span> dialog include properties only from the main entity set. The filterable fields from the navigation
+					entities are not added as filters by default. You can add them by configuring the <code>manifest.json</code> file. You can
+					choose to add either all properties or a specific property of the navigation entities as filters.</p>
+				<p>In the following sample code, you can see that only the <code>EmailAddress</code> property from the <code>Supplier</code>
+					entity and all filterable properties of the navigation type <code>DeliveryStatus</code> (except the properties annotated with
+						<code>Hidden</code> or <code>HiddenFilter</code>) are included as filters in the <span class="ph uicontrol">Adapt Filters</span>
+					dialog.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"ListReport|C_STTA_SalesOrder_WD_20": {
+    "entitySet": "C_STTA_SalesOrder_WD_20",
+    "component": {
+        "name": "sap.suite.ui.generic.template.ListReport",
+        "list": true,
+        "settings": {
+            "tableSettings": {
+…
+            },
+ 
+            "filterSettings": {
+                "navigationProperties": [
+                    "to_Supplier/EmailAddress ",
+                    "to_DeliveryStatus"
+                ]
+            }
+        }</pre></div></div></section><p></p></div></div>
+			</section></div></section><section id="section_q5m_cnn_d4b" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>The filter bar only shows filter fields defined via the <code>@com.sap.vocabularies.UI.v1.SelectionFields</code> annotation.
+				Additional fields available for adaptation are all direct simple properties of the current entity type.</p><section>
+				<h3 class="title ">Including Navigation Properties</h3>
+				<p>To include navigation properties as filters, you can directly define them within the same annotation so that they appear as filter
+					fields in the filter bar. To adapt the filter bar by adding further filter fields, you can use the
+						<code>navigationProperties</code> setting in the <code>manifest.json</code> file. The
+						<code>navigationProperties</code> setting is an array of (navigation) property paths relative to the current entity type.
+					If the path points to a navigation property or a complex property, all simple properties of that type are added to the filter bar.
+					If the path points to a simple property, then only this field is available as a filter field.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"ListReport": {
+    ...
+    "options": {
+        "settings": {
+            ...
+            "controlConfiguration": {
+                ...
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                    "navigationProperties":  [ "_DistributionChannel", "_Partner/FullName" ],
+                    ...
+                }
+            },
+            ...
+        }
+    }
+},</pre></div></div></section><p></p></div></div>
+				
+				<ul class="ul ">
+					<li class="li">
+						<p>all properties of the navigation type <code>_DistributionChannel</code> will be added to the filter adaptation (unless
+							they are marked as <code>Hidden</code> or <code>HiddenFilter</code>)</p>
+					</li>
+					<li class="li">
+						<p>the single property <code>FullName</code> of the <code>Partner</code> association will be added to the filter
+							adaptation (unless it is marked as <code>Hidden</code> or <code>HiddenFilter</code>)</p>
+					</li>
+				</ul>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>You can only define navigation properties with one level. Nested navigation properties aren't supported.</p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Using Case Insensitive Filtering</h3>
+				<p>Case sensitivity in filtering depends on the back end that is consumed by the app:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>RAP and CAP Node.js support case insensitive filtering at DB
+							level.</p>
+					</li>
+					<li class="li">
+						<p>CAP Java supports case sensitive filtering at DB level by
+							default.</p>
+					</li>
+				</ul>
+				<p>To override this behavior, use the <code>"@Org.OData.Capabilities.V1.FilterFunctions"</code> annotation defined in the
+						<code>EntityContainer</code>. This annotation defines all the filter functions supported by the OData service. An example
+					is shown in the following sample code:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>FilterFunctions</code>
+					annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="namespace.EntityContainer"&gt;
+    &lt;Annotation Term="Org.OData.Capabilities.V1.FilterFunctions"&gt;
+      &lt;Collection&gt;
+        ....
+        &lt;String&gt;tolower&lt;/String&gt;
+        ...
+      &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+				<p>SAP Fiori elements for OData
+                            V4 checks for the existence of the <code>tolower</code>
+					filter function in the service metadata, and sets the case sensitivity for filtering as shown in the following table:</p>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_msb_51l_1rb" class=" ">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1"><code>FilterFunction</code></th>
+								<th colspan="1" rowspan="1"><code>caseSensitive</code></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1"><code>tolower</code> exists</td>
+								<td colspan="1" rowspan="1">false (backend is expected to convert all values, both the backend values and the text provided in the filter
+									fields, to lowercase before comparing for filtering)</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>tolower</code> does not exist</td>
+								<td colspan="1" rowspan="1">true (back end decides the default behavior)</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">No annotation is configured</td>
+								<td colspan="1" rowspan="1">true (back end decides the default behavior)</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+				<p>This logic is valid for filtering on the following use cases:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>Filter bar</p>
+					</li>
+					<li class="li">
+						<p>Table personalization filters</p>
+					</li>
+					<li class="li">
+						<p>Filters created from semantic keys</p>
+					</li>
+					<li class="li">
+						<p>Value help dialogs</p>
+					</li>
+				</ul>
+			</section><section>
+				<h3 class="title ">Adding a <span class="ph uicontrol">Clear</span> Button</h3>
+				<p>You can add a <span class="ph uicontrol">Clear</span> button to the filter bar in the list report by making the following setting for the
+						<code>showClearButton</code> in your
+					<code>manifest.json</code> file:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>showClearButton</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageList": {
+    "options": {
+        "settings": {
+            "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                    "showClearButton": true,
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div>
+				<p>The functionality of the <span class="ph uicontrol">Clear</span> button is as follows:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>All filter values are cleared when a user clicks the <span class="ph uicontrol">Clear</span> button.</p>
+						<p>Note that the filter values aren't restored to the default values, but really cleared.</p>
+					</li>
+					<li class="li">
+						<p>If there's an active filter on the <span class="ph uicontrol">Editing Status</span>, it is reset to the value
+								<span class="uinolabel">All</span> when a user clicks the <span class="ph uicontrol">Clear</span> button.</p>
+					</li>
+				</ul>
+				<p>You can add further clearing functionality by implementing the controller extension <code>onAfterClear</code>, as shown in the
+					following sample code:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>onAfterClear</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">onAfterClear: function (oEvent) {    
+  var oView = this.getView();        
+  oView.byId("CustomSegmentedButton").setSelectedKey("none"); 
+}</pre></div></div></section><p></p></div></div>
+			</section><section>
+				<h3 class="title ">Moving Filter Fields to the <span class="ph uicontrol">Adapt Filters</span> Dialog</h3>
+				<p>You can move the explicitly included filter fields in the filter bar to the <span class="ph uicontrol">Adapt Filters</span> dialog by
+					configuring the <code>manifest.json</code> file as follows:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageList": {
+    "options": {
+        "settings": {
+            "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                    "filterFields": {
+                        "postingDate": {
+                            "availability": "Adaptation"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</pre></div></div></section>
+				<p></p></div></div>
+				<p>For more information about other possible values for the <code>availability</code> property, see the V4-specific section in
+						<a href="topic/5fb9f57fcf12401bbe39a635e9a32a4e" title="You can extend the filter bar by using a custom filter field." class="sap-doc">Adding Custom Fields to the Filter Bar</a>.</p>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/7bcdffc056a94731b4341db73251e32b" title="The sap.ui.comp.smartfilterbar.SmartFilterBar control analyzes the $metadata document of an OData service and renders a FilterBar control that can be used to filter, for example, a table or a chart." class="sap-doc">Smart Filter Bar</a></li>
+		<li><a href="topic/3cdebeebb04b4205908140242c9d6817" title="You can enable the Search function in the list report." class="sap-doc">Enabling the Search Function</a></li>
+		<li><a href="topic/fef65d03d01a4b2baca28983a5449cf7" title="You can use semantic date values, such as Today or Last Week, on the filter bar of list report and analytical list page applications." class="sap-doc">Enabling Semantic Operators in the Filter Bar</a></li>
+	</ul></section></div></section></div></body></html>

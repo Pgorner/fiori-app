@@ -1,0 +1,63 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="view.Main"
+		   xmlns:html="http://www.w3.org/1999/xhtml" xmlns:sl="sap.ui.comp.navpopover"
+		   xmlns:m="sap.m" xmlns:chart="sap.chart" xmlns:chartData="sap.chart.data" xmlns:smartchart="sap.ui.comp.smartchart"
+		   xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+		   controllerName="applicationUnderTestSmartChart.view.Main"
+		   height="100%">
+	<m:VBox fitContainer="true">
+		<m:Button icon="sap-icon://journey-change"
+				press="onPressUIState"/>
+		<smartchart:SmartChart id="smartChart01" enableAutoBinding="true"
+					entitySet="ProductCollection" useVariantManagement="true"
+					persistencyKey="PKeyChartExample9" useChartPersonalisation="true"
+					header="Any long title for check" showFullScreenButton="true" selectionMode="Multi"
+					useTooltip="true" showChartTooltip="true" showDrillBreadcrumbs="true"
+					showDetailsButton="true" showDrillButtons="false"
+					showSemanticNavigationButton="false" showChartTypeSelectionButton="true"
+					beforeRebindChart="onBeforeRebindChart">
+			<!--Item Level -->
+			<smartchart:selectionDetailsItemActions>
+				<core:Item key="ItemAction1" text="ItemAction 1"></core:Item>
+				<core:Item key="ItemAction2" text="ItemAction 2"></core:Item>
+			</smartchart:selectionDetailsItemActions>
+
+			<!--Footer Level -->
+			<smartchart:selectionDetailsActions>
+				<core:Item key="Action1" text="Action 1"></core:Item>
+				<core:Item key="Action2" text="Action 2"></core:Item>
+			</smartchart:selectionDetailsActions>
+
+			<!--Group Level -->
+			<smartchart:selectionDetailsActionGroups>
+				<core:Item key="GroupAction1" text="GroupAction 1"></core:Item>
+				<core:Item key="GroupAction2" text="GroupAction 2"></core:Item>
+			</smartchart:selectionDetailsActionGroups>
+
+			<!-- Create own instance of inner chart and hand in a custom dimension -->
+			<chart:Chart width="100%">
+				<!-- Custom dimensions -->
+				<chart:dimensions>
+					<chartData:Dimension label="CustomDimension"
+										 name="Category"
+										 customData:p13nData='\{"columnKey":"Category", "aggregationRole":"dimension"\}'>
+					</chartData:Dimension>
+				</chart:dimensions>
+				<!-- Custom measures -->
+				<chart:measures>
+					<chartData:Measure label="CustomMeasure"
+									   name="Width"
+									   customData:p13nData='\{"columnKey":"Width", "aggregationRole":"measure"\}'>
+					</chartData:Measure>
+				</chart:measures>
+			</chart:Chart>
+
+			<smartchart:semanticObjectController>
+				<sl:SemanticObjectController navigate="onNavigate"/>
+			</smartchart:semanticObjectController>
+			<!-- layout data used to make the table growing but the filter bar fixed -->
+			<smartchart:layoutData>
+				<m:FlexItemData growFactor="1"/>
+			</smartchart:layoutData>
+		</smartchart:SmartChart>
+	</m:VBox>
+</mvc:View>

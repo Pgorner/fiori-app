@@ -1,0 +1,163 @@
+<mvc:View
+		controllerName="sap.gantt.sample.GanttChart2Shapes.Gantt"
+		height="100%"
+		xmlns="sap.gantt.simple"
+		xmlns:axistime="sap.gantt.axistime"
+		xmlns:config="sap.gantt.config"
+		xmlns:gch2="sap.gantt.sample.GanttChart2Shapes"
+		xmlns:m="sap.m"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:table="sap.ui.table"
+		xmlns:core="sap.ui.core"
+		xmlns:rm="sap.ui.table.rowmodes">
+	<m:OverflowToolbar>
+		<m:Select id="shapeAlignment" forceSelection="false" selectedKey="Middle" change="onShapeAlignmentChange">
+					<m:items>
+						<core:Item key="Top" text="Shape Alignment - Top"/>
+						<core:Item key="Middle" text="Shape Alignment - Middle"/>
+						<core:Item key="Bottom" text="Shape Alignment - Bottom"/>
+					</m:items>
+				</m:Select>
+	</m:OverflowToolbar>
+	<GanttChartContainer id="ganttContainer">
+	<ganttCharts>
+	<GanttChartWithTable id="gantt" shapeRenderOrder="shapes3,shapes2,shapes1">
+		<axisTimeStrategy>
+			<axistime:FullScreenStrategy>
+				<axistime:totalHorizon>
+					<config:TimeHorizon
+							startTime="20181029000000"
+							endTime="20181129000000"/>
+				</axistime:totalHorizon>
+				<axistime:visibleHorizon>
+					<config:TimeHorizon
+							startTime="20181029000000"
+							endTime="20181129000000"/>
+				</axistime:visibleHorizon>
+			</axistime:FullScreenStrategy>
+		</axisTimeStrategy>
+		<table>
+			<table:TreeTable
+					selectionMode="Single"
+					selectionBehavior="RowSelector"
+					enableColumnReordering="true"
+					rows="{
+						path: '/root',
+						parameters: {
+							arrayNames: ['children'],
+							numberOfExpandedLevels: 1
+						}
+					}">
+				<table:columns>
+					<table:Column>
+						<m:Text text="Type"/>
+						<table:template>
+							<m:Link text="{text}" href="{path: 'url', formatter: '.fnBuildApiUrl'}" />
+						</table:template>
+					</table:Column>
+				</table:columns>
+				<table:rowMode>
+					<rm:Auto minRowCount="12"/>
+				</table:rowMode>
+				<table:rowSettingsTemplate>
+					<gch2:CustomRowSettings rowId="{id}" rectangles="{rectangle}" chevrons="{chevron}"
+											texts="{texts}" diamonds="{diamond}" cursors="{cursor}"
+											images="{image}" customPaths="{customPath}" triangles="{triangle}" groups="{groups}" shapes1="{shapes1}"  shapes2="{shapes2}"  shapes3="{shapes3}">
+						<gch2:rectangles>
+							<BaseRectangle time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+										   endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+										   fill="@sapUiChartPaletteQualitativeHue6" selectable="true" selectedFill="@sapUiAccent2" draggable="true" styleName="ghostDrag1"/>
+						</gch2:rectangles>
+						<gch2:chevrons>
+							<BaseChevron time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+										 endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+										 fill="@sapUiChartPaletteQualitativeHue1"
+										 showTitle="true" selectable="true" title="Title" selectedFill="@sapUiAccent2" selectedTitleColor="#1E0FBA" draggable="true" styleName="ghostDrag2"/>
+						</gch2:chevrons>
+						<gch2:texts>
+							<BaseText time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+									  endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+									  text="Test text" selectable="true" selectedFill="@sapUiAccent2" draggable="true" styleName="ghostDrag3"/>
+									  
+						</gch2:texts>
+						<gch2:diamonds>
+							<BaseDiamond time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+										 endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+										 fill="@sapUiChartPaletteQualitativeHue7" selectable="true" selectedFill="@sapUiAccent2" draggable="true" styleName="ghostDrag4"/>
+										
+						</gch2:diamonds>
+						<gch2:cursors>
+							<BaseCursor time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+										endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+										fill="@sapUiChartPaletteQualitativeHue11" selectable="true" selectedFill="@sapUiAccent2" draggable="true" styleName="ghostDrag4"/>
+										
+						</gch2:cursors>
+						<gch2:images>
+							<BaseImage time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+									   endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+									   src="{path: 'src', formatter: '.fnPrefixImg'}" selectable="true" draggable="true" styleName="ghostDrag4"/>
+						</gch2:images>
+						<gch2:triangles>
+							<BaseTriangle time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+										 endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+										 width="auto" height="20" fill="@sapUiChartPaletteQualitativeHue3" selectable="true" selectedFill="@sapUiAccent2" draggable="true" styleName="ghostDrag4" />				
+						</gch2:triangles>
+						<gch2:customPaths>
+							<gch2:CustomPath time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+									  endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+									  fill="@sapUiChartPaletteQualitativeHue5" selectable="true" selectedFill="@sapUiAccent2" draggable="true" styleName="ghostDrag6">
+															</gch2:CustomPath>
+						</gch2:customPaths>
+						<gch2:groups>
+							<BaseGroup selectable="true" draggable="true">
+								<shapes>
+									<BaseDiamond time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+									fill="@sapUiChartPaletteQualitativeHue7" selectedFill="@sapUiAccent1" selectable="true" draggable="true" styleName="ghostDrag6"/>
+									
+									<BaseRectangle time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+									endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+									fill="@sapUiChartPaletteQualitativeHue6" selectedFill="@sapUiAccent2" selectable="true" draggable="true" styleName="ghostDrag5"/>
+								</shapes>
+								
+							</BaseGroup>
+						</gch2:groups>
+						<gch2:shapes1>
+							<BaseRectangle selectable="true" selectedFill="@sapUiAccent2" fill="@sapUiChartPaletteQualitativeHue11" height="14" title="Shape 1" showTitle="true"
+								time="{path: 'startTime', formatter: '.fnTimeConverter'}" endTime="{path: 'endTime', formatter: '.fnTimeConverter'}" draggable="true"/>
+						</gch2:shapes1>
+						<gch2:shapes2>
+							<BaseRectangle selectable="true" selectedFill="@sapUiAccent3" xBias="-60" yBias="-5" fill="@sapUiChartPaletteQualitativeHue7" height="14" title="Shape 2" showTitle="true"
+								time="{path: 'startTime', formatter: '.fnTimeConverter'}" endTime="{path: 'endTime', formatter: '.fnTimeConverter'}" draggable="true"/>
+						</gch2:shapes2>
+						<gch2:shapes3>
+							<BaseRectangle selectable="true" selectedFill="@sapUiAccent1"  xBias="-125" yBias="3" fill="@sapUiChartPaletteQualitativeHue6" height="14" title="Shape 3" showTitle="true"
+								time="{path: 'startTime', formatter: '.fnTimeConverter'}" endTime="{path: 'endTime', formatter: '.fnTimeConverter'}" draggable="true"/>
+						</gch2:shapes3>
+					</gch2:CustomRowSettings>
+				</table:rowSettingsTemplate>
+			</table:TreeTable>
+		</table>
+		<shapeStyles>
+			<ShapeStyle name="ghostDrag1" eventState="DragDrop" fill="yellow" stroke="black" strokeWidth="3" strokeDasharray="5,5" textFill="green"/>
+			<ShapeStyle name="ghostDrag2" eventState="DragDrop" fill="orange" stroke="black" strokeWidth="3" strokeDasharray="5,5" textFill="green"/>
+			<ShapeStyle name="ghostDrag3" eventState="DragDrop" fill="blue" />
+			<ShapeStyle name="ghostDrag4" eventState="DragDrop" fill="pink" stroke="black" strokeWidth="1" textFill="yellow"/>
+			<ShapeStyle name="ghostDrag6" eventState="DragDrop" fill="green" stroke="red" strokeWidth="2" strokeDasharray="2,2" textFill="red"/>
+			<ShapeStyle name="ghostDrag5" eventState="DragDrop" visible="false"/>
+	</shapeStyles>
+	</GanttChartWithTable>
+	</ganttCharts>
+	
+	<shapeStyles>
+		<ShapeStyle name="ghostDrag1" eventState="DragDrop" fill="yellow" stroke="black" strokeWidth="3" strokeDasharray="5,5" textFill="green"/>
+		<ShapeStyle name="ghostDrag2" eventState="DragDrop" fill="orange" stroke="black" strokeWidth="3" strokeDasharray="5,5" textFill="green"/>
+		<ShapeStyle name="ghostDrag3" eventState="DragDrop" fill="blue" />
+		<ShapeStyle name="ghostDrag4" eventState="DragDrop" fill="pink" stroke="black" strokeWidth="1" textFill="yellow"/>
+		<ShapeStyle name="ghostDrag5" eventState="DragDrop" fill="green" stroke="red" strokeWidth="2" strokeDasharray="2,2" textFill="red"/>
+		<ShapeStyle name="ghostDrag6" eventState="DragDrop" visible="false"/>
+	</shapeStyles>
+
+		
+	
+	</GanttChartContainer>
+</mvc:View>

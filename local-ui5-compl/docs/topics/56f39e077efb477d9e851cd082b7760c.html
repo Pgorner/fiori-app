@@ -1,0 +1,208 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio56f39e077efb477d9e851cd082b7760c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/list-cards-56f39e0.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">List Cards</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">List Cards</h2></div><div class="shortdesc">List cards display lists of records according to the configuration in the
+			<code>com.sap.vocabularies.UI.v1.LineItem</code> term. List cards display up to six
+		fields of data in each list item.  </div><section>
+			<p>When creating a list card, you can choose from a number of different types of lists.
+				The number of items displayed depends on the type of list. You can choose from two
+				types of list cards:</p><ul class="ul ">
+					<li class="li">
+						<p>Condensed</p>
+					</li>
+					<li class="li">
+						<p>Extended</p>
+					</li>
+				</ul>For each of these types you can choose from two flavors: <ul class="ul ">
+					<li class="li">
+						<p>Standard</p>
+					</li>
+					<li class="li">
+						<p>Bar</p>
+					</li>
+				</ul><p></p>
+			<p> The <code>com.sap.vocabularies.UI.v1.LineItem</code> term can be configured in
+				the application manifest file by setting the <code>annotationPath</code>
+				property with a qualifier, as shown in the example below. If the
+					<code>annotationPath</code> property is not configured, the
+					<code>com.sap.vocabularies.UI.v1.LineItem</code> term, without a qualifier,
+				is used.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ovp": {
+    ...
+    "cards": {
+        ...
+        "card04": {
+            "model": "ZCD204_EPM_DEMO_SRV",
+            "template": "sap.ovp.cards.list",
+            "settings": {
+                "sortBy": "Price",
+                "sortOrder": "descending",
+                "listFlavor": "bar",
+                "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#bar",
+                "category": "{{card04_category}}",
+                "entitySet": "Products"
+            }
+        },
+        ...
+    }
+}</pre></div></div></section>
+			<p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In SAP Fiori elements for OData V4, add
+						<code>sap.ovp.cards.v4.list</code> as the <code>template</code>. All
+					other manifest settings are the same as in SAP Fiori
+						elements for OData V2.</p>
+			<p></p></div></div>
+			<p>By default, the fields in the list card are mapped to the
+					<code>com.sap.vocabularies.UI.v1.LineItem</code> annotation. Any other
+				collection of <code>DataFieldAbstract</code> can be used by setting the
+					<code>annotationPath</code> property. <code>LineItem</code> is a
+				collection of <code>DataFieldAbstract</code> records. You can use different
+					<code>com.sap.vocabularies.UI.v1.LineItem</code> annotations for different
+				card instances of the same entity type by using different qualifiers and setting the
+					<code>annotationPath</code> property with the qualifier in the card
+				configuration. For example
+					<code>com.sap.vocabularies.UI.v1.LineItem#Qualifier1</code>. </p>
+			<p>At runtime, the <code>DataField</code> records are sorted according to the
+				optional <code>Importance (com.sap.vocabularies.UI.v1.ImportanceType)</code>
+				annotation. <code>DataField</code> entries are sorted according to importance
+				and their order of entry. </p>
+		</section><section><h2 class="title ">Condensed List Type - Standard Flavor</h2>In this type of list, each list item
+			displays up to three fields. The first two <code>DataField</code> records are
+			displayed at the top left and bottom left of the list item. If there is a
+				<code>DataFieldForAnnotation</code> record that has a <code>DataPoint</code>
+			target, it is displayed at the top right of the list item, and its value can be
+			highlighted according to the criticality of the datapoint. If no
+				<code>DataFieldForAnnotation</code> record is defined, the next
+				<code>DataField</code> record is displayed instead.<p>Number of list items
+				displayed: up to 3.</p></section><section>
+			<h2 class="title ">Extended List Type - Standard Flavor</h2>
+			<p>In this type of list, each list item displays up to six fields. <code>DataField</code>
+				records are displayed on the left side of the line item, and
+					<code>DataPoint</code> records are displayed on the right. If no
+					<code>DataPoint</code> record is defined, or less than three
+					<code>DataPoint</code> records are available, the right side of the line
+				item displays <code>DataField</code> records instead. </p>
+			<p>Number of list items displayed: up to 6.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_c5h_cgy_st" class=" " style="text-align: center">
+					
+					
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><img src="loio342d904536de41bd901afe4f1b7dcc96_LowRes.png" usemap="#"></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><img src="loio849fdc4187b54d15a09a220e51c5e893_LowRes.png" usemap="#"></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Condensed List Type - Standard Flavor</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Extended List Type - Standard Flavor</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section>
+			<h2 class="title ">Condensed List Type - Bar Flavor</h2>
+			<p>In this type of list, each list item displays up to three fields. Only use this kind of list
+				if you want to display a <code>DataPoint</code> record. The first
+					<code>DataField</code> record is displayed as a title for the line item in
+				the top-left field. The first <code>DataPoint</code> record is displayed as a
+				bar beneath the title, and as a numeric value to the right of the bar. You can also
+				display an additional <code>DataPoint</code> record to the right of the first
+					<code>DataPoint</code> record. The bar can display values as a percentage or
+				as any numeric value. </p>
+			<p>Number of list items displayed: up to 3.</p>
+		</section><section>
+			<h2 class="title ">Extended List Type - Bar Flavor</h2>
+			<p>In this type of list, each list item displays up to five fields. The first
+					<code>DataField</code> record is displayed as a title for the line item in
+				the top-left field. An additional <code>DataField</code> record can be displayed
+				beneath the title. The first <code>DataPoint</code> record is displayed as a bar
+				beneath the <code>DataField</code> records, and as a numeric value to the right
+				of the bar at the bottom of the line item. You can also display two additional
+					<code>DataPoint</code> records to the right of line item, one above the
+				other. </p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If highlighting (criticality) is defined in the annotation of the <code>DataPoint</code>
+					records, only one will be highlighted in the line item according to the order in
+					which they are displayed. </p>
+				<p>Number of list items displayed: up to 5.</p>
+			<p></p></div></div>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_lk3_3gy_st" class=" " style="text-align: center">
+					
+					
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><img src="loio8f1def4d5aea4a1ea109576da809b311_LowRes.png" usemap="#"></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><img src="loiobdbbbb2802f243fea692a4ee3bf1d76d_LowRes.png" usemap="#"></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Condensed
+									List Type - Bar Flavor</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Extended List Type - Bar Flavor</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section id="section_xt3_h4n_m2b">
+			<h2 class="title ">Condensed List Card with Images or Icons</h2>
+			<p>To display images or icons in the condensed list card, set the property
+                    <code>"imageSupported": true,</code> in the descriptor settings and
+                configure the <code>DataField</code> property in the <code>LineItem</code>
+                annotation. For
+                    example:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation&amp;nbsp;Term="com.sap.vocabularies.UI.v1.LineItem"&gt;
+&amp;nbsp;&lt;Collection&gt;
+&amp;nbsp;&lt;Record&amp;nbsp;Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+&amp;nbsp;&lt;PropertyValue&amp;nbsp;Property="IconUrl"&amp;nbsp;Path="web_address"/&gt;
+&amp;nbsp;&lt;PropertyValue&amp;nbsp;Property="Value"&amp;nbsp;Path="MaterialName"/&gt;
+&amp;nbsp;&lt;/Record&gt;
+&lt;/Collection&gt;
+&lt;Annotation&gt;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP
+                    CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.lineItem: [{ value: 'MATERIALNAME' }]
+MATERIALNAME;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.LineItem : [
+    {
+        $Type : 'com.sap.vocabularies.UI.v1.DataField',
+        IconUrl : web_address,
+        Value : MaterialName
+    }
+]</pre></div></div></section><p></p></div></div><p></p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In list card, an image control is used instead of avatar. For more information,
+					see <a href="topic/5760b638ea274d7aab59e4e434899528" title="SAP Fiori elements supports the use of images, initials, and icons." class="sap-doc">Using Images, Initials, and Icons</a>.</p>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

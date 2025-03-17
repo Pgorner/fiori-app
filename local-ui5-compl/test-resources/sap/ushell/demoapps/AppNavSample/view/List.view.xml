@@ -1,0 +1,104 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:footerbar="sap.ushell.ui.footerbar"
+    controllerName="sap.ushell.demo.AppNavSample.view.List">
+    <Page title="Nav Samples Navigation">
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <Panel headerText="To App Home Variations">
+                    <VBox>
+                        <Link text="App Home" press="handleHomePress" />
+                        <Link text="App Home with params" press="handleHomeWithParams" />
+                        <Link text="App Home with long Url" press="handleHomeWithLongUrl" />
+                        <Link href="{/DefaultApp_display_href}" text="FLP home without intent" />
+                    </VBox>
+                </Panel>
+                <Panel headerText="Cross App API usage">
+                    <VBox>
+                        <Link text="Cross App Navigation 'Back'" press="handleBtnBackPress" />
+                        <Link text="Cross App Navigation to FLP Home" press="handleBtnHomePress" />
+                        <Link text="Cross App Navigation to Letter Box App (external navigation)" press="handleBtnExternalNavPress" />
+                    </VBox>
+                </Panel>
+                <Panel headerText="Inner App Navigations">
+                    <VBox>
+                        <Link text="Start any Intent Page" press="handleView1Nav" class="testMasterView1Btn" />
+                        <Link text="GetSemanticObjectLinks Page" press="handleView4Nav" />
+                        <Link text="Smart Navigation Sample Page" press="handleSmartNavSampleBtnPress" />
+                        <Link text="Calendar Example" press="handleBtn2Press" class="testMasterView2Btn" />
+                        <Link text="Cross App Link Lists" press="handleBtn3Press" />
+                        <Link text="sap-tag testpage" press="handleSapTagPageNav" />
+                    </VBox>
+                </Panel>
+                <Panel headerText="Feature Testing">
+                    <VBox>
+                        <Link text="Open Popover" id="openPopover" press="handleOpenPopoverPress" />
+                        <Link id="OpenDialogLinkID" text="Open Dialog" press="handleOpenDialogPress" />
+                        <Link id="OpenDialogLinkID2" text="Ask me anything" press="handleAskMeAnythingDialogPress" />
+                        <Link text="Set Hierachy (ShellUIService)" press="handleSetHierarchy" />
+                        <Link text="Set Related Apps (ShellUIService)" press="handleSetRelatedApps" />
+                        <Link text="Set Title (ShellUIService)" press="handleSetTitle" />
+                        <Link text="Get Theme List (Isolated Only)" id="getThemeList" press="getThemeList" />
+                    </VBox>
+                </Panel>
+                <Panel headerText="Setting States">
+                    <HBox>
+                        <VBox class="sapUiMediumMarginEnd">
+                            <Button id="testDirtyFlagOn" text="Set Dirty Flag On" press="handleSetDirtyFlagOn"
+                                class="testDirtyFlagOnBtn" />
+                            <Button id="testDirtyFlagOff" text="Set Dirty Flag Off" press="handleSetDirtyFlagOff"
+                                class="testDirtyFlagOffBtn" />
+                            <Button id="testDirtyStateProvider" text="Register Dirty State Provider" press="handleRegisterDirtyStateProvider"
+                                    class="testDirtyStateProvider idQunitDirtyStateProvider" />
+                            <Button id="testDiregisterDirtyStateProvider" text="Deregister Dirty State Provider" press="handleDeregisterDirtyStateProvider"
+                                    class="testDiregisterDirtyStateProvider" />
+                            <Button id="testFallBackToShellHomeOn" text="Set FallBack To Shell-Home On"
+                                press="handleSetFallBackToShellHomeOn" class="testFallBackToShellHomeOnBtn" />
+                            <Button id="testFallBackToShellHomeOff" text="Set FallBack To Shell-Home Off"
+                                press="handleSetFallBackToShellHomeOff" class="testFallBackToShellHomeOffBtn" />
+                            <Button id="testAttachLogoutEventOn2Sec" text="Set Attach Logout Event On 2 Sec"
+                                    press="handleSetAttachLogoutEventOn2Sec" class="testAttachLogoutEventOn2SecBtn" />
+                            <Button id="testAttachLogoutEventOn10Sec" text="Set Attach Logout Event On 10 Sec"
+                                    press="handleSetAttachLogoutEventOn10Sec" class="testAttachLogoutEventOn10SecBtn" />
+                            <Button id="testAttachLogoutEventOff" text="Set Attach Logout Event Off"
+                                    press="handleSetAttachLogoutEventOff" class="testAttachLogoutEventOffBtn" />
+                        </VBox>
+                    </HBox>
+                </Panel>
+            </VBox>
+            <Panel headerText="ShellUIService">
+                <VBox>
+                    <Link text="Set Title from Target Mapping (ShellUIService)" press="handleSetTitleFromTargetMapping" />
+                </VBox>
+            </Panel>
+            <Panel headerText="FLP Special Buttons">
+                <VBox>
+                    <footerbar:AddBookmarkButton id="idAddBookmarkButton" />
+                    <footerbar:SendAsEmailButton id="idSendAsEmailButton" />
+                    <footerbar:JamShareButton id="idJamShareButton" />
+                    <footerbar:JamDiscussButton id="idJamDiscussButton" />
+                    <footerbar:AboutButton id="idAboutButton" />
+                    <footerbar:ContactSupportButton id="idContactSupportButton" />
+                </VBox>
+            </Panel>
+            <Panel headerText="Send URL As Email (old way)">
+                <VBox>
+                    <Button id="idSendAsEmailS4" text="Send As Email (S4)" press="sendAsEmailS4" />
+                </VBox>
+            </Panel>
+            <Panel headerText="Navigation to Hash - new window">
+                <VBox>
+                    <Link href="#BookmarkState-Sample" text="link to hash #BookmarkState-Sample" target="_blank"/>
+                    <Button text="call sap.m.URLHelper.redirect" press="doRedirect" />
+                </VBox>
+            </Panel>
+            <Panel id="mypanel" headerText="Alternate Header">
+                <VBox id="myvbox">
+                    <Button id="changeHeader" text="Change Header" press="doChangeHeader" />
+                </VBox>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

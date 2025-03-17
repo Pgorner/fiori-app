@@ -1,0 +1,225 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0830bce271bf42d98c2740bed43d435d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-3-using-dynamic-page-for-the-list-view-0830bce.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 3: Using Dynamic Page for the List View</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 3: Using Dynamic Page for the List View</h2></div><div class="shortdesc">In this step, we create the list view of the app using <code>sap.f.DynamicPage</code> control.</div><section id="section_ed2_4dd_lbb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Preview</h2></div><div class="fig"><div><div class="fig"><img src="loiob31948bf54134343bfcb5dc64e00a1e1_LowRes.gif" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">List page with <code>sap.f.DynamicPage</code></h2></span></div></div></section><section id="section_fd2_4dd_lbb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.f.tutorial.fcl.03/preview" title="sample/sap.f.tutorial.fcl.03/preview" class="sap-doc" alt="sample/sap.f.tutorial.fcl.03/preview">Flexible Column Layout
+						App - Step 3</a>.</p>
+		</section><section id="section_hlh_rjj_l4b">
+			<h2 class="title ">webapp/manifest.json [MODIFY]</h2>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"_version": "1.38.0",
+	"sap.app": {
+		"id": "sap.ui.demo.fcl",
+		"type": "application",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "sap.ui.demo.fcl.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "fcl"
+		},
+		"dependencies": {
+			"minUI5Version": "1.98.0",
+			"libs": {
+				"sap.f": {},
+<span class="emphasis">				"sap.m": {},</span>
+				"sap.ui.core": {}
+				}
+		},
+		"config": {
+			"fullWidth": true
+		}
+	}
+}</pre></div></div></section>
+			<p>First, we add the <code>sap.m</code> library as a dependency in the <code>manifest.json</code>.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>We also need to modify the <code>ui5.yaml</code> file located in the root folder by adding the <code>sap.m</code> and
+						<code>sap.f</code> libraries as a dependency. For more information, see the section about UI5 tooling in <a href="topic/b72ccb50eda94ac9b9be454a03ca4213.html#loiob72ccb50eda94ac9b9be454a03ca4213" title="This page contains some of the complementary offerings from the UI5 ecosystem - toolchains, generators, and other cool community projects." class="sap-doc">The UI5 Ecosystem</a>.</p>
+			<p></p></div></div>
+		</section><section id="section_ddz_pjj_l4b">
+			<h2 class="title ">webapp/index.html [MODIFY]</h2>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	...
+	&lt;script id="sap-ui-bootstrap"
+		src="resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-resourceroots='{
+			"sap.ui.demo.fcl": <span class="emphasis">"./",
+			"sap.ui.demo.mock": "test-resources/sap/ui/documentation/sdk/"</span>
+		}'
+		data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+		data-sap-ui-compatversion="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-frameoptions="trusted"&gt;
+	&lt;/script&gt;
+	...</pre></div></div></section>
+			<p>We add the link to the mock data that is used in the app.</p>
+		</section><section id="section_h5w_4jj_l4b">
+			<h2 class="title ">webapp/Component.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	'sap/ui/core/UIComponent'<span class="emphasis">,
+	'sap/ui/model/json/JSONModel'</span>
+], function(UIComponent<span class="emphasis">, JSONModel</span>) {
+	'use strict';
+
+	return UIComponent.extend('sap.ui.demo.fcl.Component', {
+
+		metadata: {
+			manifest: 'json'
+		}<span class="emphasis">,
+
+		init: function () {
+			var oProductsModel;
+
+			UIComponent.prototype.init.apply(this, arguments);
+
+			// set products demo model on this sample
+			oProductsModel = new JSONModel(sap.ui.require.toUrl('sap/ui/demo/mock/products.json'));
+			oProductsModel.setSizeLimit(1000);
+			this.setModel(oProductsModel, 'products');
+		}</span>
+	});
+});</pre></div></div></section>
+			<p>We create the <code>init</code> method in the <code>Component.js</code> to set the model.</p>
+		</section><section id="section_shq_mjj_l4b">
+			<h2 class="title ">webapp/view/List.view.xml [NEW]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	controllerName="sap.ui.demo.fcl.controller.List"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false"&gt;
+		&lt;!-- DynamicPage Title --&gt;
+		&lt;f:title&gt;
+			&lt;f:DynamicPageTitle&gt;
+				&lt;f:heading&gt;
+					&lt;Title text="Products ({products&gt;/ProductCollectionStats/Counts/Total})"/&gt;
+				&lt;/f:heading&gt;
+			&lt;/f:DynamicPageTitle&gt;
+		&lt;/f:title&gt;
+
+		&lt;!-- DynamicPage Content --&gt;
+		&lt;f:content&gt;
+			&lt;VBox fitContainer="true"&gt;
+				&lt;OverflowToolbar class="sapFDynamicPageAlignContent"&gt;
+					&lt;ToolbarSpacer/&gt;
+					&lt;SearchField search=".onSearch" width="17.5rem"/&gt;
+					&lt;OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onAdd"/&gt;
+					&lt;OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/&gt;
+				&lt;/OverflowToolbar&gt;
+				&lt;Table
+					id="productsTable"
+					inset="false"
+					items="{
+						path: 'products&gt;/ProductCollection',
+						sorter: {
+							path: 'Name'
+						}
+					}"
+					class="sapFDynamicPageAlignContent"
+					width="auto"&gt;
+					&lt;columns&gt;
+						&lt;Column width="12em"&gt;
+							&lt;Text text="Product"/&gt;
+						&lt;/Column&gt;
+						&lt;Column	hAlign="End"&gt;
+							&lt;Text text="Price"/&gt;
+						&lt;/Column&gt;
+					&lt;/columns&gt;
+					&lt;items&gt;
+						&lt;ColumnListItem type="Navigation"&gt;
+							&lt;cells&gt;
+								&lt;ObjectIdentifier title="{products&gt;Name}" text="{products&gt;ProductId}"/&gt;
+								&lt;ObjectNumber
+									number="{
+										parts:[
+											{path:'products&gt;Price'},
+											{path:'products&gt;CurrencyCode'}
+										],
+										type: 'sap.ui.model.type.Currency',
+										formatOptions: {showMeasure: false}
+									}"
+									unit="{products&gt;CurrencyCode}"/&gt;
+							&lt;/cells&gt;
+						&lt;/ColumnListItem&gt;
+					&lt;/items&gt;
+				&lt;/Table&gt;
+			&lt;/VBox&gt;
+		&lt;/f:content&gt;
+
+		&lt;!-- DynamicPage Footer --&gt;
+		&lt;f:footer&gt;
+			&lt;OverflowToolbar&gt;
+				&lt;ToolbarSpacer/&gt;
+				&lt;Button type="Accept" text="Accept"/&gt;
+				&lt;Button type="Reject" text="Reject"/&gt;
+			&lt;/OverflowToolbar&gt;
+		&lt;/f:footer&gt;
+	&lt;/f:DynamicPage&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+			<p>We create the list view using <code>sap.f.DynamicPage</code>. The page consists of a list with all products.</p>
+		</section><section id="section_zrl_ljj_l4b">
+			<h2 class="title ">webapp/view/App.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	displayBlock="true"
+	height="100%"
+	xmlns="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;FlexibleColumnLayout id="flexibleColumnLayout" backgroundDesign="Solid"<span class="emphasis">&gt;
+		&lt;beginColumnPages&gt;
+			&lt;mvc:XMLView id="beginView" viewName="sap.ui.demo.fcl.view.List"/&gt;
+		&lt;/beginColumnPages&gt;
+	&lt;/FlexibleColumnLayout&gt;</span>
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add the list view in <code>FlexibleColumnLayout's</code>
+				<code>beginColumnPages</code> aggregation.</p>
+		</section><section id="section_ovn_jjj_l4b">
+			<h2 class="title ">webapp/controller/List.controller.js [NEW]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/Sorter",
+	"sap/m/MessageBox"
+], function (Controller, Filter, FilterOperator, Sorter, MessageBox) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.fcl.controller.List", {
+		onInit: function () {
+			this.oView = this.getView();
+			this._bDescendingSort = false;
+			this.oProductsTable = this.oView.byId("productsTable");
+		},
+
+		onSearch: function (oEvent) {
+			var oTableSearchState = [],
+				sQuery = oEvent.getParameter("query");
+
+			if (sQuery && sQuery.length &gt; 0) {
+				oTableSearchState = [new Filter("Name", FilterOperator.Contains, sQuery)];
+			}
+
+			this.oProductsTable.getBinding("items").filter(oTableSearchState, "Application");
+		},
+
+		onAdd: function () {
+			MessageBox.information("This functionality is not ready yet.", {title: "Aw, Snap!"});
+		},
+
+		onSort: function () {
+			this._bDescendingSort = !this._bDescendingSort;
+			var oBinding = this.oProductsTable.getBinding("items"),
+				oSorter = new Sorter("Name", this._bDescendingSort);
+
+			oBinding.sort(oSorter);
+		}
+	});
+});
+</span></pre></div></div></section>
+			<p>We create the list controller that provides a basic search and sort functionality for the products listed in the list page.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/c4de2df385174e58a689d9847c7553bd">Flexible Column Layout App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/bf38e4de70084477b9e104bf6f6d7737">Step 2: Creating an Empty Flexible Column Layout</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/4e4315cef89e48ceb60b4dc12f5be2d2">Step 4: Adding a Detail Page</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

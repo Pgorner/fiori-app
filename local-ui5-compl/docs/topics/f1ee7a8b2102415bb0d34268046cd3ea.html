@@ -1,0 +1,268 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof1ee7a8b2102415bb0d34268046cd3ea" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/using-data-binding-for-data-export-f1ee7a8.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using Data Binding for Data Export</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using Data Binding for Data Export</h2></div><div class="shortdesc">Data binding supports the export of data in a specific format so that the data can be
+        used in other programs.</div><p>To export data, load the necessary modules as shown in the following example:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/util/Export", "sap/ui/core/util/ExportTypeCSV"], function(Export, ExportTypeCSV) {
+    // ...
+});</pre></div></div></section><p>The following code snippet uses a JSON model as basis for the export. You can also use
+            other models, such as the OData model.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "JSONModel" required from module "sap/ui/model/json/JSONModel"
+var oModel = JSONModel([
+    {
+        firstname: "Al",
+        lastname: "Dente"
+    },
+    {
+        firstname: "Andy",
+        lastname: "Friese"
+    },
+    {
+        firstname: "Anita",
+        lastname: "Mann"
+    },
+    {
+        firstname: "Doris",
+        lastname: "Schutt"
+    },
+    {
+        firstname: "Kenya",
+        lastname: "Dewit"
+    }
+]);
+</pre></div></div></section><p>In the next step, create the data export object and pass the required information for the
+            export to the object:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Export" required from module "sap/ui/core/util/Export"
+var oExport = new Export({
+
+    // "ExportTypeCSV" required from module "sap/ui/core/util/ExportTypeCSV"
+    // Type that will be used to generate the content. Own ExportType's can be created to support other formats
+    exportType: new ExportTypeCSV({
+        separatorChar: ";"
+    }),
+
+    // Pass in the model created above
+    models: oModel,
+
+    // binding information for the rows aggregation 
+    rows: {
+        path: "/" 
+    },
+
+    // column definitions with column name and binding info for the content
+    columns: [
+        {
+            name: "First name",
+            template: {
+                content: {
+                    path: "firstname"
+                }
+            }
+        },
+        {
+            name: "Last name",
+            template: {
+                content: {
+                    path: "lastname"
+                }
+            }
+        }
+    ]
+});
+</pre></div></div></section><p>The export class provides a generate method that triggers the generation process and
+            returns a jQuery Promise object. The done handler is called when the generation process
+            has finished. If you use the OData model, this happens asynchronously. The always
+            handler is also called when the generation has failed. When the generation has finished
+            and the export object is no longer needed, destroy the export object.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oExport.generate().done(function(sContent) {
+    console.log(sContent);
+}).always(function() {
+    this.destroy();
+});
+</pre></div></div></section><p>The above example provides the following output:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">First name;Last name
+Al;Dente
+Andy;Friese
+Anita;Mann
+Doris;Schutt
+Kenya;Dewit</pre></div></div></section><p>You can directly save the file by triggering a download. This calls the generate method
+            internally and uses the file util class (<code>sap/ui/core/util/File</code>) to
+            trigger the download.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oExport.saveFile().always(function() {
+    this.destroy();
+});
+</pre></div></div></section><section>
+            <h2 class="title ">Export Types</h2>
+            <p>You can use the CSV export type out of the box, or define other export types. The
+                concept is similar to custom notepad controls, see <a href="topic/8dcab0011d274051808f959800cabf9f" title="You can create own content for SAPUI5. To develop controls in JavaScript, you can either extend existing controls or create new ones." class="sap-doc">Developing Controls</a>. The generate method is called
+                and should return the created file as a string.</p>
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>Make sure that all values are encoded or escaped properly.</p>
+            <p></p></div></div>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "ExportType" required from module "sap/ui/core/util/ExportType"
+// "encodeXML" required from module "sap/base/security/encodeXML"
+ExportType.extend("my.own.ExportType", {
+
+    init: function() {
+        // Set default values
+        this.setProperty("fileExtension", "mytype", true);
+        this.setProperty("mimeType", "text/mytype", true);
+        this.setProperty("charset", "utf-8", true);
+    },
+
+    generate: function() {
+        var aBuffer = [];
+
+        var oColumns = this.columnGenerator(),
+            oColumn;
+
+        aBuffer.push("&lt;columns&gt;");
+
+        while (!(oColumn = oColumns.next()).done) {
+            aBuffer.push("&lt;column&gt;" + encodeXML(oColumn.value.name) + "&lt;/column&gt;");
+        }
+
+        aBuffer.push("&lt;/columns&gt;");
+        
+        var oRows = this.rowGenerator(),
+            oRow;
+
+        aBuffer.push("&lt;rows&gt;");
+
+        while (!(oRow = oRows.next()).done) {
+            var oCells = oRow.value.cells,
+                oCell;
+
+            aBuffer.push("&lt;row&gt;");
+            aBuffer.push("&lt;cells&gt;");
+
+            while (!(oCell = oCells.next()).done) {
+                aBuffer.push("&lt;cell");
+                if (oCell.value.customData.color) {
+                    aBuffer.push(" color=\"" + encodeXML(oCell.value.customData.color) + "\"");
+                }
+                aBuffer.push("&gt;");
+                aBuffer.push(encodeXML(oCell.value.content));
+                aBuffer.push("&lt;/cell&gt;");
+            }
+
+
+        
+        aBuffer.push("&lt;/rows&gt;");
+        
+        return aBuffer.join("");
+    }
+});
+</pre></div></div></section>
+            <p><span class="emphasis">Custom Data</span></p>
+            <p>It is also possible to pass <code>customData</code> to the cell template. This
+                can be used to provide additional metadata to the <code>ExportType</code> (see
+                example code above).</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// column definitions with column name, binding info for the content and additional custom data
+columns: [
+    {
+        name: "First name",
+        template: {
+            content: {
+                path: "firstname"
+            },
+            customData: [
+                {
+                    "key": "color",
+                    "value": {
+                        path: "color"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        name: "Last name",
+        template: {
+            content: {
+                path: "lastname"
+            }
+        }
+    }
+]
+</pre></div></div></section>
+            <p><span class="emphasis">Model Data</span></p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "JSONModel" required from module "sap/ui/model/json/JSONModel"
+var oModel = new JSONModel([
+    {
+        firstname: "Al",
+        lastname: "Dente",
+        color: "red"
+    },
+    {
+        firstname: "Andy",
+        lastname: "Friese",
+        color: "black"
+    },
+    {
+        firstname: "Anita",
+        lastname: "Mann",
+        color: "yellow"
+    },
+    {
+        firstname: "Doris",
+        lastname: "Schutt",
+        color: "green"
+    },
+    {
+        firstname: "Kenya",
+        lastname: "Dewit",
+        color: "blue"
+    }
+]);
+</pre></div></div></section>
+            <p><span class="emphasis">Output</span></p>
+            <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;columns&gt;
+    &lt;column&gt;First name&lt;/column&gt;
+    &lt;column&gt;Last name&lt;/column&gt;
+&lt;/columns&gt;
+&lt;rows&gt;
+    &lt;row&gt;
+        &lt;cells&gt;
+            &lt;cell color="red"&gt;Al&lt;/cell&gt;
+            &lt;cell&gt;Dente&lt;/cell&gt;
+        &lt;/cells&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+        &lt;cells&gt;
+            &lt;cell color="black"&gt;Andy&lt;/cell&gt;
+            &lt;cell&gt;Friese&lt;/cell&gt;
+        &lt;/cells&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+        &lt;cells&gt;
+            &lt;cell color="yellow"&gt;Anita&lt;/cell&gt;
+            &lt;cell&gt;Mann&lt;/cell&gt;
+        &lt;/cells&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+        &lt;cells&gt;
+            &lt;cell color="green"&gt;Doris&lt;/cell&gt;
+            &lt;cell&gt;Schutt&lt;/cell&gt;
+        &lt;/cells&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+        &lt;cells&gt;
+            &lt;cell color="blue"&gt;Kenya&lt;/cell&gt;
+            &lt;cell&gt;Dewit&lt;/cell&gt;
+        &lt;/cells&gt;
+    &lt;/row&gt;
+&lt;/rows&gt;
+</pre></div></div></section>
+        </section><section>
+            <h2 class="title ">Integration in Controls</h2>
+            <p><code>sap/ui/table/Table</code></p>
+            <p>The <code>exportData</code> method creates an export instance and fills the rows
+                and columns with the table's rows/column definition, if not defined otherwise. This
+                also includes filters and sorters that have been applied to the columns.</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "ExportTypeCSV" required from module "sap/ui/core/util/ExportTypeCSV"
+
+oTable.exportData({
+    exportType: ExportTypeCSV()
+})
+.saveFile()
+.always(function() {
+    this.destroy();
+});
+</pre></div></div></section>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

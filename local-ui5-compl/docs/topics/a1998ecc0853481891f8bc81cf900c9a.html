@@ -1,0 +1,110 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa1998ecc0853481891f8bc81cf900c9a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/generic-tile-a1998ec.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Generic Tile</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Generic Tile</h2></div><div class="shortdesc">The <code>GenericTile</code> control is the basic concept that displays any kind
+		of content within a tile comprising for example news, feeds, images, micro charts, or
+		numeric content.</div><section><h2 class="title ">Overview</h2><p><code>GenericTile</code> controls are responsive and
+				adapt their size to the size of the devices they are used on: the control is
+				available in small and large size and depending on the media screen size, the
+				appropriate size is chosen automatically. Therefore, the <code>size</code>
+				property is deprecated and should not be used
+				anymore.</p><span class="emphasis">Layout</span><p>The <code>GenericTile</code> control
+				provides a header area, a content area, and a status area. Within these areas,
+				different data can be displayed depending on the app the tile belongs to, for
+				example, text in the header area, charts or an icon in the content area, or text
+				only in the footer area.</p><ul class="ul ">
+				<li class="li">
+					<p>Header area</p>
+					<p>The headline and a subtitle can be displayed. The header area is mandatory,
+						but if the <code>NewsContent</code> control is used in the content area,
+						no header and subheader should be used.</p>
+					<p>If you use <code>HeaderMode</code>, up to five lines of header can be
+						displayed and the content area is not displayed.</p>
+				</li>
+				<li class="li">
+					<p>Content area</p>
+					<p>The <code>TileContent</code> control that represents the content area is
+						the universal container for different content types. This means that the
+							<code>TileContent</code> control can contain one of the following
+						controls:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p><code>NumericContent</code> (<code>frameType</code> 1x1):
+								numeric value and icon</p>
+						</li>
+						<li class="li">
+							<p><code>FeedContent</code> (<code>frameType</code> 2x1): up to
+								two lines of text</p>
+						</li>
+						<li class="li">
+							<p><code>NewsContent</code> (<code>frameType</code> 2x1): text
+								and background image</p>
+						</li>
+						<li class="li">
+							<p><code>MicroCharts</code> (<code>frameType</code> 1x1):
+								charts</p>
+						</li>
+						<li class="li">
+							<p><code>ImageContent</code> (<code>frameType</code> 1x1):
+								images and icons</p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>Status area</p>
+					<p>A status can be displayed. The status area is not mandatory.</p>
+				</li>
+			</ul><p><span class="emphasis">SlideTile</span></p><p><code>GenericTile</code> controls of the
+				2x1 <code>frameType</code> can be implemented as <code>SlideTile</code>
+				control. The <code>GenericTile</code> control added to the
+					<code>SlideTile</code> control appears alternately, showing one content at a
+				time. The animated content of the slide tile includes a navigation option to pause
+				the slide show or to navigate forward or backward to the slide. You can use
+					<code>SlideTile</code> controls, for example, in day-to-day business to
+				display news.</p><p><span class="emphasis">Tooltip Rendering</span></p><p>The
+					<code>GenericTile</code> control generates a tooltip only if the header or
+				subheader are truncated. In that case, the tooltip contains the full text of the
+				truncated header or subheader. </p><p>If the <code>GenericTile</code> control
+				contains a <code>MicroChart</code> control in its content area, the generated
+				tooltip contains information about the embedded <code>MicroChart</code>
+				content.</p><p>If an application provides an own tooltip, the generated tooltip of
+				the <code>GenericTile</code> control is overwritten and the tooltip of the
+				application is displayed. You can suppress the tooltip for your application by
+				providing a tooltip consisting of whitespaces only. The ARIA label is not
+				changed.</p><p><span class="emphasis">Line Mode</span></p><p>With this mode, you can switch the
+				visual representation of the <code>GenericTile</code> from the rectangular
+				format to an in-line format only by changing the value of the <code>mode</code>
+				property and keeping all other settings as already set. After the switch, the API
+				for the tiles and links stays consistent, and the control's ID and the contents stay
+				the same. Only the header and subtitle are rendered.</p></section><section>
+			<h2 class="title ">Constraints</h2>
+			<p>With SAPUI5 1.34, the
+				following controls are moved from the <code>sap.suite.ui.commons</code> library
+				to the <code>sap.m</code> library:</p>
+			<ul class="ul ">
+				<li class="li"><code>GenericTile</code></li>
+				<li class="li"><code>TileContent</code></li>
+				<li class="li"><code>FeedContent</code> (formerly <code>JamContent</code>)</li>
+				<li class="li"><code>NewsContent</code></li>
+				<li class="li"><code>NumericContent</code></li>
+				<li class="li"><code>SlideTile</code> (formerly <code>DynamicContainer</code>)</li>
+			</ul>
+			<p>The following controls have not been transferred to the <code>sap.m</code>
+				library and are no longer used:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>GenericTile2X2</code></p>
+				</li>
+				<li class="li">
+					<p><code>TileContent2X2</code></p>
+				</li>
+			</ul>
+			<p>If you have already included one of these controls before SAPUI5 1.34, a wrapper
+				ensures that the embedding still works for each control. To benefit from all
+				enhancements and new features for one of these controls as of SAPUI5 1.34, you need to
+				switch to the controls in the <code>sap.m</code> library. With SAPUI5 1.34, all these
+				controls in the <code>sap.suite.ui.commons</code> library are marked as
+					<span class="emphasis">deprecated</span>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.m.GenericTile" title="api/sap.m.GenericTile" class="sap-doc" alt="api/sap.m.GenericTile">API Reference: sap.m.GenericTile</a></li>
+		<li><a href="entity/sap.m.GenericTile" title="entity/sap.m.GenericTile" class="sap-doc" alt="entity/sap.m.GenericTile">Samples: sap.m.GenericTile</a></li>
+	</ul></section></div></section></div></body></html>

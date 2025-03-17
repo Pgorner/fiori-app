@@ -1,0 +1,55 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.f"
+	controllerName="sap.fe.core.fpmExplorer.filterBarDefault.FilterBarDefault"
+>
+	<f:DynamicPage id="FilterBarDefault" class="sapUiResponsiveContentPadding">
+		<f:title>
+			<f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
+				<f:heading>
+					<Title id="_IDGenTitle1" text="Filter Bar" level="H2" />
+				</f:heading>
+				<f:snappedContent>
+					<Text text="{fbConditions>/filtersTextInfo}" />
+				</f:snappedContent>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader id="_IDGenDynamicPageHeader1" pinnable="true">
+				<VBox id="_IDGenVBox1">
+					<macros:FilterBar
+						metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.SelectionFields"
+						id="FilterBar"
+						search=".handlers.onFiltersChanged"
+						filterChanged=".handlers.onFiltersChanged"
+					/>
+				</VBox>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<Panel expanded="{fbConditions>/expanded}" height="100%" headerText="Conditions from Filter Bar" expandable="true">
+				<FlexBox direction="Column" fitContainer="true" justifyContent="Start">
+					<ce:CodeEditor
+						height="100%"
+						id="filtersDisplay"
+						type="json"
+						lineNumbers="false"
+						value="{fbConditions>/allFilters}"
+						editable="false"
+					>
+						<ce:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="1" />
+						</ce:layoutData>
+					</ce:CodeEditor>
+				</FlexBox>
+				<layoutData>
+					<FlexItemData growFactor="1" shrinkFactor="1" />
+				</layoutData>
+			</Panel>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

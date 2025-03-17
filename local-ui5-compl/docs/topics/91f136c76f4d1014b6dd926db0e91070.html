@@ -1,0 +1,56 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f136c76f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/declarative-support-aggregations-deprecated-91f136c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Declarative Support: Aggregations (deprecated)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Declarative Support: Aggregations (deprecated)</h2></div><div class="shortdesc">Aggregation support is required to allow nested controls for layout containers and/or add elements to a control, for example, for
+			<code>ComboBox</code>.</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+			</p><p> Deprecated as of UI5 version 1.120, replaced by <a href="topic/91f292806f4d1014b6dd926db0e91070" title="The XML view type is defined in an XML file, with a file name ending in .view.xml. The file name and the folder structure together specify the name of the view that equals the SAPUI5 module name." class="sap-doc">XML View</a>.</p>
+		<p></p></div></div><p>SAPUI5 uses the control's default aggregation as default. If, for example, the
+			panel control has the default aggregation content, all child elements of the <code>data-sap-ui-type="sap.ui.commons.Panel"</code>
+			element are added to this aggregation: </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;div data-sap-ui-type="sap.ui.commons.Panel"&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 1"&gt;&lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 2"&gt;&lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 3"&gt;&lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 4"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre></div></div></section><p>The markup in the example above generates an instance of the <code>sap.ui.commons.Panel</code> control and adds implicit four buttons
+			to the default aggregation content of the control. </p><p>You can also explicitly declare an aggregation. In general, an explicit aggregation is expressed with a meta HTML tag between the parent
+			controls HTML tag and the HTML tags of the children. The following code adds four buttons explicitly to the "content" aggregation of the
+			declared panel: </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;div data-sap-ui-type="sap.ui.commons.Panel"&gt;
+  &lt;div data-sap-ui-aggregation="content"&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 1"&gt;&lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 2"&gt;&lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 3"&gt;&lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 4"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div></div></section><p>For aggregations with the cardinality "0..1" the <code>"data-sap-ui-aggregation"</code> attribute can be written directly to the
+			control tag: </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;div data-sap-ui-type="sap.ui.commons.Panel"&gt;
+  &lt;div data-sap-ui-aggregation="title" div data-sap-ui-type="sap.ui.commons.Title" data-text="My Panel"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre></div></div></section><p>The default aggregation of the declarative support is usually also the default aggregation of the control as defined in the control's meta
+			information. However, when no default aggregation is set or another aggregation should be used as a default, for example to avoid
+			unnecessary meta tags, it can be useful to define a so-called default aggregration attribute on the parent controls HTML tag. This is done
+			as follows: </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">data-sap-ui-default-aggregation="title"</pre></div></div></section><p>With this, all children which are not included in the <code>data-sap-ui-aggregation</code> meta tag are added to the default
+			aggregation. This is shown in the following example: </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;div data-sap-ui-type="sap.ui.commons.Panel" data-sap-ui-default-aggregation="title"&gt;
+  &lt;div data-sap-ui-type="sap.ui.commons.Title" text="My Panel"&gt;&lt;/div&gt;
+  &lt;div data-sap-ui-default-aggregation="content"&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 1"&gt;&lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="My Button 2"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+/div&gt;</pre></div></div></section><p>You can now apply this to the <code>MatrixLayout</code> as follows: </p><p>
+			</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;div data-sap-ui-type="sap.ui.commons.layout.MatrixLayout" data-layout-fixed="false"&gt;
+  &lt;div data-sap-ui-type="sap.ui.commons.layout.MatrixLayoutRow"&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.layout.MatrixLayoutCell"&gt;
+      &lt;div data-sap-ui-type="sap.ui.commons.TextField" data-value="Hello World"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div data-sap-ui-type="sap.ui.commons.layout.MatrixLayoutCell"&gt;
+      &lt;div data-sap-ui-type="sap.ui.commons.Button" data-text="Hello World"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div></div></section>
+		<p></p><p>Or you can add <code>ListItems</code> to a <code>ComboBox</code>: </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;div data-sap-ui-type="sap.ui.commons.ComboBox" data-value="Item 1"&gt;
+  &lt;div data-sap-ui-type="sap.ui.core.ListItem" data-text="Item 1"&gt;&lt;/div&gt;
+  &lt;div data-sap-ui-type="sap.ui.core.ListItem" data-text="Item 2"&gt;&lt;/div&gt;
+  &lt;div data-sap-ui-type="sap.ui.core.ListItem" data-text="Item 3"&gt;&lt;/div&gt;
+  &lt;div data-sap-ui-type="sap.ui.core.ListItem" data-text="Item 4"&gt;&lt;/div&gt;
+  &lt;div data-sap-ui-type="sap.ui.core.ListItem" data-text="Item 5"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre></div></div></section>
+		<p></p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

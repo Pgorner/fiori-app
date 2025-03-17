@@ -1,0 +1,60 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio215d80302a8444c4a5f49031a69043bc" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/configuring-date-fields-with-a-valid-date-range-215d803.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuring <code>Date</code> Fields with a Valid Date Range</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuring <code>Date</code> Fields with a Valid Date Range</h2></div><div class="shortdesc">You can use annotations to configure a valid date range for fields of type <code>Date</code>.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is only applicable to SAP Fiori elements for OData
+                            V4.</p>
+		<p></p></div></div><p>Using the <code>Validation.Minimum</code> and <code>Validation.Maximum</code> annotations, you can disable the invalid date values
+			in the date picker, thus allowing end users to select dates only within the valid date range.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml"&gt;
+       &lt;edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1" /&gt;
+&lt;/edmx:Reference&gt;
+...
+...
+&lt;Annotations Target="com.service.Entity/DateProperty"&gt;
+        &lt;Annotation Term="Validation.Minimum" Date="2024-07-01" /&gt;
+	&lt;Annotation Term="Validation.Maximum" Date="2024-12-31" /&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">DateProperty : 
+       Date @(Validation: {
+          Minimum: {$edmJson: {$Date: '2024-07-01'}},
+          Maximum: {$edmJson: {$Date: '2024-12-31'}}
+        });</pre></div></div></section><p></p></div></div><p>You can also use the path value to set a valid date range for the <code>Date</code> fields.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml"&gt;
+       &lt;edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1" /&gt;
+&lt;/edmx:Reference&gt;
+...
+...
+&lt;Annotations Target="com.service.Entity/DateProperty"&gt;
+        &lt;Annotation Term="Validation.Minimum" Path="MinimumDate" /&gt;
+	&lt;Annotation Term="Validation.Maximum" Path="MaximumDate" /&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">MinimumDate: Date;
+MaximumDate: Date;
+DateProperty: Date @(Validation: {
+  Minimum: MinimumDate,
+  Maximum: MaximumDate
+});</pre></div></div></section><p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Date validation using <code>MinimumDate</code> and <code>MaximumDate</code> is not supported in ABAP CDS annotation. Please use
+				the local XML annotation.</p>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/base/Log","./BaseRectangle","./BasePath","./RenderUtils","sap/gantt/library","sap/gantt/misc/Utility"],function(t,e,i,r,a,s){"use strict";var n=a.simple.shapes.ShapeAlignment;var o=e.extend("sap.gantt.simple.BaseCursor",{metadata:{library:"sap.gantt",properties:{length:{type:"float",defaultValue:10},width:{type:"float",defaultValue:5},pointHeight:{type:"float",defaultValue:5}}}});o.prototype.getD=function(){var e;var i=this.getPointHeight();var a=this.getWidth();var s=this.getLength();var n=s/2;var o=this._getCenter();if(this._isPropertiesValid(i,a,s,n)){e=["M ",o.join(" ")," m ",-n," ",-(a+i)/2," l ",s," 0 l 0 ",a," l -",n," ",i," l -",n," -",i," z"].join("")}if(r.isValidD(e)){return e}else{t.warning("Cursor shape generated invalid d: "+e);return null}};o.prototype._getCenter=function(){var t=e.prototype.getX.apply(this,arguments),i=this.getRowYCenter(),r=1;if(this._iBaseRowHeight!=undefined){if(this.getAlignShape()==n.Top){i=this.getRowYCenter()-this._iBaseRowHeight/2+this.getLength()/2+r}else if(this.getAlignShape()==n.Bottom){i=this.getRowYCenter()+this._iBaseRowHeight/2-this.getLength()/2-r}i=parseInt(i)}return[t,i]};o.prototype._isPropertiesValid=function(t,e,i,r){return s.isNumeric(t)&&s.isNumeric(e)&&s.isNumeric(i)&&s.isNumeric(r)};o.prototype.renderElement=function(){if(this._isValid()){i.prototype.renderElement.apply(this,arguments)}};return o},true);
+//# sourceMappingURL=BaseCursor.js.map

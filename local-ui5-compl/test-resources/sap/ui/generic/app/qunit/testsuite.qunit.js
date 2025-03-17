@@ -1,0 +1,78 @@
+sap.ui.define(function () {
+
+	"use strict";
+	return {
+		name: "QUnit TestSuite for sap.ui.generic.app",
+		defaults: {
+			bootCore: true,
+			ui5: {
+				libs: "sap.ui.generic.app",
+				noConflict: true,
+				preload: "auto"
+			},
+			qunit: {
+				version: 2,
+				reorder: false
+			},
+			sinon: {
+				version: 1,
+				qunitBridge: true,
+				useFakeTimers: false
+			},
+			module: "./{name}.qunit"
+		},
+		tests: {
+			ApplicationController: {
+				title: "qUnit Page for sap.ui.generic.app.ApplicationController",
+				sinon: {
+					version: 4
+				}
+			},
+			ApplicationControllerMockServer: {
+				title: "qUnit Page for sap.ui.generic.app.ApplicationController (Mock Server)",
+				sinon: {
+					version: 1,
+					useFakeTimers: true
+				}
+			},
+			"transaction/BaseController": {
+				title: "qUnit Page for sap.ui.generic.app.transaction.BaseController"
+			},
+			"transaction/DraftContext": {
+				title: "qUnit Page for sap.ui.generic.app.transaction.DraftContext"
+			},
+			"transaction/DraftController": {
+				title: "qUnit Page for sap.ui.generic.app.transaction.DraftController",
+				sinon: {
+					version: 4
+				}
+			},
+			"transaction/TransactionController": {
+				title: "qUnit Page for sap.ui.generic.app.transaction.TransactionController",
+				ui5: {
+					libs: "sap.ui.table,sap.m",
+					language: "en-US"
+				}
+			},
+			"../util/ActionUtil": {
+				title: "qUnit Page for sap.ui.generic.app.util.ActionUtil",
+				ui5: {
+					libs: ["sap.ui.fl", "sap.ui.comp"]
+				}
+			},
+			"../util/DraftUtil": {
+				title: "qUnit Page for sap.ui.generic.app.util.DraftUtil"
+			},
+			"../util/MessageUtil": {
+				title: "qUnit Page for sap.ui.generic.app.util.ModelUtil",
+				skip: true // ManagedObject complains about a cycle in aggregations, test was not part of old testsuite
+			},
+			"../util/ModelUtil": {
+				title: "qUnit Page for sap.ui.generic.app.util.ModelUtil"
+			},
+			"../util/Queue": {
+				title: "qUnit Page for sap.ui.generic.app.util.Queue"
+			}
+		}
+	};
+});

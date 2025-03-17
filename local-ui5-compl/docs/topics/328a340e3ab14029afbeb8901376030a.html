@@ -1,0 +1,131 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio328a340e3ab14029afbeb8901376030a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/controls-with-built-in-device-adaptation-328a340.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Controls with Built-In Device Adaptation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Controls with Built-In Device Adaptation</h2></div><div class="shortdesc">SAPUI5 comes with
+		several controls which are already able to react to the available screen real estate and
+		resolution by themselves. Some require particular properties to be set, and with some,
+		everything just works out of the box.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This list does not claim to be comprehensive, but shows some widely used examples
+				outlining the steps you can take to make use of this functionality. For more
+				details, browse through the <a href="controls" title="controls" class="sap-doc" alt="controls">Samples</a> in the Demo Kit and see what SAPUI5 has in store for
+				your app.</p>
+		<p></p></div></div><section>
+			<h2 class="title ">sap.m.SplitApp</h2>
+			<p>The <code>SplitApp</code> is a control that can act as a root element of an
+				application for mobile and desktop devices. It is designed to be used as the base
+				for applications following the list-detail pattern.</p>
+			<p>It maintains two <code>NavContainers</code> if running on tablet or desktop, and
+				one if running on a phone. In default mode, the list <code>NavContainer</code>
+				will always be displayed on desktop screens and on tablets in landscape mode. It
+				will be hidden on tablet-sized screens and can either be swiped in and out (if the
+				device is touch-enabled) or the visibility can be toggled by clicking a button. On
+				phone devices, either the list <code>NavContainer</code> or the detail
+					<code>NavContainer</code> will be shown, and a true forward-backward
+				navigation is established between the two.</p>
+			<p>For more information, see the
+						<a href="entity/sap.m.SplitApp" title="entity/sap.m.SplitApp" class="sap-doc" alt="entity/sap.m.SplitApp">sap.m.SplitApp</a> samples and <a href="api/sap.m.SplitApp" title="api/sap.m.SplitApp" class="sap-doc" alt="api/sap.m.SplitApp">sap.m.SplitApp</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+			<p>As the <code>SplitApp</code> control inherits from
+					<code>sap.m.SplitContainer</code>, you can alter this behavior by setting
+				the corresponding mode property. You can set this property to
+					<code>StretchCompressMode</code>, for instance, if you want the list to
+				always be displayed on tablet-sized screens, irrespective of the current
+				orientation. The different modes that are available are described under <a href="api/sap.m.SplitAppMode" title="api/sap.m.SplitAppMode" class="sap-doc" alt="api/sap.m.SplitAppMode">sap.m.SplitAppMode</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+			<p>For more information about the <code>SplitContainer</code>, see the
+						<a href="entity/sap.m.SplitContainer" title="entity/sap.m.SplitContainer" class="sap-doc" alt="entity/sap.m.SplitContainer">sap.m.SplitContainer</a> samples and
+						<a href="api/sap.m.SplitContainer" title="api/sap.m.SplitContainer" class="sap-doc" alt="api/sap.m.SplitContainer">sap.m.SplitContainer</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+		</section><section>
+			<h2 class="title ">sap.m.Table (also called the "Responsive Table")</h2>
+			<p>One control that is widely used across all kinds of different applications is
+					<code>sap.m.Table</code>, which has several features you can use for device
+				adaptation. On smaller devices, for example, you can set certain properties that
+				will make particular columns pop in instead of being displayed as a normal column,
+				or show and hide columns completely.</p>
+			<p>For example, you can set a <code>minScreenWidth</code> for the columns. This will
+				cause columns to only show up if a certain screen width is matched. You can define
+				this <code>minScreenWidth</code> in px or rem, but here you can also use the
+				standard categories that come from the device API (Phone, Tablet, or Desktop). For
+				more information about the device API, see <a href="topic/69a8e469fbde46e7b8916250080effbd" title="The device API (sap.ui.Device) is an API which provides information about device specifics, like the operating system along with its version, the browser and browser version, screen size, current orientation and support for specific features like touch event support, orientation change and so on." class="sap-doc">The Device API</a>.</p>
+			<p>Setting the additional property <code>demandPopin</code> to <code>true</code>
+				for a column will also react to the <code>minScreenWidth</code> you specify. In
+				such a case, the column will be shown as a popin on smaller screens, instead of
+				being completely hidden. For more information about responsive tables and their
+				columns, see
+					the <a href="entity/sap.m.Table" title="entity/sap.m.Table" class="sap-doc" alt="entity/sap.m.Table">sap.m.Table</a> and <a href="entity/sap.m.Column" title="entity/sap.m.Column" class="sap-doc" alt="entity/sap.m.Column">sap.m.Column</a> samples and <a href="api/sap.m.Table" title="api/sap.m.Table" class="sap-doc" alt="api/sap.m.Table">sap.m.Table</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+		</section><section>
+			<h2 class="title ">sap.m.ResponsivePopover</h2>
+			<p>The <code>ResponsivePopover</code> is actually a combination of the functionality
+				offered by a <code>sap.m.Dialog</code> and a <code>sap.m.Popover</code>.
+				Depending on the device it is displayed on, it will either act as the former (on a
+				phone) or as the latter (on tablets and desktop). For reuse, it is best placed
+				within a fragment, which will be instantiated and displayed on demand, like when a
+				user clicks a certain button, for example.</p>
+			<p>The <code>ResponsivePopover</code> does not need any additional properties to
+				achieve proper device adaptation, it can simply be used "as is". There are, however,
+				several properties that only take effect on one particular type of device, as some
+				properties will not make any sense at all for a particular screen size.</p>
+			<p>For more details on these properties, see the
+					documentation and sample for <a href="entity/sap.m.ResponsivePopover" title="entity/sap.m.ResponsivePopover" class="sap-doc" alt="entity/sap.m.ResponsivePopover">sap.m.ResponsivePopover</a> in the
+						<span class="ph uicontrol">Samples</span> and <a href="api/sap.m.ResponsivePopover" title="api/sap.m.ResponsivePopover" class="sap-doc" alt="api/sap.m.ResponsivePopover">sap.m.ResponsivePopover</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+		</section><section>
+			<h2 class="title ">sap.m.OverflowToolbar</h2>
+			<p>The <code>OverflowToolbar</code> is a special type of toolbar that allows you to
+				decide if elements within should go into an overflow area when space on the screen
+				is limited. All elements going into the overflow area can then be reached by
+				clicking the overflow button.</p>
+			<p>As a developer, you can decide if there are elements that will never or always go
+				into the overflow area by adding overflow layout data to particular content.</p>
+			<p>For detailed examples and more information about the
+				<code>OverflowToolbar</code>, see the
+						<a href="entity/sap.m.OverflowToolbar" title="entity/sap.m.OverflowToolbar" class="sap-doc" alt="entity/sap.m.OverflowToolbar">sap.m.OverflowToolbar</a> samples and
+						<a href="api/sap.m.OverflowToolbar" title="api/sap.m.OverflowToolbar" class="sap-doc" alt="api/sap.m.OverflowToolbar">sap.m.OverflowToolbar</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+		</section><section>
+			<h2 class="title ">sap.m.PullToRefresh</h2>
+			<p>The <code>PullToRefresh</code> control allows users to trigger an update
+				operation with touch or mouse interaction. On touch-enabled devices, the control
+				will automatically be hidden, and users can swipe down the page to trigger it. On
+				mouse-operated devices, the control will always be shown and can be clicked in order
+				to trigger the functionality.</p>
+			<p>To use this control, it first needs to be placed within the content of any scroll
+				container. In the corresponding controller, the refresh handler can be implemented,
+				which in this use case would update the list of products in the view.</p>
+			<p>To see a full example and read more information about <code>PullToRefresh</code>,
+					see the
+						<a href="entity/sap.m.PullToRefresh" title="entity/sap.m.PullToRefresh" class="sap-doc" alt="entity/sap.m.PullToRefresh">sap.m.PullToRefresh</a> samples and <a href="api/sap.m.PullToRefresh" title="api/sap.m.PullToRefresh" class="sap-doc" alt="api/sap.m.PullToRefresh">sap.m.PullToRefresh</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+		</section><section>
+			<h2 class="title ">sap.ui.layout.form.Form</h2>
+			<p><code>sap.ui.layout.form.Form</code> is a form that can also adapt to the
+				available screen size, particularly when used with the corresponding
+					<code>ResponsiveGridLayout</code>. A form consists of
+					<code>FormContainers</code>, which in turn contain the fields and their
+				labels. You can define general layout data for a form. For instance, you can decide
+				how many columns you want to display depending on the available screen size, as
+				shown here:</p>
+			<p></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;f:layout&gt;
+	&lt;f:ResponsiveGridLayout
+		columnsL="4"
+		columnsM="2"/&gt;
+&lt;/f:layout&gt;</pre></div></div></section>(assuming
+				that <code>f</code> is declared as the <code>sap.ui.layout.form</code>
+				namespace under which the <code>ResponsiveGridLayout</code> is also
+				available.)<p></p>
+			<p>On a small screen, there will always be only one column for form containers.</p>
+			<p>Furthermore, you can define how much space labels will take when one or more columns
+				are displayed, and you can also specify <code>sap.ui.layout.GridData</code> as
+				layout data on the <code>FormContainers</code>, labels and content fields, as
+				the <code>sap.ui.layout.Grid</code> is used internally in the form.</p>
+			<p>For more information about <code>sap.ui.layout.form.Form</code>, see the
+						<a href="entity/sap.ui.layout.form.Form" title="entity/sap.ui.layout.form.Form" class="sap-doc" alt="entity/sap.ui.layout.form.Form">sap.ui.layout.form.Form</a> samples and
+						<a href="api/sap.ui.layout.form.Form" title="api/sap.ui.layout.form.Form" class="sap-doc" alt="api/sap.ui.layout.form.Form">sap.ui.layout.form.Form</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+			<p>For more information about <code>ResponsiveGridLayout</code> and
+					<code>GridData</code>, see <a href="api/sap.ui.layout.form.ResponsiveGridLayout" title="api/sap.ui.layout.form.ResponsiveGridLayout" class="sap-doc" alt="api/sap.ui.layout.form.ResponsiveGridLayout">sap.ui.layout.form.ResponsiveGridLayout</a> and <a href="api/sap.ui.layout.GridData" title="api/sap.ui.layout.GridData" class="sap-doc" alt="api/sap.ui.layout.GridData">sap.ui.layout.GridData</a> in the <span class="ph uicontrol">API
+					Reference</span> in the Demo Kit.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

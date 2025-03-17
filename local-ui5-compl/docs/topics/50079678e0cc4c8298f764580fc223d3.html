@@ -1,0 +1,128 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio50079678e0cc4c8298f764580fc223d3" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/troubleshooting-common-rtl-issues-5007967.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Troubleshooting Common RTL Issues</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Troubleshooting Common RTL Issues</h2></div><div class="shortdesc">The following table outlines some common issues that occur when implementing
+		right-to-left (RTL) support for SAPUI5
+		controls and
+		their solutions. </div><section>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_d53_pj3_ns" class=" " style="text-align: justify">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Issue</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Solution</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>In RTL mode (right-to-left) the image shown is not mirrored, but it should be.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Create the correct RTL version of the image manually and put it into the <code>img-RTL</code> folder, using the same name and path.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>In RTL mode (right-to-left) the image shown is mirrored, but it should not be.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Make sure that there is no corresponding image with the same name in the <code>img-RTL</code> folder.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>The background position in CSS is correctly mirrored, but the LTR version of the control
+									works fine with the default background position: <code>left
+										top</code>. This is not explicitly written in the CSS and
+									is therefore not mirrored. </p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specify the background position explicitly to display the RTL version correctly. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Text is incorrectly aligned because the CSS <code>text-align</code> property is not
+									converted. </p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Do not use <code>text-align:left</code> if you want the text to change sides in RTL
+									mode, but use <code>text-align:start</code> instead.
+										<code>start</code> and <code>end</code> are handled
+									automatically by the browser. Only use <code>right</code>
+									and <code>left</code> if you want the text to stay on the
+									same side in RTL mode. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>If style is set using JavaScript (for example, in the renderer or behavior of a control),
+									the conversion does not take place and the result looks
+									incorrect.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Consider the RTL mode in your calculations, or when possible, use the CSS file instead
+									(which is automatically handled) and write a CSS class. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>The alignment of popups with the parent element is unaffected by RTL mode and is
+									therefore often incorrect.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.ui.core.Popup.Dock</code> has been extended by adding
+										<code>Begin*</code> and"<code>End*</code>. Those
+									will change sides in RTL mode. Use these instead of
+										<code>Left*</code> and <code>Right*</code> if the
+									popup alignment should change sides. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>When JavaScript calculations are used to determine positions or dimensions, existing
+									implementations might imply LTR mode and result in an incorrect
+									layout.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Make these algorithms RTL-compliant by checking the SAPUI5 RTL configuration.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Some text elements inside the control may look incorrect, for instance parentheses may be
+									shown in the wrong position, pointing to the wrong direction.
+									For example <span class="emphasis">(very) short text</span> might be
+									rendered as <span class="emphasis">very) short text)</span> in RTL mode. </p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This is a result of the browser's <code>bidi</code> algorithm considering the
+									directionality of the characters used. As soon as there is LTR
+									text in the control, the parentheses will be fine again. For
+									controls that have mixed contents, see <a href="topic/7e7cd0aed8bd469cbdd9b46035046dd8" title="Languages with right-to-left (RTL) text directionality keep the default directionality of numeric values and texts in left-to-right (LTR) mode. To ensure correct handling, two API properties have been introduced - textDirection and textAlign." class="sap-doc">API Properties for Right-to-Left Support in Text-Displaying Controls</a></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>When a control has a <code>textAlign</code> property (or something similar), you need
+									to use additional API properties to ensure the correct alignment
+									of the text according to the directionality.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Use the <a href="topic/7e7cd0aed8bd469cbdd9b46035046dd8" title="Languages with right-to-left (RTL) text directionality keep the default directionality of numeric values and texts in left-to-right (LTR) mode. To ensure correct handling, two API properties have been introduced - textDirection and textAlign." class="sap-doc">API Properties for Right-to-Left Support in Text-Displaying Controls</a> .</p>
+								<p>Additionally, the static helper method
+										<code>sap.ui.core.Renderer.getTextAlign(oTextAlign,
+										oTextDirection)</code> is available. This method
+									calculates the effective value of the CSS
+										<code>text-align</code> property considering the
+									property setting and the current or given RTL mode.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

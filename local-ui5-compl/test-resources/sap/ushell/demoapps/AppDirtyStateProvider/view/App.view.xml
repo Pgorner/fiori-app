@@ -1,0 +1,50 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    controllerName="sap.ushell.demo.AppDirtyStateProvider.controller.App"
+    displayBlock="true">
+    <App id="app">
+        <Page showHeader="false" class="sapUiResponsiveContentPadding">
+            <content>
+                <Title titleStyle="H2" text="Introduction" />
+                <TextArea id="infoArea" width="100%" rows="30" editable="false" value="{/introText}" />
+                <layout:VerticalLayout width="100%">
+                    <layout:content>
+                        <Title titleStyle="H2" text="Edit information" class="sapUiSmallMarginTop" />
+                        <Input class="sapUiSmallMarginBottom" liveChange="onTextChange" type="text" id="dirtyStateInput" />
+                        <Label text="Dirty state" class="sapUiTinyMarginBottom" />
+                        <layout:HorizontalLayout>
+                            <layout:content>
+                                <core:Icon src="status-negative" class="sapUiTinyMarginEnd" color="{= ${/dirtyState} ? 'red' : 'green'}" />
+                                <Label text="{= ${/dirtyState} ? 'Dirty' : 'Not dirty'}" />
+                            </layout:content>
+                        </layout:HorizontalLayout>
+                        <Title titleStyle="H2" text="Navigate to other views" class="sapUiSmallMarginTop sapUiSmallMarginBottom" />
+                        <layout:HorizontalLayout>
+                            <layout:content>
+                                <Button
+                                    id="displayNotFoundBtn"
+                                    text="{i18n>DisplayNotFound}"
+                                    press="onDisplayNotFound"
+                                    class="sapUiTinyMarginEnd" />
+                                <Button
+                                    id="employeeListBtn"
+                                    text="{i18n>ShowEmployeeList}"
+                                    press="onNavToEmployees"
+                                    class="sapUiTinyMarginEnd" />
+                                <Button
+                                    id="employeeOverviewBtn"
+                                    type="Reject"
+                                    text="{i18n>ShowEmployeeOverview}"
+                                    press="onNavToEmployeeOverview"
+                                    class="sapUiTinyMarginEnd" />
+                            </layout:content>
+                        </layout:HorizontalLayout>
+                    </layout:content>
+                </layout:VerticalLayout>
+            </content>
+        </Page>
+    </App>
+</mvc:View>

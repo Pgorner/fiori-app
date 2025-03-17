@@ -1,0 +1,25 @@
+There are several different ways to implement a Field building block showing a link that might open a quick view.
+
+## Field that Opens a QuickView Showing QuickViewFacets for an Entity
+
+In our example, RootEntity has a 1:1 navigation property \_NavProp1 to NavEntity. NavEntity is annotated with UI.QuickViewFacets
+
+You can implement a field that shows a quick view for NavEntity if you meet the following conditions:
+
+-   you use a property that is a referential constraint of a 1:1 navigation pointing to NavEntity
+-   you use a property that is a key or a semantic key of NavEntity via the navigation property
+
+The quick view popup shows the following:
+
+-   a Form for FieldGroup annotations defined in the UI.QuickViewFacets annotation
+-   a Form for Contact annotations defined in UI.QuickViewFacets
+
+## Implementing a Field that Opens a Contact Card
+
+You can show a contact card by using a metapath that points to a DataFieldForAnnotation that in turn targets a Communication.Contact.
+The field shows the full name of the contact person and clicking on it displays the contact card.
+
+<BuildingBlockPlayground binding="/RootEntity('1')">
+	{`<core:Fragment fragmentName="sap.fe.core.fpmExplorer.fieldQuickView.FieldQuickView" type="XML" />
+					`}
+</BuildingBlockPlayground>

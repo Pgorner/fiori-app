@@ -1,0 +1,105 @@
+{
+    "sap.flp": {
+        "target": {
+            "appId": "businessAppId1",
+            "inboundId": "Action-toappnavsample"
+        }
+    },
+    "sap.app": {
+        "id": "ForthCard",
+        "type": "card",
+        "title": "List Card with Top 5 Products",
+        "subTitle": "These are the top sellers this month",
+        "applicationVersion": {
+            "version": "1.0.0"
+        }
+    },
+    "sap.card": {
+        "type": "List",
+        "header": {
+            "actions": [
+                {
+                    "type": "Navigation",
+                    "parameters": {
+                        "ibnTarget": {
+                            "semanticObject": "PurchaseContract",
+                            "action": "change"
+                        },
+                        "ibnParams": {
+                            "SalesOrganization": "001",
+                            "SalesOffice": "FRA"
+                        },
+                        "inboundIdentifier": "ccf_FE593DEA7C61B944C7821CBC5A5222D8_0894EF4576511EDA89C2B89E7C59C756_TM"
+                    }
+                }
+            ],
+            "title": "List Card with Top 5 Products",
+            "subTitle": "These are the top sellers this month",
+            "icon": {
+                "src": "sap-icon://sales-order"
+            },
+            "status": {
+                "text": "5 of 20"
+            }
+        },
+        "content": {
+            "data": {
+                "json": [
+                    {
+                        "Name": "Comfort Easy",
+                        "Description": "32 GB Digital Assistant with high-resolution color screen",
+                        "Icon": "sap-icon://iphone",
+                        "semanticObject": "PurchaseContract",
+                        "action": "change",
+                        "salesOrder": "A"
+                    },
+                    {
+                        "Name": "ITelO Vault",
+                        "Description": "Digital Organizer with State-of-the-Art Storage Encryption",
+                        "Icon": "sap-icon://iphone",
+                        "semanticObject": "PurchaseContract",
+                        "action": "change",
+                        "salesOrder": "B"
+                    },
+                    {
+                        "Name": "Notebook Professional 15",
+                        "Description": "Notebook Professional 15 with 2,80 GHz quad core, 15\" Multitouch LCD, 8 GB DDR3 RAM, 500 GB SSD - DVD-Writer (DVD-R/+R/-RW/-RAM),Windows 8 Pro",
+                        "Icon": "sap-icon://laptop",
+                        "semanticObject": "PurchaseContract",
+                        "action": "change",
+                        "salesOrder": "C"
+                    }
+                ]
+            },
+            "maxItems": 3,
+            "item": {
+                "title": {
+                    "label": "{{title_label}}",
+                    "value": "{Name}"
+                },
+                "description": {
+                    "label": "{{description_label}}",
+                    "value": "{Description}"
+                },
+                "icon": {
+                    "label": "{{icon_label}}",
+                    "value": "{Icon}"
+                },
+                "actions": [
+                    {
+                        "type": "Navigation",
+                        "parameters": {
+                            "ibnTarget": {
+                                "semanticObject": "{semanticObject}",
+                                "action": "{action}"
+                            },
+                            "ibnParams": {
+                                "salesOrder": "{salesOrder}"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

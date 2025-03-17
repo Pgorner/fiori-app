@@ -1,0 +1,27 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio875da96a6a034bdf9181ca8cc17bed25" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/implement-and-register-a-split-change-handler-875da96.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Implement and Register a <cite>Split</cite> Change Handler</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Implement and Register a <cite>Split</cite> Change Handler</h2></div><div class="shortdesc">Implement and register a <cite>split</cite> change type with its change handler to the control.</div><p>To ensure that you can enable different controls with different behaviors for the <cite>split</cite> action, there's no default change handler
+            for this action. You have to implement your own change handler for splitting controls (see <a href="topic/6a346a293c724bd4bc33f0df92706008" title="If no default change handler is available for your use case, you need to implement your own custom change handler." class="sap-doc">Writing a Custom Change Handler</a>). </p><p>The change handler gets the following change-specific information from SAPUI5
+            flexibility:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Change-specific info for the
+                <cite>split</cite> action</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    newElementIds : &lt;array of strings which are the unique ids for the new controls to be created&gt;
+    sourceControlId : &lt;control ID, which should be splitted&gt;
+    parentId : &lt;parent control ID&gt;
+}</pre></div></div></section><p></p></div></div><p>Find a full example on GitHub at <a href="https://github.com/SAP/openui5/blob/master/src/sap.m/src/sap/m/changeHandler/SplitMenuButton.js" title="https://github.com/SAP/openui5/blob/master/src/sap.m/src/sap/m/changeHandler/SplitMenuButton.js" class="external-link" target="_blank" rel="noopener">https://github.com/SAP/openui5/blob/master/src/sap.m/src/sap/m/changeHandler/SplitMenuButton.js</a>.</p><p>You can then register it in the <code>library.js</code> file of the control's
+            library, where you map the change type to the corresponding change handler and the
+            control type. For more information, see <a href="topic/d5f4de8c177448e7aeb8e560e6061776" title="d5f4de8c177448e7aeb8e560e6061776.xml" class="sap-doc">Registering Change Handlers for UI Changes</a>.</p><p>Here's an example:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Snippet of
+                <code>library.js</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(['sap/ui/core/Lib'], function(Library) {
+    Library.init({
+        extensions: {
+            flChangeHandlers: {
+                "sap.ui.comp.smartform.SmartForm": {
+                    "splitField": "sap/ui/comp/smartform/flexibility/changes/SplitField",
+                }
+            }
+        }
+  });
+});</pre></div></div></section><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/54547151e1fa4e1fa8d994c9fe3c9b97">Enabling the Split Action</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/3e2c725947574016bf145406fa2876c4">Provide the Design-Time Metadata for the Split Action</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

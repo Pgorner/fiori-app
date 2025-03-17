@@ -1,0 +1,103 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3e2c725947574016bf145406fa2876c4" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/provide-the-design-time-metadata-for-the-split-action-3e2c725.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Provide the Design-Time Metadata for the <cite>Split</cite> Action</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Provide the Design-Time Metadata for the <cite>Split</cite> Action</h2></div><div class="shortdesc">Provide the design-time metadata for the <cite>split</cite> action.</div><p>To provide the design-time information needed for the <cite>split</cite> action, use the  file
+				<code>&lt;control&gt;.designtime.js</code> file, which is located next to the control implementation in the Git directory
+			structure. Create the file if it's missing. Ensure that the <code>designTime</code> attribute in the metadata of the control is set.
+			For more information, see <a href="topic/6888c17537fe40f1a0d19875c95d2647" title="To enable a control for design-time usage, follow the steps described here." class="sap-doc">Enable a Control for Design-Time Usage</a>.</p><p>The following table shows a hierarchical overview of the properties:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_udc_45t_hyb" class=" ">
+				
+				
+				
+				
+				<thead>
+					<tr>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 1)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 1)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 1)</p>
+						</th>
+						<th colspan="1" rowspan="1">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="1" rowspan="6"><code>actions: &lt;object&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Describes the actions that can be applied to the element.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="5"><code>"split": &lt;object&gt; | &lt;function&gt;</code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Provides or calculates the design-time metadata specific to the <cite>remove</cite> action for an element as an object
+								with the following properties.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>changeType: &lt;string&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>Provides the value of <code>changeType</code> from the previous step.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>changeOnRelevantContainer: &lt;boolean&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>Has to be set to <code>true</code>. This property is needed for setting of the selector to the relevant
+								container.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>isEnabled: &lt;function&gt; |&lt;boolean&gt;</code> (optional)</td>
+						<td colspan="1" rowspan="1">
+							<p>Default is <code>true</code>. The <code>isEnabled</code> value or function is used to decide whether the
+									<cite>Split</cite> action is available in SAPUI5
+								flexibility. You get the selected SAPUI5 element as a
+								function parameter.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>getControlsCount: &lt;integer&gt;</code> (mandatory) </td>
+						<td colspan="1" rowspan="1">
+							<p>Provides the number of controls inside the selected container to be split.</p>
+						</td>
+					</tr>
+				</tbody>
+			</table></div></div><p>Here's an example:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>GroupElement.designtime.js</code>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([], function() {
+    "use strict";
+    const fnGetControlsCount = function(oSelectedElement) {
+        if (oSelectedElement.getFields && oSelectedElement.getFields()) {
+            return oSelectedElement.getFields().length;
+        }
+        return 0;
+    };
+
+    return {
+        actions: {
+            split: {
+                changeType: "splitField",
+                changeOnRelevantContainer: true,
+                getControlsCount: function(oGroupElement) {
+                    return fnGetControlsCount(oGroupElement);
+                }
+            }
+        }
+    };
+});</pre></div></div></section><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/54547151e1fa4e1fa8d994c9fe3c9b97">Enabling the Split Action</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/875da96a6a034bdf9181ca8cc17bed25">Implement and Register a Split Change Handler</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

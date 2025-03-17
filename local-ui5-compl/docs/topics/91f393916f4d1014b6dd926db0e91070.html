@@ -1,0 +1,78 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f393916f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/writing-a-control-renderer-91f3939.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Writing a Control Renderer</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Writing a Control Renderer</h2></div><div class="shortdesc">SAPUI5 provides three
+		classes for control rendering: <code>sap.ui.core.Control</code>,
+			<code>sap.ui.core.RenderManager</code>, and
+		<code>sap.ui.core.Renderer</code>.</div><section id="section_B946B1C4760F4A619D34055C49017F77">
+			<h2 class="title ">Control Class (<code>sap.ui.core.Control</code>)</h2>
+			<p>The control class contains the control for rendering. A control consists of
+				properties, events, aggregations, associations, and methods. They define the
+				behavior of the control. The appearance and data of the control is determined by
+				properties, associations, and aggregations. The <code>get...</code> methods of
+				the control are used to access this information during the execution of the
+					<code>render()</code> method:</p><ul class="ul ">
+					<li class="li">
+						<p>Accessing properties:</p>
+						<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// var oValue = oControl.get&lt;Property&gt;();
+// for example for the 'text'-property
+var oValue = oControl.getText();</pre></div></div></section>
+					</li>
+					<li class="li">
+						<p>Accessing 1..1 aggregations</p>
+						<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// var oAggregation = oControl.get&lt;Aggregation&gt;();
+// for example for content-aggregation
+var oAggregation = oControl.getContent();</pre></div></div></section>
+					</li>
+					<li class="li">
+						<p>Accessing 1..n aggregrations:</p>
+						<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// var aAggregations = oControl.get&lt;Aggregation&gt;s();
+// for example for rows-aggregation
+var aAggregations = oControl.getRows();</pre></div></div></section>
+					</li>
+					<li class="li">
+						<p>Accessing associations:</p>
+						<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// var sAssociatedControlId = oControl.get&lt;Association&gt;();
+// for example labelFor-association
+var sAssociatedControlId = oControl.getLabelFor();</pre></div></div></section>
+					</li>
+				</ul><p></p>
+		</section><section id="section_EE2A2957C19D4C6DA8E0AE811D87623A">
+			<h2 class="title ">RenderManager Class (<code>sap.ui.core.RenderManager</code>)</h2>
+			<p>The render manager class collects pieces of HTML and injects the generated markup
+				into the DOM. The <code>RenderManager</code> determines and loads the
+				corresponding renderer and delegates the control rendering to the renderer. The
+					<code>RenderManager</code> also provides, amongst others, the following
+				helper functions for rendering:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" class=" "><thead>
+					<tr><th colspan="1" rowspan="1">Method</th>
+					<th colspan="1" rowspan="1">Description</th>
+				</tr></thead><tbody><tr>
+					<td colspan="1" rowspan="1"><code>write()</code></td>
+					<td colspan="1" rowspan="1">Writes string information to the HTML</td>
+				</tr><tr>
+					<td colspan="1" rowspan="1"><code>writeControlData()</code>
+					</td>
+					<td colspan="1" rowspan="1">Writes the ID and the recognition data of the control to the
+						HTML</td>
+				</tr><tr>
+					<td colspan="1" rowspan="1"><code>renderControl()</code>
+					</td>
+					<td colspan="1" rowspan="1">Converts the specified control into HTML representation and adds it to
+						the HTML; used for rendering child controls</td>
+				</tr></tbody></table></div></div>
+			<p>For more information, see
+					<a href="api/sap.ui.core.RenderManager" title="api/sap.ui.core.RenderManager" class="sap-doc" alt="api/sap.ui.core.RenderManager">sap.ui.core.RenderManager</a>.</p>
+		</section><section id="section_A9C3AEFF8AC94677BAE58BFF59FAE84A">
+			<h2 class="title ">Renderer Class (<code>sap.ui.core.Renderer</code>)</h2>
+			<p>The renderer class is the base class for control renderers. The
+					<code>Renderer</code> implements the static <code>render</code> method
+				that is called when a control is added to the DOM. To render a control, the
+					<code>RenderManager</code> executes the <code>render</code> method on
+				the corresponding <code>Renderer</code> of the respective control and passes the
+				reference to itself and to the control.</p>
+			<p>For notepad controls, the renderer class is normally not directly used, the
+				"renderer" method is directly part of the control implementation and will be added
+				to a renderer class behind the scenes.</p>
+		</section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/4de64e2e191f4a7297d4fd2d1e233a2d">Prevention of Cross-site Scripting</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/4de64e2e191f4a7297d4fd2d1e233a2d" title="Cross-site scripting (XSS) can be prevented by ensuring that it is not possible to inject script code into an application page that runs in a browser." class="sap-doc">Prevention of Cross-site Scripting</a></li>
+	</ul></section></div></section></div></body></html>

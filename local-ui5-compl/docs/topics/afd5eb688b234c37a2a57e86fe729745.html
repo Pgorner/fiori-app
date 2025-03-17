@@ -1,0 +1,172 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioafd5eb688b234c37a2a57e86fe729745" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-31-routing-with-parameters-typescript-afd5eb6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 31: Routing with Parameters (TypeScript)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 31: Routing with Parameters (TypeScript)</h2></div><div class="shortdesc">We can now navigate between the overview and the detail page, but the actual item
+		that we selected in the overview is not displayed on the detail page yet. A typical use case
+		for our app is to show additional information for the selected item on the detail page. </div><p>To make this work, we have to pass over the information which item has been selected to
+			the detail page and show the details for the item there.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio31da9d48ae204c36a991146b90648c21_LowRes.png" title="The graphic has an explanatory text" alt="The graphic has an explanatory text" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The selected invoice details are now shown in the details page</h2></span></div>
+		</section><section id="section_m2z_d5m_tyb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view all files at <a href="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/31" title="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/31" class="external-link" target="_blank" rel="noopener">OpenUI5 TypeScript Walkthrough - Step 31: Routing with Parameters</a> and <a href="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-31.zip" title="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-31.zip" class="external-link" target="_blank" rel="noopener">download the solution as a zip file</a>.</p>
+		</section><section id="section_n2z_d5m_tyb">
+			<h2 class="title ">webapp/manifest.json</h2>
+			<p>We want to hand over the information for the selected item when navigating to the detail view. To achieve that, we add the navigation
+				parameter <code>invoicePath</code> to the detail route in the app descriptor, so that we can hand over the information for the
+				selected item to the detail page.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p> Mandatory navigation parameters are defined with curly brackets.</p>
+				<p></p></div></div>
+			<p></p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  …
+  "sap.ui5": {
+	…
+	"routing": {
+	  "config": {
+		"routerClass": "sap.m.routing.Router",
+		"type": "View",
+		"viewType": "XML",
+		"path": "ui5.walkthrough.view",
+		"controlId": "app",
+		"controlAggregation": "pages"
+	  },
+	  "routes": [
+		{
+		  "pattern": "",
+		  "name": "overview",
+		  "target": "overview"
+		},
+		{
+		  "pattern": "detail<span class="emphasis">/{invoicePath}</span>",
+		  "name": "detail",
+		  "target": "detail"
+		}
+	  ],
+		  "targets": {
+		"overview": {
+		  "id": "overview",
+		  "name": "Overview"
+		},
+		"detail": {
+		  "id": "detail",
+		  "name": "Detail"
+		}
+	  }
+	}
+  }
+}</pre></div></div></section>
+		</section><section id="section_oj2_blv_4zb">
+			<h2 class="title ">webapp/controller/InvoiceList.controller.ts</h2>
+			<p>In the controller for the invoice list view, we extend the <code>onPress</code> event handler in such a way it not only triggers
+				the navigation to the detail view but also passes the selected item to the routing.</p>
+			<p>For that we have to pass the event object to our <code>onPress</code> method. This way we get access to the information about the event that
+				occurred. By calling th <code>getSource</code> method we retrieve the source of the event. This method is available for all SAPUI5 events. In our case it will return the
+					<code>ObjectListItem</code> that has been clicked. We use it to pass the information of the clicked item to the detail page,
+				so that the same item can be displayed there.</p>
+			<p>In the <code>navTo</code> method we now add a configuration object to fill the navigation parameter <code>invoicePath</code> with the
+				current information of the item. This will update the URL and navigate to the detail view at the same time. On the detail page, we can
+				access this navigation parameter again and display the corresponding item.</p>
+			<p>Typically we'd use the key of the item in the back-end system to identify the selected object, because it is short and precise. For our invoice
+				items however, we do not have a simple key. Therefore, we directly use the binding path to keep the example short and simple. The path
+				to the item is part of the binding context which is a helper object of SAPUI5 to manage the binding information for controls. The binding
+				context can be accessed by calling the <code>getBindingContext</code> method with the model name on any bound SAPUI5 control. We need to remove the first <code>/</code> from the
+				binding path by calling <code>.substring(1)</code> on the string because this is a special character in URLs and is not allowed;
+				we need to add it again on the detail page. Also, the binding path might contain special characters which are not allowed in URLs, so
+				we have to encode the path with <code>encodeURIComponent</code>.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">import Controller from "sap/ui/core/mvc/Controller";
+import JSONModel from "sap/ui/model/json/JSONModel";
+import { SearchField$SearchEvent } from "sap/m/SearchField";
+import Filter from "sap/ui/model/Filter";
+import FilterOperator from "sap/ui/model/FilterOperator";
+import ListBinding from "sap/ui/model/ListBinding";
+import UIComponent from "sap/ui/core/UIComponent";
+<span class="emphasis">import Event from "sap/ui/base/Event";
+import ObjectListItem from "sap/m/ObjectListItem";</span>
+
+/**
+ * @namespace ui5.walkthrough.controller
+ */
+export default class App extends Controller {	
+	…
+    onPress(<span class="emphasis">event: Event</span>): void {
+        <span class="emphasis">const item = event.getSource() as ObjectListItem;
+</span>
+        const router = UIComponent.getRouterFor(this);
+        router.navTo("detail"<span class="emphasis">, {
+            invoicePath: window.encodeURIComponent(item.getBindingContext("invoice").getPath().substring(1))
+        }</span>);
+    }     
+};</pre></div></div></section>
+		</section><section id="section_jb5_4mv_4zb">
+			<h2 class="title ">webapp/controller/Detail.controller.ts (New)</h2>
+			<p>Now we need to create a new detail controller to set the content we passed in with the URL parameter <code>invoicePath</code> on
+				the detail view. This will allow us to access the data of the selected item and display them on the view.</p>
+			<p>In addition to the (base) controller and our local component we import the <code>Route$PatternMatchedEvent</code> type from
+					<code>sap/ui/core/routing/Route</code>. This event is triggered whenever a route pattern is matched, so we need it to catch
+				any navigation with route pattern "detail/{invoicePath}".</p>
+			<p>In the <code>onInit</code> method, we receive the router instance from the owner component and attach a listener to the
+					<code>details</code> route's "patternMatched" event by calling the method <code>attachPatternMatched</code>. The
+					<code>onObjectMatched</code> method is the event handler for the "patternMatched" event. When the <code>detail</code>
+				route is matched, it will trigger the <code>onObjectMatched</code> method.</p>
+			<p>In the <code>onObjectMatched</code> method we bind the view's element to a specific path in the "invoice" model. We get the path
+				from the <code>invoicePath</code> argument from the event that was set in the invoice list controller. Because we have encoded the
+				binding path part in the URL in the invoice list controller, we have to decode it again with <code>decodeURIComponent</code> and
+				also add the root `/` in front of the path again that was removed for passing the path as an URL parameter.</p>
+			<p>The <code>bindElement</code> function creates a binding context for an SAPUI5 control and receives the model name as well as the path to an item
+				in a configuration object. This will trigger an update of the UI controls that we connected with fields of the invoice model. </p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">import Controller from "sap/ui/core/mvc/Controller";
+import UIComponent from "sap/ui/core/UIComponent";
+import { Route$PatternMatchedEvent } from "sap/ui/core/routing/Route";
+
+/**
+ * @namespace ui5.walkthrough.controller
+ */
+export default class Detail extends Controller {
+
+    onInit(): void {
+        const router = UIComponent.getRouterFor(this);
+        router.getRoute("detail").attachPatternMatched(this.onObjectMatched, this);
+    }
+
+    onObjectMatched(event: Route$PatternMatchedEvent): void {
+        this.getView().bindElement({
+            path: "/" + window.decodeURIComponent( (event.getParameter("arguments") as any).invoicePath),
+            model: "invoice"
+        });
+    }
+};</span></pre></div></div></section>
+		</section><section>
+			<h2 class="title ">webapp/view/Detail.view.xml</h2>
+			<p>Our last piece to fit the puzzle together is the detail view. We replace the app controller by the new detail controller that will take care of
+				setting the item's context on the view and bind the properties <code>intro</code> and <code>title</code> of the
+					<code>ObjectHeader</code> to <code>ShipperName</code> and <code>ProductName</code> of our <code>invoice</code>
+				model to display two fields of an invoice on the view. We could add more detailed information from the <code>invoice</code> object
+				here, but for simplicity reasons we just display two fields for now.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	<span class="emphasis">controllerName="ui5.walkthrough.controller.Detail"</span>
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Page
+		title="{i18n&gt;detailPageTitle}"&gt;
+		&lt;ObjectHeader
+<span class="emphasis">			intro="{invoice&gt;ShipperName}"</span>
+			title="<span class="emphasis">{invoice&gt;ProductName}</span>"/&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Define the routing configuration in the <code>manifest.json</code> / app descriptor</p>
+				</li>
+				<li class="li">Initialize the router at the end of your <code>Component#init</code> function</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dad1905a07f849ce9c509721317d38d8">Walkthrough Tutorial (TypeScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/6173e3d583b84c3696503e1d7c3761c1">Step 30: Routing and Navigation (TypeScript)</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/ae61211b1bb744f7ab42731a37b7738c">Step 32: Routing Back and History (TypeScript)</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/3d18f20bd2294228acb6910d8e8a5fb5" title="SAPUI5 offers hash-based navigation, which allows you to build single-page apps where the navigation is done by changing the hash. In this way the browser does not have to reload the page; instead there is a callback to which the app and especially the affected view can react. A hash string is parsed and matched against patterns which will then inform the handlers." class="sap-doc">Routing and Navigation</a></li>
+		<li><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d" title="SAPUI5 comes with a powerful routing API that helps you control the state of your application efficiently. This tutorial will illustrate all major features and APIs related to navigation and routing in SAPUI5 apps by creating a simple and easy to understand mobile app. It represents a set of best practices for applying the navigation and routing features of SAPUI5 to your applications." class="sap-doc">Tutorial: Navigation and Routing</a></li>
+		<li><a href="api/sap.m.routing.Route" title="api/sap.m.routing.Route" class="sap-doc" alt="api/sap.m.routing.Route">API Reference: sap.m.routing.Route</a></li>
+		<li><a href="entity/sap.m.routing.Route" title="entity/sap.m.routing.Route" class="sap-doc" alt="entity/sap.m.routing.Route">Samples: sap.m.routing.Route
+			</a></li>
+	</ul></section></div></section></div></body></html>

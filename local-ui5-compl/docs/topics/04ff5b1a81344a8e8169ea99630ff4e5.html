@@ -1,0 +1,93 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio04ff5b1a81344a8e8169ea99630ff4e5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/using-the-multi-input-field-on-the-object-page-04ff5b1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using the Multi-Input Field on the Object Page </h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using the Multi-Input Field on the Object Page </h2></div><div class="shortdesc">When you can enter more than one value, the multi-input field is rendered on the object page. </div><p>If the system identifies a 1:N association of a <code>DataField</code>, the multi-input field is activated automatically.</p><p>You must define a 1:N association in the data model.</p><p>In the following example, <code>"_supportedMaterial"</code> is a one-to-many <code>navigationProperty</code> pointing to the
+				<code>"SupportedMaterial"</code> entity:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">composition [0..*] of SupportedMaterial as _SupportedMaterials</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">_SupportedMaterials : Composition of many SupportedMaterial on _SupportedMaterials.owner = $self;</pre></div></div></section><p></p></div></div><p>You can use the navigation property inside a <code>UI.DataField</code> to
+			display the values of the target entity. The
+			following example shows how to display the <code>"material"</code> property of every associated
+			<code>"SupportedMaterial"</code>:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.LineItem"&gt;
+  &lt;Collection&gt;
+&lt;Record Type="UI.DataField"&gt;
+	  &lt;PropertyValue Property="Value" Path="_SupportedMaterials.Material " /&gt;
+	&lt;/Record&gt;
+  &lt;/Collection&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI: {  lineItem: [ { value: '_SupportedMaterials.Material', label: 'Supported Materials' } ] }  
+@UI.fieldGroup: [{position: 10, qualifier: 'FieldgroupID', value: '_SupportedMaterials.Material'} ]
+_SupportedMaterials;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+			Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">LineItem : {
+	{
+		$Type             : 'UI.DataField',
+		Label			  : 'Supported Materials',
+		Value             : _SupportedMaterials.Material,
+	 },
+…
+}
+</pre></div></div></section><p></p></div></div><p>The following image shows the result on the UI:</p><div><div class="fig"><img src="loiod756a5b86695416aafcb6a37f6d2f5c3_LowRes.png" usemap="#"></div></div><div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+			</p><p>Define the value help on the target property to add and remove existing values from the multi-input field.</p>
+		<p></p></div></div><p>You can bind the values entered into a multi-input field to a JSON model. Check out our live example in the flexible programming model
+			explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/field/multiValueField" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/field/multiValueField" class="sap-doc">Field - Multi Value Field</a>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Multi-input fields are only supported in draft-enabled applications.</p>
+		<p></p></div></div><p>The multi-input field is also available for tables.</p><div><div class="fig"><img src="loiodcb027c5e07b45ddb642f4d0400949f7_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Multi-Input Control on the Object Page Table</h2></span></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>In SAP Fiori elements for OData
+                            V4, you can use the
+					<code>Capabilities.InsertRestrictions</code> annotation to specify whether the field can be edited and the
+					<code>Capabilities.DeleteRestrictions</code> annotation to specify whether it can be deleted.</p>
+		<p></p></div></div><div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+			
+			</p><p>Note
+				the following for
+				SAP Fiori elements for OData
+                            V4:</p>
+			
+			
+			
+			<ul class="ul ">
+				<li class="li">
+					<p>You cannot mark the multi-input field as mandatory using the <code>Common.fieldControl</code> annotation.
+						</p>
+				</li>
+				
+				
+				<li class="li">
+					<p>You cannot use the multi-input field if you need to display more than 100 selected values, since this isn't supported. In this
+						case we recommend that you use a table instead.</p>
+				</li>
+				
+				
+			</ul>
+			
+			
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/c0f6592a592e47f9bb6d09900de47412" title="SAP Fiori elements supports several table types." class="sap-doc">Tables</a></li>
+	</ul></section></div></section></div></body></html>

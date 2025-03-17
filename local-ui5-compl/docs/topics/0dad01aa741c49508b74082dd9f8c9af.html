@@ -1,0 +1,88 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0dad01aa741c49508b74082dd9f8c9af" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-20-data-types-typescript-0dad01a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 20: Data Types (TypeScript)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 20: Data Types (TypeScript)</h2></div><div class="shortdesc">The list of invoices is already looking nice, but what is an invoice without a price
+		assigned? Typically prices are stored in a technical format and with a '<code>.</code>'
+		delimiter in the data model. For example, our invoice for pineapples has the calculated
+		price <code>87.2</code> without a currency. We are going to use the SAPUI5 data types to format the
+		price properly, with a locale-dependent decimal separator and two digits after the
+		separator.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loiodc9e919119564ddab78b8d0550ecfa9b_LowRes.png" title="The graphic has an explanatory text." alt="The graphic has an explanatory text." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The list of invoices with prices and number units</h2></span></div>
+		</section><section id="section_wqj_flk_syb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view all files at <a href="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/20" title="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/20" class="external-link" target="_blank" rel="noopener">OpenUI5 TypeScript Walkthrough - Step 20: Data Types</a> and <a href="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-20.zip" title="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-20.zip" class="external-link" target="_blank" rel="noopener">download the solution as a zip file</a>.</p>
+		</section><section id="section_ol1_zfz_nzb">
+			<h2 class="title ">webapp/controller/InvoiceList.controller.ts (New)</h2>
+			<p>We want to display in our list view the price in Euro, and typically the currency is part of our data model in the back end. Here this
+				is not the case, so we need to define it directly in the app. We therefore create a controller for the invoice list and define a view
+				model for the currency code for Euro. It is a simple JSON model with just one key <code>currency</code> and the value
+					<code>EUR</code>.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">import Controller from "sap/ui/core/mvc/Controller";
+import JSONModel from "sap/ui/model/json/JSONModel";
+
+/**
+ * @namespace ui5.walkthrough.controller
+ */
+export default class App extends Controller {
+    
+    onInit(): void {
+        const viewModel = new JSONModel({
+            currency: "EUR"
+        });
+        this.getView()?.setModel(viewModel, "view");        
+    } 
+};</span></pre></div></div></section>
+		</section><section id="section_xqj_flk_syb">
+			<h2 class="title ">webapp/view/InvoiceList.view.xml</h2>
+			<p>We add a reference to the invoice list controller to the view to get access to the view model we defined in the controller.</p>
+			<p>We add a price and the currency to our invoices list in the view by adding the <code>number</code> attribute to the
+					<code>ObjectListItem</code> control, then we apply the currency data type on the number by setting the <code>type</code>
+				attribute of the binding syntax to <code>sap.ui.model.type.Currency</code>. The <code>Currency</code> type handles the
+				formatting of the price for us based on the currency code. In our case, the price is displayed with 2 decimals.</p>
+			<p>Additionally, we set the formatting option <code>showMeasure</code> to <code>false</code>. This hides the currency code in the
+				property <code>number</code>, because it is passed on to the <code>ObjectListItem</code> control as a separate property
+					<code>numberUnit</code>. </p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+    <span class="emphasis">controllerName="ui5.walkthrough.controller.InvoiceList"</span>
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"&gt;
+    &lt;List
+        headerText="{i18n&gt;invoiceListTitle}"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        items="{invoice&gt;/Invoices}"&gt;
+        &lt;items&gt;
+            &lt;ObjectListItem
+                title="{invoice&gt;Quantity} x {invoice&gt;ProductName}"
+                <span class="emphasis">number="{
+                    parts: [
+                        'invoice&gt;ExtendedPrice',
+                        'view&gt;/currency'
+                    ],
+                    type: 'sap.ui.model.type.Currency',
+                    formatOptions: {
+                        showMeasure: false
+                    }
+                }"
+                numberUnit="{view&gt;/currency}"</span>/&gt;
+        &lt;/items&gt;
+    &lt;/List&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>As you can see above, we use a special binding syntax for the <code>number</code> property of the <code>ObjectListItem</code>. This
+				binding syntax makes use of so-called "Calculated Fields", which allows the binding of multiple properties from different models to a
+				single property of a control. The properties bound from different models are called "parts". In the example above, the property of the
+				control is <code>number</code> and the bound properties ("parts") retrieved from two different models are
+					<code>invoice&gt;ExtendedPrice</code> and <code>view&gt;/currency</code>.</p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<p>Use data types instead of custom formatters whenever possible.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dad1905a07f849ce9c509721317d38d8">Walkthrough Tutorial (TypeScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/24580fb89258491db986482f4ed45e47">Step 19: Aggregation Binding (TypeScript)</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/8d67ba2cc18c484fa529de855596982a">Step 21: Expression Binding (TypeScript)</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/a2fe8e763014477e87990ff50657a0d0" title="Calculated fields enable the binding of multiple properties in different models to a single property of a control." class="sap-doc">Composite Binding</a></li>
+		<li><a href="topic/07e4b920f5734fd78fdaa236f26236d8" title="Data that is presented on the UI often has to be converted so that is human readable and fits to the locale of the user. On the other hand, data entered by the user has to be parsed and validated to be understood by the data source. For this purpose, you use formatters and data types." class="sap-doc">Formatting, Parsing, and Validating Data</a></li>
+		<li><a href="api/sap.ui.base.ManagedObject" title="api/sap.ui.base.ManagedObject" class="sap-doc" alt="api/sap.ui.base.ManagedObject">API Reference: sap.ui.base.ManagedObject</a></li>
+		<li><a href="api/sap.ui.base.ManagedObject.PropertyBindingInfo" title="api/sap.ui.base.ManagedObject.PropertyBindingInfo" class="sap-doc" alt="api/sap.ui.base.ManagedObject.PropertyBindingInfo">API Reference: sap.ui.base.ManagedObject.PropertyBindingInfo</a></li>
+		<li><a href="api/sap.ui.model.type" title="api/sap.ui.model.type" class="sap-doc" alt="api/sap.ui.model.type">API Reference: sap.ui.model.type</a></li>
+		<li><a href="api/sap.ui.model.type.Currency" title="api/sap.ui.model.type.Currency" class="sap-doc" alt="api/sap.ui.model.type.Currency">API Reference: sap.ui.model.type.Currency</a></li>
+		<li><a href="entity/sap.ui.model.type.Currency" title="entity/sap.ui.model.type.Currency" class="sap-doc" alt="entity/sap.ui.model.type.Currency">Samples: sap.ui.model.type.Currency
+			</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/utils/workpage/WorkPageVizInstantiation","sap/base/util/extend"],function(t,e){"use strict";class i{static#t;_oWorkPageVizInstantiation;_bPreviewMode;static async getInstance(){if(!i.#t){const e=await t.getInstance();i.#t=new i(e)}return i.#t}constructor(t){this._oWorkPageVizInstantiation=t;this._bPreviewMode=true}createVizInstance(t){const i=e({},t,{preview:this._bPreviewMode});return this._oWorkPageVizInstantiation.createVizInstance(i)}createTileCardConfiguration(t){const i=e({},t,{preview:this._bPreviewMode});return this._oWorkPageVizInstantiation.createTileCardConfiguration(i)}}return i});
+//# sourceMappingURL=Designtime.js.map

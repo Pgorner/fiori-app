@@ -1,0 +1,62 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof2f843d375384d56bbf955a80ee66ab6" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/structuring-opa-tests-with-page-objects-f2f843d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Structuring OPA Tests With Page Objects</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Structuring OPA Tests With Page Objects</h2></div><div class="shortdesc">The page object design pattern supports UI-based tests with improved readability,
+        fostering the <span class="keyword">don't repeat yourself</span> (DRY) principle of software
+        development that is aimed at reducing repetition of any kind of information.</div><p>A page object wraps an HTML page or fragment with an application-specific API, which
+            makes it easy to find a control and provide reuse across multiple tests. If you have
+            multiple pages or UI areas that have several operations, you can place them as reuse
+            functionality in page object. The page object groups all OPA arrangements, actions, and
+            assertions that logically belong to some part of the screen. Since only the test will
+            know if an action is used to set up the test case or to act on the application under
+            test, the page object will combine actions and arrangements into actions. In contrast to
+            the general guidance of Selenium and Martin Fowler, OPA page objects also provide
+            assertions, as the corresponding testing via <code>waitFor</code> statements better
+            fit into the page objects. When you define actions or assertions in your page object,
+            have in mind how the test would spell them and if that would be similar to the way you
+            would explain a scenario to your colleagues.</p><p>Page objects accept parameters, so you can parametrize your tests either by writing
+            multiple tests, or by repeating your test being on a set of parameters defined in the
+            code. It is also possible to put test fragments into a separate file and refer to this
+            file in the test. This enables you to reuse the same test fragments in different test
+            pages with different setups.</p><p>You can also share utility functionality between page objects. Simulating clicks, for
+            example, is useful for most page objects and should be placed in a base class that you
+            can create. As the page objects extend the base class, the functions provided in the
+            base class are available for the page objects. If, for example, you want to share tree
+            handling functions in all tree-based page objects, create a <code>TreeBase</code>
+            class by extending the base class. Tree-based page objects such as repository browser
+            and outline then specify <code>TreeBase</code> as <code>baseClass</code> instead
+            of the generic base class.</p><p>OPA5 provides a static method to create page objects, see the <a href="entity/sap.ui.test.Opa5" title="entity/sap.ui.test.Opa5" class="sap-doc" alt="entity/sap.ui.test.Opa5">Samples: <code>sap.ui.test.Opa5</code></a>.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Opa5.createPageObjects({
+
+       //give a meaningful name for the test code
+       inThe&lt;Page Object&gt; : {
+            //Optional: a class extending Opa5, with utility functionality
+            baseClass : fnSomeClassExtendingOpa5,
+             
+            actions : {
+               //place all arrangements and actions here
+               &lt;iDoSomething&gt; : function(){
+                   //always return this or a waitFor to allow chaining
+                    return this.waitFor({
+                        //see documentation for possibilities
+                    });
+                }
+           },
+           assertions : {
+               //place all assertions here
+               &lt;iCheckSomething&gt; : function(){
+                   //always return this or a waitFor to allow chaining
+                    return this.waitFor({
+                        //see documentation for possibilities
+                    });
+                }
+           }
+       }
+   });
+</pre></div></div></section><p>The method in your test finds all actions at the <code>Given</code> and
+                <code>When</code> object, the assertions will be at the <code>Then</code>
+            object. Everything is prefixed with the page object name.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">When.inThe&lt;Page Object&gt;.&lt;iDoSomething&gt;();
+
+Then.inThe&lt;Page Object&gt;.&lt;iCheckSomething&gt;();
+</pre></div></div></section><p>Be careful with <code>Opa5.extendConfig()</code> if you give arrangements, actions,
+            or assertions, all previously loaded page objects will be overwritten. So if you mix
+            them, call <code>extendConfig</code> before loading the page objects. See the <a href="entity/sap.ui.test.Opa5" title="entity/sap.ui.test.Opa5" class="sap-doc" alt="entity/sap.ui.test.Opa5">Samples:
+                    <code>sap.ui.test.Opa5</code></a>.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

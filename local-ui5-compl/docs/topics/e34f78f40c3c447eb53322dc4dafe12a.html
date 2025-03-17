@@ -1,0 +1,113 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioe34f78f40c3c447eb53322dc4dafe12a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/example-adding-custom-filter-fields-in-table-toolbar-e34f78f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Example: Adding Custom Filter Fields in Table Toolbar</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Example: Adding Custom Filter Fields in Table Toolbar</h2></div><div class="shortdesc">To add custom filter fields in a table toolbar, follow the steps described
+		below:</div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig"><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+			<p></p></div></div>Using an extension in the object page table, you can define filter fields such as
+			select, combo box, date picker, and text field. You can prevent the overflow of the
+			control from the table toolbar by setting the value of the
+				<code>OverflowToolbarLayoutData</code> property to
+				<code>NeverOverflow</code>. <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Setting
+					<code>OverflowToolbarLayoutData</code> property to
+					<code>NeverOverflow</code> is specific to the overflow toolbar. This will
+				not work for all controls.</p></div></div></div></section><section class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">Make the following manifest changes under object page view extensions. The manifest key
+					should be in the format
+					<code>TableToolBarExtension|entitySet|facetId</code>.</span>
+				<div class="itemgroup info">
+					<p>
+						</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"TableToolBarExtension|STTA_C_MP_Product|to_ProductText::com.sap.vocabularies.UI.v1.LineItem": {
+	"className": "sap.ui.core.Fragment",
+	"fragmentName": "STTA_MP.ext.fragments.OPCustomFilter",
+	type": "XML"
+}
+</pre></div></div></section>
+						<p></p></div></div>
+					<p></p>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Make the following XML fragment changes to
+						<code>OPCustomFilter.fragment.xml</code>:</span>
+				<div class="itemgroup info">
+					<p>
+						</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:smartfilterbar="sap.ui.comp.smartfilterbar"
+        xmlns:core="sap.ui.core"&gt;
+		
+    &lt;Label text="{i18n|sap.suite.ui.generic.template.ListReport|STTA_C_MP_Product&gt;ST_GENERIC_LANGUAGE_FILTER}" labelFor="filterId"&gt;
+   	&lt;layoutData&gt;
+			&lt;OverflowToolbarLayoutData priority="NeverOverflow"/&gt;
+		&lt;/layoutData&gt;
+	 &lt;/Label&gt;
+    &lt;Select id="filterId" change="onCustomFilterChange"&gt;
+    	&lt;items&gt;
+	        &lt;core:Item key="0" text="{i18n|sap.suite.ui.generic.template.ListReport|STTA_C_MP_Product&gt;ST_GENERIC_ENGLISH_LANGUAGE_FILTER}"/&gt;
+	        &lt;core:Item key="1" text="{i18n|sap.suite.ui.generic.template.ListReport|STTA_C_MP_Product&gt;ST_GENERIC_MANDARIN_LANGUAGE_FILTER}"/&gt;
+        &lt;/items&gt;
+         &lt;layoutData&gt;
+			&lt;OverflowToolbarLayoutData priority="NeverOverflow"/&gt;
+		&lt;/layoutData&gt;
+    &lt;/Select&gt;
+     
+&lt;/core:FragmentDefinition&gt;
+
+</pre></div></div></section>
+						<p></p></div></div>
+					<p></p>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Make the following controller changes to add filters to the table using
+						<code>onBeforeRebindTable</code> property, and rebind the table after
+					selection change:</span>
+				<div class="itemgroup info">
+					<p>
+						</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&gt; // "Element" required from module "sap/ui/core/Element"
+onCustomFilterChange: function(oEvent) {
+  var smartTable = Element.getElementById("STTA_MP::sap.suite.ui.generic.template.ObjectPage.view.Details::STTA_C_MP_Product--to_ProductText::com.sap.vocabularies.UI.v1.LineItem::Table");
+  smartTable.rebindTable();
+},
+
+onBeforeRebindTableExtension: function (oEvent) {
+	var oBindingParams = oEvent.getParameter("bindingParams");
+	oBindingParams.parameters = oBindingParams.parameters || {};
+	var customFilter = Element.getElementById("STTA_MP::sap.suite.ui.generic.template.ObjectPage.view.Details::STTA_C_MP_Product--filterId");
+	var key = customFilter.getSelectedKey();
+	switch (key) {
+		case "0" :
+		oBindingParams.filters.push(new sap.ui.model.Filter("Language", "EQ", "EN"));
+		break;
+					 
+		case "1" :
+		oBindingParams.filters.push(new sap.ui.model.Filter("Language", "EQ", "ZH"));
+		break;
+					 
+		default:
+		return;
+ }
+},
+</pre></div></div></section>
+						<p></p></div></div>
+					<p></p>
+				</div>
+			</li>
+		</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/d27ae998a20a4dbead161e3e7c0ac2e8" title="You can use annotations to enable generic actions in tables on the object page." class="sap-doc">Generic Action Buttons in Tables on the Object Page: Additional Considerations</a></li>
+	</ul></section></div></section></div></body></html>

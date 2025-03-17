@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["./Designtime","sap/ushell/utils/workpage/WorkPageVizInstantiation","sap/ushell/utils/workpage/WorkPageService","sap/ushell/utils/workpage/WorkPageHost","sap/ushell/EventHub"],function(e,t,n,s,a){"use strict";class i extends e{static#e;_oWorkPageService;static async getInstance(){if(!i.#e){const e=await t.getInstance();i.#e=new i(e,new n)}return i.#e}constructor(e,t){super(e);this._oWorkPageService=t;this._bPreviewMode=false}fetchPageData(e){return this._oWorkPageService.loadWorkPageAndVisualizations(e,true)}fireAfterContentAdded(){a.emit("CenterViewPointContentRendered")}createHost(e,t){return new s(e,t)}}return i});
+//# sourceMappingURL=Runtime.js.map

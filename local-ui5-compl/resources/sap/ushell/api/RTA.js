@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/Container","sap/ushell/EventHub"],function(e,n){"use strict";const t={};t.getShellHeader=function(){const n=e.getRendererInternal();return n.getRootControl().getShellHeader()};t.setShellHeaderVisibility=function(n){const t=e.getRendererInternal();t.setHeaderVisibility(n,false)};t.addTopHeaderPlaceHolder=function(){const n=e.getRendererInternal();n.addTopHeaderPlaceHolder()};t.removeTopHeaderPlaceHolder=function(){const n=e.getRendererInternal();n.removeTopHeaderPlaceHolder()};t.setNavigationBarEnabled=function(e){n.emit("enableMenuBarNavigation",e)};return t});
+//# sourceMappingURL=RTA.js.map

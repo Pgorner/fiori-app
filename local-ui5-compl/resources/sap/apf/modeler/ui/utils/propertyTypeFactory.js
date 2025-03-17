@@ -1,0 +1,7 @@
+/*!
+ * SAP APF Analysis Path Framework
+ * 
+ * (c) Copyright 2012-2018 SAP SE. All rights reserved
+ */
+sap.ui.define(["sap/apf/modeler/ui/utils/constants","sap/apf/utils/exportToGlobal","sap/ui/core/mvc/Controller","sap/ui/core/mvc/View","sap/ui/core/mvc/ViewType"],function(e,r,p,o,a){"use strict";async function t(r,t){var s="sap.apf.modeler.ui.view.propertyType",i;switch(r.sPropertyType){case e.propertyTypes.DIMENSION:i="sap.apf.modeler.ui.controller.representationDimension";break;case e.propertyTypes.MEASURE:i="sap.apf.modeler.ui.controller.representationMeasure";break;case e.propertyTypes.LEGEND:i="sap.apf.modeler.ui.controller.representationLegend";break;case e.propertyTypes.PROPERTY:i="sap.apf.modeler.ui.controller.representationProperty";break;case e.propertyTypes.HIERARCHIALCOLUMN:i="sap.apf.modeler.ui.controller.representationHierarchyProperty";break;case e.propertyTypes.REPRESENTATIONSORT:s="sap.apf.modeler.ui.view.sortPropertyType";i="sap.apf.modeler.ui.controller.representationSortPropertyType";break;case e.propertyTypes.STEPSORT:s="sap.apf.modeler.ui.view.sortPropertyType";i="sap.apf.modeler.ui.controller.stepSortPropertyType";break;default:return Promise.resolve(undefined)}return o.create({viewName:s,type:a.XML,id:t,viewData:r,controller:await p.create({name:i})})}r("sap.apf.modeler.ui.utils.PropertyTypeFactory",t);return{createPropertyTypeView:t}},true);
+//# sourceMappingURL=propertyTypeFactory.js.map

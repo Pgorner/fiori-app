@@ -1,0 +1,128 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5eb6f63e0cc547d0bdc934d3652fdc9b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/creating-tables-5eb6f63.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating Tables</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating Tables</h2></div><div class="shortdesc">A Table basically consists of columns (<code>sap.m.Column</code>) and rows. The
+		rows, defines as <code>sap.m.ColumnListItems</code> consist of cells.</div><section class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">To build a table, we first need to define columns. For this purpose you can
+					define the Column control with the following properties or aggregations: </span>
+				<div class="tableWrapper"><table border="1" id="choicetable_abl_twh_nn">
+					<thead>
+						<tr><th colspan="1" rowspan="1">Property or Aggregation</th>
+						<th colspan="1" rowspan="1">Description</th>
+					</tr></thead>
+					<tbody><tr>
+						<th colspan="1" rowspan="1">header</th>
+						<td colspan="1" rowspan="1">Defines column header. Any control can be used but most likely
+								<span class="emphasis">Label</span> or <span class="emphasis">Text</span> control. If
+							any column has header definition then header line gets visible for all
+							columns.</td>
+					</tr>
+					<tr>
+						<th colspan="1" rowspan="1">footer</th>
+						<td colspan="1" rowspan="1">Any control can be assigned to be displayed in the column footer. If
+							at least one column has a footer definition, then the footer line is
+							displayed for all columns.</td>
+					</tr>
+					<tr>
+						<th colspan="1" rowspan="1">width</th>
+						<td colspan="1" rowspan="1">Defines the width of the column. If you leave it empty then this
+							column covers the remaining space.</td>
+					</tr>
+					<tr>
+						<th colspan="1" rowspan="1">hAlign</th>
+						<td colspan="1" rowspan="1">Defines the horizontal alignment(<span class="option">Begin</span>,
+								<span class="option">Center</span>, <span class="option">End</span>,
+							<span class="option">Left</span>, <span class="option">Right</span>) of the column content.
+							Controls with a textAlign property inherit the horizontal alignment from
+							Column hAlign property.</td>
+					</tr>
+					<tr>
+						<th colspan="1" rowspan="1">vAlign</th>
+						<td colspan="1" rowspan="1">Defines the vertical alignment of column cells. Possible values are
+								<span class="option">Top</span>, <span class="option">Middle</span>, and
+								<span class="option">Bottom</span>. This property does not affect the vertical
+							alignment of header and footer.</td>
+					</tr>
+					<tr>
+						<th colspan="1" rowspan="1">visible</th>
+						<td colspan="1" rowspan="1">Specifies whether the column is visible. Invisible columns are not
+							rendered.</td>
+					</tr>
+				</tbody></table></div>
+			</li>
+			<li class="step">
+				<span class="cmd">Sure, we have more properties to make it responsive and to change the design of
+					a column, but we will explain this later. Now, let's see how we can define a
+					right aligned column header:</span>
+				<div class="itemgroup info">
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Table&gt;
+    &lt;columns&gt;
+      &lt;Column
+        width="12em"&gt;
+        &lt;Text text="Product" /&gt;
+      &lt;/Column&gt;
+       &lt;Column
+        minScreenWidth="Tablet"
+        demandPopin="true"&gt;
+        &lt;Text text="Supplier" /&gt;
+      &lt;/Column&gt;
+    &lt;/columns&gt;
+&lt;/Table&gt;</pre></div></div></section>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">To build a Table, you have to define table rows. For this purpose you use
+						<code>ColumnListItems</code>. <code>ColumnListItems</code> have a
+					cell aggregation (one to many) which defines cells in one row according to the
+					column definition. Let's build a real table example to understand it better.
+					Here is the implementation:</span>
+				<div class="itemgroup info">
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Table&gt;
+    &lt;columns&gt;
+      &lt;Column
+        width="12em"&gt;
+        &lt;Text text="Product" /&gt;
+      &lt;/Column&gt;
+       &lt;Column
+        minScreenWidth="Tablet"
+        demandPopin="true"&gt;
+        &lt;Text text="Supplier" /&gt;
+      &lt;/Column&gt;
+    &lt;/columns&gt;
+
+
+&lt;items&gt;
+      &lt;ColumnListItem&gt;
+        &lt;cells&gt;
+          &lt;ObjectIdentifier
+            title="{Name}"
+            text="{ProductId}"
+            class="sapUiTinyMarginTopBottom" /&gt;
+          &lt;Text
+            text="{SupplierName}" /&gt;
+        &lt;/cells&gt;
+      &lt;/ColumnListItem&gt;
+    &lt;/items&gt;
+  &lt;/Table&gt;
+</pre></div></div></section>
+				</div>
+				<div class="itemgroup stepresult"><p>And that is what we have built:</p>
+					<img src="loioe654c84fa33a4f058e8f84b2ed5d578f_LowRes.png" usemap="#"><p>The <code>mergeFunctionName</code> property holds the function that
+						the column merge functionality uses to pull the property value to compare
+						for duplicates. The default of <code>getText</code> can be used for the
+						most common use cases, where an <code>sap.m.Label</code> or
+							<code>sap.m.Text</code> control is used, but if you have another
+						control with a different function to pull the comparison property value
+						from, you can specify it as the <code>mergeFunctionName</code>. For
+						example, the <code>sap.m.Icon</code> control has a
+							<code>getSrc</code> getter function that returns the
+							<code>src</code> property value - the icon's URI, which is a good
+						candidate for comparison.</p></div>
+			</li>
+		</ol></section><section class="section postreq  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Next Steps</h2></div><div class="fig">
+			<p><span class="emphasis">API References</span></p>
+			<ul class="ul ">
+				<li class="li"><a href="api/sap.m.Column" title="api/sap.m.Column" class="sap-doc" alt="api/sap.m.Column">sap.m.Column</a></li>
+				<li class="li"><a href="api/sap.m.ColumnListItem" title="api/sap.m.ColumnListItem" class="sap-doc" alt="api/sap.m.ColumnListItem">sap.m.ColumnListItem</a></li>
+			</ul>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

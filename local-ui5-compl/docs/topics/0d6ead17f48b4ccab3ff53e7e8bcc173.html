@@ -1,0 +1,106 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0d6ead17f48b4ccab3ff53e7e8bcc173" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/07_APF/using-your-own-runtime-application-0d6ead1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using Your Own Runtime Application</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using Your Own Runtime Application</h2></div><p>This section describes how to create an APF-based SAPUI5 application using your own runtime
+			application.</p><p>You need your own runtime application if you can’t use the generic runtime application
+			shipped with APF, for example, because you need more than one language or a footer
+			toolbar, or because you want to implement extensions, such as your own start
+			filters.</p><p>The following steps are required:</p><ol>
+			<li class="li">
+				<p>Build content using the APF Configuration Modeler</p>
+				<p>For more information, see <a href="topic/b57224b3f6d14640b36e696537653e98" title="b57224b3f6d14640b36e696537653e98.xml" class="sap-doc">APF Configuration Modeler</a>.</p>
+			</li>
+			<li class="li">
+				<p>Develop the Component.js file</p>
+				<p>For more information, see <a href="topic/0109e67712bc4966bfa8922909e92a87" title="0109e67712bc4966bfa8922909e92a87.xml" class="sap-doc">Consuming APF</a>.</p>
+			</li>
+			<li class="li">
+				<p>Maintain the manifest.json file</p>
+				<p>For more information, see <a href="topic/74038a52dcd7404e82b38be6d5fb1458" title="74038a52dcd7404e82b38be6d5fb1458.xml" class="sap-doc">Descriptor (manifest.json)</a>.</p>
+				<p>In particular, you must maintain the following properties:</p>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_ygm_qjf_l1b" class=" ">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>Property</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Description</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>"sap.app.i18n"</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The location of the text resource files. A text resource file contains the texts that
+										the text keys used in the configuration refer to. When you
+										export a configuration using the APF Configuration Modeler,
+										a text file is also exported. More text files containing
+										translations can be added in the same location.</p>
+									<p>Enter the path of the text resource files relative to the web root of the component.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>"sap.app.title"</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Enter "{{<code>AnalyticalConfigurationName</code>}}". This refers to the text key included in the exported text properties file and
+										defines the app name.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>"sap.app.dataSources.AnalyticalConfigurationLocation"</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The location of the analytical configuration file, which is created when you export a
+										configuration. Enter the path of the configuration file
+										relative to the web root of the component.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>"sap.app.dataSources.PathPersistenceServiceRoot"</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Enter the service root for the path persistence service. See <a href="topic/74038a52dcd7404e82b38be6d5fb1458" title="74038a52dcd7404e82b38be6d5fb1458.xml" class="sap-doc">Descriptor (manifest.json)</a> for the
+										correct values depending on the platform you use.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>"sap.apf.activateFilterReduction"</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This property is relevant if you use CDS views that are
+										executed on the Analytic Engine or BW OData queries. If this
+										is the case, set it to true. If not, set it to false.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>"sap.apf.activateLrep"</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>If you use SAP S/4HANA, this property is mandatory and must be set to
+											<kbd class="ph userinput">true</kbd>. Otherwise set it to
+											<kbd class="ph userinput">false</kbd>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>"sap.ui5.dependencies"</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Enter your current SAPUI5 version.</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			</li>
+		</ol><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

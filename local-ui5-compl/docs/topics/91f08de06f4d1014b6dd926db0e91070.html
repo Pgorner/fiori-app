@@ -1,0 +1,201 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f08de06f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/configuration-of-the-sapui5-runtime-91f08de.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuration of the SAPUI5 Runtime</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuration of the SAPUI5 Runtime</h2></div><div class="shortdesc">SAPUI5 provides several options for the configuration of the SAPUI5 runtime. The possible ways to provide input for the available
+		configuration options are described in detail.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>In earlier framework versions, the configuration options available in SAPUI5 could be found in the <a href="api/sap.ui.core.Configuration" title="api/sap.ui.core.Configuration" class="sap-doc" alt="api/sap.ui.core.Configuration">API Reference via the
+							<code>sap.ui.core.Configuration</code></a>. This legacy module has been
+				deprecated with SAPUI5 1.120 and replaced by a modular, future-proof
+				solution for configuration handling.</p>
+		<p></p></div></div><p>When the SAPUI5 bootstrap script is included in a page, the SAPUI5 runtime will automatically be initialized as soon as the script is
+			loaded and executed by the browser. For simple use cases and for a default SAPUI5 installation, this should already be sufficient to build and run UI5
+			applications. The only configuration option you should specify is <code>data-sap-ui-compat-version="edge"</code> to run SAPUI5 with the latest feature set.</p><p>A typical bootstrap script looks like this: </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id="sap-ui-bootstrap"
+            src="resources/sap-ui-core.js"
+            data-sap-ui-compat-version="edge"&gt;
+&lt;/script&gt;</pre></div></div></section> For more information see <a href="topic/a04b0d10fb494d1cb722b9e341b584ba" title="To use SAPUI5 features in your HTML page, you have to load and initialize the SAPUI5 library." class="sap-doc">Bootstrapping: Loading and Initializing</a>.<p></p><p>You can provide additional configuration information in the following ways:</p><section id="section_ACO">
+			<h2 class="title ">Available Configuration Options</h2>
+				<p>UI5 supports different possibilities to provide values for the available configuration parameters. Options 2 to 7 require you
+				to provide them before the application boots up. They are technically equivalent, however at runtime they will be evaluated in the
+				order given below. The list below is therefore sorted in ascending order of precedence:</p>
+			<ol>
+				<li class="li">Effective framework default values</li>
+				<li class="li">UI5-supported configuration options provided in <code>globalThis["sap-ui-config"]</code></li>
+				<li class="li"><span class="emphasis">[DEPRECATED]</span> Server-wide defaults, read from <code>sap-ui-config.json</code></li>
+				<li class="li"><span class="emphasis">[DEPRECATED]</span> A configuration string in the <code>data-sap-ui-config</code> attribute of the bootstrap tag</li>
+				<li class="li">Individual <code>data-sap-ui-&lt;<cite>UI5-supported-config-option</cite>&gt;</code> attributes of the bootstrap tag</li>
+				<li class="li">Individual <code>&lt;meta name="sap-ui-&lt;<cite>UI5-supported-config-option</cite>&gt;" content="&lt;<cite>value</cite>&gt;"&gt;</code>
+					tags</li>
+				<li class="li">Individual <code>sap-ui-&lt;<cite>UI5-supported-config-option</cite>&gt;</code> URL parameters</li>
+				<li class="li">Specific APIs allowing a configuration change during runtime</li>
+			</ol>
+			<p>Configuration options must be provided in kebab-case notation, i.e. as hyphenated names, starting with the <code>sap-ui</code> prefix, which
+				serves to distinguish UI5 configuration options from options defined by others. If a configuration option is defined multiple times,
+				the first match will be applied.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The SAPUI5 configuration options now follow a consistent naming scheme based on
+						kebab-case notation. Configuration options in older framework versions or code samples (especially those from before SAPUI5 1.120) may follow the former camelCase notation.
+						Typically, you should now use (or search for) the newer names, e.g. <code>log-level</code> instead of
+							<code>logLevel</code>.</p>
+				<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The <code>sap-ui</code> prefix must be omitted for options provided in <code>globalThis["sap-ui-config"]</code>. The
+						options given there are prefixed with <code>sap-ui</code> implicitly.</p>
+				<p></p></div></div><p></p>
+			<p>As the configuration is evaluated during bootstrap, the configuration object must be created before SAPUI5 is bootstrapped; it cannot be evaluated otherwise. As a
+				consequence, using the global configuration object requires another script tag referencing a file containing the configuration (see
+				the example in <cite>[2] Global Configuration Object</cite>).</p>
+			<p>The comprehensive list of <a href="topic/91f2d03b6f4d1014b6dd926db0e91070" title="The following tables show available configuration options." class="sap-doc">Configuration Options and URL Parameters</a> has descriptions of each configuration option.</p>
+		</section><section id="section_z1g_zkg_plb"><h2 class="title ">Setting Configuration Values</h2><section>
+				<h3 class="title ">[1] Effective default values</h3>
+				<p>The easiest way to specify a configuration value is <span class="emphasis">not to specify</span> it. The SAPUI5 runtime contains a default value for each configuration
+					option. As long as you don't have to change the value, simply don't specify it.</p>
+				<p>The effective default values can be found in the complete list of <a href="topic/91f2d03b6f4d1014b6dd926db0e91070" title="The following tables show available configuration options." class="sap-doc">Configuration Options and URL Parameters</a>.</p>
+			</section><section>
+				<h3 class="title ">[2] Global configuration object</h3>
+				<p>The global configuration object is a property in the <code>globalThis</code> object with the property name <code>sap-ui-config</code>.
+					The property must be a simple object, where each property represents the configuration option of the corresponding name.</p>
+				<p>As the <code>sap-ui-config</code> property is not a valid JavaScript identifier, it needs to be enclosed by quotes. The same
+					applies for configuration properties specified in kebab
+					case:</p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">globalThis["sap-ui-config"].language = "en";
+globalThis["sap-ui-config"]["animation-mode"] = "full";</pre></div></div></section><p></p>
+				<p>Be careful with overwriting the config object, as others might have already provided some
+					options:</p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// Be mindful of already existing configuration options
+globalThis["sap-ui-config"] ??= {};
+Object.assign(globalThis["sap-ui-config"], {
+    language: "en",
+    "animation-mode": "full"
+});</pre></div></div></section><p></p>
+				<p>The following code snippets show an example how to add a configuration before bootstrapping UI5:</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>config.js</p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">globalThis["sap-ui-config"] ??= {}; // globalThis["sap-ui-config"] could be already available
+globalThis["sap-ui-config"]["compat-version"] = "edge";</pre></div></div></section><p></p></div></div>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>index.html</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script src="config.js"&gt;&lt;/script&gt;
+&lt;script id="sap-ui-bootstrap"
+            src="resources/sap-ui-core.js"&gt;
+&lt;/script&gt;</pre></div></div></section><p></p></div></div>
+				<p>
+					</p><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+						</p><p>The existing list of property names in <code>globalThis["sap-ui-config"]</code> must not be extended with undocumented
+							custom names. Applications must not access the global configuration object directly either.</p>
+					<p></p></div></div>
+				<p></p>
+			</section>
+			<section>
+				<h3 class="title ">[3] <code>sap-ui-config.json</code> (deprecated)</h3>
+				<p>This option is activated by setting <code>globalThis["sap-ui-config"]</code> to an arbitrary string value.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The use of an <code>sap-ui-config.json</code> file is deprecated; be sure to use one of the other available
+							configuration options instead.</p>
+					<p></p></div></div><p></p>
+			</section><section>
+				<h3 class="title ">[4] Configuration string in the <code>data-sap-ui-config</code> attribute (deprecated)</h3>
+				<p>The bootstrap attribute <code>data-sap-ui-config</code> enables you to provide a single attribute with the configuration
+					information for the SAPUI5 runtime.</p>
+				<p>You can use this attribute instead of attaching individual options with individual configuration attributes to the script tag. Its content is
+					similar to the Global Configuration Object but without the enclosing parentheses; it is a comma-separated list of key-value
+					pairs.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The usual HTML escape mechanisms must be used if the value contains specific HTML
+					characters (&lt;, &gt;, &) or the quote character that is used to enclose the attribute value.</p></div></div>
+				<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id="sap-ui-bootstrap"
+	src="resources/sap-ui-core.js"
+	data-sap-ui-config="
+	\"anmination-mode\":\"full\",
+		\"compat-version\":\"edge\"
+	"&gt;
+&lt;/script&gt;</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">[5] Individual <code>data-sap-ui-&lt;<cite>UI5-supported-config-option</cite>&gt;</code> attributes of the bootstrap
+					tag</h3>
+				<p>For each configuration option, you can have one attribute in the bootstrap script tag. These attributes must provide the following
+					information:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>Attribute name in kebab case</p>
+						<p>The attribute name is composed of the name of the configuration option and the <code>data-sap-ui-</code> prefix. The first part of the
+							prefix (<code>data-</code>) is necessary to comply with the W3C recommendations for custom attributes in HTML. The
+							second part (<code>-sap-ui-</code>) separates SAPUI5
+							attributes from custom attributes defined by any other framework. The third part is the config option name in kebab
+							case.</p>
+					</li>
+					<li class="li">
+						<p>Value</p>
+						<p>Element attributes in HTML have a <code>string</code> value by definition. For configuration options of type
+								<code>string</code>, the attribute value is equivalent to the value of the option.</p>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>If the value contains specific HTML characters, such as <code>&lt;</code> or <code>&gt;</code>, or if the value contains the same quote
+								character that is used to wrap the attribute value, the usual HTML escape mechanisms must be used: Use entities for
+								the specific HTML characters, for example <code>&amp;lt;</code> instead of <code>&lt;</code>, and switch the
+								type of quotes from single to double or vice versa.</p>
+						<p></p></div></div>
+						<p>
+							</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id="sap-ui-bootstrap"
+            src="resources/sap-ui-core.js"
+            data-sap-ui-compat-version="edge"&gt;
+&lt;/script&gt;</pre></div></div></section>
+						<p></p>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3 class="title ">[6] Individual meta tag attributes</h3>
+				<p>For each configuration option, you can add a meta tag. These attributes must provide the following information:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>Attribute name in kebab case</p>
+						<p>The attribute name is composed of the name of the configuration option and the <code>data-sap-ui-</code> prefix. The
+							first part of the prefix (<code>data-</code>) is necessary to comply with the W3C recommendations for custom
+							attributes in HTML. The second part (<code>-sap-ui-</code>) separates SAPUI5 attributes from custom attributes defined by any other
+							framework. The third part is the config option name in kebab case. The attribute name must be provided within the
+								<code>name</code> attribute of the meta tag.</p>
+					</li>
+					<li class="li">
+						<p>Value</p>
+						<p>Element attributes in HTML have a <code>string</code> value by definition. For configuration options of type <code>string</code>, the
+							attribute value is equivalent to the value of the option. The attribute value must be provided within the
+								<code>content</code> attribute of the meta tag.</p>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>If the value contains specific HTML characters, such as <code>&lt;</code> or <code>&gt;</code>, or if the value contains the same quote
+								character that is used to wrap the attribute value, the usual HTML escape mechanisms must be used: Use entities for
+								the specific HTML characters, for example <code>&amp;lt;</code> instead of <code>&lt;</code>, and switch the
+								type of quotes from single to double or vice versa.</p>
+						<p></p></div></div>
+						<p>
+							</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;meta name="sap-ui-compat-version" content="edge"&gt;</pre></div></div></section>
+						<p></p>
+					</li>
+				</ul>
+			</section><section>
+				<h3 class="title ">[7] URL parameters</h3>
+				<p>Configuration parameters can be added to the URL of an app.</p>
+				<p>The URL parameter name is composed of the name of the configuration option and the <code>sap-ui-</code> prefix, for example
+					like <code>index.html?sap-ui-debug=true</code>.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The W3C proposed that the <code>data-</code> prefix is not needed and not even allowed
+					here as all URL parameters are kind of custom parameters.</p></div></div>
+				<p>The value of a URL parameter is of type <code>string</code> and the same type mapping as for HTML attributes applies. However,
+					URLs require a different encoding than HTML; they use, for example % encoding instead of entity encoding.</p>
+				<p>For security reasons, only some configuration options can be set via URL parameters. An application can set the
+						<code>ignore-url-parameters</code> option to <code>true</code> to disable URL configuration parameters completely.</p>
+			</section><section>
+				<h3 class="title ">[8] Specific APIs</h3>
+				<p>The configuration options above are evaluated when booting SAPUI5. After that, all
+					changes to these parameters are ignored.</p>
+				<p>For a limited set of configuration options, specific APIs exist that allow you to modify these options at runtime.</p>
+				<p>You can find these APIs in <a href="topic/91f2d03b6f4d1014b6dd926db0e91070" title="The following tables show available configuration options." class="sap-doc">Configuration Options and URL Parameters</a>.</p>
+			</section></section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/91f2d03b6f4d1014b6dd926db0e91070">Configuration Options and URL Parameters</a></li><li><a href="topic/b474a712ca364d40a1b0a804baf2d734">Deprecated Configuration Options</a></li><li><a href="topic/2acafbfcc2cb47e8aac6d2e32399af10">Deprecated Configuration API</a></li><li><a href="topic/9feb96da02c2429bb1afcf6534d77c79">Compatibility Version Information</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

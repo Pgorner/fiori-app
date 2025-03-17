@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Custom Section on Object Page</title>
+		<script type="text/javascript">
+			window["sap-ushell-config"] = {
+				defaultRenderer: "fiori2",
+				renderers: {
+					fiori2: {
+						componentData: {
+							config: {
+								enableSearch: false
+							}
+						}
+					}
+				},
+				services: {
+					AppState: {
+						config: {
+							transient: false
+						}
+					}
+				},
+				applications: {
+					"##sampleName##-Sample": {
+						additionalInformation: "SAPUI5.Component=##appid##",
+						applicationType: "URL",
+						url: "../",
+						title: "##sampleTitle## Sample",
+						description: "##sampleDescription## Sample"
+					}
+				}
+			};
+		</script>
+
+		<script src="../resources/sap/ushell/bootstrap/sandbox2.js" id="sap-ushell-bootstrap"></script>
+
+		<!-- Bootstrap the UI5 core library -->
+		<script
+			id="sap-ui-bootstrap"
+			src="../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m, sap.ushell, sap.fe.templates"
+			data-sap-ui-async="true"
+			data-sap-ui-preload="async"
+			data-sap-ui-theme="sap_horizon"
+			data-sap-ui-bindingSyntax="complex"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-language="en"
+			data-sap-ui-resourceroots='{
+				"##appid##": "./"
+			}'
+			data-sap-ui-flexibilityServices='[{"connector": "SessionStorageConnector"}]'
+		></script>
+
+		<script type="text/javascript">
+			sap.ui.require(["sap/ui/core/Core", "sap/ushell/Container"], function (Core, Container) {
+				Core.ready(() => {
+					// initialize the ushell sandbox component
+					Container.createRendererInternal(null).then(function (renderer) {
+						renderer.placeAt("content");
+					});
+				});
+			});
+		</script>
+	</head>
+
+	<!-- UI Content -->
+	<body class="sapUiBody" id="content"></body>
+</html>

@@ -1,0 +1,382 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio61cf21d50ed34cbf888713496c618904" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/side-effect-annotations-examples-61cf21d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Side Effect Annotations: Examples</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Side Effect Annotations: Examples</h2></div><div class="shortdesc">This topic provides some examples for annotating side effects.</div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+            </p><p>Using <code>TriggerAction</code> to calculate the
+                    <code>GrossPrice</code>
+                and
+                <code>NetPriceIncludingTax</code>
+                through the function import <code>CalculatePriceIncludingRegionalTax</code>, when the source property <code>UnitPrice</code>
+                or <code>ProductQuantity</code> is modified. The side effect is triggered only when <code>UnitPrice</code> and
+                    <code>ProductQuantity</code> are successfully validated.</p>
+            <p>
+                </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_SALES_ORDER_WD_20_SRV.C_STTA_SalesOrder_WD_20Type"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CalculatePrice"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;UnitPrice&lt;/PropertyPath&gt;
+                    &lt;PropertyPath&gt;ProductQuantity&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;String&gt;GrossPrice&lt;/String&gt;
+                    &lt;String&gt;NetPriceIncludingTax&lt;/String&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TriggerAction" String="STTA_SALES_ORDER_WD_20_SRV.STTA_SALES_ORDER_WD_20_SRV_Entities/CalculatePriceIncludingRegionalTax"/&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <p></p>
+        <p></p></div></div><section id="section_cby_npc_4mb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>You can define side effects either in the *<code>MPC_EXT</code> class or in the local annotation file.</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">Annotating side effects in the
+                            <code>DEFINE</code>
+                        method of the
+                            <code>CL_MM_PUR_PO_AI_MAINT_MPC_EXT</code>
+                        class</span></p>
+                
+                <p>
+                    
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                        
+                        </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">* define Side Effects for Purchase Order:
+    DATA lo_ann_target TYPE REF TO /iwbep/if_mgw_vocan_ann_target.   " Vocabulary Annotation Target                     "#EC NEEDED
+    DATA lo_annotation TYPE REF TO /iwbep/if_mgw_vocan_annotation.   " Vocabulary Annotation                            "#EC NEEDED
+    DATA lo_collection TYPE REF TO /iwbep/if_mgw_vocan_collection.   " Vocabulary Annotation Collection                 "#EC NEEDED
+    DATA lo_function   TYPE REF TO /iwbep/if_mgw_vocan_function.     " Vocabulary Annotation Function                   "#EC NEEDED
+    DATA lo_fun_param  TYPE REF TO /iwbep/if_mgw_vocan_fun_param.    " Vocabulary Annotation Function Parameter         "#EC NEEDED
+    DATA lo_property   TYPE REF TO /iwbep/if_mgw_vocan_property.     " Vocabulary Annotation Property                   "#EC NEEDED
+    DATA lo_record     TYPE REF TO /iwbep/if_mgw_vocan_record.       " Vocabulary Annotation Record                     "#EC NEEDED
+    DATA lo_reference  TYPE REF TO /iwbep/if_mgw_vocan_reference.    " Vocabulary Annotation Reference
+ 
+ 
+    lo_reference = vocab_anno_model-&gt;create_vocabulary_reference( iv_vocab_id = '/IWBEP/VOC_COMMON'
+                                                                  iv_vocab_version = '0001').
+    lo_reference-&gt;create_include( iv_namespace = 'com.sap.vocabularies.Common.v1' ).
+    lo_reference = vocab_anno_model-&gt;create_vocabulary_reference( iv_vocab_id = '/IWBEP/VOC_CORE'
+                                                                  iv_vocab_version = '0001').
+    lo_reference-&gt;create_include( iv_namespace = 'Org.OData.Core.V1' ).
+ 
+    lo_ann_target = vocab_anno_model-&gt;create_annotations_target( 'MM_PUR_PO_AI_MAINTAIN.C_PurchaseOrderEnhWDType' ) ##NO_TEXT . "Add annotation term for VIPs introduced
+ 
+    lo_annotation = lo_ann_target-&gt;create_annotation( iv_term = 'com.sap.vocabularies.Common.v1.SideEffects' ) ##NO_TEXT .
+ 
+    lo_record     = lo_annotation-&gt;create_record( )  ##NO_TEXT.
+    lo_property   = lo_record-&gt;create_property( 'SourceProperties' )   ##NO_TEXT.
+    lo_collection = lo_property-&gt;create_collection( ).
+ 
+    lo_collection-&gt;create_simple_value( )-&gt;set_property_path( 'Supplier' )  ##NO_TEXT .
+    lo_collection-&gt;create_simple_value( )-&gt;set_property_path( 'CompanyCode' )  ##NO_TEXT .
+    lo_collection-&gt;create_simple_value( )-&gt;set_property_path( 'DocumentCurrency' )  ##NO_TEXT .
+    lo_collection-&gt;create_simple_value( )-&gt;set_property_path( 'PurchasingGroup' )  ##NO_TEXT.
+    lo_collection-&gt;create_simple_value( )-&gt;set_property_path( 'PurchasingOrganization' )  ##NO_TEXT.</pre></div></div></section>
+                    <p></p></div></div>
+                <p></p>
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">User changes the source properties and the system refreshes the
+                            <code>Price</code></span></p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="NAMESPACE.ENTITYTYPE"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="PriceChanged"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;Amount&lt;/PropertyPath&gt;
+                    &lt;PropertyPath&gt;Discount&lt;/PropertyPath&gt;
+                    &lt;PropertyPath&gt;ProductDetail/DeliveryLocations&lt;/PropertyPath&gt;// Source property pointing to multi input field
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;String&gt;Price&lt;/String&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <p></p>
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">User changes the supplier and the system refreshes the 1:1 navigation <code>toSupplier</code></span></p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="NAMESPACE.ENTITYTYPE"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="SupplierChanged"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;Supplier&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetEntities"&gt;
+               &lt;Collection&gt;
+                   &lt;NavigationPropertyPath&gt;toSupplier&lt;/NavigationPropertyPath&gt;
+               &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <p></p>
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">User changes a single property, and the system reads the whole entity due to the field control</span></p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="NAMESPACE.ENTITYTYPE"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="PriceChanged"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;Status&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetEntities"&gt;
+                &lt;Collection&gt;
+                    &lt;NavigationPropertyPath&gt;&lt;/NavigationPropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <p></p>
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">Side effect on structural changes of a 1:n association</span></p>
+                <p>If any header information or any other associated entity needs to be refreshed once a subitem has been created or deleted, add side
+                    effect annotations as shown in the following
+                    example:</p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="NAMESPACE.ENTITYTYPE"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="ReactOnItemCreationOrDeletion"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceEntities"&gt;
+                &lt;Collection&gt;
+                    &lt;NavigationPropertyPath&gt;toSalesOrderItems&lt;/NavigationPropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;String&gt;OverallAmount&lt;/String&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <p></p>
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">Side effect after executing an action</span></p>
+                <p>After executing an action, if the returned entity is
+                    different from the entity for which the action was called, then the related list binding is refreshed. Alternatively, you need to
+                    define a side effect annotation explicitly if any other entity or an association is changed due to an action
+                    call.</p>
+                
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!-- In the below example, the function import action "Setcurrency" is expected to refresh the "Currency_Code_Text" which is coming from the associated entity "to_Currency" --&gt;
+            &lt;Annotations Target="STTA_SALES_ORDER_WD_20_SRV.STTA_SALES_ORDER_WD_20_SRV_Entities/Setcurrency"&gt;
+                    &lt;Record&gt;
+                        &lt;PropertyValue Property="TargetProperties"&gt;
+                            &lt;Collection&gt;
+                                &lt;PropertyPath&gt;to_Currency/Currency_Code_Text&lt;/PropertyPath&gt;
+                            &lt;/Collection&gt;
+                        &lt;/PropertyValue&gt;
+                        &lt;!-- Side Effects for action annotation with an entity as a target. Here, controls associated with "to_Item" will be refreshed--&gt;
+                            &lt;PropertyValue Property="TargetEntities"&gt;
+                            &lt;Collection&gt;
+                                &lt;NavigationPropertyPath&gt;to_Item&lt;/NavigationPropertyPath&gt;
+                            &lt;/Collection&gt;
+                        &lt;/PropertyValue&gt;
+                    &lt;/Record&gt;
+                &lt;/Annotation&gt;
+            &lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <p></p>
+                
+                
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">Refresh the navigation target</span></p>
+                <p>In
+                    the
+                    following
+                    example,
+                    when the item
+                        <code>TaxAmount</code>
+                    is changed, the navigation property leading to the root entity (<code>to_SalesOrder</code>) is updated.</p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_SALES_ORDER_WD_20_SRV.C_STTA_SalesOrderItem_WD_20Type"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="TaxAmountChanged"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceProperties"&gt;
+                &lt;Collection&gt;
+                     &lt;PropertyPath&gt;TaxAmount&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetEntities"&gt;
+               &lt;Collection&gt;
+                     &lt;NavigationPropertyPath&gt;to_SalesOrder&lt;/NavigationPropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                <p></p>
+                <p>In the following example, when the item
+                    <code>TaxAmount</code>
+                    is changed, the navigation property leading to the property of
+                    the root entity
+                        (<code>to_SalesOrder</code>) is updated. If <code>*</code> is defined, then all properties of the root entity are
+                    updated.</p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_SALES_ORDER_WD_20_SRV.C_STTA_SalesOrderItem_WD_20Type"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="TaxAmountChanged"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;TaxAmount&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;String&gt;to_SalesOrder/*&lt;/String&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <p></p>
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">Side effect on 1:1 associated entity set's property</span></p>
+                <p>You can add a side effect annotation on a property that
+                    has
+                    a 1:1
+                    association
+                    with the main entity set. In this case, when you change the
+                    associated smart
+                    field (that is rendered in a smart
+                    form), side effect call
+                    is
+                    triggered.</p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="&lt;Schema Namespace&gt;.&lt;EntityType Name&gt;"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="&lt;Qualifier Name (Optional)&gt;"&gt;
+        &lt;PropertyValue Property="SourceProperties"&gt;
+            &lt;Collection&gt;
+                &lt;PropertyPath&gt;&lt;1:1 Associated Navigation Property Name.Ex:to_Rating/Rating&gt;/&lt;Property Name&gt;&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="TargetProperties"&gt;
+            &lt;Collection&gt;
+                &lt;String&gt;&lt;Target Property Name&gt;&lt;/String&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                <p></p>
+            <p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+                </p><p><span class="emphasis">Side Effect to Call <code>Triggeraction</code> without Refreshing Any Data
+                        (No Target)</span></p>
+                <p>You can configure a side effect to call the
+                        <code>TriggerAction</code> function import without refreshing any data, that
+                    is, without any
+                    targets
+                        (<code>TargetProperties</code>/<code>TargetEntities</code>).</p>
+                <p>
+                    </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_SALES_ORDER_WD_20_SRV.C_STTA_SalesOrder_WD_20Type"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CalculatePrice"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="SourceProperties"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;UnitPrice&lt;/PropertyPath&gt;
+                    &lt;PropertyPath&gt;ProductQuantity&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TriggerAction" String="STTA_SALES_ORDER_WD_20_SRV.STTA_SALES_ORDER_WD_20_SRV_Entities/CalculatePriceIncludingRegionalTax"/&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+                <p></p>
+            <p></p></div></div></div></section><section class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p> The <span class="emphasis">Guidance</span> section in our live example shows the various uses of side effects along with examples in XML and
+                ABAP CDS annotation. Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/advancedFeatures/guidanceSideEffects" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/advancedFeatures/guidanceSideEffects" class="sap-doc">Side Effects</a>.</p><p>Side effects are configured according to the modeling such as create, update, delete in RAP BDEF (behavior definition). You can see the
+                ABAP CDS annotation examples in the RAP documentation. For more information, see <a href="https://help.sap.com/docs/abap-cloud/abap-rap/side-effects" title="https://help.sap.com/docs/abap-cloud/abap-rap/side-effects" class="external-link" target="_blank" rel="noopener">Side Effects</a>.</p><p>The following sample code shows you an example with actions, multiple targets, and messages:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">side effects {
+    field IntegerValue affects field ProgressIntegerValue, field RadialIntegerValue;
+    field Timestamp affects field IANATimestamp;
+    field Supplier affects entity toSupplier;
+    action changeCriticality affects field CriticalityCode;
+    action resetTimesChildCreated affects field TimesChildCreated, permissions ( action resetTimesChildCreated );
+    action overwriteTimezone affects $self;
+    determine action validateDate executed on field ValidTo affects messages;
+    $self affects permissions ( update _Child );
+    determine action updateTimes executed on entity _Child affects field TotalPieces;
+  }</pre></div></div></section><p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

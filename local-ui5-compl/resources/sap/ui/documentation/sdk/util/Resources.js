@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2025 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+(function(e,i){"use strict";if(typeof self.sap?.ui?.define==="function"){sap.ui.define(["sap/ui/thirdparty/URI"],i)}else if(typeof self.exports==="object"&&typeof self.exports.nodeName!=="string"){self.exports["ResourcesUtil"]=i()}else{e["ResourcesUtil"]=i()}})(self,function(e,i){"use strict";var t={getResourceOriginPath:function(i){var t,n=e(i),s=this.getResourcesVersion();if(n&&n.is("absolute")){return i}t=this.getConfig();return t+s+this._formatPath(i)},getHasProxy:function(){return new window.URLSearchParams(window.location.search).get("sap-ui-xx-unifiedResources")!=null||window["sap-ui-unified-resources"]},getResourcesVersion:function(){return this.getHasProxy()&&window.sessionStorage.getItem("versionPrefixPath")||""},getConfig:function(){return self["sap-ui-documentation-config"]&&self["sap-ui-documentation-config"].demoKitResourceOrigin||"."},getResourceOrigin:function(){return this.getConfig().replace("/sapui5","").replace("/openui5","")},_formatPath:function(e){e=e.replace(/^\.\//,"/");if(!e.match(/^\//)){e="/"+e}return e},isInternal:function(e){return/internal/i.test(e.name)||self["sap-ui-documentation-config"]&&self["sap-ui-documentation-config"].visibility==="internal"||false}};return t});
+//# sourceMappingURL=Resources.js.map

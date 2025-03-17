@@ -1,0 +1,134 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4f36786913774ad98fe471e61ae723c2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-12-timeline-4f36786.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 12: Timeline</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 12: Timeline</h2></div><div class="shortdesc">Use this step to learn how to set up a page where your customers can post their
+		reviews of the ice cream machine.</div><p>In this step, we will use the <code>Timeline</code> control that allows the users to
+			write and submit reviews. The reviews are arranged in chronological order along the
+			timeline axis.</p><p>You can view and download this step in the Demo Kit at <a href="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.12" title="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.12" class="sap-doc" alt="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.12">Ice Cream Machine - Step 12 - Timeline</a>.</p><section id="section_ssy_4fs_n1b"><h2 class="title ">Preview</h2><img src="loio41ff71c9f8a447858132ea98a884184b_Source1.png" title="Customer Reviews Page" alt="Customer Reviews Page" usemap="#"></section><section id="section_idf_qfs_n1b"><h2 class="title ">Setting Up a Reviews Page with a
+				Timeline</h2><p>To perform this step, you need one of the views you created in
+				step 5, <code>Reviews.view.xml</code>, as well as the controller you defined for
+				this view, <code>Reviews.controller.js</code>.</p><section>
+				<h3 class="title ">Reviews.view.xml</h3>
+				<p>In the <code>Reviews.view.xml</code> view, add a <code>Timeline</code>
+					element that will display a timeline with customer reviews.</p>
+				<p>You may also need to add a <code>page</code> and a <code>toolbar</code>
+					if the view does not include them yet.</p>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:suite="sap.suite.ui.commons"
+	controllerName="sap.suite.ui.commons.demokit.tutorial.icecream.12.controller.Reviews"&gt;
+	<span class="emphasis">&lt;Page
+		title="{i18n&gt;timelineTitle}"
+		showNavButton="true"
+		navButtonPress=".onNavButtonPressed"
+		backgroundDesign="Solid"&gt;
+		&lt;Toolbar&gt;
+			&lt;Label text="{i18n&gt;layoutSwitchLabel}"/&gt;
+			&lt;Switch change=".onHorizontalSwitchChange"/&gt;
+		&lt;/Toolbar&gt;
+		&lt;suite:Timeline
+			id="timeline"
+			enableDoubleSided="true"
+			growing="false"
+			groupBy="dateTime"
+			lazyLoading="true"
+			content="{reviews&gt;/UserReviews}"
+			textHeight="automatic"
+			showHeaderBar="false"&gt;
+			&lt;suite:TimelineItem
+				dateTime="{
+					path: 'reviews&gt;date',
+					formatter: '.formatDateTime'
+				}"
+				userPicture="{=!${reviews&gt;template} ? ${reviews&gt;userPic} : null}"
+				title="{=!${reviews&gt;template} ? ${reviews&gt;user} : null}"
+				text="{=!${reviews&gt;template} ? ${reviews&gt;quote} : null}"
+				filterValue="{=!${reviews&gt;template} ? ${reviews&gt;rating} : null}"&gt;
+				&lt;suite:embeddedControl&gt;
+					&lt;VBox&gt;
+						&lt;Input
+							value="{reviews&gt;user}"
+							visible="{reviews&gt;template}"
+							placeholder="{i18n&gt;newReviewUserNameHint}"/&gt;
+						&lt;RatingIndicator
+							enabled="{reviews&gt;template}"
+							value="{reviews&gt;rating}"
+							maxValue="10"
+							iconSize="1rem"
+							class="sapUiTinyMargin"/&gt;
+						&lt;Text
+							text="{reviews&gt;quote}"
+							visible="{=!${reviews&gt;template}}"
+							class="sapUiTinyMargin"/&gt;
+						&lt;TextArea
+							value="{reviews&gt;quote}"
+							growing="false"
+							height="150px"
+							width="100%"
+							visible="{reviews&gt;template}"
+							placeholder="{i18n&gt;newReviewUserCommentHint}"
+							valueLiveUpdate="true"/&gt;
+						&lt;Button
+							visible="{reviews&gt;template}"
+							text="{i18n&gt;newReviewButtonText}"
+							press=".addReview"/&gt;
+					&lt;/VBox&gt;
+				&lt;/suite:embeddedControl&gt;
+			&lt;/suite:TimelineItem&gt;
+		&lt;/suite:Timeline&gt;
+	&lt;/Page&gt;</span>
+&lt;/mvc:View&gt;</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Reviews.controller.js</h3>
+				<p>In the reviews controller, define a function for adding a review,
+						<code>addReview</code>, along with the functions for adjusting date and
+					time format, <code>formatDateTime</code>, dynamically updating the rating,
+						<code>onRatingChange</code>, layout switching,
+						<code>onHorizontalSwitchChange</code>, and navigating back to the start
+					page, <code>onNavButtonPressed</code>.</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/format/DateFormat"
+], function(Controller, DateFormat) {
+	"use strict";
+	return Controller.extend("sap.suite.ui.commons.demokit.tutorial.icecream.12.controller.Reviews", {
+		onInit: function() {
+			this.oTimeline = this.byId("timeline");
+		},
+		<span class="emphasis">addReview: function() {
+			var oModel = this.getView().getModel("reviews"),
+				oData = oModel.getData(),
+				oTemplateEntry = oData.UserReviews[0];
+			oTemplateEntry.template = false;
+			// Add new template entry to the beginning
+			oData.UserReviews.unshift({
+				"user": "",
+				"userPic": "",
+				"rating": 10,
+				"quote": "",
+				"dateTime": "now",
+				"template": true
+			});
+			oModel.setData(oData);
+		},
+		formatDateTime: function(dateTime) {
+			var oDateInstance = DateFormat.getDateInstance();
+			return oDateInstance.format(oDateInstance.parse(dateTime));
+		},
+		onNavButtonPressed: function() {
+			var oRouter = this.getOwnerComponent().getRouter();
+			oRouter.navTo("home");
+		},
+		onHorizontalSwitchChange: function(event) {
+			if (event.getParameter("state")) {
+				this.oTimeline.setAxisOrientation("Horizontal");
+			} else {
+				this.oTimeline.setAxisOrientation("Vertical");
+			}
+		}</span>
+	});
+});</pre></div></div></section>
+				<p>The initial reviews data is pulled from the model data in the
+						<span class="ph uicontrol">/model/data/Reviews.json</span> file that is included in the
+					download materials for this tutorial.</p>
+			</section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/e5b7f8a93e4b432198869b3ae75981b0">Ice Cream Machine Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/452ff8c4f12f4f04b3855186c7fa1adc">Step 11: Process Flow</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/b6ed1f85d6fe483989e8c6d9cea70040">Step 13: Optimizing the Process Flow Layout</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

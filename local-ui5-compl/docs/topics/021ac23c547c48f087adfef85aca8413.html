@@ -1,0 +1,54 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio021ac23c547c48f087adfef85aca8413" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/examples-for-triggering-telephone-text-and-e-mail-applications-021ac23.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Examples for Triggering Telephone, Text and E-Mail Applications</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Examples for Triggering Telephone, Text and E-Mail Applications</h2></div><div class="shortdesc">Code samples for triggering telephone, text and e-mail applications.</div><p>Sample data used in the examples: </p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var person = {
+    name : "John Smith",
+    tel : "+49 62227
+          747474",
+    sms : "+49 173 123456",
+    email : "john.smith@sap.com",
+    website : "http://www.sap.com"
+};</pre></div></div></section><p>You can trigger an external application at any time, but it is usually triggered as a reaction
+			to a UI control throwing an event. The next sections illustrate some of the most typical
+			use cases.</p><section id="section_N10021_N10011_N10001">
+            <h2 class="title ">Click Button To Trigger Phone Call</h2>
+            <p>The following button can be used to place a call. </p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">new sap.m.Button({
+    text : person.tel,
+    icon : "images/action.png", /* Depends where your images are located */
+    press : function() {
+        sap.m.URLHelper.triggerTel(person.tel);
+    }
+});</pre></div></div></section>
+        </section><section id="section_N10038_N10011_N10001">
+			<h2 class="title ">Click Image To Trigger E-mail</h2>
+			<p>The following code snippet gives an example for triggering an e-mail application. You can also
+				set the subject and message of the e-mail application:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">new sap.m.Image({
+    src : "images/website.png", /* Depends where your images are located */
+    press : function() {
+        sap.m.URLHelper.triggerEmail(person.website, "Info", "Dear " + person.name + ",");
+    }
+});</pre></div></div></section>
+		</section><section id="section_N1004A_N10011_N10001">
+            <h2 class="title ">Inside List</h2>
+            <p><code>DisplayListItem</code> with active feedback is the most popular use case
+                for the following example.</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">new sap.m.DisplayListItem({
+    label : "Sms",
+    value : "( " + person.sms + " )",
+    type : "Active",
+    press : function() {
+        sap.m.URLHelper.triggerSms(person.sms);
+    }
+});</pre></div></div></section>
+            <p>To use any other control inside the list, use <code>InputListItem</code>:</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">new sap.m.InputListItem({
+    label : "Website",
+    content : new sap.m.Button({
+        text : person.website,
+        press : function() {
+            sap.m.URLHelper.redirect(person.website);
+        }
+    })
+});</pre></div></div></section>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

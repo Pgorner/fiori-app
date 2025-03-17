@@ -1,0 +1,58 @@
+sap.ui.define([
+    "sap/ui/model/json/JSONModel",
+    "sap/suite/ui/commons/Timeline",
+    "sap/suite/ui/commons/TimelineItem",
+    "sap/m/ViewSettingsDialog",
+    "sap/m/ViewSettingsCustomItem",
+    "sap/m/FlexBox",
+    "sap/m/CheckBox",
+    "sap/m/Input"
+], function (JSONModel, Timeline, TimelineItem, ViewSettingsDialog, ViewSettingsCustomItem, FlexBox, CheckBox,
+    Input) {
+    var oModel = new JSONModel([
+        {
+            userName: "Name 1",
+            title: "Title 1",
+            text: "Some text",
+            dateTime: new Date(2015, 10, 1)
+        },
+        {
+            userName: "Name 2",
+            title: "Title 2",
+            text: "Some other text",
+            dateTime: new Date(2018, 1, 2)
+        }
+    ]);
+    var oTimeline = new Timeline({
+        enableScroll: false,
+        content: {
+            path: "/",
+            template: new TimelineItem({
+                userName: "{userName}",
+                title: "{title}",
+                text: "{text}",
+                dateTime: "{dateTime}"
+            })
+        },
+        customFilter: new ViewSettingsDialog({
+            title: "Custom Filter",
+            filterItems: new ViewSettingsCustomItem({
+                text: "Custom Filter",
+                key: "customFilter",
+                customControl: new FlexBox({
+                    direction: "Column",
+                    items: [
+                        new CheckBox({
+                            text: "Filter 1"
+                        }),
+                        new Input({
+                            placeholder: "Filter 2"
+                        })
+                    ]
+                })
+            })
+        })
+    });
+    oTimeline.setModel(oModel);
+    oTimeline.placeAt("content");
+});

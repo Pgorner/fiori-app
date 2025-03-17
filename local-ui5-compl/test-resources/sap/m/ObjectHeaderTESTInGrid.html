@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Object Header used in Grid - sap.m</title>
+
+<script src="shared-config.js"></script>
+<script src="../../../resources/sap-ui-core.js" id="sap-ui-bootstrap" data-sap-ui-libs="sap.ui.layout,sap.m">
+
+</script>
+
+<script>
+	jQuery.sap.require("sap.ui.core.IconPool");
+
+	var marginStyle = jQuery.device.is.phone ? "sapUiSmallMargin" : "sapUiMediumMargin";
+
+	var attrs = [ new sap.m.ObjectAttribute({
+		text : "Object AttributeA"
+	}), new sap.m.ObjectAttribute({
+		text : "Object AttributeB Attribute Langer text text test text"
+	}), new sap.m.ObjectAttribute({
+		text : "Object AttributeC April 9, 2013"
+	}) ];
+	var attrs2 = [ new sap.m.ObjectAttribute({
+		text : "Attribute2",
+		active : true,
+		press : function() {
+			attrs2[0].setText("Ñagçyfox Attribute2");
+		}
+	}), new sap.m.ObjectAttribute({
+		text : "Created by: John Doe Ñagçyfox",
+		active : true,
+		press : function() {
+			attrs2[0].setText("Ñagçyfox Contract #D1234567890");
+		}
+	}) ];
+
+	var oh1 = new sap.m.ObjectHeader(
+			"oh1", {
+				intro : "Introtext: On behalf of M Smith",
+				title : "Title Text, longer Title Text",
+				number : "3.624,00",
+				numberUnit : "Euro",
+				numberState : sap.ui.core.ValueState.Success,
+				statuses : [ new sap.m.ObjectStatus({
+					text : "Object Status",
+					icon : sap.ui.core.IconPool.getIconURI("inbox"),
+					state : sap.ui.core.ValueState.Success
+				}), new sap.m.ObjectStatus({
+					icon : sap.ui.core.IconPool.getIconURI("inbox"),
+					state : sap.ui.core.ValueState.Error
+				}) ],
+				markers: [
+					new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Favorite}),
+					new sap.m.ObjectMarker({type: sap.m.ObjectMarkerType.Flagged})
+				]
+			});
+
+	var oh1Icon = new sap.m.ObjectHeader("oh1-with-icon",{
+				icon : sap.ui.core.IconPool.getIconURI("attachment"),
+				intro : "Introtext: On behalf of John Smith",
+				title : "Title Text longer and longer 214211232132132132142112321321321321421",
+				number : "4.654,00",
+				numberUnit : "Euro",
+				numberState : sap.ui.core.ValueState.Success,
+				statuses : [ new sap.m.ObjectStatus({
+					text : "Lorem ipsum dolor sit amet",
+					icon : sap.ui.core.IconPool.getIconURI("inbox"),
+					state : sap.ui.core.ValueState.Success
+				}) ]
+			});
+
+	var oh1IconNoNumber = new sap.m.ObjectHeader(
+			"oh1-with-icon-no-number",	{
+				icon : sap.ui.core.IconPool.getIconURI("attachment"),
+				intro : "On behalf of John Smith Ñagçyfox",
+				title : "123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421123213213213214211232132132132142112321321321321421",
+				statuses : [ new sap.m.ObjectStatus({
+					text : "Lorem ipsum dolor sit amet",
+					icon : sap.ui.core.IconPool.getIconURI("inbox"),
+					state : sap.ui.core.ValueState.Success
+				})]
+			});
+
+	var oh4PressHandler = function(oEvent) {
+
+		if (oh4.getIcon()) {
+			oh4.setIcon(null);
+		} else {
+			oh4.setIcon(sap.ui.core.IconPool.getIconURI("attachment"));
+		}
+	};
+
+	var oh4 = new sap.m.ObjectHeader("oh4", {
+		intro : "On behalf of John Smith Ñagçyfox",
+		title : "Title is Active Ñagçyfox Lorem ipsum dolor sit amet.",
+		titleActive : true,
+		titlePress : oh4PressHandler,
+		number : "3.628.000",
+		numberUnit : "EUR",
+		numberState : sap.ui.core.ValueState.None,
+		attributes : attrs,
+		statuses : [ new sap.m.ObjectStatus({
+			text : "Ñgçy Positive Text Ñgçy",
+			state : sap.ui.core.ValueState.Success
+		}), new sap.m.ObjectStatus({
+			text : "Negative Text Ñgçy Negative",
+			state : sap.ui.core.ValueState.Error
+		}) ],
+		icon : sap.ui.core.IconPool.getIconURI("attachment"),
+		iconActive : true,
+		iconPress : oh4PressHandler
+	});
+
+	// put all the testing object header objects on the testing page
+	var app = new sap.m.App("myApp", {initialPage:"page1"});
+	var page1 = new sap.m.Page("page1", {
+		title:"Page 1"
+	});
+
+	page1.addContent(oh1);
+	page1.addContent(oh1Icon);
+	page1.addContent(oh4);
+	app.addPage(page1);
+
+	app.placeAt('body');
+</script>
+
+</head>
+<body id="body" class="sapUiBody">
+</body>
+</html>

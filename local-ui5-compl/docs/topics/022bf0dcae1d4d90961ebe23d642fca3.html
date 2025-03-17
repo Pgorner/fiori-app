@@ -1,0 +1,266 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio022bf0dcae1d4d90961ebe23d642fca3" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/the-share-functionality-022bf0d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">The <span class="ph uicontrol">Share</span> Functionality</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">The <span class="ph uicontrol">Share</span> Functionality</h2></div><div class="shortdesc"> The <span class="ph uicontrol">Share</span> functionality allows end users to share the current application state using various
+		options.</div><p>The following options are available as part of the <span class="ph uicontrol">Share</span> functionality:</p><div><div class="fig"><img src="loiof6ca832150544a8c8453cb950d676766_LowRes.png" usemap="#"></div></div><ul class="ul ">
+			<li class="li">
+				<p><span class="ph uicontrol">Send Email</span></p>
+				<p>When an end user chooses this option, the
+					link to the page opens in the default email client that is configured in the system. When
+					they
+					choose the link, the application
+					page opens in the same state in which it was shared: filter settings, personalization options, and selections for charts and
+					tables, as well app-specific button states such as the filter mode or view mode, are all transferred.</p>
+			</li>
+			<li class="li">
+				<p><span class="ph uicontrol">Share in SAP Jam</span></p>
+				<p>End
+					users can also share the current application state using <span class="ph uicontrol">Share in SAP Jam</span>. A dialog
+					appears that allows
+					them to select an existing Jam group, comments can be added, and Jam users can be tagged.
+					This
+					option is only available on platforms that are integrated with SAP Jam.</p>
+			</li>
+			<li class="li">
+				<p><span class="ph uicontrol">Save as Tile</span></p>
+				<p>When an end user chooses this option, the
+					corresponding <span class="ph uicontrol">Save as Tile</span> dialog is displayed. When
+					they
+					choose the tile, the application
+					page opens in the same state in which the tile was created. Application developers can customize the title and the sub-title of
+					the tile. In the list report, a dynamic tile with a record count is created, where the applied filter is also taken into
+					account.</p>
+			</li>
+			<li class="li">
+				<p><span class="ph uicontrol">Share: Microsoft Teams</span></p>
+				<p>End
+					users can collaborate with
+					their
+					co-workers using the <span class="ph uicontrol">Share: Microsoft Teams</span> functionality. For more
+					information, see <a href="topic/ff89e4b80dfe49128e36582fc5d31aa4" title="The Share functionality is enhanced with the integration of Microsoft Teams." class="sap-doc">The Share: Microsoft Teams Functionality</a>.</p>
+			</li>
+		</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><ul class="ul ">
+				<li class="li">
+					<p>The <span class="ph uicontrol">Share</span> functionality is available for the list report, object page, and subobject page.</p>
+				</li>
+				<li class="li">
+					<p>For applications using the flexible column layout, the <span class="ph uicontrol">Share</span> functionality is shown on the highest view
+						level.</p>
+				</li>
+				<li class="li">
+					<p>The <span class="ph uicontrol">Share</span> functionality is not available for newly created objects in draft mode, so the button is not
+						visible.</p>
+				</li>
+				<li class="li">
+					<p>In SAP Fiori elements for OData
+                            V2, for draft objects with an existing active instance
+						the <span class="ph uicontrol">Share</span> functionality will directly share the URL of the active instance.</p>
+					<p>In SAP Fiori elements for OData
+                            V4, for draft objects with an existing active instance
+						the <span class="ph uicontrol">Share</span> functionality will use the semantic bookmarking feature (see the corresponding section in
+						this topic below), but if semantic keys are not defined then the URL of the active instance is shared.</p>
+				</li>
+			</ul>
+		<p></p></div></div><section id="section_t52_jql_ymb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>The <span class="ph uicontrol">Share</span> functionality is hidden for the creation pages of non-draft objects.</p><p>During tile creation, you can change the tile type from dynamic to static using an extension. For more information, see <a href="topic/7e34ea9317a54806a725ddf9878530d7" title="You can extend the standard bookmark function by adding an extension point to the list report or analytical list page controller extension. Static tiles are then saved to the SAP Fiori launchpad instead of dynamic tiles." class="sap-doc">Extending the Bookmark Function to Save Static Tiles to the SAP Fiori Launchpad</a>.</p></div></section><section id="section_r4n_lql_ymb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+				<h3 class="title ">Send Email</h3>
+				<p>You can also use controller extension methods to change the subject line of the email.
+					</p>
+				<p>For more information about the
+						<code>controllerextensions.Share</code> API, see the <a href="api/sap.fe.core.controllerextensions.Share" title="api/sap.fe.core.controllerextensions.Share" class="sap-doc" alt="api/sap.fe.core.controllerextensions.Share">API
+					Reference</a>.</p>
+				
+				<p>Make the following changes in the <code>manifest.json</code> file:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+        "extends": { 
+            "extensions": {
+                "sap.ui.controllerExtensions": {
+                    "sap.fe.templates.ObjectPage.ObjectPageController": {
+                        "controllerName": "SalesOrder.ext.OPExtend"
+                    }
+                }
+            }
+        },</pre></div></div></section>
+				<p></p></div></div>
+				<p>Make the following changes in the <code>OPExtend.controller.js</code> file:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/mvc/ControllerExtension"], function(ControllerExtension) {
+        "use strict";
+        return ControllerExtension.extend("SalesOrder.ext.OPExtend", {
+            // this section allows to extend lifecycle hooks or override public methods of the base controller
+            override: {
+               onInit: function() {},
+               share: {
+                    adaptShareMetadata: function(oShareMetadata) {
+                        oShareMetadata.email.title = "test email subject"; // customise or change email subject
+                        return oShareMetadata;
+                    }
+                }
+            }
+        });
+    }
+);</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Hiding Specific <span class="ph uicontrol">Share</span> Menu Options</h3>
+				<p>You can control the visibility of the share options displayed in the <span class="ph uicontrol">Share</span> menu. You cannot hide the
+						<span class="ph uicontrol">Save as Tile</span> option, as it is always visible to end users. However, you can control the visibility of
+					the <span class="ph uicontrol">Send E-mail</span> and <span class="ph uicontrol">Share: Microsoft Teams</span> options by configuring the
+						<code>manifest.json</code> file.</p>
+				<p>This configuration can be done at both application level and page level. If the application-level settings for the share options'
+					visibility is set to <code>true</code> (or is undefined), then its visibility is inherited from the page-level settings. If
+					the application-level settings for the share options' visibility is set to <code>false</code>, then the specific share option
+					is hidden, and the page-level settings aren't considered.</p>
+				<p>In the following sample code, the <span class="ph uicontrol">Share: Microsoft Teams</span> option is hidden by setting
+						<code>showMsTeamsOptions</code> to <code>false</code>, whereas the <code>showSendEmail</code> setting depends on
+					the expression value, which can be either <code>true</code> or <code>false</code>.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Application-level settings</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.fe": {
+        "app": {
+            "share": {
+                "showSendEmail": "{= !${isVerified} }",
+                "teams": {
+                    "showMsTeamsOptions": false
+                }
+            },
+            ...
+        }
+    }</pre></div></div></section><p></p></div></div>
+				<p>The following sample code shows you how the share options' visibility setting is configured at page level:</p>
+				<p>The <span class="ph uicontrol">Send E-mail</span> option is only hidden in the list report. The <span class="ph uicontrol">Share: Microsoft Teams</span>
+					option is displayed on the object page but is conditionally shown in the list report.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Page-level settings</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+        "routing": {
+            "targets": {
+                "SalesOrderManageList": {
+                    "type": "Component",
+                    "id": "SalesOrderManageList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "share": {
+                             "showSendEmail": false,
+                                "teams": {
+                                    "showMsTeamsOptions": "{= ${Delivered} }"
+                                },
+                                …
+                            }
+                        }
+                    },
+                    …
+                },
+                "SalesOrderManageObjectPage": {
+                    "type": "Component",
+                    "id": "SalesOrderManageObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "share": {
+                                "teams": {
+                                    "showMsTeamsOptions": true
+                                },
+                            },
+                            …
+                        }
+                    },
+                    …
+                },
+                …
+            }
+        }
+    }
+
+</pre></div></div></section><p></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The <code>showMsTeamsOptions</code> property is applicable only to apps that run on SAP Fiori launchpad, where the integration with <span class="ph uicontrol">Share: Microsoft
+							Teams</span> is available. The <span class="ph uicontrol">Share: Microsoft Teams</span> option is a part of collaborative ERP
+						(enterprise resource planning) within the SAP S/4HANA family of products and requires <code>ushell</code> and SAP Fiori launchpad configuration.</p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Semantic Bookmarking</h3>
+				<p>Semantic bookmarking enables the sharing of an object page even while it is being edited by an
+					end user, that is, even when the object
+					page has the status <span class="ph sap-technical-name">draft</span>.</p>
+				<p>When an
+					end user clicks on the chevron in a list
+					report table and navigates to an object page, the URL contains technical keys or semantic keys (depending on whether the
+					application developer has defined semantic keys in the metadata for the entity set of the list report).</p>
+				<p>The
+					following sample codes shows the semantic key annotation:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="Common.SemanticKey"&gt;
+   &lt;Collection&gt;
+      &lt;PropertyPath&gt;SalesOrder&lt;/PropertyPath&gt;
+   &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@ObjectModel: {
+  semanticKey: [ 'SalesOrder' ]
+}
+
+define view SALESORDERMANAGE {
+
+}</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Common.SemanticKey : [
+    SalesOrder
+],</pre></div></div></section><p></p></div></div>
+				<p>If the application developer does not define the annotations for the semantic keys, the URL contains only the technical keys. In
+					this case, if end user A shares the URL
+					using
+					the <span class="ph uicontrol">Share</span> functionality with end
+					user B, end user B will
+					only be able to open the list report page if end
+					user A shares while being in display mode. If
+					end user A is already in edit mode when
+					the URL is shared, then end user B will
+					not be able to open the link, since end
+					user B cannot access the draft of end
+					user A.</p>
+				<p>If, however, the application developer has defined semantic keys, the URL only contains semantic keys. In this case,
+					end user B will be able to open the shared
+					URL, irrespective of whether end user A
+					shares the active copy (display mode) or the draft copy (edit mode). If
+					end user A shares the draft copy, then
+					end user B sees the corresponding active
+					copy of the object.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Semantic bookmarking is currently not supported in the following cases:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>for subobject pages</p>
+						</li>
+						<li class="li">
+							<p>if not all of the semantic keys defined for the entity set are part of the available context</p>
+						</li>
+					</ul>
+					<p>In these cases, changing to edit mode results in the technical keys being added to the URL. If user A now shares the URL while
+						in edit mode, then user B will not be able to open the link, since user B cannot access the draft of user A for the same
+						record.</p>
+				<p></p></div></div>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

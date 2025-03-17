@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html style="height: 100%;">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<title>NetworkGraph</title>
+
+	<script id="sap-ui-bootstrap"
+			src="../../../../../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m, sap.suite.ui.commons"
+			data-sap-ui-theme="sap_horizon"
+			data-sap-ui-on-init="module:local/controller/NetworkGraph2.controller"
+			data-sap-ui-resourceroots='{"local": "./"}' 
+			data-sap-ui-xx-bindingSyntax='complex'>
+	</script>
+
+
+	<script id="myXml" type="text/xmldata">
+		<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="myController" xmlns="sap.suite.ui.commons.networkgraph"
+				  xmlns:core="sap.ui.core" xmlns:m="sap.m" displayBlock="true" height="100%">
+
+			<m:FlexBox renderType="Bare" width="100%" height="70%">
+				<Graph id="graph"
+					backgroundColor="{/backgroundColor}" backgroundImage="{/backgroundImage}" enableWheelZoom="{/enableWheelZoom}" enableZoom="{/enableZoom}"
+					noData="{/noData}" noDataText="{/noDataText}" orientation="{/orientation}"
+					renderType="{/renderType}" nodes="{/nodes}" groups="{/groups}" lines="{/lines}" statuses="{/statuses}">
+					<nodes>
+						<Node key="{key}" titleLineSize="{titleLineSize}" headerCheckBoxState="{headerCheckBoxState}" descriptionLineSize="{descriptionLineSize}" showActionLinksButton="{showActionLinksButton}" showDetailButton="{showDetailButton}" showExpandButton="{showExpandButton}" group="{group}" status="{status}" icon="{icon}" title="{title}" shape="{shape}" statusIcon="{statusIcon}" description="{description}" attributes="{path:'attributes', templateShareable:false}" actionButtons="{path:'actionButtons', templateShareable:false}">
+							<attributes>
+								<ElementAttribute icon="{icon}" label="{label}" labelStatus="{labelStatus}" value="{value}" valueStatus="{valueStatus}" />
+							</attributes>
+							<actionButtons>
+								<ActionButton icon="{icon}" title="{title}" position="{position}" enabled="{enabled}" press="openNodeControls"/>
+							</actionButtons>
+						</Node>
+					</nodes>
+					<lines>
+						<Line from="{from}" to="{to}" arrowPosition="{arrowPosition}" arrowOrientation="{arrowOrientation}" title="{title}" description="{description}" lineType="{lineType}" stretchToCenter="{stretchToCenter}" status="{status}" attributes="{attributes}" actionButtons="{actionButtons}" coordinates="{coordiantes}">
+							<attributes>
+								<ElementAttribute icon="{icon}" label="{label}" labelStatus="{labelStatus}" value="{value}" valueStatus="{valueStatus}" />
+							</attributes>
+							<actionButtons>
+								<ActionButton icon="{icon}" title="{title}" position="{position}" enabled="{enabled}" press="openLineControls"/>
+							</actionButtons>
+							<coordinates>
+								<Coordinate x="{x}" y="{y}"/>
+							</coordinates>
+						</Line>
+					</lines>
+					<groups>
+						<Group key="{key}" status="{status}" title="{title}" description="{description}" icon="{icon}"/>
+					</groups>
+					<statuses>
+						<Status key="{key}" title="{title}" legendColor="{legendColor}" borderStyle="{borderStyle}" borderWidth="{borderWidth}"
+								backgroundColor="{backgroundColor}" borderColor="{borderColor}" contentColor="{contentColor}" headerContentColor="{headerContentColor}"
+								hoverBackgroundColor="{hoverBackgroundColor}" hoverBorderColor="{hoverBorderColor}" hoverContentColor="{hoverContentColor}"
+								selectedBackgroundColor="{selectedBackgroundColor}" selectedBorderColor="{selectedBorderColor}" selectedContentColor="{selectedContentColor}"/>
+					</statuses>
+				</Graph>
+					<GraphMap id="map" graph="graph" directRenderNodeLimit="1">
+						<layoutData>
+							<m:FlexItemData minWidth="150px" maxWidth="20%"/>
+						</layoutData>
+					</GraphMap>
+			</m:FlexBox>
+
+			<m:Toolbar>
+				<m:Label text="Status" />
+				<m:Select id="statusSelect">
+					<core:Item key="custom" text="custom" />
+					<core:Item key="blue" text="blue" />
+					<core:Item key="Standard" text="Standard" />
+					<core:Item key="Error" text="Error" />
+					<core:Item key="Warning" text="Warning" />
+					<core:Item key="Success" text="Success" />
+					<core:Item key="Information" text="Information" />
+				</m:Select>
+				<m:Button text="Apply on selected" press="applyStatusOnSelected"/>
+				<m:Button text="Apply on all" press="applyStatusonAll"/>
+
+				<m:Label text="Render type" />
+				<m:Select selectedKey="{/renderType}">
+					<core:Item key="Html" text="Html" />
+					<core:Item key="Svg" text="Svg" />
+				</m:Select>
+				<m:Label text="orientation" />
+					<m:Select selectedKey="{/orientation}">
+						<core:Item key="BottomTop" text="BottomTop" />
+						<core:Item key="TopBottom" text="TopBottom" />
+						<core:Item key="RightLeft" text="RightLeft" />
+						<core:Item key="LeftRight" text="LeftRight" />
+					</m:Select>
+					<m:Label text="Background color" />
+					<m:Select selectedKey="{/backgroundColor}">
+						<core:Item key="Default" text="Default" />
+						<core:Item key="White" text="White" />
+					</m:Select>
+			</m:Toolbar>
+			<m:Toolbar>
+					<m:Label text="background image" /> <m:Input width="200px" value="{/backgroundImage}"/>
+					<m:CheckBox text="enableWheelZoom" selected="{/enableWheelZoom}"/>
+					<m:CheckBox text="enableZoom" selected="{/enableZoom}"/>
+					<m:CheckBox text="noData" selected="{/noData}"/>
+					<m:Label text="noDataText" /> <m:Input width="200px" value="{/noDataText}"/>
+			</m:Toolbar>
+		</mvc:View>
+
+	</script>
+
+	<script id="nodeControls" type="text/xmldata">
+		<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" controllerName="nodeController" xmlns="sap.suite.ui.commons.networkgraph"
+				  xmlns:core="sap.ui.core" xmlns:m="sap.m" displayBlock="true" height="100%">
+			<m:Label text="title" /> <m:Input value="{title}"/>
+			<m:Label text="titleLineSize" /> <m:Input value="{titleLineSize}" type="Number"/>
+			<m:Label text="description" /> <m:Input value="{description}"/>
+			<m:Label text="descriptionLineSize" /> <m:Input value="{descriptionLineSize}" type="Number"/>
+			<m:Label text="icon" /> <m:Input value="{icon}"/>
+			<m:Label text="group" /> <m:Input value="{group}"/>
+			<m:Label text="status" /> <m:Input value="{status}"/>
+			<m:Label text="statusIcon" /> <m:Input value="{statusIcon}"/>
+			<m:Label text="shape" /> <m:Select selectedKey="{shape}"><core:Item key="Circle" text="Circle" /><core:Item key="Box" text="Box" /></m:Select>
+			<m:Label text="headerCheckBoxState" /> <m:Select selectedKey="{headerCheckBoxState}"><core:Item key="Hidden" text="Hidden" /><core:Item key="Checked" text="Checked" /><core:Item key="Unchecked" text="Unchecked" /></m:Select>
+			<m:CheckBox text="showActionLinksButton" selected="{showActionLinksButton}"/>
+			<m:CheckBox text="showDetailButton" selected="{showDetailButton}"/>
+			<m:CheckBox text="showExpandButton" selected="{showExpandButton}"/>
+		</core:FragmentDefinition>
+	</script>
+
+	<script id="lineControls" type="text/xmldata">
+		<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" controllerName="nodeController" xmlns="sap.suite.ui.commons.networkgraph"
+				  xmlns:core="sap.ui.core" xmlns:m="sap.m" displayBlock="true" height="100%">
+			<m:Label text="title" /> <m:Input value="{title}"/>
+			<m:Label text="description" /> <m:Input value="{description}"/>
+			<m:Label text="arrowPosition" /> <m:Select selectedKey="{arrowPosition}"><core:Item key="End" text="End" /><core:Item key="Middle" text="Middle" /><core:Item key="Start" text="Start" /></m:Select>
+			<m:Label text="arrowOrientation" /> <m:Select selectedKey="{arrowOrientation}"><core:Item key="ParentOf" text="ParentOf" /><core:Item key="Both" text="Both" /><core:Item key="ChildOf" text="ChildOf" /><core:Item key="None" text="None" /></m:Select>
+			<m:Label text="lineType" /> <m:Select selectedKey="{lineType}"><core:Item key="Dashed" text="Dashed" /><core:Item key="Dotted" text="Dotted" /><core:Item key="Solid" text="Solid" /></m:Select>
+			<m:Label text="status" /> <m:Input value="{status}"/>
+			<m:CheckBox text="stretchToCenter" selected="{stretchToCenter}"/>
+		</core:FragmentDefinition>
+	</script>
+</head>
+<body class="sapUiBody" role="application" style="height: 100%">
+<div id="content" style="height:100%"></div>
+</body>
+</html>

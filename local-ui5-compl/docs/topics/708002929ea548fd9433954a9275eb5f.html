@@ -1,0 +1,61 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio708002929ea548fd9433954a9275eb5f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/creating-a-qunit-test-7080029.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating a QUnit Test</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating a QUnit Test</h2></div><div class="shortdesc">
+		
+	</div><section>
+			<h2 class="title ">Prerequisites</h2>
+			<p>As a prerequisite for creating a test, you need to have created a SAPUI5 application
+				project that contains a test suite. For more information on how to do this, see
+					<a href="topic/22f50c0f0b104bf3ba84620880793d3f" title="To apply the test starter concept to your SAPUI5 project, you need to create a test suite and a generic test page that allows for the running of one or multiple test modules." class="sap-doc">Concept and Basic Setup</a>. After completing this,
+				continue with the steps described in the subsequent sections.</p>
+		</section><section>
+			<h2 class="title ">Creating a Test Module</h2>
+			<p>Create a file <code>MyTest.qunit.js</code> in the folder
+				<code>webapp/test/unit</code>. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>You can use the file template shown in the
+					following example. This code snippet shows a basic QUnit test
+				template.</p></div></div>Each test file normally represents a SAPUI5 module, which is
+				being tested.<p></p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*global QUnit */
+sap.ui.define([], function() {
+  "use strict";
+
+  QUnit.module("Module A"); 
+
+  QUnit.test("Basic test example", function(assert) {
+    assert.ok(true, "this test is fine"); 
+    var value = "hello1"; 
+    assert.equal(value, "hello1", "We expect value to be 'hello1'"); 
+  });
+
+});</pre></div></div></section>
+			<p>QUnit test files do not include the SAPUI5 bootstrap
+					(<code>sap-ui-core.js</code>). Instead, the test starter ensures that the
+				QUnit tests are loaded within an HTML page.</p>
+		</section><section id="section_hp4_xhn_vcc">
+			<h2 class="title ">Adding a QUnit Test Module to a Test Suite</h2>
+			<p>In order to run a QUnit test, the corresponding module needs to be added to a test
+				suite.</p>
+			<section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(function() {
+	"use strict";
+
+	return {
+
+		// ...
+
+		tests: {
+			"unit/MyTest": {
+				title: "Unit tests for &lt;NAMESPACE&gt;"
+			},
+		}
+	};
+});</pre></div></div></section>
+		</section><section id="section_irf_23n_vcc">
+			<h2 class="title ">Running a QUnit Test</h2>
+			<p>Open the test suite <code>html</code> file in your desired browser to run the
+				newly created test module.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="https://qunitjs.com/" title="https://qunitjs.com/" class="external-link" target="_blank" rel="noopener">QUnit Home Page</a></li>
+		<li><a href="topic/291c9121e6044ab381e0b51716f97f52" title="In this tutorial we will test application functionality with the testing tools that are delivered with SAPUI5. At different steps of this tutorial you will write tests using QUnit, OPA5, and the OData V2 mock server. Additionally, you will learn about testing strategies, Test Driven Development (TDD), and much more." class="sap-doc">Testing Tutorial</a></li>
+	</ul></section></div></section></div></body></html>

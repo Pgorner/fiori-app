@@ -1,0 +1,40 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio04575456e15e426d81054805990c7a53" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/defining-dialogs-as-fragments-0457545.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Defining Dialogs as Fragments</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Defining Dialogs as Fragments</h2></div><div class="shortdesc">You can use fragments for the definition of dialogs.</div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+			<p>To use fragments for defining popups, just let the root control of the fragment be a dialog or
+				similar control. </p>
+			<p>The following shows an XML fragment dialog example: </p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Dialog xmlns="sap.m" title="XML Fragment Dialog"&gt;
+    &lt;TextView text="{/dialogText}" /&gt;
+    &lt;buttons&gt;
+        &lt;Button text="Close" press="closeDialog"/&gt;
+    &lt;/buttons&gt;
+&lt;/Dialog&gt;</pre></div></div></section>
+			<p>Other fragment types are used the same way to define, for instance, a dialog as fragment. </p>
+			<p>For example, in JS fragments, the <code>createContent()</code> method returns a
+				dialog control: </p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// fragment is located in a file named: testdata/fragments/JSFragmentDialog.fragment.js,
+sap.ui.define(["sap/m/Dialog", "sap/m/Input", "sap/m/Button"], function(Dialog, Input, Button) {
+    return {
+        createContent: function(oController) {
+            var oDialog = new Dialog({
+                title: "JavaScript Fragment Dialog",
+                content: [
+                    new Input({
+                        text: "{/dialogText}"
+                    })
+                ],
+                buttons: [
+                    new Button({
+                        text: "Close",
+                        press: function(){
+                            oDialog.close();
+                        }
+                    })
+                ]
+            });
+            return oDialog;
+        }
+    }
+});</pre></div></div></section>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,137 @@
+<mvc:View
+	controllerName="sap.fe.core.fpmExplorer.controller.ControllerExtensions"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:fpmExplorer="sap.fe.core.fpmExplorer.controls"
+>
+	<l:ResponsiveSplitter id="splitView">
+		<l:PaneContainer id="explorerPaneContainer" orientation="Horizontal">
+			<l:SplitPane id="explorerPane" requiredParentWidth="1">
+				<Page>
+					<customHeader>
+						<Bar>
+							<contentLeft>
+								<Title class="sapUiSmallMarginBegin" text="{/sample/topicTitle}" />
+								<MessageStrip
+									text="This example is in beta state - incompatible API changes may be done before its official public release."
+									visible="{= !!${/sample/experimental} || !!${/subSample/experimental} }"
+									showIcon="true"
+									type="Warning"
+									class="sapUiSmallMargin"
+								/>
+							</contentLeft>
+							<contentRight>
+								<ComboBox
+									id="subSample"
+									selectedKey="{/subSample/key}"
+									items="{/sample/subSamples}"
+									visible="{= ${/sample/subSamples} ? true : false }"
+									selectionChange="onSubSampleChange"
+								>
+									<core:Item key="{key}" text="{title}" />
+								</ComboBox>
+							</contentRight>
+						</Bar>
+					</customHeader>
+					<core:HTML
+						id="iframeWrapper"
+						preferDOM="false"
+						content='&lt;div class="sapUiTopicsDiv"&gt;&lt;iframe {/iframeAttribute} class="sapUiTopicsIframe" name="content" src="{/topicURL}" frameborder="0"&gt;&lt;/iframe&gt;&lt;/div&gt;'
+					/>
+				</Page>
+			</l:SplitPane>
+			<l:SplitPane id="editorPane" requiredParentWidth="1">
+				<Page id="editPage">
+					<customHeader>
+						<OverflowToolbar>
+							<Button
+								class="sapUiSmallMarginBegin"
+								text="Run"
+								type="Emphasized"
+								icon="sap-icon://media-play"
+								press="onRunPressed"
+								enabled="{settings>/editable}"
+								visible="{settings>/editable}"
+							>
+								<layoutData>
+									<OverflowToolbarLayoutData priority="High" />
+								</layoutData>
+							</Button>
+							<CheckBox
+								text="Auto Run"
+								selected="{settings>/autoRun}"
+								enabled="{settings>/editable}"
+								visible="{settings>/editable}"
+							>
+								<layoutData>
+									<OverflowToolbarLayoutData priority="Low" />
+								</layoutData>
+							</CheckBox>
+							<ToolbarSpacer />
+							<Button
+								id="uploadSample"
+								icon="sap-icon://upload"
+								tooltip="Upload and Import Sample"
+								text="Upload"
+								press="onUpload"
+								type="Transparent"
+								visible="{= !!${/sample/editable} || !!${/subSample/editable} }"
+							/>
+							<MenuButton
+								id="downloadSampleButton"
+								icon="sap-icon://download"
+								tooltip="Download"
+								text="Download"
+								type="Transparent"
+							>
+								<Menu>
+									<MenuItem text="All Files (.files.zip)" icon="sap-icon://attachment-zip-file" press="onDownloadZip" />
+									<MenuItem
+										text="Playground Project (.project.zip)"
+										icon="sap-icon://attachment-zip-file"
+										press="onDownloadProjectZip"
+										visible="{= !!${/sample/downloadProject} || !!${/subSample/downloadProject} }"
+									/>
+								</Menu>
+								<layoutData>
+									<OverflowToolbarLayoutData priority="High" />
+								</layoutData>
+							</MenuButton>
+							<Button
+								id="splitPaneBtn"
+								class="splitPaneBtn"
+								press="onChangeSplitPanePosition"
+								tooltip="Toggle Pane Position"
+								icon="sap-icon://screen-split-two"
+								type="Transparent"
+							>
+								<layoutData>
+									<OverflowToolbarLayoutData priority="Low" />
+								</layoutData>
+							</Button>
+							<Button
+								class="orientationBtn"
+								press="onChangeSplitterOrientation"
+								tooltip="Toggle Pane Orientation"
+								icon="sap-icon://header"
+								type="Transparent"
+							>
+								<layoutData>
+									<OverflowToolbarLayoutData priority="Low" />
+								</layoutData>
+							</Button>
+						</OverflowToolbar>
+					</customHeader>
+					<fpmExplorer:FileEditor
+						id="fileEditor"
+						fileChange="onFileEditorFileChange"
+						fileSwitch="onFileSwitch"
+						visible="{= ${settings>/editorType} === 'text' }"
+					/>
+				</Page>
+			</l:SplitPane>
+		</l:PaneContainer>
+	</l:ResponsiveSplitter>
+</mvc:View>

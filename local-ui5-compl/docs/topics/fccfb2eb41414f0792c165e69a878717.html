@@ -1,0 +1,249 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiofccfb2eb41414f0792c165e69a878717" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/initialization-and-read-requests-fccfb2e.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Initialization and Read Requests</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Initialization and Read Requests</h2></div><section><p>Bindings are called <span class="emphasis">absolute</span> if their path starts with a forward slash "/"; otherwise they are called
+					<span class="emphasis">relative</span>. Relative bindings are initial meaning that they have no data as long as they have no context. They
+				obtain a context either from a list binding where the context represents an entity for a certain index in an entity collection or from
+				a context binding where the context represents the one entity of the context binding. The binding which created the context is called
+				the <span class="emphasis">parent binding</span> of the relative binding; the relative binding is a <span class="emphasis">child binding</span> of its
+				parent binding. Dependent bindings of a binding are the set of child bindings of the binding itself and the dependent bindings of its
+				children. If the binding has no child bindings, it is the empty set.</p><p>An absolute binding creates a data service request to read
+				data once data is requested by a bound control or a child control with a relative binding. The read URL path is the model's service
+				URL concatenated with the binding's path. The read URL query options are the union of the binding's and model query options; query
+				options specified for the binding overwrite model query options.</p><p>For the absolute property bindings of singletons, see <a href="topic/648e360fa22d46248ca783dc6eb44531.html#loio648e360fa22d46248ca783dc6eb44531/section_APBS" title="648e360fa22d46248ca783dc6eb44531.xml#loio648e360fa22d46248ca783dc6eb44531/section_APBS" class="sap-doc">Absolute Property Bindings of Singletons</a>.</p>
+			<p>A relative list or context binding creates a data service request once it
+				has a context in the following cases:</p><ul class="ul ">
+				<li class="li">
+					<p>The relative binding has parameters, such as OData query options like <code>$select</code>, or binding-specific parameters with a name
+						starting with <code>$$</code>; for more information, see <a href="topic/1ab4f62de6ab467096a2a98b363a1373" title="1ab4f62de6ab467096a2a98b363a1373.xml" class="sap-doc">Parameters</a>. If you
+						want a relative binding to create its own data service request, use the binding-specific parameter
+							<code>$$ownRequest</code>.</p>
+				</li>
+				<li class="li">
+					<p>You specify a dynamic filter or dynamic sorter for a list binding and use
+							<code>sap.ui.model.odata.OperationMode.Server</code>, see sections <a href="topic/5338bd1f9afb45fb8b2af957c3530e8f" title="The OData V4 Model supports server side filtering on lists." class="sap-doc">Filtering</a> and <a href="topic/d2ce3f51e5e34198b0c1a7f6ddd98def" title="The OData V4 model supports server side sorting on lists." class="sap-doc">Sorting</a>.</p>
+				</li>
+			</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If the model is configured to compute <code>$expand</code> and <code>$select</code> automatically, this behaviour
+				changes, see <a href="topic/10ca58b701414f7f93cd97156f898f80" title="10ca58b701414f7f93cd97156f898f80.xml" class="sap-doc">Automatic determination of $expand and $select</a>.</p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>A relative property binding never creates a data
+				service request; its binding parameters are ignored in this case.</p></div></div><p>In all other cases, a relative binding reads data from its
+				parent binding that created the context. In case of an own data service request, the read URL path is the model's service URL
+				concatenated with the path of the binding's context and the binding's path. Set the binding-specific parameter
+					<code>$$canonicalPath</code> to <code>true</code> to use the canonical path computed from the context's path instead of
+				the context's path in the read URL.</p><p>The point in time that is used to actually send the request is determined as explained in
+				the section <a href="topic/74142a38e3d4467c8d6a70b28764048f" title="OData V4 allows you to group multiple operations into a single HTTP request payload, as described in the official OData V4 specification Part 1, Batch Requests (see the link under Related Information for more details)." class="sap-doc">Batch Control</a>. Bindings which create own data service requests cache data from
+				data service responses. They do not send a data service request if data can be served from this cache.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>List bindings read data in pages, i.e. they only access a certain index range from their bound collection; they only initiate a new data service
+				request if indexes are accessed which have not yet been read.</p></div></div><p>You can delete the cache for an absolute binding using its
+					<code>refresh</code> method. The method also deletes the caches of child bindings of the absolute binding.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>There must be no pending property changes for a binding and its child bindings when calling the <code>refresh</code> method. Use the
+				binding's <code>hasPendingChanges</code> method to check for pending changes before you delete the cache. To reset pending
+				changes, use <code>sap.ui.model.odata.v4.ODataModel#resetChanges</code>,
+					<code>sap.ui.model.odata.v4.ODataListBinding#resetChanges</code>,<code>
+					sap.ui.model.odata.v4.ODataContextBinding#resetChanges</code>, or <code>sap.ui.model.odata.v4.Context#resetChanges</code>.
+				To get rid of a transient entity you can use <code>sap.ui.model.odata.v4.Context#delete</code>.</p></div></div><p>You can refresh
+				all bindings with <code>ODataModel.refresh</code>, see
+						<a href="api/sap.ui.model.odata.v4.ODataModel#methods/refresh" title="api/sap.ui.model.odata.v4.ODataModel#methods/refresh" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/refresh">ODataModel.refresh</a> in the Demo Kit.</p><section>
+				<h3 class="title ">Refresh a single entity</h3>
+				<p>You can refresh a <span class="emphasis">single</span> entity by calling <a href="api/sap.ui.model.odata.v4.Context#methods/refresh" title="api/sap.ui.model.odata.v4.Context#methods/refresh" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/refresh"><code>sap.ui.model.odata.v4.Context#refresh</code></a> or the bound context or return value context of an <a href="api/sap.ui.model.odata.v4.ODataListBinding/overview" title="api/sap.ui.model.odata.v4.ODataListBinding/overview" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding/overview"><code>sap.ui.model.odata.v4.ODataListBinding</code></a> which corresponds to this entity. This also refreshes all
+					dependent bindings of its contexts.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>Usage of Context#refresh for a context in a list
+					binding</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">onRefreshSelectedSalesOrder : function () {
+    // within a sap.m.Table bound to a OData V4 list binding get the OData V4 context for the selected entity
+    var oSalesOrderContext = this.byId("SalesOrders").getSelectedItem().getBindingContext();
+      
+    if (!oSalesOrderContext.hasPendingChanges()) {
+        oSalesOrderContext.refresh();
+    }
+},</pre></div></div></section><p></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>Contexts of an <a href="api/sap.ui.model.odata.v4.ODataListBinding/overview" title="api/sap.ui.model.odata.v4.ODataListBinding/overview" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding/overview"><code>sap.ui.model.odata.v4.ODataListBinding</code></a> and the bound context of an <a href="api/sap.ui.model.odata.v4.ODataContextBinding/overview" title="api/sap.ui.model.odata.v4.ODataContextBinding/overview" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding/overview"><code>sap.ui.model.odata.v4.ODataContextBinding</code></a> can only be refreshed if the
+								binding is not relative to an <a href="api/sap.ui.model.odata.v4.Contex/overview" title="api/sap.ui.model.odata.v4.Contex/overview" class="sap-doc" alt="api/sap.ui.model.odata.v4.Contex/overview"><code>sap.ui.model.odata.v4.Context</code></a>.</p>
+						</li>
+						<li class="li">
+							<p>Refresh is only allowed if there are no pending changes for the context and all its dependent bindings. If you have a
+								relative binding with changes and this binding loses its context, the former parent binding does not report pending
+								changes: the changes are kept, but the relation between these bindings is lost. You can do the following:</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>To find out if there are pending changes, use
+											<code>sap.ui.model.odata.v4.ODataModel#hasPendingChanges</code>.</p>
+								</li>
+								<li class="li">
+									<p>To save the changes, use <code>sap.ui.model.odata.v4.ODataModel#submitBatch</code>; to reset the changes, use
+											<code>sap.ui.model.odata.v4.ODataModel#resetChanges</code>,
+											<code>sap.ui.model.odata.v4.ODataListBinding#resetChanges</code>,
+											<code>sap.ui.model.odata.v4.ODataContextBinding#resetChanges</code>, or
+											<code>sap.ui.model.odata.v4.Context#resetChanges</code>. To get rid of a transient entity you can use
+											<code>sap.ui.model.odata.v4.Context#delete</code>.</p>
+								</li>
+								<li class="li">
+									<p>If you set a context at the relative binding, the new parent binding will report the pending changes again.</p>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Allow removal of a single entity when refreshing</h3>
+				<p>After updating an entity, it may no longer match the query options for the collection which loaded the entity, in particular
+						<code>$filter</code>. You can decide whether the refresh on the context of a list binding should ignore the query options
+					or not: The corresponding context may be removed from the list binding for the collection by setting the parameter
+						<code>bAllowRemoval</code> to <code>true</code>.</p>
+				<p>Note that changes to the list like a different sort order require a refresh of the whole list.</p>
+				<p>An example can be seen in the <a href="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview" title="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview" class="sap-doc" alt="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview">SalesOrders</a> application. The table has a filter applied to show only the sales orders with <span class="ph uicontrol">Life
+						Cycle Status = "New"</span>. When confirming a sales order, its status will change to <span class="ph uicontrol">In Process</span>
+					and does not match the filter anymore. This sales order is then refreshed and will be removed from the list as the
+						<code>bAllowRemoval</code> flag is set to <code>true</code>. This is shown in the following code snippet:</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>refresh with allow
+					removal</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oAction.invoke("confirmSalesOrderActionGroup").then(function () {
+    oConfirmedSalesOrderContext.refresh(undefined, true); // bAllowRemoval = true
+});</pre></div></div></section><p></p></div></div>
+			</section><p>For details, see <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/refresh" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/refresh" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/refresh">ODataListBinding.refresh</a>, <a href="api/sap.ui.model.odata.v4.ODataContextBinding#methods/refresh" title="api/sap.ui.model.odata.v4.ODataContextBinding#methods/refresh" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding#methods/refresh">ODataContextBinding.refresh</a> and <a href="api/sap.ui.model.odata.v4.ODataPropertyBinding#methods/refresh" title="api/sap.ui.model.odata.v4.ODataPropertyBinding#methods/refresh" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataPropertyBinding#methods/refresh">ODataPropertyBinding.refresh</a> in the Demo Kit.</p><p><span class="emphasis">Example: Absolute and
+					relative bindings created by an XML
+				view</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Table items="{
+ path : '/SalesOrderList',
+ parameters : {
+  $expand : 'SO_2_BP',
+  $select : 'BuyerName,CurrencyCode,GrossAmount,Note,SalesOrderID'
+ }}"&gt;
+ ...
+ &lt;items&gt;  
+  &lt;ColumnListItem&gt;
+   &lt;cells&gt; 
+    &lt;Text text="{SalesOrderID}"/&gt; 
+    &lt;Text text="{SO_2_BP/CompanyName}"/&gt;
+    &lt;Text text="{BillingStatus}"/&gt; 
+   &lt;/cells&gt;
+  &lt;/ColumnListItem&gt;
+
+ &lt;/items&gt;
+&lt;/Table&gt;
+
+&lt;Table items="{
+ path : 'SO_2_SOITEM',
+ parameters : {
+    $select: "DeliveryDate,GrossAmount,SalesOrderID"
+ }
+&gt;
+...
+&lt;/Table&gt;
+</pre></div></div></section><p>The
+				above sample shows an absolute list binding: A table's <code>items</code> aggregation is bound to <code>/SalesOrderList</code>
+				using the <code>$expand</code> and <code>$select</code> query options as binding parameters. The columns define relative
+				bindings with paths <code>SalesOrderID</code>, <code>SO_2_BP/CompanyName</code>, and <code>BillingStatus</code> with the
+				absolute list binding as parent binding.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The <code>BillingStatus</code> remains empty and logs an error to the browser
+				console as this structural property is not part of the <code>$select</code> specified for the list binding.</p></div></div><p>The lower table for the line items has a relative binding. As it has parameters defined, it initiates its own data service request once it receives
+				its binding context.</p></section><section id="section_fkt_g1r_mgb">
+			<h2 class="title ">Property Binding to Metadata</h2>
+			<p>You can use <code>##</code> in a property binding's path to branch from data into
+				metadata.</p>
+			<p><span class="emphasis">Example: Determine label from the corresponding annotation for property
+						<code>GrossAmount</code></span></p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;SimpleForm binding="{/SalesOrderList('42')}"&gt;
+	&lt;Label text="{GrossAmount##@com.sap.vocabularies.Common.v1.Label}" /&gt;
+	&lt;Text text="{GrossAmount}" /&gt;
+&lt;/SimpleForm&gt;
+
+</pre></div></div></section>
+			<p>For details, see <a href="api/sap.ui.model.odata.v4.ODataModel#methods/bindProperty" title="api/sap.ui.model.odata.v4.ODataModel#methods/bindProperty" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/bindProperty"><code>sap.ui.model.odata.v4.ODataModel#bindProperty</code></a>.</p>
+		</section><section id="section_PBOV"><h2 class="title ">Property Binding With an Object Value</h2>
+			<p>A property binding can have an object value if the target type specified in the corresponding control property's binding info is "any" and the
+				binding is relative or points to metadata. The binding's mode has to be <code>OneTime</code>, see <a href="api/sap.ui.model.BindingMode" title="api/sap.ui.model.BindingMode" class="sap-doc" alt="api/sap.ui.model.BindingMode">sap.ui.model.BindingMode</a>, unless the binding is for an action
+				advertisement.</p>
+			<p>A <code>OneWay</code> binding mode is also supported for relative read-only data (not metadata!) bindings to complex types and collections
+				thereof; for entity types, use a context binding instead.</p>
+			<p><span class="emphasis">Example: Using the controller method
+						<code>'formatPhoneNumbersAsCSV'</code> to show a comma-separated list of
+					phone numbers for business partner contacts</span></p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;SimpleForm binding="{/BusinessPartnerList('42')}"&gt;
+	&lt;Label text="Phone number list" /&gt;
+	&lt;Text text="{path : 'BP_2_CONTACT', mode : 'OneTime', targetType : 'any', formatter : '.formatPhoneNumbersAsCSV'}" /&gt;
+&lt;/SimpleForm&gt;</pre></div></div></section>
+			<p>For details, see <a href="api/sap.ui.model.odata.v4.ODataModel#methods/bindProperty" title="api/sap.ui.model.odata.v4.ODataModel#methods/bindProperty" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/bindProperty"><code>sap.ui.model.odata.v4.ODataModel#bindProperty</code></a>.</p>
+		</section><section id="section_SE">
+			<h2 class="title ">Side Effects</h2>
+			<p>Editing properties of an entity sometimes causes side effects on other properties
+				within the same or a related entity. Normally, a <code>PATCH</code> request
+				which sends the user's input to the server includes side effects for the same entity
+				(if relevant for the UI) within its response. Sometimes, however, an application
+				needs more control on how and when this happens, or needs side effects on related
+				entities as well.</p>
+			<p>You can use <a href="api/sap.ui.model.odata.v4.Context#methods/requestSideEffects" title="api/sap.ui.model.odata.v4.Context#methods/requestSideEffects" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/requestSideEffects">sap.ui.model.odata.v4.Context#requestSideEffects</a> to load side effects. This method can be called on the
+				bound context of a context binding, a row context of a list binding, the header context of a list binding, or on the return value
+				context of an operation binding. Collection-valued navigation properties are fully supported, so an efficient request is sent instead
+				of a simple refresh. The <code>validateFieldGroup</code> event provides a suitable point in time to request side effects after a
+				certain group of fields has been changed. Using the <code>validateFieldGroup</code> event allows to initiate the side effect
+				request early enough, so that it is sent in the same batch request as the <code>PATCH</code> request. For more information, see
+					<a href="topic/5b0775397e394b1fb973fa207554003e" title="Group of controls that belong together semantically. This group can be used, for example, for validating the data consistency for the field group." class="sap-doc">Field Groups</a>. The API strikes a balance between the generic annotation-based use and
+				specific hard-coded uses. The <code>TargetEntities</code> and <code>TargetProperties</code> of the
+					<code>com.sap.vocabularies.Common.v1.SideEffects</code> annotation can be used directly as input for
+					<code>sap.ui.model.odata.v4.Context#requestSideEffects</code>. Note that the OData V4 model does not evaluate the
+					<code>SourceEntities</code> and<code> SourceProperties</code> of the
+					<code>com.sap.vocabularies.Common.v1.SideEffects</code> annotation. When requested from the OData V4 meta model, the
+				annotation value looks as follows:</p>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "SourceEntities" : [{
+        "$NavigationPropertyPath" : ""
+    }, ...],
+    "SourceProperties" : [{
+        "$PropertyPath" : "Name"
+    }, ...],
+    "TargetEntities" : [{
+        "$NavigationPropertyPath" : "DraftAdministrativeData"
+    }, ...],
+    "TargetProperties" : ["DraftAdministrativeData/*", ...]
+}</pre></div></div></section>
+			<p>Consider using the binding-specific <code>$$patchWithoutSideEffects</code>
+				parameter when using
+					<code>sap.ui.model.odata.v4.Context#requestSideEffects</code>. This
+				parameter may be used to prevent the implicit loading of side effects with the
+					<code>PATCH</code> response, see e.g. <a href="api/sap.ui.model.odata.v4.ODataModel#methods/bindContext" title="api/sap.ui.model.odata.v4.ODataModel#methods/bindContext" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/bindContext">sap.ui.model.odata.v4.ODataModel#bindContext</a>. It can
+				be set on context bindings and list bindings. If the parameter is not specified in a
+				relative binding, the parameter value from the parent binding is used.</p>
+			<p>The <code>sap.ui.model.odata.v4.Context#requestSideEffects</code> API requires a
+				single array as parameter, namely the concatenation of
+					<code>TargetEntities</code> and <code>TargetProperties</code>.</p>
+		</section><section id="section_uz4_fzq_xlb">
+			<h2 class="title ">Paging</h2>
+			<p>The OData V4 model automatically determines the system query options
+					<code>$top</code> and <code>$skip</code> based on the data range
+				requested by the control or the application. In the example below, the resulting
+				first request is <code>GET
+					People('angelhuffman')/Friends?$expand=Friends&$skip=0&$top=107</code>.
+				The value for <code>$top</code> is calculated from the length of the requested
+				data (7) plus the prefetch size provided by the control (100). Note that adding
+					<code>$top</code> and<code> $skip</code> for a nested collection is not
+				supported.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;table:Table id="PeopleTable" width="auto" title="People" visibleRowCount="7"
+        rows="{
+            path:'/People(\'angelhuffman\')/Friends',
+            parameters: {
+                $expand:'Friends'
+            }
+        }"&gt;
+ 
+    &lt;table:columns&gt;
+    ...
+    &lt;/table:columns&gt;
+&lt;/table:Table&gt;
+</pre></div></div></section>
+			<p>An additional paging mechanism is Server-Driven Paging, for which the server returns only a part of the requested data in order to limit the
+				response size. This mechanism is supported by the OData V4 model since SAPUI5 1.72. The model will provide the data retrieved with the
+				response to the control or application. A follow-up request is not initiated automatically but only once the control or application
+				request additional data from the model.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

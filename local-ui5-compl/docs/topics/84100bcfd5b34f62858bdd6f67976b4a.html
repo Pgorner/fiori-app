@@ -1,0 +1,386 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio84100bcfd5b34f62858bdd6f67976b4a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-3-extending-the-worklist-table-84100bc.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 3: Extending the Worklist Table</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 3: Extending the Worklist Table</h2></div><div class="shortdesc">In this step, we will edit the worklist table to include additional columns for our
+		manage product stocks scenario. We display the supplier, the product price, and the number
+		of units on order for each product and format the values accordingly.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio2def9d9de16f4b4a87dd4342486c70f7_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The improved worklist table with new columns and formatting</h2></span></div>
+		</section><section><h2 class="title ">Coding</h2><p>You can view and download all files in the Demo Kit at <a href="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.03" title="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.03" class="sap-doc" alt="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.03">Worklist App - Step 3</a>.</p><section>
+				<h3 class="title ">webapp/view/Worklist.view.xml [MODIFY]</h3>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+&lt;Table
+	id="table"
+	width="auto"
+	items="{
+		path: '/Products',
+		sorter: {
+			path: 'ProductName',
+			descending: false
+		}<span class="emphasis">,
+		parameters: {
+			'expand': 'Supplier'</span>
+		}
+	}"
+	noDataText="{worklistView&gt;/tableNoDataText}"
+	busyIndicatorDelay="{worklistView&gt;/tableBusyDelay}"
+	growing="true"
+	growingScrollToLoad="true"
+	updateFinished=".onUpdateFinished"&gt;
+	&lt;headerToolbar&gt;
+		&lt;Toolbar&gt;
+			&lt;Title id="tableHeader" text="{worklistView&gt;/worklistTableTitle}"/&gt;
+			&lt;ToolbarSpacer /&gt;
+			&lt;SearchField
+				id="searchField"
+				tooltip="{i18n&gt;worklistSearchTooltip}"
+				search=".onSearch"
+				width="auto"&gt;
+			&lt;/SearchField&gt;
+		&lt;/Toolbar&gt;
+…
+</pre></div></div></section>
+				<p>We want to display the supplier's company name in a separate column in the table
+					for each product. Therefore, we extend the <code>items</code> aggregation of
+					the table with an <code>expand</code> parameter for the
+						<code>Supplier</code> entity. With this, the supplier data will be
+					already included in the service request for the products.</p>
+				<p>We expand the supplier because we want to avoid sending one additional request
+					for each product to get the supplier. Furthermore, this allows us to bind
+					directly to <code>{Supplier/CompanyName}</code> later.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p><span class="emphasis">OData's "expand" Mechanism:</span></p>
+					<p>OData <code>$expand</code> is very helpful when combining data from
+						different service entities. Instead of having to send an additional service
+						request for the second entity, we simply expand the service call to include
+						the second entity as well – similar to a join in a relational database. Have
+						a look at the local service metadata definition file
+							<code>webapp/localService/metadata.xml</code> that represents
+						the interface of our service. In the <code>metadata</code> you can see a
+						list of entities that are available in this service, for example
+							<code>Products</code> and <code>Suppliers</code>. Each entity
+						lists a number of fields that we can bind to the properties of our view.</p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">webapp/localService/metadata.xml [MODIFY]</h3>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="Product"&gt;
+    &lt;Key&gt;
+        &lt;PropertyRef Name="ProductID"/&gt;
+    &lt;/Key&gt;
+    &lt;Property
+        xmlns:p8="http://schemas.microsoft.com/ado/2009/02/edm/annotation" Name="ProductID" Type="Edm.Int32" Nullable="false" p8:StoreGeneratedPattern="Identity"/&gt;
+        &lt;Property Name="ProductName" Type="Edm.String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false"/&gt;
+        &lt;Property Name="SupplierID" Type="Edm.Int32" Nullable="true"/&gt;
+        &lt;Property Name="CategoryID" Type="Edm.Int32" Nullable="true"/&gt;
+        &lt;Property Name="QuantityPerUnit" Type="Edm.String" Nullable="true" MaxLength="20" Unicode="true" FixedLength="false"/&gt;
+        &lt;Property Name="UnitPrice" Type="Edm.Decimal" Nullable="true" Precision="19" Scale="4"/&gt;
+        &lt;Property Name="UnitsInStock" Type="Edm.Int16" Nullable="true"/&gt;
+        &lt;Property Name="UnitsOnOrder" Type="Edm.Int16" Nullable="true"/&gt;
+        &lt;Property Name="ReorderLevel" Type="Edm.Int16" Nullable="true"/&gt;
+        &lt;Property Name="Discontinued" Type="Edm.Boolean" Nullable="false"/&gt;
+        &lt;NavigationProperty Name="Category" Relationship="NorthwindModel.FK_Products_Categories" FromRole="Products" ToRole="Categories"/&gt;
+        &lt;NavigationProperty Name="Order_Details" Relationship="NorthwindModel.FK_Order_Details_Products" FromRole="Products" ToRole="Order_Details"/&gt;
+        <span class="emphasis">&lt;NavigationProperty Name="Supplier" Relationship="NorthwindModel.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers"/&gt;</span>
+    &lt;/EntityType&gt;</pre></div></div></section>
+				<p>In the entity <code>Products</code>, you can see that an additional relation
+					to the <code>Supplier</code> is available as a
+						<code>NavigationProperty</code>. A navigation property links two
+					entities of an OData service and assigns the supplier to the product here.</p>
+				<p>When using a real OData service, the interface would be available by calling the
+					service URL directly in a browser (e.g.
+						<code>http://services.odata.org/V3/Northwind/Northwind.svc/$metadata</code>
+					for the Northwind OData test service). In our app project we use local mock data
+					and serve the data with the mock server instead.</p>
+			</section><section>
+				<h3 class="title ">webapp/view/Worklist.view.xml [MODIFY]</h3>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+&lt;columns&gt;
+<span class="emphasis">	&lt;Column id="nameColumn"&gt;
+		&lt;Text
+			id="nameColumnTitle"
+			text="{i18n&gt;TableNameColumnTitle}"/&gt;
+	&lt;/Column&gt;
+	&lt;Column
+		id="supplierNameColumn"
+		demandPopin="false"
+		minScreenWidth="Tablet"&gt;
+		&lt;Text text="{i18n&gt;TableSupplierColumnTitle}"/&gt;
+	&lt;/Column&gt;
+	&lt;Column
+		id="unitPriceColumn"
+		hAlign="End"
+		demandPopin="true"
+		minScreenWidth="Tablet"&gt;
+		&lt;Text text="{i18n&gt;TablePriceColumnTitle}"/&gt;
+	&lt;/Column&gt;
+	&lt;Column
+		id="unitsOnOrderColumn"
+		demandPopin="true"
+		minScreenWidth="Tablet"
+		hAlign="End"&gt;
+		&lt;Text text="{i18n&gt;TableUnitsOrderedColumnTitle}"/&gt;
+	&lt;/Column&gt;
+	&lt;Column
+		id="unitsInStockColumn"
+		hAlign="End"&gt;
+		&lt;Text text="{i18n&gt;TableUnitsInStockColumnTitle}"/&gt;
+	&lt;/Column&gt;</span>
+&lt;/columns&gt;
+…</pre></div></div></section>
+				<p>Next, we change the column definitions of the table. We define the new columns
+					and update the existing ones in the columns aggregation of the table according
+					to the code above (i.e. just copy and paste the highlighted content into your
+					columns aggregation).</p>
+				<p>The column definitions include a text that we will later define in the resource
+					bundle (<code>i18n</code> model – a short name for internationalization) so
+					that the column titles can be translated to other languages. And we will define
+					additional settings for text alignment and making the table responsive. Some
+					columns are not as important as others and can be displayed below the main
+					columns (<code>popin</code>) on devices with small or medium-sized
+					screens.</p>
+				<p>Let's have a detailed look at the columns:</p><ul class="ul ">
+						<li class="li">
+							<p>Product Name</p>
+							<p>The product name is the first column and it is always visible on any
+								device.</p>
+						</li>
+						<li class="li">
+							<p>Supplier</p>
+							<p>Each product has a supplier. This column contains the company name of
+								the supplier supplying the product. On small screen devices like
+								smart phones we hide this column as we do not have much screen space
+								for a table.</p>
+						</li>
+						<li class="li">
+							<p>Price</p>
+							<p>The currency of the product's unit price is Euro (EUR). We are
+								talking about stock levels in this app, so the number of units is
+								most interesting for us - not their price. Price is still good to
+								know, so it is not entirely removed. However, this field is not as
+								important as the unit fields and will <code>popin</code> on
+								smart phones.</p>
+						</li>
+						<li class="li">
+							<p>Units on Order</p>
+							<p>This column shows the units that have been ordered already for this
+								product and will be added to the stock shortly. In other words, this
+								is the number of items ordered, but not yet received. A shortage for
+								a product can easily be resolved by reordering the product in
+								advance (we add this feature later). This field will
+									<code>popin</code> on smart phone devices.</p>
+						</li>
+						<li class="li">
+							<p>Units in Stock</p>
+							<p>The column contains the product's stock units currently available for
+								sale. This field is the most important column for our manage product
+								stocks app. Therefore, this column is visible for all devices and
+								it's visible without a <code>popin</code>. Later, we will use
+								this column to visualize a stock status for the specific products so
+								that attention will be drawn to any stock issues with the products.
+							</p>
+						</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title ">webapp/model/formatter.js [MODIFY]</h3>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+<span class="emphasis">	"sap/ui/core/library"</span>
+] , function (<span class="emphasis">coreLibrary</span>) {
+    "use strict";
+
+<span class="emphasis">	// shortcut for sap.ui.core.ValueState
+	var ValueState = coreLibrary.ValueState;
+</span>
+
+	return {
+
+		...
+		}<span class="emphasis">,
+
+		/**
+		 * Defines a value state based on the stock level
+		 *
+		 * @public
+		 * @param {number} iValue the stock level of a product
+		 * @returns {string} sValue the state for the stock level
+		 */
+		quantityState: function(iValue) {
+			if (iValue === 0) {
+				return ValueState.Error;
+			} else if (iValue &lt;= 10) {
+				return ValueState.Warning;
+			} else {
+				return ValueState.Success;
+			}
+		}
+</span>
+
+	};
+
+});
+</pre></div></div></section>
+				<p>Our table has a column that will contain the units in stock for each product. It
+					would be nice to visualize the corresponding numbers so that we can point out
+					important information to the users, such as a shortage. We want to visualize the
+					numbers by using a specific <code>ValueState</code> depending on the units
+					in stock. This can be achieved by a simple formatter, which we will use later. </p>
+				<p>We add a new formatter function <code>quantityState</code> to the
+						<code>webapp/model/formatter.js</code> file. The
+						<code>ValueState</code> type is loaded as an additional dependency. The
+					formatter implements the following logic with a simple
+						<code>if</code>/<code>else</code> statement:</p><ul class="ul ">
+						<li class="li">
+							<p>A totally depleted stock (0 pieces remaining) will return a semantic
+									<code>Error</code> state that will color the text in the
+								units in stock field red.</p>
+						</li>
+						<li class="li">
+							<p>Very low stock (10 or less pieces remaining) will lead to a
+									<code>Warning</code> state (orange).</p>
+						</li>
+						<li class="li">
+							<p>A stock of more than 10 items will convert to
+									<code>Success</code> (green)</p>
+						</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title ">webapp/view/Worklist.view.xml [MODIFY]</h3>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+&lt;items&gt;
+    &lt;ColumnListItem
+        type="Navigation"
+        press="onPress"&gt;
+        &lt;cells&gt;
+         <span class="emphasis">&lt;ObjectIdentifier
+            title="{ProductName}"/&gt;
+         &lt;Text text = "{Supplier/CompanyName}"/&gt;
+         &lt;ObjectNumber
+            unit="EUR"
+            number="{
+               path: 'UnitPrice',
+               formatter: '.formatter.numberUnit'
+            }"/&gt;
+         &lt;ObjectNumber
+            number="{UnitsOnOrder}"
+            unit="PC"/&gt;
+         &lt;ObjectNumber
+            number="{UnitsInStock}"
+            unit="PC"
+            state="{
+               path: 'UnitsInStock',
+               formatter: '.formatter.quantityState'
+            }"/&gt;
+</span>
+      &lt;/cells&gt;
+   &lt;/ColumnListItem&gt;
+&lt;/items&gt;
+…</pre></div></div></section>
+				<p>The next task is to define the cells to appear in each row of the table. For each
+					column, we define a control in the <code>cells</code> aggregation of the
+					table and configure the data binding as well as the formatting of the data.</p><ul class="ul ">
+						<li class="li">
+							<p>The first cell simply displays the <code>ProductName</code>
+								property of the corresponding entity by using an
+									<code>ObjectIdentifier</code> control.</p>
+						</li>
+						<li class="li">
+							<p>The <span class="ph uicontrol">Supplier</span> cell of each row is a simple
+									<code>sap.m.Text</code> control. Its text property is bound
+								to <code>Supplier/CompanyName</code>. This references the
+								property <code>CompanyName</code> of the entity's
+									<code>NavigationProperty</code>
+								<code>Supplier</code>. This <code>NavigationProperty</code>
+								will be expanded automatically; we configured this earlier in this
+								step.</p>
+						</li>
+						<li class="li">
+							<p>The <span class="ph uicontrol">Price</span> cell uses an
+									<code>sap.m.ObjectNumber</code> control and a custom
+								formatter. You can find the formatter's implementation in the
+									<code>webapp/model/formatter.js</code> file. The unit
+								property is not bound and hard coded to "EUR" as the currency is not
+								part of the model for our app. The units on order are displayed with
+								a sap.m.ObjectNumber control as well, but without additional
+								formatting. Its <code>unit</code> property is hard coded to
+									<code>PC</code>, which is the short form for "pieces".</p>
+						</li>
+						<li class="li">
+							<p>The last cell shows the units in stock and was already specified in
+								the previous step. We would like to use this field to show an
+								additional status based on the stock level so we change the binding
+								syntax to an object notation and add an additional formatter
+									<code>quantityState</code>. We implemented this formatter in
+								the previous code block above.</p>
+						</li>
+					</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p> The formatter functions used in this XML view are loaded by the
+							controller and thus can be accessed relatively to the controller through
+							the property name <code>.formatter</code>. This logic is already
+							part of the initial app.</p>
+					<p></p></div></div><p></p>
+			</section>
+			<section>
+				<h3 class="title ">webapp/i18n/i18n.properties [MODIFY]</h3>
+				<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">#XTIT: The title of the column containing Product name
+TableProductColumnTitle=Product
+
+<span class="emphasis">#XTIT: The title of the column containing Supplier name
+TableSupplierColumnTitle=Supplier
+
+#XTIT: The title of the column containing Price
+TablePriceColumnTitle=Price
+
+#XTIT: The title of the column containing Ordered Units
+TableUnitsOrderedColumnTitle=Units Ordered
+
+#XTIT: The title of the column containing Units in Stock
+TableUnitsInStockColumnTitle=Units in Stock
+</span>
+
+#XBLI: Text for a table with no data
+tableNoDataText=No products are currently available
+...</pre></div></div></section>
+				<p>Finally, we modify the existing column names in the resource bundle file
+						<code>webapp/i18n/i18n.properties</code> to match our scenario and
+					add the new texts for the column titles. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The <code>webapp/i18n/i18n.properties</code> file contains some
+							annotations for each key in the file. These annotations offer some more
+							context, which can help translators to better interpret the semantics of
+							the text belonging to the keys. An example for such an annotation is
+							XTIT in the <code>i18n.properties</code> file above, which tells
+							that the corresponding key is supposed to be used as a title. The
+							guidelines at <a href="https://github.com/SAP/openui5/blob/-/docs/guidelines/translationfiles.md" title="https://github.com/SAP/openui5/blob/-/docs/guidelines/translationfiles.md" class="sap-doc">https://github.com/SAP/openui5/blob/-/docs/guidelines/translationfiles.md</a> give you a better idea of how this
+							can be used. Be aware that this is how SAP uses the annotations
+							internally. In case you want to use this approach to work with your own
+							translators make sure that you agree on a common set of allowed
+							annotations that everybody understands.</p>
+					<p></p></div></div><div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+						</p><p><span class="emphasis">Testing the responsiveness of the app</span></p>
+						<p>In the previous code blocks of this step we made sure that our table is
+							responsive. Depending on the device type, columns are hidden, displayed
+							as a popin, or displayed without a popin. Now, we want to test the
+							responsiveness without the having different devices. If you use the
+							Google Chrome browser, you can also use its great developer tools to
+							test the responsiveness of your app:</p><ol>
+								<li class="li">
+									<p>Call the app and open the developer tools in Chrome with
+											<span class="keyWrap"><kbd class="key">F12</kbd></span>.</p>
+								</li>
+								<li class="li">
+									<p>Choose the <span class="ph uicontrol">Toggle device mode</span>
+										icon.</p>
+								</li>
+								<li class="li">
+									<p>Now choose from the different devices in the
+											<span class="ph uicontrol">Models</span> field, and observe the
+										behavior of your app.</p>
+								</li>
+							</ol><p></p>
+					<p></p></div></div><p></p>
+			</section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/6a6a621c978145ad9eef2b221d2cf21d">Worklist App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/311890311f7148adbfbf248a6980df1c">Step 2: Custom Mock Data</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/85ec3a9454ac4eb1a901745e773844d3">Step 4: Quick Filter for the Worklist</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

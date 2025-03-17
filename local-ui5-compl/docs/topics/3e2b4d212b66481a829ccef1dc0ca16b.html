@@ -1,0 +1,375 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3e2b4d212b66481a829ccef1dc0ca16b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-table-personalization-3e2b4d2.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling Table Personalization</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling Table Personalization</h2></div><div class="shortdesc">You can use table personalization to modify the settings of a table.</div><p>You
+			can control the table personalization options that end users see.</p><section id="section_jpy_ctx_gqb">
+			<h2 class="title ">Filter Option</h2>
+			<p>The
+				default settings for filtering are as follows:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Disabled in the page-level variant</p>
+				</li>
+				<li class="li">
+					<p>Enabled in the control-level variant</p>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The filter option is available
+					in
+					the table personalization settings for responsive tables. For
+					other table types, the filter option, when enabled, is also available after
+					selecting the column header in addition to the personalization settings.</p>
+			<p></p></div></div>
+		</section><section id="section_a2h_ntx_gqb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><section>
+				<h3 class="title ">Enabling Table Filters</h3>
+				<p>In harmonized variant management, by default, end
+					users cannot set a filter in the
+					table personalization settings. To enable filtering for end
+					users, set the <code>enableTableFilterInPageVariant</code> property in the manifest. If
+						<code>smartVariantManagement</code> is set to <code>false</code>, then table filter is enabled by default.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+    "_version": "1.3.0",
+        "settings": {
+        "forceGlobalRefresh": true
+        },
+        "pages": {
+            "ListReport|STTA_C_MP_Product": {
+                "entitySet": "STTA_C_MP_Product",
+                "component": {
+                    "name": "sap.suite.ui.generic.template.ListReport",
+                    "list": true,
+                    "settings": {
+                        "smartVariantManagement": true,
+                        "enableTableFilterInPageVariant": true
+                    }
+                },</pre></div></div></section><p></p></div></div>
+			</section></div></section><section id="section_hgz_b5x_gqb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+				<h3 class="title ">Enabling and Disabling Table Personalization</h3>
+				<p>The <code>"variantManagement"</code> setting in the
+						<code>manifest.json</code>
+					file allows you to enable or disable the table
+					personalization
+					settings for end users.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Enable or disable table
+					personalization</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"BusinessPartnersList": {
+   "type": "Component",
+   "id": "BusinessPartnersList",
+   "name": "sap.fe.templates.ListReport",
+   "options": {
+      "settings": {
+         "contextPath": "/BusinessPartners",
+         "variantManagement": "Control"
+      }
+   }
+},
+</pre></div></div></section><p></p></div></div>
+				<p>In the list report, you can set the variant management to <code>"Page"</code>
+					level or to <code>"Control"</code> level. On an object page, you can set the
+					variant management to <code>"Control"</code> level or to
+						<code>"None"</code>.</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>"Page"</code> level (list report): With this setting, filtering
+							using the table personalization settings is disabled and users can
+							filter the table from the <code>filterBar</code>. The filters
+							applied in the <code>filterBar</code> can be saved as a page
+							variant.</p>
+					</li>
+					<li class="li">
+						<p><code>"None"</code> (object page): With this setting, variant
+							management is disabled.</p>
+					</li>
+					<li class="li">
+						<p><code>"Control"</code> level: With this setting, table
+							personalization is enabled.
+							The
+							following settings are available:</p><ul class="ul ">
+								<li class="li">
+									<p>Filtering</p>
+									<p>End
+										users
+										can filter table data choosing one or multiple
+										property
+										values (unless filtering is disabled). You can use the
+											<code>@com.sap.vocabularies.UI.v1.HiddenFilter</code>
+										annotation to exclude those columns you don't want to be
+										filterable.</p>
+									<div><div class="fig"><img src="loio3868aad5159941c6bd7e8bc7ea4ea307_LowRes.png" usemap="#"></div></div>
+									
+									<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>Filtering of navigation properties is only available for
+											properties used in the <code>LineItem</code>.</p>
+									<p></p></div></div>
+									
+								</li>
+								<li class="li">
+									<p>Sorting</p>
+									<p>
+									</p><div><div class="fig"><img src="loioe44ae8287564413e91f22b24ebd728d6_LowRes.png" usemap="#"></div></div>
+									<p>You can use the
+											<code>@.OData.Capabilities.V1.SortRestrictions</code>
+										annotation to exclude those columns you don't want to be
+										sortable. You can use the
+											<code>@.OData.Capabilities.V1.NavigationRestrictions</code>
+										annotation to exclude navigation properties.</p>
+									<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>Defining sort restrictions
+											is
+											only possible for first-level navigation entities. </p>
+									<p></p></div></div>
+									<p>You can use <code>SortRestrictions</code> to define your
+										desired <code>RestrictedProperty</code> in the
+											<code>NavigationRestrictions</code>. Use
+											<code>SortRestrictions</code> to either restrict all
+										properties of an entity by setting <code>Sortable</code>
+										to <code>false</code>, or to disable sorting of
+										individual properties using
+											<code>NonSortableProperties</code>. To add sort
+										retrictions for navigation properties, the list of
+											<code>NonSortableProperties</code> must be prefixed
+										with the <code>NavigationPropertyPath</code>.</p>
+									<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation for
+											<code>SortRestrictions</code> in
+											<code>NavigationRestrictions</code></p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="Capabilities.NavigationRestrictions"&gt;
+    &lt;Record Type="Capabilities.NavigationRestrictionsType"&gt;
+        &lt;PropertyValue Property="RestrictedProperties"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="Capabilities.NavigationPropertyRestriction"&gt;
+                    &lt;PropertyValue Property="NavigationProperty" NavigationPropertyPath="_OverallSDProcessStatus"/&gt;
+                    &lt;PropertyValue Property="SortRestrictions"&gt;
+                        &lt;Record Type="Capabilities.SortRestrictionsType"&gt;
+                            &lt;PropertyValue Property="NonSortableProperties"&gt;
+                                &lt;Collection&gt;
+                                    &lt;PropertyPath&gt;_OverallSDProcessStatus/OverallSDProcessStatus_Text&lt;/PropertyPath&gt;
+                                &lt;/Collection&gt;
+                            &lt;/PropertyValue&gt;
+                        &lt;/Record&gt;
+                    &lt;/PropertyValue&gt;
+                &lt;/Record&gt;
+                &lt;Record Type="Capabilities.NavigationPropertyRestriction"&gt;
+                    &lt;PropertyValue Property="NavigationProperty" NavigationPropertyPath="_SalesOrderType"/&gt;
+                    &lt;PropertyValue Property="SortRestrictions"&gt;
+                        &lt;Record Type="Capabilities.SortRestrictionsType"&gt;
+                            &lt;PropertyValue Property="NonSortableProperties"&gt;
+                                &lt;PropertyValue Property="Sortable" Bool="false"/&gt;
+                            &lt;/PropertyValue&gt;
+                        &lt;/Record&gt;
+                    &lt;/PropertyValue&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+									<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation for
+											<code>SortRestrictions</code>
+										</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@ObjectModel.sort.enabled: false</pre></div></div></section><p></p></div></div>
+									<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP
+										CDS Annotation for <code>SortRestrictions</code> in
+											<code>NavigationRestrictions</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">NavigationRestrictions : {
+    RestrictedProperties : [
+        {
+            NavigationProperty: _OverallSDProcessStatus,
+            SortRestrictions: {NonSortableProperties: [_OverallSDProcessStatus.OverallSDProcessStatus_Text]}
+        },
+        {
+            NavigationProperty: _SalesOrderType,
+            SortRestrictions: {Sortable: false}
+        }
+    ]
+}</pre></div></div></section><p></p></div></div>
+									<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>Sorting on navigation properties
+											can
+											lead to issues in CAP NodeJS when using an SQLite DB.</p>
+									<p></p></div></div>
+								</li>
+								<li class="li">
+									<p>Adding or removing columns</p>
+									<p>End
+										users can add or remove all properties of
+										the root entity of a given
+										table.
+										Selected properties are shown at the top of the list.
+										Users
+										can sort tables by choosing individual columns or multiple
+										columns (unless sorting is disabled). Users can sort each
+										column in ascending or descending order.</p>
+									<div><div class="fig"><img src="loiocaf79df2421b4c3783009449e20de68c_LowRes.png" usemap="#"></div></div>
+								</li>
+								<li class="li">
+									<p>Grouping
+										(available
+										for
+										analytical
+										and responsive tables)</p>
+								</li>
+							</ul>By default, the control variant management enables all settings,
+							but you can enable or disable each of these separately using the
+								<code>"personalization"</code> setting in the manifest.<p></p>
+						<p>For more information, see <a href="topic/8ce658e05498466d9a74823b94e840ac" title="Allows you manage variants with different structures in the filter and content areas." class="sap-doc">Managing Variants</a> and <a href="topic/f26d42bea11c4deda82c7a2e00c9bc05" title="You can enable and disable variant management on the object page." class="sap-doc">Enabling Variant Management on the Object Page</a>.</p>
+					</li>
+				</ul>
+				
+				<p>For a responsive table, the user can open the sorting, filtering, and grouping
+					dialog by clicking on the column header.</p>
+				<div><div class="fig"><img src="loiof1dd67ddcd2d42a0a6778572539ba0c9_LowRes.png" usemap="#"></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>When the end user selects the Filter menu, the default properties displayed
+						for sorting, filtering, and grouping are the properties visible in the
+						column. Any sorting and filtering restrictions are reflected in this dialog.
+						The TextArrangement also has an impact as described in the <a href="topic/3e2b4d212b66481a829ccef1dc0ca16b.html#loio3e2b4d212b66481a829ccef1dc0ca16b/personalization_text_arrangement" title="3e2b4d212b66481a829ccef1dc0ca16b.xml#loio3e2b4d212b66481a829ccef1dc0ca16b/personalization_text_arrangement" class="sap-doc">Personalization for Properties with Text Arrangement</a> subsection
+						in this topic.</p>
+				<p></p></div></div>
+				
+			</section><section>
+				<h3 class="title ">Sorting Amount with Currency or Unit of Measure</h3>
+				<p>When sorting a column that contains an amount with a currency or a unit of
+					measure, the sort will be applied on the currency or the unit of measure first
+					and then to the amount field. This ensures a consistent display of amount when
+					different currencies or units of measure are used.</p>
+			</section><section>
+				<h3 class="title ">Choosing Personalization Settings</h3>
+				<p>Variant
+					management on control level enables filtering,
+					sorting,
+					or
+					removing
+					columns, and grouping by default. Use the <code>"personalization"</code>
+					setting in the manifest to change the default behavior.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Users can sort tables by choosing individual columns or"BusinessPartnersList": {
+    "type": "Component",
+    "id": "BusinessPartnersList",
+    "name": "sap.fe.templates.ListReport",
+    "options": {
+        "settings": {
+            "contextPath": "/BusinessPartners",
+            "variantManagement": "Control",
+            "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                    "tableSettings": {
+                        "type": "AnalyticalTable",
+                        "personalization": {
+                            "column" : true,
+  	                        "sort" : false,
+  	                        "filter" : true, 
+                	        "group": true
+ 	                    }
+                    }
+                }
+            }
+        }
+    }
+},
+</pre></div></div></section><p></p></div></div>
+				<p>You can use the following values for the <code>"personalization"</code>
+					setting:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>true</code>
+							(default): Every table setting is enabled. If you add a new feature,
+							like grouping, this is enabled as well.</p>
+					</li>
+					<li class="li">
+						<p><code>false</code>:
+							Every table setting is disabled.</p>
+					</li>
+					<li class="li">
+						<p><code>object</code>:
+							If you use the value
+								<code>"object"</code>,
+							you must also define the values <code>"column"</code>,
+								<code>"sort"</code> and <code>"filter"</code>. If the table
+							is an analytical table, you can also configure the
+								<code>"group"</code>. In this case omitting a setting is treated
+							as false, which prevents apps from getting new features in upcoming
+							releases. You can see this in the sample code above, where the object is
+							used as a value for an analytical table.</p>
+					</li>
+				</ul>
+				
+			</section><section id="personalization_text_arrangement">
+				
+				
+				<h3 class="title ">Personalization for Properties with Text
+					Arrangement</h3>
+				<p>Note the following when enabling personalization for properties that have a text
+					arrangement
+					annotation:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>Sorting and filtering is available for the properties visible in a
+							column. For example, for properties with text arrangement set as
+								<code>#TextFirst</code>,
+							the property itself or its text can be sorted or grouped. For properties
+							with text arrangement set as
+							<code>#TextOnly</code>,
+							sorting and grouping is only available for their text.
+							However,
+							filtering for properties with text arrangement #TextOnly applies
+							directly on the property itself and not on its text. Filtering on its
+							text may also be available if no filter restriction is defined for the
+							text property. When selecting the Filter menu from the column header,
+							the default property will be the property and not its
+							text.</p>
+					</li>
+					<li class="li">
+						<p>If a label is defined for a column within the <code>LineItem</code>,
+							then this label is used in the <span class="ph uicontrol">Sort</span> and
+								<span class="ph uicontrol">Group</span> menus if the column displays a single
+							property. In the <span class="ph uicontrol">Filter</span> menu, the property name
+							is displayed instead.</p>
+					</li>
+					<li class="li">
+						<p>For properties with text arrangement set as <code>#TextOnly</code>,
+							if its text is annotated as <code>UI.Hidden = true</code>, then the
+							annotation is ignored. This text property can still be sorted and
+							grouped.</p>
+					</li>
+					<li class="li">
+						<p>If a <code>sortOrder</code> is set using a presentation variant on a
+							property with text arrangement set as <code>#TextOnly</code>, the
+							sorting is applied on the property and not the text. The sort indicator
+							will not appear in the header column containing the property, as the
+							property is not visible on the table. This also applies for the sort and
+							group tabs on the table personalization dialog. </p>
+					</li>
+					<li class="li">
+						<p>If a column contains a property with a <code>TextArrangement</code>
+							annotation and the target property of the
+								<code>TextArrangement</code> is not part of the
+								<code>lineItems</code>, this target property is not available in
+							the personalization dialog under the <span class="ph uicontrol">Columns</span>
+							tab.</p>
+					</li>
+				</ul>
+				
+				
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

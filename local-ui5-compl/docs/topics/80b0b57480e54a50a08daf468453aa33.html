@@ -1,0 +1,336 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio80b0b57480e54a50a08daf468453aa33" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-2-3d-viewer-with-multiple-file-loading-80b0b57.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 2: 3D Viewer With Multiple File Loading</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 2: 3D Viewer With Multiple File Loading</h2></div><div class="shortdesc">In this step, you will be creating a Viewer application that allows a user to load
+        multiple 3D resources stored locally.</div><p>The content in this tutorial step references <a href="topic/0e219128fe564855b91ae50d7a29424b" title="In this step, you will be creating a 3D Viewer application that allows a user to load a single 2D image or 3D model that is stored locally or remotely." class="sap-doc">Step 1: 3D Viewer With Single File Loading</a> for comparative purposes.</p><section>
+            <h2 class="title ">Preview</h2>
+            <div><div class="fig"><img src="loio9425f9ffdb234562968d288700739c56_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Viewer application with multiple file loading capability</h2></span></div>
+        </section><section><h2 class="title ">Coding</h2><p>You can view and download all files at <a href="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.02" title="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.02" class="sap-doc" alt="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.02">3D Viewer - Step 2 - 3D Viewer With Multiple
+                        File Loading</a> .</p><section>
+                <h3 class="title ">index.html</h3>
+                <p>Update the <code>index.html</code> file to reference the
+                        <code>multipleFiles</code> namespace, which will be the namespace we'll
+                    use for the sample application in this step.</p>
+                <section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+  &lt;head&gt; 
+      &lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8" /&gt; 
+        &lt;script  
+          id="sap-ui-bootstrap" 
+          src="https://ui5.sap.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-compat-version="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-libs="sap.ui.vk, sap.m"
+          data-sap-ui-resource-roots='{ 
+                  "multipleFiles": "./"  
+            }'&gt; 
+      &lt;/script&gt; 
+      &lt;script&gt; 
+          sap.ui.getCore().attachInit(function () { 
+              new sap.m.Shell({ 
+                  app: new sap.ui.core.ComponentContainer({ 
+                      name: "multipleFiles" 
+                  }) 
+              }).placeAt("content"); 
+          }); 
+      &lt;/script&gt; 
+  &lt;/head&gt; 
+  &lt;body id="content" class="sapUiBody"&gt; 
+  &lt;/body&gt; 
+&lt;/html&gt;</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">Component.js</h3>
+                <p>Update the <code>Component.js</code> file to reference the namespace
+                    specified for this application.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/UIComponent" 
+], function (UIComponent) { 
+    "use strict"; 
+    return UIComponent.extend("multipleFiles.Component", { 
+        metadata: { 
+            manifest: "json" 
+        }, 
+
+        init: function () { 
+            // call the init function of the parent  
+            UIComponent.prototype.init.apply(this, arguments); 
+        } 
+    }); 
+});</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">i18n.properties</h3>
+                <p>In the <code>i18n.properties</code> file, we have labels for the toolbar, the
+                    page title, the three input fields, the <span class="ph uicontrol">Load</span> button, and
+                    the error message that is displayed when the user attempts to load a model
+                    without specifying one to load.</p>
+                <section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis"># App Descriptor
+appTitle=App title 
+appDescription=This is a description coming from the i18n as specified in manifest.json   
+
+# Viewer Descriptor  
+viewerToolbarTitle=Upload multiple files   
+
+# Page Descriptor  
+pageTitle=Multiple File   
+
+# Form Descriptor  
+formRemoteURL1=Remote Model URL 1  
+formRemoteURL2=Remote Model URL 2  
+formRemoteURL3=Remote Model URL 3  
+buttonLoadModel=Load   
+
+# Message Toast   
+missingUrl=Please specify at least one URL   </span></pre></div></div></section>
+            </section><section>
+                <h3 class="title ">manifest.json</h3>
+                <p>Update the <code>manifest.json</code> file so that it references the correct
+                    files.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{ 
+    "_version": "1.8.0", 
+    "sap.app": { 
+        "id": "multipleFiles", 
+        "type": "application", 
+        "i18n": "i18n/i18n.properties", 
+        "title": "{{appTitle}}", 
+        "description": "{{appDescription}}", 
+        "applicationVersion": { 
+            "version": "1.0.0" 
+        } 
+    }, 
+    "sap.ui": { 
+        "technology": "UI5", 
+        "deviceTypes": { 
+            "desktop": true, 
+            "tablet": true, 
+            "phone": true 
+        } 
+    }, 
+    "sap.ui5": { 
+        "rootView": "multipleFiles.view.App", 
+        "dependencies": { 
+            "minUI5Version": "1.30", 
+            "libs": { 
+                "sap.m": {} 
+            } 
+        }, 
+        "models": { 
+            "i18n": { 
+                "type": "sap.ui.model.resource.ResourceModel", 
+                "settings": { 
+                    "bundleName": "multipleFiles.i18n.i18n" 
+                } 
+            } 
+        } 
+    } 
+} 
+
+ </pre></div></div></section>
+            </section><section>
+                <h3 class="title ">App.view.xml</h3>
+                <p>This file specifies how the page in the application will be laid out. We only
+                    have one <code>formElement</code> in the form container, which contains the
+                    fields for loading 3D resources that are stored locally. In the element, we have
+                    specified three input text fields and one button for loading. The labels to use
+                    for each of the fields are specified in the text attributes.</p>
+                <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View 
+   controllerName="multipleFiles.controller.App" 
+   xmlns="sap.m" 
+   xmlns:mvc="sap.ui.core.mvc" 
+   xmlns:vk="sap.ui.vk" 
+   xmlns:l="sap.ui.layout" 
+   xmlns:f="sap.ui.layout.form" 
+   xmlns:u="sap.ui.unified" 
+   displayBlock="true"&gt; 
+    &lt;App id="multipleFiles"&gt; 
+        &lt;Page 
+            title="{i18n&gt;pageTitle}"&gt; 
+            &lt;vk:Viewer 
+                id="viewer" 
+                toolbarTitle="{i18n&gt;viewerToolbarTitle}" 
+                width="100%" 
+                height="85%" 
+                       /&gt; 
+            &lt;f:Form editable="true"&gt; 
+                &lt;f:layout&gt; 
+                    &lt;f:ResponsiveGridLayout/&gt; 
+                &lt;/f:layout&gt; 
+                &lt;f:formContainers&gt; 
+                    &lt;f:FormContainer&gt; 
+                        &lt;f:formElements&gt; 
+                            &lt;f:FormElement&gt;        
+                                &lt;f:fields&gt; 
+                                    &lt;Input 
+                                           value="{source&gt;/url1}" 
+                                           valueLiveUpdate="true" 
+                                           placeholder="{i18n&gt;formRemoteURL1}"&gt; 
+                                        &lt;layoutData&gt; 
+                                            &lt;l:GridData span="L12 M12 S12" /&gt; 
+                                        &lt;/layoutData&gt; 
+                                    &lt;/Input&gt; 
+                                    &lt;Input 
+                                           value="{source&gt;/url2}" 
+                                           valueLiveUpdate="true" 
+                                           placeholder="{i18n&gt;formRemoteURL2}"&gt; 
+                                        &lt;layoutData&gt; 
+                                            &lt;l:GridData span="L12 M12 S12" /&gt; 
+                                        &lt;/layoutData&gt; 
+                                    &lt;/Input&gt; 
+                                    &lt;Input 
+                                           value="{source&gt;/url3}" 
+                                           valueLiveUpdate="true" 
+                                           placeholder="{i18n&gt;formRemoteURL3}"&gt; 
+                                        &lt;layoutData&gt; 
+                                            &lt;l:GridData span="L12 M12 S12" /&gt; 
+                                        &lt;/layoutData&gt; 
+                                    &lt;/Input&gt; 
+                                    &lt;Button 
+                                            text="{i18n&gt;buttonLoadModel}" 
+                                            press="onPressLoadRemoteModels"&gt; 
+                                        &lt;layoutData&gt; 
+                                            &lt;l:GridData span="L2 M2 S2" /&gt; 
+                                        &lt;/layoutData&gt; 
+                                    &lt;/Button&gt; 
+                                &lt;/f:fields&gt; 
+                            &lt;/f:FormElement&gt; 
+                        &lt;/f:formElements&gt; 
+                    &lt;/f:FormContainer&gt; 
+                &lt;/f:formContainers&gt; 
+            &lt;/f:Form&gt; 
+        &lt;/Page&gt; 
+    &lt;/App&gt; 
+&lt;/mvc:View&gt; </pre></div></div></section>
+            </section><section>
+                <h3 class="title ">App.controller.js</h3>
+                <p>Since we now have a different layout for the Viewer application compared to the
+                    sample Viewer application in <a href="topic/0e219128fe564855b91ae50d7a29424b" title="In this step, you will be creating a 3D Viewer application that allows a user to load a single 2D image or 3D model that is stored locally or remotely." class="sap-doc">Step 1: 3D Viewer With Single File Loading</a>, we will need to change the logic for the application to accommodate for
+                    multiple file loading.</p>
+                <p>Add the <code>checkIfAllInputsEmpty</code> function to check whether the user
+                    has entered text into any of the input fields in the application. The
+                        <code>checkIfAllInputsEmpty</code> function returns the value
+                        <code>true</code> if the user hasn't entered any input at all, and the
+                    existing <code>handleEmptyUrl</code> function is called to display a message
+                    on the screen.</p>
+                <p>Update the <code>onInit</code> function so that we are specifying an empty
+                    data structure with three properties (<code>url1</code>,
+                        <code>url2</code>, and <code>url3</code>).</p>
+                <p>Replace the <code>loadModelIntoViewer</code> and
+                        <code>onPressLoadRemoteModel</code> functions with the following
+                        functions:</p><ul class="ul ">
+                        <li class="li"><code>loadModelsIntoViewer</code> - loads the models into
+                            Viewer</li>
+                        <li class="li"><code>onPressLoadRemoteModels</code> - handles the click event on
+                            the <span class="ph uicontrol">Load</span> button</li>
+                    </ul><p></p>
+                <p>Remove the following functions:</p><ul class="ul ">
+                        <li class="li"><code>onPressLoadRemoteImage</code> (since we are only loading 3D
+                            resources)</li>
+                        <li class="li"><code>onChangeFileUploader</code> (since we are not using the
+                            FileUploader control for this application)</li>
+                    </ul><p></p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/vk/ContentResource",
+    "sap/m/MessageToast"
+], function (Controller, JSONModel, ContentResource, MessageToast) {
+    "use strict";
+     
+    //throws a Message Toast alert on the screen
+    //when the user tries to load a model but there's no url specified
+    var handleEmptyUrl = function (view) {
+        var oBundle = view.getModel("i18n").getResourceBundle();
+        var msg = oBundle.getText("missingUrl");
+        MessageToast.show(msg);
+    };
+     
+    <span class="emphasis">//checks if all URL input fields are empty or not
+    var checkIfAllInputsEmpty = function (urls) {
+        var allEmpty = true;
+        for (var i = 0; i &lt; urls.length; i++) {
+            if (urls[i]) {
+                allEmpty = false;
+                break;
+            }
+        }
+        return allEmpty;
+    }
+     
+    //loads the models from the URLs into the viewer
+    var loadModelsIntoViewer = function (viewer, urls, sourceType) {
+        //clears all the models currently loaded in the viewer
+        viewer.destroyContentResources();
+         
+        //iterates through all URLs
+        //and loads all models into the viewer
+        for (var i = 0; i &lt; urls.length; i++) {
+            if (urls[i]) {
+                var nameParts = urls[i].split("/"); 
+                var contentResource = new ContentResource({
+                    source: urls[i],
+                    sourceType: sourceType,
+                    sourceId: "abc",
+                   name: nameParts[nameParts.length - 1]
+                });
+                //add current model to the viewer
+                viewer.addContentResource(contentResource);
+            }
+        }
+    };
+    return Controller.extend("multipleFiles.controller.App", {
+        //when the controller is initialized,
+        //we declare an empty structure and
+        //we set this as model for the URLs
+        onInit: function () {
+            var sourceData = {
+                url1: "",
+                url2: "",
+                url3: ""
+            };
+            var model = new JSONModel();
+            model.setData(sourceData);
+            this.getView().setModel(model, "source");
+        },
+         
+        //onPressLoadRemoteModels handles the click event on the LOAD button
+        onPressLoadRemoteModels: function (event) {
+            var view = this.getView();
+            //set the source model to a variable
+            var sourceData = view.getModel("source").getData();
+
+             
+            //get the current viewer control
+            var viewer = view.byId("viewer");
+             
+            //create the list of URLs from the input fields
+            var urls = [sourceData.url1, sourceData.url2, sourceData.url3];
+             
+            //if all URL inputs are empty show an alert on the screen
+            //if at least one URL is specified, then take the URL list
+            //and load all existing ones into the viewer
+            if (checkIfAllInputsEmpty(urls)) {
+                handleEmptyUrl(view);
+            } else {
+                loadModelsIntoViewer(viewer, urls, "vds4");
+                        } 
+                    } 
+                }); 
+            }
+        }
+    });</span>
+});</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">Testing the Application</h3>
+                <p>To test that the application works, we will load three 3D resources into the
+                    Viewer application.</p>
+                <p>Download the following VDS files from the <span class="ph uicontrol">Samples</span> in the
+                    Demo Kit:</p><ul class="ul ">
+                        <li class="li"><code>cooper.vds</code></li>
+                        <li class="li"><code>boxTestModel.vds</code></li>
+                        <li class="li"><code>cylinderTestModel.vds</code></li>
+                    </ul><p></p>
+                <p>Type in the file path of the VDS files into each of the input text fields, and
+                    click on the <span class="ph uicontrol">Load</span> button to load the 3D models. The
+                    content of all three files will overlap with each other, so to see box and
+                    cylinder you have to hide cooper. Your screen should look like the following: </p>
+                <div><div class="fig"><img src="loio50c1c1757d394f6791fea449eee67eaf_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Viewer application loaded with three VDS files</h2></span></div>
+            </section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

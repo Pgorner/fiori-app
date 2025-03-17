@@ -1,0 +1,37 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio263f6e5a915f430894ee290040e7e220" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/require-263f6e5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">require</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">require</h2></div><div class="shortdesc">The <code>template:require</code> attribute can be used at the root element of an
+		XML template view or fragment. You can specify a list of required modules as Unified
+		Resource Names, similar to <code>sap.ui.require</code>, and assign aliases to them using
+		a JSON-like syntax. The aliases can then be used to access the modules in the same way
+			<code>&lt;template:alias&gt;</code> works. (This requires that the view is loaded
+		asynchronously.)</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The aliases can be used for formatter references (first <code>text</code> element in the
+			code sample) as well as for function calls inside an expression binding (second
+				<code>text</code> element in the code sample).</p></div></div><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">"require" Template</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+  controllerName="sap.ui.core.sample.ViewTemplate.scenario.Detail"
+  template:require="{Helper: 'sap/ui/core/sample/ViewTemplate/scenario/Helper',
+    AnnotationHelper: 'sap/ui/model/odata/AnnotationHelper'}"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"&gt;
+&lt;template:alias name="bar" value="Helper.bar"&gt;
+&lt;Text text="{formatter: 'bar', path: '/foo'}"/&gt;
+&lt;Text text="{= bar(${/foo}) }"/&gt;
+</pre></div></div></section>
+		</div></section><p>For compatibility reasons, especially if the view is loaded synchronously, the
+				<code>template:require</code> attribute may contain a space-separated list of
+			module names for <code>jQuery.sap.require</code>. These modules will then be
+			required before processing. You have to access them via their global names.</p><p><code>sap.ui.model.odata.AnnotationHelper</code> is automatically available.</p><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+  controllerName="sap.ui.core.sample.ViewTemplate.scenario.Detail"
+  template:require="sap.ui.core.sample.ViewTemplate.scenario.Helper"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"&gt;</pre></div></div></section>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,59 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4a063b8250f24d0cbf7c689821df7199" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-17-listen-to-matched-events-of-any-route-4a063b8.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 17: Listen to Matched Events of Any Route</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 17: Listen to Matched Events of Any Route</h2></div><div class="shortdesc">In the previous step, we have listened for bypassed events to detect possible
+		technical issues with our app. In this step, we want to improve the analysis use case even
+		more by listening to any matched event of the route. We could use this information to
+		measure how the app is used and how frequently the pages are called. Many Web analytic tools
+		track page hits this way. The collected information can be used, for example to improve our
+		app and its usability.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loioea12aae79b3841fe927f8e57f2f73e3b_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Console output for routes matched by listening to
+						<code>routeMatched</code> events</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.17" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.17" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.17">Routing and Navigation - Step
+					17</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/App.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController",
+	"sap/base/Log"
+], function (BaseController, Log) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.App", {
+		onInit: function () {
+			// This is ONLY for being used within the tutorial.
+			// The default log level of the current running environment may be higher than INFO,
+			// in order to see the debug info in the console, the log level needs to be explicitly
+			// set to INFO here.
+			// But for application development, the log level doesn't need to be set again in the code.
+			Log.setLevel(Log.Level.INFO);
+
+			var oRouter = this.getRouter();
+			oRouter.attachBypassed(function (oEvent) {
+				var sHash = oEvent.getParameter("hash");
+				// do something here, i.e. send logging data to the back end for analysis
+				// telling what resource the user tried to access...
+				Log.info("Sorry, but the hash '" + sHash + "' is invalid.", "The resource was not found.");
+			});
+			<span class="emphasis">oRouter.attachRouteMatched(function (oEvent){
+				var sRouteName = oEvent.getParameter("name");
+				// do something, i.e. send usage statistics to back end
+				// in order to improve our app and the user experience (Build-Measure-Learn cycle)
+				Log.info("User accessed route " + sRouteName + ", timestamp = " + Date.now());
+			});</span>
+		}
+	});
+});</pre></div></div></section>
+			<p>We extend the <code>App</code> controller again and listen to the
+					<code>routeMatched</code> event. The <code>routeMatched</code> event is
+				thrown for any route that matches to our route configuration in the descriptor file.
+				In the event handler, we determine the name of the matched route from the event
+				parameters and log it together with a time stamp. In an actual app, the information
+				could be sent to a back-end system or an analytics server to find out more about the
+				usage of your app.</p>
+			<p>Now you can access, for example, <code>webapp/index.html#/employees</code> while
+				you have the console of the browser open. As you can see, there is a message logged
+				for each navigation step that you do within the app.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/a7932a791adc4a58ae4693400801ea5f">Step 16: Handle Invalid Hashes by Listening to Bypassed Events</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

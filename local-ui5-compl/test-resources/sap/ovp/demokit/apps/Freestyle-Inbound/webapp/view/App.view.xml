@@ -1,0 +1,37 @@
+<mvc:View
+	controllerName="Freestyle-Inbound.controller.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	displayBlock="true"
+>
+	<App>
+		<pages>
+			<Page title="{i18n>homePageTitle}">
+				<content>
+					<Panel>
+						<List headerText="Application Startup Parameters" noDataText="No Parameters Passed" items="{path:'startupParameters>/parameters'}">
+							<DisplayListItem label="{startupParameters>key}" value="{startupParameters>value}" />
+						</List>
+						<List headerText="X-App State Key" noDataText="No Appstate key Passed">
+							<DisplayListItem label="Key:" value="{AppState>/appstate/appStateKey}" />
+						</List>
+						<List headerText="X-App State Parameters" noDataText="No Appstate Parameters Passed" items="{path:'AppState>/appstate/parameters'}">
+							<DisplayListItem label="{AppState>name}" value="{AppState>value}" />
+						</List>
+						<Label text="Received AppState (JSON.stringified)" />
+						<TextArea cols="90" rows="10" enabled="false" value="{AppState>/appstate/stringifiedAppstate}" />
+
+							<List headerText="I-App State Key" noDataText="No Appstate key Passed">
+								<DisplayListItem label="Key:" value="{IAppState>/appstate/iAppStateKey}" />
+							</List>
+							<Label text="Received I-AppState (JSON.stringified)" />
+						  <TextArea cols="90" rows="10" enabled="false" value="{IAppState>/appstate/stringiedIAppState}" />
+					</Panel>
+				</content>
+
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

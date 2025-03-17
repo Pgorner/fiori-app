@@ -1,0 +1,127 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof9925b63da5443afb7d3b50abb932cf2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/illustrated-message-when-no-data-is-found-f9925b6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Illustrated Message When No Data Is Found</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Illustrated Message When No Data Is Found</h2></div><div class="shortdesc">SAP Fiori elements for OData
+                            V4 displays an illustrated message when no data is found for a
+		table.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is only applicable to SAP Fiori elements for OData
+                            V4.</p>
+		<p></p></div></div><p>The illustration, the title of the message and its description depend on the situation in which they are displayed: no items created within the
+			table, applied filters, or search query. You can adapt the description to suit the use case of your application as described in <a href="topic/aacfac5e29904f26a04fc846545eea46" title="You can use the i18n file of your app to adapt the standard UI texts that are displayed in a table for the use cases explained in this topic." class="sap-doc">Maintaining Standard Texts for Tables</a>.</p><p>In the list report, the size of the illustrated message adapts to the available space for the table, as shown in the following screenshot:</p><div><div class="fig"><img src="loiob67eaca8fafd40768d5e2f61cdba0257_LowRes.png" usemap="#"></div></div><p>On the object page, the size of the illustrated message is reduced to keep optimal information density, as shown in the following screenshot:</p><div><div class="fig"><img src="loio6b9d295c45af4309a136bbdd83bea495_LowRes.png" usemap="#"></div></div><p>You can use the manifest setting <code>useTextForNoDataMessages</code> to display a text instead of an illustrated message on the object
+			page, as shown in the following code sample:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage": {
+    "type": "Component",
+    "id": "SalesOrderManageObjectPage",
+    "name": "sap.fe.templates.ObjectPage",
+    "options": {
+        "settings": {
+            "contextPath": "/SalesOrderManage",
+            "enhanceI18n": "i18n/SalesOrderObjectPage.properties",
+            "variantManagement": "Control",
+            "showRelatedApps": true,
+            "sectionLayout": "Tabs",
+            "useTextForNoDataMessages": true,
+            "controlConfiguration": {
+...
+            }
+        }
+    }
+},</pre></div></div></section><p></p></div></div><p>This option is applied to all tables within the page.</p><p>When using this option, the default texts must be overridden by the application as described in <a href="topic/aacfac5e29904f26a04fc846545eea46" title="You can use the i18n file of your app to adapt the standard UI texts that are displayed in a table for the use cases explained in this topic." class="sap-doc">Maintaining Standard Texts for Tables</a>.</p><section id="section_rqr_4qm_vcc">
+			<h2 class="title ">Adding Actions to an Illustrated Message</h2>
+			<p>You can add additional actions to illustrated messages to guide the end user when no data is displayed within a table. To do so, use
+				the <code>beforeRebindTable</code> extension point.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"targets": {
+    "sample": {
+        "type": "Component",
+        "id": "Default",
+        "name": "sap.fe.templates.ObjectPage",
+        "viewLevel": 1,
+        "options": {
+            "settings": {
+                "contextPath": "/RootEntity",
+                "editableHeaderContent": false,
+                "variantManagement": "Control",
+                "controlConfiguration": {
+                    "_Child/@com.sap.vocabularies.UI.v1.LineItem": {
+                        "tableSettings": {
+                            "beforeRebindTable": ".extension.sap.fe.core.fpmExplorer.OPExtend.onTableRefresh"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div>
+			<p>Within the callback function, you can define the illustrated message to include actions to be proposed to the end user. The illustrated message
+                is applied to the table using the <code>setNoData</code> method of the table, as shown in the following sample code:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(
+    [
+        "sap/ui/core/mvc/ControllerExtension",
+        "sap/ui/model/Filter",
+        "sap/ui/model/FilterOperator",
+        "sap/m/IllustratedMessage",
+        "sap/m/IllustratedMessageType",
+        "sap/m/Button",
+        "sap/m/MessageToast",
+        "sap/m/IllustratedMessageSize"
+    ],
+    function (
+        ControllerExtension,
+        Filter,
+        FilterOperator,
+        IllustratedMessage,
+        IllustratedMessageType,
+        Button,
+        MessageToast,
+        IllustratedMessageSize
+    ) {
+        "use strict";
+
+        return ControllerExtension.extend("sap.fe.core.fpmExplorer.OPExtend", {
+            onTableRefresh: function (event) {
+                var collectionBindingInfoAPI = event.getParameter("collectionBindingInfo");
+                var table = this.getView().byId("fe::table::_Child::LineItem::Table");
+                var illustratedMessage = new IllustratedMessage();
+                var showDialogNoData = function () {
+                    return MessageToast.show("Action when No Data in edit mode");
+                };
+                var showDialogFilterSearch = function () {
+                    return MessageToast.show("Action when No Data with filter or search");
+                };
+
+                //Filters or Search applied
+                if (
+                    (collectionBindingInfoAPI.getFilters() && collectionBindingInfoAPI.getFilters().aFilters.length &gt; 0) ||
+                    collectionBindingInfoAPI.collectionBindingInfo.parameters.$search
+                ) {
+                    illustratedMessage.setTitle("No Data");
+                    illustratedMessage.setDescription("Change Search or filter criteria.");
+                    illustratedMessage.setIllustrationType(IllustratedMessageType.NoSearchResults);
+                    illustratedMessage.setIllustrationSize(sap.m.IllustratedMessageSize.Dot);
+                    illustratedMessage.addAdditionalContent(new Button({ text: "My Action", press: showDialogFilterSearch }));
+                    table.setNoData(illustratedMessage);
+                } else {
+                    //No filter or search and table in edit mode
+                    illustratedMessage.setTitle("No Item found");
+                    illustratedMessage.setDescription("Please create some.");
+                    illustratedMessage.setIllustrationType(IllustratedMessageType.NoSearchResults);
+                    illustratedMessage.setIllustrationSize(sap.m.IllustratedMessageSize.Dot);
+                    illustratedMessage.addAdditionalContent(
+                        new Button({ text: "Create New Item", visible: "{ui&gt;/isEditable}", press: showDialogNoData })
+                    );
+                    table.setNoData(illustratedMessage);
+                }
+            }
+        });
+    }
+);</pre></div></div></section>
+			<p></p></div></div>
+			<p>Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableNoData" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableNoData" class="sap-doc">Building Blocks - Table - Table No Data</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

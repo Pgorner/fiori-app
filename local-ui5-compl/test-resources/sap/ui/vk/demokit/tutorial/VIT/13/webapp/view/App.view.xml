@@ -1,0 +1,34 @@
+<mvc:View
+	controllerName="viewportWithViewGallery.controller.App"
+	xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:vk="sap.ui.vk"
+	displayBlock="true"
+>
+	<Shell>
+		<App id="viewportWithViewGallery">
+			<Page title="{i18n>pageTitle}">
+				<VBox renderType="Bare" height="100%">
+					<f:SimpleForm editable="true">
+						<f:content>
+							<Label text="{i18n>viewIndex}" labelFor="viewIndex"/>
+							<Input id="viewIndex" type="Number" value="{/viewIndex}" placeholder="{i18n>viewIndexPlaceholder}" submit=".activateView"/>
+							<Button text="{i18n>activateView}" press=".activateView"/>
+						</f:content>
+					</f:SimpleForm>
+
+					<vk:Viewport id="viewport" contentConnector="contentConnector" viewStateManager="viewStateManager"/>
+					<vk:ViewGallery id="viewGallery" contentConnector="contentConnector" host="viewport" animationPlayer="animationPlayer" viewManager="viewManager"/>
+				</VBox>
+			</Page>
+			<dependents>
+				<vk:ContentConnector id="contentConnector"/>
+				<vk:ViewStateManager id="viewStateManager" contentConnector="contentConnector" viewManager="viewManager"/>
+				<vk:ViewManager id="viewManager" contentConnector="contentConnector" animationPlayer="animationPlayer"/>
+				<!-- AnimationPlayer is needed only if you want to play animation when views are activated. -->
+				<vk:AnimationPlayer id="animationPlayer" viewStateManager="viewStateManager"/>
+			</dependents>
+		</App>
+	</Shell>
+</mvc:View>

@@ -1,0 +1,186 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3801656db27b4b7a9099b6ed5fa1d769" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/the-table-building-block-3801656.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">The <code>Table</code> Building Block</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">The <code>Table</code> Building Block</h2></div><p>The <code>Table</code> building block provides an easy way to instantiate a table based on an <code>entitySet</code> or a specific
+			navigation property.</p><section id="section_ksj_xtr_j5b">
+			<h2 class="title ">Usage</h2>
+			<p>You can instantiate the building block by referencing the building block namespace within a fragment enabled for building block
+				usage.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;macros:Table xmlns:macro="sap.fe.macros" metaPath="/MyEntitySet"/&gt;
+&lt;macros:Table xmlns:macro="sap.fe.macros" metaPath="MyNavProperty"/&gt;
+&lt;macros:Table xmlns:macro="sap.fe.macros" metaPath="MyNavProperty/@com.sap.vocabularies.UI.v1.LineItem"/&gt;</pre></div></div></section>
+			<p></p></div></div>
+			<p>This instantiates the actual control tree that corresponds to this building block.</p>
+			<p>You can use the <code>Table</code> building block inside custom sections, custom subsections, and custom pages.</p>
+			<p>You can use the <code>Table</code> building block to add bound and unbound actions,
+				 to group actions as menu
+				buttons, and specify the create options for the
+				table. You have the following options:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Define the placement of the action relative to an
+						anchor.</p>
+					<p>You can explore and work with the coding yourself. Check out our live example in the flexible programming model explorer at
+							<a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableCustoms" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableCustoms" class="sap-doc">Table Customization</a>.</p>
+				</li>
+				<li class="li">
+					<p>Specify a bound action by using the <code>requiresSelection</code>
+						property.</p>
+					<p>By default, the action is unbound.</p>
+				</li>
+				<li class="li">
+					<p>Define menu actions and contained actions using the <code>ActionGroup</code> building
+						block.</p>
+				</li>
+				
+				<li class="li">
+					<p>Specify the create options and the related parameters for the table using the <code>creationMode</code> parameter. For more information about
+								<code>TableCreationOptions</code>, see the <a href="api" title="api" class="sap-doc" alt="api">API
+								Reference</a>.</p>
+					<p>Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableEdit" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableEdit" class="sap-doc">Table - Edit Mode</a>.</p>
+				</li>
+				
+			</ul>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				annotation</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;macros:Table metaPath="@com.sap.vocabularies.UI.v1.LineItem" readOnly="true" id="LineItemTablePageCustomActions"&gt; &lt;creationMode name="InlineCreationRows" inlineCreationRowsHiddenInEditMode="true" /&gt;  &lt;/macros:Table&gt;
+     &lt;macros:actions&gt;
+          &lt;macros:Action
+               key="customAction"
+               text="My Custom Action"
+               press=".onPressAction"
+               placement="After"
+               anchor="DataFieldForAction::Service.toggleBoolean"
+               requiresSelection="true"
+          /&gt;
+          &lt;macros:ActionGroup text="Grouped Actions" placement="After" anchor="customAction"&gt;
+               &lt;macros:Action text="Menu Action 1" press=".onPressMenuAction" /&gt;
+               &lt;macros:Action text="Menu Action 2" press=".onPressMenuAction" /&gt;
+          &lt;/macros:ActionGroup&gt;
+     &lt;/macros:actions&gt;
+&lt;/macros:Table&gt;</pre></div></div></section><p></p></div></div>
+			<p>You can link the <code>Table</code> building block to a <code>FilterBar</code> that is defined in the same view or to a
+				different one by referencing the ID of the <code>FilterBar</code>. This ID can be a local or a global one.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Panel headerText="Table in Display Mode with FilterBar"&gt;
+     &lt;macros:FilterBar metaPath="@com.sap.vocabularies.UI.v1.SelectionFields#SF1" id="FilterBar" /&gt;
+     &lt;macros:Table metaPath="@com.sap.vocabularies.UI.v1.LineItem" displayMode="true" id="LineItemTable" filterBar="FilterBar" /&gt;
+&lt;/Panel&gt;</pre></div></div></section>
+			<p>Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableFilterBar" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableFilterBar" class="sap-doc">Table - FilterBar</a> and <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/customElements/customElementsOverview/customViewWithMacroTableContent" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/customElements/customElementsOverview/customViewWithMacroTableContent" class="sap-doc">Custom View with BuildingBlock Table</a>.</p>
+			<p>You can use the <code>getPresentationVariant()</code> and <code>setPresentationVariant()</code> methods to programmatically get
+				and set the presentation variants corresponding to the
+					<code>Table</code>
+				building block. Similarly, the
+					<code>getSelectionVariant()</code> and <code>setSelectionVariant()</code> methods allows to programmatically get and set
+				the selection variants associated with the
+					<code>Table</code>
+				building block. The <code>getSelectionVariant()</code> method considers the variants that are applied directly to the table and
+				excludes the variants that are applied to a bound
+				model.</p>
+			<p> Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tablePublicAPIs" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tablePublicAPIs" class="sap-doc">Table - Interacting via APIs</a>.</p>
+			
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The <code>getSelectionVariant()</code> and <code>setSelectionVariant()</code> methods only work if the table
+					personalization is enabled. For more information, see <a href="topic/3e2b4d212b66481a829ccef1dc0ca16b" title="You can use table personalization to modify the settings of a table." class="sap-doc">Enabling Table Personalization</a>.</p>
+			<p></p></div></div>
+			
+			
+			
+			<p>You can use the <code>setCurrentVariantID</code> and <code>getCurrentVariantID</code> methods to programmatically set and get
+				the current variant ID corresponding to the
+					<code>Table</code>
+				building block. Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/controllerExtensions/tableExtensibility" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/controllerExtensions/tableExtensibility" class="sap-doc">Table Extensibility</a>.</p>
+			
+			<p>You can send and remove messages related to the table by using the <code>sendMessage</code> and <code>removeMessage</code>
+				methods. Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableMessages" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableMessages" class="sap-doc">Table Messages</a>.</p>
+			<p>If the entity linked to the table is searchable, the <span class="ph uicontrol">Search</span> field is displayed in the toolbar of the table. You
+				can disable the <span class="ph uicontrol">Search</span> field using the <code>isSearchable</code> parameter. Check out our live example in
+				the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableCustoms" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableCustoms" class="sap-doc">Table - Settings</a>.</p>
+		</section><section id="section_x2c_4vr_j5b"><h2 class="title ">API</h2>For information
+				about the <code>Table</code> API, see the <a href="api/sap.fe.macros.Table" title="api/sap.fe.macros.Table" class="sap-doc" alt="api/sap.fe.macros.Table">API Reference</a>.</section><section id="section_fg2_qjw_11c">
+			<h2 class="title ">Influencing the Table Request Dynamically</h2>
+			<p>Before a table rebind, you can retrieve the sorters and filters applied to the table as well as the complete binding information. You
+				can also add sorters, filters, and additional properties using the methods on the <a href="api/sap.fe.macros.CollectionBindingInfo#overview" title="api/sap.fe.macros.CollectionBindingInfo#overview" class="sap-doc" alt="api/sap.fe.macros.CollectionBindingInfo#overview"><code>CollectionBindingInfo</code></a> object.</p>
+			<p>To do so, first add the <code>beforeRebindTable</code> key to the table definition.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;macros:Table
+    metaPath="@com.sap.vocabularies.UI.v1.LineItem"
+    readOnly="true"
+    id="LineItemTablePageCustomActions"
+    isSearchable="false"
+    beforeRebindTable=".tableRefreshed"
+&gt;
+</pre></div></div></section>
+			<p></p></div></div>
+			
+			
+			<p>Then, implement the <code>beforeRebindTable</code> extension point in the controller extension of the page.</p>
+			
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(
+    ["sap/fe/core/PageController", "sap/m/MessageBox", "sap/ui/model/Filter", "sap/ui/model/FilterOperator", "sap/ui/model/Sorter"],
+    function (PageController, MessageBox, Filter, FilterOperator, Sorter) {
+        "use strict";
+
+        return PageController.extend("sap.fe.core.fpmExplorer.tableCustoms.Page", {
+            tableRefreshed(event) {
+                var collectionBindingInfoAPI = event.getParameters("collectionBindingInfo");
+
+                //Add a filter
+                var filter = new Filter({
+                    path: "BooleanProperty",
+                    operator: FilterOperator.EQ,
+                    value1: false
+                });
+                collectionBindingInfoAPI.addFilter(filter);
+
+                //Add a sorter
+                var sorter = new Sorter("ID", true);
+                collectionBindingInfoAPI.addSorter(sorter);
+
+                //Request an additional property to the request
+                collectionBindingInfoAPI.addSelect(["TagStatus"]);
+            }
+        });
+    }
+);
+</pre></div></div></section>
+			<p></p></div></div>
+			
+			<p>Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableCustoms" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/table/tableCustoms" class="sap-doc">Table - Custom Columns / Actions</a>.</p>
+			
+			
+		</section><section id="section_qmg_vvy_bdc">
+			<h2 class="title ">Triggering the Creation of a New Document Within a Table</h2>
+			<p>You can trigger the creation of a document within a table by calling the <code>createDocument</code> function with the table
+				reference within the <code>editFlow</code> controller extension:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//Get the table API
+var table = this.getView().byId("fe::table::_Child::LineItem::Table");
+
+//Create document 
+this.base.editFlow
+    .createDocument(table, {
+        creationMode: coreLibrary.CreationMode.Inline,
+        createAtEnd: true,
+        data: {
+            ChildTitleProperty: "Child Object Custom Title",
+            ChildDescriptionProperty: "Child Custom Description"
+        }
+    })
+    .then(function () {
+        MessageToast.show("Custom create action successfully invoked");
+    });</pre></div></div></section>
+			<p></p></div></div>
+			<p>Check out our live example in the flexible programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/controllerExtensions/basicExtensibility" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/controllerExtensions/basicExtensibility" class="sap-doc">Controller Extensions - Edit Flow</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

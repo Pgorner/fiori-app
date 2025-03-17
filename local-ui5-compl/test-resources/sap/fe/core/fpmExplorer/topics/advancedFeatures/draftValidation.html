@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Draft Validation</title>
+		<script type="text/javascript">
+			window["sap-ushell-config"] = {
+				defaultRenderer: "fiori2",
+				renderers: {
+					fiori2: {
+						componentData: {
+							config: {
+								enableSearch: false
+							}
+						}
+					}
+				},
+				services: {
+					AppState: {
+						config: {
+							transient: false
+						}
+					}
+				},
+				applications: {
+					"DraftValidation-Sample": {
+						additionalInformation: "SAPUI5.Component=sap.fe.core.fpmExplorer",
+						applicationType: "URL",
+						url: "./draftValidation",
+						title: "Draft Validation",
+						description: "Example to validate a draft with Enter"
+					}
+				}
+			};
+		</script>
+
+		<script src="../../../../../../../resources/sap/ushell/bootstrap/sandbox2.js" id="sap-ushell-bootstrap"></script>
+
+		<!-- Bootstrap the UI5 core library -->
+		<script src="../../service-worker-client.js" type="application/javascript"></script>
+		<script
+			id="sap-ui-bootstrap"
+			src="../../../../../../../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m, sap.ushell"
+			data-sap-ui-theme="sap_horizon"
+			data-sap-ui-bindingSyntax="complex"
+			data-sap-ui-language="en"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{
+				"sap.fe.core.fpmExplorer": "./draftValidation",
+				"sap.fe.core.fpmExplorer.content": "../../../content",
+				"sap.fe.core.fpmExplorer.common": "../../common",
+				"test.sap.fe.test": "../../../../../../../test-resources/sap/fe/test",
+				"sap.ui.fl.api": "../../../../../../../test-resources/sap/ui/fl/api"
+			}'
+			data-sap-ui-frameOptions="allow"
+			data-sap-ui-oninit="onInit"
+			data-sap-ui-async="true"
+			data-sap-ui-flexibilityServices='[{"connector": "SessionStorageConnector"}]'
+		>
+			// NON-SECURE setting for testing environment
+		</script>
+		<script type="application/javascript">
+			function onInit() {
+				initPage("./draftValidation");
+			}
+		</script>
+		<script type="text/javascript">
+			sap.ui.require(["sap/ui/core/Core", "sap/ushell/Container"], function (Core, Container) {
+				Core.ready(() => {
+					// initialize the ushell sandbox component
+					Container.createRendererInternal(null).then(function (renderer) {
+						renderer.placeAt("content");
+					});
+				});
+			});
+		</script>
+	</head>
+
+	<!-- UI Content -->
+	<body class="sapUiBody" id="content"></body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="smartformSemanticGroupElement"
+			sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="Product" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ProductId" />
+				</Key>
+				<Property Name="ProductId" Type="Edm.String" MaxLength="20" sap:label="Product"/>
+				<Property Name="Name" Type="Edm.String" MaxLength="30" sap:label="Name" />
+				<Property Name="ProductCategory" Type="Edm.String" MaxLength="3" sap:label="Category"/>
+				<Property Name="SupplierName" Type="Edm.String" sap:label="Supplier" />
+				<Property Name="Description" Type="Edm.String" MaxLength="256" sap:label="Description"/>
+				<Property Name="Price" Type="Edm.String" sap:unit="CurrencyCode" sap:label="Price" Scale="3" Precision="12"/>
+				<Property Name="CurrencyCode" Type="Edm.String" MaxLength="3" sap:label="Currency" sap:semantics="currency-code" />
+				<Property Name="Status" Type="Edm.Boolean" sap:label="Edm.Boolean"/>
+				<Property Name="ProductPicUrl" Type="Edm.String" MaxLength="256" sap:label="Picture"/>
+				<Property Name="SaleDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Aviability per date"/>
+
+			</EntityType>
+
+			<EntityContainer Name="smartformSemanticGroupElement._Entities"
+				m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="Products" EntityType="smartformSemanticGroupElement.Product"/>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

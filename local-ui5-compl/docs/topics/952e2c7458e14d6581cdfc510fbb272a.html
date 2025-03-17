@@ -1,0 +1,263 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio952e2c7458e14d6581cdfc510fbb272a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/using-opabuilder-952e2c7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using <code>OpaBuilder</code></h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using <code>OpaBuilder</code></h2></div><div class="shortdesc">Write tests by leveraging the builder pattern to create OPA5 descriptors.</div><p><code>sap.ui.test.OpaBuilder</code> is available as of version 1.74.</p><p>The main benefit for developers is having a function-driven API at hand, which supports and
+			promotes a clean test definition and execution.</p><p>In <a href="topic/8615a0b9088645ae936dbb8bbce5d01d" title="OPA5 has a built-in actions parameter that can be used for simulating events. If you use an action, OPA5 makes sure that the UI is in a state that allows the action to be executed." class="sap-doc">Simulating User Interactions on Controls</a>, we provided some examples on
+			how to interact with controls. Let's have a look at some by implementing them using
+				<code>OpaBuilder</code>.</p><section id="section_zys_cq4_xjb"><h2 class="title ">Simulating a <code>press</code> Event</h2><p>The <code>waitFor</code> options for this straightforward example are as follows:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">return oOpa.waitFor({
+    id: "myButton",
+    actions: new Press()
+});</pre></div></div></section><p>When you use <code>OpaBuilder</code>, it looks like this:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">return oOpa.waitFor(
+    new OpaBuilder()
+        .hasId("myButton")
+        .doPress()
+        .build()
+);</pre></div></div></section><p>The result of the <code>OpaBuilder.build</code> method is the configuration object for the
+					<code>Opa5.waitFor</code> method. Because it's commonly used just as such,
+					<code>OpaBuilder</code> comes with a convenient
+					<code>OpaBuilder.execute()</code> method. The required <code>Opa5</code>
+				instance can be provided as a parameter to the <code>execute</code> function, or
+				you can use the <code>constructor</code> or <code>create</code> method.
+				Taking this into account, the previous example can also be written like this:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">return OpaBuilder.create(oOpa)
+    .hasId("myButton")
+    .doPress()
+    .execute();</pre></div></div></section><p>For more information, see
+					<a href="api/sap.ui.test.OpaBuilder#methods/build" title="api/sap.ui.test.OpaBuilder#methods/build" class="sap-doc" alt="api/sap.ui.test.OpaBuilder#methods/build"><code>OpaBuilder.build</code></a>, <a href="api/sap.ui.test.OpaBuilder#methods/execute" title="api/sap.ui.test.OpaBuilder#methods/execute" class="sap-doc" alt="api/sap.ui.test.OpaBuilder#methods/execute"><code>OpaBuilder.execute</code></a>, and
+					<a href="api/sap.ui.test.OpaBuilder#methods/sap.ui.test.OpaBuilder.create" title="api/sap.ui.test.OpaBuilder#methods/sap.ui.test.OpaBuilder.create" class="sap-doc" alt="api/sap.ui.test.OpaBuilder#methods/sap.ui.test.OpaBuilder.create"><code>OpaBuilder.create</code></a>.</p></section><section id="section_lvr_tt4_xjb"><h2 class="title ">Complex Interaction with Child Elements</h2><p>Let's
+				assume we want to show the suggestion list with a filter for "Jo". The
+					<code>waitFor</code> definition could look like
+					this:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oOpa.waitFor({
+    id: "formInput",
+    actions: [
+        new EnterText({
+            text: "Jo",
+            keepFocus: true
+        }),
+        function (oInput) {
+            this.waitFor({
+                controlType: "sap.m.StandardListItem",
+                matchers: [
+                    new Ancestor(oInput),
+                    new Properties({ title: "John" })
+                ],
+                actions: new Press()
+            });
+        }
+    ]
+});</pre></div></div></section><p><code>OpaBuilder</code>
+				comes with convenient functions to operate on aggregations and child elements:
+					<code>OpaBuilder.doOnAggregation</code> and
+					<code>OpaBuilder.doOnChildren</code>.</p><p>While
+					<code>doOnAggregation</code> requires the aggregation name of the defined
+				control and only operates on those SAPUI5 aggregation
+				items, <code>doOnChildren</code> addresses any control that is a child within
+				the control hierarchy. Internally, the
+					<code>sap.ui.test.Matchers.Ancestor</code> matcher is used as well, but the
+				definition is
+				simplified:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">OpaBuilder.create(oOpa)
+    .hasId("formInput")
+    .doEnterText("Jo", false, true),
+    .doOnChildren(
+        OpaBuilder.create(oOpa)
+            .hasType("sap.m.StandardListItem")
+            .hasProperties({ title: "John" })
+            .doPress()
+    )
+    .execute();</pre></div></div></section>For more
+				information, see <a href="api/sap.ui.test.OpaBuilder#methods/doOnAggregation" title="api/sap.ui.test.OpaBuilder#methods/doOnAggregation" class="sap-doc" alt="api/sap.ui.test.OpaBuilder#methods/doOnAggregation"><code>OpaBuilder.doOnAggregation</code></a> and <a href="api/sap.ui.test.OpaBuilder#methods/doOnChildren" title="api/sap.ui.test.OpaBuilder#methods/doOnChildren" class="sap-doc" alt="api/sap.ui.test.OpaBuilder#methods/doOnChildren"><code>OpaBuilder.doOnChildren</code></a>.</section><section id="section_nyd_yv4_xjb">
+			<h2 class="title ">Custom Functions and Chaining</h2>
+			<p>Let's have a look at an example including a custom matcher and an action:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">When.waitFor({
+    id: "entryList",
+    matchers: [
+        new Properties({ mode: "MultiSelect" }),
+        function (oList) {
+            return oList.getItems().length &gt; 0;
+        }
+    ],
+    actions: function (oList) {
+        for (var i = 0; i &lt; oList.getItems().length; ++i) {
+            oList.setSelectedItem(oList.getItems()[i], true);
+        }
+    },
+    errorMessage: "Could not select all items"
+});</pre></div></div></section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>This example showcases the usage of a custom action. The best practice that we recommend is
+					to use only <code>Press</code> and <code>EnterText</code> actions when
+					simulating user interactions.</p>
+			<p></p></div></div>
+			<p>Besides user-defined functions, the example also contains two matchers. As the parameter of
+				the <code>has</code> method accepts the same types as the
+					<code>matchers</code> property, this part could directly be rewritten
+				as:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+    .has([
+        new Properties({ mode: "MultiSelect" }),
+        function (oList) {
+            return oList.getItems().length &gt; 0;
+        }
+    ])
+...</pre></div></div></section>
+			<p>However, by leveraging the builder pattern, the <code>.has</code> methods can easily be
+				chained. The resulting <code>matchers</code> options are an array consisting of
+				all defined single matchers in the order of definition. This is similar to the
+					<code>.do</code> method and the <code>actions</code> property.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">OpaBuilder.create(When)
+    .hasId("entryList")
+    .hasProperties({ mode: "MultiSelect" })
+    .has(function (oList) {
+        return oList.getItems().length &gt; 0;
+    })
+    .do(function (oList) {
+        for (var i = 0; i &lt; oList.getItems().length; ++i) {
+            oList.setSelectedItem(oList.getItems()[i], true);
+        }
+    })
+    .error("Could not select all items")
+    .execute();</pre></div></div></section>
+			<p>While <code>matchers</code> and <code>actions</code> can be an array of functions, the
+				more seldom used <code>check</code> and <code>success</code> properties must
+				be a single function. Nevertheless, due to the builder pattern, those functions can
+				be chained as well:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">OpaBuilder.create()
+    .check(fnCheck1)
+    .check(fnCheck2)
+    .check(fnCheck3)
+    .success(fnAssert1)
+    .success(fnAssert2)
+    .build();</pre></div></div></section>
+			<p><code>OpaBuilder</code> chains those functions, which results in the following
+					<code>waitFor</code> options:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    check: function (vInput) {
+        return function(vInput) {
+            return fnCheck1(vInput) && fnCheck2(vInput);
+       ) && fnCheck3(vInput);
+    },
+    success: function (vInput) {
+        fnAssert1(vInput);
+        fnAssert2(vInput);
+    }
+}</pre></div></div></section>
+		</section><section id="section_dlk_2z4_xjb"><h2 class="title ">Additional Features</h2><p>While
+					<code>OpaBuilder</code> itself cannot extend the features provided by
+					<code>Opa5.waitFor</code>, it comes with some convenient methods to support
+				test definition. Besides the already mentioned child element support, method
+				chaining, and most commonly used matchers and actions as predefined functions, there
+				are some less obvious features.</p><section>
+				<h3 class="title ">Generated Error Message</h3>
+				<p>If no error message is explicitly defined, <code>OpaBuilder</code> generates
+					an error message when calling <code>build()</code>. The message consists of
+					the <code>controlType</code> and <code>id</code> properties as well as
+					the number of any  additional matchers. A generated
+						<code>errorMessage</code> can look like this:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.m.Button#myButton with 1 additional matcher(s) not found</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Success Message and Description</h3>
+				<p>When defining an OPA5 test without an assertion, there's no output on success.
+					Most often, such an output is useful for longer journeys, so the
+						<code>OpaBuilder.success</code> method also accepts a string argument.
+					This generates a simple truthy assertion with the provided message as a success
+					function:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">success: function (vControls) {
+    Opa5.assert.ok(true, sSuccessMessage);
+}</pre></div></div></section>
+				<p>The <code>OpaBuilder.description</code> function can be used for even better
+					logging. The provided message is set as <code>errorMessage</code> and
+					assertion on success:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">OpaBuilder.description("Pressing 'Cancel' button")
+
+// Output message...
+// ...in case of success
+Pressing 'Cancel' button - OK
+
+// ...in case of failure
+Pressing 'Cancel' button - FAILURE</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Aggregation Matcher</h3>
+				<p>A common use case of tests is finding and operating on a control with one or more
+					aggregation items that fulfill certain conditions. While there are already some
+					predefined matchers for aggregations in place, <code>OpaBuilder</code> comes
+					with the generic <code>hasAggregation</code> and the most commonly used
+						<code>hasAggregationProperties</code> methods. The
+						<code>vMatchers</code> parameter of <code>hasAggregation</code> can
+					be any matcher method (or matcher chain) that is executed against the items of
+					the defined aggregation of the matching control.</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">OpaBuilder.create(oOpa)
+    .hasType("sap.m.CustomListItem")
+    .hasAggregation("content", [
+        function(oContentItem) {
+            return oContentItem instanceof sap.m.Title;
+        },
+        { 
+            properties: {
+                text: sMatchingTitle
+            }
+        }
+    ])
+    .press()
+    .description("Pressing list item with title: " + sMatchingTitle)
+    .execute();</pre></div></div></section>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Defining two <code>hasAggregation</code> matchers can also match two
+						different aggregation items. To ensure that one item fulfills all criteria,
+						an
+						all-criteria-matcher
+						should be defined in the same <code>hasAggregation</code> call.</p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Conditional Actions</h3>
+				<p>When defining journeys, reusable functions in the page can speed up writing tests and their
+					quality. Sometimes, the generic approach of those functions is not suitable. For
+					example, a test fails if no control is found that matches the conditions. This
+					could be a challenge
+					if
+					the control being tested is not
+					guaranteed to exist.</p>
+				<p><span class="emphasis">Example</span>:</p>
+				<p>Let's have an interaction that selects all items of a list that aren't selected
+					yet.</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">OpaBuilder.create(oOpa)
+    .hasType("sap.m.CustomListItem")
+    .hasProperties({ selected: false })
+    .doPress()
+    .description("Selecting unselected items")
+    .execute();</pre></div></div></section>
+				<p>This is fine as long as there is at least one unselected list item. When all
+					items are already selected,
+					the
+					test fails, which is not what we want. Here, the
+						<code>doConditional</code> function comes in handy:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">OpaBuilder.create(oOpa)
+    .hasType("sap.m.CustomListItem")
+    .doConditional(
+        OpaBuilder.Matchers.properties({ selected: false }), 
+        OpaBuilder.Actions.press()
+    )
+    .description("Selecting unselected items")
+    .execute();</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Commonly Used Matchers and Actions</h3>
+				<p>As already seen in the last example, <code>OpaBuilder</code> has two static
+					members: <code>OpaBuilder.Matchers</code> and
+						<code>OpaBuilder.Actions</code>. While there's no issue in using any
+					matchers from <code>sap.ui.test.Matchers</code> in the
+						<code>OpaBuilder</code> definition, the goal of the two members is to
+					provide the most commonly used matchers and actions to be directly accessed when
+					working with <code>OpaBuilder</code> without explicitly requiring them in
+					the test class.</p>
+				<p><code>OpaBuilder.Actions</code> contains both
+						<code>sap.ui.test.Actions.Press</code> and
+						<code>sap.ui.test.Actions.EnterText</code>, while
+					<code>OpaBuilder.Matchers</code> does <span class="emphasis">not</span> contain every
+					predefined matcher in <code>sap.ui.test.Matchers</code>, but still provides
+					some additional ones as described in the API.</p>
+			</section></section><section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.test.OpaBuilder" title="api/sap.ui.test.OpaBuilder" class="sap-doc" alt="api/sap.ui.test.OpaBuilder">API Reference: sap.ui.test.OpaBuilder</a></li>
+		<li><a href="api/sap.ui.test.OpaBuilder.Matchers" title="api/sap.ui.test.OpaBuilder.Matchers" class="sap-doc" alt="api/sap.ui.test.OpaBuilder.Matchers">API Reference: sap.ui.test.OpaBuilder.Matchers</a></li>
+		<li><a href="api/sap.ui.test.OpaBuilder.Actions" title="api/sap.ui.test.OpaBuilder.Actions" class="sap-doc" alt="api/sap.ui.test.OpaBuilder.Actions">API Reference: sap.ui.test.OpaBuilder.Actions</a></li>
+	</ul></section></section></div></section></div></body></html>

@@ -1,0 +1,62 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc1025c2e30a748ae82e929cb7f6d2f9a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/02_Read-Me-First/upgrading-from-a-version-below-1-38-c1025c2.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Upgrading from a Version Below 1.38</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Upgrading from a Version Below 1.38</h2></div><div class="shortdesc">When upgrading to the current SAPUI5 version from a version below 1.38 (released in
+		June 2016), check whether the changes listed below influence your apps.</div><p>With this SAPUI5 version, jQuery has been upgraded to version 2.2.3.</p><p>This upgrade may impact your SAPUI5 apps. The following sections give an overview of our
+			findings and how to deal with them.</p><div class="note note  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>If you use additional open-source libraries that depend on jQuery, check whether they need to be upgraded as well.</p>
+		<p></p></div></div><section class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">jQuery.Event</h2></div><div class="fig"><section>
+				<h3 class="title ">Problem</h3>
+			</section><p>jQuery removed some robustness checks in its event handling code. Without these checks, the <code>jQuery.trigger</code> function
+				must only be called with events that either have no <code>originalEvent</code> property or where the <code>originalEvent</code> has all
+				methods that <code>window.Event implements</code> (especially <code>preventDefault</code>, <code>stopPropagation</code> and
+					<code>stopImmediatePropagation</code>).</p><p>When a <code>jQuery.Event</code> is constructed with an object literal
+					(<code>properties</code>) or when <code>originalEvent</code> is set to some object after construction, this constraint is not
+				fulfilled. Unfortunately, many SAPUI5  unit tests used this approach to simulate
+				mouse or key events.</p><section>
+				<h3 class="title ">Solution</h3>
+				<p>For each code that creates events, you have to apply the following fix: </p>
+				<p>The module <code>QUnitUtils</code> now rewrites the <code>jQuery.Event</code> constructor so that any given object literal is
+					enriched with the missing methods. Most SAPUI5 unit tests include the
+						<code>QUnitUtils</code> module early, which then fixes the issue.</p>
+				<p>Application code that needs to simulate an event, either should omit the <code>originalEvent</code> or use <code>Event.create</code>
+					to create a native event and only then create a <code>jQuery.Event</code>. </p>
+			</section></div></section><section class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">jQuery.fn.position</h2></div><div class="fig"><section>
+				<h3 class="title ">Problem</h3>
+				<p><code>jQuery.fn.position</code> now takes the scroll positions of the parent element into account. This change was recoginzed as
+					incompatible by the jQuery team and reverted with version 2.2.1.</p>
+			</section><section>
+				<h3 class="title ">Solution</h3>
+				<p>Nothing, this is automatically fixed.</p>
+			</section></div></section><section class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">jQuery.now</h2></div><div class="fig"><section>
+				<h3 class="title ">Problem</h3>
+				<p><code>jQuery.now</code> is now set to <code>Date.now</code> for all browsers. But as the jQuery property represents a separate
+					reference to that function, it is not touched by code that modifies <code>Date.now</code>, especially not by Sinon fake timers.
+					Therefore Sinon fake timers don't work with jQuery 2.2 if Sinon is started after <code>jQuery</code>.</p>
+			</section><section>
+				<h3 class="title ">Solution</h3>
+				<p>As a workaround, <code>QUnitUtils</code> redefines <code>jQuery.now</code> so that it delegates to the current
+						<code>Date.now</code>. This will then use any installed fake timer.</p>
+			</section></div></section><section class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">:visible selector</h2></div><div class="fig"><section>
+				<h3 class="title ">Problem</h3>
+				<p>Somewhere between jQuery 1.11.1 and 2.2.0, the behavior of the <code>:visible</code> selector has changed. For empty inline elements (for
+					example, a <code>span</code> with no text), the selector now reports <code>:visible = true</code> whereas jQuery 1.1.1 reported it
+					as <code>hidden</code>. There was only one functionality in the <code>sap.ui.dt</code> library where this change in behavior caused
+					problems.</p>
+			</section><section>
+				<h3 class="title ">Solution</h3>
+				<p>Instead of using <code>:visible</code>, that functionality now uses its own implementation similar to jQuery 1.11.1.</p>
+			</section></div></section><section class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">jQuery.isPlainObject</h2></div><div class="fig"><section>
+				<h3 class="title ">Problem</h3>
+				<p>jQuery 2.2.0 simplified the implementation of <code>jQuery.isPlainObject</code>. As a side-effect, objects with a
+						<code>constructor</code> property with a non-function value (like a <code>string</code> value) caused a runtime error when
+						<code>jQuery.isPlainObject</code> was applied. </p>
+			</section><section>
+				<h3 class="title ">Solution</h3>
+				<p>This issue is fixed with jQuery 2.2.2.</p>
+			</section></div></section><section>
+			<h2 class="title ">Descriptor for Applications, Components, and Libraries</h2>
+			<p>If you want to add new attributes of a descriptor version higher than V2 (SAPUI5
+				1.30) to your existing <code>manifest.json</code> file, see <a href="topic/a110f762148a4933a33d30751a37a743" title="Information how to add new attributes of manifest (also known as descriptor) versions higher than V2 (SAPUI5 1.30) to the manifest file." class="sap-doc">Migration Information for Upgrading the Manifest File</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

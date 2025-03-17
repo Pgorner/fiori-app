@@ -1,0 +1,202 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.customActionContent",
+		"type": "application",
+		"i18n": {
+			"bundleName": "sap.fe.core.fpmExplorer.customActionContent.i18n.i18n",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/customActionContent/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.fe.core.fpmExplorer.customActionContent.i18n.i18n"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.fe.core.fpmExplorer.customActionContent.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"extends": {
+			"extensions": {
+				"sap.ui.controllerExtensions": {
+					"sap.fe.templates.ObjectPage.ObjectPageController": {
+						"controllerName": "sap.fe.core.fpmExplorer.customActionContent.extendOP"
+					}
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": "/RootEntity({key}):?query:",
+					"name": "default",
+					"target": "sample"
+				}
+			],
+			"targets": {
+				"sample": {
+					"type": "Component",
+					"id": "Default",
+					"name": "sap.fe.templates.ObjectPage",
+					"viewLevel": 1,
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"editableHeaderContent": true,
+							"content": {
+								"header": {
+									"actions": {
+										"customHeaderActionShowMessage": {
+											"press": ".extension.sap.fe.core.fpmExplorer.customActionContent.extendOP.onPress",
+											"visible": "{= %{HeaderActionVisible} === 1 }",
+											"enabled": "{= %{HeaderBooleanProperty1}}",
+											"text": "{i18n>showMessage}",
+											"position": {
+												"placement": "Before",
+												"anchor": "customHeaderActionShowAlert"
+											}
+										},
+										"customHeaderActionShowAlert": {
+											"press": "sap.fe.core.fpmExplorer.customActionContent.CustomAction.alertHeader",
+											"visible": "{= ${/EntitiesSingleton/ShowAlertVisible}}",
+											"enabled": "{ui>/isEditable}",
+											"text": "{i18n>showAlert}"
+										},
+										"customActionForHeaderMenu": {
+											"text": "{i18n>headerCustomActionForMenu}",
+											"press": "sap.fe.core.fpmExplorer.customActionContent.CustomAction.alertHeader"
+										},
+										"DataFieldForActionGroup::HeaderActionGroup1": {
+											"menu": [
+												"DataFieldForAction::Service.Header1MenuAction1",
+												"DataFieldForAction::Service.Header1MenuAction2",
+												"DataFieldForAction::Service.HeaderAnnotationAction",
+												"customActionForHeaderMenu"
+											],
+											"position": {
+												"anchor": "customHeaderActionShowAlert",
+												"position": "After"
+											}
+										},
+										"DataFieldForAction::Service.Header2MenuAction1": {
+											"enabled": false
+										}
+									}
+								},
+								"footer": {
+									"actions": {
+										"customFooterAction": {
+											"press": "sap.fe.core.fpmExplorer.customActionContent.CustomAction.alertFooter",
+											"visible": "{= !${ui>/isEditable}}",
+											"enabled": true,
+											"text": "{i18n>customFooterAction}"
+										}
+									}
+								}
+							},
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.FieldGroup#FacetCustomAction": {
+									"actions": {
+										"customSectionAction": {
+											"press": "sap.fe.core.fpmExplorer.customActionContent.CustomAction.securedExecution",
+											"visible": "{= %{NameProperty} !== ''}",
+											"enabled": "{= %{BooleanProperty}}",
+											"text": "{i18n>customSectionAction}"
+										},
+										"customActionForSubsectionMenu": {
+											"text": "{i18n>subsectionCustomActionForMenu}",
+											"press": "sap.fe.core.fpmExplorer.customActionContent.CustomAction.alertSection"
+										},
+										"DataFieldForActionGroup::SubsectionActionGroup1": {
+											"menu": [
+												"DataFieldForAction::Service.Subsection1MenuAction1",
+												"DataFieldForAction::Service.Subsection1MenuAction2",
+												"DataFieldForAction::Service.SubsectionAnnotationAction",
+												"customActionForSubsectionMenu"
+											],
+											"position": {
+												"anchor": "customSectionAction",
+												"position": "After"
+											}
+										},
+										"DataFieldForAction::Service.Subsection2MenuAction1": {
+											"enabled": false
+										}
+									}
+								},
+								"items/@com.sap.vocabularies.UI.v1.LineItem": {
+									"actions": {
+										"customActionTwo": {
+											"press": "sap.fe.core.fpmExplorer.customActionContent.CustomAction.alertToolbar",
+											"text": "{i18n>customToolbarAction}",
+											"enabled": "{= !${ui>/isEditable}}"
+										},
+										"customActionForTableMenu": {
+											"text": "{i18n>tableCustomActionForMenu}",
+											"press": "sap.fe.core.fpmExplorer.customActionContent.CustomAction.alertTable"
+										},
+										"DataFieldForActionGroup::TableActionGroup1": {
+											"menu": [
+												"DataFieldForAction::Service.Table1MenuAction1",
+												"DataFieldForAction::Service.Table1MenuAction2",
+												"DataFieldForAction::Service.TableAnnotationAction",
+												"customActionForTableMenu"
+											],
+											"position": {
+												"anchor": "customActionTwo",
+												"position": "After"
+											}
+										},
+										"DataFieldForAction::Service.Table2MenuAction1": {
+											"enabled": false
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

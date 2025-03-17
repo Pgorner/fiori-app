@@ -1,0 +1,93 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio46e29bb05f2b41e2a8d21a2f5a9042db" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/change-visualization-46e29bb.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Change Visualization</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Change Visualization</h2></div><div class="shortdesc">Change visualization is a way for key users to get an overview of the changes that have been made on the UI.</div><p>Change visualization was introduced to provide key users with information about which parts of the application have changed and how they have
+			changed. To provide semantic information about what has changed, change handlers should implement the
+				<code>getChangeVisualizationInfo</code> function.</p><p>You can use the <code>getChangeVisualizationInfo</code> function to accurately display the change when the user is in
+				<span class="ph uicontrol">Visualization</span> mode. The changes are classified and grouped by categories. Each change is represented by a
+			change indicator (a small bubble) located on the corresponding control; multiple changes made on the same control will result in the
+			change indicator's color becoming darker. Selecting such a change indicator brings up a table with details for each change. To make this
+			description suitable for your control / action, you can return the following information:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>getChangeVisualizationInfo() return
+			object</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// All properties are optional
+return {
+    affectedControls: ["control1"], //  Array of IDs of the controls which are affected by the change; default is the change selector
+    dependentControls: ["control2"], //  Array of IDs of controls that are also affected by the change; for example the source container of a "move" action
+    displayControls: ["control1"], // Array of IDs of the controls where the change indicator should be displayed; default is the change selector
+    descriptionPayload: {
+        category: ChangeCategories.RENAME, // Optional category to classify the change and optimize its visualization. All categories are enumerated in sap.ui.fl.changeHandler.common.ChangeCategories
+        descriptionText: "This text will always be shown on the indicator", // Optional text that overrides any standard text that is prepared for that change (if you want to show your own text)
+        descriptionTooltip: "This tooltip will always be shown on the indicator", // Optional tooltip that overrides any standard tooltip that is prepared for that change (if you want to show your own tooltip)
+        ... -&gt; other category-specific parameters (see the list after this code sample) - these will be ignored if you already provide a descriptionText/descriptionTooltip
+    }, // Object containing additional information for the change visualization description,
+    updateRequired: true or false // If an element changes its ID (e.g. controls inside a SimpleForm), setting this parameter rebuilds the change indicator in the Visualization mode to keep it up-to-date (in the right place with the right information)
+}</pre></div></div></section><p></p></div></div><p>For the <code>descriptionPayload</code>, you can define a category to optimize the visualization of that change. The following categories
+			exist: ADD, MOVE, RENAME, COMBINESPLIT, REMOVE, OTHER. Some categories use specific parameters: </p><ul class="ul ">
+			<li class="li">
+				<p>MOVE:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>descriptionPayload.sourceParentContainer</code> - Parent container from which the element was moved.</p>
+					</li>
+					<li class="li">
+						<p><code>descriptionPayload.targetParentContainer</code> - Parent container to which the element was moved.</p>
+					</li>
+				</ul>
+			</li>
+			<li class="li">
+				<p>RENAME: </p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>descriptionPayload.originalLabel</code> - Label before the change was applied (this parameter also supports bindings - the change
+							visualization code resolves the binding before displaying the label).</p>
+					</li>
+					<li class="li">
+						<p><code>descriptionPayload.newLabel</code> - Label after the change was applied.</p>
+					</li>
+				</ul>
+			</li>
+			<li class="li">
+				<p>COMBINE: </p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>descriptionPayload.originalSelectors</code> - Selectors of the elements that were combined.</p>
+					</li>
+				</ul>
+			</li>
+		</ul><p>For <cite>settings</cite> changes or changes with category <cite>other</cite>, you can also define a <code>descriptionText</code> and
+				<code>descriptionTooltip</code> on the <code>descriptionPayload</code>, which is directly displayed in the change indicator.
+			These texts replace the standard texts that are generated for the different categories:</p><ul class="ul ">
+			<li class="li">
+				<p><code>descriptionPayload.descriptionText</code> - The text that is displayed on the change indicator.</p>
+			</li>
+			<li class="li">
+				<p><code>descriptionPayload.descriptionTooltip</code> - The tooltip that is displayed on the change indicator, for example, when the text is
+					long.</p>
+			</li>
+		</ul><p>Some examples:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>BaseRename.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">getChangeVisualizationInfo: function(oChange) {
+    const oNewLabel = oChange.getText([mRenameSettings.changePropertyName]);
+    return {
+        descriptionPayload: {
+            originalLabel: oChange.getRevertData(),
+            newLabel: oNewLabel?.value
+        }
+    };
+}</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>MoveControls.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">MoveControls.getChangeVisualizationInfo = function(oChange) {
+    const oChangeContent = oChange.getContent();
+    const oRevertData = oChange.getRevertData()[0];
+    return {
+        affectedControls: [oChangeContent.movedElements[0].selector],
+        dependentControls: [oChangeContent.source.selector],
+        descriptionPayload: {
+            sourceParentContainer: oRevertData.sourceParent,
+            targetParentContainer: oChangeContent.target.selector
+        }
+    };
+};</pre></div></div></section><p></p></div></div><p>If you don't implement this function, a default change visualization is provided for the change, which contains minimal information. This
+			information can potentially be incorrect depending on the complexity of your change. Therefore, we recommend that you check how the
+			visualization looks for your change and make the necessary adjustments.</p><p>To check how the visualization looks, start the application in UI adaptation mode, and select <span class="ph uicontrol">Visualization</span> in the
+			header bar. For more information, see <a href="https://help.sap.com/docs/ui5-flexibility-for-key-users/ui5-flexibility-for-key-users/visualizing-ui-changes" title="https://help.sap.com/docs/ui5-flexibility-for-key-users/ui5-flexibility-for-key-users/visualizing-ui-changes" class="external-link" target="_blank" rel="noopener">Visualizing UI Changes</a>.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

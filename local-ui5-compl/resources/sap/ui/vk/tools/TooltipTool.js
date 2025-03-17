@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+        (c) Copyright 2009-2015 SAP SE. All rights reserved
+    
+ */
+sap.ui.define(["./Tool","./TooltipToolHandler","./TooltipToolGizmo"],function(t,e,i){"use strict";var o=t.extend("sap.ui.vk.tools.TooltipTool",{metadata:{library:"sap.ui.vk",properties:{followCursor:{type:"boolean",defaultValue:true},animate:{type:"boolean",defaultValue:false},offsetX:{type:"float",defaultValue:10},offsetY:{type:"float",defaultValue:15},timeout:{type:"int",defaultValue:0}},events:{hover:{parameters:{x:"int",y:"int",nodeRef:"any"}}}},constructor:function(i,o){t.apply(this,arguments);this._handler=new e(this);return this}});o.prototype.init=function(){t.prototype.init.call(this);this.setFootprint(["sap.ui.vk.threejs.Viewport","sap.ui.vk.svg.Viewport"]);this.setAggregation("gizmo",new i)};o.prototype.setAnimate=function(t){this.setProperty("animate",t);var e=this.getGizmo();e.rerender()};o.prototype.setActive=function(e,i,o){t.prototype.setActive.call(this,e,i,o);if(this._viewport){if(e){this._gizmo=this.getGizmo();this._gizmo?.show(this._viewport,this);this._addLocoHandler()}else{this._handler._deactivate();this._removeLocoHandler();this._gizmo?.hide();this._gizmo=null}}return this};o.prototype.setTitle=function(t){this._gizmo?.setTitle(t);return this};o.prototype.queueCommand=function(t){if(this._addLocoHandler()){var e=this.getFootprint();for(var i=0;i<e.length;i++){if(this.isViewportType(e[i])){t();break}}}return this};return o});
+//# sourceMappingURL=TooltipTool.js.map

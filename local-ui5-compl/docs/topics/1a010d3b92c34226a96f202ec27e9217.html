@@ -1,0 +1,117 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio1a010d3b92c34226a96f202ec27e9217" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/binding-events-1a010d3.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Binding Events</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Binding Events</h2></div><div class="shortdesc">The OData V4 model supports certain events intended for applications, and others that
+		are to be used for controls, as outlined in this section.</div><section>
+			<h2 class="title ">Events for Applications</h2>
+			<p>For applications, the OData V4 model supports the following events:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>The <code>dataRequested</code> and <code>dataReceived</code> events are typically used by applications to display and hide a busy
+						indicator or to process a back-end error which happened when requesting data. The events are fired by
+							<code>ODataPropertyBinding</code>, <code>ODataContextBinding</code> and <code>ODataListBinding</code> and
+						bubbled up to the model when reading data:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>The <code>dataRequested</code> event is fired directly after data
+								has been requested from a back end.</p>
+						</li>
+						<li class="li">
+							<p>The <code>dataReceived</code> event is fired after the back-end data has been processed. Note that the <code>dataReceived</code>
+								event is also fired after a back-end request has failed. The error of the failed request is passed to the event
+								handler as an <code>error</code> parameter. If multiple requests are processed within a single $batch (or even a
+								single change set), the order of <code>dataReceived</code> events is not guaranteed. For requests which are not
+								processed because a previous request failed, <code>error.cause</code> points to the root cause error - you should
+								either ignore these events or unwrap the error to access the root cause immediately.</p>
+						</li>
+					</ul>
+					<p>An event handler attached to the binding can prevent the event from bubbling up to the model by calling <a href="api/sap.ui.base.Event#methods/cancelBubble" title="api/sap.ui.base.Event#methods/cancelBubble" class="sap-doc" alt="api/sap.ui.base.Event#methods/cancelBubble"><code>oEvent.cancelBubble()</code></a>.</p>
+					<p>The events are also fired, but only by the model, when additional properties are requested for an existing entity, for example after binding
+						the row context of a list as a binding context for an object page (which typically displays many more properties). Note that
+						this includes all requests for a context obtained via <a href="api/sap.ui.model.odata.v4.ODataModel#methods/getKeepAliveContext" title="api/sap.ui.model.odata.v4.ODataModel#methods/getKeepAliveContext" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/getKeepAliveContext"><code>ODataModel#getKeepAliveContext</code></a>. Timing and parameters
+						are exactly the same as described above. The application can use this event to be notified when data for the object page could
+						not be requested.</p>
+					<p>For more details, see the corresponding API documentation for <a href="api/sap.ui.model.odata.v4.ODataModel" title="api/sap.ui.model.odata.v4.ODataModel" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel"><code>ODataModel</code></a> and the specific bindings <a href="api/sap.ui.model.odata.v4.ODataPropertyBinding" title="api/sap.ui.model.odata.v4.ODataPropertyBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataPropertyBinding">ODataPropertyBinding</a>, <a href="api/sap.ui.model.odata.v4.ODataContextBinding" title="api/sap.ui.model.odata.v4.ODataContextBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding">ODataContextBinding</a> and <a href="api/sap.ui.model.odata.v4.ODataListBinding" title="api/sap.ui.model.odata.v4.ODataListBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding">ODataListBinding</a> in the Demo Kit.</p>
+				</li>
+				<li class="li">
+					<p>The <code>createSent</code> and <code>createCompleted</code> events
+						at the <code>ODataListBinding</code> are typically used by applications
+						to lock the UI for the created entity to avoid modifications while the data
+						for the created entity is sent to the back end, but the response from the
+						back end is not yet processed on the client. For each
+							<code>createSent</code> event, a <code>createCompleted</code>
+						event is fired.</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>The <code>createSent</code> event is fired each time a POST request that is initiated for an <code>ODataListBinding#create</code> is
+								sent to the backend.</p>
+						</li>
+						<li class="li">
+							<p>The <code>createCompleted</code> event is fired each time the back end has responded to a POST request initiated for an
+									<code>ODataListBinding#create</code>.</p>
+						</li>
+					</ul>
+					<p>For more information, see <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>ODataListBinding#create</code></a>.</p>
+				</li>
+				<li class="li">
+					<p>The <code>patchSent</code> and <code>patchCompleted</code> events are
+						typically used by applications that are using update groups with submit mode
+							<a href="api/sap.ui.model.odata.v4.SubmitMode" title="api/sap.ui.model.odata.v4.SubmitMode" class="sap-doc" alt="api/sap.ui.model.odata.v4.SubmitMode">Auto</a>
+						(which is the default) and which need to be informed when PATCH requests are
+						sent to the back end and when they are processed. For example, these events
+						can be used to display a <code>DraftIndicator</code> to inform the user
+						that his changes are being saved and when saving is finished.</p>
+					<p>The <code>patchSent</code> and <code>patchCompleted</code> events are
+						fired by <code>ODataContextBinding</code> and
+							<code>ODataListBinding</code> if they send their own service
+						request:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>The <code>patchSent</code> event is fired when the first PATCH
+								request for this binding is sent to the backend.</p>
+						</li>
+						<li class="li">
+							<p>The <code>patchCompleted</code> event is fired when the backend
+								has responded to the last PATCH request for this binding.</p>
+						</li>
+					</ul>
+					<p>If <code>ODataContextBinding</code> and <code>ODataListBinding</code>
+						use the service request of a superordinate binding, the events are fired by
+						the superordinate binding.</p>
+					<p>For more details, see the corresponding API documentation for the specific bindings <a href="api/sap.ui.model.odata.v4.ODataContextBinding" title="api/sap.ui.model.odata.v4.ODataContextBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding">ODataContextBinding</a> and <a href="api/sap.ui.model.odata.v4.ODataListBinding" title="api/sap.ui.model.odata.v4.ODataListBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding">ODataListBinding</a> in the Demo Kit.</p>
+				</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">Events for Controls</h2>
+			<p>The events <code>change</code> and <code>refresh</code> are meant for
+				controls only, and not available for app development. They indicate that the
+				respective binding has new data which can be accessed by the control:</p><ul class="ul ">
+					<li class="li">
+						<p>When the binding is initialized, it fires a <code>change</code> event
+							with the parameter <code>reason</code> set to
+								<code>sap.ui.model.ChangeReason.Change</code>.</p>
+					</li>
+					<li class="li">
+						<p>When a relative binding gets a new context, it fires a
+								<code>change</code> event with the parameter
+								<code>reason</code> set to
+								<code>sap.ui.model.ChangeReason.Context</code>.</p>
+					</li>
+					<li class="li">
+						<p>When a binding is refreshed, the event fired depends on the binding type,
+							as follows:</p>
+						<p>a) <code>ODataPropertyBinding</code> and
+								<code>ODataContextBinding</code> fire a <code>change</code>
+							event with the parameter <code>reason</code> set to
+								<code>sap.ui.model.ChangeReason.Refresh</code>.</p>
+						<p>b) <code>ODataListBinding</code> fires a <code>refresh</code>
+							event.</p>
+					</li>
+				</ul>For more details, see the corresponding API documentation for the specific
+				bindings <a href="api/sap.ui.model.odata.v4.ODataPropertyBinding" title="api/sap.ui.model.odata.v4.ODataPropertyBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataPropertyBinding">ODataPropertyBinding</a>, <a href="api/sap.ui.model.odata.v4.ODataContextBinding" title="api/sap.ui.model.odata.v4.ODataContextBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding">ODataContextBinding</a> and <a href="api/sap.ui.model.odata.v4.ODataListBinding" title="api/sap.ui.model.odata.v4.ODataListBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding">ODataListBinding</a>, as well as <a href="api/sap.ui.model.ChangeReason" title="api/sap.ui.model.ChangeReason" class="sap-doc" alt="api/sap.ui.model.ChangeReason">sap.ui.model.ChangeReason</a>
+				in the Demo Kit.<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.model.odata.v4.ODataPropertyBinding" title="api/sap.ui.model.odata.v4.ODataPropertyBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataPropertyBinding">ODataPropertyBinding</a></li>
+		<li><a href="api/sap.ui.model.odata.v4.ODataContextBinding" title="api/sap.ui.model.odata.v4.ODataContextBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding">ODataContextBinding</a></li>
+		<li><a href="api/sap.ui.model.odata.v4.ODataListBinding" title="api/sap.ui.model.odata.v4.ODataListBinding" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding">ODataListBinding</a></li>
+		<li><a href="api/sap.ui.model.ChangeReason" title="api/sap.ui.model.ChangeReason" class="sap-doc" alt="api/sap.ui.model.ChangeReason">sap.ui.model.ChangeReason</a></li>
+	</ul></section></div></section></div></body></html>

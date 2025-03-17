@@ -1,0 +1,108 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9bc298eeaeaa4bf39f1fae582c1443f6" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/customizing-table-card-9bc298e.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Customizing Table Card</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Customizing Table Card</h2></div><div class="shortdesc">You can customize the content on the table area with smart links, text alignment,
+		filtering or grouping information.</div><section>
+			<h2 class="title ">Adding Smart Links</h2>
+			<p>Define a semantic object for the entity set and its property using the annotation
+				target to add smart links. For example:</p>
+			
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="GWSAMPLE_BASIC.SalesOrder/SalesOrderID"&gt;
+&lt;Annotation Term="com.sap.vocabularies.Common.v1.SemanticObject" String="OVP" /&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+			
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view SALESORDER with {
+ @Consumption.semanticObject: 'OVP'
+ salesorderid;
+}</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate GWSAMPLE_BASIC.SalesOrder with {
+  @Common.SemanticObject : 'OVP'
+  SalesOrderID
+};</pre></div></div></section><p></p></div></div>
+		</section><section id="section_khq_q32_2fb">
+			<h2 class="title ">Text Arrangement in Table Area</h2>
+			<p>Define <code>Text</code> arrangement annotation to format content on the table
+				area.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="GWSAMPLE_BASIC.SalesOrder/CustomerID"&gt;
+&lt;Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="Supplier_Name"/&gt;
+&lt;Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" /&gt;
+&lt;/Annotation&gt; 
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view SALESORDER with {
+ @UI.TextArrangement: #TEXT_LAST
+ customerid;
+}</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate GWSAMPLE_BASIC.SalesOrder with {
+  @Common.Text : Supplier_Name,
+  @UI.TextArrangement : #TextLast,
+  CustomerID
+};
+</pre></div></div></section><p></p></div></div>
+			<p>In the preceding example, the text <code>Customer</code> is bound to the
+					<code>ContactID</code> property and appears as shown in the table:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_tqn_gj2_2fb" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Text Arrangement Type</th>
+							<th colspan="1" rowspan="1">Result</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1"><code>TextLast</code></td>
+							<td colspan="1" rowspan="1"><code>ContractID (Customer)</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>TextFirst</code></td>
+							<td colspan="1" rowspan="1"><code>Customer (ContractID)</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>TextOnly</code></td>
+							<td colspan="1" rowspan="1"><code>Customer</code></td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section id="section_z4h_pj2_2fb">
+			<h2 class="title ">Filtering</h2>
+			<p>You can add filters to table card by using the
+					<code>com.sap.vocabularies.UI.v1.SelectionVariant</code> annotation term, or
+				by passing filter parameter in the URL. For more information, see <a href="topic/ecde99ffaf2d4c5d8e95552415588b74" title="You can add filters to all card types, by using the com.sap.vocabularies.UI.v1.SelectionVariant annotation term or by passing filter parameter in the URL." class="sap-doc">Configuring Card Filters</a></p>
+		</section><section id="section_zmn_qj2_2fb">
+			<h2 class="title ">Sorting or Grouping</h2>
+			<p>You can sort information in the table card by using <code>sortBy</code> and
+					<code>sortOrder</code> properties in the application descriptor file. For
+				more information, see <a href="topic/41af842da7694ef1918fc06b75679ecc" title="All cards support sorting using the com.sap.vocabularies.UI.v1.PresentationVariant annotation term." class="sap-doc">Configuring Sort Properties</a></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

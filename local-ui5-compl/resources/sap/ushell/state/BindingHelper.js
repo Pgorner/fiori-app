@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ui/core/Element"],function(t){"use strict";class e{overrideUpdateAggregation(t){t.updateAggregation=this.#t}#t(t){const e=this.mBindingInfos[t];const n=this.getMetadata().getJSONKeys()[t];const s=this[n._sGetter].bind(this);const i=this[n._sRemoveMutator].bind(this);const o=this[n._sMutator].bind(this);const g=s()||[];[...g].forEach(t=>{i(t)});e.binding.getContexts().forEach((t,n)=>{const s=e.factory(this.getId()+"-"+n,t)?e.factory(this.getId()+"-"+n,t).setBindingContext(t,e.model):"";o(s)})}factory(e,n){return t.getElementById(n.getObject())}}return new e});
+//# sourceMappingURL=BindingHelper.js.map

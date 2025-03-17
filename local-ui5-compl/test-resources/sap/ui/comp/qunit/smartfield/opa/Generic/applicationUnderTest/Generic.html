@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField with local Metadata</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-libs="sap.m, sap.ui.comp, sap.uxap, sap.ui.core"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="MyView"
+				controllerName="myTest.MyTestApplication.controller.MyApplication"
+				xmlns:mvc="sap.ui.core.mvc"
+				xmlns:core="sap.ui.core"
+				xmlns:uxap="sap.uxap"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:st="sap.ui.comp.smarttable"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+				displayBlock="true"
+				xmlns="sap.m">
+			<Shell id="shell">
+				<App id="app">
+					<Page>
+						<uxap:ObjectPageLayout
+								id="op"
+								useIconTabBar="false"
+								sectionTitleLevel="H6"
+								showAnchorBar="true"
+								showFooter="false"
+								binding="{/Employees('0001')}"
+								alwaysShowContentHeader="false"
+								enableLazyLoading="true">
+
+							<uxap:ObjectPageSection title="FE restricted promises">
+								<uxap:ObjectPageSubSection id="gnrp" title="Focus _getNextModeRenderedPromise">
+
+									<smartForm:SmartForm id="smartForm1"
+														 editable="false"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement label="Non-editable">
+												<smartField:SmartField id="Field1" value="{Field1}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="Corrupt">
+												<smartField:SmartField id="FieldCorrupt" value="{FieldCorrupt}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="Editable">
+												<smartField:SmartField id="Field2" value="{Field2}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+												<Button id="switchToEdit" text="Switch to edit" press=".switchToEdit"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+									<st:SmartTable
+										id="smartTable1"
+										entitySet="Employees"
+										enableAutoBinding="true"
+										enableExport="false"
+										showTablePersonalisation="false"
+										showVariantManagement="false"
+										cd:useSmartField="true"
+									/>
+
+								</uxap:ObjectPageSubSection>
+								<uxap:ObjectPageSubSection title="Focus _getICRenderedPromise">
+
+									<smartForm:SmartForm id="smartForm2"
+														 editable="false"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement label="Non-editable">
+												<smartField:SmartField id="Field3" value="{Field3}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="Editable">
+												<smartField:SmartField id="Field4" value="{Field4}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+												<Button id="switchToEdit2" text="Switch to edit" press=".switchToEdit2"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="BCP: 002075129400001371562023 Value Help usage with non-standard mapping">
+
+									<smartForm:SmartForm editable="true"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField
+														id="globalbrandname"
+														value="{globalbrandname}"
+														textInEditModeSource="ValueListNoValidation"
+												>
+													<smartField:customData>
+														<core:CustomData key="defaultInputFieldDisplayBehaviour" value="IdAndDescription"/>
+													</smartField:customData>
+												</smartField:SmartField>
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="NBSP Handling">
+
+									<smartForm:SmartForm editable="true"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldNBSP" value="{Field2}" textInEditModeSource="ValueListNoValidation"/>
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="Function Import">
+
+									<smartForm:SmartForm id="functionImportForm"
+														 editable="true"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldFI1" entitySet="FunctionImportSet" value="{Field5}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldFI2" entitySet="MyFunctionImport" value="{MyCustomParameter}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldFC" entitySet="MyFunctionImport" value="{FieldFC}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement id="ImmutableGroup">
+
+												<smartField:SmartField id="FieldFI3" entitySet="Immutable" value="{Name}">
+													<smartField:customData>
+														<core:CustomData key="ignoreInsertRestrictions" value="true"/>
+													</smartField:customData>
+												</smartField:SmartField>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FunctionImportPrecedence" value="{FunctionImportPrecedence}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldControlTypeReadOnlyFunctionImport" value="{FieldControlTypeReadOnlyFunctionImport}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="ReadOnlyFunctionImport" value="{ReadOnlyFunctionImport}"/>
+												
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<Button id="functionImportBind" text="Create function import context and bind" press=".bindFunctionImport"/>
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="Function Import UI.Hidden">
+
+									<smartForm:SmartForm id="functionImportVisibilityForm"
+														 editable="true"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="HiddenEntityType" value="{HiddenEntityType}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="HiddenFunctionImport" value="{HiddenFunctionImport}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="HiddenFunctionImportCustom" value="{HiddenFunctionImportCustom}"/>
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="Function Import Value List and Field control">
+
+									<smartForm:SmartForm id="functionImportValueHelpForm"
+														 editable="true"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FunctionImportValueList" value="{FunctionImportValueList}"/>
+
+											</smartForm:GroupElement>
+
+											<smartForm:GroupElement>
+
+												<Button id="functionImportValueListBind" text="Create function import context and bind" press=".bindFunctionImportValueList"/>
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FunctionImportValueListLazy" value="{FunctionImportValueListLazy}"/>
+
+											</smartForm:GroupElement>
+
+											<smartForm:GroupElement>
+												<Button id="functionImportValueListLazyBind" text="Create function import context and bind" press=".bindFunctionImportValueListLazy"/>
+											</smartForm:GroupElement>
+
+											<smartForm:GroupElement>
+												<Label text="Request for Function import Value help annotations:"/>
+												<FormattedText id="requestedFILazy"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="BCP: 2370108763">
+
+									<smartForm:SmartForm id="FieldNull"
+														 editable="false"
+														 editTogglable="true"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldNull1" value="{FieldNull1}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldNull2" value="{FieldNull2}"/>
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+										<smartForm:customData>
+											<core:CustomData key="defaultDropDownDisplayBehaviour" value="descriptionOnly"/>
+											<core:CustomData key="defaultInputFieldDisplayBehaviour" value="descriptionAndId"/>
+											<core:CustomData key="defaultTextInEditModeSource" value="ValueListNoValidation"/>
+										</smartForm:customData>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="BCP: 2380134089 Selected value is not taken over">
+
+									<smartForm:SmartForm editable="true"
+														 validationMode="Async">
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="field6" value="{Field6}" showSuggestion="false" />
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="SNOW: CS20240007033219">
+
+									<smartForm:SmartForm editable="true"
+														 validationMode="Async">
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="field7" value="{Field7}" showValueHelp="false" />
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement>
+												<Button id="setShowValueHelp" text="Set ShowValueHelp" press=".setShowValueHelp"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="SNOW: CS20240007116211">
+
+									<smartForm:SmartForm id="PriceSmartForm"
+														 editable="true"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement binding="{Employee('0001')}">
+
+												<smartField:SmartField id="Price" value="{Price}"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement binding="{Employee('0001')}">
+
+												<smartField:SmartField id="Price2" value="{Price}" editable="false"/>
+
+											</smartForm:GroupElement>
+											<smartForm:GroupElement binding="{Employee('0002')}">
+
+												<smartField:SmartField id="Price3" value="{Price}" editable="false"/>
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+
+							<uxap:ObjectPageSection titleUppercase="false" titleLevel="H5">
+								<uxap:ObjectPageSubSection titleLevel="H5" titleUppercase="false" title="SNOW: DINC0164426 Empty value help dialog">
+
+									<smartForm:SmartForm editable="true"
+														 validationMode="Async">
+										<smartForm:Group>
+											<smartForm:GroupElement>
+
+												<smartField:SmartField id="FieldExpand" value="{FieldExpand}" />
+
+											</smartForm:GroupElement>
+										</smartForm:Group>
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+
+							<uxap:ObjectPageSection title="Model">
+								<uxap:ObjectPageSubSection>
+									<VBox>
+										<Text text="Pending changes:"/>
+										<Text id="modelDump" renderWhitespace="true"/>
+										<List id="events" headerText="LOG:"/>
+									</VBox>
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+
+						</uxap:ObjectPageLayout>
+						<footer>
+							<Toolbar>
+								<Button id="messagePopoverButton"
+										icon="sap-icon://alert"
+										text="{= ${message>/}.length }"
+										visible="{= ${message>/}.length > 0 }"
+										type="Emphasized"
+										press=".onMessagePopoverPress" />
+
+								<ToolbarSpacer/>
+
+								<Button id="submitChanges" text="Submit Changes" press=".submitChanges"/>
+								<Button id="clearLog" text="Clear LOG" press=".clearLog"/>
+								<Button id="resetModel" text="Reset model" press=".resetModel"/>
+							</Toolbar>
+						</footer>
+					</Page>
+				</App>
+			</Shell>
+		</mvc:View>
+	</script>
+
+	<script id="messagePopover" type="application/xml">
+		<core:FragmentDefinition
+				xmlns="sap.m"
+				xmlns:core="sap.ui.core">
+			<MessagePopover
+					items="{message>/}"
+					initiallyExpanded="true">
+				<MessageItem
+						type="{message>type}"
+						title="{message>message}"
+						subtitle="{message>additionalText}"
+						activeTitle="{= !!${message>controlIds}.length}"
+						description="{message>description}"/>
+			</MessagePopover>
+		</core:FragmentDefinition>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee" sap:label="Employees" sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id" Type="Edm.String" Nullable="false" sap:label="Employee Id"/>
+
+						<Property Name="Field1" Type="Edm.String" sap:updatable="false" sap:label="Field1"/>
+						<Property Name="Field2" Type="Edm.String" sap:label="Field2"/>
+						<Property Name="FieldCorrupt" Type="Edm.String" sap:label="Field Corrupt" sap:value-list="standard"/>
+						<Property Name="FieldNoValue" Type="Edm.String" sap:updatable="false" sap:label="Field No Value"/>
+
+						<Property Name="FC1" Type="Edm.Byte"/>
+						<Property Name="FC2" Type="Edm.Byte"/>
+
+						<Property Name="Field3" Type="Edm.String" sap:field-control="FC1" sap:label="Field3"/>
+						<Property Name="Field4" Type="Edm.String" sap:field-control="FC2" sap:label="Field4"/>
+
+						<Property Name="maportfolio" Type="Edm.String" MaxLength="120"/>
+						<Property Name="globalbrandname" Type="Edm.String" MaxLength="120" sap:value-list="standard"/>
+
+						<Property Name="Field5" Type="Edm.String" sap:label="Field5"/>
+						<Property Name="FieldFC" sap:field-control="FC" Type="Edm.String" sap:updatable="false" sap:label="FieldFC"/>
+						<Property Name="FC" Type="Edm.Byte"/>
+						<Property Name="FieldNull1" Type="Edm.String" Nullable="true" sap:label="FieldNull1"/>
+						<Property Name="FieldNull2" Type="Edm.String" Nullable="true" sap:label="FieldNull2"/>
+
+						<Property Name="Field6" Type="Edm.String" sap:label="Field6"/>
+						<Property Name="Field7" Type="Edm.String" sap:label="Field7"/>
+						<Property Name="FieldExpand" Type="Edm.String" sap:label="FieldExpand"/>
+
+						<Property Name="Price" Type="Edm.String" sap:label="Price" sap:variable-scale="true" sap:aggregation-role="measure" sap:unit="Currency" Precision="20" Scale="5"/>
+						<Property Name="Currency" Type="Edm.String" sap:label="Currency" sap:semantics="currency-code"/>
+
+						<Property Name="HiddenEntityType" Type="Edm.String" sap:label="HiddenEntityType"/>
+						<Property Name="HiddenFunctionImport" Type="Edm.String" sap:label="HiddenFunctionImport"/>
+						<Property Name="FieldControlTypeReadOnlyFunctionImport" Type="Edm.String" sap:label="FieldControlTypeReadOnlyFunctionImport"/>
+						<Property Name="ReadOnlyFunctionImport" Type="Edm.String" sap:label="ReadOnlyFunctionImport"/>
+						<Property Name="FunctionImportValueList" Type="Edm.String" sap:label="FunctionImportValueList" sap:field-control="FIVL_FC"/>
+						<Property Name="FunctionImportPrecedence" Type="Edm.String" sap:label="FunctionImportPrecedence" sap:value-list="fixed-values"/>
+						<Property Name="FIVL_FC" Type="Edm.Byte"/>
+						<Property Name="FunctionImportValueListLazy" Type="Edm.String" sap:label="FIValueListLazy" sap:field-control="FIVL_Lazy_FC"/>
+						<Property Name="FIVL_Lazy_FC" Type="Edm.Byte"/>
+					</EntityType>
+
+					<EntityType Name="FunctionImportType" sap:label="Employees" sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id" Type="Edm.String" Nullable="false" sap:label="Employee Id"/>
+						<Property Name="Field5" Type="Edm.String" sap:updatable="false" sap:label="Field5"/>
+						<Property Name="FieldFC" sap:field-control="FC" Type="Edm.String" sap:updatable="false" sap:label="FieldFC"/>
+						<Property Name="FC" Type="Edm.Byte"/>
+						<Property Name="FunctionImportValueList" Type="Edm.String"/>
+						<Property Name="FunctionImportPrecedence" Type="Edm.String" sap:value-list="fixed-values"/>
+						<Property Name="FIVL_FC" Type="Edm.Byte"/>
+						<Property Name="FunctionImportValueListLazy" Type="Edm.String"/>
+						<Property Name="FIVL_Lazy_FC" Type="Edm.Byte"/>
+					</EntityType>
+
+					<EntityType Name="StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityType Name="Field6StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityType Name="Field7StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityType Name="help_global_brandnameType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="maportfolio"/>
+							<PropertyRef Name="globalbrandid"/>
+						</Key>
+						<Property Name="maportfolio" Type="Edm.String" Nullable="false" MaxLength="10"/>
+						<Property Name="globalbrandid" Type="Edm.Guid" Nullable="false" sap:label="UUID" sap:quickinfo="16 Byte UUID in 16 Bytes (Raw Format)"/>
+						<Property Name="globalbrandname" Type="Edm.String" MaxLength="120"/>
+					</EntityType>
+
+					<EntityType Name="FieldExpandStringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityType Name="StringFIType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" sap:text="TXT" Nullable="false" MaxLength="20" sap:label="Function Import Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Function Import Desc"/>
+					</EntityType>
+
+					<EntityType Name="StringFILazyType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" sap:text="TXT" Nullable="false" MaxLength="20" sap:label="Function Import Key Lazy"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Function Import Desc Lazy"/>
+					</EntityType>
+
+					<EntityType Name="Immutable"
+								sap:label="Immutable"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"/>
+
+						<Property Name="Name"
+								  Type="Edm.String"
+								  sap:label="Name"/>
+
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="FunctionImportSet"
+								   EntityType="EmployeesNamespace.FunctionImportType"
+								   sap:creatable="false"
+								   sap:updatable="false"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="StringVH"
+								   EntityType="EmployeesNamespace.StringVHType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="StringFI"
+								   EntityType="EmployeesNamespace.StringFIType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="StringFILazy"
+								   EntityType="EmployeesNamespace.StringFILazyType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="Field6StringVH"
+								   EntityType="EmployeesNamespace.Field6StringVHType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="Field7StringVH"
+								   EntityType="EmployeesNamespace.Field7StringVHType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="FieldExpandStringVH"
+								   EntityType="EmployeesNamespace.FieldExpandStringVHType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="help_global_brandname"
+								   EntityType="EmployeesNamespace.help_global_brandnameType"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="Immutable"
+								   EntityType="EmployeesNamespace.Immutable"
+								   sap:creatable="false"
+								   sap:updatable="false"
+								   sap:deletable="false"
+								   sap:content-version="1"/>
+
+						<FunctionImport
+								Name="MyFunctionImport"
+								ReturnType="EmployeesNamespace.Employee" m:HttpMethod="POST"
+								EntitySet="Employees"
+								sap:action-for="EmployeesNamespace.Employee">
+							<Parameter Name="Field5" Type="Edm.String" />
+							<Parameter Name="FieldFC" Type="Edm.String"/>
+							<Parameter Name="FC" Type="Edm.Byte"/>
+							<Parameter Name="MyCustomParameter" Type="Edm.String" sap:label="MyCustomParameter" MaxLength="20" Mode="In"/>
+							<Parameter Name="HiddenEntityType" Type="Edm.String"/>
+							<Parameter Name="HiddenFunctionImport" Type="Edm.String"/>
+							<Parameter Name="HiddenFunctionImportCustom" Type="Edm.String" sap:label="HiddenFunctionImportCustom"/>
+							<Parameter Name="FieldControlTypeReadOnlyFunctionImport" Type="Edm.String" sap:label="FieldControlTypeReadOnlyFunctionImport"/>
+							<Parameter Name="ReadOnlyFunctionImport" Type="Edm.String" sap:label="ReadOnlyFunctionImport"/>
+							<Parameter Name="FunctionImportValueList" Type="Edm.String"/>
+							<Parameter Name="FunctionImportPrecedence" Type="Edm.String" sap:value-list="standard"/>
+							<Parameter Name="FIVL_FC" Type="Edm.Byte"/>
+						</FunctionImport>
+						<FunctionImport
+							Name="MyFunctionImportLazy"
+							ReturnType="EmployeesNamespace.Employee" m:HttpMethod="POST"
+							EntitySet="Employees"
+							sap:action-for="EmployeesNamespace.Employee">
+							<Parameter Name="FunctionImportValueListLazy" Type="Edm.String" sap:value-list="standard"/>
+							<Parameter Name="FIVL_Lazy_FC" Type="Edm.Byte"/>
+						</FunctionImport>
+
+					</EntityContainer>
+
+					<Annotations Target="EmployeesNamespace.Employee"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
+							<Collection>
+								<Record Type="com.sap.vocabularies.UI.v1.DataField">
+									<PropertyValue Property="Value" Path="FieldNoValue" />
+								</Record>
+							</Collection>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/HiddenEntityType"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.Hidden"/>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.EmployeesNamespace_Entities/MyFunctionImport/HiddenFunctionImport"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.Hidden"/>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.EmployeesNamespace_Entities/MyFunctionImport/HiddenFunctionImportCustom"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.Hidden"/>
+
+					</Annotations>
+
+
+					<Annotations Target="EmployeesNamespace.EmployeesNamespace_Entities/MyFunctionImport/FieldControlTypeReadOnlyFunctionImport"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+					<Annotation Term="com.sap.vocabularies.Common.v1.FieldControl" EnumMember="com.sap.vocabularies.Common.v1.FieldControlType/ReadOnly"/>
+<!--						<Annotation Term="com.sap.vocabularies.UI.v1.ReadOnly"/>-->
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.EmployeesNamespace_Entities/MyFunctionImport/ReadOnlyFunctionImport"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.UI.v1.ReadOnly"/>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.StringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="TXT">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field1"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field1"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field2"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/globalbrandname"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String=""/>
+								<PropertyValue Property="CollectionPath" String="help_global_brandname"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="maportfolio"/>
+											<PropertyValue Property="ValueListProperty" String="maportfolio"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="globalbrandname"/>
+											<PropertyValue Property="ValueListProperty" String="globalbrandname"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FieldNull1"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="Id">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FieldNull1"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FieldNull2"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="Id">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FieldNull2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Field6StringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.Hidden" />
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field6"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="Field6StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field6"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Field7StringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.Hidden" />
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field7"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="Field7StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field7"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.FieldExpandStringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="to_nonExistingNavigation/TXT">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FieldExpand"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="FieldExpandStringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FieldExpand"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FunctionImportValueList"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FunctionImportValueList"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FunctionImportPrecedence"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FunctionImportPrecedence"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.EmployeesNamespace_Entities/MyFunctionImport/FunctionImportValueList"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringFI"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FunctionImportValueList"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.EmployeesNamespace_Entities/MyFunctionImportLazy/FunctionImportValueList"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringFI"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FunctionImportValueList"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/FunctionImportValueListLazy"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FunctionImportValueListLazy"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="employees" type="application/json">
+		{"d": {
+			"__count": "2",
+			"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+					"Field1": "1",
+					"Field2": "1",
+					"Field3": "1",
+					"Field4": "1",
+					"Field5": "1",
+					"Field6": "",
+					"Field7": "",
+					"FieldCorrupt": "1",
+					"FieldNoValue": "",
+					"FieldExpand": "",
+					"FC1": 1,
+					"FC2": 1,
+					"maportfolio": "",
+					"globalbrandname": "",
+					"FieldNull1": "1",
+					"FieldNull2": null,
+					"Id": "0001",
+					"FieldFC": "1",
+					"FC": "1",
+					"Price": "1",
+					"Currency": "EUR",
+					"HiddenEntityType": "1",
+					"HiddenFunctionImport": "1",
+					"FieldControlTypeReadOnlyFunctionImport": "FieldControlTypeReadOnlyFunctionImport",
+					"ReadOnlyFunctionImport": "ReadOnlyFunctionImport",
+					"FunctionImportValueList": null,
+					"FunctionImportPrecedence": null,
+					"FIVL_FC": 3,
+					"FunctionImportValueListLazy": null,
+					"FIVL_Lazy_FC": 3
+				},
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0002')", "type": "EmployeesNamespace.Employee" },
+					"Field1": "1",
+					"Field2": "1",
+					"Field3": "1",
+					"Field4": "1",
+					"Field5": "1",
+					"Field6": "",
+					"Field7": "",
+					"FieldCorrupt": "1",
+					"FieldNoValue": "",
+					"FieldExpand": "",
+					"FC1": 1,
+					"FC2": 3,
+					"maportfolio": "",
+					"globalbrandname": "",
+					"FieldNull1": "1",
+					"FieldNull2": null,
+					"Id": "0002",
+					"FieldFC": "1",
+					"FC": "1",
+					"Price": "2",
+					"Currency": "EUR",
+					"HiddenEntityType": "1",
+					"HiddenFunctionImport": "1",
+					"FieldControlTypeReadOnlyFunctionImport": "FieldControlTypeReadOnlyFunctionImport",
+					"ReadOnlyFunctionImport": "ReadOnlyFunctionImport",
+					"FunctionImportValueList": null,
+					"FunctionImportPrecedence": null,
+					"FIVL_FC": 3,
+					"FunctionImportValueListLazy": null,
+					"FIVL_Lazy_FC": 3
+				}
+			]
+		}}
+	</script>
+
+	<script id="employees0001" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+					"Field1": "1",
+					"Field2": "1",
+					"Field3": "1",
+					"Field4": "1",
+					"Field5": "1",
+					"Field6": "",
+					"Field7": "",
+					"FieldCorrupt": "1",
+					"FieldNoValue": "",
+					"FieldExpand": "",
+					"FC1": 1,
+					"FC2": 1,
+					"maportfolio": "",
+					"globalbrandname": "",
+					"FieldNull1": "1",
+					"FieldNull2": null,
+					"Id": "0001",
+					"Price": "1",
+					"Currency": "EUR",
+					"HiddenEntityType": "1",
+					"HiddenFunctionImport": "1",
+					"FieldControlTypeReadOnlyFunctionImport": "FieldControlTypeReadOnlyFunctionImport",
+					"ReadOnlyFunctionImport": "ReadOnlyFunctionImport",
+					"FunctionImportValueList": null,
+					"FunctionImportPrecedence": null,
+					"FIVL_FC": 3
+				}
+			]
+		}}
+	</script>
+
+	<script id="employees0002" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0002')", "type": "EmployeesNamespace.Employee" },
+					"Field1": "1",
+					"Field2": "1",
+					"Field3": "1",
+					"Field4": "1",
+					"Field5": "1",
+					"Field6": "",
+					"FieldCorrupt": "1",
+					"FieldNoValue": "",
+					"FieldExpand": "",
+					"FC1": 1,
+					"FC2": 3,
+					"maportfolio": "",
+					"globalbrandname": "",
+					"FieldNull1": "1",
+					"FieldNull2": null,
+					"Id": "0002",
+					"Price": "2",
+					"Currency": "EUR",
+					"HiddenEntityType": "1",
+					"HiddenFunctionImport": "1",
+					"FieldControlTypeReadOnlyFunctionImport": "FieldControlTypeReadOnlyFunctionImport",
+					"ReadOnlyFunctionImport": "ReadOnlyFunctionImport",
+					"FunctionImportValueList": null,
+					"FunctionImportPrecedence": null,
+					"FIVL_FC": 3
+				}
+			]
+		}}
+	</script>
+
+	<script id="FunctionImportType" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": { "uri": "testService.FunctionImportType/FunctionImportType('0001')", "type": "EmployeesNamespace.FunctionImportType" },
+					"Field5": "1",
+					"Id": "0001",
+					"FieldFC": "1",
+					"HiddenEntityType": "1",
+					"HiddenFunctionImport": "1",
+					"FieldControlTypeReadOnlyFunctionImport": "FieldControlTypeReadOnlyFunctionImport",
+					"ReadOnlyFunctionImport": "ReadOnlyFunctionImport",
+					"FunctionImportValueList": null,
+					"FunctionImportPrecedence": null,
+					"FIVL_FC": 7
+				}
+			]
+		}}
+	</script>
+
+	<script id="stringVH" type="application/json">
+		{"d": {
+			"__count": "6",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0001')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": "1",
+					"TXT": "John Doe 1"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0002')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": "2",
+					"TXT": "John Doe 2"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0003')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": "3",
+					"TXT": "John Doe 3"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH(' 4')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": " 4",
+					"TXT": "Leading NBSP"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('5 ')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": "5 ",
+					"TXT": "Trailing NBSP"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('6    6')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": "6    6",
+					"TXT": "Mixed NBSP and spaces"
+				}
+			]
+		}}
+	</script>
+
+	<script id="stringFI" type="application/json">
+		{"d": {
+			"__count": "6",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.StringFI/StringFI('0001')",
+						"type": "EmployeesNamespace.StringFI"
+					},
+					"KEY": "1",
+					"TXT": "FI: John Doe 1"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFI/StringFI('0002')",
+						"type": "EmployeesNamespace.StringFI"
+					},
+					"KEY": "2",
+					"TXT": "FI: John Doe 2"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFI/StringFI('0003')",
+						"type": "EmployeesNamespace.StringFI"
+					},
+					"KEY": "3",
+					"TXT": "FI: John Doe 3"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFI/StringFI(' 4')",
+						"type": "EmployeesNamespace.StringFI"
+					},
+					"KEY": " 4",
+					"TXT": "FI: Leading NBSP"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFI/StringFI('5 ')",
+						"type": "EmployeesNamespace.StringFI"
+					},
+					"KEY": "5 ",
+					"TXT": "FI: Trailing NBSP"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFI/StringFI('6    6')",
+						"type": "EmployeesNamespace.StringFI"
+					},
+					"KEY": "6    6",
+					"TXT": "FI: Mixed NBSP and spaces"
+				}
+			]
+		}}
+	</script>
+
+	<script id="stringFILazy" type="application/json">
+		{"d": {
+			"__count": "6",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.StringFILazy/StringFILazy('0001')",
+						"type": "EmployeesNamespace.StringFILazy"
+					},
+					"KEY": "1",
+					"TXT": "FI Lazy: John Doe 1"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFILazy/StringFILazy('0002')",
+						"type": "EmployeesNamespace.StringFILazy"
+					},
+					"KEY": "2",
+					"TXT": "FI Lazy: John Doe 2"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFILazy/StringFILazy('0003')",
+						"type": "EmployeesNamespace.StringFILazy"
+					},
+					"KEY": "3",
+					"TXT": "FI Lazy: John Doe 3"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFILazy/StringFILazy(' 4')",
+						"type": "EmployeesNamespace.StringFILazy"
+					},
+					"KEY": " 4",
+					"TXT": "FI Lazy: Leading NBSP"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFILazy/StringFILazy('5 ')",
+						"type": "EmployeesNamespace.StringFILazy"
+					},
+					"KEY": "5 ",
+					"TXT": "FI Lazy: Trailing NBSP"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringFI/StringFI('6    6')",
+						"type": "EmployeesNamespace.StringFI"
+					},
+					"KEY": "6    6",
+					"TXT": "FI: Mixed NBSP and spaces"
+				}
+			]
+		}}
+	</script>
+
+	<script id="Field6stringVHTXT" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.Field6StringVH/Field6StringVH('0001')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"TXT": "John Doe 1"
+				}
+			]
+		}}
+	</script>
+
+	<script id="Field6stringVHKEYTXT" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.Field6StringVH/Field6StringVH('0001')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": "1",
+					"TXT": "John Doe 1"
+				}
+			]
+		}}
+	</script>
+
+	<script id="Field7stringVHKEYTXT" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.Field7StringVH/Field7StringVH('0001')",
+						"type": "EmployeesNamespace.StringVH"
+					},
+					"KEY": "1",
+					"TXT": "John Doe 1"
+				}
+			]
+		}}
+	</script>
+
+	<script id="stringVHNoResults" type="application/json">
+		{"d": {
+			"__count": "0",
+			"results": []
+		}}
+	</script>
+
+	<script id="globalbrandnameVH" type="application/json">
+		{
+			"d": {
+				"__count": "2",
+				"results": [
+					{
+						"__metadata": {
+							"uri": "testService.help_global_brandname/help_global_brandname(maportfolio='SZ',globalbrandid=guid'02359330-bde6-1eeb-a78c-23f582ef36a9')",
+							"type": "EmployeesNamespace.help_global_brandname"
+						},
+						"maportfolio": "SZ",
+						"globalbrandname": "ABIRATERONE ACETATE (TABLET)"
+					},
+					{
+						"__metadata": {
+							"uri": "testService.help_global_brandname/help_global_brandname(maportfolio='SZ',globalbrandid=guid'02359330-bde6-1eeb-a78c-23f582fed6a9')",
+							"type": "EmployeesNamespace.help_global_brandname"
+						},
+						"maportfolio": "SZ",
+						"globalbrandname": "ARGATROBAN (LIQUID IN VIAL)"
+					}
+				]
+			}
+		}
+
+	</script>
+
+	<script id="immutable" type="text/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+					{
+						"__metadata": { "uri": "testService.Immutable/Immutable('0001')", "type": "EmployeesNamespace.Immutable" },
+						"Name": "MyName",
+						"Id": "0001"
+					}
+				]
+		}}
+	</script>
+
+	<script id="annotations" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<Annotations Target="EmployeesNamespace.EmployeesNamespace_Entities/MyFunctionImportLazy/FunctionImportValueListLazy"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringFILazy"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="FunctionImportValueListLazy"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+</head>
+
+<script src="./Generic.js"></script>
+
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+</html>

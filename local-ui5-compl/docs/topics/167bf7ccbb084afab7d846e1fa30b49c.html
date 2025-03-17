@@ -1,0 +1,1147 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio167bf7ccbb084afab7d846e1fa30b49c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/table-cards-167bf7c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Table Cards</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Table Cards</h2></div><div class="shortdesc">A table card displays a list of records in a 3-column table layout.</div><section id="section_g2p_tjw_gz"><p>To create a table card, you need these
+                annotations:</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>(Optional) You can configure smart links in table cards to access quick
+                    links.</p>
+            <p></p></div></div><div class="imagemap_sidebyside dark-overlays" data-static-type="false">
+                
+                
+                <div class="imagemap fig"><img src="loio19e10b012eab4e97b917df05cc5c68a8_LowRes.png" usemap="#__im_imagemap1"><map name="__im_imagemap1"><area shape="rect" coords="12,17,153,38" originalcoords="12,17,153,38" alt="167bf7ccbb084afab7d846e1fa30b49c.xml#loio167bf7ccbb084afab7d846e1fa30b49c/subsection-im1" title="Card Title" href="topic/167bf7ccbb084afab7d846e1fa30b49c" class="sap-doc"><area shape="rect" coords="7,44,156,63" originalcoords="7,44,156,63" alt="167bf7ccbb084afab7d846e1fa30b49c.xml#loio167bf7ccbb084afab7d846e1fa30b49c/subsection-im2" title="Card SubTitle" href="topic/167bf7ccbb084afab7d846e1fa30b49c" class="sap-doc"><area shape="rect" coords="13,70,147,107" originalcoords="13,70,147,107" alt="167bf7ccbb084afab7d846e1fa30b49c.xml#loio167bf7ccbb084afab7d846e1fa30b49c/subsection-im3" title="KPI" href="topic/167bf7ccbb084afab7d846e1fa30b49c" class="sap-doc"><area shape="rect" coords="1,146,243,176" originalcoords="1,146,243,176" alt="167bf7ccbb084afab7d846e1fa30b49c.xml#loio167bf7ccbb084afab7d846e1fa30b49c/subsection-im4" title="View Switch" href="topic/167bf7ccbb084afab7d846e1fa30b49c" class="sap-doc"><area shape="rect" coords="2,188,621,579" originalcoords="2,188,621,579" alt="167bf7ccbb084afab7d846e1fa30b49c.xml#loio167bf7ccbb084afab7d846e1fa30b49c/subsection-im5" title="Table Area" href="topic/167bf7ccbb084afab7d846e1fa30b49c" class="sap-doc"></map></div>
+                <section id="subsection-im0" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">
+                    <p>Hover over each action for a description. Click the action for more
+                        information.</p>
+                </h3></section>
+                <section id="subsection-im1" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Descriptor Settings: Title</h3>
+                    <p>Property: <code>title</code></p>
+                    <p>Description: Configuring this property displays the card title at the top of
+                        the table card.</p>
+                    <p><span class="emphasis">Configuration
+                        Sample:</span></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	"sap.ovp": {
+		"globalFilterModel": "salesOrder",
+		"globalFilterEntityType": "GlobalFilters",
+              ...
+              ...
+		"cards": {
+          "card014": {
+            "model": "salesOrder",
+            "template": "sap.ovp.cards.table",
+            "settings": {
+              <span class="ph uicontrol">"title": "Purchase Forecast",</span>
+              "entitySet": "SalesShare",
+              ...
+              ...
+              ...
+                }
+              ]
+            }
+          },</pre></div></div></section><p></p>
+                </section>
+                <section id="subsection-im2" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Descriptor Settings: Subtitle</h3>
+                    <p>Property: <code>subTitle</code></p>
+                    <p>Description: Configuring this property displays the card subtitle below the
+                        title of the table card.</p>
+                    <p><span class="emphasis">Configuration
+                        Sample:</span></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	"sap.ovp": {
+		"globalFilterModel": "salesOrder",
+		"globalFilterEntityType": "GlobalFilters",
+              ...
+              ...
+		"cards": {
+          "card014": {
+            "model": "salesOrder",
+            "template": "sap.ovp.cards.table",
+            "settings": {
+              "title": "Sales Forecast",
+              <span class="ph uicontrol">"subTitle": "per Supplier",</span>
+              "entitySet": "SalesShare",
+              ...
+              ...
+                }
+              ]
+            }
+          },</pre></div></div></section><p></p>
+                    <p>You can display the unit of measure next to numeric values by providing the
+                            <code>sap:unit</code> attribute in the OData metadata file or by
+                        annotating the unit in the annotation document. For example, if you have the
+                        following data, and want to display 850 kg after the subtitle text
+                        </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   CurrencyCode:"KG"
+   GrossAmount:850
+}</pre></div></div></section>Use one of
+                        the following options:<p></p>
+                    <p>Option
+                        1: Define <code>sap:unit</code> in the
+                        metadata</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:updatable="false" sap:semantics="currency-code"/&gt;
+&lt;Property Name="GrossAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Gross Amt." sap:creatable="false" sap:updatable="false"/&gt;</pre></div></div></section><p></p>
+                    <p>Option 2: Define <code>Org.OData.Measures.V1.ISOCurrency</code> in
+                        annotations</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="GWSAMPLE_BASIC.SalesOrder/GrossAmount"&gt;
+&lt;Annotation Term="Org.OData.Measures.V1.ISOCurrency" Path="CurrencyCode"/&gt;
+&lt;/Annotations&gt; </pre></div></div></section><p></p>
+                </section>
+                <section id="subsection-im3" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">KPI annotation</h3>
+                    <p>Descriptor
+                        Settings</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ovp": {//section for ovp-specific app descriptor settings
+	...
+
+	"kpiAnnotationPath":"com.sap.vocabularies.UI.v1.KPI#AllActualCosts", // Represents the KPI annotation path
+	
+     ...
+}
+}
+</pre></div></div></section><p></p>
+                    <p><span class="emphasis">Annotation Sample</span></p>
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.KPI" Qualifier="Eval_by_Country-Generic"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="DataPoint" Path="@UI.DataPoint#Eval_by_Country-Generic" /&gt;
+        &lt;PropertyValue Property="Detail"&gt;
+            &lt;Record Type="UI.KPIDetailType"&gt;
+                &lt;PropertyValue Property="DefaultPresentationVariant" Path="@UI.PresentationVariant#Eval_by_Currency1" /&gt;
+                &lt;PropertyValue Property="AlternativePresentationVariants"&gt;
+                    &lt;Collection&gt;
+                        &lt;Path&gt;@UI.PresentationVariant#Eval_by_Currency_Column&lt;/Path&gt;
+                    &lt;/Collection&gt;
+                &lt;/PropertyValue&gt;
+                &lt;PropertyValue String="Action" Property="SemanticObject" /&gt;
+                &lt;PropertyValue String="toappnavsample" Property="Action" /&gt;
+            &lt;/Record&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue String="String for KPI Annotation" Property="ID" /&gt;
+        &lt;PropertyValue Property="SelectionVariantQualifier" Path="@UI.SelectionVariant#Eval_by_Currency_1" /&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+&lt;Annotation Term="UI.DataPoint" Qualifier="Eval_by_Country_Generic"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="Value" Path="Currency" /&gt;
+        &lt;PropertyValue String="test" Property="Title" /&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.KPI: [
+  {
+    detail: {
+      defaultPresentationVariantQualifier: 'Eval_by_Currency1',
+      alternativePresentationVariantQualifiers: [
+        'Eval_by_Currency_Column'
+      ],
+      semanticObject: 'Action',
+      semanticObjectAction: 'toappnavsample'
+    },
+    selectionVariantQualifier: 'Eval_by_Currency_1',
+    id: 'String for KPI Annotation',
+    qualifier: 'Eval_by_Country-Generic',
+    dataPoint.title: 'test'
+  }
+]</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS Annotation</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.KPI #AllActualCosts : {
+    $Type : 'UI.KPIType',
+    Detail : {
+        $Type : 'UI.KPIDetailType',
+        DefaultPresentationVariant : ![@UI.PresentationVariant#Eval_by_Currency1],
+        AlternativePresentationVariants : [
+            ![@UI.PresentationVariant#Eval_by_Currency_Column]
+        ],
+        SemanticObject : 'Action',
+        Action : 'toappnavsample'
+    },
+    SelectionVariant : ![@UI.SelectionVariant#Eval_by_Currency_1],
+    DataPoint : ![@UI.DataPoint#Eval_by_Country-Generic],
+    ID : 'String for KPI Annotation'
+},</pre></div></div></section><p></p></div></div>
+                    <p><span class="emphasis"><code>PresentationVariant</code> annotation</span></p>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.PresentationVariant" Qualifier="Eval_by_Currency1"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="MaxItems" Int="5" /&gt;
+      &lt;PropertyValue Property="GroupBy"&gt;
+         &lt;Collection&gt;
+            &lt;PropertyPath&gt;Country&lt;/PropertyPath&gt;
+            &lt;PropertyPath&gt;Currency&lt;/PropertyPath&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="SortOrder"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="Property" PropertyPath="TotalSales" /&gt;
+               &lt;PropertyValue Property="Descending" Bool="true" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="Visualizations"&gt;
+         &lt;Collection&gt;
+            &lt;AnnotationPath&gt;@UI.Chart#Eval_by_Currency_Donut&lt;/AnnotationPath&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.PresentationVariant: [
+  {
+    maxItems: 5,
+    groupBy: [
+      'COUNTRY',
+      'CURRENCY'
+    ],
+    sortOrder: [
+      {
+        by: 'TOTALSALES'
+      }
+    ],
+    visualizations: [
+      {
+        type: #AS_CHART,
+        qualifier: 'Eval_by_Currency_Donut'
+      }
+    ],
+    qualifier: 'Eval_by_Currency1'
+  }
+]
+annotate view VIEWNAME with {
+
+}</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.PresentationVariant #Eval_by_Currency1 : {
+    MaxItems : 5,
+    GroupBy : [
+        Country,
+        Currency
+    ],
+    SortOrder : [
+        {
+            Property : TotalSales,
+            Descending : true
+        },
+    ],
+    Visualizations : [
+        '@UI.Chart#Eval_by_Currency_Donut'
+    ],
+},</pre></div></div></section><p></p></div></div>
+                    <p><span class="emphasis"><code>SelectionVariant</code> annotation</span></p>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.SelectionVariant" Qualifier="Eval_by_Currency_1"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="SelectOptions"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="Country" /&gt;
+               &lt;PropertyValue Property="Ranges"&gt;
+                  &lt;Collection&gt;
+                     &lt;Record&gt;
+                        &lt;PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I" /&gt;
+                        &lt;PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ" /&gt;
+                        &lt;PropertyValue Property="Low" String="IN" /&gt;
+                     &lt;/Record&gt;
+                  &lt;/Collection&gt;
+               &lt;/PropertyValue&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="Parameters"&gt;
+         &lt;Collection&gt;
+            &lt;Record Type="UI.Parameter"&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="Currency_Target" /&gt;
+               &lt;PropertyValue Property="PropertyValue" String="EUR" /&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.Parameter"&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="UoM_Target" /&gt;
+               &lt;PropertyValue Property="PropertyValue" String="KGM" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.SelectionVariant #Eval_by_Currency_1 : {
+    SelectOptions : [
+        {
+            PropertyName : Country,
+            Ranges : [
+                {
+                    Sign : #I,
+                    Option : #EQ,
+                    Low : 'IN'
+                }
+            ]
+        }
+    ],
+    Parameters : [
+        {
+            $Type : 'UI.Parameter',
+            PropertyName : Currency_Target,
+            PropertyValue : 'EUR'
+        },
+        {
+            $Type : 'UI.Parameter',
+            PropertyName : UoM_Target,
+            PropertyValue : 'KGM'
+        }
+    ]
+}
+
+</pre></div></div></section><p></p></div></div>
+                    <p><span class="emphasis"><code>DataPoint</code> annotation</span></p>
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.DataPoint" Qualifier="Eval_by_Country_Generic"&gt;
+	&lt;Record Type="UI.DataPointType"&gt;
+		&lt;PropertyValue Property="Title" String="Sales India - Generic Card" /&gt;
+		&lt;PropertyValue Property="Value" Path="Sales" /&gt;
+		&lt;PropertyValue Property="ValueFormat"&gt;
+			&lt;Record&gt;
+				&lt;PropertyValue Property="ScaleFactor" Decimal="2" /&gt;
+				&lt;PropertyValue Property="NumberOfFractionalDigits" Int="1" /&gt;
+			&lt;/Record&gt;
+		&lt;/PropertyValue&gt;
+		&lt;PropertyValue Property="CriticalityCalculation"&gt;
+			&lt;Record&gt;
+				&lt;PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Minimize" /&gt;
+				&lt;PropertyValue Property="DeviationRangeHighValue" String="7300" /&gt;
+				&lt;PropertyValue Property="ToleranceRangeHighValue" String="7200" /&gt;
+			&lt;/Record&gt;
+		&lt;/PropertyValue&gt;
+		&lt;PropertyValue Property="TargetValue" String="2.000 " /&gt;
+		&lt;PropertyValue Property="TrendCalculation"&gt;
+			&lt;Record&gt;
+				&lt;PropertyValue Property="ReferenceValue" String="5201680" /&gt;
+				&lt;PropertyValue Property="DownDifference" Decimal="10000000.0" /&gt;
+			&lt;/Record&gt;
+		&lt;/PropertyValue&gt;
+	&lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.dataPoint: { 
+	 title: 'Sales India - Generic Card',
+	 valueFormat: { scaleFactor: 2, numberOfFractionalDigits: 1 },
+	 criticalityCalculation: { 
+	   improvementDirection: #MINIMIZE,
+	   deviationRangeHighValue: 7300,
+	   toleranceRangeHighValue: 7200
+	 },
+	 targetValue: 2.000,
+	 trendCalculation: { referenceValue: 'refValElement', downDifference: 10000000.0 }
+}
+Sales;</pre></div></div></section><p></p></div></div>
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.DataPoint #Eval_by_Country-Generic : {
+    $Type : 'UI.DataPointType',
+    Title : 'Sales India - Generic Card',
+    Value : Sales,
+    ValueFormat : {
+        ScaleFactor : 2,
+        NumberOfFractionalDigits : 1
+    },
+    CriticalityCalculation : {
+        ImprovementDirection : #Minimizing,
+        DeviationRangeHighValue : '7300',
+        ToleranceRangeHighValue : '7200'
+    },
+    TargetValue : '2.000 ',
+    TrendCalculation : {
+        ReferenceValue : '5201680',
+        DownDifference : 10000000.0
+    }
+}</pre></div></div></section><p></p></div></div>
+                </section>
+                <section id="subsection-im4" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Configuring View Switch</h3>
+                    <p>Property: <code>valueSelectionInfo</code></p>
+                    <p>Description: Configuring this property allows you to define a dropdown list
+                        to filter/view data at the card level.</p>
+                    <p>Descriptor
+                        Settings</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	"sap.ovp": {
+		"globalFilterModel": "salesOrder",
+		"globalFilterEntityType": "GlobalFilters",
+		"showDateInRelativeFormat": false,
+		"disableTableCardFlexibility": false,
+		"considerAnalyticalParameters": true,
+		"useDateRangeType": false,
+		"cards": {
+          "card014": {
+            "model": "salesOrder",
+            "template": "sap.ovp.cards.table",
+            "settings": {
+              "title": "Sales Forecast",
+              "subTitle": "per Supplier",
+              "valueSelectionInfo": "Value Selection Info",
+              "entitySet": "SalesShare",
+              "tabs": [
+                {
+                  "dynamicSubtitleAnnotationPath": "com.sap.vocabularies.UI.v1.HeaderInfo#dynamicSubtitle",
+                  "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#View1",
+                  "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#line1",
+                  "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#line",
+                  "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification",
+                  "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#line",
+                  <span class="emphasis">"value": "{{dropdown_value2}}"</span>
+                },
+                {
+                  "dynamicSubtitleAnnotationPath": "com.sap.vocabularies.UI.v1.HeaderInfo#dynamicSubtitle",
+                  "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#View4",
+                  "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#item2",
+                  "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#line",
+                  <span class="emphasis">"value": "{{dropdown_value4}}"</span>
+                }
+              ]
+            }
+          },</pre></div></div></section><p></p>
+                </section>
+                <section id="subsection-im5" class="visibility-trigger">
+                    <h3 class="title visibility-trigger">Configuring the Table Area</h3>
+                    <p>Annotation: <code>LineItem</code></p>
+                    <p>Description: Configuring this annotation displays the table header title
+                            (<code>Label</code> property) and the corresponding values
+                            (<code>Value</code> property) for the row items.</p>
+                    <p><span class="emphasis">Descriptor Settings</span></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	"sap.ovp": {
+		"globalFilterModel": "salesOrder",
+		"globalFilterEntityType": "GlobalFilters",
+		"showDateInRelativeFormat": false,
+		"disableTableCardFlexibility": false,
+		"considerAnalyticalParameters": true,
+		"useDateRangeType": false,
+		"cards": {
+          "card014": {
+            "model": "salesOrder",
+            "template": "sap.ovp.cards.table",
+            "settings": {
+              "title": "Sales Forecast",
+              "subTitle": "per Supplier",
+              "valueSelectionInfo": "Value Selection Info",
+              "entitySet": "SalesShare",
+              "tabs": [
+                {
+                  "dynamicSubtitleAnnotationPath": "com.sap.vocabularies.UI.v1.HeaderInfo#dynamicSubtitle",
+                  <span class="emphasis">"annotationPath": "com.sap.vocabularies.UI.v1.LineItem#View1",</span>
+                  "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#line1",
+                  "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#line",
+                  "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification",
+                  "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#line",
+                  "value": "{{dropdown_value2}}"
+                },
+                {
+                  "dynamicSubtitleAnnotationPath": "com.sap.vocabularies.UI.v1.HeaderInfo#dynamicSubtitle",
+                  <span class="emphasis">"annotationPath": "com.sap.vocabularies.UI.v1.LineItem#View4",</span>
+                  "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#item2",
+                  "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#line",
+                  "value": "{{dropdown_value4}}"
+                }
+              ]
+            }
+          },</pre></div></div></section><p></p>
+                    <p><span class="emphasis">Annotation Sample for
+                        <code>LineItem#View4</code></span></p>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.LineItem" Qualifier="View4"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Order ID"/&gt;
+            &lt;PropertyValue Property="Value" Path="SalesOrderID"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Customer"/&gt;
+            &lt;PropertyValue Property="Value" Path="ToBusinessPartner/EmailAddress"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Customer"/&gt;
+            &lt;PropertyValue Property="Value" Path="CustomerName"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation"&gt;
+            &lt;PropertyValue Property="Label" String="TaxAmount"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#TaxAmount"/&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.lineItem: [
+  {
+    label: 'Order ID',
+    position: 10,
+    qualifier: 'View4'
+  }
+]
+SALESORDERID;
+
+@UI.lineItem: [
+  {
+    label: 'Customer',
+    value: '_BUSINESSPARTNER.EMAILADDRESS',
+    position: 20,
+    qualifier: 'View4'
+  }
+]
+_BUSINESSPARTNER;
+
+@UI.lineItem: [
+  {
+    label: 'Customer',
+    position: 30,
+    qualifier: 'View4'
+  }
+XML Annotation
+
+&lt;Annotations Target="GWSAMPLE_BASIC.GWSAMPLE_BASIC_Entities/RegenerateAllData"&gt;
+        &lt;Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/&gt;
+&lt;/Annotations&gt;
+CAP CDS Annotation
+
+annotate GWSAMPLE_BASIC.RegenerateAllData with @(
+    Common.IsActionCritical : true
+);
+]
+CUSTOMERNAME;
+
+@UI.lineItem: [
+  {
+    label: 'TaxAmount',
+    valueQualifier: 'TaxAmount',
+    type: #AS_DATAPOINT,
+    position: 40,
+    qualifier: 'View4'
+  }
+]
+PROPERTY_NAME;
+</pre></div></div></section><p></p></div></div>
+                    
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.LineItem #View4 : [
+    {
+        $Type : 'UI.DataField',
+        Label : 'Order ID',
+        Value : SalesOrderID
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Customer',
+        Value : ToBusinessPartner.EmailAddress
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Customer',
+        Value : CustomerName
+    },
+    {
+        $Type : 'UI.DataFieldForAnnotation',
+        Label : 'TaxAmount',
+        Target : '@UI.DataPoint#TaxAmount'
+    }
+]
+</pre></div></div></section><p></p></div></div>
+                    <p><span class="emphasis">Annotation Sample for
+                            <code>DataPoint#TaxAmount</code></span></p>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                        Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="TaxAmount"&gt;
+    &lt;Record Type="com.sap.vocabularies.UI.v1.DataPointType"&gt;
+        &lt;PropertyValue Property="Title" String="TaxAmount"/&gt;
+        &lt;PropertyValue Property="Value" Path="TaxAmount"/&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.dataPoint: {
+  title: 'TaxAmount'
+}
+TaxAmount;</pre></div></div></section><p></p></div></div>
+                    <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                        Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.DataPoint #TaxAmount : {
+    $Type : 'UI.DataPointType',
+    Title : 'TaxAmount',
+    Value : TaxAmount
+}</pre></div></div></section><p></p></div></div>
+                </section>
+            </div></section><section>
+            <p>The <code>com.sap.vocabularies.UI.v1.LineItem</code> term can be configured in
+                the application manifest file by setting the <code>annotationPath</code>
+                property with a qualifier, as shown in the example below. If the
+                    <code>annotationPath</code> property is not configured, the
+                    <code>com.sap.vocabularies.UI.v1.LineItem</code> term, without a qualifier,
+                is used.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ovp": {
+    ...
+    "disableTableCardFlexibility": false,
+    ...
+    "card02": {
+	"model": "salesOrder",
+	"template": "sap.ovp.cards.table",
+	"settings": {
+		"title": "Sales Orders With Analytical Header",
+		"subTitle": "Sales Orders With Analytical Header",
+		"listFlavor": "bar",
+		"listType": "extended",
+		"entitySet": "SalesOrderSet",
+		"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#line_without_trend",
+		"selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#line1",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#View1",
+		"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#line"
+	  }
+    },
+      ...
+  }
+}</pre></div></div></section>
+            <p></p></div></div>
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>In SAP Fiori elements for OData V4, add
+                        <code>sap.ovp.cards.v4.table</code> as the <code>template</code>.
+                    All other manifest settings are the same as in SAP
+                        Fiori elements for OData V2.</p>
+            <p></p></div></div>
+            <p>You can use different <code>com.sap.vocabularies.UI.v1.LineItem</code>
+                annotations for different card instances of the same entity type by using different
+                qualifiers and setting the <code>annotationPath</code> property with the
+                qualifier in the card configuration. For example
+                    <code>com.sap.vocabularies.UI.v1.LineItem#Qualifier1</code>.</p>
+            <p>If you set <code>"disableTableCardFlexibility": true</code>, then at runtime,
+                    <code>DataField</code> records are sorted according to importance set in the
+                    <code>com.sap.vocabularies.UI.v1.ImportanceType</code> annotation, and their
+                order of entry. The first two <code>DataField</code> records are displayed in
+                the first two columns of the table. If there is a
+                    <code>DataFieldForAnnotation</code> record that has a
+                    <code>DataPoint</code> target, it is used for the third column and its value
+                is highlighted according to the criticality of the <code>DataPoint</code>. If no
+                    <code>DataFieldForAnnotation</code> is defined, the next
+                    <code>DataField</code> record is displayed in the third column.</p>
+            <p>If you set <code>"disableTableCardFlexibility": false</code>, then at runtime,
+                table columns are sorted according to the importance set in the
+                    <code>com.sap.vocabularies.UI.v1.ImportanceType</code> annotation, and their
+                order of entry.</p>
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If a <code>DataField</code> record points to a path that exists in a
+                    <code>DataPoint</code> target, it is skipped so that the property is not
+                displayed more than once in the same table.</p></div></div>
+        </section><section><h2 class="title ">Example</h2><p>In this example, the first column in the table displays
+                    <span class="emphasis">Product Name</span>, the second column displays
+                    <span class="emphasis">Supplier</span>, and the third column displays <span class="emphasis">Weight
+                    Measure</span> (according to the <code>DataPoint</code>
+                target).</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="WeightMeasure"&gt;
+    &lt;Record Type="com.sap.vocabularies.UI.v1.DataPointType"&gt;
+        &lt;PropertyValue Property="Title" String="Weight"/&gt;
+        &lt;PropertyValue Property="Description" Path="Name"/&gt;
+        &lt;PropertyValue Property="Value" Path="WeightMeasure"/&gt;
+        &lt;PropertyValue Property="CriticalityCalculation"&gt;
+            &lt;Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType"&gt;
+                &lt;PropertyValue Property="ImprovementDirection" EnumMember="com.sap.vocabularies.UI.v1.CriticalityCalculationType/Maximize"/&gt;
+                &lt;PropertyValue Property="ToleranceRangeLowValue" Int="2"/&gt;
+                &lt;PropertyValue Property="DeviationRangeLowValue" Int="4"/&gt;
+            &lt;/Record&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+
+&lt;Annotation Term="com.sap.vocabularies.UI.v1.LineItem"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Product ID"/&gt;
+            &lt;PropertyValue Property="Value" Path="ProductID"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Category"/&gt;
+            &lt;PropertyValue Property="Value" Path="Category"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Product Name"/&gt;
+            &lt;PropertyValue Property="Value" Path="Name"/&gt;
+            &lt;Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/High"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Supplier"/&gt;
+            &lt;PropertyValue Property="Value" Path="SupplierName"/&gt;
+            &lt;Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/High"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Unit Price"/&gt;
+            &lt;PropertyValue Property="Value" Path="Price"/&gt;
+            &lt;Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/High"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation"&gt;
+            &lt;PropertyValue Property="Label" String="Weight Measure"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#WeightMeasure"/&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.dataPoint: { 
+ title: 'Weight',
+ description: 'Name',
+ valueFormat: { scaleFactor: 2, numberOfFractionalDigits: 1 },
+ criticalityCalculation: { 
+   improvementDirection: #MAXIMIZE,
+   deviationRangeHighValue: 4.3,
+   toleranceRangeHighValue: 2.5
+}
+WeightMeasure;
+
+@UI.lineItem: [
+  {
+    label: 'Product ID',
+    position: 10 
+  }
+]
+PRODUCTID;
+
+@UI.lineItem: [
+  {
+    label: 'Category',
+    position: 20
+  }
+]
+CATEGORY;
+
+@UI.lineItem: [
+  {
+    importance: #HIGH,
+    label: 'Product Name',
+    position: 30
+  }
+]
+NAME;
+
+@UI.lineItem: [
+  {
+    importance: #HIGH,
+    label: 'Supplier',
+    position: 40 
+  }
+]
+SUPPLIERNAME;
+
+@UI.lineItem: [
+  {
+    importance: #HIGH,
+    label: 'Unit Price',
+    position: 50
+  }
+]
+PRICE;
+
+@UI.lineItem: [
+  {
+    label: 'Weight Measure',
+    valueQualifier: 'WeightMeasure',
+    type: #AS_DATAPOINT,
+    position: 60 
+  }
+]
+PROPERTY_NAME;
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.DataPoint #WeightMeasure : {
+    $Type : 'UI.DataPointType',
+    Title : 'Weight',
+    Description : Name,
+    Value : WeightMeasure,
+    CriticalityCalculation : {
+        $Type : 'UI.CriticalityCalculationType',
+        ImprovementDirection : #Maximize,
+        ToleranceRangeLowValue : 2.5,
+        DeviationRangeLowValue : 4.3
+    }
+},
+UI.LineItem : [
+    {
+        $Type : 'UI.DataField',
+        Label : 'Product ID',
+        Value : ProductID
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Category',
+        Value : Category
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Product Name',
+        Value : Name,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Supplier',
+        Value : SupplierName,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Unit Price',
+        Value : Price,
+        ![@UI.Importance] : #High
+    },
+    {
+        $Type : 'UI.DataFieldForAnnotation',
+        Label : 'Weight Measure',
+        Target : '@UI.DataPoint#WeightMeasure'
+    }
+]
+</pre></div></div></section><p></p></div></div></section><section id="section_ds3_s1l_2bb"><h2 class="title ">Smart Links</h2><p>Define a semantic object for
+                the entity set and its property using the annotation target to enable smart links in
+                a table card. For example:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="GWSAMPLE_BASIC.SalesOrder/SalesOrderID"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.SemanticObject" String="OVP" /&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view SALESORDER with {
+  @Consumption.semanticObject: 'OVP'
+  salesorderid;
+}</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate GWSAMPLE_BASIC.SalesOrder with {
+  @Common.SemanticObject : 'OVP'
+  SalesOrderID
+};</pre></div></div></section><p></p></div></div><p>Table cards also let you view contact information if you have defined
+                the <code>com.sap.vocabularies.Communication.v1.Contact</code>
+                annotation.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.LineItem" Qualifier="NewSalesOrders"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Order ID (Company)"/&gt;
+            &lt;PropertyValue Property="Value" Path="SalesOrderID"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation"&gt;
+            &lt;PropertyValue Property="Label" String="Created by (Role)" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="ToBusinessPartner/@com.sap.vocabularies.Communication.v1.Contact" /&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.lineItem: [
+  {
+    label: 'Order ID (Company)',
+    position: 10,
+    qualifier: 'NewSalesOrders'
+  }
+]
+SALESORDERID;
+
+@UI.lineItem: [
+  {
+    label: 'Created by (Role)',
+    value: '_BUSINESSPARTNER',
+    type: #AS_CONTACT,
+    position: 20 ,
+    qualifier: 'NewSalesOrders'
+  }
+]
+PROPERT_NAME;
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.LineItem #NewSalesOrders : [
+    {
+        $Type : 'UI.DataField',
+        Label : 'Order ID (Company)',
+        Value : SalesOrderID
+    },
+    {
+        $Type : 'UI.DataFieldForAnnotation',
+        Label : 'Created by (Role)',
+        Target : 'ToBusinessPartner/@Communication.Contact'
+    }
+]
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.Communication.v1.Contact"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="tel"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="type" EnumMember="com.sap.vocabularies.Communication.v1.PhoneType/fax" /&gt;
+               &lt;PropertyValue Property="uri" Path="FaxNumber" /&gt;
+            &lt;/Record&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="type" EnumMember="com.sap.vocabularies.Communication.v1.PhoneType/work com.sap.vocabularies.Communication.v1.PhoneType/preferred" /&gt;
+               &lt;PropertyValue Property="uri" Path="PhoneNumber" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="email"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="type" EnumMember="com.sap.vocabularies.Communication.v1.ContactInformationType/preferred com.sap.vocabularies.Communication.v1.ContactInformationType/work" /&gt;
+               &lt;PropertyValue Property="address" Path="EmailAddress" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">define view VIEWNAME
+{
+  @Semantics.name.fullName: true
+  CompanyName,
+
+  @Semantics.eMail.address: true
+  @Semantics.eMail.type:  [#WORK]
+  EmailAddress,
+   
+  @Semantics.telephone.type:  [ #FAX ] 
+  FaxNumber,
+  
+  @Semantics.telephone.type:  [ #WORK]
+  PhoneNumber
+}
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Communication.Contact : {
+    tel : [
+        {
+            type : #fax,
+            uri : FaxNumber
+        },
+        {
+            type : [ #work, #pref ],
+            uri : PhoneNumber
+        },
+    ],
+    email : [
+        {
+            type : [ #pref, #work ],
+            address : EmailAddress
+        }
+    ]
+}</pre></div></div></section><p></p></div></div></section><section id="section_f3m_ftv_kcb"><h2 class="title ">Text Arrangement</h2><p>The text arrangement
+                annotation lets you to format of text.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="GWSAMPLE_BASIC.SalesOrder/CustomerID"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="Supplier_Name"&gt;
+        &lt;Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" /&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view SALESORDER with {
+ @UI.TextArrangement: #TEXT_LAST
+ customerid;
+}</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate GWSAMPLE_BASIC.SalesOrder with {
+  @Common.Text : Supplier_Name
+  @UI.TextArrangement : #TextLast
+  CustomerID
+};
+</pre></div></div></section><p></p></div></div><p>In the preceding example, the text <code>Customer</code> is bound to
+                the <code>ContactID</code> property and appears as shown in the table:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_gkn_d5v_kcb" class=" ">
+                        
+                        
+                        <thead>
+                            <tr>
+                                <th colspan="1" rowspan="1">
+                                    <p>Text Arrangement Type</p>
+                                </th>
+                                <th colspan="1" rowspan="1">
+                                    <p>Result</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    <p><code>TextLast</code></p>
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <p>ContractID (Customer)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    <p><code>TextFirst</code></p>
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <p>Customer (ContractID)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    <p><code>TextOnly</code></p>
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <p>Customer</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table></div></div><p></p></section><section id="section_fwt_qbr_w3b">
+            <h2 class="title ">Text Alignment</h2>
+            <p>The DataPoint or DataField is aligned as shown in the table below: </p><div class="tableWrapper "><div class="fig"><table border="1" id="table_xjq_tbr_w3b" class=" ">
+                        
+                        
+                        <thead>
+                            <tr>
+                                <th colspan="1" rowspan="1">
+                                    <p>Annotation Field</p>
+                                </th>
+                                <th colspan="1" rowspan="1">
+                                    <p>Table Alignment </p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    <p>DataField, Contact annotation</p>
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <p>Left Aligned</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    <p>DataPoint with or without Criticality/CriticalityCalculation
+                                        OR property (either DataField or DataPoint) of type
+                                        Edm.DateTime or Edm.DateTimeOffset </p>
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <p>Right Aligned</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" rowspan="1">
+                                    <p>DataPoint with Criticality and property of type
+                                        Edm.String</p>
+                                </td>
+                                <td colspan="1" rowspan="1">
+                                    <p>Center Aligned</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table></div></div><p></p>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

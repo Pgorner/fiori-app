@@ -1,0 +1,5 @@
+/*!
+ * Copyright (c) 2009-2014 SAP SE, All Rights Reserved
+ */
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/model/Filter","sap/ui/model/FilterOperator"],function(e,t,i){"use strict";return e.extend("sap.ovp.cards.rta.SelectLineItem",{onInit:function(){},onAfterRendering:function(){},_filterTable:function(e,n,r){var a=e.getParameter("query"),l=null,o=[];for(var s=0;s<n.length;s++){o.push(new t(n[s],i.Contains,a))}if(a){l=new t(o,false)}this.getView().byId(r).getBinding("items").filter(l,"Application")},filterTable:function(e){var t=this.getView(),i=t.getModel(),n;this._filterTable(e,["Label","VisibleFields"],"LineItemTable");n=t.byId("LineItemTable").getBinding("items").getLength();i.setProperty("/NoOfLineItem",n);i.refresh(true)},onItemPress:function(e){var t=e.getSource(),i=t.getBindingContext(),n=i.getObject();this.updateLineItemPath(n)}})});
+//# sourceMappingURL=SelectLineItem.controller.js.map

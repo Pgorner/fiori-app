@@ -1,0 +1,70 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob430345887f1419fba50320b57c1bdf9" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/methods-controlling-the-initial-instantiation-b430345.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Methods Controlling the Initial Instantiation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Methods Controlling the Initial Instantiation</h2></div><div class="shortdesc">SAPUI5 provides two
+		methods for the initial instantiation of the component.</div><p>You can use the following methods:</p><ul class="ul ">
+			<li class="li">
+				<p><code>init</code></p>
+				<p>Overwrite this method for example to connect the model between the control and the component.
+					This method is <b>not</b> called by the application directly, but called
+					automatically when you create the instance of the component. The routing
+					instance needs to be initialized here, see <a href="topic/acdb6cd408ec4b9eb5e1fe45e607abdd" title="This topic describes how to initialize routing in a component and access the routing functions." class="sap-doc">Initializing and Accessing a Routing Instance</a>.</p>
+			</li>
+			<li class="li">
+				<p><code>createContent</code></p>
+				<p>By default, the UI component creates the <code>sap.ui5/rootView</code>
+					declared in the manifest as the root control, see <a href="topic/8521ad1955f340f9a6207d615c88d7fd" title="Description of the performance-relevant attributes that are available for the descriptor for applications, components and libraries" class="sap-doc">Descriptor Dependencies to Libraries and Components</a>.</p>
+				<p>Alternatively, you can overwrite this method and programmatically create the root control. You can either return the root control immediately
+					or return a Promise resolving with the root control. For more information, see 
+						<a href="api/sap.ui.core.UIComponent#methods/createContent" title="api/sap.ui.core.UIComponent#methods/createContent" class="sap-doc" alt="api/sap.ui.core.UIComponent#methods/createContent"><code>sap.ui.core.UIComponent#createContent</code></a>. Using
+						<code>createContent</code> in an asynchronous fashion requires the UI Component to implement the<code>
+						sap.ui.core.IAsyncContentCreation</code> interface.</p>
+				<p>Implementing this interface has the following additional effects: 
+					</p><ul class="ul ">
+						<li class="li">
+							<p>The routing configuration and the root view will automatically be set to <code>async=true</code>,</p>
+						</li>
+						<li class="li">
+							<p>Views (and Fragments) nested in asynchronous Views are now also created asynchronously if their owner component
+								implements the mentioned interface (this of course includes the root view),</p>
+						</li>
+						<li class="li">
+							<p>the loading and processing of nested Views will be contained in the factory Promise of
+									<code>sap.ui.core.Component.create</code>. The same is true for nested asynchronous Views and Fragments. This
+								means that once your <code>Component.create</code> factory call resolves, all inner controls are created.</p>
+						</li>
+					</ul><p></p>
+				<p> The following code snippet shows a sample of the <code>createContent</code> function returning the root control directly:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/UIComponent", "sap/m/Label"], function(UIComponent, Label) {
+    return UIComponent.extend("my.app.Component", {
+        metadata: {
+            manifest: "json"
+        },
+
+        createContent: function () {
+            return new Label({ text: "Hello!" });
+        }
+    });
+});</pre></div></div></section>
+				<p>The following code snippet shows a UI Component that implements the <code>sap.ui.core.IAsyncContentCreation</code> interface. The
+						<code>createContent</code> function returns the Promise of the <a href="api/sap.ui.core.mvc.XMLView#methods/sap.ui.core.mvc.XMLView.create" title="api/sap.ui.core.mvc.XMLView#methods/sap.ui.core.mvc.XMLView.create" class="sap-doc" alt="api/sap.ui.core.mvc.XMLView#methods/sap.ui.core.mvc.XMLView.create"><code>XMLView.create</code></a> factory:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/core/mvc/XMLView"], function(UIComponent, XMLView) {
+        return UIComponent.extend("my.app.Component", {
+            metadata: {
+                manifest: "json",
+                interfaces: ["sap.ui.core.IAsyncContentCreation"]
+            },
+            createContent: function () {
+                return XMLView.create({ ... });
+            }
+        });
+    });</pre></div></div></section>
+			</li>
+		</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p> The settings passed to the <code>sap.ui.core.Component.create</code> or <code>sap.ui.component</code>
+					factory calls are not available in the <code>init</code> and <code>createContent</code> methods. Use
+					<code>componentData</code> instead. For more information, see <a href="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" title="api/sap.ui.core.Component#methods/sap.ui.core.Component.create" class="sap-doc" alt="api/sap.ui.core.Component#methods/sap.ui.core.Component.create"><code>sap.ui.core.Component.create</code></a>.</p>
+		<p></p></div></div><p>You can also overwrite the getters and setters for component properties in the Component controller.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.core.IAsyncContentCreation" title="api/sap.ui.core.IAsyncContentCreation" class="sap-doc" alt="api/sap.ui.core.IAsyncContentCreation">API Reference: sap.ui.core.IAsyncContentCreation</a></li>
+	</ul></section></div></section></div></body></html>

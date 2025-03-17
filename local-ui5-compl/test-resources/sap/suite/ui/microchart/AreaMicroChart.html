@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8">
+
+<title>Testpage - sap.suite.ui.microchart.AreaMicroChart</title>
+
+<script id="sap-ui-bootstrap"
+	data-sap-ui-async="true"
+	data-sap-ui-compat-version="edge"
+	data-sap-ui-libs="sap.ui.layout, sap.m, sap.suite.ui.microchart"
+	src="../../../../../resources/sap-ui-core.js"
+	data-sap-ui-theme="sap_horizon"
+	data-sap-ui-on-init="module:local/controller/AreaMicroChart.controller"
+	data-sap-ui-resourceroots='{"local": "./"}'>
+</script>
+
+<script id="view1" type="sapui5/xmlview">
+	<mvc:View controllerName="test" xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m">
+		<m:Table items="{/items}">
+			<m:columns>
+				<m:Column demandPopin="true" minScreenWidth="Tablet">
+					<m:Text text="Chart" />
+				</m:Column>
+			</m:columns>
+			<m:items>
+				<m:ColumnListItem>
+					<m:cells>
+						<m:FlexBox height="100px" width="100px">
+							<AreaMicroChart id="chart"
+								width="{width}"
+								height="{height}"
+								maxXValue ="{maxXValue}"
+								minXValue="{minXValue}"
+								maxYValue="{maxYValue}"
+								minYValue ="{minYValue}"
+								view="{view}"
+								size="Responsive">
+								<chart>
+									<AreaMicroChartItem color="{chart/color}" title="{chart/title}" points="{path: 'chart/data', templateShareable:false}">
+										<points>
+											<AreaMicroChartPoint x="{day}" y="{balance}" />
+										</points>
+									</AreaMicroChartItem>
+								</chart>
+								<maxThreshold>
+									<AreaMicroChartItem color="{maxThreshold/color}" title="{maxThreshold/title}" points="{path: 'maxThreshold/data', templateShareable:false}">
+										<points>
+											<AreaMicroChartPoint x="{day}" y="{balance}" />
+										</points>
+									</AreaMicroChartItem>
+								</maxThreshold>
+								<innerMaxThreshold>
+									<AreaMicroChartItem color="{innerMaxThreshold/color}" title="{innerMaxThreshold/title}" points="{path: 'innerMaxThreshold/data', templateShareable:false}">
+										<points>
+											<AreaMicroChartPoint x="{day}" y="{balance}" />
+										</points>
+									</AreaMicroChartItem>
+								</innerMaxThreshold>
+								<innerMinThreshold>
+									<AreaMicroChartItem color="{innerMinThreshold/color}" title="{innerMinThreshold/title}" points="{path: 'innerMinThreshold/data', templateShareable:false}">
+										<points>
+											<AreaMicroChartPoint x="{day}" y="{balance}" />
+										</points>
+									</AreaMicroChartItem>
+								</innerMinThreshold>
+								<minThreshold>
+									<AreaMicroChartItem color="{minThreshold/color}" title="{minThreshold/title}" points="{path: 'minThreshold/data', templateShareable:false}">
+										<points>
+											<AreaMicroChartPoint x="{day}" y="{balance}" />
+										</points>
+									</AreaMicroChartItem>
+								</minThreshold>
+								<target>
+									<AreaMicroChartItem color="{target/color}" title="{target/title}" points="{path: 'target/data', templateShareable:false}">
+										<points>
+											<AreaMicroChartPoint x="{day}" y="{balance}" />
+										</points>
+									</AreaMicroChartItem>
+								</target>
+								<firstXLabel>
+									<AreaMicroChartLabel color="{firstXLabel/color}" label="{firstXLabel/label}" />
+								</firstXLabel>
+								<lastXLabel>
+									<AreaMicroChartLabel color="{lastXLabel/color}" label="{lastXLabel/label}" />
+								</lastXLabel>
+								<firstYLabel>
+									<AreaMicroChartLabel color="{firstYLabel/color}" label="{firstYLabel/label}" />
+								</firstYLabel>
+								<lastYLabel>
+									<AreaMicroChartLabel color="{lastYLabel/color}" label="{lastYLabel/label}" />
+								</lastYLabel>
+								<minLabel>
+									<AreaMicroChartLabel color="{minLabel/color}" label="{minLabel/label}" />
+								</minLabel>
+								<maxLabel>
+									<AreaMicroChartLabel color="{maxLabel/color}" label="{maxLabel/label}" />
+								</maxLabel>
+								<lines>
+									<AreaMicroChartItem color="{lines/color}" title="{lines/title}" points="{path: 'lines/data', templateShareable:false}">
+										<points>
+											<AreaMicroChartPoint x="{day}" y="{balance}" />
+										</points>
+									</AreaMicroChartItem>
+								</lines>
+							</AreaMicroChart>
+						</m:FlexBox>
+					</m:cells>
+				</m:ColumnListItem>
+			</m:items>
+		</m:Table>
+	</mvc:View>
+</script>
+</head>
+
+<body class="sapUiBody" role="application">
+	<div id="content"></div>
+</body>
+</html>

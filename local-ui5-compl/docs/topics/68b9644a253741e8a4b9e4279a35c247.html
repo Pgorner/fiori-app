@@ -1,0 +1,181 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio68b9644a253741e8a4b9e4279a35c247" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/data-binding-68b9644.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Data Binding</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Data Binding</h2></div><div class="shortdesc">You use data binding to bind UI elements to data sources to keep the data in sync and
+		allow data editing on the UI.</div><section id="section_ixt_wgt_xcb"><div class="imagemap_tooltips light-overlays" data-static-type="false">
+				
+				<p>This image is interactive. Hover over each area for a description. Click highlighted areas
+								for more information
+							</p><div class="imagemap fig"><img src="loio544b09736447477198202b636048bab8_LowRes.png" title="The different data models in UI5 are shown: Resource model, view model, device model, XML model, JSON model, and the
+							OData models." alt="The different data models in UI5 are shown: Resource model, view model, device model, XML model, JSON model, and the
+							OData models." usemap="#__im_imagemap1"><map name="__im_imagemap1"><area shape="rect" coords="14,10,749,135" originalcoords="14,10,749,135" alt="91f27e3e6f4d1014b6dd926db0e91070.xml" title="The view in the Model-View-Controller (MVC) concept is responsible for defining and rendering the UI. SAPUI5 supports predefined view types." href="topic/91f27e3e6f4d1014b6dd926db0e91070" class="sap-doc"><area shape="rect" coords="210,210,748,556" originalcoords="210,210,748,556" alt="e1b625940c104b558e52f47afe5ddb4f.xml" title="A model in the Model View Controller concept holds the data and provides methods to retrieve the data from the database and to set and update data." href="topic/e1b625940c104b558e52f47afe5ddb4f" class="sap-doc"><area shape="rect" coords="56,226,183,322" originalcoords="56,226,183,322" alt="91f225ce6f4d1014b6dd926db0e91070.xml" title="A resource bundle file is a Java properties file (as described in the Javadoc of class java.util.Properties). It contains key-value pairs where the values are the language-dependent texts and the keys are language-independent and used by the application to identify and access the corresponding values." href="topic/91f225ce6f4d1014b6dd926db0e91070" class="sap-doc"></map></div>
+			</div>
+			<p>SAPUI5 follows the
+				"Model View Controller" (MVC) paradigm, which means that we clearly separate data
+				sources (model), UI (view), and application logic (controller) from each other. Data
+				binding defines how models and views communicate with each other.</p><p>Depending on which external data source you use, you can choose between different model types to represent it. SAPUI5 supports OData V4, OData V2, JSON, and XML models.</p><p>There
+				are also internal data sources that are defined in the app for specific purposes.
+				For those, an app contains the following models:</p><ul class="ul ">
+					<li class="li">
+						<p>The <span class="emphasis">resource model</span> is used in communication with the
+							resource bundle that contains translatable texts in multiple
+							languages.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">View models</span> can be, for example, JSON models that
+							communicate with a corresponding JSON object. JSON data can also be
+							edited in the app, but they are not stored - as soon as you refresh the
+							browser or restart the app, the changes are reset.</p>
+					</li>
+					<li class="li">
+						<p>A JSON model can be used together with the <code>sap/ui/Device</code> module to create a <span class="emphasis">device model</span> that contains
+							device-specific settings. For an example, see our Walkthrough tutorial, <a href="topic/d63a15e5eebb45cdada317bae5f45bc2" title="We now configure the visibility and properties of controls based on the device that we run the application on. By making use of the sap.ui.Device API and defining a device model we will make the app look great on many devices." class="sap-doc">Step 35: Device Adaptation</a>.</p>
+					</li>
+				</ul><p></p><p>Most of the models are client-side models. This means that all data is
+				initially loaded to the model when the app is started. All actions performed on the
+				data are only executed on the client, and are only sent back to the data source when
+				this is triggered by the app. Client-side models are therefore only recommended for
+				small data sets.</p><p>The OData models (V2 and V4) are server-side models, which
+				means that data is provided by a back-end system on demand. Filtering, sorting, and
+				paging actions are performed on the server. This means, for example, that you don't
+				have to load a complete table on the UI to be able to sort the entries.</p><p>In the
+				view, you bind data by specifying the <span class="emphasis">binding path</span> for a
+				control. You can use <span class="emphasis">data types</span> and
+					<span class="emphasis">formatters</span> to validate and format the data on the UI.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>To learn more about data binding, take this tutorial: <a href="topic/e5310932a71f42daa41f3a6143efca9c" title="In this tutorial, we explain the concepts of data binding in SAPUI5." class="sap-doc">Data Binding Tutorial</a>.</p>
+			<p></p></div></div></section><section id="section_BindingModes">
+			<h2 class="title ">Binding Modes: One-way Binding, Two-way Binding, and One-time Binding</h2>
+			<p>The binding mode defines how the data sources are bound to the UI. SAPUI5 provides the
+				following binding modes:</p><ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">One-way binding</span> means a binding from the model to
+							the view. Any value changes in the model update all corresponding
+							bindings and the view. </p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Two-way binding</span> means a binding from the model to
+							the view and from the view to the model. Any changes in the model or the
+							view fire events that automatically trigger updates of all corresponding
+							bindings and both the view and the model.</p>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>Two-way binding is currently only supported for property bindings.
+								For other binding types, such as list bindings, the creation or
+								deletion of entities depends on the specific model.</p>
+							<p>
+							</p><p><span class="emphasis">Example:</span> For list bindings the OData
+									V4 model provides the <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/create" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/create"><code>sap.ui.model.odata.v4.ODataListBinding#create</code>
+										method</a> for creating a new entity, and the <a href="api/sap.ui.model.odata.v4.Context#methods/delete" title="api/sap.ui.model.odata.v4.Context#methods/delete" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context#methods/delete"><code>sap.ui.model.odata.v4.Context#delete</code>
+										method</a> to delete an entity in a list.
+								
+							</p>
+							<p>For more information on the different types of binding available, see
+									<a href="topic/91f0d8ab6f4d1014b6dd926db0e91070" title="Depending on the different use cases, you can use different binding types: Propety binding, context binding, and list binding." class="sap-doc">Binding Types</a>.</p>
+						<p></p></div></div>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>When using formatter functions, the binding is automatically switched
+								to "one-way". So you can't use a formatter function for "two-way"
+								scenarios, but you can use <a href="topic/07e4b920f5734fd78fdaa236f26236d8.html#loio07e4b920f5734fd78fdaa236f26236d8/section_DataTypes" title="07e4b920f5734fd78fdaa236f26236d8.xml#loio07e4b920f5734fd78fdaa236f26236d8/section_DataTypes" class="sap-doc">Data Types</a>.</p>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">One-time binding</span> means from model to view once.</p>
+					</li>
+				</ul><p></p>
+			<p>The following table shows which binding modes are supported by the respective data
+				models within SAPUI5:
+					</p><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_rzl_hq2_4v" class=" "><thead>
+						<tr><th colspan="1" rowspan="1">Model</th>
+						<th colspan="1" rowspan="1">One-time</th>
+						<th colspan="1" rowspan="1">One-way</th>
+						<th colspan="1" rowspan="1">Two-way</th>
+					</tr></thead><tbody><tr>
+						<td colspan="1" rowspan="1">
+							<p>OData V4 model</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"> (default)</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">OData V2 model</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"> (default)</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">ODataMetaModel V4</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"> (default)</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio5befb5af20ed42fd9052a99014d953a3_LowRes.gif" title="Not supported" alt="Not supported" usemap="#"></p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">ODataMetaModel</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"> (default)</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio5befb5af20ed42fd9052a99014d953a3_LowRes.gif" title="Not supported" alt="Not supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio5befb5af20ed42fd9052a99014d953a3_LowRes.gif" title="Not supported" alt="Not supported" usemap="#"></p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">JSON model</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"> (default)</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">XML model</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"> (default)</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">Resource model</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio3cb17ee88aed44d2bf1d14b97728c709_LowRes.gif" title="Supported" alt="Supported" usemap="#"> (default)</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><img src="loio5befb5af20ed42fd9052a99014d953a3_LowRes.gif" title="Not supported" alt="Not supported" usemap="#"></p>
+						</td>
+					</tr></tbody></table></div></div><p></p>
+			<p>For more
+					information, see the <a href="api/sap.ui.model.BindingMode" title="api/sap.ui.model.BindingMode" class="sap-doc" alt="api/sap.ui.model.BindingMode">API Reference:
+						<code>sap.ui.model.BindingMode</code></a>.
+				
+			</p>
+		</section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/91f0d8ab6f4d1014b6dd926db0e91070">Binding Types</a></li><li><a href="topic/e2e6f4127fe4450ab3cf1339c42ee832">Binding Syntax</a></li><li><a href="topic/07e4b920f5734fd78fdaa236f26236d8">Formatting, Parsing, and Validating Data</a></li><li><a href="topic/e1b625940c104b558e52f47afe5ddb4f">Models</a></li><li><a href="topic/f1ee7a8b2102415bb0d34268046cd3ea">Using Data Binding for Data Export</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

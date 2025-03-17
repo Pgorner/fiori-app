@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2025 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/base/Log","sap/ui/core/util/reflection/JsControlTreeModifier","sap/ui/fl/changeHandler/condenser/Classification"],function(e,t,n){"use strict";var r="visible";var i={};i.applyChange=function(e,t,n){var i=n.modifier;return Promise.resolve().then(i.getProperty.bind(i,t,r)).then(function(r){e.setRevertData({originalValue:r});n.modifier.setVisible(t,true)})};i.revertChange=function(t,n,r){var i=t.getRevertData();if(i){r.modifier.setVisible(n,i.originalValue);t.resetRevertData()}else{e.error("Attempt to revert an unapplied change.")}};i.completeChangeContent=function(){};i.getCondenserInfo=function(e){return{affectedControl:e.getSelector(),classification:n.Reverse,uniqueKey:r}};i.getChangeVisualizationInfo=function(e,n){const r=e.getSelector();const i=t.bySelector(r,n);const o={updateRequired:true};function a(e){if(!e){return null}if(e.getVisible?.()){return e}return a(e.getParent())}if(!i.getVisible()){const e=a(i.getParent());if(e){o.displayControls=[e.getId()]}}return o};return i},true);
+//# sourceMappingURL=UnhideControl.js.map

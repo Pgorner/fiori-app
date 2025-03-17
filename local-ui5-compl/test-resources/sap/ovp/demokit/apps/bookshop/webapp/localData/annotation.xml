@@ -1,0 +1,1040 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/catalog/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="EntityContainer"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="my.bookshop.EntityContainer">
+			<!-- <Annotations Target="CatalogService.Authors/name">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="ID"/>
+			</Annotations> -->
+            <Annotations Target="CatalogService.Authors/WeightUnit">
+				<!-- <Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="ID"/> -->
+			</Annotations>
+            <Annotations Target="CatalogService.Books/WeightMeasure">
+				<Annotation Term="Org.OData.Measures.V1.Unit" Path="WeightUnit"/>
+                <!-- <Annotation Term="Org.OData.Measures.V1.Unit" Path="author/WeightUnit"/> -->
+			</Annotations>
+            <Annotations Target="CatalogService.Books/WeightUnit">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="WeightUnitText"/>
+				<!-- <Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="author/WeightUnitText"/> -->
+			</Annotations>
+            <Annotations Target="CatalogService.Books/amount">
+				<Annotation Term="Org.OData.Measures.V1.ISOCurrency" Path="code"/>
+				<!-- <Annotation Term="Org.OData.Measures.V1.ISOCurrency" Path="author/name"/> -->
+			</Annotations>
+            <Annotations Target="CatalogService.Books/code">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="CurrencyCodeText"/>
+			</Annotations>
+            <Annotations Target="CatalogService.Books/sale">
+				<Annotation Term="Org.OData.Measures.V1.Unit" String="%"/>
+			</Annotations>
+              <Annotations Target="CatalogService.Books/stock">
+				<Annotation Term="Org.OData.Measures.V1.ISOCurrency" Path="code"/>
+			</Annotations>
+            <Annotations Target="CatalogService.Books/price">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="code">
+                        <Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+                </Annotation>
+            </Annotations> 
+             <Annotations Target="CatalogService.Books/network">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="network"/>
+            </Annotations>
+             <Annotations Target="CatalogService.Books/category">
+                <Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="network">
+                        <Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst" />
+                </Annotation>
+            </Annotations>
+             <Annotations Target="CatalogService.Books/title">
+                	<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="title"/>
+            </Annotations> 
+            <Annotations Target="CatalogService.Books/ID">
+                <Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="ID" />
+                        <PropertyValue Property="CollectionPath" String="Authors" />
+                        <PropertyValue Property="SearchSupported" Bool="true" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ID" />
+                                    <PropertyValue Property="ValueListProperty" String="ID" />
+                                </Record>
+                                <Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="title" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.Common.v1.Label" String="ID" />
+            </Annotations>
+			<Annotations Target="CatalogService.Books" >
+                <Annotation Term="UI.KPI" Qualifier="AllActualCosts">
+                    <Record Type="UI.KPIType">
+                        <PropertyValue Property="Detail">
+                            <Record Type="UI.KPIDetailType">
+                                <PropertyValue Property="DefaultPresentationVariant" Path="@UI.PresentationVariant#Eval_by_Currency1"/>
+                                <PropertyValue Property="AlternativePresentationVariants">
+                                    <Collection>
+                                        <Path>@UI.PresentationVariant#Eval_by_Currency_Column</Path>
+                                    </Collection>
+                                </PropertyValue>
+                                <PropertyValue Property="SemanticObject" String="Action" />
+                                <PropertyValue Property="Action" String="toappnavsample" />
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#Eval_by_Currency_1"/>
+                        <PropertyValue Property="DataPoint" Path="@UI.DataPoint#Eval_by_Country-Generic"/>
+                        <PropertyValue Property="ID" String="String for KPI Annotation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                            <PropertyPath>ID</PropertyPath>
+                            <PropertyPath>title</PropertyPath>
+                            <PropertyPath>stock_date</PropertyPath>
+                            <PropertyPath>FiscalYearPeriod</PropertyPath>
+                            <PropertyPath>amount</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.HeaderInfo">
+                    <Record Type="com.sap.vocabularies.UI.v1.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Book"/>
+                        <PropertyValue Property="TypeNamePlural" String="Books"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                                <PropertyValue Property="Label" String="Book title"/>
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>                          
+                        </PropertyValue>
+                        <PropertyValue Property="TypeImageUrl" String="sap-icon://addresses" />
+                    </Record>
+                </Annotation>
+				<Annotation Term="UI.Chart" Qualifier="donutchart">
+					<Record>
+                        <PropertyValue Property="Title" String="{@i18n>DonutChartTitle}" />
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>stock</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis1" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>category</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+                                <Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>price</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>title</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+					</Record>
+				</Annotation>
+                  <Annotation Term="UI.Chart" Qualifier="stableColor">
+					<Record>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>stock</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis1" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+							
+                                <Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>title</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="barchart">
+					<Record>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>price</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis1" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>category</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>title</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Bar"/>
+					</Record>
+				</Annotation>
+                <Annotation Term="UI.Chart" Qualifier="stackedchart">
+					<Record>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+								<PropertyPath>price</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>title</PropertyPath>
+								<PropertyPath>category</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="price" />
+									<PropertyValue Property="Role"
+										EnumMember="UI.ChartMeasureRoleType/Axis1" />
+								</Record>							
+					        </Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="title" />
+									<PropertyValue Property="Role"
+										EnumMember="UI.ChartDimensionRoleType/Series" />
+								</Record>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="category" />
+									<PropertyValue Property="Role"
+										EnumMember="UI.ChartDimensionRoleType/Category" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnStacked"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="bubblechart">
+					<Record>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>stock</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis1" Property="Role"/>
+								</Record>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>price</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis2" Property="Role"/>
+								</Record>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>sale</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis3" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>category</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>title</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Bubble"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Chart" Qualifier="linechart">
+					<Record>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>stock</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis1" Property="Role"/>
+								</Record>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure">
+										<PropertyPath>price</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartMeasureRoleType/Axis2" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>category</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+                                <Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>FiscalYearPeriod</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension">
+										<PropertyPath>title</PropertyPath>
+									</PropertyValue>
+									<PropertyValue EnumMember="UI.ChartDimensionRoleType/Category" Property="Role"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem" Qualifier="View1">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Id"/>
+                            <PropertyValue Property="Value" Path="ID"/>
+                        </Record>
+						<Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Title"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+						<Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Stock"/>
+                            <PropertyValue Property="Value" Path="stock"/>
+                        </Record>
+						<!-- <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Author Id"/>
+                            <PropertyValue Property="Value" Path="author_ID"/>
+                        </Record> -->
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Identification">
+					<Collection>
+						 <Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="Label" String="" />
+							<PropertyValue Property="Criticality"
+								EnumMember="UI.CriticalityType/Positive" />
+							<PropertyValue Property="SemanticObject" String="Action" />
+							<PropertyValue Property="Action" String="toappnavsample" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Label" String="Evaluation" />
+							<PropertyValue Property="Value" String="evaluation3" />
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.Identification" Qualifier="navigationIntentBased">
+					<Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="procurement"/>
+							<PropertyValue Property="Action" String="overview"/>
+						</Record>
+					</Collection>
+					<!-- <Collection>
+						<Record Type="com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation">
+                            <PropertyValue Property="SemanticObject" String="Action"/>
+                            <PropertyValue Property="Action" String="toappnavsample"/>
+                            <PropertyValue Property="Label" String="To Procurement Overview Page"/>
+                            <Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/Medium"/>
+                        </Record>
+					</Collection> -->
+				</Annotation>
+                <Annotation Term="UI.Identification" Qualifier="navigateToFreeStyleInbound">
+					<Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="freestyle"/>
+							<PropertyValue Property="Action" String="inbound"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.Identification" Qualifier="navigationWithUrl">
+					<Collection>
+						<Record Type="com.sap.vocabularies.UI.v1.DataFieldWithUrl">
+                            <PropertyValue Property="Label" String="Link to url"/>
+                            <PropertyValue Property="Value" String="Link to www.sap.com"/>
+                            <PropertyValue Property="Url" String="https://www.sap.com"/>
+                            <Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/Medium"/>
+                        </Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.Identification" Qualifier="navigationToOVPPage">
+					<Collection>
+						<Record Type="UI.DataFieldWithUrl">
+    						<PropertyValue Property="Url" String="experience.sap.com"/>
+    						<PropertyValue Property="Value" String="Search"/>
+							<PropertyValue Property="Url">
+								<Apply Function="odata.fillUriTemplate">
+									<String>https://experience.sap.com/{fioriDesignWeb}/{ovp}</String>
+									<LabeledElement Name="fioriDesignWeb">
+										<String>fiori-design-web</String>
+									</LabeledElement>
+									<LabeledElement Name="ovp">
+										<String>overview-page</String>
+									</LabeledElement>
+								</Apply>
+							</PropertyValue>
+						</Record>
+					</Collection>
+				</Annotation>
+				<!-- <Annotation Term="UI.Identification" Qualifier="navigationWithUrl">
+					<Collection>
+						<Record Type="UI.DataFieldWithUrl">
+    						<PropertyValue Property="Url" String="www.google.com"/>
+    						<PropertyValue Property="Value" String="Search"/>
+							<PropertyValue Property="Url">
+								<Apply Function="odata.fillUriTemplate">
+									<String>https://www.amazon.in/s/k={title}</String>
+									<LabeledElement Name="title">
+										<Apply Function="odata.uriEncode">
+											<Path>title</Path>
+										</Apply>
+									</LabeledElement>
+									<LabeledElement Name="city">
+										<Apply Function="odata.uriEncode">
+											<String>Bengaluru</String>
+										</Apply>
+									</LabeledElement>
+								</Apply>
+							</PropertyValue>
+						</Record>
+					</Collection>
+				</Annotation> -->
+				<Annotation Term="UI.SelectionVariant" Qualifier="View1">
+					<Annotation Term="com.sap.vocabularies.Common.v1.Label" String="Where Id is 201"/>
+						<Record>
+							<PropertyValue Property="SelectOptions">
+								<Collection>
+									<Record>
+									<PropertyValue Property="PropertyName" PropertyPath="ID"/>
+									<PropertyValue Property="Ranges">
+										<Collection>
+											<Record>
+												<PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I"/>
+												<PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ"/>
+												<PropertyValue Property="Low" String="201"/>
+											</Record>
+										</Collection>
+									</PropertyValue>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+				</Annotation>
+                <Annotation Term="UI.SelectionVariant" Qualifier="WithExcludeFilters">
+					<Annotation Term="com.sap.vocabularies.Common.v1.Label" String="With exclude filters"/>
+                        <Record>
+							<PropertyValue Property="SelectOptions">
+								<Collection>
+									<Record>
+                                        <PropertyValue Property="PropertyName" PropertyPath="ID" />
+                                        <PropertyValue Property="Ranges">
+                                            <Collection>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/NE"/>
+
+                                                    <PropertyValue Property="Low" String="207" />
+                                                </Record>
+                                                 <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/E" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ"/>
+
+                                                    <PropertyValue Property="Low" String="271" />
+                                                </Record>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/E" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/BT"/>
+
+                                                    <PropertyValue Property="Low" String="199" />
+                                                    <PropertyValue Property="High" String="203" />
+                                                </Record>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/E" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/LE"/>
+
+                                                    <PropertyValue Property="Low" String="208" />
+                                                </Record>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/E" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/GT"/>
+
+                                                    <PropertyValue Property="Low" String="421" />
+                                                </Record>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/GE"/>
+
+                                                    <PropertyValue Property="Low" String="251" />
+                                                </Record>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/LE"/>
+
+                                                    <PropertyValue Property="Low" String="401" />
+                                                </Record>
+                                            </Collection>
+                                        </PropertyValue>
+                                    </Record>
+                                    <Record>
+                                        <PropertyValue Property="PropertyName" PropertyPath="title" />
+                                        <PropertyValue Property="Ranges">
+                                            <Collection>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/E" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/Contains"/>
+
+                                                    <PropertyValue Property="Low" String="The Raven" />
+                                                </Record>
+                                                <Record>
+                                                    <PropertyValue Property="Sign"
+                                                                    EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/E" />
+                                                    <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/StartsWith"/>
+
+                                                    <PropertyValue Property="Low" String="Eleonora" />
+                                                </Record>
+                                            </Collection>
+                                        </PropertyValue>
+                                    </Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+				</Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="line_percentage">
+                    <Record Type="com.sap.vocabularies.UI.v1.DataPointType">
+                        <PropertyValue Property="Title" String="Sales Orders Amounts by Status"/>
+                        <PropertyValue Property="Value" Path="amount"/>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType">
+                                <PropertyValue Property="ToleranceRangeLowValue" String="1000"/>
+                                <PropertyValue Property="DeviationRangeLowValue" String="2000"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="ValueFormat">
+                            <Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+                                <!--<PropertyValue Property="ScaleFactor" Decimal="1000"/>-->
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="1"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TrendCalculation">
+                            <Record>
+                                <PropertyValue Property="ReferenceValue" String="85000"/>
+                                <PropertyValue Property="StrongUpDifference" Int="2000.0"/>
+                                <PropertyValue Property="UpDifference" Int="100"/>
+                                <PropertyValue Property="StrongDownDifference" Int="100"/>
+                                <PropertyValue Property="DownDifference" Int="1000"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="line_percentage">
+                    <Record Type="com.sap.vocabularies.UI.v1.DataPointType">
+                        <PropertyValue Property="Title" String="Sales Orders Amounts by Status"/>
+                        <PropertyValue Property="Value" Path="amount"/>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType">
+                                <PropertyValue Property="ToleranceRangeLowValue" String="1000"/>
+                                <PropertyValue Property="DeviationRangeLowValue" String="2000"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="ValueFormat">
+                            <Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+                                <!--<PropertyValue Property="ScaleFactor" Decimal="1000"/>-->
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="1"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="TrendCalculation">
+                            <Record>
+                                <PropertyValue Property="ReferenceValue" String="85000"/>
+                                <PropertyValue Property="StrongUpDifference" Int="2000.0"/>
+                                <PropertyValue Property="UpDifference" Int="100"/>
+                                <PropertyValue Property="StrongDownDifference" Int="100"/>
+                                <PropertyValue Property="DownDifference" Int="1000"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.LineItem" Qualifier="View4">
+                    <Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="procurement"/>
+							<PropertyValue Property="Action" String="overview"/>
+						</Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="amount"/>
+                            <!-- <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.Communication.v1.Contact"/> -->
+                            <!-- <Annotation EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/High"
+                                        Term="com.sap.vocabularies.UI.v1.Importance"/> -->
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                            <!-- <PropertyValue Property="Value" Path="author/name"/> -->
+                        </Record>
+                        <!-- <Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="amount"/>
+                            <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.Communication.v1.Contact"/>
+                        </Record> -->
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="IconUrl" Path="web_address"/>
+                            <PropertyValue Property="Label" String="Weight"/>
+                            <PropertyValue Property="Value" Path="WeightMeasure"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Order ID"/>
+                            <PropertyValue Property="Value" Path="ID"/>
+                        </Record>
+                        <!-- <Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="TaxAmount"/>
+                            <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#TaxAmount"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="TaxAmount"/>
+                            <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#salaryAmount"/>
+                        </Record> -->
+                        <Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="TaxAmount"/>
+                            <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#TaxAmount"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.LineItem" Qualifier="showPercentageValue">
+                    <Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="procurement"/>
+							<PropertyValue Property="Action" String="overview"/>
+						</Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="amount"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="IconUrl" Path="web_address"/>
+                            <PropertyValue Property="Label" String="Weight"/>
+                            <PropertyValue Property="Value" Path="WeightMeasure"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Order ID"/>
+                            <PropertyValue Property="Value" Path="ID"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="TotalSale"/>
+                            <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#TotalSale"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotations Target="CatalogService.Authors">
+                    <Annotation Term="com.sap.vocabularies.UI.v1.LineItem" Qualifier="View5">
+                        <Collection>
+                            <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                                <PropertyValue Property="Label" String="AuthorID"/>
+                                <PropertyValue Property="Value" Path="ID"/>
+                            </Record>
+                            <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                                <PropertyValue Property="Label" String="Author-Name"/>
+                                <PropertyValue Property="Value" Path="name"/>
+                            </Record>
+                            <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                                <PropertyValue Property="Label" String="Unit For Measurement"/>
+                                <PropertyValue Property="Value" Path="WeightUnit"/>
+                            </Record>
+                        </Collection>
+                    </Annotation>
+                </Annotations>
+                <Annotation Term="com.sap.vocabularies.UI.v1.LineItem" Qualifier="TableView">
+                    <Collection>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Order ID"/>
+                            <PropertyValue Property="Value" Path="ID"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="TaxAmount"/>
+                            <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#TaxAmount"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="header">
+					<Record Type="UI.DataPointType">
+						<PropertyValue Property="Title" String="stock"/>
+						<PropertyValue Property="Value" Path="stock"/>
+                        <PropertyValue Property="Description" Path="title"/>
+						<PropertyValue Property="CriticalityCalculation">
+							<Record Type="UI.CriticalityCalculationType">
+								<PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+								<PropertyValue Property="ToleranceRangeLowValue" String="100"/>
+								<PropertyValue Property="DeviationRangeLowValue" String="2000"/>
+							</Record>
+						</PropertyValue>
+                        <PropertyValue Property="ValueFormat">
+                            <Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+                                <PropertyValue Property="ScaleFactor" Int="1000"/>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="2"/>
+                            </Record>
+                        </PropertyValue>
+						<PropertyValue Property="TrendCalculation">
+							<Record Type="UI.TrendCalculationType">
+								<PropertyValue Property="ReferenceValue" String="1000"/>
+								<PropertyValue Property="UpDifference" Decimal="50"/>
+								<PropertyValue Property="StrongUpDifference" Decimal="10"/>
+								<PropertyValue Property="DownDifference" Decimal="10"/>
+								<PropertyValue Property="StrongDownDifference" Decimal="20"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="header1">
+					<Record Type="UI.DataPointType">
+						<PropertyValue Property="Title" String="sale"/>
+						<PropertyValue Property="Value" Path="sale"/>
+                        <PropertyValue Property="Description" Path="title"/>
+						<PropertyValue Property="CriticalityCalculation">
+							<Record Type="UI.CriticalityCalculationType">
+								<PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+								<PropertyValue Property="ToleranceRangeLowValue" String="100"/>
+								<PropertyValue Property="DeviationRangeLowValue" String="2000"/>
+							</Record>
+						</PropertyValue>
+                        <PropertyValue Property="ValueFormat">
+                            <Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+                                <PropertyValue Property="ScaleFactor" Int="1000"/>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="2"/>
+                            </Record>
+                        </PropertyValue>
+						<PropertyValue Property="TrendCalculation">
+							<Record Type="UI.TrendCalculationType">
+								<PropertyValue Property="ReferenceValue" String="1000"/>
+								<PropertyValue Property="UpDifference" Decimal="50"/>
+								<PropertyValue Property="StrongUpDifference" Decimal="10"/>
+								<PropertyValue Property="DownDifference" Decimal="10"/>
+								<PropertyValue Property="StrongDownDifference" Decimal="20"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.HeaderInfo" Qualifier="header1">
+                    <Record Type="com.sap.vocabularies.UI.v1.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Book"/>
+                        <PropertyValue Property="TypeNamePlural" String="Books"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                                <PropertyValue Property="Label" String="Book title"/>
+                                <PropertyValue Property="Value" Path="title"/>
+                            </Record>                          
+                        </PropertyValue>
+                        <PropertyValue Property="TypeImageUrl" String="sap-icon://addresses" />
+                    </Record>
+				</Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="TotalSale">
+                    <Record Type="com.sap.vocabularies.UI.v1.DataPointType">
+                        <PropertyValue Property="Title" String="TotalSale"/>
+                        <PropertyValue Property="Value" Path="sale"/>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType">
+                                <PropertyValue Property="ImprovementDirection" EnumMember="com.sap.vocabularies.UI.v1.CriticalityCalculationType/Minimize"/>
+                                <PropertyValue Property="ToleranceRangeHighValue" Int="20"/>
+                                <PropertyValue Property="DeviationRangeHighValue" Int="70"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="TaxAmount">
+                    <Record Type="com.sap.vocabularies.UI.v1.DataPointType">
+                        <PropertyValue Property="Title" String="TaxAmount"/>
+                        <PropertyValue Property="Value" Path="amount"/>
+                        <!-- <PropertyValue Property="Criticality" Path="StatusCriticality"/> -->
+                        <PropertyValue Property="ValueFormat">
+                            <Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+                                <PropertyValue Property="ScaleFactor" Decimal="1000"/>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="0"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType">
+                                <PropertyValue Property="ImprovementDirection" EnumMember="com.sap.vocabularies.UI.v1.CriticalityCalculationType/Minimize"/>
+                                <PropertyValue Property="ToleranceRangeHighValue" Int="500"/>
+                                <PropertyValue Property="DeviationRangeHighValue" Int="2000"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="salaryAmount">
+                    <Record Type="com.sap.vocabularies.UI.v1.DataPointType">
+                        <PropertyValue Property="Title" String="salaryAmount"/>
+                        <PropertyValue Property="Value" Path="stock"/>
+                        <!-- <PropertyValue Property="Criticality" Path="StatusCriticality"/> -->
+                        <PropertyValue Property="ValueFormat">
+                            <Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+                                <PropertyValue Property="ScaleFactor" Decimal="1000"/>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="0"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType">
+                                <PropertyValue Property="ImprovementDirection" EnumMember="com.sap.vocabularies.UI.v1.CriticalityCalculationType/Minimize"/>
+                                <PropertyValue Property="ToleranceRangeHighValue" Int="500"/>
+                                <PropertyValue Property="DeviationRangeHighValue" Int="2000"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+				<Annotation Term="com.sap.vocabularies.Communication.v1.Contact">
+                    <Record>
+                        <PropertyValue Property="fn" Path="amount" />
+                        <PropertyValue Property="title" Path="ID" />
+                        <PropertyValue Property="org" Path="stock" />
+                        <!-- 
+                            <PropertyValue Property="role" Path="OrganizationRole" />
+                            <PropertyValue Property="photo" Path="Photo" /> 
+                        -->
+                        <PropertyValue Property="tel">
+                    <Collection>
+                        <Record>
+                            <PropertyValue Property="type" EnumMember="com.sap.vocabularies.Communication.v1.PhoneType/fax" />
+                            <PropertyValue Property="uri" Path="ID" />
+                        </Record>
+                        <Record>
+                            <PropertyValue Property="type" EnumMember="com.sap.vocabularies.Communication.v1.PhoneType/work com.sap.vocabularies.Communication.v1.PhoneType/pref" />
+                            <PropertyValue Property="uri" Path="amount" />
+                        </Record>
+                    </Collection>
+                    </PropertyValue>
+                    <PropertyValue Property="email">
+                    <Collection>
+                    <Record>
+                    <PropertyValue Property="type" EnumMember="com.sap.vocabularies.Communication.v1.ContactInformationType/pref com.sap.vocabularies.Communication.v1.ContactInformationType/work" />
+                    <PropertyValue Property="address" Path="stock" />
+                    </Record>
+                    </Collection>
+                    </PropertyValue>
+                    </Record>
+                </Annotation>
+			</Annotations>
+            <Annotations Target="CatalogService.Books/DeliveryCalendarYear">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYear" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Books/DeliveryCalendarYearMonth">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYearMonth" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Books/FiscalYearPeriod">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsFiscalYearPeriod" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Books/DeliveryCalendarYearQuarter">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYearQuarter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Books/DeliveryCalendarYearWeek">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYearWeek" Bool="true"/>
+            </Annotations>
+	        <Annotations Target="CatalogService.Books">
+                <Annotation Term="UI.KPI" Qualifier="AllActualCosts">
+                    <Record Type="UI.KPIType">
+                        <PropertyValue Property="Detail">
+                            <Record Type="UI.KPIDetailType">
+                                <PropertyValue Property="DefaultPresentationVariant" Path="@UI.PresentationVariant#Eval_by_Currency1"/>
+                                <PropertyValue Property="AlternativePresentationVariants">
+                                    <Collection>
+                                        <Path>@UI.PresentationVariant#Eval_by_Currency_Column</Path>
+                                    </Collection>
+                                </PropertyValue>
+                                <PropertyValue Property="SemanticObject" String="Action" />
+                                <PropertyValue Property="Action" String="toappnavsample" />
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#Eval_by_Currency_1"/>
+                        <PropertyValue Property="DataPoint" Path="@UI.DataPoint#Eval_by_Country-Generic"/>
+                        <PropertyValue Property="ID" String="String for KPI Annotation"/>
+                    </Record>
+                </Annotation>
+	        	<Annotation Term="UI.Chart" Qualifier="year">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line" />
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>sale</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>DeliveryCalendarYear</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="sale" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="DeliveryCalendarYear" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="yearmonth">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line" />
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>stock</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>DeliveryCalendarYearMonth</PropertyPath>
+                            </Collection>
+                            <Collection>
+                                <PropertyPath>FiscalYearPeriod</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="stock" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="DeliveryCalendarYearMonth" />
+                                    <PropertyValue Property="Dimension" PropertyPath="FiscalYearPeriod" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="yearquarter">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line" />
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>stock</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>DeliveryCalendarYearQuarter</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="stock" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="DeliveryCalendarYearQuarter" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Chart" Qualifier="yearweek">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line" />
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>stock</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>DeliveryCalendarYearWeek</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="stock" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="DeliveryCalendarYearWeek" />
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

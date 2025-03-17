@@ -1,0 +1,356 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa357047be956436ebb1dfebf1aa29af2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adding-a-custom-section-to-an-object-page-a357047.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adding a Custom Section to an Object Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adding a Custom Section to an Object Page</h2></div><div class="shortdesc">You can add custom sections to your object page, as described in this document.</div><section id="section_nbx_fky_rcc">
+			<h2 class="title ">Adding a Custom Section to an Object Page Using SAP Fiori Tools</h2>
+			<p>Find out how to add a section to an object page using SAP Fiori tools.</p>
+			<ol>
+				<li class="li"> Launch the <span class="ph uicontrol">Page Map</span>. You can launch the <span class="ph uicontrol">Page Map</span> in several ways, for example by
+					right-clicking the project folder and selecting <span class="ph uicontrol">Show Page Map</span>. For more information, see <a href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/bae38e6216754a76896b926a3d6ac3a9.html" title="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/bae38e6216754a76896b926a3d6ac3a9.html" class="external-link" target="_blank" rel="noopener">Define Application Structure</a>. </li>
+				<li class="li"> Launch the <span class="ph uicontrol">Page Editor</span> for your object page. Click the <span class="SAP-icons sapUiInheritedElement sapUiInheritedBackground" style="font-size:inherit;"></span><span class="$description/@outputclass"></span> (<span class="ph uicontrol">Edit</span>) icon next to <span class="ph uicontrol">Object Page</span>. </li>
+				<li class="li"> Click the <span class="SAP-icons sapUiInheritedElement sapUiInheritedBackground" style="font-size:inherit;"></span><span class="$description/@outputclass"></span> (<span class="ph uicontrol">Add</span>) icon next to <span class="ph uicontrol">Sections</span>. </li>
+				<li class="li">Click <span class="ph uicontrol">Add Custom Section</span>.</li>
+				<li class="li">Provide a unique <span class="ph uicontrol">Title</span>.</li>
+				<li class="li">Provide a unique <span class="ph uicontrol">Fragment Name</span>.</li>
+				<li class="li">Select an <span class="ph uicontrol">Anchor Section</span>.</li>
+				<li class="li">Click <span class="ph uicontrol">Add</span>.</li>
+				<li class="li"> To preview your new section, see <a href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/b962685bdf9246f6bced1d1cc1d9ba1c.html" title="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/b962685bdf9246f6bced1d1cc1d9ba1c.html" class="external-link" target="_blank" rel="noopener">Previewing an Application</a>. <p>The following screen recording shows how to add a new section:</p>
+					
+						
+						
+					
+				</li>
+			</ol>
+		</section><section id="section_cjq_qdf_d4b" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+                </p><p>Use app extensions with caution and only if you cannot produce the required
+                    behavior by other means, such as manifest settings or annotations. To correctly
+                    integrate your app extension coding with SAP Fiori elements, use
+                    only the <code>extensionAPI</code> of SAP Fiori elements. For
+                    more information, see <a href="topic/bd2994b69ef542998becbc69ab093f7e" title="The extensionAPI consists of several elements that are described below. It can be used for the list report and object page." class="sap-doc">Using the extensionAPI</a>.</p>
+                <p>After you've created an app extension, its display (for example, control
+                    placement and layout) and system behavior (for example, model and binding usage,
+                    busy handling) lies within the application's responsibility. SAP Fiori elements
+                    provides support only for the official <code>extensionAPI</code> functions.
+                    Don't access or manipulate controls, properties, models, or other internal
+                    objects created by the SAP Fiori elements
+                    framework.</p>
+                
+            <p></p></div></div><p>The following steps show you how to add a custom section, namely <span class="ph uicontrol">Product Description</span>, to the object page of the<span class="ph uicontrol"> Manage
+					Products</span> application:</p><p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+            </p><p>We've removed videos showing step-by-step procedures using SAP Web IDE, which SAP
+                no longer actively supports. You can still access the video using an older version of this document.</p>
+        <p></p></div></div>
+			<p></p><section>
+				<h3 class="title ">Step 1: Create Fragment for the New Facet</h3>
+				<p>In the editor of your choice, open the folder structure of the project where you want to make the adaptation and proceed as
+					follows:</p>
+				<ol>
+					<li class="li">In the <code>webapp</code> folder, create a new subfolder called <code>ext</code>.</li>
+					<li class="li">In the folder <code>ext</code>, create a new subfolder called <code>view</code>.</li>
+					<li class="li">In the <code>view</code> folder, create file <code>DescriptionBreakout.view.xml</code>.</li>
+					<li class="li">Define the view with its elements.
+						The
+						following sample code is for the
+						<code>TextArea</code> element. The title for <code>TextArea</code> is
+						translatable and is picked from the <code>i18n</code> file.
+						</li>
+				</ol>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"&gt;
+	&lt;VBox&gt;
+		&lt;TextArea id="DescriptionTextArea" 
+				value="{to_ProductTextInOriginalLang/Description}"
+				width="30%" 
+				editable="false"/&gt;
+	&lt;/VBox&gt;
+&lt;/mvc:View&gt;		</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Step 2: Add Section Title to the <code>i18n</code> File</h3>
+				<p>To make the section title translatable, add the text to the <code>i18n</code> file as follows:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">#This is the resource bundle for Manage Products
+					
+# XTIT: Title of a facet within an object page if not needed in local/annotations.xml
+ProductDescription=Product Description		</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Step 3: Add Extension Definition to the <code>manifest.json</code> File</h3>
+				<p>To add the extension definition to the <code>manifest.json</code> file, use a <code>viewExtension</code>.</p>
+				
+				
+				<p>In the following example, the custom section is placed after the <code>GeneralInformation</code> section:</p>
+				
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	"extends": {
+			"extensions": {
+				"sap.ui.viewExtensions": {
+					"sap.suite.ui.generic.template.ObjectPage.view.Details": {
+						"AfterFacet|SEPMRA_C_PD_Product|GeneralInformation": {
+							"className": "sap.ui.core.mvc.View",
+							"viewName": "ManageProducts.ext.view.DescriptionBreakout",
+							"type": "XML",
+							"sap.ui.generic.app": {
+								"title": "{{ProductDescription}}"
+							}
+						}
+					}
+				}
+			}
+		},
+			</pre></div></div></section><p></p></div></div>
+				<p>To add multiple sections, the extension name needs to contain a key after the annotation name in the extension entry, for example,<code>
+						"BeforeFacet|SEPMRA_C_PD_Product|to_ProductText::com.sap.vocabularies.UI.v1.LineItem|1"</code>, as well as a <code>key</code> object in
+						<code>sap.ui.generic.app</code>. </p>
+				
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"extends": {
+    "extensions": {
+        "sap.ui.viewExtensions": {
+          "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+            "BeforeFacet|SEPMRA_C_PD_Product|to_ProductText::com.sap.vocabularies.UI.v1.LineItem": {
+                "className": "sap.ui.core.mvc.View",
+                "viewName": "ManageProducts.ext.view.BeforeFacetTest",
+                "type": "XML",
+                "sap.ui.generic.app": {
+                    "title": "Facet Breakout before Product Text LineItem"
+                }
+            },
+            "BeforeFacet|SEPMRA_C_PD_Product|to_ProductText::com.sap.vocabularies.UI.v1.LineItem|1": {
+                "className": "sap.ui.core.mvc.View",
+                "viewName": "ManageProducts.ext.view.BeforeFacetTestNew",
+                "type": "XML",
+                "sap.ui.generic.app": {
+                    "title": "Facet Breakout before Product Text LineItem",
+                    "key": "1"
+                }
+            },
+            "AfterFacet|SEPMRA_C_PD_Product|to_Supplier::com.sap.vocabularies.UI.v1.Identification": {
+                "className": "sap.ui.core.mvc.View",
+                "viewName": "ManageProducts.ext.view.AfterFacetTest",
+                "type": "XML",
+                "sap.ui.generic.app": {
+                    "title": "Facet Breakout after Supplier Identification"
+                }
+            },
+            "AfterFacet|SEPMRA_C_PD_Product|to_Supplier::com.sap.vocabularies.UI.v1.Identification|1": {
+               "className": "sap.ui.core.mvc.View",
+               "viewName": "ManageProducts.ext.view.AfterFacetTest",
+               "type": "XML",
+               "sap.ui.generic.app": {
+                    "title": "Facet Breakout after Supplier Identification",
+                    "key": 1
+                }
+            }
+          }
+        }
+    }
+}</pre></div></div></section>
+				<p></p></div></div>
+				
+				
+			</section><section>
+				<h3 class="title ">Results</h3>
+				<p>The object page of the <span class="ph uicontrol">Manage Products</span> app shows the new section <span class="ph uicontrol">Product Description</span>:</p>
+				<div><div class="fig"><img src="loio5964a7fbfb294a6cacaa15b123304748_LowRes.png" usemap="#"></div></div>
+			</section><section>
+				<h3 class="title ">Setting Section Title to the Control within Custom Section</h3>
+				<p>To hide the section title or subsection title, you can call the <code>setAsTitleOwner</code> extension API. This allows you to replace the control title with
+					the section or subsection title.</p>
+				<p>Define the <code>initialise</code> method of a table or chart in the extension fragment component.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;st:SmartTable id="SalesPriceFacetID" initialise="SalesPriceInitialise"/&gt;</pre></div></div></section>
+				<p></p></div></div>
+				<p>Define the same event in the controller and call the <code>setAsTitleOwner</code> extension API with the parameter <code>SmartTable</code> or
+						<code>SmartChart</code>.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">SalesPriceInitialise: function(oEvent) {
+	var oSmartTable = oEvent.getSource();
+	var oExtensionAPI = extensionAPI.getExtensionAPI(oSmartTable);
+	oExtensionAPI.setAsTitleOwner(oSmartTable);
+}</pre></div></div></section>
+				<p></p></div></div>
+				<p>For more information, see <a href="topic/d9a45394165e439595cf0006924b6996" title="You can add a title to an object page table." class="sap-doc">Adding Titles to Object Page Tables</a>.</p>
+			</section></div></section><section id="section_e23_tdf_d4b" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+				<h3 class="title ">Step 1: Create Fragment for the New Section</h3>
+				<p>In the editor of your choice, open the folder structure of the project where you want to make the adaptation and proceed as
+					follows:</p>
+				<ol>
+					<li class="li">In the <code>webapp</code> folder, create a new subfolder called <code>ext</code>.</li>
+					<li class="li">In the folder <code>ext</code>, create the file <code>CustomSection.fragment.xml</code>.</li>
+					<li class="li">
+						<p>Define the XML fragment with its elements, in this example a <code>VerticalLayout</code> with several other controls is
+							used. Bindings can be used as well.</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout"&gt;
+	&lt;l:VerticalLayout core:require="{handler: 'SalesOrder/ext/CustomColumn'}"&gt;
+		&lt;Button text="Custom Button" press="handler.buttonPressed" /&gt;
+	&lt;/l:VerticalLayout&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>If a custom handler is required, you must define it in the XML fragment using <code>core:require</code> (see the
+							example of <code>VerticalLayout</code> in the sample code above).</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/m/MessageBox"], function(MessageBox) {
+    "use strict";
+
+    return {
+        buttonPressed: function() {
+            MessageBox.show("Button pressed!");
+        }
+    };
+});
+</pre></div></div></section>
+						<p></p></div></div>
+					</li>
+				</ol>
+			</section><section>
+				<h3 class="title ">Step 2: Add Section Title to the <code>i18n</code> File</h3>
+				<p>To make the section title translatable, add the text to the <code>i18n</code> file as follows:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">#This is the resource bundle
+					
+# XTIT: Title of a facet within an object page
+customSection=Custom Section		</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Step 3: Add Extension Definition to the <code>manifest.json</code> File</h3>
+				<p>To add the extension definition to the <code>manifest.json</code> file, use a <code>template</code>.</p>
+				<p>The extension appears within the object page before or after the defined section. By default, it is the last section.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"sap.ui5": {
+		"routing": {
+			"targets": {
+				"SalesOrderManageObjectPage": {
+					"options": {
+						"settings": {
+							"content": {
+								"body": {
+									"sections": {
+										"customSection": {
+											"type": "XMLFragment",
+											"template": "SalesOrder.ext.CustomSection",
+											"title": "{i18n&gt;customSection}",
+											"position": {
+												"placement": "Before",
+												"anchor": "SalesOrderItems"
+											}
+										},
+										"anotherCustomSection": {
+											"type": "XMLFragment",
+											"template": "SalesOrder.ext.CustomFieldForm",
+											"title": "Field Form",
+											"position": {
+												"placement": "After",
+												"anchor": "customSection"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}</pre></div></div></section>
+				<p></p></div></div>
+				<p>To add multiple sections, the custom section added in sections needs to contain an ID. In the example above, the IDs are
+						<code>customSection</code> and <code>anotherCustomSection</code>. In the application, these will be the actual IDs on
+					the corresponding control.</p>
+				<p>You can enrich the body of the object page with additional sections. To do so, you define sections by using a custom key that you
+					later reference by providing the following properties:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>a title</p>
+					</li>
+					<li class="li">
+						<p>the UI5 fragment (type and name) and</p>
+					</li>
+					<li class="li">
+						<p>its position</p>
+					</li>
+				</ul>
+			</section><section>
+				<h3 class="title ">Results</h3>
+				<p>The object page of the app shows the new section.</p>
+			</section><section>
+				<h3 class="title ">Merging
+					Section Title with Control Title
+					in Custom Sections</h3>
+				<p>For custom sections configured with <span class="emphasis">Page</span> layout mode, if there's only one control within the section, the
+					section title is merged with the control title,
+					hiding the section title. The merging of titles
+					occurs automatically for custom sections that utilize standard building blocks without any layout.</p>
+				<p>For sections that use standard building blocks within a layout, you can define a
+						<code>onSectionLoaded</code>
+					property in the
+						<code>manifest.json</code> file. The value of the <code>onSectionLoaded</code> property must be the name of the method
+					defined in the custom controller. This method
+					must invoke the
+						<code>setAsSectionTitleOwner</code>
+					extension API within
+						<code>sap.fe.templates/src/sap/fe/templates/ObjectPage/ExtensionAPI.ts</code>. You must ensure that the correct control is
+					passed while invoking the extension
+					API, as the section title is merged
+					with the title of this control. </p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Manifest setting for merging title within custom sections</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"routing":{
+   "targets":{
+      "SalesOrderManageObjectPage":{
+         "options":{
+            "settings":{
+               "sectionLayout": "Page",
+               "content":{
+                  "body":{
+                     "sections":{
+                        "customSectionTableHBox":{
+                           "type": "XMLFragment",
+                           "template": "SalesOrder.custom.CustomSectionBuildingBlockTableHBox",
+                           "title": "HBox Table",
+                           "onSectionLoaded": "SalesOrder.custom.CustomSection.callShowSectionTitle"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+}</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Custom controller method that sets the right
+					control</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">callShowSectionTitle(section){
+   const control = section.getSubSections()[0].getBlocks()[0].getContent().getItems()[0];
+   this.setAsSectionTitleOwner(control);
+}</pre></div></div></section><p></p></div></div>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

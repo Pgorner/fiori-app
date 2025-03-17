@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ValueHelpDialog Accesibility Test Page</title>
+
+	<script id='sap-ui-bootstrap'
+		src="../../../../../../resources/sap-ui-core.js"
+		data-sap-ui-async='true'
+		data-sap-ui-compat-version='edge'
+		data-sap-ui-libs='sap.m, sap.ui.comp'
+		data-sap-ui-resource-roots='{
+			"qunit.internal.acc": "../../../../../../test-resources/sap/ui/core/qunit/internal/acc"
+		}'>
+	</script>
+
+
+	<script id="mainView" type="text/xmldata">
+		<mvc:View height="100%" controllerName="myController"
+			xmlns:mvc="sap.ui.core.mvc"
+			xmlns:layout="sap.ui.layout"
+			xmlns:form="sap.ui.layout.form"
+			xmlns="sap.m"
+			xmlns:core="sap.ui.core">
+
+			<layout:Grid defaultSpan="L12 M12 S12">
+				<layout:content>
+					<form:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="12" labelSpanL="12" labelSpanXL="12" emptySpanL="6" emptySpanM="6">
+						<form:content>
+							<Label text="ValueHelpDialog with Multiple Conditions" labelFor="multipleConditions"/>
+							<MultiInput
+								id="multipleConditions"
+								valueHelpRequest=".onMultipleConditionsVHRequested"
+							/>
+							<Label text="FilterBar ValueHelpDialog" labelFor="filterBarValueHelpDialogInput"/>
+							<MultiInput
+								id="filterBarValueHelpDialogInput"
+								valueHelpRequest=".onFilterBarValueHelpDialog"
+								suggestionRows="{
+									path: '/ProductSet',
+									length: 10
+								}"
+							>
+							<suggestionColumns>
+								<Column>
+									<Label text="Product Code"/>
+								</Column>
+								<Column>
+									<Label text="Product Name"/>
+								</Column>
+							</suggestionColumns>
+							<suggestionRows>
+								<ColumnListItem>
+									<Label text="{ProductCode}" />
+									<Label text="{ProductName}" />
+								</ColumnListItem>
+							</suggestionRows>
+							</MultiInput>
+						</form:content>
+					</form:SimpleForm>
+				</layout:content>
+			</layout:Grid>
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+			xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+			xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+				<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm"
+					Namespace="AccessibilityNamespace"
+					xml:lang="en"
+					sap:schema-version="1">
+
+					<EntityType Name="ProductType" sap:label="Company Item" sap:semantics="aggregate" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="Product" />
+						</Key>
+						<Property Name="ProductCode" Type="Edm.String" Nullable="false"
+						MaxLength="4" sap:display-format="UpperCase" sap:label="Product Code"/>
+						<Property Name="ProductName" Type="Edm.String" Nullable="false"
+						MaxLength="256" sap:display-format="UpperCase" sap:label="Product Name" />
+
+					</EntityType>
+
+					<EntityContainer Name="AccessibilityNamespace_Entities"
+						m:IsDefaultEntityContainer="true"
+						sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="ProductSet"
+							EntityType="AccessibilityNamespace.ProductType"
+							sap:creatable="false"
+							sap:updatable="true"
+							sap:deletable="true"
+							sap:content-version="1"/>
+					</EntityContainer>
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+	<script id="dataSection" type="text/json">
+		{"d": {
+			"__count": "2",
+			"results": [{
+				"__metadata": {
+					"uri": "testService.ProductSet/ProductSet('0001')",
+					"type": "AccessibilityNamespace.ProductSet"
+				},
+				"ProductCode": "0001",
+				"ProductName": "SAP SE"
+
+			}, {
+				"__metadata": {
+					"uri": "testService.ProductSet/ProductSet('0002')",
+					"type": "AccessibilityNamespace.ProductSet"
+				},
+				"ProductCode": "0002",
+				"ProductName": "SAP Labs India"
+			}]
+		}}
+	</script>
+	<script>
+		sap.ui.getCore().attachInit(function () {
+			"use strict";
+
+			sap.ui.require([
+				"sap/ui/core/mvc/XMLView",
+				"sap/ui/core/mvc/Controller",
+				"sap/ui/comp/providers/TokenParser",
+				"sap/ui/comp/valuehelpdialog/ValueHelpDialog",
+				"sap/m/Token",
+				"sap/m/Input",
+				"sap/m/SearchField",
+				"sap/ui/model/Filter",
+				"sap/ui/comp/filterbar/FilterBar",
+				"sap/ui/comp/filterbar/FilterGroupItem",
+				'sap/ui/model/odata/v2/ODataModel',
+				'sap/ui/table/Column',
+				'sap/m/Label',
+				'sap/m/ColumnListItem',
+				"sap/ui/core/util/MockServer",
+				'sap/ui/model/FilterOperator'
+			], function (
+					XMLView,
+					Controller,
+					TokenParser,
+					ValueHelpDialog,
+					Token,
+					Input,
+					SearchField,
+					Filter,
+					FilterBar,
+					FilterGroupItem,
+					ODataModel,
+					UIColumn,
+					Label,
+					ColumnListItem,
+					MockServer,
+					FilterOperator
+
+			) {
+				var MyController = Controller.extend("mainView.controller", {
+					onInit : function() {
+						var oModel,
+							sServiceName = "testService";
+							this.setupMockServer(sServiceName);
+
+							oModel = new ODataModel(sServiceName + "/", {
+								useBatch: false,
+								defaultBindingMode: "TwoWay"
+							});
+							this.getView().setModel(oModel);
+
+						var ValueHelpRangeOperation = sap.ui.comp.valuehelpdialog.ValueHelpRangeOperation;
+
+						this._oMultipleConditionsInput = this.byId("multipleConditions");
+						this._oSingleConditionMultiInput = this.byId("singleCondition");
+						this._oFilterBarVHDInput = this.getView().byId("filterBarValueHelpDialogInput");
+
+						this.aKeys = ["CompanyCode", "CompanyName"];
+
+						var rangeToken1 = new Token({
+							key: "i1",
+							text: "a...z"
+						}).data("range", {
+							"exclude": false,
+							"operation": ValueHelpRangeOperation.BT,
+							"keyField": "CompanyCode",
+							"value1": "a",
+							"value2": "z"
+						});
+						var rangeToken2 = new Token({
+							key: "i2",
+							text: "=foo"
+						}).data("range", {
+							"exclude": false,
+							"operation": ValueHelpRangeOperation.EQ,
+							"keyField": "CompanyCode",
+							"value1": "foo",
+							"value2": ""
+						});
+						var rangeToken3 = new Token({
+							key: "e1",
+							text: "!(=bar)"
+						}).data("range", {
+							"exclude": true,
+							"operation": ValueHelpRangeOperation.EQ,
+							"keyField": "CompanyCode",
+							"value1": "bar",
+							"value2": ""
+						});
+
+						this.aTokens = [rangeToken1, rangeToken2, rangeToken3];
+						this._oMultipleConditionsInput.setTokens(this.aTokens);
+						var oTokenParser = new TokenParser({defaultOperation: "EQ"});
+						oTokenParser.associateInput(this._oMultipleConditionsInput);
+						oTokenParser.addKeyField({ key: "CompanyName", label: "Name", type: "string", oType: new sap.ui.model.type.String() });
+					},
+					onExit: function() {
+						this._oMockServer.stop();
+					},
+					setupMockServer: function (service) {
+						var basePath = service,
+								mockServer = new MockServer({
+								rootUri: basePath
+							}),
+							aReqList = mockServer.getRequests();
+
+						// configure mock server with a delay
+						MockServer.config({
+							autoRespond: true,
+							autoRespondAfter: 500
+						});
+
+						// $metadata
+						aReqList.push({
+							method: 'GET',
+							path: '/\\$metadata(.*)',
+							response: function(req, resp) {
+								req.respondXML(200, {}, jQuery("#metadata").html());
+							}
+						});
+
+						// Data
+						aReqList.push({
+							method: 'GET',
+							path: '/\\ProductSet[\/?](.*)',
+							response: function(req, resp) {
+								req.respondJSON(200, {}, jQuery("#dataSection").html());
+							}
+						});
+
+						mockServer.setRequests(aReqList);
+						mockServer.simulate(basePath + '/$metadata',
+							{
+								sMockdataBaseUrl: basePath + '/ProductSet',
+								bGenerateMissingMockData: true
+							});
+						mockServer.start();
+					},
+					tokenUpdateConditionalValueHelpDialog: function(oControlEvent) {
+						var j,
+							Tokenizer = sap.m.Tokenizer;
+
+						if (oControlEvent.getParameter("type") === Tokenizer.TokenChangeType.Removed) {
+							var aRemovedTokens = oControlEvent.getParameter("removedTokens");
+							for (j = 0; j < aRemovedTokens.length; j++) {
+								var sKey = aRemovedTokens[j].getKey();
+
+								for (var i in this.aTokens) {
+									if (this.aTokens[i].getKey() === sKey) {
+										this.aTokens.splice(i, 1);
+										break;
+									}
+								}
+							}
+						}
+
+						if (oControlEvent.getParameter("type") === Tokenizer.TokenChangeType.Added) {
+							var aAddedTokens = oControlEvent.getParameter("addedTokens");
+							for (j = 0; j < aAddedTokens.length; j++) {
+								this.aTokens.push(aAddedTokens[j]);
+							}
+						}
+					},
+
+					onMultipleConditionsVHRequested: function () {
+
+						this._oMultipleConditionsDialog = new ValueHelpDialog({
+							title: "Company Code",
+							ok: this.onMultipleConditionsValueHelpOkPress.bind(this),
+							cancel: this.onMultipleConditionsCancelPress.bind(this),
+							afterClose: this.onMultipleConditionsAfterClose.bind(this),
+							ok: this.onMultipleConditionsValueHelpOkPress.bind(this),
+							cancel: this.onMultipleConditionsCancelPress.bind(this),
+							afterClose: this.onMultipleConditionsAfterClose.bind(this),
+							supportMultiselect: true,
+							key: this.aKeys[0],
+							descriptionKey: this.aKeys[1],
+							supportRanges: true,
+							supportRangesOnly: true
+						});
+						this._oMultipleConditionsInput.addDependent(this._oMultipleConditionsDialog);
+
+						this._oMultipleConditionsDialog.setRangeKeyFields([{
+							key: "CompanyCode",
+							label: "ID",
+							type: "string"
+						}
+						]);
+						this._oMultipleConditionsDialog.setTokens(this._oMultipleConditionsInput.getTokens());
+
+						this._oMultipleConditionsDialog.open();
+					},
+
+					onMultipleConditionsValueHelpOkPress: function (oEvent) {
+						var aTokens = oEvent.getParameter("tokens");
+						this._oMultipleConditionsInput.setTokens(aTokens);
+						this._oMultipleConditionsDialog.close();
+					},
+
+					onMultipleConditionsCancelPress: function () {
+						this._oMultipleConditionsDialog.close();
+					},
+					onMultipleConditionsAfterClose: function () {
+						this._oMultipleConditionsDialog.destroy();
+					},
+
+					onSingleConditionVHRequested: function () {
+
+						this._oSingleConditionDialog = new ValueHelpDialog({
+							title: "Company Code",
+							ok: this.onSingleConditionValueHelpOkPress.bind(this),
+							cancel: this.onSingleConditionCancelPress.bind(this),
+							afterClose: this.onSingleConditionAfterClose.bind(this),
+							supportMultiselect: false,
+							supportRangesOnly: true,
+							supportRanges: true,
+							key: this.aKeys[0],
+							descriptionKey: this.aKeys[1],
+							maxIncludeRanges: 1,
+							maxExcludeRanges: 0,
+							maxConditions: 1,
+							valueHelpOnly: true
+						});
+						this._oSingleConditionDialog.setRangeKeyFields([{
+							key: "CompanyCode",
+							label: "ID",
+							type: "string"
+						}])
+						this._oSingleConditionMultiInput.addDependent(this._oSingleConditionDialog);
+						this._oSingleConditionDialog.setTokens(this._oSingleConditionMultiInput.getTokens());
+						this._oSingleConditionDialog.open();
+					},
+
+	
+					onSingleConditionValueHelpOkPress: function (oEvent) {
+						var aTokens = oEvent.getParameter("tokens");
+						this._oSingleConditionMultiInput.setTokens(aTokens);
+						this._oSingleConditionDialog.close();
+					},
+					onSingleConditionCancelPress: function () {
+						this._oSingleConditionDialog.close();
+					},
+					onSingleConditionAfterClose: function () {
+						this._oSingleConditionDialog.destroy();
+					},
+
+					onFilterBarValueHelpDialog: function () {
+						var that = this;
+						this._oFilterBarValueHelpDialog = new ValueHelpDialog({
+							title: "Product",
+							key: "ProductCode",
+							descriptionKey:"ProductName",
+							supportMultiselect: true,
+							ok: this.onFilterBarValueHelpDialogOkPress.bind(this),
+							cancel: this.onFilterBarValueHelpDialogCancelPress.bind(this),
+							afterClose: this.onFilterBarValueHelpDialogAfterClose.bind(this)
+						});
+						this._oFilterBarVHDInput.addDependent(this._oFilterBarValueHelpDialog);
+						this._oFilterBarValueHelpDialog.setRangeKeyFields([{
+							key: "ProductCode",
+							label: "ID",
+							type: "string"
+						}]);
+						
+						this._oFilterBarValueHelpDialog.getTableAsync().then(function (oTable) {
+
+							// For Desktop and tabled the default table is sap.ui.table.Table
+							if (oTable.bindRows) {
+								// Bind rows to the ODataModel and add columns
+								oTable.bindAggregation("rows", {
+									path: "/ProductSet",
+									events: {
+										dataReceived: function() {
+											that._oFilterBarValueHelpDialog.update();
+										}
+									}
+								});
+								var oTemplate = new sap.m.Text({
+									text: "{ProductCode}"
+								});
+								var oColumnProductCode = new sap.ui.table.Column({
+									label: "Product Code",
+									template: oTemplate
+								});
+								oColumnProductCode.data({
+									fieldName: "ProductCode"
+								});
+								var oNameTemplate = new sap.m.Text({
+									text: "{ProductName}"
+								});
+								var oColumnProductName = new UIColumn({label: new Label({text: "Product Name"}), template: oNameTemplate});
+								oColumnProductName.data({
+									fieldName: "ProductName"
+								});
+								oTable.addColumn(oColumnProductCode);
+								oTable.addColumn(oColumnProductName);
+
+							}
+
+							// For Mobile the default table is sap.m.Table
+							if (oTable.bindItems) {
+								// Bind items to the ODataModel and add columns
+								oTable.bindAggregation("items", {
+									path: "/ProductSet",
+									template: new ColumnListItem({
+										cells: [new Label({text: "{ProductCode}"}), new Label({text: "{ProductName}"})]
+									}),
+									events: {
+										dataReceived: function() {
+											oDialog.update();
+										}
+									}
+								});
+								oTable.addColumn(new MColumn({header: new Label({text: "Product Code"})}));
+								oTable.addColumn(new MColumn({header: new Label({text: "Product Name"})}));
+							}
+
+
+							this._oFilterBarValueHelpDialog.update();
+						}.bind(this));
+
+						var oFilterBar = new FilterBar({
+							advancedMode:  true,
+							filterBarExpanded:true,
+							isRunningInValueHelpDialog:true,
+							filterGroupItems: [
+								new FilterGroupItem({
+									groupName: "__$INTERNAL$",
+									name: "ProductCode",
+									label: "Product Code",
+									visibleInFilterBar: true,
+									control: new Input({
+										name: "ProductCode"
+									})
+								}),
+								new FilterGroupItem({
+									groupName: "__$INTERNAL$",
+									name: "ProductName",
+									label: "Product Name",
+									visibleInFilterBar: true,
+									control: new Input({
+										name: "ProductName"
+									})
+								})
+							],
+							search: function(oEvent) {
+								var sSearchQuery = this._oBasicSearchField.getValue(),
+									aSelectionSet = oEvent.getParameter("selectionSet");
+
+					var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+						if (oControl.getValue()) {
+							aResult.push(new Filter({
+								path: oControl.getName(),
+								operator: FilterOperator.Contains,
+								value1: oControl.getValue()
+							}));
+						}
+
+						return aResult;
+					}, []);
+
+					aFilters.push(new Filter({
+						filters: [
+							new Filter({ path: "ProductCode", operator: FilterOperator.Contains, value1: sSearchQuery }),
+							new Filter({ path: "ProductName", operator: FilterOperator.Contains, value1: sSearchQuery })
+						],
+						and: false
+					}));
+
+					this._filterTable(new Filter({
+						filters: aFilters,
+						and: true
+					}));
+
+							}.bind(this)
+						});
+						this._oBasicSearchField = new SearchField({
+							showSearchButton: false,
+							placeholder: "Search",
+							search: function(event) {
+								oFilterBar.search();
+							}
+						});
+						oFilterBar.setBasicSearch(this._oBasicSearchField);
+
+						this._oFilterBarValueHelpDialog.setFilterBar(oFilterBar);
+
+						this._oFilterBarValueHelpDialog.setTokens(this._oFilterBarVHDInput.getTokens());
+						this._oFilterBarValueHelpDialog.open();
+					},
+
+					_filterTable: function (oFilter) {
+						var oVHD = this._oFilterBarValueHelpDialog;
+
+						oVHD.getTableAsync().then(function (oTable) {
+							if (oTable.bindRows) {
+								oTable.getBinding("rows").filter(oFilter);
+							}
+							if (oTable.bindItems) {
+								oTable.getBinding("items").filter(oFilter);
+							}
+
+							// This method must be called after binding update of the table.
+							oVHD.update();
+						});
+					},
+					onFilterBarValueHelpDialogOkPress: function (oEvent) {
+						var aTokens = oEvent.getParameter("tokens");
+						this._oFilterBarVHDInput.setTokens(aTokens);
+						this._oFilterBarValueHelpDialog.close();
+					},
+
+					onFilterBarValueHelpDialogCancelPress: function () {
+						this._oFilterBarValueHelpDialog.close();
+					},
+
+					onFilterBarValueHelpDialogAfterClose: function () {
+						this._oFilterBarValueHelpDialog.destroy();
+					}
+				});
+
+				XMLView.create({
+					id: "idView",
+					definition: document.getElementById("mainView").textContent,
+					controller: new MyController()
+				}).then(function (oView) {
+					oView.placeAt("content");
+				});
+
+			});
+
+		});
+	</script>
+
+</head>
+
+<body id='content' class='sapUiBody'>
+</body>
+
+</html>

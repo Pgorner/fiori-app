@@ -1,0 +1,7 @@
+/*!
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define(["sap/sac/df/firefly/ff1000.kernel.api"],function(e){"use strict";e.BatchRequestManagerFactory=function(){};e.BatchRequestManagerFactory.prototype=new e.XObject;e.BatchRequestManagerFactory.prototype._ff_c="BatchRequestManagerFactory";e.BatchRequestManagerFactory.s_factory=null;e.BatchRequestManagerFactory.createBatchRequestManager=function(t){let a=e.BatchRequestManagerFactory.s_factory;let n=null;if(e.notNull(a)){n=a.newBatchRequestManager(t)}return n};e.BatchRequestManagerFactory.registerFactory=function(t){e.BatchRequestManagerFactory.s_factory=t};e.KernelApiBaseModule=function(){};e.KernelApiBaseModule.prototype=new e.DfModule;e.KernelApiBaseModule.prototype._ff_c="KernelApiBaseModule";e.KernelApiBaseModule.s_module=null;e.KernelApiBaseModule.getInstance=function(){if(e.isNull(e.KernelApiBaseModule.s_module)){e.DfModule.checkInitialized(e.KernelApiModule.getInstance());e.KernelApiBaseModule.s_module=e.DfModule.startExt(new e.KernelApiBaseModule);e.DfModule.stopExt(e.KernelApiBaseModule.s_module)}return e.KernelApiBaseModule.s_module};e.KernelApiBaseModule.prototype.getName=function(){return"ff1010.kernel.api.base"};e.KernelApiBaseModule.getInstance();return e});
+//# sourceMappingURL=ff1010.kernel.api.base.js.map

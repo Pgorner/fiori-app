@@ -1,0 +1,123 @@
+<mvc:View controllerName="applicationUnderTest.smartfilterbar_Timezone_UTC.SmartFilterBar"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:sv="sap.ui.comp.smartvariants"
+	height="100%"
+>
+	<App>
+		<pages>
+			<f:DynamicPage toggleHeaderOnTitleClick="false" class="sapUiSizeCompact">
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:actions>
+							<Label text="FLP Timezone" class="sapUiSmallMarginEnd" />
+							<Text id="FLPtimezoneText" />
+							<Label text="System Timezone" class="sapUiSmallMarginEnd" />
+							<Text id="systemTimezoneText" />
+						</f:actions>
+						<f:heading>
+							<sv:SmartVariantManagement id="__SVM01" persistencyKey="smartfilterbar_Timezone_UTC" showShare="true" entitySet="ZEPM_C_SALESORDERITEMQUERYResults" showExecuteOnSelection="true" />
+						</f:heading>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:header>
+					<f:DynamicPageHeader pinnable="false">
+						<f:content>
+							<smartFilterBar:SmartFilterBar id="smartFilterBar"
+								smartVariant="__SVM01"
+								persistencyKey="smartfilterbar_Timezone_UTC"
+								search="onSearch"
+								clear="onClear"
+								considerAnalyticalParameters="true"
+								entitySet="ZEPM_C_SALESORDERITEMQUERYNoParamsResults"
+								useToolbar="false"
+								showClearOnFB="true"
+								showFilterConfiguration="false"
+							>
+								<smartFilterBar:customData>
+									<core:CustomData key="dateFormatSettings" value='\{"UTC":true, "style":"short"\}' />
+								</smartFilterBar:customData>
+
+								<smartFilterBar:controlConfiguration>
+									<smartFilterBar:ControlConfiguration key="DATETIME_SINGLE_d-f_Date_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DATETIME_MULTI_d-f_Date_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DATETIME_INTERVAL_d-f_Date_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DATETIME_AUTO_d-f_Date_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+
+									<smartFilterBar:ControlConfiguration key="DATETIME_SINGLE_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DATETIME_MULTI_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DATETIME_INTERVAL_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DATETIME_AUTO_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+
+									<smartFilterBar:ControlConfiguration key="STRING_SINGLE_CalendarDate_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="STRING_INTERVAL_CalendarDate_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+
+									<smartFilterBar:ControlConfiguration key="STRING_INTERVAL_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_INTERVAL_DDR" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_SINGLE_ControlTypeDate" controlType="date" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_INTERVAL_ControlTypeDate" controlType="date" />
+
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION0" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION1" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION2" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION3" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION4" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION5" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION6" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+									<smartFilterBar:ControlConfiguration key="DTOFFSET_DDR_PRECISION7" conditionType="sap.ui.comp.config.condition.DateRangeType" />
+
+								</smartFilterBar:controlConfiguration>
+							</smartFilterBar:SmartFilterBar>
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+					<HBox>
+						<VBox class="sapUiLargeMarginEnd">
+							<Title text="Actions" />
+							<ComboBox placeholder="Change Visible Field" change="onChangeVisibleField" items="{
+								path: 'fieldTypes>/',
+								sorter: { path: 'groupOrder', descending: false, group: '._getGroup'},
+								groupHeaderFactory: '._getGroupHeader'
+							}">
+								<items>
+									<core:Item key="{fieldTypes>key}" text="{fieldTypes>text}" />
+								</items>
+							</ComboBox>
+							<Button text="setFilterData with Date" press="onSetFilterDataWithDate" />
+							<Button text="setFilterData with String" press="onSetFilterDataWithString" />
+							<Button text="setFilterData(getFilterData())" press="onSetFilterDataGetFilterData" />
+							<Button text="setUiState(getUiState())" press="onSetUiStateGetUiStatePress" />
+							<Button text="Clear Inputs" press="onClear" />
+						</VBox>
+						<VBox class="sapUiLargeMarginBegin" items="{resultsView>/}">
+							<layoutData>
+								<FlexItemData growFactor="1" />
+							</layoutData>
+
+							<items>
+								<HBox fitContainer="true" alignItems="Center">
+									<Label labelFor="{resultsView>inputId}" text="{resultsView>labelText}" class="sapUiSmallMarginEnd">
+										<layoutData>
+											<FlexItemData baseSize="120px" />
+										</layoutData>
+									</Label>
+									<Input placeholder="{resultsView>labelText}" value="{ path: 'resultsView>inputId', formatter: '._formatInputValue' }">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Input>
+								</HBox>
+							</items>
+						</VBox>
+					</HBox>
+				</f:content>
+			</f:DynamicPage>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,191 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio642dab291a7b47ec9d46c39b3c482aba" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/bootstrapping-sapui5-flexibility-642dab2.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Bootstrapping SAPUI5 Flexibility</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Bootstrapping SAPUI5 Flexibility</h2></div><div class="shortdesc">You can define an alternative route from where to load SAPUI5 flexibility. </div><section id="section_ch4_3bf_pkb">
+			<h2 class="title ">Location</h2>
+			<p>If you want SAPUI5 flexibility to be loaded from the default location as part
+				of the SAPUI5 bootstrap, you don't need to do anything.</p>
+			<p>If you have a specific use case, you can change the default behavior using the <code>flexibilityServices</code> parameter in the
+					SAPUI5 bootstrap. For example, if you'd like to disable SAPUI5 flexibility during SAPUI5 bootstrap, set the value of the <code>flexibilityServices</code>
+				parameter to an empty string. Here's an example</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script
+    id="sap-ui-bootstrap"
+    src=resources/sap-ui-core.js       
+
+    data-sap-ui-flexibilityServices=""
+    data-sap-ui-preload="async" &gt;
+&lt;/script&gt;
+</pre></div></div></section>
+			<p></p></div></div>
+		</section><section id="section_dwl_nbf_pkb"><h2 class="title ">Using Connectors</h2><p>For various use cases, you can also define a list of connectors within
+					<code>flexibilityServices</code>. These connectors are targeted at a specific use case and can be combined.</p><p>You provide
+				the list of connectors as a string, because <code>flexibilityServices</code> is a string as well. Example:
+					<code>flexibilityServices ='[{"connector": "SessionStorageConnector"}]'</code>.</p><section>
+				<h3 class="title ">Configuring the Connectors for Layering</h3>
+				<p>The connectors control the layers to which changes are written. Every connector has a default layering configuration, but you can limit this
+					default by specifying certain layers. Example: As a result of the following string, only the SessionStorage connector is used for
+					CUSTOMER layer content (see <a href="topic/9e6305746b8742f69faa55fae27ee220" title="SAPUI5 flexibility uses a consistent layering concept to store the UI changes as semantic delta information. This layering concept applies consistently to all users of SAPUI5 flexibility (end users, key users, and developers)." class="sap-doc">Layering Concept</a>):</p>
+				<p><code>flexibilityServices ='[{"connector": "SessionStorageConnector", layers: ["CUSTOMER"]}]'</code></p>
+			</section><section>
+				<h3 class="title ">Connectors for Productive Usage</h3>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_ipf_szb_qkb" class=" ">
+						
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">Name</th>
+								<th colspan="1" rowspan="1">Supported Layers</th>
+								<th colspan="1" rowspan="1">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1"><code>BtpServiceConnector</code></td>
+								<td colspan="1" rowspan="1"><code>CUSTOMER, PUBLIC, USER</code></td>
+								<td colspan="1" rowspan="1">
+									<p>Used to connect key user adaptation, shared views,
+											<span class="emphasis">and end-user personalization</span> on
+											SAP BTP, Cloud Foundry environment.</p>
+									<p>For more information, see <a href="https://help.sap.com/docs/UI5_FLEXIBILITY_KEY_USER/0f8b49c4dfc94bc0bda25a19aa93d5b2/7f1c8c8aa7e1487a9d79a0b001e8060b.html/?&version=Cloud#adding-sapui5-flexibility-services-to-the-sapui5-bootstrap" title="https://help.sap.com/docs/UI5_FLEXIBILITY_KEY_USER/0f8b49c4dfc94bc0bda25a19aa93d5b2/7f1c8c8aa7e1487a9d79a0b001e8060b.html/?&version=Cloud#adding-sapui5-flexibility-services-to-the-sapui5-bootstrap" class="external-link" target="_blank" rel="noopener">Developing Applications Running
+											Standalone</a>.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>KeyUserConnector</code>
+									</td>
+								<td colspan="1" rowspan="1"><code>CUSTOMER, PUBLIC</code></td>
+								<td colspan="1" rowspan="1">
+									<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>.</p><p>If you develop apps running standalone on
+												SAP BTP, Cloud Foundry environment,
+											we strongly recommend that you replace the <code>KeyUserConnector</code> with the
+												<code>BtpServiceConnector</code> in your SAPUI5 bootstrap.</p><p></p></div></div>
+									<p>Used to connect key user adaptation and shared views on
+											SAP BTP, Cloud Foundry environment.</p>
+									<p>For more information, see <a href="https://help.sap.com/docs/UI5_FLEXIBILITY_KEY_USER/0f8b49c4dfc94bc0bda25a19aa93d5b2/55433c585c5a43ef96d9b8d4bc4bc464.html/?&version=Cloud#adding-sapui5-flexibility-services-to-the-sapui5-bootstrap" title="https://help.sap.com/docs/UI5_FLEXIBILITY_KEY_USER/0f8b49c4dfc94bc0bda25a19aa93d5b2/55433c585c5a43ef96d9b8d4bc4bc464.html/?&version=Cloud#adding-sapui5-flexibility-services-to-the-sapui5-bootstrap" class="external-link" target="_blank" rel="noopener">Developing Applications Running in the
+											SAP Cloud Portal Service</a>.</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			</section>
+			<section>
+				<h3 class="title ">Connectors Used by SAP - Not for Public Usage</h3>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_ipf_szb_qkb2" class=" ">
+						
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">Name</th>
+								<th colspan="1" rowspan="1">Supported Layers</th>
+								<th colspan="1" rowspan="1">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1"><code>LrepConnector</code></td>
+								<td colspan="1" rowspan="1"><code>CUSTOMER, PUBLIC, USER</code></td>
+								<td colspan="1" rowspan="1">Default connector used to handle ABAP back-end systems as well as SAP BTP, Neo environment</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>PersonalizationConnector</code></td>
+								<td colspan="1" rowspan="1"><code>USER</code></td>
+								<td colspan="1" rowspan="1">Used to connect personalization within an SAPUI5
+									application on SAP BTP, Cloud Foundry
+									environment</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			</section>
+			<section>
+				<h3 class="title ">Connectors for Testing and Demo Purposes</h3>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>To apply the mocked data correctly, you need a dependency to the <code>sap.ui.fl</code> library. You can establish this
+						through dependencies within the used libraries or via the applications manifest.</p>
+					<p>Alternatively, add <code>sap.ui.fl</code> to the bootstrap of the test setup:</p>
+					<p>
+						</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">data-sap-ui-libs = '…,sap.ui.fl'</pre></div></div></section>
+					<p></p>
+				<p></p></div></div>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_lbt_1cc_qkb" class=" ">
+						
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">Name</th>
+								<th colspan="1" rowspan="1">Supported Layers</th>
+								<th colspan="1" rowspan="1">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1"><code>LocalStorageConnector</code></td>
+								<td colspan="1" rowspan="1">All</td>
+								<td colspan="1" rowspan="1">Used to store all entries within the local storage of the browser.<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>This storage is shared
+										in case of parallel testing.</p></div></div></td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>SessionStorageConnector</code></td>
+								<td colspan="1" rowspan="1">All</td>
+								<td colspan="1" rowspan="1">
+									<p>Used to store all entries within the session storage of the browser.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This is the recommended connector for
+											testing.</p></div></div><p></p>
+									<p><span class="emphasis">Example:</span></p>
+									<p>If you want to verify that a user can add additional files, the configuration should look like this:</p>
+									<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">data-sap-ui-flexibility-services = '[{"connector": "SessionStorageConnector"}]'</pre></div></div></section>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>JsObjectConnector</code></td>
+								<td colspan="1" rowspan="1">All</td>
+								<td colspan="1" rowspan="1">
+									<p>Used to store all entries within a JSON object persisting only for the session.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This is the recommended
+											connector for testing.</p></div></div><p></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>ObjectPathConnector</code></td>
+								<td colspan="1" rowspan="1">None</td>
+								<td colspan="1" rowspan="1">
+									<p>Used to load mocked back-end responses. It needs an additional parameter <code>path</code>, which specifies
+										the absolute path to the mock file.</p>
+									<p>The mocked file contains the data as JSON with the following structure:</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    changes: [&lt;list of changes as JSON&gt;],
+    compVariants: [&lt;list of filters for comp controls as JSON&gt;]
+}
+</pre></div></div></section><p></p>
+									<p><span class="emphasis">Example:</span></p>
+									<p>If you want to verify that a mocked back-end system provides data, the configuration should look like this:</p>
+									<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">data-sap-ui-flexibility-services = '[{"connector": "ObjectPathConnector", "path": "/some/path/to/the/mocked/data.json"}]'</pre></div></div></section>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+				<p><span class="emphasis">Example:</span></p>
+				<p>If you want to verify both, that a mocked back-end system provides data and a user can add additional files, the configuration
+					should look like this:</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">data-sap-ui-flexibility-services = '[{"connector": "ObjectPathConnector", "path": "/some/path/to/the/mocked/data.json"},{"connector": "SessionStorageConnector"}]'</pre></div></div></section>
+			</section><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>There are additional connectors for internal usage or super classes which must not be used within a
+				configuration.</p></div></div></section><section id="section_c1c_nbf_pkb">
+			
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/9e6305746b8742f69faa55fae27ee220" title="SAPUI5 flexibility uses a consistent layering concept to store the UI changes as semantic delta information. This layering concept applies consistently to all users of SAPUI5 flexibility (end users, key users, and developers)." class="sap-doc">Layering Concept</a></li>
+		<li><a href="topic/fe12df2e338e43598977d09f3d191b7b" title="Before we can do something with SAPUI5, we need to load and initialize it. This process of loading and initializing SAPUI5 is called bootstrapping. Once this bootstrapping is finished, we simply display an alert." class="sap-doc">Step 2: Bootstrap</a></li>
+		<li><a href="topic/a04b0d10fb494d1cb722b9e341b584ba" title="To use SAPUI5 features in your HTML page, you have to load and initialize the SAPUI5 library." class="sap-doc">Bootstrapping: Loading and Initializing</a></li>
+	</ul></section></div></section></div></body></html>

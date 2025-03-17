@@ -1,0 +1,81 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio667aa4a5d4914dbf82f843b8954244c2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-36-content-density-typescript-667aa4a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 36: Content Density (TypeScript)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 36: Content Density (TypeScript)</h2></div><div class="shortdesc">In this step of our Walkthrough tutorial, we adjust the content density based on the user's device. Content density refers to the spacing
+		and sizing of the UI controls and elements within your application. SAPUI5
+		contains different content densities allowing you to display larger controls for touch-enabled devices and a smaller, more compact design for
+		devices that are operated by mouse. In our app, we will detect the device and adjust the density accordingly.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loiof216b131c492448d8a1df25db2b9a26d_LowRes.png" title="The graphic has an explanatory text." alt="The graphic has an explanatory text." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The content density is compact on desktop devices and cozy on touch-enabled
+					devices</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view all files at <a href="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/36" title="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/36" class="external-link" target="_blank" rel="noopener">OpenUI5 TypeScript Walkthrough - Step 36: Content Density</a> and <a href="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-36.zip" title="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-36.zip" class="external-link" target="_blank" rel="noopener">download the solution as a zip file</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/Component.ts</h2>
+			<p>To prepare the content density feature we add a helper method <code>getContentDensityClass</code> to the app component. SAPUI5 controls can be displayed in multiple sizes, for example in a
+					<code>compact</code> size that is optimized for desktop and non-touch devices, and in a <code>cozy</code> mode that is
+				optimized for touch interaction. The controls look for a specific CSS class in the HTML structure of the application to adjust their
+				size.</p>
+			<p>This helper method queries the <span class="keynote apiname">Device</span> API directly for touch
+				support of the client and returns the CSS class <code>sapUiSizeCompact</code> if
+				touch interaction is not supported and <code>sapUiSizeCozy</code> for all other
+				cases. We will use it throughout the application coding to set the proper content
+				density CSS class.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">import UIComponent from "sap/ui/core/UIComponent";
+import JSONModel from "sap/ui/model/json/JSONModel";
+import Device from "sap/ui/Device";
+
+/**
+ * @namespace ui5.walkthrough
+ */
+export default class Component extends UIComponent {
+    public static metadata = {
+        "interfaces": ["sap.ui.core.IAsyncContentCreation"],
+        "manifest": "json"
+    };
+    init(): void {
+        // call the init function of the parent
+        ...
+    };
+    <span class="emphasis">getContentDensityClass(): string {
+        return Device.support.touch ? "sapUiSizeCozy" : "sapUiSizeCompact";
+    }</span>
+};</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">webapp/controller/App.controller.ts</h2>
+			<p>We add an <code>onInit</code> method to the app controller that is called when the app view is instantiated. There, we query the
+				helper function that we defined on the app component in order to set the corresponding style class on the app view. All controls
+				inside the app view will now automatically adjust to either the compact or the cozy size, as defined by the style.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">import Controller from "sap/ui/core/mvc/Controller";
+import Component from "../Component";
+
+/**
+ * @namespace ui5.walkthrough.controller
+ */
+export default class App extends Controller {
+	<span class="emphasis">onInit(): void {
+        this.getView().addStyleClass((&lt;Component&gt; this.getOwnerComponent()).getContentDensityClass())
+    }</span>
+};</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">webapp/manifest.json</h2>
+			<p>In the <code>sap.ui5</code> namespace of the app descriptor we add the <code>contentDensities</code> section  to specify the modes that
+				the application supports. Containers like the SAP Fiori launchpad allow switching the
+				content density based on these settings.</p>
+			<p>As we have just enabled the app to run in both modes depending on the devices
+				capabilities, we can set both to <code>true</code> in the application
+				descriptor. </p>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+  "sap.ui5": {
+    ...  
+    }<span class="emphasis">,
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    }</span>
+    ...
+  }</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dad1905a07f849ce9c509721317d38d8">Walkthrough Tutorial (TypeScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/ab8ed1bb1bd845c28b310b9269149314">Step 35: Device Adaptation (TypeScript)</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/5a74cea49f5f446298b85ac248871a0b">Step 37: Accessibility (TypeScript)</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/e54f729da8e3405fae5e4fe8ae7784c1" title="The devices used to run apps that are developed with SAPUI5 run on various different operating systems and have very different screen sizes. SAPUI5 contains different content densities for certain controls that allow your app to adapt to the device in question, allowing you to display larger controls for touch-enabled devices and a smaller, more compact design for devices that are operated by mouse." class="sap-doc">Content Densities</a></li>
+		<li><a href="api/sap.ui.Device" title="api/sap.ui.Device" class="sap-doc" alt="api/sap.ui.Device">API Reference: sap.ui.Device</a></li>
+	</ul></section></div></section></div></body></html>

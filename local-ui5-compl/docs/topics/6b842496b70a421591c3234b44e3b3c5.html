@@ -1,0 +1,100 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio6b842496b70a421591c3234b44e3b3c5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/defining-the-loading-behavior-of-object-page-subsections-6b84249.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Defining the Loading Behavior of Object Page Subsections</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Defining the Loading Behavior of Object Page Subsections</h2></div><div class="shortdesc">You can define the loading behavior of subsections in an object page
+		in
+		the manifest settings.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+		<p></p></div></div><p>To define the loading behavior, identify the <code>id</code> of the subsection, and add the following settings under the respective
+			object page or subobject page property:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"loadingBehavior":{
+	"waitForHeaderData":true/false,
+	"waitForViewportEnter":true/false
+}</pre></div></div></section>
+			<p></p></div></div><p></p><p>You can use the
+				<code>waitForHeaderData</code>
+			and <code>waitForViewportEnter</code>
+			properties
+			to define whether you want the subsection to load after the header
+			data is loaded, or after the viewport is
+			loaded.
+				</p><ul class="ul ">
+				<li class="li">
+					<p>If you set the <code>waitForHeaderData</code> property to
+							<code>true</code>, the subsection waits for the header data to load
+						before activating its binding. This is useful when there is a table or a
+						chart in the subsection and you want to wait for the header data to add some
+						additional filters before rebinding them, for example, using
+							<code>onBeforeRebindTableExtension</code>.</p>
+				</li>
+				<li class="li">
+					<p>If you set the <code>waitForViewportEnter</code> property to
+							<code>true</code>, the subsection waits to enter the viewport before
+						activating its binding. If you set this flag to <code>false</code>, the
+						data loading behavior
+						is
+						independent of whether or not the subsection is inside the
+						viewport. Setting this property to <code>false</code>
+						is useful when you want to load subsection data
+						together
+						with header data.</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>If you do not define the <code>loadingBehavior</code> of a
+							subsection, the default behavior is set as follows:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+								</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"loadingBehavior":{
+	"waitForHeaderData":false,
+	"waitForViewportEnter":true
+}</pre></div></div></section>
+							<p></p></div></div><p></p>
+						<p>If you define the <code>loadingBehavior</code> property for a
+							subsection with <code>waitForHeaderData</code> as
+								<code>true</code>, the other
+							property,
+							which you have not
+							defined,
+							is considered 
+							<code>false</code>. The same is applicable for the
+								<code>waitForViewportEnter</code> property.</p>
+					<p></p></div></div>
+				</li>
+			</ul><p></p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"pages": {
+                    "ObjectPage|C_STTA_SalesOrder_WD_20": {
+                        "entitySet": "C_STTA_SalesOrder_WD_20",
+                        "component": {
+                            "name": "sap.suite.ui.generic.template.ObjectPage",
+                            "settings": {
+                                "sections": {
+                                    "SalesOrderItemsID": {
+                                        "navigationProperty": "to_Item",
+                                        "entitySet": "C_STTA_SalesOrderItem_WD_20",
+                                        "createMode": "inline",
+                                        "tableSettings": {
+                                            "inlineDelete": true
+                                        },
+                                        "loadingBehavior":{
+                                            "waitForHeaderData":true,
+                                            "waitForViewportEnter":false
+                                        }
+                                    },
+                                    "ContactsID": {
+                                        "loadingBehavior":{
+                                            "waitForHeaderData":false,
+                                            "waitForViewportEnter":false
+                                        }
+                                    }
+                                }
+</pre></div></div></section>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/a6946a8d5ec0432ea7d1771df6a6474e" title="You can rebind a table on each instance change in an object page." class="sap-doc">Rebinding a Table with Each Instance Change on an Object Page</a></li>
+	</ul></section></div></section></div></body></html>

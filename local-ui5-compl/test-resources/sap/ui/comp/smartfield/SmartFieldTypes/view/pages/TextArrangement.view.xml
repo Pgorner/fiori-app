@@ -1,0 +1,110 @@
+<mvc:View
+	controllerName="test.sap.ui.comp.smartfield.SmartFieldTypes.controller.TextArrangement"
+	xmlns="sap.m"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:l="sap.ui.layout"
+	xmlns:smartField="sap.ui.comp.smartfield"
+	xmlns:smartForm="sap.ui.comp.smartform">
+	<SplitApp id="app">
+		<masterPages>
+			<semantic:MasterPage>
+				<List id="masterList" mode="SingleSelectMaster" selectionChange="onProductSelect" headerText="Types" includeItemInSelection="true" noDataText="No products" items="{path: '/TextArrangement'}">
+					<items>
+						<StandardListItem title="{ID}"/>
+					</items>
+				</List>
+			</semantic:MasterPage>
+		</masterPages>
+		<detailPages>
+			<semantic:DetailPage id="detail"
+										title="TextArrangement page"
+										showNavButton="true"
+										navButtonPress=".onNavBack">
+				<VBox>
+					<smartForm:SmartForm id="form" validationMode="Async" editTogglable="true" editable="{view>/editMode}" >
+						<smartForm:customData>
+							<core:CustomData key="defaultInputFieldDisplayBehaviour" value="idAndDescription"/>
+							<core:CustomData key="defaultDropDownDisplayBehaviour" value="descriptionAndId"/>
+						</smartForm:customData>
+						<smartForm:layout>
+							<smartForm:ColumnLayout id="FormLayout" columnsXL="4" columnsL="3" columnsM="2"/>
+						</smartForm:layout>
+						<smartForm:Group title="TextArrangement String">
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode1" value="{LanguageCode1}" textInEditModeSource="ValueList"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode2" value="{LanguageCode2}" textInEditModeSource="ValueList"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode3" value="{LanguageCode3}"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode4" value="{LanguageCode4}" textInEditModeSource="ValueList"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode5" value="{LanguageCode5}" textInEditModeSource="ValueListNoValidation"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode6" value="{LanguageCode6}" textInEditModeSource="ValueList"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode21" value="{LanguageCode21}" textInEditModeSource="ValueList"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode14" value="{LanguageCode14}" textInEditModeSource="ValueList" showSuggestion="false"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode23" value="{LanguageCode23}" textInEditModeSource="ValueListNoValidation" showSuggestion="false"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode15" value="{LanguageCode15}" textInEditModeSource="ValueList"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode24" value="{LanguageCode24}" textInEditModeSource="ValueList" clientSideMandatoryCheck="false" suppressEmptyStringRequest="false"/>
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="languageCode26" value="{LanguageCode26}" textInEditModeSource="ValueList" clientSideMandatoryCheck="false"/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+				</VBox>
+				<VBox>
+					<Panel expandable="true" expanded="true" width="auto" class="sapUiResponsiveMargin" headerText="Data">
+						<l:VerticalLayout width="100%">
+							<Title text="Current data: " id="currentSF"/>
+							<ce:CodeEditor id="outputAreaChangedData" width="100%" height="500px" type="jsoniq" value=""/>
+						</l:VerticalLayout>
+					</Panel>
+				</VBox>
+				<HBox>
+					<Button id="clearRequestsLog" text="Clear Requests LOG" press=".clearRequestsLog" class="sapUiSmallMarginEnd"/>
+				</HBox>
+				<List id="requests" headerText="Requests LOG:"/>
+				<HBox>
+					<Button id="clearEventsLog" text="Clear Events LOG" press=".clearEventsLog" class="sapUiSmallMarginEnd"/>
+				</HBox>
+				<List id="events" headerText="Events LOG:"/>
+
+				<semantic:positiveAction>
+					<semantic:PositiveAction id="btnCreateTempEntry" text="Create temp product" press=".createTemporaryProductEntry"/>
+				</semantic:positiveAction>
+				<semantic:negativeAction>
+					<semantic:NegativeAction id="btnRemoveBindingContext" text="Remove bindingContext" press=".onBindingContextRemove"/>
+				</semantic:negativeAction>
+				<semantic:editAction>
+					<semantic:EditAction id="btnEdit" press="onEditPressed" visible="{= !${view>/editMode}}"/>
+				</semantic:editAction>
+				<semantic:saveAction>
+					<semantic:SaveAction id="btnSave" press="onSavePressed" visible="{view>/editMode}"/>
+				</semantic:saveAction>
+				<semantic:cancelAction>
+					<semantic:CancelAction id="btnCancel" press="onCancelPressed" visible="{view>/editMode}"/>
+				</semantic:cancelAction>
+			</semantic:DetailPage>
+		</detailPages>
+	</SplitApp>
+</mvc:View>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>SmartField</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-animation-mode="none"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-language="en"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-log-level="0"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+		</script>
+
+	<script id="mainView" type="application/xml">
+		<mvc:View
+				viewName="mainView"
+				xmlns:mvc="sap.ui.core.mvc"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				height="100%">
+			<App>
+			<Page id="page" title="Smart Field Snippet">
+				<smartForm:SmartForm id="smartForm" editable="true" editTogglable="true" title="Smart Form">
+					<smartForm:Group>
+						<smartForm:GroupElement>
+
+							<smartField:SmartField id="Name" value="{Name}"/>
+
+						</smartForm:GroupElement>
+					</smartForm:Group>
+					<smartForm:Group>
+						<smartForm:GroupElement>
+
+							<smartField:SmartField id="NameEditableFalse" editable="false" value="{Name}"/>
+
+						</smartForm:GroupElement>
+					</smartForm:Group>
+				</smartForm:SmartForm>
+				<VBox>
+					<Label text="path:"/>
+					<Text id="bindingPath"/>
+					<Button id="newRecord" text="(1) Bind to new temp record" press=".handleBindToNewRecord"/>
+					<Button id="newUpdatableRecord" text="(2) Bind to new updatable temp record" press=".handleBindToNewUpdatableRecord"/>
+					<Button id="removeBindingContext" text="(3) Remove binding" press=".removeBinding"/>
+					<Button id="existingRecord" text="(4) Bind to existing record" press=".handleBindToExistingRecord"/>
+					<Text text="When the field is bound to an existing record with (EntitySet updatable=false) after that bound to new record (EntitySet creatable=true) the field is not switching to editable mode."/>
+				</VBox>
+			</Page>
+		</App>
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="application/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+
+						<Property Name="Name"
+								  Type="Edm.String"
+								  sap:label="Name"
+								  Nullable="false"/>
+
+					</EntityType>
+
+					<EntityType Name="UpdatableEmployee"
+								sap:label="Updatable Employees"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+
+						<Property Name="Name"
+								  Type="Edm.String"
+								  sap:label="Name"
+								  Nullable="false"/>
+
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="true"
+								   sap:updatable="false"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="UpdatableEmployees"
+								   EntityType="EmployeesNamespace.UpdatableEmployee"
+								   sap:creatable="true"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+					</EntityContainer>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+		{"d": {
+			"__count": "4",
+			"results": [
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+						"Department": "Purchasing",
+						"Name": "1",
+						"Date": "\/Date(1397512801000)\/",
+						"Date2": "\/Date(1397512801000)\/",
+						"Id": "0001"
+					},
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0002')", "type": "EmployeesNamespace.Employee" },
+						"Department": "Purchasing",
+						"Name": "2",
+						"Date": "\/Date(1397512801000)\/",
+						"Date2": "\/Date(1397512801000)\/",
+						"Id": "0002"
+					},
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0003')", "type": "EmployeesNamespace.Employee" },
+						"Department": "Purchasing",
+						"Name": "3",
+						"Date": "\/Date(1397512801000)\/",
+						"Date2": "\/Date(1397512801000)\/",
+						"Id": "0002"
+					},
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0004')", "type": "EmployeesNamespace.Employee" },
+						"Department": "Purchasing",
+						"Name": "4",
+						"Date": "\/Date(1397512801000)\/",
+						"Date2": "\/Date(1397512801000)\/",
+						"Id": "0004"
+					}
+				]
+		}}
+	</script>
+
+	<script src="./EditableFormatter.js"></script>
+
+</head>
+
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+
+</html>

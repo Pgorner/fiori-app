@@ -1,0 +1,46 @@
+<!--
+  SAP UI development toolkit for HTML5 (SAPUI5)
+   * (c) Copyright 2009-2025 SAP SE. All rights reserved
+-->
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+	<u:Menu itemSelect="onNavigationActionSelect">
+		<u:MenuItem
+			enabled="{/configuration/advancedFormattingOptions/isUoMEnabled}"
+			text="{= ${/configuration/advancedFormattingOptions/isUOMApplied} ? ${i18n>MODIFY_UOM_TEXT} : ${i18n>ASSIGN_UOM_TEXT}} "
+			id="uom"
+		/>
+		<u:MenuItem
+			text="{= ${/configuration/advancedFormattingOptions/isCriticalityApplied} ? ${i18n>MODIFY_CRITICALITY_TEXT} : ${i18n>ASSIGN_CRITICALITY_TEXT}}"
+			id="criticality"
+		/>
+		<u:MenuItem
+			enabled="{/configuration/advancedFormattingOptions/isFormatterEnabled}"
+			text="{= ${/configuration/advancedFormattingOptions/isFormatterApplied} ? ${i18n>MODIFY_FORMATTER_TEXT} : ${i18n>ASSIGN_FORMATTER_TEXT}} "
+			id="formatter"
+		/>
+		<u:MenuItem text="{i18n>ASSIGN_ACTIONS_TEXT}" id="actions">
+			<u:Menu>
+				<u:MenuItem
+					id="url"
+					custom:action="{= ${actionType} === 'url' ? 'remove' : 'add' }"
+					text="{= ${actionType} === 'url' ? ${i18n>GENERATOR_REMOVE_LINK} : ${i18n>GENERATOR_ATTACH_LINK}}"
+				/>
+				<u:MenuItem
+					id="email"
+					custom:action="{= ${actionType} === 'email' ? 'remove' : 'add' }"
+					text="{= ${actionType} === 'email' ? ${i18n>GENERATOR_REMOVE_EMAIL} : ${i18n>GENERATOR_ATTACH_EMAIL}}"
+				/>
+				<u:MenuItem
+					id="tel"
+					custom:action="{= ${actionType} === 'tel' ? 'remove' : 'add' }"
+					text="{= ${actionType} === 'tel' ? ${i18n>GENERATOR_REMOVE_PHONE} : ${i18n>GENERATOR_ATTACH_PHONE}}"
+				/>
+			</u:Menu>
+		</u:MenuItem>
+	</u:Menu>
+</core:FragmentDefinition>

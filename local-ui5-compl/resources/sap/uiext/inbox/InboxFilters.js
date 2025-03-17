@@ -1,0 +1,6 @@
+/*!
+ * SAPUI5
+ * (c) Copyright 2009-2024 SAP SE. All rights reserved.
+ */
+jQuery.sap.declare("sap.uiext.inbox.InboxFilters");jQuery.sap.require("sap.uiext.inbox.InboxUtils");jQuery.sap.require("sap.uiext.inbox.InboxSecondaryFilters");jQuery.sap.require("sap.uiext.inbox.InboxPrimaryFilters");sap.ui.base.Object.extend("sap.uiext.inbox.InboxFilters",{constructor:function(){sap.ui.base.Object.apply(this);this.oPrimaryFilter=undefined;this.oSecondaryFilter=undefined;this.inboxUtils=sap.uiext.inbox.InboxUtils}});sap.uiext.inbox.InboxFilters.prototype.setPrimaryFilter=function(i){if(i instanceof sap.uiext.inbox.InboxPrimaryFilters){this.oPrimaryFilter=i}};sap.uiext.inbox.InboxFilters.prototype.setSecondaryFilter=function(i){if(i instanceof sap.uiext.inbox.InboxSecondaryFilters||i instanceof sap.uiext.inbox.TaskInitialFilters){this.oSecondaryFilter=i}};sap.uiext.inbox.InboxFilters.prototype.getPrimaryFilter=function(i){return this.oPrimaryFilter};sap.uiext.inbox.InboxFilters.prototype.getSecondaryFilter=function(i){return this.oSecondaryFilter};
+//# sourceMappingURL=InboxFilters.js.map

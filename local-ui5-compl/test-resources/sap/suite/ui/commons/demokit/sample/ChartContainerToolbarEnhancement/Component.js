@@ -1,0 +1,31 @@
+sap.ui.define([ "sap/ui/core/UIComponent" ], function(UIComponent) {
+	"use strict";
+
+	return UIComponent.extend("sap.suite.ui.commons.sample.ChartContainerToolbarEnhancement.Component", {
+
+		metadata: {
+			rootView: {
+				"viewName": "sap.suite.ui.commons.sample.ChartContainerToolbarEnhancement.Page",
+				"type": "XML",
+				"async": true
+			},
+			dependencies: {
+				libs: [
+					"sap.m",
+					"sap.ui.core",
+					"sap.suite.ui.commons"
+				]
+			},
+			config: {
+				sample: {
+					files: [
+						"Page.view.xml",
+						"Page.controller.js",
+						"ChartContainerData1.json",
+						"ChartContainerData2.json"
+					]
+				}
+			}
+		}
+	});
+});

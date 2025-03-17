@@ -1,0 +1,59 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioe687dbdc4c064ba3a3ce3942288e8f74" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-10-enable-data-reuse-e687dbd.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 10: Enable Data Reuse</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 10: Enable Data Reuse</h2></div><div class="shortdesc">In this step we avoid unnecessary back-end requests by preventing the destruction of data shown in the detail area when sorting or
+		filtering the list.</div><section id="section_bt4_fxc_z1b"><h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio6e9025bc4522494c97d1b60a3f8eec31_LowRes.png" title="A list of users with an added detail area" alt="A list of users with an added detail area" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">No visual change compared to the last step</h2></span></div></section><section id="section_tsr_gxc_z1b"><h2 class="title ">Coding</h2><p>You can view and download all files at <a href="entity/sap.ui.core.tutorial.odatav4/sample/sap.ui.core.tutorial.odatav4.10/code" title="entity/sap.ui.core.tutorial.odatav4/sample/sap.ui.core.tutorial.odatav4.10/code" class="sap-doc" alt="entity/sap.ui.core.tutorial.odatav4/sample/sap.ui.core.tutorial.odatav4.10/code">OData V4 - Step 10</a>.</p></section><section id="section_pvc_fyc_z1b">
+			<h2 class="title ">webapp/controller/App.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+		onMessageBindingChange : function (oEvent) {
+			...
+		},
+
+		onSelectionChange : function (oEvent) {
+            this._setDetailArea(oEvent.getParameter("listItem").getBindingContext());
+        },
+...
+        /**
+         * Toggles the visibility of the detail area
+         *
+         * @param {object} [oUserContext] - the current user context
+         */
+        _setDetailArea : function (oUserContext) {         
+            var oDetailArea = this.byId("detailArea"),
+                oLayout = this.byId("defaultLayout"),<span class="emphasis">
+                oOldContext,</span>
+                oSearchField = this.byId("searchField");
+ 
+            <span class="emphasis">if (!oDetailArea) {
+                return; // do nothing when running within view destruction
+            }
+ 
+            oOldContext = oDetailArea.getBindingContext();
+            if (oOldContext) {
+                oOldContext.setKeepAlive(false);
+            }
+            if (oUserContext) {
+                oUserContext.setKeepAlive(true,
+                    // hide details if kept entity was refreshed but does not exists any more
+                    this._setDetailArea.bind(this));
+</span>
+            }
+            oDetailArea.setBindingContext(oUserContext || null);
+            // resize view
+            oDetailArea.setVisible(!!oUserContext);
+            oLayout.setSize(oUserContext ? "60%" : "100%");
+            oLayout.setResizable(!!oUserContext);
+            oSearchField.setWidth(oUserContext ? "40%" : "20%");
+        }
+ ...</pre></div></div></section>
+			<p>We extend the logic of the <code>_setDetailArea</code> function. First, we check if there's an "old" binding context in the detail area. If
+				so, the <code>keepAlive</code> for the old context is set to <code>false</code>.</p>
+			<p>For the new context we set <code>keepAlive</code> to <code>true</code> and add <code>_setDetailArea</code> as an
+                    <code>onBeforeDestroy</code> function to it, which hides the detail area when the user linked to it is deleted in the back end
+                and the list is refreshed.</p>
+			<p>You can use the <code>Context#setKeepAlive</code> method to prevent the destruction of information shown in the detail area when
+				the selected user is no longer part of the list from which the information was selected. This could otherwise happen if you filter or
+				sort the list.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/bcdbde6911bd4fc68fd435cf8e306ed0">OData V4 Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/ec445816634f45eb88a7e559187dac46">Step 9: List-Detail Scenario</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/19cc773a60d944c8bb588056f665de04">Step 11: Add Table with :n Navigation to Detail Area</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/648e360fa22d46248ca783dc6eb44531.html#loio648e360fa22d46248ca783dc6eb44531/section_ELC" title="648e360fa22d46248ca783dc6eb44531.xml#loio648e360fa22d46248ca783dc6eb44531/section_ELC" class="sap-doc">Extending the Lifetime of a Context that is not Used Exclusively by a Table Collection</a></li>
+	</ul></section></div></section></div></body></html>

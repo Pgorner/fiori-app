@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2025 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/documentation/sdk/controller/BaseController","sap/ui/model/json/JSONModel","sap/ui/documentation/sdk/util/Resources","sap/ui/thirdparty/jquery","sap/ui/model/resource/ResourceModel","sap/ui/core/HTML"],function(t,e,n,jQuery,o,i){"use strict";return t.extend("sap.ui.documentation.sdk.controller.BPSupport",{onInit:function(){this.getRouter().getRoute("BPSupport").attachPatternMatched(this._onMatched,this);this._oModel=new e;this.setModel(this._oModel);if(!this._oMessageBundle){this._oMessageBundle=new o({bundleName:"sap.ui.documentation.messagebundle"})}this.setModel(this._oMessageBundle,"i18n");this.oConfigUtil=this.getOwnerComponent().getConfigUtil()},_requestContentPage:function(t){return new Promise(function(e,o){jQuery.ajax(n.getResourceOriginPath(t["browserSupportPath"]),{dataType:"text"}).done(function(t){e(t)}).fail(function(t,e,n){o()})})},_onMatched:function(){try{this.hideMasterSide()}catch(t){}this.oConfigUtil._requireConfigJSON().then(this._requestContentPage).then(function(t){this._oHTML=new i({id:"BPSupportContent",content:'<div id="d4h5-main-container" class="bpsupport">'+t+"</div>"});this.byId("BPSupportPage").removeAllContent();this.byId("BPSupportPage").addContent(this._oHTML)}.bind(this)).catch(function(t){this.onRouteNotFound()}.bind(this))}})});
+//# sourceMappingURL=BPSupport.controller.js.map

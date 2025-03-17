@@ -1,0 +1,121 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof861f7f72c2c44a595cf01083f6d13df" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/pdf-export-f861f7f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">PDF
+		Export
+	</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">PDF
+		Export
+	</h2></div><div class="shortdesc"> The PDF export allows you to export data to a Portable Document Format
+		(*.pdf).</div><section id="section_pyj_jkx_tbc">
+			<h2 class="title ">Overview</h2>
+			<p>The PDF export allows you to export your data to a Portable Document Format (*.pdf)
+				document. You can export any type of content that has a tabular format, such as
+				tables or lists.</p>
+			<p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>For more information, see the SAP Note <a title="https://me.sap.com/notes/" href="https://me.sap.com/notes/3198506" target="_blank" rel="noopener noreferrer">3198506</a>.</p>
+				<p></p></div></div>
+				<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+					</p><p>If the export takes more than 5 minutes, we recommend to cancel the process
+						and apply additional filter settings to reduce the amount of data that has
+						to be exported.</p>
+				<p></p></div></div>
+			<p></p>
+		</section><section id="section_vyt_glx_tbc">
+			<h2 class="title ">Prerequisites</h2>
+			<p>The PDF export is not available in all systems. It is automatically available in
+				systems where the application-specific OData service provides the
+					<code>com.sap.vocabularies.PDF.v1.Features</code> annotation. This
+				annotation determines the following: </p><ul class="ul ">
+					<li class="li">
+						<p>If the PDF export is available </p>
+					</li>
+					<li class="li">
+						<p>Which features are supported by the ABAP back-end system</p>
+					</li>
+				</ul><p></p>
+			
+			<p>The PDF export only works with a <span class="emphasis">server-side</span>
+				export, since this export is required to support digital signatures. </p>
+		</section><section id="section_xh1_2d2_5bc">
+			<h2 class="title ">Details</h2>
+			<section>
+				<h3 class="title ">Configuration</h3>
+				<p>You can make the following settings:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>Size limit: Defined by the
+								<code>com.sap.vocabularies.PDF.v1.Features</code> annotation;
+							between 20,000 and 50,000 rows can be exported</p>
+						<p>The size is limited for performance and stability reasons with regards to
+							the ABAP back-end system where the server-side processing takes place.
+						</p>
+					</li>
+					<li class="li">
+						<p>Filter settings: The user has to make suitable filter settings before the
+							data is exported. </p>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3 class="title ">Additional Settings on Export User
+					Interface</h3>
+				<p>In addition to the regular <code>Export</code> dialog, the user can use the
+						<code>Export As</code> dialog in the <code>SmartTable</code> or
+						<code>Table</code> (<code>sap.ui.mdc</code>)
+					control,
+					which can be selected from a dropdown list next to the <span class="ph uicontrol">Export
+						Table</span> button, to define additional settings for the export. </p>
+				<p>Some formatting is specific to the PDF export, such as the following: </p>
+				<p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p><span class="ph uicontrol">Split cells with multiple
+									values</span></p>
+							<p>This setting defines whether to show cells with more than one value
+								in separate columns. For the PDF export, this setting is mandatory.
+								That's why this option is not shown in the dialog for the PDF export
+								but applied automatically.</p>
+						</li>
+						<li class="li">
+							<p>Duplicate columns</p>
+							<p>The PDF export can't handle duplicate columns. For example, if
+								several columns reference an amount and the related currency code,
+								these columns are split up, and the currency code column is
+								referenced multiple times. Those duplicates are eliminated, and only
+								the first occurrence of this column becomes visible in the exported
+								PDF file.</p>
+						</li>
+						<li class="li">
+							<p>Column layout</p>
+							<p>Since the width of each column is determined by the longest entry in
+								any of its cells, this can result in unusual column layouts if one
+								cell entry in a particular column is larger than the others. The
+								column layout automatically adds as many columns as possible to one
+								page. The last column automatically receives the remaining
+								horizontal space. For PDF files, the layout strategy is "column
+								first": All columns are distributed over the first couple of pages
+								before any additional rows are displayed.</p><div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+									</p><p>If a narrow column is placed between two columns with longer
+										texts, this can result in three pages with only one single
+										column per page. In this case, we recommend to adjust the
+										column order.</p>
+								<p></p></div></div><p></p>
+						</li>
+					</ul>
+				<p></p>
+			</section>
+			<section>
+				<h3 class="title ">Restrictions</h3>
+				<p>Paging is not supported by the PDF export. </p>
+			</section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		
+		<li><a href="api/sap.ui.export.ExportHandler" title="api/sap.ui.export.ExportHandler" class="sap-doc" alt="api/sap.ui.export.ExportHandler">API Reference: sap.ui.export.ExportHandler</a></li>
+		
+	</ul></section></div></section></div></body></html>

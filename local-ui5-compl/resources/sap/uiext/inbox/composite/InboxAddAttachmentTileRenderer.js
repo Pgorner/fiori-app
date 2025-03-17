@@ -1,0 +1,6 @@
+/*!
+ * SAPUI5
+ * (c) Copyright 2009-2024 SAP SE. All rights reserved.
+ */
+jQuery.sap.declare("sap.uiext.inbox.composite.InboxAddAttachmentTileRenderer");sap.uiext.inbox.composite.InboxAddAttachmentTileRenderer={};sap.uiext.inbox.composite.InboxAddAttachmentTileRenderer.render=function(t,e){t.write("<span");t.writeControlData(e);t.addClass("sapUiExtInboxAddAttachmentTileLayout");t.writeClasses();t.write(">");t.write("<span>");var i=[];var a={};i.push("sapUiExtInboxAttachmentIcon");t.writeIcon(sap.ui.core.IconPool.getIconURI("add"),i);t.write("</span>");t.write("<span");t.addClass("sapUiExtInboxAddAttachmentText");t.writeClasses();t.write(">");t.write("<a");t.addClass("sapUiExtInboxAttachmentAddLink");t.writeClasses();t.writeAttribute("id",e.getId()+"_textAddAttachment");t.writeAttribute("title",e._oBundle.getText("INBOX_ADD_ATTACHMENT_TOOLTIP"));t.write(">");t.writeEscaped(e._oBundle.getText("INBOX_ADD_ATTACHMENT"));t.write("</a> ");t.write("</span>");t.write("</span>")};
+//# sourceMappingURL=InboxAddAttachmentTileRenderer.js.map

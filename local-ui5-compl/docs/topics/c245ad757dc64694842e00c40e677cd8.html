@@ -1,0 +1,613 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc245ad757dc64694842e00c40e677cd8" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/configuring-the-content-of-quick-views-c245ad7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuring the Content of Quick
+		Views</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuring the Content of Quick
+		Views</h2></div><div class="shortdesc">You can configure the content area of the quick views to display specific
+		data.</div><p>The content area, consisting of a title and additional information, for example, a field
+			group, has a default behavior and can be adapted to your needs.</p><section id="section_i3t_ny2_3mb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+				Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><section>
+				<h3 class="title ">Title Area</h3>
+				<p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>Images</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>To display an image, annotate <code>HeaderInfo.ImageUrl</code> or <code>HeaderInfo.TypeImageUrl</code>.
+										If you don't, no image is displayed.</p>
+								</li>
+								<li class="li">
+									<p>If you annotate <code>HeaderInfo.ImageUrl</code> and <code>HeaderInfo.TypeImageUrl</code>,
+											<code>ImageUrl</code> is evaluated first, and <code>TypeImageUrl</code> second. The
+											<code>ImageUrl/TypeImageUrl</code> string and path including navigation properties are evaluated.</p>
+								</li>
+							</ul>
+						</li>
+						<li class="li">
+							<p>Title</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>Enter the title according to the <code>TextArrangement</code> annotation. See the figure below:
+											<code>TextArrangementType/TextLast</code>. Note that <span class="ph uicontrol">Computer Systems</span> is
+										declared as <code>TextLast</code> here.</p>
+									<div><div class="fig"><img src="loioadc6a09c8333453c9d4119bca89982f7_LowRes.png" usemap="#"></div></div>
+								</li>
+								<li class="li">
+									<p>If a main navigation has been defined, the title is displayed as a link. In the example below, see the
+												<span class="ph sap-technical-name"><span class="ph uicontrol">Asia High tech</span></span> link:</p>
+									<div><div class="fig"><img src="loio8d1888b91fb04b509f9e8285c0b05984_LowRes.png" usemap="#"></div></div>
+								</li>
+							</ul>
+						</li>
+						<li class="li">Description<ul class="ul ">
+								<li class="li">
+									<p>The description is always displayed beneath the title and must be filled according to the
+											<code>TextArrangement</code> annotation.</p>
+								</li>
+								<li class="li">
+									<p>If the description is not filled, the title size is increased automatically and the description field remains
+										empty, as shown below (<code>TextArrangementType/TextOnly</code>).</p>
+									<div><div class="fig"><img src="loio9b4acac4169044468913352472e8c400_LowRes.png" usemap="#"></div></div>
+								</li>
+							</ul></li>
+					</ul>
+				<p></p>
+			</section><section>
+				<h3 class="title ">Content Area</h3>
+			</section><p>The content area can contain field groups, contacts, and
+				DataPoints. </p><section>
+				<h3 class="title ">Field Groups</h3>
+			</section><ul class="ul ">
+				<li class="li">
+					<p>You can include any number of field groups or none at all. The example below shows a quick view with no reference facet,
+						however, a header image included:</p>
+					<div><div class="fig"><img src="loiocf98382637114570b856538c30cc5cb5_LowRes.png" usemap="#"></div></div>
+				</li>
+				<li class="li">
+					<p>A field group can have a label. It is taken from
+						within the
+							<code>&lt;Record Type="UI.ReferenceFacet"&gt;</code>.</p>
+				</li>
+				<li class="li">
+					<p>For fields, the path including navigation properties is evaluated.</p>
+				</li>
+				<li class="li">
+					<p>Fields support annotations such as <code>IsEmailAddress</code>, <code>IsUrl</code>, and <code>IsPhoneNumber</code>.
+						Note that any links that would create a popover on the quick view are ignored by the system.</p>
+				</li>
+				<li class="li">
+					<p>There are different types of content for field groups:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>Interpreted by <code>SmartField</code>: <code>DataField</code> including criticality,
+									<code>DataFieldWithUrl</code></p>
+						</li>
+						<li class="li">
+							<p>Interpreted by SAP Fiori elements:
+									<code>DataFieldWithIntentBasedNavigation</code></p>
+						</li>
+					</ul>
+				</li>
+			</ul><section>
+				<h3 class="title ">Contacts</h3>
+				<p>You can display any number of contacts or none at all. See the example below: </p>
+				<div><div class="fig"><img src="loio7fbc5f96f3074a13a089387817b1822b_LowRes.png" usemap="#"></div></div>
+				<p>The following applies:</p><ul class="ul ">
+						<li class="li">
+							<p>You can place the contact anywhere. It is specified by the position of the reference facet in the collection.</p>
+						</li>
+						<li class="li">
+							<p>If the picture, title, and description belonging to a contact (contact title area) correspond with the content of the
+								title area , the contact title area is not displayed.</p>
+						</li>
+						<li class="li">
+							<p>The reference facet must point to a <code>com.sap.vocabularies.Communication.v1.Contact</code>.</p>
+						</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title ">DataPoints</h3>
+				<ul class="ul ">
+					<li class="li">
+						<p>You can place an existing DataPoint in your annotation.</p>
+					</li>
+					<li class="li">
+						<p>You can place the DataPoint anywhere. It is specified by the position of the reference facet in the collection.</p>
+					</li>
+					<li class="li">
+						<p>A DataPoint can have a label. It is taken from within the <code>&lt;Record Type="UI.ReferenceFacet"&gt;</code>.</p>
+					</li>
+				</ul>
+				<div><div class="fig"><img src="loio5da4f791047f45aaac7b7554c221b819_HiRes.png" usemap="#"></div></div>
+				<p>The sample codes show a quick view facet containing field group, contact and DataPoint: </p>
+				
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_PROD_MAN.STTA_C_MP_SupplierType"&gt; 
+   &lt;Annotation Term="UI.QuickViewFacets"&gt;
+      &lt;Collection&gt;
+         &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#SupplierQuickViewPOC_FieldGroup_1" /&gt;
+         &lt;/Record&gt;                        
+         &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Main Contact Person" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@Communication.Contact#KeyAccount"/&gt;
+         &lt;/Record&gt;
+         &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="DataPoint in QV"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#Product"/&gt;
+         &lt;/Record&gt; 
+      &lt;/Collection&gt;
+   &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view STTA_C_MP_SUPPLIER with {
+@UI.Facet: [
+  {
+    targetQualifier: 'SupplierQuickViewPOC_FieldGroup_1',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #QUICK_VIEW
+  },
+  {
+    label: 'Main Contact Person',
+    targetQualifier: 'KeyAccount',
+    type: #CONTACT_REFERENCE,
+    purpose: #QUICK_VIEW
+  },
+  {
+    label: 'DataPoint in QV',
+    targetQualifier: 'Product',
+    type: #DATAPOINT_REFERENCE,
+    purpose: #QUICK_VIEW
+  }
+]
+supplier;
+}</pre></div></div></section><p></p></div></div>
+				
+				
+			</section></div></section><section id="section_spl_mz2_3mb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+				Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+				<h3 class="title ">Title Area</h3>
+				<p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>Images</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>If you don't provide <code>HeaderInfo.ImageUrl</code> or <code>HeaderInfo.TypeImageUrl</code>, you can
+										provide initials in the <code>HeaderInfo.Initials</code> annotation. The initials
+										are
+										displayed if no <code>HeaderInfo.ImageUrl</code> or <code>HeaderInfo.TypeImageUrl</code> is
+										provided.</p>
+								</li>
+								<li class="li">
+									<p>If no <code>HeaderInfo.ImageUrl</code>, <code>HeaderInfo.TypeImageUrl</code>, or
+											<code>HeaderInfo.Initials</code> is provided, no image
+										is
+										displayed.</p>
+								</li>
+							</ul>
+						</li>
+						<li class="li">
+							<p>Title</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>The title is taken from <code>HeaderInfo.Title</code>.</p>
+									<div><div class="fig"><img src="loioadc6a09c8333453c9d4119bca89982f7_LowRes.png" usemap="#"></div></div>
+								</li>
+								<li class="li">
+									<p>If a main navigation has been defined using the <code>sap-tag</code> parameter <code>primaryAction</code>, the title is displayed
+										as a link. For more information about
+										how to define a primary action, see
+										<a href="https://help.sap.com/docs/ABAP_PLATFORM_NEW/a7b390faab1140c087b8926571e942b7/ea131c68c5de4978a936d2286025ed0f.html?version=202310.001#primary-actions" title="https://help.sap.com/docs/ABAP_PLATFORM_NEW/a7b390faab1140c087b8926571e942b7/ea131c68c5de4978a936d2286025ed0f.html?version=202310.001#primary-actions" class="external-link" target="_blank" rel="noopener">Primary
+										actions</a>.</p>
+									
+									<p>In the example below, see the <span class="ph sap-technical-name"><span class="ph uicontrol">Asia High tech</span></span>
+										link:</p>
+									
+									<div><div class="fig"><img src="loio8d1888b91fb04b509f9e8285c0b05984_LowRes.png" usemap="#"></div></div>
+								</li>
+							</ul>
+							
+							<div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+								</p><p>Navigation from the title link using the browser option <span class="ph uicontrol">Open link in new tab</span> is not
+									possible. Instead, the navigation links to SAP Fiori launchpad.</p>
+							<p></p></div></div>
+							
+						</li>
+						<li class="li">
+							<p>Subtitle</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>The description is taken from the <code>HeaderInfo.Description</code> annotation of the target entity.</p>
+								</li>
+								<li class="li">
+									<p>If the <code>HeaderInfo.Description</code> is not maintained in the annotation, the subtitle displays the
+										label of the source property.</p>
+								</li>
+							</ul>
+						</li>
+						<li class="li">Description<ul class="ul ">
+								<li class="li">
+									<p>The description is taken from the <code>HeaderInfo.Description</code> annotation.</p>
+									<div><div class="fig"><img src="loio9b4acac4169044468913352472e8c400_LowRes.png" usemap="#"></div></div>
+								</li>
+							</ul></li>
+					</ul>
+				<p></p>
+			</section><section>
+				<h3 class="title ">Content Area</h3>
+				<p>The content area can contain field groups, contacts, and <code>DataPoints</code>.</p>
+				<p><span class="emphasis">Field Groups</span></p>
+				<ul class="ul ">
+					<li class="li">
+						<p>You can include any number of field groups or none at all. The example below shows a quick view with no reference facet,
+							however, a header image included:</p>
+						<div><div class="fig"><img src="loio7910b7663933430e8e74e15f4c10c496_LowRes.png" usemap="#"></div></div>
+					</li>
+					<li class="li">
+						<p>A field group can have a label. It is taken from within the <code>&lt;Record Type="UI.ReferenceFacet"&gt;</code>.</p>
+					</li>
+					<li class="li">
+						<p>For fields, the path including navigation properties is evaluated.</p>
+					</li>
+					<li class="li">
+						<p>Fields support annotations such as <code>IsEmailAddress</code>, <code>IsUrl</code>, and
+								<code>IsPhoneNumber</code>. Note that any links that
+							create a popover on the quick view are
+							ignored by the system.</p>
+					</li>
+					<li class="li">
+						<p>There are different types of content for field groups:</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>Interpreted by <code>SmartField</code>: <code>DataField</code> including criticality,
+										<code>DataFieldWithUrl</code></p>
+							</li>
+							<li class="li">
+								<p>Interpreted by SAP Fiori elements:
+										<code>DataFieldWithIntentBasedNavigation</code></p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section><section>
+				<h3 class="title ">Contacts</h3>
+				<p>You can display any number of contacts or none at all. See the example below: </p>
+				<div><div class="fig"><img src="loio64e125243d324a90ab5931519068c545_LowRes.png" usemap="#"></div></div>
+				<p>The following applies:</p><ul class="ul ">
+						<li class="li">
+							<p>You can place the contact anywhere. It is specified by the position of the reference facet in the collection.</p>
+						</li>
+						<li class="li">
+							<p>If the picture, title, and description belonging to a contact (contact title area) correspond with the content of the
+								title area , the contact title area is not displayed.</p>
+						</li>
+						<li class="li">
+							<p>The reference facet must point to a <code>com.sap.vocabularies.Communication.v1.Contact</code>.</p>
+						</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title "><code>DataPoints</code></h3>
+				<ul class="ul ">
+					<li class="li">
+						<p>You can place an existing
+								<code>DataPoint</code>
+							in your annotation.</p>
+					</li>
+					<li class="li">
+						<p>You can place the
+								<code>DataPoint</code>
+							anywhere. It is specified by the position of the reference facet in the collection.</p>
+					</li>
+					<li class="li">
+						<p>A
+								<code>DataPoint</code>
+							can have a label. It is taken from within the <code>&lt;Record Type="UI.ReferenceFacet"&gt;</code>.</p>
+					</li>
+				</ul>
+				<div><div class="fig"><img src="loio5da4f791047f45aaac7b7554c221b819_HiRes.png" usemap="#"></div></div>
+				<p>The sample codes show a quick view facet containing field group, contact and <code>DataPoint</code>: </p>
+				
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_PROD_MAN.STTA_C_MP_SupplierType"&gt; 
+   &lt;Annotation Term="UI.QuickViewFacets"&gt;
+      &lt;Collection&gt;
+         &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#SupplierQuickViewPOC_FieldGroup_1" /&gt;
+         &lt;/Record&gt;                        
+         &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="Main Contact Person" /&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@Communication.Contact#KeyAccount"/&gt;
+         &lt;/Record&gt;
+         &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Label" String="DataPoint in QV"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#Product"/&gt;
+         &lt;/Record&gt; 
+      &lt;/Collection&gt;
+   &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view STTA_C_MP_SUPPLIER with {
+@UI.Facet: [
+  {
+    targetQualifier: 'SupplierQuickViewPOC_FieldGroup_1',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #QUICK_VIEW
+  },
+  {
+    label: 'Main Contact Person',
+    targetQualifier: 'KeyAccount',
+    type: #CONTACT_REFERENCE,
+    purpose: #QUICK_VIEW
+  },
+  {
+    label: 'DataPoint in QV',
+    targetQualifier: 'Product',
+    type: #DATAPOINT_REFERENCE,
+    purpose: #QUICK_VIEW
+  }
+]
+supplier;
+}</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_PROD_MAN.STTA_C_MP_SupplierType with @(
+    UI.QuickViewFacets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target : '@UI.FieldGroup#SupplierQuickViewPOC_FieldGroup_1'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Main Contact Person',
+            Target : '@Communication.Contact#KeyAccount'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'DataPoint in QV',
+            Target : '@UI.DataPoint#Product'
+        }
+    ]
+);</pre></div></div></section><p></p></div></div>
+				
+			</section><section>
+				<h3 class="title ">Footer Section</h3>
+				
+				<p>To enable navigation from a quick view facet, use the <code>SemanticObject</code> annotation as follows:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>With a <code>ReferentialConstraint</code></p>
+						<p>In the metadata document, you can find the reference to the association end type. Check for a referential constraint that
+							includes the identified property as <code>Dependent</code>. For the <code>Supplier</code> property in the entity
+							type <code>STTA_C_MP_ProductType</code>, which has a set of navigation properties, only <code>to_Supplier</code>
+							includes the <code>Supplier</code> property as <code>Dependent</code>.</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+							Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Association Name="assoc_2CCAF987BA334B3BD1DF2404F50BC9C5" sap:content-version="1"&gt;
+    &lt;End Type="STTA_PROD_MAN.STTA_C_MP_ProductType" Multiplicity="1" Role="FromRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"/&gt;
+    &lt;End Type="STTA_PROD_MAN.STTA_C_MP_SupplierType" Multiplicity="0..1" Role="ToRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"/&gt;
+    &lt;ReferentialConstraint&gt;
+        &lt;Principal Role="ToRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"&gt;
+            &lt;PropertyRef Name="Supplier"/&gt;
+        &lt;/Principal&gt;
+        &lt;Dependent Role="FromRole_assoc_2CCAF987BA334B3BD1DF2404F50BC9C5"&gt;
+            &lt;PropertyRef Name="Supplier"/&gt;
+        &lt;/Dependent&gt;
+    &lt;/ReferentialConstraint&gt;
+&lt;/Association&gt;
+</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+							Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_PROD_MAN.STTA_C_MP_ProductType with {
+  @Consumption.SemanticObject : 'EPMProduct'
+  Supplier
+}
+</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+							Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_PROD_MAN.STTA_C_MP_ProductType with {
+  @Common.SemanticObject : 'EPMProduct'
+  Supplier
+};
+</pre></div></div></section><p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Without a <code>ReferentialConstraint</code></p>
+						<p>In the <code>STTA_C_MP_ProductType</code> entity, create an association to the target entity. Annotate this navigation
+							property with a <code>SemanticObject</code>.</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+							Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity STTA_C_MP_ProductType {
+     _Supplier    : Association to STTA_C_MP_SupplierType
+          on _Supplier.Supplier = Supplier @(Common : {
+                                             Label          : 'Supplier with semantic in navigation',
+                                             SemanticObject : 'Customer'
+                                             });
+}</pre></div></div></section><p></p></div></div>
+						<p>The property on the target entity (<code>STTA_C_MP_SupplierType</code>) must be a semantic key or an entity key.</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+							Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="STTA_C_MP_SupplierType"&gt;
+     &lt;Key&gt;
+          &lt;PropertyRef Name="SupplierID"/&gt;
+     &lt;/Key&gt;
+     &lt;Property Name="SupplierID" Type="Edm.String" MaxLength="10" Nullable="false"/&gt;
+     &lt;Property Name="SupplierName" Type="Edm.String" MaxLength="80"/&gt;
+&lt;/EntityType&gt;
+
+&lt;Annotations Target="myservice.STTA_C_MP_SupplierType"&gt;
+     &lt;Annotation Term="Common.SemanticKey"&gt;
+          &lt;Collection&gt;
+               &lt;PropertyPath&gt;SupplierName&lt;/PropertyPath&gt;
+          &lt;/Collection&gt;
+     &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+
+&lt;Annotations Target="myservice.STTA_C_MP_SupplierType/SupplierID"&gt;
+     &lt;Annotation Term="Common.Text" Path="SupplierName"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="myservice.STTA_C_MP_SupplierType/SupplierName"&gt;
+     &lt;Annotation Term="Common.Label" String="Name"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+							Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity STTA_C_MP_SupplierType @(
+     //…
+     title  : 'Supplier type',
+     Common : {SemanticKey : [SupplierName]},
+     //…
+
+){
+     key SupplierID     : String(10) not null @(Common : {
+          Label : 'Supplier ID',
+          Text  : SupplierName
+     });
+     SupplierName : String(10)          @(Common : {
+          Label                 : 'Name'        
+     });
+}</pre></div></div></section><p></p></div></div>
+						<p>To display the <code>QuickView</code>, use either the property <code>Supplier</code> or
+							<code>SupplierID</code>:</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+							Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.FieldGroup"&gt;
+     &lt;Record Type="UI.FieldGroupType"&gt;
+       &lt;PropertyValue Property="Data"&gt;
+         &lt;Collection&gt;
+           &lt;Record Type="UI.DataField"&gt;
+             &lt;PropertyValue Property="SupplierName" Path="_Supplier"/&gt;
+             &lt;PropertyValue Property="Label" String="My QuickView"/&gt;
+           &lt;/Record&gt;
+           &lt;Record Type="UI.DataField"&gt;
+             &lt;PropertyValue Property="SupplierID" Path="_Supplier"/&gt;
+             &lt;PropertyValue Property="Label" String="My QuickView2"/&gt;
+           &lt;/Record&gt;
+         &lt;/Collection&gt;
+       &lt;/PropertyValue&gt;
+     &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.fieldGroup: [
+  {
+    label: 'Dummy Button'
+    type: #STANDARD,
+    position: 1 ,
+    qualifier: 'My QuickView'
+  }
+]
+_Supplier.supplier;
+
+@UI.fieldGroup: [
+  {
+    label: 'Dummy Button',
+    type: #STANDARD,
+    position: 2 ,
+    qualifier: 'My QuickView2'
+  }
+]
+_Supplier.supplierID;</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+							Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_C_MP_ProductType with @(UI: 
+{
+
+    //…
+    FieldGroup #MyQuickViews: {Data: 
+    [{
+         $Type : 'UI.DataField',
+         Value : _Supplier.SupplierName,
+         Label : 'My QuickView'
+    },
+    {
+         $Type : 'UI.DataField',
+         Value : _Supplier.SupplierID,  
+         Label : 'My QuickView2'
+    }]  
+    }
+    //…
+})</pre></div></div></section><p></p></div></div>
+					</li>
+				</ul>
+				
+				<p>The following image shows a quick view popover displaying the most important links in the footer:</p>
+				<div><div class="fig"><img src="loio83521d5b766944b28e394cc280a0cdc4_LowRes.png" usemap="#"></div></div>
+				<p>The following image shows a <span class="ph uicontrol">More Links</span> popover. Users can select actions to be displayed in the quick view
+					footer:</p>
+				<div><div class="fig"><img src="loio696b457a04884ebb8eec42db1338311d_LowRes.png" usemap="#"></div></div>
+				<ul class="ul ">
+					<li class="li">
+						<p>The footer section gathers the most important navigation targets. Users can see the full list of available actions by
+							choosing the <span class="ph uicontrol">More Links</span> button.</p>
+					</li>
+					<li class="li">
+						<p>Important navigation targets are defined using the <code>sap-tag</code> parameter <code>superiorAction</code>. All
+							actions with this definition are displayed by default in the quick view footer.</p>
+					</li>
+					<li class="li">
+						<p>If no action was defined using the <code>sap-tag</code> parameter <code>superiorAction</code>, the first three
+							actions in the list of actions are shown by default.</p>
+					</li>
+					<li class="li">
+						<p>Users can personalize the actions shown in the footer by selecting actions in the <span class="ph uicontrol">More Links</span>
+							popover.</p>
+					</li>
+				</ul>
+				
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>When no
+						<code>QuickView</code>
+						annotations are defined and no target is resolved at runtime (for example, the user does not have access to the target
+						applications), the field still appears as a link and a message is displayed when pressed.</p>
+					<div><div class="fig"><img src="loioca6739195a8b4bcb81e21173b3fc0066_LowRes.png" usemap="#"></div></div>
+				<p></p></div></div>
+				
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,174 @@
+import MessageStrip from "sap/m/MessageStrip";
+import MultiValueField from "sap/fe/macros/MultiValueField";
+import Panel from "sap/m/Panel";
+import CheckBox from "sap/m/CheckBox";
+import FlexBox from "sap/m/FlexBox";
+import VBox from "sap/m/VBox";
+import List from "sap/m/List";
+import Table from "sap/ui/table/Table";
+import Column from "sap/ui/table/Column";
+import Text from "sap/m/Text";
+import Label from "sap/m/Label";
+import StandardListItem from "sap/m/StandardListItem";
+import Auto from "sap/ui/table/rowmodes/Auto";
+
+The `MultiValueField` displays 1:N associations of `DataFields` or properties.
+It renders as a `MultiInput` Field and needs a value help definition on the target property to display the value help.
+
+## metaPath and contextPath
+
+To determine what is used in the `MultiValueField` building block, we use its `metaPath` and `contextPath`. This information determines the target object for the building block.
+The `metaPath` is mandatory and is relative to the `contextPath`.
+The `contextPath`, if not filled, relates to the context of the page.
+
+```xml
+<macros:MultiValueField metaPath="_toChildren/name" />
+```
+
+<Panel>
+	<VBox>
+		<CheckBox text="Toggle MultiValueField Edit Mode" selected="{ui>/isEditable}" select=".onSelect" />
+		<FlexBox alignItems="Center">
+			<MultiValueField binding="/RootEntity('1')" metaPath="_toChildren/name" id="SomeUniqueID" />
+		</FlexBox>
+	</VBox>
+</Panel>
+&nbsp;
+
+## Display of a hierarchy within a Value Help
+
+If the ValueList of the target's property is annotated with a `PresentationVariantQualifier` and if this latter is annotated with a `PresentationVariantQualifier` (corresponding to the `hierarchyQualifier`),
+then the table of the Value Help will be a Tree Table.
+
+```xml
+<macros:MultiValueField metaPath="_PreferredNode/ID" />
+```
+
+<Panel>
+	<VBox>
+		<CheckBox text="Toggle MultiValueField Edit Mode" selected="{ui>/isEditable}" select=".onSelect" />
+		<FlexBox alignItems="Center">
+			<MultiValueField binding="/RootEntity('1')" metaPath="_PreferredNode/ID" id="VHWithTreeTable" />
+		</FlexBox>
+	</VBox>
+</Panel>
+&nbsp;
+
+## Attribute 'readOnly'
+
+The `MultiValueField` can be used with or without editing and the corresponding `ValueHelp`, depending on the attribute 'readOnly'.
+
+```xml
+<macros:MultiValueField metaPath="_toChildren/name" readOnly="true" />
+```
+
+<Panel>
+	<MultiValueField id="MyReadOnlyMVF" binding="/RootEntity('1')" metaPath="_toChildren/name" readOnly="true" />
+</Panel>
+
+&nbsp;
+
+## Allowed targets
+
+The `metaPath` can point to one of the following:
+
+&nbsp;\-&nbsp;&nbsp;a `Property`
+
+&nbsp;\-&nbsp;&nbsp;a `DataField`
+
+To Point to a `DataField`, we need to point to an annotation like a `FieldGroup` with its qualifier and its data aggregation.
+
+```xml
+<macros:MultiValueField
+	metaPath="_toChildren/@com.sap.vocabularies.UI.v1.FieldGroup#Default/Data/0"
+	id="SomeUniqueIDForFieldGroupScenario"
+	readOnly="true"
+/>
+```
+
+<Panel>
+	<MultiValueField
+		binding="/RootEntity('1')"
+		metaPath="_toChildren/@com.sap.vocabularies.UI.v1.FieldGroup#Default/Data/0"
+		id="SomeUniqueIDForFieldGroupScenario"
+		readOnly="true"
+	/>
+</Panel>
+&nbsp;
+
+## Table sample
+
+It is possible to use the MultiValueField inside a table, even inside the table building block. Due to performance reasons we strongly recommend adding the MultiValueField as an annotation, instead of as a custom column.
+
+<MessageStrip
+	text="Adding a building block Field or MultiValueField to the table as a custom column will generate a ValueHelp for each row. This is only allowed for use cases with a defined and limited number of rows."
+	showIcon="true"
+	type="Information"
+	enableFormattedText="true"
+/>
+&nbsp;
+
+```xml
+<table:Table rows="{/RootEntity}" xmlns:table="sap.ui.table" xmlns="sap.m">
+	<table:columns>
+		<table:Column width="9rem">
+			<Label text="ID" />
+			<template>
+				<Text text="{ID}" />
+			</template>
+		</table:Column>
+		,
+		<Column width="9rem">
+			<Label text="MultiValueField" />
+			<template>
+				<MultiValueField id="CustomColumnMVF" metaPath="_toChildren/description" />
+			</template>
+		</Column>
+	</table:columns>
+</table:Table>
+```
+
+<Table rows="{/RootEntity}">
+	{{
+		columns: [
+			<Column width="9rem">
+				<Label text="ID" />
+				{{
+					template: <Text text="{ID}" />
+				}}
+			</Column>,
+			<Column width="9rem">
+				<Label text="MultiValueField" />
+				{{
+					template: <MultiValueField id="CustomColumnMVF" metaPath="_toChildren/description" />
+				}}
+			</Column>
+		]
+	}}
+	{{ rowMode: <Auto maxRowCount="3" /> }}
+</Table>
+
+## MultiValueField binding to the JSON Model
+
+It is possible to bind MultiValueField to the JSON Model and get values from it.
+
+```xml
+<macros:MultiValueField id="multiValueFieldBinding" metaPath="_toChildren/name" items="{jsonModel>/Students}" readOnly="false" />
+```
+
+<Panel>
+	<VBox>
+		<MultiValueField
+			binding="/RootEntity('1')"
+			id="multiValueFieldBinding"
+			metaPath="_toChildren/name"
+			readOnly="false"
+			items="{jsonModel>/Students}"
+		/>
+		<List headerText="JSON Model bound values for jsonModel>/Students" items="jsonModel>/Students">
+			{{
+				items: <StandardListItem title="{jsonModel>name}" />
+			}}
+		</List>
+	</VBox>
+</Panel>

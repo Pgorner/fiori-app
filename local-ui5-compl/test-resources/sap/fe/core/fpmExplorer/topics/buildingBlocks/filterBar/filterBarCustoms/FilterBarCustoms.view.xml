@@ -1,0 +1,79 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:macros="sap.fe.macros"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:l="sap.ui.layout"
+	controllerName="sap.fe.core.fpmExplorer.filterBarCustoms.FilterBarCustoms"
+>
+	<FlexBox direction="Column" fitContainer="true" justifyContent="Start">
+		<Panel headerText="Filter Bar" class="sapUiContentPadding">
+			<Text text="{fbConditions>/filtersTextInfo}" />
+			<macros:FilterBar
+				metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.SelectionFields#SF1"
+				id="FilterBar"
+				showMessages="true"
+				search=".handlers.onFiltersChanged"
+				filterChanged=".handlers.onFiltersChanged"
+				afterClear=".handlers.onAfterClear"
+				showClearButton="true"
+			>
+				<macros:filterFields>
+					<macros:FilterField
+						key="RatingIndicator123"
+						label="Rating Indicator"
+						placement="After"
+						anchor="StringProperty"
+						property="RatingIndicator"
+					>
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomRatingIndicatorFilter" type="XML" />
+					</macros:FilterField>
+					<macros:FilterField key="RatingOperator" label="Rating with Operator">
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomFilterOperator" type="XML" />
+					</macros:FilterField>
+					<macros:FilterField key="RatingRange" label="Rating Range">
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomRangeFilter" type="XML" />
+					</macros:FilterField>
+					<macros:FilterField key="MultiValueRating" label="Multi-Value Rating">
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomMultiValueFilter" type="XML" />
+					</macros:FilterField>
+					<macros:FilterField key="MultiValueRatingOperator" label="Multi-Value Rating with Operator">
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomMultiValueFilterOperator" type="XML" />
+					</macros:FilterField>
+					<macros:FilterField key="RatingChoices" label="Rating Choices">
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomSegmentedButtonFilter" type="XML" />
+					</macros:FilterField>
+					<macros:FilterField key="DateProperty" label="Date Property">
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomDateFilter" type="XML" />
+					</macros:FilterField>
+					<macros:FilterField key="StringProperty" label="String Property" required="true">
+						<core:Fragment fragmentName="sap.fe.core.fpmExplorer.filterBarCustoms.CustomStringFilter" type="XML" />
+					</macros:FilterField>
+				</macros:filterFields>
+			</macros:FilterBar>
+			<layoutData>
+				<FlexItemData growFactor="0" shrinkFactor="1" />
+			</layoutData>
+		</Panel>
+		<Panel expanded="{fbConditions>/expanded}" height="100%" headerText="Conditions from Filter Bar" expandable="true">
+			<FlexBox direction="Column" fitContainer="true" justifyContent="Start">
+				<ce:CodeEditor
+					height="100%"
+					id="filtersDisplay"
+					type="json"
+					lineNumbers="false"
+					value="{fbConditions>/allFilters}"
+					editable="false"
+				>
+					<ce:layoutData>
+						<FlexItemData growFactor="1" shrinkFactor="1" />
+					</ce:layoutData>
+				</ce:CodeEditor>
+			</FlexBox>
+			<layoutData>
+				<FlexItemData growFactor="1" shrinkFactor="1" />
+			</layoutData>
+		</Panel>
+	</FlexBox>
+</mvc:View>

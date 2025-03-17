@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx
+	Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="SEPMRA_PROD_MAN" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+			<EntityType Name="SEPMRA_C_PD_ProductSalesDataType" sap:semantics="aggregate" sap:label="Sales Data" sap:content-version="1">
+				<Key>
+				<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
+				<Property Name="DeliveryCalendarYearWeek" Type="Edm.String" MaxLength="4" sap:aggregation-role="dimension" sap:display-format="NonNegative" sap:semantics="yearweek" sap:label="Week" sap:quickinfo="Calendar Year Week"/>
+				<Property Name="Product" Type="Edm.String" MaxLength="10" sap:aggregation-role="dimension" sap:text="ProductName" sap:label="Product" sap:quickinfo="Product ID"/>
+				<Property Name="ProductName" Type="Edm.String" MaxLength="255" sap:attribute-for="Product" sap:label="Product Name"/>
+				<Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:aggregation-role="measure" sap:unit="Currency" sap:label="Revenue" sap:filterable="false"/>
+				<Property Name="Currency" Type="Edm.String" MaxLength="5" sap:aggregation-role="dimension" sap:text="CurrencyT" sap:label="Currency" sap:semantics="currency-code"/>
+				<Property Name="CurrencyT" Type="Edm.String" MaxLength="15" sap:attribute-for="Currency" sap:label="Currency Name"/>
+			</EntityType>
+
+			<EntityContainer Name="SEPMRA_PROD_MAN_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="SEPMRA_C_PD_ProductSalesData" EntityType="SEPMRA_PROD_MAN.SEPMRA_C_PD_ProductSalesDataType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" />
+				<AssociationSet Name="assoc_AAD4EC6B3B44FFE3BA9EBB560098173F" Association="SEPMRA_PROD_MAN.assoc_AAD4EC6B3B44FFE3BA9EBB560098173F" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+					<End EntitySet="SEPMRA_C_PD_Product" Role="FromRole_assoc_AAD4EC6B3B44FFE3BA9EBB560098173F" />
+					<End EntitySet="SEPMRA_C_PD_ProductSalesData" Role="ToRole_assoc_AAD4EC6B3B44FFE3BA9EBB560098173F" />
+				</AssociationSet>
+			</EntityContainer>
+
+			<Annotations Target="SEPMRA_PROD_MAN.SEPMRA_C_PD_ProductSalesDataType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.UI.v1.Chart">
+					<Record>
+						<PropertyValue Property="ChartType" EnumMember="com.sap.vocabularies.UI.v1.ChartType/Column"/>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>DeliveryCalendarYearWeek</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>NetAmount</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="SEPMRA_PROD_MAN.SEPMRA_C_PD_ProductSalesDataType/DeliveryCalendarYearWeek">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarYearWeek" Bool="true"/>
+			</Annotations>
+
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

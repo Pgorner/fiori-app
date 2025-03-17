@@ -1,0 +1,148 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio199a496c5fa544dfbe134b53eaba092e" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/creating-an-extension-to-modify-properties-in-the-navigation-context-199a496.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating an Extension to Modify Properties in the Navigation Context</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating an Extension to Modify Properties in the Navigation Context</h2></div><div class="shortdesc">Application developers can use this extension to modify (add/remove/change) the information available in the navigation context just
+		before the external outbound navigation is triggered.</div><section id="context_xjp_k22_scb" class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+			<p>
+				</p><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+                </p><p>Use app extensions with caution and only if you cannot produce the required
+                    behavior by other means, such as manifest settings or annotations. To correctly
+                    integrate your app extension coding with SAP Fiori elements, use
+                    only the <code>extensionAPI</code> of SAP Fiori elements. For
+                    more information, see <a href="topic/bd2994b69ef542998becbc69ab093f7e" title="The extensionAPI consists of several elements that are described below. It can be used for the list report and object page." class="sap-doc">Using the extensionAPI</a>.</p>
+                <p>After you've created an app extension, its display (for example, control
+                    placement and layout) and system behavior (for example, model and binding usage,
+                    busy handling) lies within the application's responsibility. SAP Fiori elements
+                    provides support only for the official <code>extensionAPI</code> functions.
+                    Don't access or manipulate controls, properties, models, or other internal
+                    objects created by the SAP Fiori elements
+                    framework.</p>
+                
+            <p></p></div></div>
+			<p></p>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section><section id="task_u52_ds1_34b" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/creating-an-extension-to-modify-properties-in-the-navigation-context-199a496.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><section id="steps_m2p_gs1_34b" class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+				<li class="step">
+					<span class="cmd">In the <code>manifest.json</code>, register your extension with the controller for the list report and the object page,
+						as described below:</span>
+					<div class="itemgroup info">
+						<p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"extends": {
+   "extensions": {
+      ... 
+      "sap.ui.controllerExtensions": { 
+         ...
+         "sap.suite.ui.generic.template.ListReport.view.ListReport": { 
+            ... 
+            "controllerName": "MY_APP.ext.controller.ListReportExtension",
+            ...
+         },
+         "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+            ...
+            "controllerName": "MY_APP.ext.controller.DetailsExtension",
+            ...
+         }
+      } 
+      ...
+</pre></div></div></section>
+						<p></p>
+					</div>
+				</li>
+				<li class="step">
+					<span class="cmd">Create the controller extension files in your app, as shown below:</span>
+					<div class="itemgroup info">
+						<div><div class="fig"><img src="loio4303c97aa8d8426aae6cd4ac6e51cbbe_LowRes.png" usemap="#"></div></div>
+					</div>
+				</li>
+				<li class="step">
+					<span class="cmd">Implement the <code>adaptNavigationParameterExtension</code> function in the controller extension files of the list
+						report / object page or the analytical list page and check the <span class="ph uicontrol">API Reference</span> for <a href="api/sap.ui.generic.app.navigation.service.SelectionVariant/overview" title="api/sap.ui.generic.app.navigation.service.SelectionVariant/overview" class="sap-doc" alt="api/sap.ui.generic.app.navigation.service.SelectionVariant/overview"><code>SelectionVariant</code></a>.</span>
+					<div class="itemgroup info">
+						<p>
+							</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>You cannot remove all properties for each navigation link. For example, the property of the semantic object is
+								required for the semantic object link on the object page.</p></div></div>
+						<p></p>
+						<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">adaptNavigationParameterExtension: function(oSelectionVariant, oObjectInfo) {
+  // This is an example! Please create your own code!!
+  // This is an example to remove the parameter 'Currency' from the parameters
+  oSelectionVariant.removeParameter("Currency");
+  // This is an example to remove the property 'Price' from the selection option
+  oSelectionVariant.removeSelectOption("Price");
+  // This is an example to remove all properties which starts with 'D'
+  oSelectionVariant.getSelectOptionsPropertyNames().forEach(function(sSelectOptionName){
+    if (sSelectOptionName.startsWith('D')) {
+       oSelectionVariant.removeSelectOption(sSelectOptionName);
+    }
+  });
+},
+</pre></div></div></section>
+					</div>
+				</li>
+			</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section><section id="task_yb4_1s1_34b" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/creating-an-extension-to-modify-properties-in-the-navigation-context-199a496.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><section id="context_p3h_bs1_34b" class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+				<p>The modification (add/remove/change) is achieved via the <code>adaptNavigationContext</code> extension method, which is called
+					if external outbound navigation is triggered (for example for semantic links, related apps, or
+						<code>DataFieldForIntentBasedNavigations</code>).</p>
+				<p><code>oSelectionVariant</code> consists of all the properties that have been passed to the target application
+					‒
+					this already excludes the sensitive information and considers any defined object mapping.</p>
+				<p><code>oTargetInfo</code> consists of the <code>semanticObject</code> and action that has been configured.</p>
+			</div></section><section id="steps_p5r_32h_34b" class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+				<li class="step">
+					<span class="cmd">Configure the extension with the controller for the object page in the <code>manifest.json</code> file:</span>
+					<div class="itemgroup info">
+						<p>
+							</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+								</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+    "extends": {
+        "extensions": {
+            "sap.ui.controllerExtensions": {
+                "sap.fe.templates.ListReport.ListReportController": {
+                    "controllerName": "SalesOrder.ext.LRExtend"
+                },
+                "sap.fe.templates.ObjectPage.ObjectPageController": {
+                    "controllerName": "SalesOrder.ext.OPExtend"
+                }
+            }
+        }
+    }
+}</pre></div></div></section>
+							<p></p></div></div>
+						<p></p>
+					</div>
+				</li>
+				<li class="step">
+					<span class="cmd">Use the <code>adaptNavigationContext</code> extension within the app controller:</span>
+					<div class="itemgroup info">
+						<p>
+							</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+								</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">override: {
+    intentBasedNavigation: {
+        adaptNavigationContext: function(oSelectionVariant, oTargetInfo) {
+            Log.info("adaptNavigationContext extension called with semantic object: " + oTargetInfo .semanticObject + " and action: " + oTargetInfo .action);
+            oSelectionVariant.removeSelectOption("HasDraftEntity");
+        }
+    }
+}</pre></div></div></section>
+							<p></p></div></div>
+						<p></p>
+					</div>
+				</li>
+			</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section><section id="concept_br3_gdr_gwb" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/creating-an-extension-to-modify-properties-in-the-navigation-context-199a496.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title "></h2><h2 class="title "></h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title "></h2><h2 class="title "></h2></div><div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+					</p><p>When you click a field that is displayed as a link, the call to the <code>adaptNavigationContext</code> extension method is
+						invoked only once even if the link opens more than one navigation link. You cannot invoke this method by clicking the
+						navigation links at the second level.</p>
+				<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></section></div></section></div></body></html>

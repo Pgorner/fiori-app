@@ -1,0 +1,6 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ *  * (c) Copyright 2009-2025 SAP SE. All rights reserved
+ */
+"use strict";sap.ui.define(["sap/ui/core/Element","sap/ushell/Container"],function(e,t){"use strict";const r=e.extend("sap.cux.home.Page",{metadata:{library:"sap.cux.home",properties:{title:{type:"string",group:"Misc",defaultValue:""},icon:{type:"string",group:"Misc",defaultValue:""},subTitle:{type:"string",group:"Misc",defaultValue:""},bgColor:{type:"string",group:"Misc",defaultValue:""},pageId:{type:"string",group:"Misc",defaultValue:""},spaceId:{type:"string",group:"Misc",defaultValue:""},spaceTitle:{type:"string",group:"Misc",defaultValue:""},url:{type:"string",group:"Misc",defaultValue:""}},events:{press:{}}},constructor:function t(r,s){e.prototype.constructor.call(this,r,s)},onPageTilePress:function e(r){try{const e=r.getProperty?.("pageId"),s=r.getProperty?.("spaceId");return Promise.resolve(t.getServiceAsync("Navigation")).then(function(t){return Promise.resolve(t.navigate({target:{semanticObject:"Launchpad",action:"openFLPPage"},params:{pageId:e,spaceId:s}})).then(function(){})})}catch(e){return Promise.reject(e)}}});return r});
+//# sourceMappingURL=Page.js.map

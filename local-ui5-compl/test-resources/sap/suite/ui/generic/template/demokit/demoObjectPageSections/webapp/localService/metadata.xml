@@ -1,0 +1,33 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+	<edmx:DataServices>
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="DEMO">
+			<EntityType Name="RootEntityType">
+				<Key>
+					<PropertyRef Name="Property1" />
+				</Key>
+				<Property Name="Property1" Type="Edm.String"/>
+				<Property Name="Property2" Type="Edm.String"/>
+				<NavigationProperty Name="to_SubEntity" Relationship="DEMO.assoc_RootToSub" FromRole="FromRole_assoc_RootToSub" ToRole="ToRole_assoc_RootToSub"/>
+			</EntityType>
+			<EntityType Name="SubEntityType">
+				<Key>
+					<PropertyRef Name="Property1" />
+				</Key>
+				<Property Name="Property1" Type="Edm.String"/>
+				<Property Name="Property2" Type="Edm.String"/>
+			</EntityType>
+			<Association Name="assoc_RootToSub">
+				<End Type="DEMO.RootEntityType" Multiplicity="1" Role="FromRole_assoc_RootToSub"/>
+				<End Type="DEMO.SubEntityType" Multiplicity="*" Role="ToRole_assoc_RootToSub"/>
+			</Association>
+			<EntityContainer>
+				<EntitySet Name="RootEntity" EntityType="DEMO.RootEntityType"/>
+				<EntitySet Name="SubEntity" EntityType="DEMO.SubEntityType"/>
+				<AssociationSet Name="assoc_RootToSub" Association="DEMO.assoc_RootToSub">
+					<End EntitySet="RootEntity" Role="FromRole_assoc_RootToSub"/>
+					<End EntitySet="SubEntity" Role="ToRole_assoc_RootToSub"/>
+				</AssociationSet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

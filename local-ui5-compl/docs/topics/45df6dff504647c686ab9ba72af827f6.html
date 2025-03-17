@@ -1,0 +1,115 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio45df6dff504647c686ab9ba72af827f6" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/enhanced-theming-concepts-45df6df.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enhanced Theming Concepts</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enhanced Theming Concepts</h2></div><div class="shortdesc">On top of pure CSS, SAPUI5
+		offers advanced theming concepts and functions which can be used optionally. These concepts
+		are outlined in detail below.</div><section id="section_CSS">
+			<h2 class="title ">CSS Variables, Functions, and More</h2>
+			<p>SAPUI5 provides a set of <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/--*" title="https://developer.mozilla.org/en-US/docs/Web/CSS/--*" class="external-link" target="_blank" rel="noopener">CSS custom properties</a> which
+				allows you to make your application or custom controls theming-aware. The CSS custom properties are provided by the <a href="https://github.com/SAP/theming-base-content" title="https://github.com/SAP/theming-base-content" class="external-link" target="_blank" rel="noopener">SAP Theming Base Content</a>. It contains all
+				necessary data to connect to the SAP global theming infrastructure. The content exposes the central set of colors, metrics, and
+				resources of a theme. SAPUI5 applications or custom controls can easily
+				make use of the CSS custom properties of the SAP Theming Base Content. This concept contributes to a consistent way of implementing
+				and changing the styles. CSS provides a lot of additional features like calculations, nesting, and more.</p>
+			<p>Here is the syntax:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">button {
+    color: var(--sapButton_TextColor); /* buttons will automatically have the current text color, which is '#000000' right now */
+    [...]
+}</pre></div></div></section>
+			<p>The browser then takes care of substituting all references to a CSS custom property by the current value of this variable. Every time a CSS
+				custom property is changed at runtime, it will affect all usages.</p>
+			<p>Additionally, a specific theme can modify the CSS custom property values given by the base theme. So a control can just define its text color to
+				use <code>--sapButton_TextColor</code> by default, which will automatically take care of applying the correct color for every
+				theme or user modification: The theme generation will create one CSS file per theme, and the usage of the CSS custom property ensures
+				that the theme-dependent value will always be taken into account. A visually very different theme can easily be created by simply
+				changing a number of colors.</p>
+			<p>While every library and control can introduce their own CSS custom properties, those provided by the SAP Theming Base Content are the most
+				important. Ideally, there should only be a few of them, and they should be simple enough to be understood by most end users (similar
+				to what the Windows operating system offers end users), but still cover as many aspects of the visual appearance as necessary to make
+				them sufficient for most customer-required theme modifications.  To be theming-aware, these CSS custom properties are ideally based on
+				existing ones provided by the SAP Theming Base Content.</p>
+			<p>Additional benefits of CSS custom properties are, for example:</p>
+			<ul class="ul ">
+				<li class="li">They promote modular and maintainable code by centralizing common values in one place.</li>
+				<li class="li">Although they can be manipulated via code at runtime without the need of a dedicated SAPUI5 re-rendering step, they must not be manipulated globally.<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+						</p><p>All controls that use the Parameters API might require a re-rendering after an SAP CSS custom property has been changed
+							(e.g. charts)!</p>
+					<p></p></div></div></li>
+				<li class="li">They facilitate cascading and inheritance, allowing you to define values that can be inherited by child elements.</li>
+				<li class="li">They can be used to generically build simple styling tools that allow for a limited degree of freedom (=changing the CSS custom property
+					values). The UI theme designer is an example of such a tool.</li>
+				<li class="li">They can also be linked to metadata, for example, to which group of colors they
+					belong, to which colors they need to have some visual contrast.</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">Compilation of One CSS File</h2>
+			<p>SAPUI5 CSS generation merges all CSS files of a control library into
+					<span class="emphasis">one</span> file that is loaded at runtime, thus increasing the performance.</p>
+			<p>Here are some of the reasons why you would not want to have all styles defined within
+				one file during development:</p>
+			<ul class="ul ">
+				<li class="li">Clear separation between the styles for different controls, which helps to estimate and test
+					the impact of a CSS modification</li>
+				<li class="li">Keeping the door open for future optimization regarding runtime performance and data
+					transfer by tailoring CSS files on server side that only contain the CSS
+					required on the current application page</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">Optimization and Compression of CSS Size </h2>
+			<p>For performance reasons, the SAPUI5 CSS generation can optionally remove all comments and unnecessary whitespace and
+				can compress verbose declarations into a more compact format.</p>
+		</section><section>
+			<h2 class="title ">Base Theme for Generic Style</h2>
+			<p>While some of the style and layout applied using CSS clearly depends on the current theme, and
+				customers are likely to modify such style rules, there are other style rules that
+				are required for a control to work properly and unlikely to differ for different
+				themes. Examples are the overflow behavior, the positioning of popup elements, the
+				mouse cursor type, the display mode, and others.</p>
+			<p>SAPUI5 promotes and supports keeping those style definitions in the so-called base theme,
+				which serves as a common base for all themes.</p>
+			<p>Themes are built upon this base style that defines their specific visual design by applying
+				colors and images, sizes and fonts. SAPUI5 theme generation
+				takes care of combining the base theme with the specific theme for each generated
+				theme CSS file. Because the specific CSS is appended to the base theme, a specific
+				theme can always override styles defined in the base theme. If this step is required
+				often, the respective style declaration should probably not be located in the base
+				theme.</p>
+			<p>Any style declarations which are referencing CSS variables (at least those common ones defined
+				in the base theme) can also be done in the base theme, and it is sufficient to do it
+				only there: The CSS generation will apply the correct value for each respective
+				theme. So this split between base theme and specific themes avoids duplicate
+				creation and maintenance of CSS parts which are common for all themes and keeps the
+				CSS files that need to be written for any new theme smaller.</p>
+		</section><section>
+			<h2 class="title ">Generic Right-to-Left Support </h2>
+			<p>For some countries, right-to-left (RTL) text mode needs to be supported. In order to
+				avoid the need to create a completely new set of CSS files for those countries, SAPUI5 supports generic
+				RTL generation. Basically, this involves switching the right and left margins and
+				mirroring everything else (including CSS3 rotations, and so on).</p>
+			<p>Everything else that is not covered by this automatic transformation can be fixed by
+				using style rules that are only applied in the RTL case.</p>
+			<p>If you override RTL-specific attributes like text alignment, positioning and so on,
+				you have to write the RTL equivalent into your application CSS. The attributes below
+				are critical for RTL support:</p>
+			<ul class="ul ">
+				<li class="li"><code>float</code></li>
+				<li class="li"><code>clear</code></li>
+				<li class="li"><code>text-align</code></li>
+			</ul>
+			<p>The following attributes require special attention:</p>
+			<ul class="ul ">
+				<li class="li"><code>margin</code></li>
+				<li class="li"><code>padding</code></li>
+				<li class="li"><code>border</code></li>
+				<li class="li"><code>background-position</code></li>
+				<li class="li"><code>position</code> (right/left)</li>
+				<li class="li"><code>text-indent</code></li>
+			</ul>
+			<p>Depending on the values, these latter attributes might also need to be mirrored. As
+				applications running in RTL mode add a <code>dir</code> attribute to the HTML
+				tag in the DOM, custom styles that have to be written can use the following selector
+				to handle RTL-specific styling:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">html[dir="rtl"]  .myselector {
+}</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

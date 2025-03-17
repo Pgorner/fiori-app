@@ -1,0 +1,40 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio6d6b5bda5727419eadcc9cbac1f6e6a1" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/init-method-6d6b5bd.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">init() Method</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">init() Method</h2></div><div class="shortdesc">The <code>init()</code> method can be used to set up, for example, internal
+		variables or subcontrols of a composite control.</div><p>If the <code>init()</code> method is implemented, SAPUI5
+			invokes the method for each
+			control instance directly after the constructor method.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Values that are given in the <code>constructor</code> method are
+					<span class="emphasis">not</span> yet available in the <code>init</code> method. This
+				is to prevent that a control only works when the values are set initially, but not
+				when the values are changed.</p>
+		<p></p></div></div><p>The <code>init</code> method is considered a private method that must only be called
+			by the SAPUI5 core.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">   init: function() {
+
+      this._bSearchHasBeenTriggered = false;
+
+      this._oSearchButton = new sap.m.Button(this.getId() + "-searchBtn", {text: "Search"});
+
+   }</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Any method in your inheriting control overrides methods with the same name in the superclass. If, for example, your control implements
+				the <code>init()</code> method, the <code>init()</code> of the superclass will no longer be executed. The control is then no
+				longer properly initialized and this typically causes an error. To avoid breaking the control, call the superclass method.</p>
+			<p>Consider also that the superclass might implement the method later on, or removes its own method implementation because it is not
+				needed anymore. We recommend that you check for the existence of the superclass method before calling it:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">SomeControl.extend("my.OwnControl", {
+       ...
+       init: function() {
+             if (SomeControl.prototype.init) { // check whether superclass implements the method
+                    SomeControl.prototype.init.apply(this, arguments); // call the method with the original arguments
+             }
+
+             //... do any further initialization of your subclass, e.g. 
+             this.$().on("click", this.handleClick);
+       } 
+       ...
+}</pre></div></div></section>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

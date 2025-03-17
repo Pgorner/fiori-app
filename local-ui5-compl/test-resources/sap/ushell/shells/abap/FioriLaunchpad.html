@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+    About test shells: "../../../../../internal/docs/shells/README.md"
+-->
+<html class="sapUShellFullHeight">
+<head>
+    <meta charset="utf-8" />
+
+    <title>Fiori Launchpad ABAP local runtime</title>
+
+    <meta name="sap.ushellConfig.crossPlatformDefaults" content='{
+        "ushell": { "spaces": { "enabled": false } },
+        "renderers": {
+            "fiori2": {
+                "componentData": {
+                    "config": {
+                        "sizeBehaviorConfigurable": true,
+                        "enableSearch": false
+                    }
+                }
+            }
+        },
+        "services": {
+            "LaunchPage": { "adapter": { "module": "sap.ushell.adapters.local.FlpLaunchPageAdapter" } },
+            "Search": { "adapter": { "module": "sap.ushell.adapters.local.SearchAdapter" } }
+        }
+    }' />
+    <!--
+        TODO: platform-specific defaults config should NOT be hard-coded.
+        Instead, it should be added during packaging time, because:
+        (A) the settings may be different on each platform
+        (B) the performance will be better compared to resolving at runtime
+    -->
+    <meta name="sap.ushellConfig.platformSpecificDefaults" content='{
+        "services": { "Container": { "adapter": { "config": { "systemProperties": { "logoutUrl": "/sap/public/bc/icf/logoff" } } } } }
+    }' />
+    <script id="sap-ui-bootstrap"
+            src="../../../../../resources/sap/ushell_abap/bootstrap/evo/abap.js"
+            data-sap-ui-compatVersion="edge"
+            data-sap-ui-theme="sap_horizon"></script>
+</head>
+<body class="sapUiBody">
+    <div id="canvas">
+        <div class="sapMShellBG sapUiGlobalBackgroundImage"></div>
+    </div>
+</body>
+</html>

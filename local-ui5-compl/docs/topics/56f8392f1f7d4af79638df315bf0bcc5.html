@@ -1,0 +1,68 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio56f8392f1f7d4af79638df315bf0bcc5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/registering-change-handlers-for-specific-layers-56f8392.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Registering Change Handlers for Specific Layers</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Registering Change Handlers for Specific Layers</h2></div><div class="shortdesc">Here's how to enable a change handler for certain layers.</div><p>By default, all change handlers are enabled for key user changes and developer changes, but not for personalization changes. If you want to
+            enable a change handler for personalization, you can change the default permissions.</p><p>Here are the default permissions:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oSettings.defaultLayerPermissions = {
+    "VENDOR": true,
+    "CUSTOMER_BASE": true,
+    "CUSTOMER": true,
+    "USER": false
+};</pre></div></div></section>
+		<p></p></div></div><p>To change the default layer permissions, you can add a <code>layer</code> property to the
+                <code>changeType</code> flexibility object, containing the layer names for which
+            you want to change the default values. For example, <code>CUSTOMER</code> and
+                <code>USER</code> layer default permissions can be changed as shown in the
+            following code sample:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>sample.flexibility.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([], function() {
+    "use strict";
+ 
+    return {
+        "&lt;changeType&gt;": {
+            "changeHandler": {
+                applyChange: function(oChange, oControl, mPropertyBag) {
+                    ...
+                },
+                revertChange: function(oChange, oControl, mPropertyBag) {
+                    ...
+                },
+                completeChangeContent: function(oChange, mSpecificChangeInfo, mPropertyBag) {
+                    ...
+                }
+            },
+            "layers": {
+                "CUSTOMER": false,
+                "USER": true
+            }
+        }
+    };
+});</pre></div></div></section><p></p></div></div><p>To overwrite these defaults, specify the layers when you register the change handler. For this you have to use a slightly different form. You
+            only have to specify the permissions that are different from the default, as shown in this example:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>library.js
+            </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">extensions: {
+    flChangeHandlers: {
+        "sap.uxap.ObjectPageLayout": {
+            "moveControls": {
+                "changeHandler": "default",
+                "layers": {
+                    "USER": true // Now also enabled for end user personalization; the other layers are not affected
+                }
+            }
+        },
+        "&lt;some other control&gt;": {
+            "combineButtons": {
+                "changeHandler": { ... },
+                "layers": {
+                    "CUSTOMER": false // Too risky for key user, only allowed for upper (more developer-centric) layers
+                }
+            },
+            "unhideControl": {  // Default layer for this change type
+                "changeHandler": "default"
+            }
+        }
+    }
+}
+...</pre></div></div></section><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

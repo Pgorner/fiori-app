@@ -1,0 +1,325 @@
+<mvc:View
+	controllerName="sap.fe.core.fpmExplorer.fieldFormatOptions.FieldFormatOptions"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+	xmlns:macrosF="sap.fe.macros.field"
+	xmlns:f="sap.ui.layout.form"
+>
+	<!--
+		The contextPath is set to "/RootEntity" - therefore all fields use a relative metaPath to "/RootEntity"
+	-->
+
+	<Page>
+		<Panel headerText="Field with different Format Options" binding="{path:'/RootEntity(\'1\')'}">
+			<headerToolbar>
+				<OverflowToolbar>
+					<CheckBox text="Toggle Page Edit Mode" selected="{ui>/isEditable}" select=".onSelect" />
+				</OverflowToolbar>
+			</headerToolbar>
+			<Panel headerText="Functionality of the Format Option 'displayMode'" expandable="true" expanded="true">
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Currency field - displayMode 'ValueDescription'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="CurrencyField_code" id="currencyFieldCode_ValueDescription">
+						<macros:formatOptions displayMode="ValueDescription" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Currency field - displayMode 'DescriptionValue'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="CurrencyField_code" id="currencyFieldCode_DescriptionValue">
+						<formatOptions displayMode="DescriptionValue" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Currency field - displayMode 'Value'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="CurrencyField_code" id="currencyFieldCode_Value">
+						<formatOptions displayMode="Value" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Currency field - displayMode 'Description'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="CurrencyField_code" id="currencyFieldCode_Description">
+						<formatOptions displayMode="Description" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Language field - displayMode 'ValueDescription'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="LanguageField_code" id="languageField_ValueDescription">
+						<formatOptions displayMode="ValueDescription" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Language field - displayMode 'DescriptionValue'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="LanguageField_code" id="languageField_DescriptionValue">
+						<formatOptions displayMode="DescriptionValue" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Language field - displayMode 'Value'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="LanguageField_code" id="languageField_Value">
+						<formatOptions displayMode="Value" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Language field - displayMode 'Description'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="LanguageField_code" id="languageField_Description">
+						<formatOptions displayMode="Description" />
+					</macros:Field>
+				</FlexBox>
+			</Panel>
+			<Panel>
+				<MessageStrip
+					text="Please find detailed information on how to configure a field value help in section 'SAP Fiori Elements: Advanced Features' "
+					showIcon="true"
+					showCloseButton="false"
+					class="sapUiMediumMarginBottom"
+				/>
+			</Panel>
+			<Panel headerText="Functionality of the Format Option 'measureDisplayMode'" expandable="true" expanded="true">
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with UoM - measureDisplayMode not set" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithUnitOfMeasure" id="numberWithUnitOfMeasure_no_measureDisplayMode" />
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with UoM - measureDisplayMode=ReadOnly" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithUnitOfMeasure" id="numberWithUnitOfMeasure_measureDisplayMode_ReadOnly">
+						<formatOptions measureDisplayMode="ReadOnly" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with UoM - measureDisplayMode=Hidden" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithUnitOfMeasure" id="numberWithUnitOfMeasure_measureDisplayMode_Hidden">
+						<formatOptions measureDisplayMode="Hidden" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency from sap/cds/common - measureDisplayMode not set" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencySAPCDSCommon" id="numberWithCurrencySAPCDSCommon_no_measureDisplayMode" />
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency from sap/cds/common - measureDisplayMode=ReadOnly" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencySAPCDSCommon" id="numberWithCurrencySAPCDSCommon_measureDisplayMode_ReadOnly">
+						<formatOptions measureDisplayMode="ReadOnly" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency from sap/cds/common - measureDisplayMode=Hidden" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencySAPCDSCommon" id="numberWithCurrencySAPCDSCommon_measureDisplayMode_Hidden">
+						<formatOptions measureDisplayMode="Hidden" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency as String - measureDisplayMode not set" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencyAsString" id="numberWithCurrencyAsString_no_measureDisplayMode" />
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency as String - measureDisplayMode=ReadOnly" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencyAsString" id="numberWithCurrencyAsString_measureDisplayMode_ReadOnly">
+						<formatOptions measureDisplayMode="ReadOnly" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency as String - measureDisplayMode=Hidden" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencyAsString" id="numberWithCurrencyAsString_measureDisplayMode_Hidden">
+						<formatOptions measureDisplayMode="Hidden" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency as Constant - measureDisplayMode not set" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencyAsConstant" id="numberWithCurrencyAsConstant_no_measureDisplayMode" />
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency as Constant - measureDisplayMode=ReadOnly" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencyAsConstant" id="numberWithCurrencyAsConstant_measureDisplayMode_ReadOnly">
+						<formatOptions measureDisplayMode="ReadOnly" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Currency as Constant - measureDisplayMode=Hidden" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="numberWithCurrencyAsConstant" id="numberWithCurrencyAsConstant_measureDisplayMode_Hidden">
+						<formatOptions measureDisplayMode="Hidden" />
+					</macros:Field>
+				</FlexBox>
+			</Panel>
+			<Panel headerText="Functionality of the Format Options 'textLinesEdit', 'textMaxLines'" expandable="true" expanded="true">
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with MultiLineText - textLinesEdit not set" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="multiLineText" id="multiLineText_no_textLinesEdit" />
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with MultiLineText - textLinesEdit=2" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="multiLineText" id="multiLineText_textLinesEdit2">
+						<formatOptions textLinesEdit="2" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with MultiLineText - textLinesEdit=2 textMaxLines=3" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="multiLineText" id="multiLineText_textLinesEdit2_textMaxLines3">
+						<formatOptions textLinesEdit="2" textMaxLines="3" />
+					</macros:Field>
+				</FlexBox>
+				<f:Form>
+					<f:layout>
+						<f:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" labelCellsLarge="12" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement>
+									<f:label>
+										<Label
+											text="Property with MultiLineText - textLinesEdit=2 textMaxLines=3 (in a Form)"
+											class="sapUiSmallMarginEnd"
+										/>
+									</f:label>
+									<f:fields>
+										<macros:Field metaPath="multiLineText" id="multiLineText_textLinesEdit2_textMaxLines3_in_form">
+											<formatOptions textLinesEdit="2" textMaxLines="3" />
+										</macros:Field>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</Panel>
+			<Panel
+				headerText="Functionality of the Format Options 'textMaxCharactersDisplay', 'textExpandBehaviorDisplay'"
+				expandable="true"
+				expanded="true"
+			>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with MultiLineText - textMaxCharactersDisplay not set" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="multiLineText" id="multiLineText_no_textMaxCharactersDisplay" />
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with MultiLineText - textMaxCharactersDisplay=10" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="multiLineText" id="multiLineText_textMaxCharactersDisplay10">
+						<formatOptions textMaxCharactersDisplay="10" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label
+						text="Property with MultiLineText - textMaxCharactersDisplay=10 textExpandBehaviorDisplay=Popover"
+						class="sapUiSmallMarginEnd"
+					/>
+					<macros:Field metaPath="multiLineText" id="multiLineText_textMaxCharactersDisplay6_textExpandBehaviorDisplay_Popover">
+						<formatOptions textMaxCharactersDisplay="10" textExpandBehaviorDisplay="Popover" />
+					</macros:Field>
+				</FlexBox>
+			</Panel>
+			<Panel headerText="Functionality of the Format Options 'textMaxLength'" expandable="true" expanded="true">
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with MultiLineText - textMaxLength not set" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="multiLineText" id="multiLineText_no_textMaxLength" />
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with MultiLineText - textMaxLength=10" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="multiLineText" id="multiLineText_textMaxLength10">
+						<formatOptions textMaxLength="10" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox alignItems="Center" justifyContent="Start">
+					<Label text="Property with Input Control - textMaxLength=10" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="inputTestForMaxLength" id="input_textMaxLength10">
+						<formatOptions textMaxLength="10" />
+					</macros:Field>
+				</FlexBox>
+			</Panel>
+			<Panel headerText="Date and Time" expandable="true" expanded="true">
+				<FlexBox>
+					<Label text="Date" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateProperty" id="DateProperty" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="Date - style 'short'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DatePropertyWithStyle" id="DatePropertyWithStyle" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="Date - pattern 'yyyy-MM'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DatePropertyWithPattern" id="DatePropertyWithPattern">
+						<formatOptions dateTimePattern="yyyy-MM" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox>
+					<Label text="Time" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="TimeProperty" id="TimeProperty" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="Time - style 'short'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="TimePropertyWithStyle" id="TimePropertyWithStyle" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="Time - pattern 'hh:mm'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="TimePropertyPattern" id="TimePropertyPattern">
+						<formatOptions dateTimePattern="hh:mm" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimeProperty" id="DateTimeProperty" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime - style 'short'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithStyle" id="DateTimePropertyWithStyle" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime - pattern 'yyyy-MM hh:mm'" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithPattern" id="DateTimePropertyWithPattern">
+						<formatOptions dateTimePattern="yyyy-MM hh:mm" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime with timezone" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithTimezone" id="DateTimePropertyWithTimezone" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime with timezone (reference)" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithTimezoneRef" id="DateTimePropertyWithTimezoneRef" />
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime - showTimezone 'false' (in Display mode only)" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithTimezone" id="DateTimePropertyWithTimezone_showTimezoneFalse">
+						<formatOptions showTimezone="false" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime - showTime 'false' (in Display mode only)" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithTimezone" id="DateTimePropertyWithTimezone_showTimeFalse">
+						<formatOptions showTime="false" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime - showDate 'false' (in Display mode only)" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithTimezone" id="DateTimePropertyWithTimezone_showDateFalse">
+						<formatOptions showDate="false" />
+					</macros:Field>
+				</FlexBox>
+				<FlexBox>
+					<Label text="DateTime - only showDate 'true' (in Display mode only)" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="DateTimePropertyWithTimezone" id="DateTimePropertyWithTimezone_showDateOnly">
+						<formatOptions showTimezone="false" showTime="false" showDate="true" />
+					</macros:Field>
+				</FlexBox>
+			</Panel>
+			<Panel headerText="Property with Fixed Value List as Radio Buttons" binding="{path:'/RootEntity(\'1\')'}">
+				<VBox>
+					<Label text="Field as Drop Down Box" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="FixedValueListValue" id="FixedValueListFieldDropDown" />
+				</VBox>
+				<VBox>
+					<Label text="Field as Radio Buttons" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="FixedValueListValue" id="FixedValueListFieldRadioButtons">
+						<formatOptions fieldEditStyle="RadioButtons" />
+					</macros:Field>
+				</VBox>
+				<VBox>
+					<Label text="Field as Radio Buttons with Horizontal Layout" class="sapUiSmallMarginEnd" />
+					<macros:Field metaPath="FixedValueListValue" id="FixedValueListFieldRadioButtonsHorizontal">
+						<formatOptions fieldEditStyle="RadioButtons" radioButtonsHorizontalLayout="true" />
+					</macros:Field>
+				</VBox>
+			</Panel>
+		</Panel>
+	</Page>
+</mvc:View>

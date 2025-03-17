@@ -1,0 +1,114 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "test_id",
+		"embeds": ["reuseComponents/tableTest", "implementingComponents/salesOrderListInfo", "implementingComponents/genericInfoPage", "implementingComponents/productCanvas", "implementingComponents/salesOrderInfo", "implementingComponents/salesOrderItemInfo"],
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.132.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"tags": {
+			"keywords": []
+		},
+		"ach": "BC-SRV-NWD-ST",
+		"resources": "resources.json",
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/opu/odata/sap/STTA_SALES_ORDER_WD_20_SRV/",
+				"type": "OData",
+				"settings": {
+					"annotations": [
+						"STTA_SALES_ORDER_WD_20_ANNO_MDL",
+						"localAnnotations"
+					],
+					"localUri": "localService/metadata.xml"
+				}
+			},
+			"STTA_SALES_ORDER_WD_20_ANNO_MDL": {
+				"uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='STTA_SALES_ORDER_WD_20_ANNO_MDL',Version='0001')/$value/",
+				"type": "ODataAnnotation",
+				"settings": {
+					"localUri": "localService/STTA_SALES_ORDER_WD_20_ANNO_MDL.xml"
+				}
+			},
+			"localAnnotations": {
+				"uri": "annotations/annotations.xml",
+				"type": "ODataAnnotation",
+				"settings": {
+					"localUri": "annotations/annotations.xml"
+				}
+			}
+		},
+		"offline": false,
+		"sourceTemplate": {
+			"id": "ui5template.smarttemplate",
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"_version": "1.2.0",
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+	},
+	"sap.ui.generic.app": {
+		"_version": "1.3.0",
+		"settings": {
+			"flexibleColumnLayout": {
+				"defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+                "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
+            },
+			"objectPageDynamicHeaderTitleWithVM": true,
+			"statePreservationMode": "persistence"
+        },
+		"pages": {
+			"ListReport|C_STTA_SalesOrder_WD_20": {
+				"entitySet": "C_STTA_SalesOrder_WD_20",
+				"component": {
+					"name": "sap.suite.ui.generic.template.ListReport",
+					"list": true,
+					"settings": {
+						"multiSelect": true
+					}
+				},
+				"pages": {
+					"ObjectPage|C_STTA_SalesOrder_WD_20": {
+						"entitySet": "C_STTA_SalesOrder_WD_20",
+						"component": {
+							"name": "sap.suite.ui.generic.template.ObjectPage"
+						}
+					}
+				}
+			}
+		}
+	},
+	"sap.fiori": {
+		"_version": "1.1.0",
+		"registrationIds": [],
+		"archeType": "transactional"
+	},
+	"sap.platform.hcp": {
+		"_version": "1.2.0",
+		"uri": ""
+	}
+}

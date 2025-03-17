@@ -1,0 +1,119 @@
+<mvc:View height="100%"
+	controllerName="sap.gantt.sample.GanttChart2Relationship.GanttChart2Relationship"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:gnt="sap.gantt"
+	xmlns:gnt-def="sap.gantt.def"
+	xmlns:gnt-pattern="sap.gantt.def.pattern"
+	xmlns:gnt-cal="sap.gantt.def.cal"
+	xmlns:axistime="sap.gantt.axistime"
+	xmlns:config="sap.gantt.config"
+	xmlns:gnt2="sap.gantt.simple"
+	xmlns:rm="sap.ui.table.rowmodes">
+
+	<gnt2:GanttChartContainer id="container">
+		<gnt2:toolbar>
+			<gnt2:ContainerToolbar showDisplayTypeButton="true" id="containerToolbar" showSearchButton="false">
+			</gnt2:ContainerToolbar>
+		</gnt2:toolbar>
+
+		<gnt2:ganttCharts>
+			<gnt2:GanttChartWithTable id="gantt1" ghostAlignment="Start" enableSelectAndDrag="false"
+				shapeResize="onShapeResize"
+				shapeDrop="onShapeDrop"
+				shapeConnect="onShapeConnect"
+				shapeContextMenu="onShapeContextMenu"
+				shapeOverRelationship="false"
+				shapePress="onShapePress"
+				shapeSelectionMode="MultiWithKeyboardAndLasso"
+				isConnectorDetailsVisible="true"
+				shapeConnectorList="onShapeConnectorList">
+					<gnt2:table>
+						<TreeTable
+							selectionMode="Single"
+							selectionBehavior="RowSelector"
+							rows="{
+								path: 'data>/ProjectElems',
+								parameters: {
+									operationMode: 'Server',
+									numberOfExpandedLevels: 2,
+									treeAnnotationProperties: {
+										hierarchyNodeFor: 'ObjectID',
+										hierarchyParentNodeFor: 'ParentObjectID',
+										hierarchyLevelFor: 'HierarchyNodeLevel',
+										hierarchyDrillStateFor: 'DrillDownState',
+										hierarchyNodeDescendantCountFor: 'Magnitude'
+									},
+									expand: 'Relationships'
+								}
+							}">
+							<rowSettingsTemplate>
+								<gnt2:GanttRowSettings rowId="{data>ObjectID}"
+										relationships="{path:'data>Relationships', templateShareable: 'true'}">
+										<gnt2:shapes1>
+										<gnt2:BaseRectangle title="{data>ObjectName}"
+															shapeId="{data>ObjectID}"
+															time="{data>StartDate}" endTime="{data>EndDate}"
+															tooltip="{data>ObjectName}"
+															fill="#0092D1"
+															resizable="true"
+															draggable="true"
+															selectable="true"
+															hoverable="true"
+															connectable="true"
+															height="19"
+															horizontalTextAlignment="Start"
+															verticalTextAlignment="Center"/>
+								</gnt2:shapes1>
+
+									<gnt2:relationships>
+										<gnt2:Relationship shapeId="{data>RelationID}"
+										predecessor="{data>PredecTaskID}" successor="{data>SuccTaskID}" type="{data>RelationType}" tooltip="{data>RelationType}"
+										selectable="true" shapeTypeStart="{data>shapeTypeStart}" shapeTypeEnd="{data>shapeTypeEnd}"
+										startShapeColor="{data>startShapeColor}" endShapeColor="{data>endShapeColor}" hoverable="true"
+										selectedStartShapeColor="{data>selectedStartShapeColor}" selectedEndShapeColor="{data>selectedEndShapeColor}"
+										enableCurvedEdge="{data>enableCurvedEdge}" lShapeForTypeFS="{data>lShapeForTypeFS}" lShapeForTypeSF="{data>lShapeForTypeSF}"/>
+									</gnt2:relationships>
+
+								</gnt2:GanttRowSettings>
+							</rowSettingsTemplate>
+							<rowMode>
+								<rm:Auto minRowCount="12"/>
+							</rowMode>
+							<columns>
+								<Column id="ObjectName" >
+									<customData>
+										<core:CustomData key="exportTableColumnConfig"
+											value='{"columnKey": "ObjectName",
+											"leadingProperty":"ObjectName",
+											"dataType": "string",
+											"hierarchyNodeLevel": "HierarchyNodeLevel",
+											"wrap": true}' />
+									</customData>
+									<m:Text text="Object Name"/>
+									<template>
+										<m:Label text="{data>ObjectName}"/>
+									</template>
+								</Column>
+							</columns>
+						</TreeTable>
+					</gnt2:table>		
+
+					<gnt2:axisTimeStrategy>
+						<axistime:ProportionZoomStrategy>
+							<axistime:totalHorizon>
+								<config:TimeHorizon startTime="20160501000000" endTime="20170901000000"/>
+							</axistime:totalHorizon>
+							<axistime:visibleHorizon>
+								<config:TimeHorizon startTime="20160501000000" endTime="20170601000000"/>
+							</axistime:visibleHorizon>
+						</axistime:ProportionZoomStrategy>
+					</gnt2:axisTimeStrategy>
+
+
+			</gnt2:GanttChartWithTable>
+		</gnt2:ganttCharts>
+	</gnt2:GanttChartContainer>
+</mvc:View>

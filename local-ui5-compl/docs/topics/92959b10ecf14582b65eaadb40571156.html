@@ -1,0 +1,141 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio92959b10ecf14582b65eaadb40571156" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-11-testing-user-input-92959b1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 11: Testing User Input</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 11: Testing User Input</h2></div><div class="shortdesc">In this step, we will write a test that simulates a user search. We will enter the
+		search string into the search field and check if the correct results are shown in worklist
+		table.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio2d8ec1ca920948989b9d50d28f0e78e4_LowRes.jpg" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Testing user input in a search field</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the Demo Kit at <a href="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.11" title="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.11" class="sap-doc" alt="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.11">Testing - Step 11</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/test/integration/WorklistJourney.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*global QUnit*/
+sap.ui.define([
+	"sap/ui/test/opaQunit",
+	"./pages/Worklist"
+], function (opaTest) {
+	"use strict";
+
+	QUnit.module("Posts");
+
+	opaTest("Should see the table with all posts", function (Given, When, Then) {
+		// Arrangements
+		Given.iStartMyApp();
+
+		// Assertions
+		Then.onTheWorklistPage.theTableShouldHavePagination().
+			and.theTitleShouldDisplayTheTotalAmountOfItems();
+	});
+
+
+	opaTest("Should be able to load more items", function (Given, When, Then) {
+		//Actions
+		When.onTheWorklistPage.iPressOnMoreData();
+
+		// Assertions
+		Then.onTheWorklistPage.theTableShouldHaveAllEntries();
+	});
+	<span class="emphasis">opaTest("Should be able to search for items", function (Given, When, Then) {
+		//Actions
+		When.onTheWorklistPage.iSearchFor("Bear");
+
+		// Assertions
+		Then.onTheWorklistPage.theTableHasOneItem();
+
+		// Cleanup
+		Then.iTeardownMyApp();
+	});
+</span>
+});</pre></div></div></section>
+			<p>In this example, we extend the <code>WorklistJourney.js</code> file with a new test
+					<code>"Should be able to search for items"</code>. The action within this
+				test simulates a user entering text into a search field, so we pass a search string
+					<code>"Bear"</code> to this action. It is important to move the
+					<code>Teardown</code> step to the last test, otherwise our app would be
+				destroyed and the test would not be able to find the
+					<span class="ph uicontrol">Statistics</span> tab.</p>
+			<p>Delete <code>.and.iTeardownMyApp();</code> from the previous test in the file and
+				add the new test case.</p>
+		</section><section>
+			<h2 class="title ">webapp/test/integration/pages/Worklist.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+		'sap/ui/test/Opa5',
+		'sap/ui/test/matchers/AggregationLengthEquals',
+		'sap/ui/test/matchers/I18NText',
+		'sap/ui/test/matchers/BindingPath',
+		'sap/ui/demo/bulletinboard/test/integration/pages/Common',
+		'sap/ui/test/actions/Press'<span class="emphasis">,
+		'sap/ui/test/actions/EnterText'</span>
+	],
+	function (Opa5,
+			  AggregationLengthEquals,
+			  I18NText,
+			  BindingPath,
+			  Common,
+			  Press<span class="emphasis">,
+			  EnterText</span>) {
+		"use strict";
+
+		var sViewName = "Worklist",
+			sTableId = "table";
+
+		Opa5.createPageObjects({
+			onTheWorklistPage: {
+				baseClass: Common,
+				actions: {
+...
+					}<span class="emphasis">,
+					
+					iSearchFor: function (sSearchString) {
+						return this.waitFor({
+							id: "searchField",
+							viewName: sViewName,
+							actions: new EnterText({
+								text: sSearchString
+							}),
+							errorMessage: "SearchField was not found."
+						});
+					}
+</span>
+				},
+				assertions: {
+					<span class="emphasis">theTableHasOneItem: function () {
+						return this.waitFor({
+							id: sTableId,
+							viewName: sViewName,
+							matchers: new AggregationLengthEquals({
+								name: "items",
+								length: 1
+							}),
+							success: function () {
+								Opa5.assert.ok(true, "The table contains one corresponding entry");
+							},
+							errorMessage: "The table does not contain one item."
+						});
+					},</span>
+...</pre></div></div></section>
+			<p>For the new test case we add an action
+					<code>iEnterSearchStringIntoSearchField</code> and a new assertion
+					<code>theTableShouldHaveCorrespondingEntries</code>.</p>
+			<p>In <code>iEnterSearchStringIntoSearchField</code>, we use the
+					<code>EnterText</code> action and load the dependency
+					<code>sap/ui/test/actions/EnterText</code>.</p>
+			<p>We define a <code>waitFor</code> statement with the current view and with the ID of our
+					<code>SearchField</code>, which is stored as an internal variable. This is
+				done in the same way as in the <code>iPressOnMoreData</code> action that we
+				implemented in our first OPA test. But now we don't use the
+					<code>EnterText</code> action. As soon as the <code>SearchField</code>
+				is visible on the screen and can be interacted with, the <code>EnterText</code>
+				action is invoked. If it is not invoked, an error message is displayed and the test
+				fails.</p>
+			<p>The <code>assert</code> part is implemented in the same way as in our first OPA
+				test. Again, we use the matchers to check the state. Here we check the number of
+				items in the table resulting from the simulated search. According to our mock data,
+				there should be only one item visible.</p>
+		</section><section>
+			<h2 class="title ">Conventions</h2>
+			<p>Actions in OPA never contain a QUnit assertion.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/291c9121e6044ab381e0b51716f97f52">Testing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/07c97a2e497d443eb6fa74bb9445ab9c">Step 10: Automated Testing</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/0c270b45dd904429ba634656e3a37a73">Step 12: Adding a Search</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.test.actions.EnterText" title="api/sap.ui.test.actions.EnterText" class="sap-doc" alt="api/sap.ui.test.actions.EnterText">API Reference: sap.ui.test.actions.EnterText</a></li>
+	</ul></section></div></section></div></body></html>

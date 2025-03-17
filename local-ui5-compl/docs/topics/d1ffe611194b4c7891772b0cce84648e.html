@@ -1,0 +1,223 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod1ffe611194b4c7891772b0cce84648e" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-5-using-object-page-layout-as-a-detail-page-d1ffe61.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 5: Using Object Page Layout as a Detail Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 5: Using Object Page Layout as a Detail Page</h2></div><div class="shortdesc">In this step, we add <code>sap.uxap.ObjectPageLayout</code> to the detail page to display more information about each
+		product.</div><p>The <code>ObjectPageLayout</code> control provides a layout that allows apps to easily display information related to a business
+			object.</p><p>As of version 1.52, the control can have the same dynamic header that is used in the <code>sap.f.DynamicPage</code>. This ensures the
+			availability of the SAP Fiori features, such as, having breadcrumbs navigation,
+			navigation actions, and expanding/collapsing the header by tapping/clicking the title area or by selecting the available arrow buttons.
+			For more information, see <a href="topic/d2ef0099542d44dc868719d908e576d0" title="The sap.uxap.ObjectPageLayout control has two types of header - classic header and dynamic header." class="sap-doc">Object Page Headers</a>.</p><p>Compared to <code>sap.f.DynamicPage</code>, the <code>sap.uxap.ObjectPageLayout</code> can provide a more structured page content
+			using an optional anchor bar and block content wrapped in sections and subsections that structure the information. For more information,
+			see <a href="topic/2e61ab6c68a2480eb666c1927a707658" title="The ObjectPageLayout control provides a layout that allows apps to easily display information related to a business object." class="sap-doc">Object Page Layout</a>.</p><section id="section_ed2_4dd_lbb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Preview</h2></div><div class="fig"><div><div class="fig"><img src="loioda38488f47f941a0b53509d22ef9027c_LowRes.gif" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "><code>ObjectPageLayout</code> with dynamic header for the detail page</h2></span></div></div></section><section id="section_fd2_4dd_lbb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.f.tutorial.fcl.05/preview" title="sample/sap.f.tutorial.fcl.05/preview" class="sap-doc" alt="sample/sap.f.tutorial.fcl.05/preview">Flexible Column Layout
+						App - Step 5</a>.</p>
+		</section><section id="section_qhh_ylj_l4b">
+			<h2 class="title ">webapp/manifest.json [MODIFY]</h2>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"_version": "1.38.0",
+	"sap.app": {
+		"id": "sap.ui.demo.fcl",
+		"type": "application",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "sap.ui.demo.fcl.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "fcl"
+		},
+		"dependencies": {
+			"minUI5Version": "1.98.0",
+			"libs": {
+				"sap.f": {},
+				"sap.m": {},
+				"sap.ui.core": {}<span class="emphasis">,
+				"sap.uxap": {}</span>
+				}
+		},
+		"config": {
+			"fullWidth": true
+		}
+	}
+}</pre></div></div></section>
+			<p>First, we add the related libraries that we will need to the dependencies in the <code>manifest.json</code>.</p>
+		</section><section id="section_s1m_xlj_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+<span class="emphasis">	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"</span>
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+<span class="emphasis">	&lt;ObjectPageLayout
+		id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		alwaysShowContentHeader="false"
+		preserveHeaderStateOnScroll="false"
+		headerContentPinnable="true"
+		isChildPage="true"
+		upperCaseAnchorBar="false"&gt;
+	&lt;/ObjectPageLayout&gt;</span>
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add an instance of the <code>sap.uxap.ObjectPageLayout</code> control.</p>
+		</section><section id="section_hqw_vlj_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;ObjectPageLayout
+		id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		alwaysShowContentHeader="false"
+		preserveHeaderStateOnScroll="false"
+		headerContentPinnable="true"
+		isChildPage="true"
+		upperCaseAnchorBar="false"&gt;
+<span class="emphasis">		&lt;headerTitle&gt;
+			&lt;ObjectPageDynamicHeaderTitle&gt;
+				&lt;actions&gt;
+					&lt;m:ToggleButton
+						text="Edit"
+						type="Emphasized"/&gt;
+					&lt;m:Button
+						text="Delete"
+						type="Transparent"/&gt;
+					&lt;m:Button
+						text="Copy"
+						type="Transparent"/&gt;
+					&lt;m:Button
+						icon="sap-icon://action"
+						type="Transparent"/&gt;
+				&lt;/actions&gt;
+			&lt;/ObjectPageDynamicHeaderTitle&gt;
+		&lt;/headerTitle&gt;</span>
+
+	&lt;/ObjectPageLayout&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add the recommended dynamic header with an instance of the <code>ObjectPageDynamicHeaderTitle</code> in the
+					<code>headerTitle</code> aggregation of the <code>ObjectPageLayout</code>. For more information, see <a href="topic/6e340c119ddd4c778b315f65a0432420" title="Overview of the structure and features for sap.uxap.ObjectPageLayout's dynamic header." class="sap-doc">Object Page Dynamic Header</a> and <a href="topic/9c9d94fd28284539a9a5a57e9caf82a8" title="This section explains the differences and similarities between the two types of header of the sap.uxap.ObjectPageLayout control." class="sap-doc">Object Page Headers Comparison</a>.</p>
+		</section><section id="section_rhj_slj_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		&lt;headerTitle&gt;
+			&lt;ObjectPageDynamicHeaderTitle&gt;
+				&lt;actions&gt;
+					&lt;m:ToggleButton
+						text="Edit"
+						type="Emphasized"/&gt;
+					&lt;m:Button
+						text="Delete"
+						type="Transparent"/&gt;
+					&lt;m:Button
+						text="Copy"
+						type="Transparent"/&gt;
+					&lt;m:Button
+						icon="sap-icon://action"
+						type="Transparent"/&gt;
+				&lt;/actions&gt;
+			&lt;/ObjectPageDynamicHeaderTitle&gt;
+		&lt;/headerTitle&gt;
+
+<span class="emphasis">		&lt;headerContent&gt;
+			&lt;m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch"&gt;
+				&lt;m:Avatar
+					displaySize="L"
+					displayShape="Square"
+					class="sapUiTinyMarginEnd"&gt;
+				&lt;/m:Avatar&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Main Category"/&gt;
+				&lt;/m:VBox&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Subcategory"/&gt;
+				&lt;/m:VBox&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Price"/&gt;
+				&lt;/m:VBox&gt;
+			&lt;/m:FlexBox&gt;
+		&lt;/headerContent&gt;</span>
+
+	&lt;/ObjectPageLayout&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add content in the <code>headerContent</code> aggregation. We're using <code>sap.m.Avatar</code> as the recommended SAP Fiori control for displaying images.</p>
+		</section><section id="section_yhv_qlj_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		&lt;headerContent&gt;
+			&lt;m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch"&gt;
+				&lt;m:Avatar
+					displaySize="L"
+					displayShape="Square"
+					class="sapUiTinyMarginEnd"&gt;
+				&lt;/m:Avatar&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Main Category"/&gt;
+				&lt;/m:VBox&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Subcategory"/&gt;
+				&lt;/m:VBox&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Price"/&gt;
+				&lt;/m:VBox&gt;
+			&lt;/m:FlexBox&gt;
+		&lt;/headerContent&gt;
+
+<span class="emphasis">		&lt;sections&gt;
+			&lt;ObjectPageSection title="General Information"&gt;
+				&lt;subSections&gt;
+					&lt;ObjectPageSubSection&gt;
+						&lt;blocks&gt;
+							&lt;form:SimpleForm
+								maxContainerCols="2"
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanL="12"
+								labelSpanM="12"
+								emptySpanL="0"
+								emptySpanM="0"
+								columnsL="1"
+								columnsM="1"&gt;
+								&lt;form:content&gt;
+									&lt;m:Label text="Product ID"/&gt;
+									&lt;m:Label text="Description"/&gt;
+									&lt;m:Label text="Supplier"/&gt;
+								&lt;/form:content&gt;
+							&lt;/form:SimpleForm&gt;
+						&lt;/blocks&gt;
+					&lt;/ObjectPageSubSection&gt;
+				&lt;/subSections&gt;
+			&lt;/ObjectPageSection&gt;
+
+			&lt;ObjectPageSection title="Suppliers"&gt;
+				&lt;subSections&gt;
+					&lt;ObjectPageSubSection&gt;
+						&lt;blocks&gt;
+							&lt;m:Table
+								id="suppliersTable"
+								items="{path : 'products&gt;/ProductCollectionStats/Filters/1/values'}"&gt;
+								&lt;m:columns&gt;
+									&lt;m:Column/&gt;
+								&lt;/m:columns&gt;
+								&lt;m:items&gt;
+									&lt;m:ColumnListItem type="Navigation"&gt;
+										&lt;m:cells&gt;
+											&lt;m:ObjectIdentifier text="{products&gt;text}"/&gt;
+										&lt;/m:cells&gt;
+									&lt;/m:ColumnListItem&gt;
+								&lt;/m:items&gt;
+							&lt;/m:Table&gt;
+						&lt;/blocks&gt;
+					&lt;/ObjectPageSubSection&gt;
+				&lt;/subSections&gt;
+			&lt;/ObjectPageSection&gt;
+		&lt;/sections&gt;</span>
+	&lt;/ObjectPageLayout&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>Finally, we add page content in two separate sections with blocks. For more information, see <a href="topic/4527729576cb4a4888275b6935aad03a" title="The contents of the subsections in the ObjectPageLayout control are organized into blocks." class="sap-doc">Object Page Blocks</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/c4de2df385174e58a689d9847c7553bd">Flexible Column Layout App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/4e4315cef89e48ceb60b4dc12f5be2d2">Step 4: Adding a Detail Page</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/555ed73903b34c70a23ba13af1a5d71e">Step 6: Adding a Floating Footer</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

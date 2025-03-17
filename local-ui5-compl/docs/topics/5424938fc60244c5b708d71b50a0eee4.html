@@ -1,0 +1,79 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5424938fc60244c5b708d71b50a0eee4" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/fallback-translating-apps-using-the-sapui5-text-repository-5424938.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Fallback: Translating Apps Using the SAPUI5 Text Repository</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Fallback: Translating Apps Using the SAPUI5 Text Repository</h2></div><div class="shortdesc">As a fallback mechanism for translating apps, you can use the SAPUI5 text repository for storing
+		the target texts.</div><section>
+			<h2 class="title ">What's the recommended translation approach?</h2>
+			<p>The recommended translation approach is to store your target texts in properties files
+				(resource bundles), a <code>&lt;identifier&gt;_&lt;locale&gt;.properties</code>
+				file for every language the app is translated to (&lt;locale&gt; containing the
+				language and an optional country code). For example,
+					<code>i18n_en_US.properties</code> would contain the American English texts
+				of the <code>i18n.properties</code> source file. For more information, see <a href="topic/91f225ce6f4d1014b6dd926db0e91070" title="A resource bundle file is a Java properties file (as described in the Javadoc of class java.util.Properties). It contains key-value pairs where the values are the language-dependent texts and the keys are language-independent and used by the application to identify and access the corresponding values." class="sap-doc">Resource Bundles</a>.</p>
+		</section><section>
+			<h2 class="title ">When can I use the SAPUI5 text
+				repository?</h2>
+			<p>You can use the SAPUI5 text
+				repository as a fallback if you cannot use the recommended approach. Please only use
+				it in this case.</p>
+		</section><section>
+			<h2 class="title ">What's the fallback all about?</h2>
+			<p>When you use the SAPUI5 text repository, the source texts are stored in the default
+				properties file <code>&lt;identifier&gt;.properties</code> (that is, there are not <i>n</i> properties files as with the
+				recommended approach). The SAPUI5 text repository writes the texts that are
+				stored in the default properties file to a language-dependent database table. As usual, the texts can then be translated using
+				transaction <code>SE63</code> (usually in a separate system). The original language of the SAPUI5 ABAP repository is taken as the source language for the submitted texts.
+				Once the translated texts are transported back to the respective systems, they can be accessed at runtime when texts in a certain
+				language are requested.</p>
+		</section><section>
+			<h2 class="title ">What do I have to do to use the SAPUI5 text
+				repository?</h2>
+			<p>You have to set up the default properties file in a special way by adding the following key as
+				the first line in the properties file with texts that you submit to the SAPUI5 ABAP repository:</p>
+			<p><code># SAPUI5 TRANSLATION-KEY &lt;GUID with 32 characters&gt;</code></p>
+			<p>You can create the GUID with the ABAP function module <code>GUID_CREATE</code>,
+				or you can create the complete line with the ABAP report
+					<code>/UI5/TEXT_FILE_GEN_TRANS_KEY</code>. (A UUID as used in Java is also
+				supported.)</p>
+			<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+				</p><p>The GUID serves as a unique identifier for the properties file. Never change the
+					GUID or copy it to other properties files.</p>
+			<p></p></div></div>
+			<p>The properties file has to fulfill the following rules:</p>
+			<p>
+				</p><ul class="ul ">
+					<li class="li">It doesn't contain any duplicate text elements.</li>
+					<li class="li">The text must be on one line and can have a maximum of 255 characters.</li>
+					<li class="li">A text type is assigned to every text element.</li>
+				</ul>
+			<p></p>
+			<p>Accidental overwriting of texts in the SAPUI5 text repository with
+				texts from other properties files is prevented. If a duplicate GUID is detected, the
+				properties files cannot be synchronized. It's not possible to rename or relocate a
+				properties file and to submit it once it's contained in the SAPUI5 text repository.
+				Before you can rename or relocate a properties file, you have to remove the texts
+				from the SAPUI5 text
+				repository by using the report <code>/UI5/TEXT_ENTRIES_DELETE</code>.</p>
+			<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+				</p><p>If you run this report, all translated texts get lost. Therefore, only use it for
+					texts that are not yet translated.</p>
+			<p></p></div></div>
+			<p>After running the report, submit the renamed or relocated properties file again.</p>
+			<p>If you reassign the BSP application on the ABAP server (representing a single SAPUI5 repository) from a
+				local (<code>$TMP</code>) package to a non-local package, you also need to
+				resubmit the properties file. All text elements are generated again with the new
+				creation time stamp.</p>
+			<p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Since the original language of the SAPUI5 ABAP repository serves as the source
+						language of the texts, it's important that you use the same language for the creation of the repository that was used for the
+						properties files. When you use the SAPUI5 repository team provider
+						and create the BSP application manually, you have to choose the correct language on the logon screen.</p>
+				<p></p></div></div>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,109 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4132ffa02f1148058a78dfb11c8567b0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/passing-variant-ids-as-url-parameters-4132ffa.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Passing Variant IDs as URL Parameters</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Passing Variant IDs as URL Parameters</h2></div><div class="shortdesc">You can pass the variant ID as part of the navigation context (or as a URL parameter)
+		while navigating from an application to the analytical list page or to the list report, or
+		vice versa. </div><p>The URL parameter value should be an ID of the variant that exists in the target app.
+			Ensure that the variant name is not passed as the URL parameter.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>To find the variant ID, find the instance of the control for the control
+				level variant, and the instance of the filter bar for the page level variant. For example, find
+					<code>Element.getElementById</code> where <code>Element</code> is required from module
+					<code>sap/ui/core/Element</code>, which is the stable ID of the control, and call <code>getCurrentVariantId()</code>,
+				which is the API on the control instance. This gives the variant ID to be used in the source app's manifest.</p>
+		<p></p></div></div><p>You can choose to pass a page variant or a control variant using these parameters:</p><ul class="ul ">
+			<li class="li">
+				<p><span class="parmname">sap-ui-fe-variant-id</span>: Page variant ID you want to set</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+						</p><p>https://abc.com/ui#SalesOrder-analyze_deliv_perf?sap-ui-fe-variant-id=<kbd class="ph userinput">id_1542011587281_980_page</kbd></p>
+					<p></p></div></div><p></p>
+			</li>
+			<li class="li">
+				<p><span class="parmname">sap-ui-fe-filterbar-variant-id</span>: Parameter for the filter bar
+					control variant</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+						</p><p>https://abc.com/ui#SalesOrder-analyze_deliv_perf?sap-ui-fe-filterbar-variant-id=<kbd class="ph userinput">id_1542011587281_230_page</kbd></p>
+					<p></p></div></div><p></p>
+			</li>
+			<li class="li">
+				<p><span class="parmname">sap-ui-fe-chart-variant-id</span>: Parameter for the chart control variant</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+						</p><p>https://abc.com/ui#SalesOrder-analyze_deliv_perf?sap-ui-fe-chart-variant-id=<kbd class="ph userinput">id_1574157179885_675_chart</kbd></p>
+					<p></p></div></div><p></p>
+			</li>
+			<li class="li">
+				<p><span class="parmname">sap-ui-fe-table-variant-id</span>: Parameter for the table control variant</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+						</p><p>https://abc.com/ui#SalesOrder-analyze_deliv_perf?sap-ui-fe-table-variant-id=<kbd class="ph userinput">id_1574157179595_331_table</kbd></p>
+					<p></p></div></div><p></p>
+				<p>When both the chart variant and table variant are passed:</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+						</p><p>https:/abc.com/ui#SalesOrder-analyze_deliv_perf?sap-ui-fe-chart-variant-id=<kbd class="ph userinput">id_1574157179885_675_chart</kbd>&sap-ui-fe-table-variant-id=<kbd class="ph userinput">id_1574157179595_331_table</kbd></p>
+					<p></p></div></div><p></p>
+			</li>
+		</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><ul class="ul ">
+				<li class="li">
+					<p>If you add both a page variant and a control variant to a URL:</p><ul class="ul ">
+							<li class="li">
+								<p>The page variant-based analytical list page or list report
+									ignores the control variant ID and applies the page level
+									variant</p>
+							</li>
+							<li class="li">
+								<p>The control variant-based analytical list page or list report
+									applies the control variant ID. If the control variant ID is
+									missing, the page variant ID applies to the control</p>
+							</li>
+							<li class="li">
+								<p>If the variant ID passed is invalid, the default or standard
+									variant is considered.</p>
+							</li>
+						</ul><p></p>
+				</li>
+				<li class="li">
+					<p>Adding the variant ID to the URL overrides the user's default variant ID</p>
+				</li>
+			</ul>
+		<p></p></div></div><section id="section_fkd_lsk_jrb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>Application developers can pass the variant ID as the URL parameter by updating the
+					<code>manifest.json</code> as follows:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+"crossNavigation": {
+  "inbounds": {
+...
+ },
+"outbounds": {
+  "EPMProductManage": {
+    "parameters": {
+    "sap-ui-fe-variant-id":"id_1542011587281_980_page"
+    }
+  }
+}
+} </pre></div></div></section>
+			<p></p></div></div></div></section><section id="section_gf3_xsk_jrb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>Application developers can pass the variant ID as the URL parameter by updating the <code>manifest.json</code> as follows:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Passing Variant IDs</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"outbounds": {
+    "ProductDetails": {
+        "semanticObject": "Manage",
+        "action": "items",
+        "parameters": {
+            "sap-ui-fe-variant-id": {
+                "value": {
+                    "value": "id_1633600133090_222",
+                    "format": "plain"
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/8ce658e05498466d9a74823b94e840ac" title="Allows you manage variants with different structures in the filter and content areas." class="sap-doc">Managing Variants</a></li>
+	</ul></section></div></section></div></body></html>

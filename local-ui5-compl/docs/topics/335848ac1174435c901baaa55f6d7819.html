@@ -1,0 +1,89 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio335848ac1174435c901baaa55f6d7819" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/using-factory-functions-335848a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using Factory Functions</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using Factory Functions</h2></div><p>The factory function is a more powerful approach for creating controls from model data. The factory function is called for each entry of a control's
+			aggregation, and the developer can decide whether each entry shall be represented by the same control with different properties or even by a
+			completely different control for each entry.</p><p>The factory function comes with the parameters <code>sId</code>, which should be used as an ID for the new control, and
+				<code>oContext</code>, which is for accessing the model data of the entry. The returned object must be of type
+				<code>sap.ui.core.Element</code>. Here's how this scenario can be realized in an XML view and a controller using our JSON model
+			data from <a href="topic/91f057786f4d1014b6dd926db0e91070" title="List binding (or aggregation binding) is used to automatically create child controls according to model data." class="sap-doc">List Binding (Aggregation Binding)</a>:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.sample.App"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;l:VerticalLayout
+		content="{ path: '/companies', factory: '.createContent'}"
+		class="sapUiContentPadding"
+		width="100%"/&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p>Please note the <code>'.'</code> in <code>factory: '.createContent'</code>. The class <code>App.controller.js</code> contains the
+			implementation of our factory method:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/type/String",
+	"sap/ui/model/type/Float",
+	"sap/m/Input",
+	"sap/m/Text",
+	"sap/m/CheckBox"
+], function (Controller, JSONModel, StringType, Float, Input, Text, CheckBox ) {
+	"use strict";
+	return Controller.extend("sap.ui.sample.App", {
+		onInit : function () {
+		…
+		},
+		createContent: function (sId, oContext) {
+		var oRevenue = oContext.getProperty("revenue");
+			switch(typeof oRevenue) {
+				case "string":
+					return new Text(sId, {
+						text: {
+							path: "revenue",
+							type: new StringType()
+						}
+					});
+  
+				case "number":
+					return new Input(sId, {
+						value: {
+							path: "revenue",
+							type: new Float()
+						}
+					});
+				
+				case "boolean":
+					return new CheckBox(sId, {
+						checked: {
+							path: "revenue"
+						}
+					});
+			}
+		},
+	});
+});</pre></div></div></section><p>If you would like to avoid using the XML view, you would proceed as follows:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oVerticalLayout.bindAggregation("content", "/companies", function (sId, oContext) {
+	var oRevenue = oContext.getProperty("revenue");
+	switch(typeof oRevenue) {
+			case "string":
+				return new sap.m.Text(sId, {
+					text: {
+						path: "revenue",
+						type: new sap.ui.model.type.String()
+					}
+				});
+  
+			case "number":
+				return new sap.m.Input(sId, {
+					value: {
+						path: "revenue",
+						type: new sap.ui.model.type.Float()
+					}
+				});
+				
+			case "boolean":
+				return new sap.m.CheckBox(sId, {
+					checked: {
+						path: "revenue"
+					}
+				});
+			}
+		}
+});</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/284a036c8ff943238fb65bf5a2676fb7" title="Instead of using a single hard-coded template control, we now opt for a factory function to generate different controls based on the data received at runtime. This approach is much more flexible and allows for the display of complex or heterogeneous data." class="sap-doc">Tutorial Step 15: Aggregation Binding Using a Factory Function</a></li>
+	</ul></section></div></section></div></body></html>

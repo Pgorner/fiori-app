@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://schemas.sap.com/sapui2/services/Chip/1"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://schemas.sap.com/sapui2/services/Chip/1"
+           elementFormDefault="qualified">
+
+    <xs:element name="chip" type="ChipDescription"/>
+
+    <xs:complexType name="ChipDescription">
+        <xs:sequence>
+            <xs:element name="implementation" type="Implementation" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="appearance" type="Appearance" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="sources" type="Sources" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="propertyPaths" type="PropertyPaths" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="contracts" type="Contracts" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="parameters" type="ParameterList" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Implementation">
+        <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element name="sapui5" type="SAPUI5ChipImplementation"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="ChipImplementation" abstract="true">
+    </xs:complexType>
+
+    <xs:complexType name="SAPUI5ChipImplementation">
+        <xs:complexContent>
+            <xs:extension base="ChipImplementation">
+                <xs:sequence>
+                    <xs:element name="basePath" type="xs:string" maxOccurs="1" minOccurs="0" default="."/>
+                    <xs:choice minOccurs="1" maxOccurs="1">
+                        <xs:element name="componentName" type="ComponentName"/>
+                        <xs:element name="viewName" type="ViewName"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ComponentName">
+        <xs:sequence>
+            <xs:element name="componentName" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="virtualNamespace" type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:complexType name="ViewName">
+        <xs:sequence>
+            <xs:element name="viewName" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="virtualNamespace" type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:complexType name="Sources">
+        <xs:sequence>
+            <!-- the limit of 999 is arbitrary, but "unbounded" isn't accepted by Fortify -->
+            <xs:element name="source" type="Source" maxOccurs="999" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Source">
+        <xs:sequence>
+            <xs:element name="location" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="base" type="xs:string" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="PropertyPaths">
+        <xs:sequence>
+            <!-- the limit of 999 is arbitrary, but "unbounded" isn't accepted by Fortify -->
+            <xs:element name="properties" type="Properties" maxOccurs="999" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="source" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="Properties">
+        <xs:sequence>
+            <!-- the limit of 999 is arbitrary, but "unbounded" isn't accepted by Fortify -->
+            <xs:element name="property" type="Property" maxOccurs="999" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="usage" type="xs:string" use="required"/>
+        <xs:attribute name="source" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="Property">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="xs:string" use="required"/>
+                <xs:attribute name="source" type="xs:string"/>
+                <xs:attribute name="initialvalue" type="xs:string"/>
+                <xs:attribute name="true" type="xs:string"/>
+                <xs:attribute name="false" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="Appearance">
+        <xs:sequence>
+            <xs:element name="title" type="xs:string" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="description" type="xs:string" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Contracts">
+        <xs:sequence>
+            <!-- the limit of 100 is arbitrary, but "unbounded" isn't accepted by Fortify -->
+            <!-- "100 contracts should be enough for every CHIP." :-) -->
+            <xs:element name="consume" type="ConsumedContractInfo" maxOccurs="100" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ConsumedContractInfo">
+        <xs:sequence>
+            <xs:element name="parameters" type="ParameterList" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="ParameterList">
+        <xs:sequence>
+            <!-- the limit of 100 is arbitrary, but "unbounded" isn't accepted by Fortify -->
+            <xs:element name="parameter" type="Parameter" maxOccurs="100" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Parameter">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+</xs:schema>

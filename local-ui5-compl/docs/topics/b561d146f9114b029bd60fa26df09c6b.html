@@ -1,0 +1,162 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob561d146f9114b029bd60fa26df09c6b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-6-extending-the-detail-page-b561d14.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 6: Extending the Detail Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 6: Extending the Detail Page</h2></div><div class="shortdesc">In this step, we will extend the detail page of our app to show more information of a
+		given product with various UI controls. We will enrich the header area and display further
+		attributes in an info panel for information about the supplier.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio49780e41de4e4766b41cdf65acf81ea2_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Detail page with more product information</h2></span></div>
+		</section><section><h2 class="title ">Coding</h2><p>You can view and download all files in the
+					<span class="ph uicontrol">Samples</span> in the Demo Kit at <a href="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.06" title="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.06" class="sap-doc" alt="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.06">Worklist App - Step 6</a>
+				.</p><section>
+				<h3 class="title ">webapp/view/Object.view.xml [MODIFY]</h3>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+controllerName="mycompany.myapp.MyWorklistApp.controller.Object"
+xmlns="sap.m"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns:semantic="sap.f.semantic"
+<span class="emphasis">xmlns:form="sap.ui.layout.form"</span>&gt;
+
+&lt;semantic:SemanticPage
+    id="page"
+    headerPinnable="false"
+    toggleHeaderOnTitleClick="false"
+    busy="{objectView&gt;/busy}"
+    busyIndicatorDelay="{objectView&gt;/delay}"&gt;
+    &lt;semantic:titleHeading&gt;
+    &lt;Title text="{ProductName}" /&gt;
+    &lt;/semantic:titleHeading&gt;
+    <span class="emphasis">&lt;semantic:headerContent&gt;
+			&lt;FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"&gt;
+				&lt;Panel backgroundDesign="Transparent"&gt;
+					&lt;ObjectAttribute
+						title="{i18n&gt;ObjectProductIdText}"
+						text="{
+						path: 'ProductID',
+						formatter: '.formatter.numberUnit'}"/&gt;
+					&lt;ObjectAttribute
+						title="{i18n&gt;ObjectPriceTitle}"
+						text="{
+						path: 'UnitPrice',
+						formatter: '.formatter.numberUnit'} EUR"/&gt;
+				&lt;/Panel&gt;
+				&lt;Panel backgroundDesign="Transparent"&gt;
+					&lt;ObjectNumber
+						id="objectHeader"
+						unit="PC"
+						textAlign="End"
+						state="{
+						path: 'UnitsInStock',
+						formatter: '.formatter.quantityState'}"
+						number="{
+						path: 'UnitsInStock',
+						formatter: '.formatter.numberUnit'}"&gt;
+					&lt;/ObjectNumber&gt;
+					&lt;ObjectStatus
+						text="{i18n&gt;ObjectDiscontinuedStatusText}"
+						state="Error"
+						visible="{path:'Discontinued'}"/&gt;
+					&lt;ProgressIndicator
+						width="300px"
+						percentValue="{UnitsInStock}"
+						displayValue="{UnitsInStock}"
+						showValue="true"
+						state="{
+						path: 'UnitsInStock',
+						formatter: '.formatter.quantityState'}"/&gt;
+				&lt;/Panel&gt;
+			&lt;/FlexBox&gt;
+    &lt;/semantic:headerContent&gt;</span>
+    &lt;semantic:content&gt;
+<span class="emphasis">        &lt;Panel
+            class="sapUiNoContentPadding"
+            headerText="{i18n&gt;ObjectSupplierTabTitle}"&gt;
+            &lt;content&gt;
+                &lt;form:SimpleForm
+                    minWidth="1024"
+                    maxContainerCols="2"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    columnsL="1"
+                    columnsM="1"&gt;
+                    &lt;form:content&gt;
+                        &lt;Label text="{i18n&gt;ObjectSupplierName}"/&gt;
+                        &lt;Text text="{Supplier/CompanyName}"/&gt;
+                        &lt;Label text="{i18n&gt;ObjectSupplierAddress}"/&gt;
+                        &lt;Text text="{Supplier/Address}"/&gt;
+                        &lt;Label text="{i18n&gt;ObjectSupplierZipcode} / {i18n&gt;ObjectSupplierCity}"/&gt;
+                        &lt;Text text="{Supplier/PostalCode} / {Supplier/City}"/&gt;
+                        &lt;Label text="{i18n&gt;ObjectSupplierCountry}"/&gt;
+                        &lt;Text text="{Supplier/Country}"/&gt;
+                    &lt;/form:content&gt;
+                &lt;/form:SimpleForm&gt;
+            &lt;/content&gt;
+        &lt;/Panel&gt;</span>
+
+    &lt;/semantic:content&gt;
+    &lt;semantic:sendEmailAction&gt;
+        &lt;semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/&gt;
+    &lt;/semantic:sendEmailAction&gt;
+&lt;/semantic:SemanticPage&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+				<p>We define a new <code>headerContent</code> section as well as some additional
+					attributes for the product with two <code>sap.m.ObjectAttribute</code>
+					controls, one for the <code>Price</code> and one for the
+						<code>ProductID</code>. These are important product attributes for us,
+					so we want to include them in our header area.</p>
+				<p>To get a better visual representation of the current stock of the shown product,
+					we use the <code>ObjectStatus</code> and <code>ProgressIndicator</code>
+					control statuses. If our product will not be produced anymore, the
+						<code>ObjectStatus</code> shows up as
+						<span class="ph uicontrol">Discontinued</span>. The <code>ProgressIndicator</code>
+					uses the same formatter function as our <code>UnitsInStock</code> (in the
+						<code>state</code> of the <code>ObjectNumber</code>).</p>
+				<p>Below the object header we can use <code>sap.m.Panel</code> to display some
+					additional information in a nice layout on the page. Inside the panel we use
+						<code>sap.ui.layout.form.SimpleForm</code> to align the labels and texts
+					we want to display.</p>
+			</section><section>
+				<h3 class="title ">webapp/i18n/i18n.properties [MODIFY]</h3>
+				<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+<span class="emphasis">#Price per unit text
+ObjectPriceTitle=Price
+
+#Discontinued text
+ObjectDiscontinuedStatusText=Discontinued
+
+#Supplier tab title
+ObjectSupplierTabTitle=Supplier Info
+
+#Supplier company name
+ObjectSupplierName=Name
+
+#Supplier contact person name
+ObjectSupplierContact=Contact
+
+#Supplier contact address
+ObjectSupplierAddress=Address
+
+#Supplier zip code
+ObjectSupplierZipcode=ZIP Code
+
+#Supplier city name
+ObjectSupplierCity=City
+
+#Supplier country
+ObjectSupplierCountry=Country
+
+#Object Product ID text
+ObjectProductIdText=Product ID
+</span>
+
+#~~~ Footer Options ~~~~~~~~~~~~~~~~~~~~~~~
+...</pre></div></div></section>
+				<p>As before, we add new i18n texts to the resource bundle.</p>
+				<p>Save all the changes and run the application. Click on any product and see the
+					product details displayed on the detail page.</p>
+			</section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/6a6a621c978145ad9eef2b221d2cf21d">Worklist App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/2da220ff496c4b0f9ce29208cbd089f3">Step 5: Adding Actions to the Worklist</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/c73dfe312f104664954749c5c36faf27">Step 7: Adding a Comments Section</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

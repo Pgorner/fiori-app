@@ -1,0 +1,52 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form" >
+    <f:SimpleForm title="{i18n>standardModify.matcher}" layout="ResponsiveGridLayout" >
+        <MessageStrip
+            text="{i18n>standardModify.message}"
+            showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom" >
+        </MessageStrip >
+        <Label text="{i18n>standardModify.targetUrl}" />
+        <Input value="{/standard/identificationUrl}" />
+        <Button text="{i18n>standardModify.sync}" press="onSyncUrls" icon="sap-icon://synchronize" />
+        <Label text="{i18n>standardModify.targetContentProvider}" />
+        <Input value="{/standard/contentProviderId}" />
+    </f:SimpleForm >
+
+    <f:SimpleForm title="{i18n>standardModify.update}" layout="ResponsiveGridLayout" >
+        <Label text="{i18n>standard.targetUrl}" />
+        <Input value="{/standard/bookmarkedUrl}" />
+        <Label text="{i18n>standard.title}" />
+        <Input value="{/standard/title}">
+            <customData>
+                <core:CustomData key="help-id" value="BookmarkSample-inputTitle" writeToDom="true" />
+            </customData>
+        </Input>
+        <Label text="{i18n>standard.subtitle}" />
+        <Input value="{/standard/subtitle}" />
+        <Button text="{i18n>standardModify.useStamp}" press="onResetSubtitle" icon="sap-icon://present" />
+        <Label text="{i18n>standard.info}" />
+        <Input value="{/standard/info}" />
+        <Label text="{i18n>standard.icon}" />
+        <Input value="{/standard/icon}" />
+        <core:Icon src="{/standard/icon}" size="32px" />
+        <Button text="{i18n>common.iconExplorer}" press="onOpenIconExplorer"/>
+        <Label text="{i18n>standard.numberUnit}" />
+        <Input value="{/standard/numberUnit}" />
+        <Label text="{i18n>standard.serviceUrl}" />
+        <Input value="{/standard/serviceUrl}" />
+        <Label text="{i18n>standard.refreshInterval}" />
+        <Input value="{/standard/serviceRefreshInterval}" />
+    </f:SimpleForm >
+
+    <Button id="countBookmarkButton"
+        text="Count{= ${/standard/bookmarkCount} === null ? '' : ': ' + ${/standard/bookmarkCount} }"
+        press="onCountBookmark" icon="sap-icon://simulate" />
+    <Button id="updateBookmarkButton"
+        text="Update{= ${/standard/bookmarkUpdateCount} === null ? '' : ': ' + ${/standard/bookmarkUpdateCount} }"
+        press="onUpdateBookmark" icon="sap-icon://edit" class="sapUiTinyMarginBegin" />
+    <Button id="deleteBookmarkButton"
+        text="Delete{= ${/standard/bookmarkDeleteCount} === null ? '' : ': ' + ${/standard/bookmarkDeleteCount} }"
+        press="onDeleteBookmark" icon="sap-icon://delete" class="sapUiTinyMarginBegin" />
+</core:FragmentDefinition >

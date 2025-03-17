@@ -1,0 +1,34 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc689cd83e2524251a75d694b09263d07" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/gherkin-and-opa-page-objects-c689cd8.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Gherkin and OPA Page Objects</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Gherkin and OPA Page Objects</h2></div><div class="shortdesc">Gherkin is compatible with the concept of OPA5 page objects.</div><p>OPA5 page objects are a method for architecting integration testing to make test
+			components more intuitive and reusable. For more information about OPA page objects, see
+				<a href="topic/f2f843d375384d56bbf955a80ee66ab6" title="The page object design pattern supports UI-based tests with improved readability, fostering the don't repeat yourself (DRY) principle of software development that is aimed at reducing repetition of any kind of information." class="sap-doc">Structuring OPA Tests With Page Objects</a>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>You can find a sample implementation in the <span class="ph uicontrol">Samples</span> in the Demo
+			Kit at <a href="entity/sap.ui.test.Opa5/sample/sap.ui.core.sample.gherkin.GherkinWithPageObjects" title="entity/sap.ui.test.Opa5/sample/sap.ui.core.sample.gherkin.GherkinWithPageObjects" class="sap-doc" alt="entity/sap.ui.test.Opa5/sample/sap.ui.core.sample.gherkin.GherkinWithPageObjects">Using Gherkin with OPA5 Page
+				Objects</a>.</p></div></div><p>To make Gherkin work with page objects, you should load your OPA5 page objects in the
+			HTML bootstrap file, as shown in the sample. The only adaptation you need to make when
+			starting the Gherkin testing is to add the parameter
+				<code>generateMissingSteps</code> when calling
+				<code>opa5TestHarness.test</code>:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">opa5TestHarness.test({
+  featurePath: "GherkinWithPageObjects/Requirements1",
+  generateMissingSteps: true
+});
+</pre></div></div></section><p></p><p>This signals to Gherkin that if it cannot find a matching step definition in the steps
+			file then it should try to use an OPA5 page object call instead. In the example above,
+			no steps file is specified, which means that Gherkin will expect to make a page object
+			call for each test step. You could also take a hybrid approach where each test step in
+			the feature file either matches a Gherkin step definition or executes an OPA5 page
+			object call. In addition, you can combine OPA5 page object calls with a Gherkin data
+			table or scenario outline to achieve powerful results (you can see both options in the
+			sample). Here is a sample feature file scenario that takes advantage of page
+			objects:</p><section class="nocode"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><code>#!feature</code>Scenario: Page 1 journey
+  When on the overview: I press on "Go to Page 1"
+  Then on page 1: I should see the page 1 text
+</pre></div></div></section><p></p><p>Use the Gherkin console logs to help you debug your OPA5 page object calls.</p><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+				</p><p>Chaining OPA5 page objects, for example,
+						<code>When.onTheOverview.iPressOnGoToPage1().and.onPage1.iShouldSeeThePage1Text()</code>
+					is currently <span class="emphasis">not</span> supported in Gherkin feature files.</p>
+			<p></p></div></div><p></p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

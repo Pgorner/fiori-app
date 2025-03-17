@@ -1,0 +1,57 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0715706772ed43f389d2ab9b381ef8ec" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/ids-in-declarative-fragments-0715706.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">IDs in Declarative Fragments</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">IDs in Declarative Fragments</h2></div><div class="shortdesc">If a fragment with a control ID is instantiated twice without giving an ID, a
+		duplicate ID error occurs.</div><p>Given the following XML fragment
+			example:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;HBox xmlns="sap.m"&gt;
+   &lt;Button                    text="Hello World" /&gt;
+   &lt;Button id="btnInFragment" text="Hello World" /&gt;
+&lt;/HBox&gt;</pre></div></div></section><p></p><p>Since 1.93 the <code>loadFragment</code> method is available on every controller instance (<code>sap.ui.core.mvc.Controller</code>
+			or subclasses). Using this API makes accessing the resulting controls much easier, because the IDs of the fragment content is
+			automatically prefixed by the view ID.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/Controller"], function(Controller){
+
+   return Controller.extend({
+
+      onInit: function(){
+         this.loadFragment({
+            name: "my.useful.UiPartZ"
+         }).then(function(oFragment){
+            // ...
+         }); // Button ID will be prefixed by the view ID
+      }
+   })
+  
+});</pre></div></div></section><p>You can also pass an additional ID for the fragment content:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/Controller"], function(Controller){
+
+   return Controller.extend({
+
+      onInit: function(){
+         this.loadFragment({
+            id: "myFragment"
+            name: "my.useful.UiPartZ",
+         }).then(function(oFragment){
+            // ...
+         }); // Button ID will be prefixed by the view ID and the fragment ID
+      }
+   })
+  
+});</pre></div></div></section><p>In case the fragment should be called by a non-controller instance artefact, you have to choose the already existing
+				<code>Fragment.load</code> API. Here, you have more flexibility with more options to configure.</p><p>The first button will always have a generated ID, as, for instance, <code>__button2</code>. This is regardless of how the fragment is
+			instantiated or whether it resides inside a view. </p><p>The second button will either have the ID <code>btnInFragment</code>, in case the fragment is instantiated without giving an ID. This
+         approach is easy to use, but implies the risk of ID collisions when instantiated multiple times:
+         </p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/Fragment"], function(Fragment){
+   Fragment.load({
+      name: "my.useful.UiPartZ"
+   }).then(function(oFragment){
+      // ...
+   }); // Button ID will not be prefixed
+});</pre></div></div></section><p></p><p>The other possible ID of the second button is <code>myFragment--btnInFragment</code>, in case the fragment is instantiated giving the ID
+            <code>myFragment</code>. You should not rely on the exact syntax of this prefixing.
+         </p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/Fragment"], function(Fragment){
+   Fragment.load({
+      name: "my.useful.UiPartZ",
+      id: "myFragment"
+   }).then(function(oFragment){
+      // ...
+   });
+});</pre></div></div></section><p></p><p>It is, however, possible that a containing view may add its prefix. For more information,
+			see <a href="topic/f10bf709b05f4adea8f8b8ad9a840247" title="For fragments that are used within declarative views, generated IDs are not prefixed." class="sap-doc">IDs of Fragments in Views</a>.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

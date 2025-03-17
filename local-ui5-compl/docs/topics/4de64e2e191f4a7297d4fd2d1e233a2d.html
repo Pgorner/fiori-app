@@ -1,0 +1,74 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4de64e2e191f4a7297d4fd2d1e233a2d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/prevention-of-cross-site-scripting-4de64e2.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Prevention of Cross-site Scripting</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Prevention of Cross-site Scripting</h2></div><div class="shortdesc">Cross-site scripting (XSS) can be prevented by ensuring that it is
+			<span class="emphasis">not</span> possible to inject script code into an application page that
+		runs in a browser.</div><p>Controls must prohibit writing scripts to the page that comes from the application or from
+			business data saved by a different user. To ensure this, the following two measures must
+			be combined:</p><ul class="ul ">
+			<li class="li">
+				<p>Validation of typed control properties</p>
+				<p>SAPUI5 core validates the value
+					of properties set by the application against the type of the property. This
+					guarantees that an <code>int</code> is always an <code>int</code>, and a
+						<code>sap/ui/core/library.CSSSize</code> is a string representing a CSS
+					size and does <span class="emphasis">not</span> contain a script tag. This also applies
+					to enumerations and control IDs. The control renderer can rely on this check
+					when writing the HTML. Property values that are typed in this way can be written
+					without escaping.</p>
+			</li>
+			<li class="li">
+				<p>Escaping</p>
+				<p>Control developers must ensure that string control properties and other values coming from
+					the application and not sufficiently typed to rule out script tags being
+					contained are escaped when written to the HTML. For this, the
+						<code>sap/ui/core/RenderManager</code> and SAPUI5 core provide
+					helper methods.</p>
+			</li>
+		</ul><section>
+			<h2 class="title ">Avoiding XSS for a New Renderer</h2>
+			<p>To ensure maximum security for a renderer, note the following:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>For control properties, always use the most specific type that is available. For example,
+						use <code>sap.ui.core.CSSSize</code> instead of <code>string</code>
+						and instead of <code>sap/ui/core/library.string</code> for control
+						properties that refer to a CSS size.</p>
+				</li>
+				<li class="li">
+					<p>Use helper methods from the <code>RenderManager</code> instance (used below as
+							<code>oRenderManager</code>), which is provided to the
+							<code>render</code> method of the respective renderer to escape the
+						value of a string property that is written to the HTML:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>Use <code>oRenderManager.writeEscaped(oControl.getSomeStringProperty()</code> instead
+								of just <code>write(...)</code> for writing plainly to the
+								HTML.</p>
+						</li>
+						<li class="li">
+							<p>Use <code>oRenderManager.writeAttributeEscaped("someHtmlProperty",
+									oControl.getSomeStringProperty())</code> instead of just
+									<code>writeAttribute(...)</code> for writing attributes.</p>
+						</li>
+						<li class="li">
+							<p>Use <code>sap/base/security/encodeXML</code> for string properties where none of the
+								other two options is possible to escape the string and then process
+								it further.</p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>Check your HTML coding whether application values can make their way into the HTML:</p>
+					<ul class="ul ">
+						<li class="li">Check where the variable values come from: Can the application set a value directly or
+							only decide which of the hardcoded values are used?</li>
+						<li class="li">Escape values given in parameters in method calls of controls because they are currently
+							not validated by SAPUI5
+							core.</li>
+						<li class="li">Keep in mind that XSS can happen anywhere and anytime in CSS classes, or in styles.</li>
+					</ul>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f0bd316f4d1014b6dd926db0e91070" title="Cross-site scripting (XSS) is a widely known vulnerability most web sites have. This page does not provide general information about cross-site scripting but focuses on what you as an application developer using SAPUI5 can do to avoid these security issues." class="sap-doc">Cross-Site Scripting</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,452 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioe219fd0c85b842c69ac3a514e712ece5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/micro-chart-facet-e219fd0.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Micro Chart Facet</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Micro Chart Facet</h2></div><div class="shortdesc">You can add a <code>MicroChart</code> control to a facet within the header area
+        of
+        the object page.</div><p>A micro chart facet contains a title, subtitle, <code>MicroChart</code> control, and a footer. The <code>MicroChart</code> control supports
+            several
+            types of micro charts in the object page header, as shown in the following
+            image:</p><section id="section_ctg_wf3_nlb">
+            <div class="imagemap_tooltips light-overlays" data-static-type="false">
+                
+                
+                <p>
+                
+                </p><p>This image is interactive. Hover over each area for a description. Click highlighted areas
+								for more information
+							</p><div class="imagemap fig"><img src="loio7e0b23a40ed842bc9a0c258304629539_LowRes.png" usemap="#imagemap_pt4_gsp_btb"><map name="imagemap_pt4_gsp_btb"><area shape="rect" coords="670,95,833,240" originalcoords="670,95,833,240" alt="1467f2bc79874281ac152c1e15f133f5.xml" title="Area Micro Chart" href="topic/1467f2bc79874281ac152c1e15f133f5" class="sap-doc"><area shape="rect" coords="145,98,319,237" originalcoords="145,98,319,237" alt="b91516684a8641b2964c2380c9ea94df.xml" title="Bullet Micro Chart" href="topic/b91516684a8641b2964c2380c9ea94df" class="sap-doc"><area shape="rect" coords="34,243,231,366" originalcoords="34,243,231,366" alt="51eb56989df94267a75ebeff24093a5e.xml" title="Radial Micro Chart" href="topic/51eb56989df94267a75ebeff24093a5e" class="sap-doc"><area shape="rect" coords="1065,95,1253,240" originalcoords="1065,95,1253,240" alt="e5cb2afe0e484e4b803b0c82190895de.xml" title="Line Micro Chart" href="topic/e5cb2afe0e484e4b803b0c82190895de" class="sap-doc"><area shape="rect" coords="494,96,665,240" originalcoords="494,96,665,240" alt="1a4ecb81be1940959d2aaa4eb7547567.xml" title="Column Micro Chart" href="topic/1a4ecb81be1940959d2aaa4eb7547567" class="sap-doc"><area shape="rect" coords="839,96,1062,239" originalcoords="839,96,1062,239" alt="de4f8bf44b9846ccace1d78f3915aa81.xml" title="Harvey Micro Chart" href="topic/de4f8bf44b9846ccace1d78f3915aa81" class="sap-doc"><area shape="rect" coords="238,244,425,366" originalcoords="238,244,425,366" alt="9c938378cf4245e9903e806cb4d41d97.xml" title="Stacked Bar Micro Chart" href="topic/9c938378cf4245e9903e806cb4d41d97" class="sap-doc"><area shape="rect" coords="326,99,490,237" originalcoords="326,99,490,237" alt="9d126f1d92d34c178d9686b0cf12800a.xml" title="Comparison Micro Chart" href="topic/9d126f1d92d34c178d9686b0cf12800a" class="sap-doc"></map></div>
+            </div>
+            <p>To add a micro chart facet, in the local annotations file,
+                you must
+                add a <code>UI.HeaderFacets</code> term
+                along
+                with the complex type <code>UI.ReferenceFacet</code>,
+                and reference the <code>UI.Chart</code> as shown in the following sample
+                code:</p>
+            <section>
+                <h3 class="title "><code>UI.HeaderFacets</code> and <code>UI.ReferenceFacet</code></h3>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                    </p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_PROD_MAN.STTA_C_MP_ProductType"&gt;
+    &lt;Annotation Term="UI.HeaderFacets"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="UI.ReferenceFacet"&gt;
+                &lt;PropertyValue Property="Target" AnnotationPath="to_ProductSalesPrice/@UI.Chart"/&gt;
+            &lt;/Record&gt;
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section>
+                <p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view STTA_C_MP_PRODUCT with {
+@UI.Facet: [
+  {
+    targetElement: 'TO_PRODUCTSALESPRICE',
+    type: #CHART_REFERENCE,
+    purpose: #HEADER
+  }
+]
+
+product;
+}
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_PROD_MAN.STTA_C_MP_ProductType with @(
+  UI.HeaderFacets : [
+    {
+        $Type : 'UI.ReferenceFacet',
+        Target : 'to_ProductSalesPrice/@UI.Chart'
+    }
+  ]
+);
+</pre></div></div></section><p></p></div></div>
+            </section>
+            <section>
+                <h3 class="title "><code>UI.Chart</code> Annotations</h3>
+                <p>The <code>UI.Chart Title</code> property is used for the title. The <code>UI.Chart
+                        Description</code> property is used for the subtitle.</p>
+                
+            </section>
+            <section>
+                <h3 class="title "><code>UI.DataPoint</code> Annotation</h3>
+                <p>The <code>DataPoint</code> property of
+                    <code>MeasureAttributes</code>
+                    in
+                    the <code>Chart</code> annotation
+                    must
+                    point to the <code>UI.DataPoint</code> annotation. </p>
+                <p>The micro chart supports both the <code>Criticality</code> and <code>CriticalityCalculation</code> properties of a <code>UI.DataPoint</code>.
+                    </p>
+                
+                
+                <p>For more information about how to use the <code>CriticalityCalculation</code> property, see the annotation examples in <a href="topic/1467f2bc79874281ac152c1e15f133f5" title="An area micro chart is a trend chart." class="sap-doc">Area Micro Chart</a>. For more information about how to use the <code>Criticality</code> property, see the annotation
+                    examples in <a href="topic/b91516684a8641b2964c2380c9ea94df" title="The bullet chart features a single, primary measure (for example, current year-to-date revenue)." class="sap-doc">Bullet Micro Chart</a>.</p>
+                
+            </section>
+            <section>
+                <h3 class="title ">Unit of Measure Annotations</h3>
+                
+                <p>The unit of measure is displayed in the footer of the micro chart. The following sample code provides an annotation for specifying the unit of measure. The
+                    sample code uses the <code>Measures.ISOCurrency</code> term, which is applied to the entity type property that serves as the value property of
+                        <code>UI.DataPoint</code>.</p>
+                
+                
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="STTA_PROD_MAN.STTA_C_MP_ProductSalesPriceType/AreaChartPrice"&gt;
+     &lt;Annotation Term="Measures.ISOCurrency" Path="Currency"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@Semantics.amount.currencyCode: 'Currency'
+AreaChartPrice;
+@Semantics.currencyCode:true
+Currency;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_PROD_MAN.STTA_C_MP_ProductSalesPriceType with {
+	@Measures.ISOCurrency : Currency
+	AreaChartPrice
+</pre></div></div></section><p></p></div></div>
+            </section>
+        </section><section id="section_l5h_1qp_btb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>The template doesn't support the use of navigation properties in the <code>UI.Chart</code> term for the micro chart, as shown in the following sample
+                    code:</p>
+                <div><div class="fig"><img src="loio02debb6e41424ba09ea3cc6ef0005ff7_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Navigation Property</h2></span></div>
+            <p></p></div></div></div></section><section id="section_nhk_hqp_btb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>You can enable both in-page and external navigation from the micro chart title. For more information, see <a href="topic/fa0ca22de375490a84aa3375b617592f" title="Applications can configure header facets so that end users can perform both in-page navigation and the navigation to an external application." class="sap-doc">Navigation from Header Facet Title</a>.</p><p>We also support the comparison micro chart.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>We don't support the use of navigation properties, such as the one highlighted in the following sample code:</p>
+                <div><div class="fig"><img src="loiod2168a4b4c0e4d419c8fa620a22e2394_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Navigation Property </h2></span></div>
+            <p></p></div></div><div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+                </p><p>Micro charts require data that is aggregated by the back end, as the
+                    client-side doesn't support aggregating the entity sets. </p>
+                <p>For example, there is an entity that is linked with a micro chart that
+                    has multiple records with the values 'Purchase' and
+                    'Sales'. In this case, the back end must aggregate the 'Sales' value and ensure that the entity has only one record for each 'Purchase' value. This behavior is
+                    unlike the behavior of regular charts or analytical tables, where SAP Fiori elements for OData
+                            V4 initiates an
+                    aggregation call to the back end for the aggregated 'Sales' value.</p>
+            <p></p></div></div><p>You can annotate a micro chart and use it as a facet, as shown in the following sample code: </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.BookingType"&gt;
+    &lt;Annotation Term="SAP__UI.DataPoint" Qualifier="FlightPrice"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Value" Path="FlightPrice"/&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+    &lt;Annotation Term="SAP__UI.Chart" Qualifier="FlightPrice"&gt;
+        &lt;Record Type="SAP__UI.ChartDefinitionType"&gt;
+            &lt;PropertyValue Property="ChartType" EnumMember="SAP__UI.ChartType/Column"/&gt;
+            &lt;PropertyValue Property="Title" String="Flight Price"/&gt;
+            &lt;PropertyValue Property="Measures"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;FlightPrice&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="MeasureAttributes"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="SAP__UI.ChartMeasureAttributeType"&gt;
+                        &lt;PropertyValue Property="DataPoint" AnnotationPath="@SAP__UI.DataPoint#FlightPrice"/&gt;
+                        &lt;PropertyValue Property="Role" EnumMember="SAP__UI.ChartMeasureRoleType/Axis1"/&gt;
+                        &lt;PropertyValue Property="Measure" PropertyPath="FlightPrice"/&gt;
+                    &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="Dimensions"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;FlightDate&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+
+&lt;Annotations Target="SAP__self.TravelType"&gt;
+    &lt;Annotation Term="SAP__UI.HeaderFacets"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="SAP__UI.ReferenceFacet"&gt;
+                &lt;PropertyValue Property="ID" String="FlightPrice"/&gt;
+                &lt;PropertyValue Property="Target" AnnotationPath="_Booking/@SAP__UI.Chart#FlightPrice"/&gt;
+            &lt;/Record&gt;
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//@Scope: [VIEW] ("TRAVEL")
+annotate view VIEWNAME with
+{
+  @UI.facet: [ {
+    targetElement: '_Booking',
+    targetQualifier: 'FlightPrice',
+    type: #CHART_REFERENCE,
+    purpose: #HEADER
+  } ]
+  ...
+}
+
+//@Scope: [ENTITY] ("BOOKING")
+@UI: {
+  chart: [ {
+    title: 'Flight Price',
+    qualifier: 'FlightPrice', 
+    chartType: #COLUMN,
+    measures: [
+      'FlightPrice'
+    ],
+    measureAttributes: [
+      {
+        measure: 'FlightPrice',
+        role: #AXIS_1,
+        asDataPoint: true
+      }
+    ],
+    dimensions: [
+      'FlightDate'
+    ]
+  } ]
+}
+
+//@Scope: [VIEW] ("BOOKING")
+annotate view VIEWNAME with
+{
+  ...
+  @UI.dataPoint: {
+    title: 'Flight Price'
+  }   
+  FlightPrice;
+  ...
+}</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  annotate Booking with @(UI: {
+    DataPoint #FlightPrice: {Value: FlightPrice},
+
+    Chart #FlightPrice    : {
+      $Type            : 'UI.ChartDefinitionType',
+      Title            : 'Flight Price',
+      ChartType        : #Column,
+      Measures         : [FlightPrice],
+      Dimensions       : [FlightDate],
+      MeasureAttributes: [{
+        $Type    : 'UI.ChartMeasureAttributeType',
+        Measure  : FlightPrice,
+        Role     : #Axis1,
+        DataPoint: '@UI.DataPoint#FlightPrice'
+      }]
+    },
+
+
+  });
+
+  annotate Travel with @(UI: {HeaderFacets: [{
+    $Type : 'UI.ReferenceFacet',
+    ID    : 'FlightPrice',
+    Target: '_Booking/@UI.Chart#FlightPrice'
+  }]});
+</pre></div></div></section><p></p></div></div><section>
+                <h3 class="title ">Applying Sort Order to Micro Charts</h3>
+                <p>You can apply a sort order to the micro chart data using the <code>UI.PresentationVariant</code>, choosing either ascending or descending order. The sorting
+                    option is applicable only for area micro charts, line micro charts, column micro charts, comparison micro charts, and stacked bar micro charts.</p>
+                <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                    </p><p>Micro charts consider only the <code>SortOrderType</code> property and ignore other properties in the <code>PresentationVariantType</code>.</p>
+                <p></p></div></div>
+                
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.BookingType"&gt;
+    &lt;Annotation Term="SAP__UI.DataPoint" Qualifier="FlightPrice"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="Value" Path="FlightPrice"/&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+    &lt;Annotation Term="SAP__UI.Chart" Qualifier="FlightPrice"&gt;
+        &lt;Record Type="SAP__UI.ChartDefinitionType"&gt;
+            &lt;PropertyValue Property="ChartType" EnumMember="SAP__UI.ChartType/Column"/&gt;
+            &lt;PropertyValue Property="Title" String="Flight Price"/&gt;
+            &lt;PropertyValue Property="Measures"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;FlightPrice&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="MeasureAttributes"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="SAP__UI.ChartMeasureAttributeType"&gt;
+                        &lt;PropertyValue Property="DataPoint" AnnotationPath="@SAP__UI.DataPoint#FlightPrice"/&gt;
+                        &lt;PropertyValue Property="Role" EnumMember="SAP__UI.ChartMeasureRoleType/Axis1"/&gt;
+                        &lt;PropertyValue Property="Measure" PropertyPath="FlightPrice"/&gt;
+                    &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="Dimensions"&gt;
+                &lt;Collection&gt;
+                    &lt;PropertyPath&gt;FlightDate&lt;/PropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+    &lt;Annotation Term="SAP__UI.PresentationVariant"&gt;
+        &lt;Record Type="SAP__UI.PresentationVariantType"&gt;
+            &lt;PropertyValue Property="SortOrder"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="SAP__Common.SortOrderType"&gt;
+                        &lt;PropertyValue Property="Property" PropertyPath="FlightPrice" /&gt;
+                        &lt;PropertyValue Property="Descending" Bool="false" /&gt;
+                    &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="Visualizations"&gt;
+                &lt;Collection&gt;
+                    &lt;AnnotationPath&gt;@SAP__UI.Chart#FlightPrice&lt;/AnnotationPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="SAP__self.TravelType"&gt;
+    &lt;Annotation Term="SAP__UI.HeaderFacets"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="SAP__UI.ReferenceFacet"&gt;
+                &lt;PropertyValue Property="ID" String="FlightPrice"/&gt;
+                &lt;PropertyValue Property="Target" AnnotationPath="_Booking/@SAP__UI.PresentationVariant"/&gt;
+            &lt;/Record&gt;
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//@Scope: [VIEW] ("TRAVEL")
+annotate view VIEWNAME with
+{
+  @UI.facet: [ {
+    targetElement: '_Booking',
+    type: #PRESENTATIONVARIANT_REFERENCE,
+    purpose: #HEADER
+  } ]
+  ...
+}
+
+//@Scope: [ENTITY] ("BOOKING")
+@UI: {
+  presentationVariant: [ {
+    sortOrder: [ {
+      by: 'FlightPrice',
+      direction: #ASC
+    } ],
+    visualizations: [ {
+      type: #AS_CHART,
+      qualifier: 'FlightPrice'
+    } ]
+  } ],
+  chart: [ {
+    title: 'Flight Price',
+    qualifier: 'FlightPrice', 
+    chartType: #COLUMN,
+    measures: [
+      'FlightPrice'
+    ],
+    measureAttributes: [
+      {
+        measure: 'FlightPrice',
+        role: #AXIS_1,
+        asDataPoint: true
+      }
+    ],
+    dimensions: [
+      'FlightDate'
+    ]
+  } ]
+}
+
+//@Scope: [VIEW] ("BOOKING")
+annotate view VIEWNAME with
+{
+  ...
+  @UI.dataPoint: {
+    title: 'Flight Price'
+  }   
+  FlightPrice;
+  ...
+}</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  annotate Booking with @(UI: {
+    DataPoint #FlightPrice: {Value: FlightPrice},
+
+    Chart #FlightPrice    : {
+      $Type            : 'UI.ChartDefinitionType',
+      Title            : 'Flight Price',
+      ChartType        : #Column,
+      Measures         : [FlightPrice],
+      Dimensions       : [FlightDate],
+      MeasureAttributes: [{
+        $Type    : 'UI.ChartMeasureAttributeType',
+        Measure  : FlightPrice,
+        Role     : #Axis1,
+        DataPoint: '@UI.DataPoint#FlightPrice'
+      }]
+    },
+
+    PresentationVariant   : {
+      Visualizations: ['@UI.Chart#FlightPrice'],
+      SortOrder     : [{
+        Property  : FlightPrice,
+        Descending: false
+      }],
+    }
+  });
+
+  annotate Travel with @(UI: {HeaderFacets: [{
+    $Type : 'UI.ReferenceFacet',
+    ID    : 'FlightPrice',
+    Target: '_Booking/@UI.PresentationVariant'
+  }]});
+</pre></div></div></section><p></p></div></div>
+                
+            </section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="topic/1467f2bc79874281ac152c1e15f133f5" title="An area micro chart is a trend chart." class="sap-doc">Area Micro Chart</a></li>
+        <li><a href="topic/b91516684a8641b2964c2380c9ea94df" title="The bullet chart features a single, primary measure (for example, current year-to-date revenue)." class="sap-doc">Bullet Micro Chart</a></li>
+        <li><a href="topic/51eb56989df94267a75ebeff24093a5e" title="Radial micro charts displays a single percentage value." class="sap-doc">Radial Micro Chart</a></li>
+        <li><a href="topic/e5cb2afe0e484e4b803b0c82190895de" title="A line chart is a basic type of chart used in many fields." class="sap-doc">Line Micro Chart</a></li>
+        <li><a href="topic/1a4ecb81be1940959d2aaa4eb7547567" title="A column chart uses vertical bars to compare multiple values over time or across categories." class="sap-doc">Column Micro Chart</a></li>
+        <li><a href="topic/de4f8bf44b9846ccace1d78f3915aa81" title="de4f8bf44b9846ccace1d78f3915aa81.xml" class="sap-doc">Harvey Micro Chart</a></li>
+        <li><a href="topic/9c938378cf4245e9903e806cb4d41d97" title="A stacked bar micro chart displays all the values from the back end for the configured measure as a percentage of the total measure value." class="sap-doc">Stacked Bar Micro Chart</a></li>
+        <li><a href="topic/9d126f1d92d34c178d9686b0cf12800a" title="A single measure value is shown against a maximum value. Only the first three values as received from the back end are shown." class="sap-doc">Comparison Micro Chart</a></li>
+    </ul></section></div></section></div></body></html>

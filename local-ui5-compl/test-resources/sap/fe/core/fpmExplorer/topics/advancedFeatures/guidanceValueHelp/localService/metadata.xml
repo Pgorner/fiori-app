@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+	<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+		<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1" />
+	</edmx:Reference>
+	<edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" />
+	</edmx:Reference>
+	<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1" />
+	</edmx:Reference>
+	<edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema Namespace="sap.fe.core.Service" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+			<EntityContainer Name="EntityContainer">
+				<EntitySet Name="RootEntity" EntityType="sap.fe.core.Service.RootEntity">
+					<NavigationPropertyBinding Path="_BusinessPartnerAddress_VHF1_2" Target="BusinessPartnerAddress2" />
+					<NavigationPropertyBinding Path="_BusinessPartnerAddress_VHF2_2" Target="BusinessPartnerAddress2" />
+					<NavigationPropertyBinding Path="_BusinessPartnerAddress_VHF3_1" Target="BusinessPartnerAddress2" />
+					<NavigationPropertyBinding Path="_BusinessPartnerAddress_VHF4_2" Target="BusinessPartnerAddress2" />
+					<NavigationPropertyBinding Path="_BusinessPartnerAddress_VHF5_1" Target="BusinessPartnerAddress2" />
+					<NavigationPropertyBinding Path="_BusinessPartnerAddress_VHF6_2" Target="BusinessPartnerAddress2" />
+					<NavigationPropertyBinding Path="_PartnerFunction" Target="PartnerFunction" />
+					<NavigationPropertyBinding Path="SiblingEntity" Target="RootEntity" />
+				</EntitySet>
+				<EntitySet Name="BusinessPartnerAddress" EntityType="sap.fe.core.Service.BusinessPartnerAddress" />
+				<EntitySet Name="BusinessPartnerAddress2" EntityType="sap.fe.core.Service.BusinessPartnerAddress2" />
+				<EntitySet Name="BusinessPartnerAddress3" EntityType="sap.fe.core.Service.BusinessPartnerAddress3" />
+				<EntitySet Name="Account" EntityType="sap.fe.core.Service.Account" />
+				<EntitySet Name="PartnerFunction" EntityType="sap.fe.core.Service.PartnerFunction" />
+				<EntitySet Name="AccBp" EntityType="sap.fe.core.Service.AccBp">
+					<NavigationPropertyBinding Path="_PartnerFunction" Target="PartnerFunction" />
+				</EntitySet>
+				<EntitySet Name="ValueListProperties" EntityType="sap.fe.core.Service.ValueListProperties" />
+				<EntitySet Name="ValueListDocumentation" EntityType="sap.fe.core.Service.ValueListDocumentation" />
+				<EntitySet Name="ValueListDocumentationDescription" EntityType="sap.fe.core.Service.ValueListDocumentationDescription" />
+			</EntityContainer>
+			<EntityType Name="RootEntity">
+				<Key>
+					<PropertyRef Name="ID" />
+					<PropertyRef Name="IsActiveEntity" />
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false" />
+				<Property Name="valueHelpField1_1" Type="Edm.String" />
+				<Property Name="valueHelpField1_2" Type="Edm.String" />
+				<NavigationProperty Name="_BusinessPartnerAddress_VHF1_2" Type="sap.fe.core.Service.BusinessPartnerAddress2">
+					<ReferentialConstraint Property="valueHelpField1_2" ReferencedProperty="BusinessPartner" />
+				</NavigationProperty>
+				<Property Name="valueHelpField2_1" Type="Edm.String" />
+				<Property Name="valueHelpField2_2" Type="Edm.String" />
+				<NavigationProperty Name="_BusinessPartnerAddress_VHF2_2" Type="sap.fe.core.Service.BusinessPartnerAddress2">
+					<ReferentialConstraint Property="valueHelpField2_2" ReferencedProperty="BusinessPartner" />
+				</NavigationProperty>
+				<Property Name="valueHelpField2_3" Type="Edm.String" />
+				<Property Name="valueHelpField3_1" Type="Edm.String" />
+				<NavigationProperty Name="_BusinessPartnerAddress_VHF3_1" Type="sap.fe.core.Service.BusinessPartnerAddress2">
+					<ReferentialConstraint Property="valueHelpField3_1" ReferencedProperty="BusinessPartner" />
+				</NavigationProperty>
+				<Property Name="valueHelpField4_1" Type="Edm.String" />
+				<Property Name="valueHelpField4_2" Type="Edm.String" />
+				<NavigationProperty Name="_BusinessPartnerAddress_VHF4_2" Type="sap.fe.core.Service.BusinessPartnerAddress2">
+					<ReferentialConstraint Property="valueHelpField4_2" ReferencedProperty="BusinessPartner" />
+				</NavigationProperty>
+				<Property Name="valueHelpField5_1" Type="Edm.String" />
+				<NavigationProperty Name="_BusinessPartnerAddress_VHF5_1" Type="sap.fe.core.Service.BusinessPartnerAddress2">
+					<ReferentialConstraint Property="valueHelpField5_1" ReferencedProperty="BusinessPartner" />
+				</NavigationProperty>
+				<Property Name="valueHelpField6_1" Type="Edm.String" />
+				<Property Name="valueHelpField6_2" Type="Edm.String" />
+				<NavigationProperty Name="_BusinessPartnerAddress_VHF6_2" Type="sap.fe.core.Service.BusinessPartnerAddress2">
+					<ReferentialConstraint Property="valueHelpField6_2" ReferencedProperty="BusinessPartner" />
+				</NavigationProperty>
+				<Property Name="valueHelpField7_1" Type="Edm.String" />
+				<Property Name="valueHelpField7_2" Type="Edm.String" />
+				<Property Name="valueHelpField7_3" Type="Edm.String" />
+				<Property Name="valueHelpField7_4" Type="Edm.String" />
+				<NavigationProperty Name="_PartnerFunction" Type="sap.fe.core.Service.PartnerFunction">
+					<ReferentialConstraint Property="valueHelpField7_4" ReferencedProperty="PartnerFunction" />
+				</NavigationProperty>
+				<Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+				<Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+				<Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+				<NavigationProperty
+					Name="DraftAdministrativeData"
+					Type="sap.fe.core.Service.DraftAdministrativeData"
+					ContainsTarget="true"
+				/>
+				<NavigationProperty Name="SiblingEntity" Type="sap.fe.core.Service.RootEntity" />
+			</EntityType>
+			<EntityType Name="BusinessPartnerAddress">
+				<Key>
+					<PropertyRef Name="BusinessPartner" />
+				</Key>
+				<Property Name="BusinessPartner" Type="Edm.String" Nullable="false" />
+				<Property Name="FullName" Type="Edm.String" />
+				<Property Name="CityName" Type="Edm.String" />
+				<Property Name="Country" Type="Edm.String" />
+				<Property Name="PostalCode" Type="Edm.String" />
+				<Property Name="StreetName" Type="Edm.String" />
+				<Property Name="HouseNumber" Type="Edm.String" />
+				<Property Name="Account" Type="Edm.String" />
+			</EntityType>
+			<EntityType Name="BusinessPartnerAddress2">
+				<Key>
+					<PropertyRef Name="BusinessPartner" />
+				</Key>
+				<Property Name="BusinessPartner" Type="Edm.String" Nullable="false" />
+				<Property Name="FullName" Type="Edm.String" />
+				<Property Name="CityName" Type="Edm.String" />
+				<Property Name="Country" Type="Edm.String" />
+				<Property Name="PostalCode" Type="Edm.String" />
+				<Property Name="StreetName" Type="Edm.String" />
+				<Property Name="HouseNumber" Type="Edm.String" />
+			</EntityType>
+			<EntityType Name="BusinessPartnerAddress3">
+				<Key>
+					<PropertyRef Name="BusinessPartner" />
+				</Key>
+				<Property Name="BusinessPartner" Type="Edm.String" Nullable="false" />
+				<Property Name="FullName" Type="Edm.String" />
+				<Property Name="CityName" Type="Edm.String" />
+				<Property Name="PostalCode" Type="Edm.String" />
+			</EntityType>
+			<EntityType Name="Account">
+				<Key>
+					<PropertyRef Name="Account" />
+				</Key>
+				<Property Name="Account" Type="Edm.String" Nullable="false" />
+				<Property Name="FullName" Type="Edm.String" />
+				<Property Name="CityName" Type="Edm.String" />
+				<Property Name="Country" Type="Edm.String" />
+			</EntityType>
+			<EntityType Name="PartnerFunction">
+				<Key>
+					<PropertyRef Name="PartnerFunction" />
+				</Key>
+				<Property Name="PartnerFunction" Type="Edm.String" Nullable="false" />
+				<Property Name="PartnerFunctionName" Type="Edm.String" />
+			</EntityType>
+			<EntityType Name="AccBp">
+				<Key>
+					<PropertyRef Name="Account" />
+					<PropertyRef Name="BusinessPartner" />
+				</Key>
+				<Property Name="Account" Type="Edm.String" Nullable="false" />
+				<Property Name="BusinessPartner" Type="Edm.String" Nullable="false" />
+				<Property Name="PartnerFunction" Type="Edm.String" />
+				<NavigationProperty Name="_PartnerFunction" Type="sap.fe.core.Service.PartnerFunction">
+					<ReferentialConstraint Property="PartnerFunction" ReferencedProperty="PartnerFunction" />
+				</NavigationProperty>
+			</EntityType>
+			<EntityType Name="ValueListProperties">
+				<Key>
+					<PropertyRef Name="Property" />
+				</Key>
+				<Property Name="Property" Type="Edm.String" Nullable="false" />
+				<Property Name="PropertyType" Type="Edm.String" />
+				<Property Name="Description" Type="Edm.String" />
+			</EntityType>
+			<EntityType Name="ValueListDocumentation">
+				<Key>
+					<PropertyRef Name="Description" />
+				</Key>
+				<Property Name="Description" Type="Edm.String" Nullable="false" />
+				<Property Name="Link" Type="Edm.String" />
+			</EntityType>
+			<EntityType Name="ValueListDocumentationDescription">
+				<Key>
+					<PropertyRef Name="Description" />
+				</Key>
+				<Property Name="Description" Type="Edm.String" Nullable="false" />
+			</EntityType>
+			<EntityType Name="DraftAdministrativeData">
+				<Key>
+					<PropertyRef Name="DraftUUID" />
+				</Key>
+				<Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" />
+				<Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+				<Property Name="CreatedByUser" Type="Edm.String" MaxLength="256" />
+				<Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" />
+				<Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+				<Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256" />
+				<Property Name="InProcessByUser" Type="Edm.String" MaxLength="256" />
+				<Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" />
+			</EntityType>
+			<Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+				<Parameter Name="in" Type="sap.fe.core.Service.RootEntity" />
+				<Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+				<ReturnType Type="sap.fe.core.Service.RootEntity" />
+			</Action>
+			<Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+				<Parameter Name="in" Type="sap.fe.core.Service.RootEntity" />
+				<ReturnType Type="sap.fe.core.Service.RootEntity" />
+			</Action>
+			<Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+				<Parameter Name="in" Type="sap.fe.core.Service.RootEntity" />
+				<Parameter Name="PreserveChanges" Type="Edm.Boolean" />
+				<ReturnType Type="sap.fe.core.Service.RootEntity" />
+			</Action>
+			<Annotations Target="sap.fe.core.Service.RootEntity">
+				<Annotation Term="UI.FieldGroup" Qualifier="Example1">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Label" String="Example1" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField1_1" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField1_2" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="Example2">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Label" String="Example2" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField2_1" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField2_2" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField2_3" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="Example2a">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Label" String="Example2a" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField3_1" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="Example3">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Label" String="Example3" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField4_1" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField4_2" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="Example4">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Label" String="Example4" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField5_1" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="Example5">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Label" String="Example5" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField6_1" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField6_2" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="Example7">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Label" String="Example7" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField7_1" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField7_2" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField7_3" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="valueHelpField7_4" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.EntityContainer/RootEntity">
+				<Annotation Term="Common.DraftRoot">
+					<Record Type="Common.DraftRootType">
+						<PropertyValue Property="ActivationAction" String="sap.fe.core.Service.draftActivate" />
+						<PropertyValue Property="EditAction" String="sap.fe.core.Service.draftEdit" />
+						<PropertyValue Property="PreparationAction" String="sap.fe.core.Service.draftPrepare" />
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/ID">
+				<Annotation Term="Core.Computed" Bool="true" />
+				<Annotation Term="Common.Label" String="Identifier" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField1_1">
+				<Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField1_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 1_1" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField1_2">
+				<Annotation Term="Common.Text" Path="_BusinessPartnerAddress_VHF1_2/FullName" />
+				<Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField1_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 1_2" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField2_1">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField2_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CityName" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 2_1" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField2_2">
+				<Annotation Term="Common.Text" Path="_BusinessPartnerAddress_VHF2_2/FullName" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField2_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 2_2" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField2_3">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress3" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField2_3" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="PostalCode" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 2_3" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField3_1">
+				<Annotation Term="Common.Text" Path="_BusinessPartnerAddress_VHF3_1/FullName" />
+				<Annotation Term="Common.ValueListForValidation" String="" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField3_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 3_1" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField4_1">
+				<Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField4_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 4_1" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField4_2">
+				<Annotation Term="Common.ValueListRelevantQualifiers">
+					<Collection>
+						<If>
+							<Or>
+								<Eq>
+									<Path>valueHelpField4_1</Path>
+									<String>17100001</String>
+								</Eq>
+								<Eq>
+									<Path>valueHelpField4_1</Path>
+									<String>17100006</String>
+								</Eq>
+							</Or>
+							<String>qualifier2</String>
+							<String />
+						</If>
+					</Collection>
+				</Annotation>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField4_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="qualifier2">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address 2" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField4_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CityName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 4_2" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField5_1">
+				<Annotation Term="Common.Text" Path="_BusinessPartnerAddress_VHF5_1/FullName" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField5_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="qualifier2">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address 2" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField5_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="qualifier3">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address 3" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField5_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="PostalCode" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CityName" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 5_1" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField6_1">
+				<Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField6_1" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 6_1" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField6_2">
+				<Annotation Term="Common.Text" Path="_BusinessPartnerAddress_VHF6_2/FullName" />
+				<Annotation Term="Common.ValueListRelevantQualifiers">
+					<Collection>
+						<If>
+							<Eq>
+								<Path>valueHelpField6_1</Path>
+								<String>17100001</String>
+							</Eq>
+							<String>qualifier102</String>
+						</If>
+						<If>
+							<Eq>
+								<Path>valueHelpField6_1</Path>
+								<String>17100001</String>
+							</Eq>
+							<String>qualifier103</String>
+						</If>
+						<If>
+							<Eq>
+								<Path>valueHelpField6_1</Path>
+								<String>17100006</String>
+							</Eq>
+							<String>qualifier103</String>
+						</If>
+						<If>
+							<Eq>
+								<Path>valueHelpField6_1</Path>
+								<String>17100006</String>
+							</Eq>
+							<String>qualifier104</String>
+						</If>
+						<If>
+							<And>
+								<Ne>
+									<Path>valueHelpField6_1</Path>
+									<String>17100001</String>
+								</Ne>
+								<Ne>
+									<Path>valueHelpField6_1</Path>
+									<String>17100006</String>
+								</Ne>
+							</And>
+							<String />
+						</If>
+					</Collection>
+				</Annotation>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField6_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="qualifier102">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address 2" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField6_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="qualifier103">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address 3" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField6_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CityName" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueList" Qualifier="qualifier104">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address 4" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField6_2" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CityName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="StreetName" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Value Help Field 6_2" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField7_1">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="Account" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField7_1" />
+									<PropertyValue Property="ValueListProperty" String="Account" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField7_2" />
+									<PropertyValue Property="ValueListProperty" String="FullName" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CityName" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Country" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Account ID" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField7_2">
+				<Annotation Term="Common.Label" String="Account Full Name" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField7_3">
+				<Annotation Term="Common.ValueListForValidation" String="" />
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Business Partner Address" />
+						<PropertyValue Property="CollectionPath" String="BusinessPartnerAddress" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField7_3" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField7_1" />
+									<PropertyValue Property="ValueListProperty" String="Account" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="CityName" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Business Partner" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/valueHelpField7_4">
+				<Annotation Term="Common.Text" Path="_PartnerFunction/PartnerFunctionName">
+					<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly" />
+				</Annotation>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="Label" String="Partner Function" />
+						<PropertyValue Property="CollectionPath" String="AccBp" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField7_4" />
+									<PropertyValue Property="ValueListProperty" String="PartnerFunction" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterIn">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField7_1" />
+									<PropertyValue Property="ValueListProperty" String="Account" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="valueHelpField7_3" />
+									<PropertyValue Property="ValueListProperty" String="BusinessPartner" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="_PartnerFunction/PartnerFunctionName" />
+									<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="Partner Function" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/IsActiveEntity">
+				<Annotation Term="UI.Hidden" Bool="true" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/HasActiveEntity">
+				<Annotation Term="UI.Hidden" Bool="true" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/HasDraftEntity">
+				<Annotation Term="UI.Hidden" Bool="true" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.RootEntity/DraftAdministrativeData">
+				<Annotation Term="UI.Hidden" Bool="true" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/BusinessPartner">
+				<Annotation Term="Common.Label" String="Business Partner" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/FullName">
+				<Annotation Term="Common.Label" String="Name" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/CityName">
+				<Annotation Term="Common.Label" String="City" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/Country">
+				<Annotation Term="Common.Label" String="Country" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/PostalCode">
+				<Annotation Term="Common.Label" String="Postal Code" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/StreetName">
+				<Annotation Term="Common.Label" String="Street Name" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/HouseNumber">
+				<Annotation Term="Common.Label" String="House Number" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress/Account">
+				<Annotation Term="Common.Label" String="Account" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress2/BusinessPartner">
+				<Annotation Term="Common.Text" Path="FullName">
+					<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst" />
+				</Annotation>
+				<Annotation Term="Common.Label" String="Business Partner" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress2/FullName">
+				<Annotation Term="Common.Label" String="Name" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress2/CityName">
+				<Annotation Term="Common.Label" String="City" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress2/Country">
+				<Annotation Term="Common.Label" String="Country" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress2/PostalCode">
+				<Annotation Term="Common.Label" String="Postal Code" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress2/StreetName">
+				<Annotation Term="Common.Label" String="Street Name" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress2/HouseNumber">
+				<Annotation Term="Common.Label" String="House Number" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.EntityContainer/BusinessPartnerAddress3">
+				<Annotation Term="Capabilities.SearchRestrictions">
+					<Record Type="Capabilities.SearchRestrictionsType">
+						<PropertyValue Property="Searchable" Bool="false" />
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress3/BusinessPartner">
+				<Annotation Term="Common.Label" String="Business Partner" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress3/FullName">
+				<Annotation Term="Common.Label" String="Name" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress3/CityName">
+				<Annotation Term="Common.Label" String="City" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.BusinessPartnerAddress3/PostalCode">
+				<Annotation Term="Common.Label" String="Postal Code" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.Account/Account">
+				<Annotation Term="Common.Label" String="Account" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.Account/FullName">
+				<Annotation Term="Common.Label" String="Name" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.Account/CityName">
+				<Annotation Term="Common.Label" String="City" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.Account/Country">
+				<Annotation Term="Common.Label" String="Country" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.PartnerFunction/PartnerFunction">
+				<Annotation Term="Common.Text" Path="PartnerFunctionName" />
+				<Annotation Term="Common.Label" String="PF" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.PartnerFunction/PartnerFunctionName">
+				<Annotation Term="Common.Label" String="Partner Function" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.AccBp/Account">
+				<Annotation Term="Common.Label" String="Account" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.AccBp/BusinessPartner">
+				<Annotation Term="Common.Label" String="Business Partner" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.AccBp/PartnerFunction">
+				<Annotation Term="Common.Text" Path="_PartnerFunction/PartnerFunctionName" />
+				<Annotation Term="Common.Label" String="PF" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.ValueListProperties/Property">
+				<Annotation Term="Common.Label" String="Property" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.ValueListProperties/PropertyType">
+				<Annotation Term="Common.Label" String="Type" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.ValueListProperties/Description">
+				<Annotation Term="Common.Label" String="Description" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.ValueListDocumentation/Description">
+				<Annotation Term="Common.Label" String="Description" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.ValueListDocumentation/Link">
+				<Annotation Term="Common.Label" String="Link" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.ValueListDocumentationDescription/Description">
+				<Annotation Term="Common.Label" String="Annotation" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData">
+				<Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/DraftUUID">
+				<Annotation Term="UI.Hidden" Bool="true" />
+				<Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/CreationDateTime">
+				<Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/CreatedByUser">
+				<Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/DraftIsCreatedByMe">
+				<Annotation Term="UI.Hidden" Bool="true" />
+				<Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/LastChangeDateTime">
+				<Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/LastChangedByUser">
+				<Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/InProcessByUser">
+				<Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}" />
+			</Annotations>
+			<Annotations Target="sap.fe.core.Service.DraftAdministrativeData/DraftIsProcessedByMe">
+				<Annotation Term="UI.Hidden" Bool="true" />
+				<Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}" />
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

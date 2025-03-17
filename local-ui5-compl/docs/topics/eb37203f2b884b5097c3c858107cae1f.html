@@ -1,0 +1,283 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioeb37203f2b884b5097c3c858107cae1f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/extension-points-for-views-in-the-list-report-eb37203.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Extension Points for Views in the List Report</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Extension Points for Views in the List Report</h2></div><div class="shortdesc">You can use extension points to enhance views in the list report in SAP Fiori elements apps.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+            </p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V4.</p>
+        <p></p></div></div><section id="section_nb5_455_3qb">
+            <h2 class="title ">Using Custom Views in the List Report</h2>
+            <p>App developers can display custom content in a dedicated tab together with regular tabs defined through annotations.</p>
+            <div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+                </p><p>To use custom views in the list report, you need to have at least 1 annotation view.</p>
+            <p></p></div></div>
+            <p>Custom views provide the following features:</p>
+            <ul class="ul ">
+                <li class="li">
+                    <p>simple configuration by declaring custom tabs in the manifest as views (similar to views corresponding to the
+                            <code>PresentationVariant</code> or <code>SelectionPresentationVariant</code> defined via annotations)</p>
+                </li>
+                <li class="li">
+                    <p>adding a custom XML view (via an <code>xmlfragment</code> definition) along with a custom handler called from the manifest,
+                        if neessary</p>
+                </li>
+                <li class="li">
+                    <p>defining a controller extension for the list report</p>
+                </li>
+                <li class="li">
+                    <p>using a localized view title</p>
+                </li>
+            </ul>
+            <p>To define a custom view, the path configuration for the custom view in the manifest must reference a fragment name, a label for the
+                tab, and a key. The structure is as follows:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"BusinessPartnersList": {
+    "type": "Component",
+    "id": "BusinessPartnersList",
+    "name": "sap.fe.templates.ListReport",
+    "options": {
+        "settings": {
+            "contextPath": "/BusinessPartners",
+            "views": {
+                "paths": [
+                    {
+                        "key": "tab1",
+                        "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#All"
+                    },
+                    {
+                        "key": "tab2",
+                        "label": "Custom View with Table",
+                        "template": "BusinessPartners.ext.CustomViewTable"
+                    },
+                    {
+                        "key": "tab3",
+                        "label": "{i18n&gt;LRCustomViewWithButton}",
+                        "template": "BusinessPartners.ext.CustomViewWithButton"
+                    }
+                ],
+                "showCounts": true
+            }
+        }
+    }
+}</pre></div></div></section>
+            <p></p></div></div>
+            <p>Each view can contain any control users want to display on the tab. App developers manage the content of a custom tab. The previous
+                example configuration defines 2 custom tabs.</p>
+        </section><section id="section_vcy_p55_3qb">
+            <h2 class="title ">Settings for Custom Views</h2>
+            <p>You can define your custom view by using the following properties:</p>
+            <div class="tableWrapper "><div class="fig"><table border="1" id="table_ez5_pnv_3qb" class=" ">
+                    
+                    
+                    
+                    <thead>
+                        <tr>
+                            <th colspan="1" rowspan="1">Property Name</th>
+                            <th colspan="1" rowspan="1">Supported Values</th>
+                            <th colspan="1" rowspan="1">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="1" rowspan="1">key</td>
+                            <td colspan="1" rowspan="1">"&lt;unique_tab_id&gt;"</td>
+                            <td colspan="1" rowspan="1">Unique tab identifier.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">label</td>
+                            <td colspan="1" rowspan="1">"&lt;tab_title&gt;"</td>
+                            <td colspan="1" rowspan="1">View title (localization supported).</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" rowspan="1">template</td>
+                            <td colspan="1" rowspan="1">"&lt;name_of_custom_xml_view&gt;"</td>
+                            <td colspan="1" rowspan="1">The name contains <code>sap.app.id</code> as a prefix, followed by the path in the app/webapp folder and the
+                                name of the XML view.</td>
+                        </tr>
+                    </tbody>
+                </table></div></div>
+        </section><section id="section_bqy_p55_3qb">
+            <h2 class="title ">Defining the Custom Tab</h2>
+            <p>In the following sample code, a <code>sap.m.Table</code> has been added to a custom view:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"&gt;
+    &lt;Table id="customViewWithTable" items="{
+        path: '/BusinessPartners',
+        sorter: {
+            path: 'Name'
+        }
+    }"&gt;
+        &lt;headerToolbar&gt;
+            &lt;OverflowToolbar&gt;
+                &lt;content&gt;
+                    &lt;Title text="Business partners" level="H2" /&gt;
+                    &lt;ToolbarSpacer /&gt;
+                &lt;/content&gt;
+            &lt;/OverflowToolbar&gt;
+        &lt;/headerToolbar&gt;
+        &lt;infoToolbar&gt;
+            &lt;OverflowToolbar&gt;
+                &lt;Label text="List of business partners" /&gt;
+            &lt;/OverflowToolbar&gt;
+        &lt;/infoToolbar&gt;
+        &lt;columns&gt;
+            &lt;Column width="15em"&gt;
+                &lt;Text text="Partner Name" /&gt;
+            &lt;/Column&gt;
+            &lt;Column minScreenWidth="Tablet" demandPopin="true"&gt;
+                &lt;Text text="Country" /&gt;
+            &lt;/Column&gt;
+            &lt;Column minScreenWidth="Desktop" demandPopin="true" hAlign="End"&gt;
+                &lt;Text text="Region" /&gt;
+            &lt;/Column&gt;
+            &lt;Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"&gt;
+                &lt;Text text="Segment" /&gt;
+            &lt;/Column&gt;
+            &lt;Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"&gt;
+                &lt;Text text="Sales Amount" /&gt;
+            &lt;/Column&gt;
+            &lt;Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center"&gt;
+                &lt;Text text="Sales Amount (local currency)" /&gt;
+            &lt;/Column&gt;
+        &lt;/columns&gt;
+        &lt;items&gt;
+            &lt;ColumnListItem type="Active"&gt;
+                &lt;cells&gt;
+                    &lt;ObjectIdentifier text="{Name}" /&gt;
+                    &lt;Text text="{Country}" /&gt;
+                    &lt;Text text="{Region}" /&gt;
+                    &lt;Text text="{Segment}" /&gt;
+                    &lt;u:Currency value="{SalesAmount}" currency="{Currency}" /&gt;
+                    &lt;u:Currency value="{SalesAmountLocalCurrency}" currency="{LocalCurrency}" /&gt;
+                &lt;/cells&gt;
+            &lt;/ColumnListItem&gt;
+        &lt;/items&gt;
+    &lt;/Table&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section>
+            <p></p></div></div>
+            <p>In the following sample code, a simple button has been added inside a panel to a custom view:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core"&gt;
+    &lt;Panel
+        headerText="Business Partners"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        core:require="{handler: 'BusinessPartners/ext/CustomButton'}"
+    &gt;
+        &lt;content&gt;
+            &lt;Button text="IBN" id="customButton1" class="sapUiSmallMarginEnd" press="handler.onPress" /&gt;
+        &lt;/content&gt;
+    &lt;/Panel&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section>
+            <p></p></div></div>
+        </section><section id="section_rcz_p55_3qb">
+            <h2 class="title ">Custom Handler</h2>
+            <p>If a custom handler is required for the custom tab, you must define it in the fragment file using <code>"core:require"</code>. As
+                shown in the previous example, you can define a press handler on the <code>sap.m.Button</code>. In the corresponding custom
+                controller implementation shown in the following example, the binding context of the press event is used for displaying a message
+                box:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/Component"], function(Component) {
+    "use strict";
+ 
+    return {
+        someHandler: function(oEvent) {
+            // Do something here
+        },
+        onPress: function(oEvent) {
+            MessageBox.show("You pressed the custom action");
+        }
+    };
+});</pre></div></div></section>
+            <p></p></div></div>
+        </section><section id="section_hpz_p55_3qb">
+            <h2 class="title ">Using Filter Conditions in the Controller Extension for the List Report</h2>
+            <p>For app developers who want a standard filtering behavior along with other annotation tabs in the list report based on the
+                    <code>filterConditions</code> from the filter bar, SAP Fiori elements provides 2 methods that you can overwrite. The controller extension for the list report must be registered in the manifest. To
+                register the controller extension in the manifest, proceed as follows:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+    "extends": {
+        "extensions": {
+            "sap.ui.controllerExtensions": {
+                "sap.fe.templates.ListReport.ListReportController": {
+                    "controllerName": "SalesOrder.ext.LRExtend"
+                }
+            }
+        }
+    }
+}</pre></div></div></section>
+            <p></p></div></div>
+            <p>The methods app developers can use are:</p>
+            <ul class="ul ">
+                <li class="li">
+                    <p><code>onViewNeedsRefresh</code>: To be used to refresh the content of a custom tab in a list report view with multiple
+                        tabs. This happens either when there is a change on the filter bar and the search is triggered, or when a tab with custom
+                        content is selected. App developers can use the additional parameters added to this method to identify the refresh cause
+                            (<code>"tabChanged"</code> or <code>"search"</code>) and apply the filter conditions on a specific tab based on
+                        the ID of the tab.</p>
+                </li>
+                <li class="li">
+                    <p><code>onPendingFilters</code>: To be used when a filter or search value has been changed in the filter bar but has not been
+                        validated yet by the end user (using the <span class="ph uicontrol">Go</span> or <span class="ph uicontrol">Search</span> button). Typically, the
+                        content of the current tab is grayed out until the filters are validated.</p>
+                </li>
+            </ul>
+            <p>In the following sample code, the binding information is updated with filter conditions on a custom tab that has a table:</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/mvc/ControllerExtension", "sap/ui/model/Filter"], function(ControllerExtension, Filter) {
+    "use strict";
+    return ControllerExtension.extend("BusinessPartners.ext.LRExtend", {
+        override: {
+            onViewNeedsRefresh: function(mParameters) {
+                var oFilterInfo = mParameters.filterConditions;
+                if (oFilterInfo) {
+                    var duplicateFilterInfo = Object.assign({}, oFilterInfo);
+                    if (
+                        duplicateFilterInfo.Region &&
+                        duplicateFilterInfo.Region.map(item =&gt; item.values).findIndex(i =&gt; i.includes("Bavaria")) !== -1
+                    ) {
+                        delete duplicateFilterInfo.Region;
+                    }
+                    var oTable = this.getView().byId("BusinessPartners::BusinessPartnersList--fe::CustomTab::tab2--customViewWithTable"),
+                        oBinding = oTable.getBinding("items"),
+                        oConvertedFilter = this.base.getExtensionAPI().createFiltersFromFilterConditions(duplicateFilterInfo);
+                    oTable.setShowOverlay(false);
+                    var oFilter = new Filter({ filters: oConvertedFilter.filters, and: true });
+                    oBinding.filter(oFilter);
+                    oBinding.changeParameters({$search: oConvertedFilter.search});
+                }
+            },
+            onPendingFilters: function() {
+                var oTable = this.getView().byId("BusinessPartners::BusinessPartnersList--fe::CustomTab::tab2--customViewWithTable");
+                if (oTable) {
+                    oTable.setShowOverlay(true);
+                }
+            }
+        }
+    });
+});</pre></div></div></section>
+            <p></p></div></div>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

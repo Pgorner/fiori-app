@@ -1,0 +1,105 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiofbce0ba7a31f4073959efd705924af45" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/calculation-report-automatic-run-vs-manual-scheduling-fbce0ba.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Calculation Report - Automatic Run vs. Manual
+		Scheduling</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Calculation Report - Automatic Run vs. Manual
+		Scheduling</h2></div><div class="shortdesc">Changes to the content of the SAPUI5 ABAP repository require the
+		index to be updated using the calculation report <code>/UI5/APP_INDEX_CALCULATE</code>.
+		Depending on how the content of the repository is changed, the report is executed
+		automatically or you have to run it manually.</div><section class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Changes to Content in the Repository</h2></div><div class="fig"><p>This scenario usually happens in development systems. The content is changed, for example, by uploads from development tools like SAP Business Application Studio, the available SAPUI5 repository upload and download reports, the implementation of an SAP
+				Note, or manual changes using transaction <code>SE80</code> (the latter is not supported and therefore not recommended at
+				all).</p><p>The execution of the report to update the index is in most cases triggered automatically. Exceptions: implementation of SAP Notes, support
+				package updates, release upgrades, changes to texts in the text repository with ABAP translation tools, and manual changes using
+				transaction <code>SE80</code> (not supported and therefore not recommended). In these cases, you have to trigger an update for the
+				applications in question manually or schedule a calculation of the index with a reasonable time interval. Here's an overview:</p><p>
+				</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_k2c_ljd_scb" class=" ">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>Type of Change to the SAPUI5 ABAP Repository</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Manual Execution of the Calculation Report Required?</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Deployment with SAP Business Application Studio</p>
+								</td>
+								<td colspan="1" rowspan="3">
+									<p>No, the report is executed automatically.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Upload with report
+										<code>/UI5/UI5_REPOSITORY_LOAD</code></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Installation of a new version of the SAPUI5 distribution
+										layer</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Implementation of an SAP Note containing changes for an SAPUI5 app</p>
+								</td>
+								<td colspan="1" rowspan="3">
+									<p>Yes, run the report manually to update the index for the app or distribution layer in question.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Support package updates and release upgrades</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Manual changes using transaction <code>SE80</code> (not supported and therefore not recommended)</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			<p></p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If you run the report manually, it is strongly recommended to use the <span class="ph uicontrol">Depending on Expiry Period of Transport
+					Requests</span> option with reasonable values. This option calculates the SAPUI5 application index for affected content only. A full calculation should
+				only be used in exceptional cases.</p></div></div></div></section><section class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Import of Content to the Repository</h2></div><div class="fig"><p>This scenario usually happens in test and production
+				systems. The system automatically updates the index after transports which have been imported under certain conditions, for example,
+				which version of the user interface add-on for SAP NetWeaver is installed and whether the Business Add-In (BAdI) CTS_IMPORT_FEEDBACK
+				is called after an import. For more information, see SAP Note <a title="https://me.sap.com/notes/" href="https://me.sap.com/notes/2253480" target="_blank" rel="noopener noreferrer">2253480</a>.</p><p>If you are unsure whether the BAdI
+				is called, you can verify this in the import log of a transport. The BAdI is called if the import log contains a <span class="ph uicontrol">Feedback
+					after import or export</span> entry (there might be one after import and one after export entry) and the after import entry
+				contains the following logs:</p><ul class="ul ">
+				<li class="li">
+					<p><span class="ph uicontrol">Start: Executing method FEEDBACK_AFTER_IMPORT for business add-on CTS_IMPORT_FEEDBACK</span></p>
+				</li>
+				<li class="li">
+					<p><span class="ph uicontrol">Scheduled index update after finished import of transports</span></p>
+				</li>
+			</ul><p>You can access the job <code>/UI5/APP_IDX_UPD_AFTER_IMPORT</code> that is automatically scheduled by the BAdI in transaction
+					<code>SM37</code>.</p><p>Here's how you can decide whether you need to schedule the report after transports:</p><img src="loio35e150c63be3484581ad5adc349860ad_LowRes.png" title="The graphic is explained in the accompanying text." alt="The graphic is explained in the accompanying text." usemap="#"><p>If the import is triggered by ABAP, report <code>/UI5/APP_INDEX_CALCULATE</code> is executed automatically. If the import
+				is triggered by OS command line and the transport profile parameter <code>FEEDBACK_IMPORT</code> is set (see SAP Note
+					<a title="https://me.sap.com/notes/" href="https://me.sap.com/notes/2253480" target="_blank" rel="noopener noreferrer">2253480</a>), the report is also executed automatically. If the transport profile parameter is not set, the
+				report is not executed automatically.</p><p>If you have to schedule the report, there are three options for this:</p><ul class="ul ">
+				<li class="li">
+					<p>With a periodic time interval</p>
+					<p>This is the easiest way. However, it has the small disadvantage that some time might elapse between the import of a transport
+						and the start of the update depending on the interval you choose.</p>
+				</li>
+				<li class="li">
+					<p>Starting after event <code>SAP_IMPORT_STO</code></p>
+					<p>This triggers the report automatically after all transports of the import queue have been imported. However it doesn't trigger
+						the report in cases where you perform a special import of a single transport.</p>
+				</li>
+				<li class="li">
+					<p>Schedule the report in both ways</p>
+					<p>This is the most secure and fast way to ensure the index is up-to-date. The report ensures that no problems occur in cases
+						where multiple executions are triggered in parallel.</p>
+				</li>
+			</ul></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

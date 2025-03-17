@@ -1,0 +1,62 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof7cbafc9a76140ec8fc55b51a63cf467" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/create-an-index-html-file-f7cbafc.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Create an index.html File</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Create an index.html File</h2></div><div class="shortdesc">A minimalistic <code>index.html</code> file is needed to test the project
+		configuration. This file contains the SAPUI5 bootstrap and an
+			<code>sap.m.Text</code> control that displays the text "<span class="emphasis">SAPUI5 is loaded
+			successfully!</span>".</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>SAP Web IDE is no longer available
+                                via SAP Business Technology Platform trial accounts. Any references to SAP Web IDE in this documentation are only relevant for you if you
+                                have access to SAP Web IDE through a productive SAP BTP account. Please consider SAP Business Application Studio as an alternative. See <a href="topic/6bbad66475d040f39df6fbbaabe6f40f" title="Learn how you can use SAP Business Application Studio together with UI5 Tooling to develop state-of-the-art UI5 apps." class="sap-doc">App Development Using SAP Business Application Studio</a>.</p></div></div><p>
+			</p><ol>
+				<li class="li">Choose the <span class="ph uicontrol">New Folder</span> icon in the header toolbar and enter
+						<kbd class="ph userinput">src</kbd> as the folder name.</li>
+				<li class="li">Select the newly created folder and create a new <code>index.html</code> file inside
+					it by choosing the <span class="ph uicontrol">New File</span> icon.</li>
+				<li class="li">Paste the following code in the newly created <code>index.html</code> file and
+					select <span class="ph uicontrol">Save</span>:<p><span class="emphasis">index.html</span></p><p>
+						</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="utf-8"&gt;
+		&lt;title&gt;SAPUI5 Walkthrough&lt;/title&gt;
+		&lt;script id="sap-ui-bootstrap"
+			src="/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-async="true"
+			data-sap-ui-on-init="module:my/app/main"
+			data-sap-ui-resource-roots='{"my.app": "./"}'&gt;
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body class="sapUiBody" id="content"&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section>
+					<p></p></li>
+				<li class="li">
+					<p>Create new file <code>main.js</code> and paste the following code into
+						it:</p>
+					<p><span class="emphasis">main.js</span></p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/m/Text"], function(Text) {
+    new Text({
+        text: "OpenUI5 is loaded successfully!"
+    }).placeAt("content");
+});</pre></div></div></section>
+				</li>
+			</ol>
+			<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+				</p><p>Adapt the path where the resources are located
+						(<code>src="/resources/sap-ui-core.js"</code>) according to your
+					installation. For OpenUI5 you can use
+						<code>src="https://sdk.openui5.org/resources/sap-ui-core.js"</code>. For accessing SAPUI5 on the SAP Business Technology Platform, for
+						example, use
+							<code>src="https://ui5.sap.com/resources/sap-ui-core.js"</code>.
+				</p>
+				<p>You can use this reference to the latest version of SAPUI5 for the tutorial or for
+					testing purposes, but never use this for productive use. In an actual app, you always have to specify an SAPUI5 version explicitly.</p>
+				<p>For more information, see <a href="topic/2d3eb2f322ea4a82983c1c62a33ec4ae" title="SAPUI5 can either be loaded locally with a relative path from an SAP Web server or externally from a Content Delivery Network (CDN)." class="sap-doc">Variant for Bootstrapping from Content Delivery Network</a>.
+				</p>
+			<p></p></div></div>
+		<p></p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

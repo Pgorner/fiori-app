@@ -1,0 +1,127 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio1fd8e5201e3142d0bc002a078bb3da98" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adapting-texts-in-the-delete-dialog-box-object-page-header-1fd8e52.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adapting Texts in the Delete Dialog Box (Object Page Header)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adapting Texts in the Delete Dialog Box (Object Page Header)</h2></div><div class="shortdesc">You can adapt the text of the <span class="ph uicontrol">Delete</span> dialog box that is
+		displayed when you delete the entire object page.</div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig"><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+			<p></p></div></div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+                </p><p>Use app extensions with caution and only if you cannot produce the required
+                    behavior by other means, such as manifest settings or annotations. To correctly
+                    integrate your app extension coding with SAP Fiori elements, use
+                    only the <code>extensionAPI</code> of SAP Fiori elements. For
+                    more information, see <a href="topic/bd2994b69ef542998becbc69ab093f7e" title="The extensionAPI consists of several elements that are described below. It can be used for the list report and object page." class="sap-doc">Using the extensionAPI</a>.</p>
+                <p>After you've created an app extension, its display (for example, control
+                    placement and layout) and system behavior (for example, model and binding usage,
+                    busy handling) lies within the application's responsibility. SAP Fiori elements
+                    provides support only for the official <code>extensionAPI</code> functions.
+                    Don't access or manipulate controls, properties, models, or other internal
+                    objects created by the SAP Fiori elements
+                    framework.</p>
+                
+            <p></p></div></div><p>In the
+				object page header, you can display the <span class="ph uicontrol">Delete</span> dialog box by
+				choosing the <span class="ph uicontrol">Delete</span> button to delete the entire content of
+				the object page.</p>Perform these steps to be able to use the extension:</div></section><section class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">Register your extension at the app descriptor (manifest.json):</span>
+				<div class="itemgroup info">
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"extends": {
+   "extensions": {
+      ... 
+      "sap.ui.controllerExtensions": { 
+         ...
+         "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+            ...
+            "controllerName": "MY_APP.ext.controller.DetailsExtension",
+            ...
+         }
+      } 
+      ...
+</pre></div></div></section>
+					<p></p></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Maintain the controller extension files in your app:</span>
+				<div class="itemgroup info">
+					<div><div class="fig"><img src="loio318f52b49d144ccb85a056bcdbf7893c_LowRes.png" usemap="#"></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">The <span class="ph uicontrol">Delete</span> dialog box contains the following text:</span>
+				<div class="itemgroup info"><ul class="ul ">
+						<li class="li">
+							<p>title: always appears</p>
+						</li>
+						<li class="li">
+							<p>text: always appears</p>
+						</li>
+					</ul>Implement the <code>beforeDeleteExtension</code> function in the
+					controller extension file of the object page. You have several options to
+					determine the delete dialog:</div>
+				<div class="itemgroup info">
+					<ul class="ul ">
+						<li class="li">
+							<p>The easy way</p>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+								</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">beforeDeleteExtension: function() {
+    var oMessageText = {
+        title: "My title";
+        text: "My text"
+    };
+    return oMessageText;
+}
+</pre></div></div></section>
+							<p></p></div></div>
+						</li>
+						<li class="li">
+							<p>Using promises</p>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+								</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">beforeDeleteExtension: function() {
+    var oMessageText = {
+        title: "My title";
+        text: "My text"
+    };
+    return Promise.resolve(oMessageText);
+}
+</pre></div></div></section>
+							<p></p></div></div>
+						</li>
+						<li class="li">
+							<p>Using the <code>extensionAPI.SecuredExecution</code> (see also
+									<a href="topic/6a39150ad3e548a8b5304d32d560790a" title="The API for developers of extensions for SAP Fiori elements provides the securedExecution method that can be used for various purposes." class="sap-doc">Using the SecuredExecution Method</a>)</p>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+								</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">beforeDeleteExtension: function() {
+    var oMessageText = {
+        title: "My title";
+        text: "My text"
+    };
+    return this.extensionAPI.securedExecution(function() {
+        return new Promise(function(resolve) {
+            ...
+            resolve(oMessageText);
+            ...
+        });
+    });
+}
+</pre></div></div></section>
+							<p></p></div></div>
+						</li>
+					</ul>
+				</div>
+				
+			</li>
+		</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

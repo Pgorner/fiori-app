@@ -1,0 +1,269 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3981331cbc074ec398ae735e7b449cce" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-2-kpi-tile-and-chart-tile-on-the-start-page-3981331.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 2: KPI Tile and Chart Tile on the Start Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 2: KPI Tile and Chart Tile on the Start Page</h2></div><div class="shortdesc">In this step, we will create our start page with the KPI Tile
+            <code>(GenericTile</code> with <code>NumericContent)</code> and Chart Tile
+            <code>(GenericTile</code> with <code>MicroChart)</code>.</div><section id="section_jtg_1sp_f1b">
+            <h2 class="title ">Preview</h2>
+            <p>When you have completed this step, your start page will include the following
+                tiles:</p>
+            <div><div class="fig"><img src="loiof71dec0cfdd840d38be9dfee1441d538_LowRes.png" usemap="#"></div></div>
+        </section><section id="section_pjv_mw2_j1b"><h2 class="title ">GenericTile with NumericContent</h2><p>Let's
+                start by creating the first <code>GenericTile</code> that shows the progress of
+                the production process as percentage data (compared to all production steps). By
+                selecting the <span class="emphasis">Production Process</span> tile, the user can navigate to
+                another view to see the complete production process. We will implement this
+                navigation in step 5.</p><p>You can view and download this step in the Demo Kit at <a href="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.02" title="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.02" class="sap-doc" alt="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.02">Ice Cream Machine - Step 2 - KPI Tile and
+                        Chart Tile in Start Page</a>.</p><section>
+                <h3 class="title ">Startpage.view.xml</h3>
+            </section><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+    controllerName="sap.suite.ui.commons.demokit.tutorial.icecream.02.controller.Startpage"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"&gt;
+    &lt;Page title="{i18n&gt;title}"&gt;
+        &lt;layout:VerticalLayout class="sapUiResponsiveMargin"&gt;
+            &lt;Title
+                titleStyle="H2"
+                text="{i18n&gt;startpageTilesGroupTitle}"
+                class="sapUiTinyMarginBegin" /&gt;
+            &lt;layout:HorizontalLayout allowWrapping="true"&gt;
+                <span class="emphasis">&lt;GenericTile
+                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                    header="{i18n&gt;startpagePFTileTitle}"
+                    subheader="{i18n&gt;startpagePFTileSubTitle}"&gt;
+                    &lt;tileContent&gt;
+                        &lt;TileContent&gt;
+                            &lt;content&gt;
+                                &lt;NumericContent
+                                    scale="%"
+                                    value="{
+                                        path: 'process&gt;/Nodes',
+                                        formatter: '.getProgress'
+                                    }"
+                                    icon="sap-icon://factory" /&gt;
+                            &lt;/content&gt;
+                        &lt;/TileContent&gt;
+                    &lt;/tileContent&gt;
+                &lt;/GenericTile&gt;</span>
+            &lt;/layout:HorizontalLayout&gt;
+        &lt;/layout:VerticalLayout&gt;
+    &lt;/Page&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p>First,
+                we are going to add a <code>GenericTile</code> with the
+                    <span class="ph uicontrol">header</span> and <span class="ph uicontrol">subheader</span> properties in
+                order to display the header and subheader .
+                In
+                the <code>TileContent</code> aggregation, the <code>TileContent</code> is
+                added with a <code>NumericContent</code>.
+                This
+                lets you display a scale or unit with the
+                    <span class="ph uicontrol">scale</span> property. The <span class="ph uicontrol">value</span> property
+                of the <code>NumericContent</code> displays the percentage value of the
+                production progress by using a custom formatter. In our case, it is
+                    <span class="ph uicontrol">.getProgress</span>. You can use any icon from the <a href="test-resources/sap/m/demokit/iconExplorer/webapp/index.html" title="https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html" class="sap-doc">SAPUI5 Icon
+                    Explorer</a> as the <span class="ph uicontrol">icon</span>
+                property.</p><p>We
+                will create another <code>GenericTile</code> with
+                    <code>NumericContent</code> in a similar way, which will navigate to another
+                view. You can see customer reviews there. The number of reviews is displayed in this
+                    <code>GenericTile</code>. Navigation to the reviews view is implemented in
+                step 5.</p><section>
+                <h3 class="title ">Startpage.view.xml</h3>
+            </section><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">mvc:View
+     controllerName="sap.suite.ui.commons.demokit.tutorial.icecream.02.controller.Startpage"
+     xmlns:mvc="sap.ui.core.mvc"
+     xmlns="sap.m"
+     xmlns:layout="sap.ui.layout"&gt;
+     &lt;Page title="{i18n&gt;title}"&gt;
+         &lt;layout:VerticalLayout class="sapUiResponsiveMargin"&gt;
+             &lt;Title
+                 titleStyle="H2"
+                 text="{i18n&gt;startpageTilesGroupTitle}"
+                 class="sapUiTinyMarginBegin" /&gt;
+             &lt;layout:HorizontalLayout allowWrapping="true"&gt;
+                ...
+                <span class="emphasis">&lt;GenericTile
+                     class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                     header="{i18n&gt;startpageUserReviewsTileTitle}"&gt;
+                     &lt;tileContent&gt;
+                         &lt;TileContent&gt;
+                             &lt;content&gt;
+                                 &lt;NumericContent
+                                     value="{
+                                         path: 'reviews&gt;/UserReviews',
+                                         formatter: '.getEntityCount'
+                                     }"
+                                         indicator="None"
+                                         valueColor="Neutral" /&gt;
+                             &lt;/content&gt;
+                         &lt;/TileContent&gt;
+                     &lt;/tileContent&gt;
+                 &lt;/GenericTile&gt;</span>
+             &lt;/layout:HorizontalLayout&gt;
+         &lt;/layout:VerticalLayout&gt;
+     &lt;/Page&gt;
+ &lt;/mvc:View&gt;</pre></div></div></section><p>In
+                the <code>NumericContent</code>, we only want to display the number of user
+                reviews. Since we don't want to show indicators, we set the
+                    <span class="ph uicontrol">indicator</span> property to <span class="emphasis">None</span>.
+                We
+                are choosing <span class="emphasis">Neutral</span> as a value for the
+                    <span class="ph uicontrol">valueColor</span> property to display a neutral semantic
+                color.</p><section>
+                <h3 class="title ">Startpage.controller.js</h3>
+            </section><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/mvc/Controller"
+], function(Controller) {
+    "use strict";
+    return Controller.extend("sap.suite.ui.commons.demokit.tutorial.icecream.02.controller.Startpage", {
+        ...
+<span class="emphasis">        getProgress: function(aNodes) {
+                   if (!aNodes || aNodes.length === 0) {
+                      return 0;
+                   }
+                   var iSum = 0;
+                   for (var i = 0; i &lt; aNodes.length; i++) {
+                       iSum += aNodes[i].state === "Positive";
+                   }
+                   var fPercent = (iSum / aNodes.length) * 100;
+                   return fPercent.toFixed(0);
+                },
+                getEntityCount: function(entities) {
+                   return entities && entities.length || 0;
+                }</span>
+    });
+});</pre></div></div></section><p>The
+                    <span class="ph uicontrol">getProgress</span> function is the formatter function that
+                belongs to the value binding of the <code>NumericContent</code> in the first
+                    <code>GenericTile</code>. It is used to return the ratio of positive process
+                steps
+                as compared to the complete number of process steps.</p><p>To get
+                the number of user reviews in another <code>GenericTile</code>, we will add a
+                new formatter called <span class="ph uicontrol">.getEntityCount</span>. This formatter returns
+                the number of entities found in the <span class="emphasis">reviews</span> JSON
+            model.</p></section><section id="section_mpm_qbt_l1b">
+            <h2 class="title ">GenericTile with BulletMicroChart</h2>
+        </section><section id="section_mjm_qbt_l1b"><p>In the second tile on the start page, you can find an
+                overview of the project expenses. We will use the <code>BulletMicroChart</code>
+                control for this overview.</p><section>
+                <h3 class="title ">Startpage.view.xml</h3>
+            </section><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">mvc:View
+    controllerName="sap.suite.ui.commons.demokit.tutorial.icecream.02.controller.Startpage"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    <span class="emphasis">xmlns:microchart="sap.suite.ui.microchart"</span>&gt;
+    &lt;Page title="{i18n&gt;title}"&gt;
+        &lt;layout:VerticalLayout class="sapUiResponsiveMargin"&gt;
+            &lt;Title
+                titleStyle="H2"
+                text="{i18n&gt;startpageTilesGroupTitle}"
+                class="sapUiTinyMarginBegin" /&gt;
+            &lt;layout:HorizontalLayout allowWrapping="true"&gt;
+                                ...
+               <span class="emphasis">&lt;GenericTile
+                     class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                     header="{
+                         parts: [
+                             'i18n&gt;startpageCCTileTitle',
+                             'business&gt;/year',
+                             'business&gt;/currency'
+                         ],
+                         formatter: '.formatMessage'
+                     }"&gt;
+                     &lt;tileContent&gt;
+                         &lt;TileContent&gt;
+                             &lt;content&gt;
+                                 &lt;microchart:BulletMicroChart
+                                     size="Responsive"
+                                     targetValue="{business&gt;/plannedExpenses}"
+                                     targetValueLabel="{
+                                        path: 'business&gt;/plannedExpenses',
+                                        formatter: '.formatNumber'
+                                    }"
+                                     actualValueLabel="{
+                                        path: 'business&gt;/expenses',
+                                        formatter: '.formatNumber'
+                                    }"
+                                     minValue="0"&gt;
+                                     &lt;microchart:actual&gt;
+                                         &lt;microchart:BulletMicroChartData
+                                             value="{business&gt;/expenses}"
+                                             color="Critical" /&gt;
+                                     &lt;/microchart:actual&gt;
+                                     &lt;microchart:thresholds&gt;
+                                         &lt;microchart:BulletMicroChartData
+                                             value="{business&gt;/expensesCritical}"
+                                             color="Critical" /&gt;
+                                         &lt;microchart:BulletMicroChartData
+                                             value="{business&gt;/budget}"
+                                             color="Error" /&gt;
+                                     &lt;/microchart:thresholds&gt;
+                                 &lt;/microchart:BulletMicroChart&gt;
+                             &lt;/content&gt;
+                         &lt;/TileContent&gt;
+                     &lt;/tileContent&gt;
+                 &lt;/GenericTile&gt;</span> 
+            &lt;/layout:HorizontalLayout&gt;
+        &lt;/VBox&gt;
+    &lt;/Page&gt;
+&lt;/mvc:View&gt;</pre></div></div></section><p>We
+                are adding a new <code>GenericTile</code>. Here, we are setting only the
+                    <span class="ph uicontrol">header</span> property of the tile because we don't need a
+                subheader. We want to display only the Expenses overview. The
+                    <code>BulletMicroChart</code> is in the <span class="ph uicontrol">TileContent</span>.
+                Do not forget to add a namespace for the <code>sap.suite.ui.microchart</code>
+                library in the
+                <span class="ph uicontrol">*.view.xml</span>.</p><p>We want to show our business data in the
+                    <code>BulletMicroChart</code>. To do so, we are adding the
+                    <code>BulletMicroChartData</code> element to the <span class="emphasis">actual</span>
+                aggregation of the chart control. This data element has two properties:</p><ol>
+                    <li class="li">
+                        <p>The <span class="ph uicontrol">value</span> property that is bound to a property in
+                            the data model</p>
+                    </li>
+                    <li class="li">
+                        <p>The <span class="ph uicontrol">color</span> property that is set to
+                                <span class="emphasis">Critical</span> to show when the expenses are
+                            about
+                            to exceed the limit. This property shows the amount
+                            of money already spent on this project.</p>
+                    </li>
+                </ol>
+            <p></p><p>Similarly, we can add <span class="emphasis">thresholds</span> to the chart to show when
+                our expenses become <span class="emphasis">critical</span> but still manageable. For expenses
+                that are too high for the company, the <span class="emphasis">Error</span> color applies.
+                This time, the <span class="ph uicontrol">value</span> properties are directly bound to the
+                properties in the data model. No formatting is needed as the values are used only by
+                the chart and are not displayed directly.</p><p>Finally, we will add a
+                    <span class="ph uicontrol">targetValue</span> to our chart to display an
+                indicator
+                that shows the planned spending.</p><section>
+                <h3 class="title ">Startpage.controller.js</h3>
+            </section><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    <span class="emphasis">"sap/ui/core/format/NumberFormat"</span>,
+    "sap/base/strings/formatMessage"
+], function(Controller, <span class="emphasis">NumberFormat)</span> {
+    "use strict";
+
+    return Controller.extend("sap.suite.ui.commons.demokit.tutorial.icecream.02.controller.Startpage", {
+        ...
+        <span class="emphasis">formatNumber: function(value) {
+            var oFloatFormatter = NumberFormat.getFloatInstance({
+                style: "short",
+                decimals: 1
+            });
+            return oFloatFormatter.format(value);
+        }</span>
+    });
+});
+</pre></div></div></section><p>Since
+                the production of our ice cream has already cost us a lot of money and the monetary
+                values are very high, we need to provide custom data labels in order to have a neat
+                chart design. The custom data labels can be added via the
+                    <span class="ph uicontrol">actualValueLabel</span> and
+                    <span class="ph uicontrol">targetValueLabel</span> properties that are set on the
+                    <code>BulletMicroChart</code>. In both instances, we use data binding with a
+                custom formatter function from the <span class="ph uicontrol">Startpage.controller.js</span>
+                file to format the values using a standard SAPUI5 number formatter.</p></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/e5b7f8a93e4b432198869b3ae75981b0">Ice Cream Machine Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/9631f539c4064aa09d67ffbd21d3db9b">Step 1: Initial Application</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/e1fc950b63e94fd8bfadc557c6b62b7c">Step 3: Launch Tile and Slide Tile</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

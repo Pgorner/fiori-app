@@ -1,0 +1,266 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio82630e5a31b940b68ea1bd2ca44eeb9c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/details-of-extension-functions-used-for-extending-delivered-apps-82630e5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Details of Extension Functions Used for Extending Delivered Apps</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Details of Extension Functions Used for Extending Delivered Apps</h2></div><div class="shortdesc">In this document, you can find the details of all the extension functions that can be used for extending delivered apps using
+		adaptation extensions. </div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+		<p></p></div></div><p>
+			</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_jyc_frt_fsb" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Method</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Supported Floorplans</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>onInitSmartFilterBar</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>List Report</p>
+								<p>Analytical List Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This extension function is called when the
+										<code>SmartFilterbar</code> has been initialized.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>provideExtensionAppStateData</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>List Report</p>
+								<p>Analytical List Page</p>
+								<p>Overview Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Allow extensions to store their specific state. This means that
+									the implementing controller extension must call
+										<code>fnSetAppStateData
+										</code>(<code>oControllerExtension</code>,
+										<code>oAppState</code>).</p><ul class="ul ">
+										<li class="li">
+											<p><code>oControllerExtension</code> must be the
+												<code>ControllerExtension</code> instance for
+												which the state should be stored.</p>
+										</li>
+										<li class="li">
+											<p>The storage state is <code>oAppState</code>.</p>
+										</li>
+									</ul><p></p>
+								<p>Note that the call is ignored if <code>oAppState</code> is
+									faulty.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>restoreExtensionAppStateData</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>List Report</p>
+								<p>Analytical List Page</p>
+								<p>Overview Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Enable extensions to restore their state based on a previously
+									stored state. In this case, the implementing controller
+									extension can call <code>fnGetAppStateData</code>
+										(<code>oControllerExtension</code>) to retrieve the
+									state information that is stored in the current state for this
+									controller extension. The function returns undefined if no state
+									or a faulty state was stored.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ensureFieldsForSelect</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>List Report</p>
+								<p>Analytical List Page</p>
+								<p>Object Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Give extensions the possibility to ensure that certain fields are
+									contained in the select clause of the table binding. It is used
+									when custom logic of the extension depends on these fields.</p>
+								<p>The extension logic is applied on the <code>sControlId</code>
+									control ID.</p>
+								<p>For each custom field the extension must call
+										<code>fnEnsureSelectionProperty</code>
+										(<code>oControllerExtension</code>,
+										<code>sFieldname</code>).</p><ul class="ul ">
+										<li class="li">
+											<p><code>oControllerExtension</code> must be the
+												<code>ControllerExtension</code> instance to
+												ensure that the field is part of the select
+												clause.</p>
+										</li>
+										<li class="li">
+											<p><code>sFieldname</code> must specify the field
+												that is to be selected. Note that this must either
+												be a field of the entity set itself, or a field that
+												can be reached using a :1 navigation property. In
+												the second case <code>sFieldname</code> must
+												contain the relative path.</p>
+										</li>
+									</ul><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>addFilters</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>List Report</p>
+								<p>Analytical List Page</p>
+								<p>Object Page</p>
+								<p>Overview Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Allow extensions to add filters. It is combined using
+										<code>AND</code> with all the other filters.</p>
+								<p>For each filter the extension must call
+										<code>fnAddFilter</code>
+										(<code>oControllerExtension</code>,
+										<code>oFilter</code>)</p>
+								<ul class="ul ">
+									<li class="li">
+										<p><code>oControllerExtension</code> must be the
+												<code>ControllerExtension</code> instance that
+											adds the filter.</p>
+									</li>
+									<li class="li">
+										<p><code>oFilter</code> must be an instance of
+												<code>sap.ui.model.Filter</code>.</p>
+									</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>provideExtensionStateData</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Object Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Allow extensions to store their specific state. The implementing
+									controller extension must call
+										<code>fnSetExtensionStateData</code>
+										(<code>oControllerExtension</code>,
+										<code>oExtensionState</code>).</p><ul class="ul ">
+										<li class="li">
+											<p><code>oControllerExtension</code> must be the
+												<code>ControllerExtension</code> instance for
+												which the state should be stored.</p>
+										</li>
+										<li class="li">The storage state
+												is<p><code>oExtensionState</code>.</p><p>Note
+												that the call is ignored if
+												<code>oExtensionState</code> is
+											faulty.</p></li>
+									</ul><p></p>
+								<p>The values for the lifecycle object parameters (Page, Permanent
+									etc.) are provided in extension implementation.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>restoreExtensionStateData</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Object Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Enable extensions to restore their state based on a previously
+									stored state.</p>
+								<p>In this case, the implementing controller extension can call
+										<code>fnGetExtensionStateData</code>
+										(<code>oControllerExtension</code>) in order to retrieve
+									the state information that has been stored in the current state
+									for this controller extension. The function returns undefined if
+									no state, or a faulty state was stored.</p>
+								<p><code>bIsSameAsLast</code> is a boolean. The true value
+									indicates that the state cannot be adapted, since view remains
+									as it was left the last time.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>provideStartupExtension</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Overview Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Modifies the selection variant that is to be set to the filter
+									bar.</p>
+								<p>The parameter, while calling this function, is a reference to the
+									custom selection variant expected by the overview page.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>provideExtensionNavigation</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Overview Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This function is used to get a new or modified custom navigation
+									entry to the core. The core then uses the custom navigation
+									entry to perform navigation.</p>
+								<p>This function is called with the standard navigation entry
+									details (if present) for a particular card and context.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>provideCustomActionPress</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Overview Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This function captures the press event and returns the event
+									corresponding to it, so that the custom functions can be
+									triggered.</p>
+								<p>The method provided to this function is defined in the controller
+									extension.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>provideCustomParameter</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Overview Page</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This function takes the name or key corresponding to a method
+									that is then returned. The method that is returned resolves to
+									give the custom parameters.</p>
+								<p>The method that returns is also defined in the extension
+									controller.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		<p></p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/52fc48b479314d0688be24f699778c47" title="You can extend delivered apps based on SAP Fiori elements by using the Adaptation Editor in SAP Business Application Studio. It allows you to create adaptation projects on top of delivered apps." class="sap-doc">Extending Delivered Apps Using Adaptation Extensions</a></li>
+	</ul></section></div></section></div></body></html>

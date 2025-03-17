@@ -1,0 +1,59 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio904e84ae5a6042c2bd26e36743a1c3c2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/if-you-use-at-least-one-custom-change-handler-904e84a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">If You Use at Least One Custom Change Handler</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">If You Use at Least One Custom Change Handler</h2></div><div class="shortdesc">Here's how to proceed if you want to use one or more custom custom change handlers that you've written.</div><p>If you use at least one custom change handler, create the <code>&lt;control&gt;.flexibility.js</code> file to register and
+            implement the change handlers for a control.</p><p>We recommend that you create the following structure:</p><ul class="ul ">
+            <li class="li">
+                <p><code>/flexibility</code> - Folder for the flexibility files where to include the implementations of custom change handlers
+                    and their registration.</p>
+                <ul class="ul ">
+                    <li class="li">
+                        <p><code>&lt;control&gt;.flexibility.js</code></p>
+                    </li>
+                </ul>
+            </li>
+        </ul><p>In the <code>&lt;control&gt;.flexibility.js</code> file, for each change type, you can enter <code>"default"</code> to use the
+            default change handler provided by <code>sap.ui.fl</code>, or you can add your own change handler if needed. For example, there is
+            no default change handler for the <cite>rename</cite> action. If a change handler implementation is used for several controls, you can
+            also require it and use it, like in the following example:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Panel.flexibility.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/fl/changeHandler/BaseRename",
+    "sap/ui/&lt;..&gt;/&lt;ReusedChangeHandler&gt;"
+], function (BaseRename, ReusedChangeHandler) {
+    "use strict";
+
+    // Reuse functionality for several change handlers can be placed here
+    function commonStuffNeededInAFewChangeHandlers(){
+        //...
+    }
+    return {
+        "renamePanel": BaseRename.createRenameChangeHandler({
+            propertyName: "headerText",
+            changePropertyName: "panelHeaderText",
+            translationTextType: "XHED"
+        }),
+        "hideControl": "default",
+        "unhideControl": "default",
+        "&lt;changeType&gt;: ReusedChangeHandler,
+        "&lt;changeType&gt;": {
+            "applyChange": function(oChange, oPanel, mPropertyBag) {
+                //...
+            },
+            "revertChange": function(oChange, oPanel, mPropertyBag) {
+                //...
+            },
+            "completeChangeContent": function(oChange, oSpecificChangeInfo, mPropertyBag) {
+                //...
+            }
+        }
+        // + other change types relevant to the control (addFields, combineFields, etc...)
+    };
+});</pre></div></div></section><p></p></div></div><p>Additionally, you must register the flexibility file in the <code>library.js</code> file under <code>extensions &gt;
+                flChangeHandlers</code>.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>library.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+extensions: {
+&gt;     flChangeHandlers: {
+&gt;         "sap.m.Panel": "sap/m/flexibility/Panel"
+&gt; }
+...</pre></div></div></section><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

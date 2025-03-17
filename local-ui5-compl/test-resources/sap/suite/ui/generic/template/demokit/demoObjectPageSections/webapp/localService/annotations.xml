@@ -1,0 +1,255 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+	<edmx:Reference>
+		<edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm">
+			<Annotations Target="DEMO.RootEntityType">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Property1" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Property2" />
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup">
+					<Record>
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="Property1" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="Property2" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Label" String="FieldGroup for RootEntity" />
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="FieldGroupWithAction">
+					<Record>
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataFieldForAction">
+									<PropertyValue Property="Action" String="action"/>
+									<PropertyValue Property="Label" String="DataFieldForAction"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="ReferenceFacet 1 (FieldGroup)" />
+							<PropertyValue Property="ID" String="ReferenceFacet_1" />
+							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="ReferenceFacet 2 (LineItem)" />
+							<PropertyValue Property="ID" String="ReferenceFacet_2" />
+							<PropertyValue Property="Target" AnnotationPath="to_SubEntity/@UI.LineItem" />
+						</Record>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="CollectionFacet 3" />
+							<PropertyValue Property="ID" String="CollectionFacet_3" />
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="_Label" String="ReferenceFacet 3_1" />
+										<PropertyValue Property="ID" String="ReferenceFacet_3_1" />
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#FieldGroupWithAction" />
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="ReferenceFacet 3_2" />
+										<PropertyValue Property="ID" String="ReferenceFacet_3_2" />
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="ReferenceFacet 3_3" />
+										<PropertyValue Property="ID" String="ReferenceFacet_3_3" />
+										<PropertyValue Property="Target" AnnotationPath="to_SubEntity/@UI.LineItem" />
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="ReferenceFacet 3_4" />
+										<PropertyValue Property="ID" String="ReferenceFacet_3_4" />
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="CollectionFacet 4" />
+							<PropertyValue Property="ID" String="CollectionFacet_4" />
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.CollectionFacet">
+										<PropertyValue Property="Label" String="CollectionFacet 4_1" />
+										<PropertyValue Property="ID" String="CollectionFacet_4_1" />
+										<PropertyValue Property="Facets">
+											<Collection>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 4_1_1" />
+													<PropertyValue Property="ID" String="ReferenceFacet_4_1_1" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 4_1_2" />
+													<PropertyValue Property="ID" String="ReferenceFacet_4_1_2" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+											</Collection>
+										</PropertyValue>
+									</Record>
+									<Record Type="UI.CollectionFacet">
+										<PropertyValue Property="Label" String="CollectionFacet 4_2" />
+										<PropertyValue Property="ID" String="CollectionFacet_4_2" />
+										<PropertyValue Property="Facets">
+											<Collection>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 4_2_1" />
+													<PropertyValue Property="ID" String="ReferenceFacet_4_2_1" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 4_2_2" />
+													<PropertyValue Property="ID" String="ReferenceFacet_4_2_2" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 4_2_3" />
+													<PropertyValue Property="ID" String="ReferenceFacet_4_2_3" />
+													<PropertyValue Property="Target" AnnotationPath="to_SubEntity/@UI.LineItem" />
+												</Record>
+											</Collection>
+										</PropertyValue>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="CollectionFacet 5" />
+							<PropertyValue Property="ID" String="CollectionFacet_5" />
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="ReferenceFacet 5_1" />
+										<PropertyValue Property="ID" String="ReferenceFacet_5_1" />
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="ReferenceFacet 5_2" />
+										<PropertyValue Property="ID" String="ReferenceFacet_5_2" />
+										<PropertyValue Property="Target" AnnotationPath="to_SubEntity/@UI.LineItem" />
+									</Record>
+									<Record Type="UI.CollectionFacet">
+										<PropertyValue Property="Label" String="CollectionFacet 5_3" />
+										<PropertyValue Property="ID" String="CollectionFacet_5_3" />
+										<PropertyValue Property="Facets">
+											<Collection>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 5_3_1" />
+													<PropertyValue Property="ID" String="ReferenceFacet_5_3_1" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+											</Collection>
+										</PropertyValue>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="CollectionFacet 6" />
+							<PropertyValue Property="ID" String="CollectionFacet_6" />
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.CollectionFacet">
+										<PropertyValue Property="Label" String="CollectionFacet 6_1" />
+										<PropertyValue Property="ID" String="CollectionFacet_6_1" />
+										<PropertyValue Property="Facets">
+											<Collection>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 6_1_1" />
+													<PropertyValue Property="ID" String="ReferenceFacet_6_1_1" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+												<Record Type="UI.CollectionFacet">
+													<PropertyValue Property="Label" String="CollectionFacet 6_1_2" />
+													<PropertyValue Property="ID" String="CollectionFacet_6_1_2" />
+													<PropertyValue Property="Facets">
+														<Collection>
+															<Record Type="UI.ReferenceFacet">
+																<PropertyValue Property="Label" String="ReferenceFacet 6_1_2_1" />
+																<PropertyValue Property="ID" String="ReferenceFacet_6_1_2_1" />
+																<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+															</Record>
+														</Collection>
+													</PropertyValue>
+												</Record>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 6_1_3" />
+													<PropertyValue Property="ID" String="ReferenceFacet_6_1_3" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+											</Collection>
+										</PropertyValue>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>						
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="CollectionFacet 7" />
+							<PropertyValue Property="ID" String="CollectionFacet_7" />
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.CollectionFacet">
+										<PropertyValue Property="Label" String="CollectionFacet 7_1" />
+										<PropertyValue Property="ID" String="CollectionFacet_7_1" />
+										<PropertyValue Property="Facets">
+											<Collection>
+												<Record Type="UI.CollectionFacet">
+													<PropertyValue Property="Label" String="CollectionFacet 7_1_1" />
+													<PropertyValue Property="ID" String="CollectionFacet_7_1_1" />
+													<PropertyValue Property="Facets">
+														<Collection>
+															<Record Type="UI.ReferenceFacet">
+																<PropertyValue Property="Label" String="ReferenceFacet 7_1_1_1" />
+																<PropertyValue Property="ID" String="ReferenceFacet_7_1_1_1" />
+																<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+															</Record>
+														</Collection>
+													</PropertyValue>
+												</Record>
+												<Record Type="UI.ReferenceFacet">
+													<PropertyValue Property="Label" String="ReferenceFacet 7_1_2" />
+													<PropertyValue Property="ID" String="ReferenceFacet_7_1_2" />
+													<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+												</Record>
+											</Collection>
+										</PropertyValue>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>						
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="DEMO.SubEntityType">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Property1" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Property2" />
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

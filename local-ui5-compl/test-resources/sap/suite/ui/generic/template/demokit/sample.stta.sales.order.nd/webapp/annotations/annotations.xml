@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+	<edmx:Reference Uri="https://localhost:8888/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+		<edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/UI.xml">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/sap/STTA_SALES_ORDER_ND_SRV_01/$metadata">
+		<edmx:Include Alias="STTA_SALES_ORDER_ND_SRV_01" Namespace="STTA_SALES_ORDER_ND_SRV_01"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm">
+			<!--===============================================================================
+                Entity Type from chosen collection
+                ================================================================================-->
+
+			<Annotations Target="STTA_SALES_ORDER_ND_SRV_01.STTA_SALES_ORDER_ND_SRV_01_Entities/STTA_C_SO_SalesOrder_ND">
+				<Annotation Term="Capabilities.InsertRestrictions">
+					<Record Type="Capabilities.InsertRestrictionsType">
+						<PropertyValue Property="RequiredProperties">
+							<Collection>
+								<PropertyPath>BusinessPartnerID</PropertyPath>
+								<PropertyPath>CurrencyCode</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			<!-- Updatable-path using test data -->
+				<Annotation Term="Capabilities.UpdateRestrictions">
+					<Record>
+						<PropertyValue Property="Updatable" Path="Update_mc" />
+					</Record>
+				</Annotation>
+				<Annotation Term="Capabilities.NavigationRestrictions">
+					<Record>
+						<PropertyValue Property="RestrictedProperties">
+							<Collection>
+								<Record>
+									<PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_Item" />
+									<PropertyValue Property="InsertRestrictions">
+										<Record>
+											<PropertyValue Property="Insertable" Bool="true" />
+										</Record>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="STTA_SALES_ORDER_ND_SRV_01.STTA_SALES_ORDER_ND_SRV_01_Entities/STTA_C_SO_SalesOrderItem_ND">
+				<Annotation Term="Capabilities.InsertRestrictions">
+					<Record Type="Capabilities.InsertRestrictionsType">
+						<PropertyValue Property="RequiredProperties">
+							<Collection>
+								<PropertyPath>ProductID</PropertyPath>
+								<PropertyPath>Quantity</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="STTA_SALES_ORDER_ND_SRV_01.I_PrototypeBusinessPartnerType">
+				<Annotation Term="UI.HeaderInfo">
+					<Record>
+						<PropertyValue Property="TypeName" String="BusinessPartner"/>
+						<PropertyValue Property="TypeNamePlural" String="BusinessPartner"/>
+						<PropertyValue Property="Title">
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="BusinessPartnerID"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="ID" String="GeneralInformation"/>
+							<PropertyValue Property="Label" String="General Information"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="General Information"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.Identification"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+					</Collection>
+				</Annotation>
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BusinessPartnerID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CompanyName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LegalForm"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BusinessPartnerRole"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BusinessPartnerID"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LegalForm"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CompanyName"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BusinessPartnerRole"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+			<Annotations Target="STTA_SALES_ORDER_ND_SRV_01.STTA_C_SO_SalesOrder_NDType">
+				<Annotation Term="UI.FieldGroup" Qualifier="MultiEdit">
+					<Record>
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="DeliveryStatus"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="BusinessPartnerID"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="OpportunityID" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="TaxAmount"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="LastChangedUserName"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="MultiEditForHighlight">
+					<Record>
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="BusinessPartnerID"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CurrencyCode" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="Expensive">
+					<Record>
+						<PropertyValue Property="Text" String="Expensive">
+						</PropertyValue>
+						<PropertyValue Property="SelectOptions">
+							<Collection>
+								<Record Type="UI.SelectOptionType">
+									<PropertyValue Property="PropertyName" PropertyPath="GrossAmount" />
+									<PropertyValue Property="Ranges">
+										<Collection>
+											<Record Type="UI.SelectionRangeType">
+												<PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/GE" />
+												<PropertyValue Property="Low" String="5000" />
+											</Record>
+										</Collection>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="Cheap">
+					<Record>
+						<PropertyValue Property="Text" String="Cheap">
+						</PropertyValue>
+						<PropertyValue Property="SelectOptions">
+							<Collection>
+								<Record Type="UI.SelectOptionType">
+									<PropertyValue Property="PropertyName" PropertyPath="GrossAmount" />
+									<PropertyValue Property="Ranges">
+										<Collection>
+											<Record Type="UI.SelectionRangeType">
+												<PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/LT" />
+												<PropertyValue Property="Low" String="5000" />
+											</Record>
+										</Collection>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="Highlight">
+					<Record>
+						<PropertyValue Property="Text" String="Highlighted">
+						</PropertyValue>
+						<PropertyValue Property="SelectOptions">
+							<Collection>
+								<Record Type="UI.SelectOptionType">
+									<PropertyValue Property="PropertyName" PropertyPath="GrossAmount" />
+									<PropertyValue Property="Ranges">
+										<Collection>
+											<Record Type="UI.SelectionRangeType">
+												<PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/LT" />
+												<PropertyValue Property="Low" String="5000" />
+											</Record>
+										</Collection>
+									</PropertyValue>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionVariant" Qualifier="All">
+					<Record>
+						<PropertyValue Property="Text" String="All">
+						</PropertyValue>
+						<PropertyValue Property="SelectOptions"/>
+					</Record>
+				</Annotation>
+			
+				<!-- >>> TEMPORARY - until supported via CDS annotations. Default sort order: by product name -->
+				<Annotation Term="UI.PresentationVariant">
+					<Record>
+						<PropertyValue Property="SortOrder">
+							<Collection>
+								<Record>
+									<PropertyValue Property="Property"
+										PropertyPath="SalesOrderID" />
+									<PropertyValue Property="Ascending" Bool="true"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<!-- <<< TEMPORARY - until supported via CDS annotations. Default sort order: by product name -->
+
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="ID" String="GeneralInformation"/>
+							<PropertyValue Property="Label" String="{@i18n>@GeneralInfoFacetLabel}"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="{@i18n>@GeneralInfoFacetLabel}"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneralInformation"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="{@i18n>@SalesOrderItemLabel}"/>
+							<PropertyValue Property="Target" AnnotationPath="to_Item/@UI.LineItem"/>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="Business Partner"/>
+							<PropertyValue Property="Target" AnnotationPath="to_BusinessPartner/@UI.LineItem"/>
+						</Record>
+					</Collection>
+				</Annotation>
+
+				<Annotation Term="UI.HeaderInfo">
+					<Record>
+						<PropertyValue Property="TypeName" String="Sales Order"/>
+						<PropertyValue Property="TypeNamePlural" String="Sales Orders"/>
+						<PropertyValue Property="Initials" String="SO"/>
+						<PropertyValue Property="Title">
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="SalesOrderID"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+
+				<!-- START of replacing backend annotations -->
+				<Annotation Term="UI.Identification">
+					<Collection>
+						<Record Type="UI.DataFieldForAction">
+							<PropertyValue Property="Label" String="Set Opp ID"/>
+							<PropertyValue Property="Action" String="STTA_SALES_ORDER_ND_SRV_01.STTA_SALES_ORDER_ND_SRV_01_Entities/STTA_C_SO_SalesOrder_NDSetopportunityid"/>
+							<PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+						</Record>
+						<Record Type="UI.DataFieldForAction">
+							<PropertyValue Property="Label" String="Standard Copy"/>
+							<PropertyValue Property="Action" String="STTA_SALES_ORDER_ND_SRV_01.STTA_SALES_ORDER_ND_SRV_01_Entities/STTA_C_SO_SalesOrder_NDSalesOrderCopy"/>
+							<PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+							<Annotation Term="UI.IsCopyAction" Bool="true"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="SalesOrderID"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CurrencyCode"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="BillingStatus"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="DeliveryStatus"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="OpportunityID"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+					</Collection>
+				</Annotation>
+
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<!-- START of not in backend-->
+<!-- Don't add duplicate columns! 
+			SalesOrderId is also used below, SmartTable anyway only renders one of them.
+			Duplicate column breaks (weak) calculation of column index for columns rendered by us. 
+						<Record Type="UI.DataFieldWithUrl">
+							<PropertyValue Property="Label" String="Sales Order ID" />
+							<PropertyValue Property="Value" Path="SalesOrderID"/>
+							<PropertyValue Property="Url" String="http://www.sap.com" />
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record> -->
+												<Record Type="UI.DataFieldForIntentBasedNavigation" >
+							<PropertyValue Property="Label" String="Manage Products (Ext Nav)"/>
+							<PropertyValue Property="SemanticObject" String="EPMProduct"/>
+							<PropertyValue Property="Action" String="manage_st"/>
+						</Record>
+						<Record Type="UI.DataFieldForIntentBasedNavigation" >
+							<PropertyValue Property="Label" String="Navigation Tester"/>
+							<PropertyValue Property="SemanticObject" String="Action"/>
+							<PropertyValue Property="Action" String="toshowparameters"/>
+						</Record>
+						<!-- END of of not in backend-->
+						<Record Type="UI.DataFieldForAction">
+							<PropertyValue Property="Label" String="Set Opp ID"/>
+							<PropertyValue Property="Action" String="STTA_SALES_ORDER_ND_SRV_01.STTA_SALES_ORDER_ND_SRV_01_Entities/STTA_C_SO_SalesOrder_NDSetopportunityid"/>
+							<PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="SalesOrderID"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="BusinessPartnerID"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataFieldForAnnotation">
+                     		<PropertyValue Property="Label" String="FieldGroupColumn" />
+                     		<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#FieldGroupColumn" />
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                  		</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CurrencyCode"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="GrossAmount"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="NetAmount"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="TaxAmount"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="LifecycleStatus"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="BillingStatus"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="DeliveryStatus"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="OpportunityID"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="FieldGroupColumn">
+               		<Record>
+                  		<PropertyValue Property="Data">
+                     		<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CreationUserName"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="LastChangedUserName" />
+								</Record>
+                     		</Collection>
+                  		</PropertyValue>
+               		</Record>
+           		</Annotation>
+				<!-- BEGIN of fixing the issue with update of navigation property in non-draft: it should be done by using the side effect -->
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CurrencyChanged">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>CurrencyCode</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_Currency</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+
+				<Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="DeliveryChanged">
+					<Record>
+						<PropertyValue Property="SourceProperties">
+							<Collection>
+								<PropertyPath>DeliveryStatus</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="TargetEntities">
+							<Collection>
+								<NavigationPropertyPath>to_DeliveryStatus</NavigationPropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<!--  END of  fixing the issue with update of navigation property in non-draft -->
+
+				<!-- END of replacing backend annotations since a dummy action is needed -->
+			</Annotations>
+
+			<!--===============================================================================
+                Entity Type from chosen navigation property
+                ================================================================================-->
+			<Annotations Target="STTA_SALES_ORDER_ND_SRV_01.STTA_C_SO_SalesOrderItem_NDType">
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="ID" String="GeneralInformation"/>
+							<PropertyValue Property="Label" String="{@i18n>@GeneralInfoFacetLabel}"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Label" String="{@i18n>@GeneralInfoFacetLabel}"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.Identification"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+					</Collection>
+				</Annotation>
+				<!-- > Adding text arrangemet at the entity level</!-->
+				<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst"/>
+
+				<!-- START of replacing backend annotations since a dummy action is needed -->
+				<Annotation Term="UI.LineItem">
+					<Collection>
+
+						<!-- START of not in backend-->
+						<!-- Removed because errors in console: "Resource not found for the segment 'Setopportunityid_ac'."
+
+						<Record Type="UI.DataFieldForAction">
+							<PropertyValue Property="Label" String="Set Opp ID"/>
+							<PropertyValue Property="Action" String="STTA_SALES_ORDER_ND_SRV_01.STTA_SALES_ORDER_ND_SRV_01_Entities/STTA_C_SO_SalesOrder_NDSetopportunityid"/>
+							<PropertyValue Property="Inline" Bool="false"/>
+						</Record>
+						-->
+						<Record Type="UI.DataFieldForIntentBasedNavigation" >
+							<PropertyValue Property="Label" String="Manage Products (Ext Nav)"/>
+							<PropertyValue Property="SemanticObject" String="EPMProduct"/>
+							<PropertyValue Property="Action" String="manage_st"/>
+							<PropertyValue Property="Inline" Bool="true"/>
+						</Record>
+						<Record Type="UI.DataFieldWithNavigationPath">
+							<PropertyValue Property="Label" String="SalesOrderID" />
+							<PropertyValue Property="Value" Path="SalesOrderID" />
+							<PropertyValue Property="Target" NavigationPropertyPath="to_Product" />
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+						</Record>
+						<Record Type="UI.DataFieldForIntentBasedNavigation" >
+							<PropertyValue Property="Label" String="Dummy (Ext Nav)"/>
+							<PropertyValue Property="SemanticObject" String="Dummy"/>
+							<PropertyValue Property="Action" String="dummyAction"/>
+						</Record>
+						<Record Type="UI.DataFieldForIntentBasedNavigation" >
+							<PropertyValue Property="Label" String="Navigation Tester"/>
+							<PropertyValue Property="SemanticObject" String="Action"/>
+							<PropertyValue Property="Action" String="toshowparameters"/>
+						</Record>
+						<Record Type="UI.DataFieldForAction">
+							<PropertyValue Property="Label" String="Dummy (Action)"/>
+							<PropertyValue Property="Action" String="STTA_SALES_ORDER_ND_SRV_01.STTA_SALES_ORDER_ND_SRV_01_Entities/Dummy"/>
+							<PropertyValue Property="Inline" Bool="true"/>
+						</Record>
+						<!-- <Record Type="UI.DataFieldWithUrl">
+							<PropertyValue Property="Label" String="External Link" />
+							<PropertyValue Property="Value" Path="SalesOrderID"/>
+							<PropertyValue Property="Url" String="http://www.sap.com" />
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record> -->
+						<!-- END of of not in backend-->
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="SalesOrderItemID"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="ProductID"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Quantity"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="QuantityUnitCode"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<!-- <Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="DeliveryDate"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record> -->
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CurrencyCode"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="GrossAmount"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="NetAmount"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="TaxAmount"/>
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			<!-- END of replacing backend annotations since a dummy action is needed -->
+			</Annotations>
+
+			<!-- START of replacing backend annotations -->
+			<Annotations Target="STTA_SALES_ORDER_ND_SRV_01.STTA_C_SO_SalesOrder_NDType/BusinessPartnerID">
+				<Annotation Term="Common.SemanticObject" String="EPMProduct"/>
+			</Annotations>
+			<Annotations Target="STTA_SALES_ORDER_ND_SRV_01.STTA_C_SO_SalesOrderItem_NDType/ProductID">
+				<Annotation Term="Common.SemanticObject" String="EPMProduct"/>
+			</Annotations>
+			<!-- END of replacing backend annotations -->
+
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

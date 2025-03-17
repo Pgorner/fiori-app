@@ -1,0 +1,283 @@
+sap.ui.define([
+    "sap/ui/core/Element",
+	"sap/base/i18n/Localization",
+	"sap/ui/core/Locale"], function (Element, Localization, Locale) {
+
+    function resolveValue(sValue) {
+
+        if (sValue === "") {
+            sValue = undefined;
+        }
+        return sValue;
+    }
+
+    function updateStartEndFields() {
+
+        var oDateRange = oDateRangeScroller.getDateRange();
+        oStartDateValueField.setText(oDateRange.startDate);
+        oEndDateValueField.setText(oDateRange.endDate);
+    }
+
+    function handleDayChange(oEvent) {
+
+        oDateRangeScroller.setDateRangeDay(new Date(Element.getElementById("initial_date_day").getValue()));
+        updateStartEndFields();
+    }
+
+    function handleWeekChange() {
+
+        var initDate = resolveValue(Element.getElementById("initial_date_week").getValue());
+        var duration = resolveValue(Element.getElementById("week_duration").getValue());
+        var firstDay = resolveValue(Element.getElementById("first_day_of_week").getValue());
+
+        oDateRangeScroller.setDateRangeWeek(new Date(initDate), {
+            duration: duration,
+            firstDayOfWeek: firstDay
+        });
+        updateStartEndFields();
+    }
+
+    function handleMonthChange() {
+
+        oDateRangeScroller.setDateRangeMonth(new Date(Element.getElementById("initial_date_month").getValue()));
+        updateStartEndFields();
+    }
+
+    function handleYearChange() {
+
+        oDateRangeScroller.setDateRangeYear(new Date(Element.getElementById("initial_date_year").getValue()));
+        updateStartEndFields();
+    }
+
+    function handleCustomChange() {
+
+        var duration = resolveValue(Element.getElementById("custom_duration").getValue());
+        oDateRangeScroller.setDateRangeCustom(new Date(Element.getElementById("initial_date_custom").getValue()), duration);
+        updateStartEndFields();
+    }
+
+    function handleApplySystemLocaleFormatChange(oEvent) {
+
+        jQuery.sap.require("sap.ui.core.format.DateFormat");
+        if (oApplySystemLocaleFormatCheckBox.getChecked()) {
+            var oLocale = new Locale(Localization.getLanguageTag());
+            var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance(oLocale);
+            oDateRangeScroller.setDateFormat(oDateFormat);
+        } else {
+            oDateRangeScroller.setDateFormat(null);
+        }
+    }
+
+    var oControlAlignment = {
+        hAlign: sap.ui.commons.layout.HAlign.Left,
+        vAlign: sap.ui.commons.layout.VAlign.Middle
+    };
+    var oLabelAlignment = {
+        hAlign: sap.ui.commons.layout.HAlign.Right,
+        vAlign: sap.ui.commons.layout.VAlign.Middle
+    };
+
+    // Date range scroller
+    var oDateRangeScrollerLayout = new sap.ui.commons.layout.MatrixLayout({
+        columns: 2,
+        layoutFixed: false
+    });
+    var oDateRangeScrollerLabel = new sap.ui.commons.Label({
+        text: "Date Range Scroller:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    var oDateRangeScrollerLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    oDateRangeScrollerLabelCell.addContent(oDateRangeScrollerLabel);
+
+    var oDateRangeScroller = new sap.suite.ui.commons.DateRangeScroller("test_drs", {
+        change: function () {
+
+            updateStartEndFields();
+        }
+    });
+    var oDateRangeScrollerCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    oDateRangeScrollerCell.addContent(oDateRangeScroller);
+
+    oDateRangeScrollerLayout.createRow(oDateRangeScrollerLabelCell, oDateRangeScrollerCell);
+    oDateRangeScrollerLayout.placeAt("dateRangeScroller");
+
+    // Fields for setting/viewing date range scroller properties
+    var oPropertiesLayout = new sap.ui.commons.layout.MatrixLayout({
+        columns: 6,
+        layoutFixed: false
+    });
+    oPropertiesLayout.setWidths(["10%", "25%", "10%", "25%", "10%", "20%"]);
+
+    // Text field to set the start date for day
+    var oSetInitialDateDayLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateDayLabel = new sap.ui.commons.Label({
+        text: "Set Date for Day Range:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateDayLabelCell.addContent(oSetInitialDateDayLabel);
+
+    var oSetInitialDateDayCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateDayTextField = new sap.ui.commons.TextField("initial_date_day");
+    oSetInitialDateDayCell.addContent(oSetInitialDateDayTextField);
+
+    oPropertiesLayout.createRow(oSetInitialDateDayLabelCell, oSetInitialDateDayCell);
+
+    var oDayApplyButton = new sap.ui.commons.Button({ text: "Apply" });
+    oDayApplyButton.attachPress(handleDayChange);
+    oPropertiesLayout.createRow(new sap.ui.commons.layout.MatrixLayoutCell(), new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment).addContent(oDayApplyButton));
+
+    // Text fields to set the start date for week
+    var oSetInitialDateWeekLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateWeekLabel = new sap.ui.commons.Label({
+        text: "Set Date for Week Range:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateWeekLabelCell.addContent(oSetInitialDateWeekLabel);
+
+    var oSetInitialDateWeekCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateWeekTextField = new sap.ui.commons.TextField("initial_date_week");
+    oSetInitialDateWeekCell.addContent(oSetInitialDateWeekTextField);
+
+    var oSetInitialDateWeekFirstDayLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateWeekFirstDayLabel = new sap.ui.commons.Label({
+        text: "Set First Day of Week (0-6):",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateWeekFirstDayLabelCell.addContent(oSetInitialDateWeekFirstDayLabel);
+
+    var oSetInitialDateWeekFirstDayCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateWeekFirstDayTextField = new sap.ui.commons.TextField("first_day_of_week");
+    oSetInitialDateWeekFirstDayCell.addContent(oSetInitialDateWeekFirstDayTextField);
+
+    var oSetInitialDateWeekDurationLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateWeekDurationLabel = new sap.ui.commons.Label({
+        text: "Set Duration (0-6):",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateWeekDurationLabelCell.addContent(oSetInitialDateWeekDurationLabel);
+
+    var oSetInitialDateWeekDurationCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateWeekDurationTextField = new sap.ui.commons.TextField("week_duration");
+    oSetInitialDateWeekDurationCell.addContent(oSetInitialDateWeekDurationTextField);
+
+    oPropertiesLayout.createRow(oSetInitialDateWeekLabelCell, oSetInitialDateWeekCell, oSetInitialDateWeekDurationLabelCell, oSetInitialDateWeekDurationCell,
+        oSetInitialDateWeekFirstDayLabelCell, oSetInitialDateWeekFirstDayCell);
+
+    var oWeekApplyButton = new sap.ui.commons.Button({ text: "Apply" });
+    oWeekApplyButton = oWeekApplyButton.attachPress(handleWeekChange);
+    oPropertiesLayout.createRow(new sap.ui.commons.layout.MatrixLayoutCell(), new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment).addContent(oWeekApplyButton));
+
+    // Text field to set the start date for month
+    var oSetInitialDateMonthLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateMonthLabel = new sap.ui.commons.Label({
+        text: "Set Date for Month Range:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateMonthLabelCell.addContent(oSetInitialDateMonthLabel);
+
+    var oSetInitialDateMonthCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateMonthTextField = new sap.ui.commons.TextField("initial_date_month");
+    oSetInitialDateMonthCell.addContent(oSetInitialDateMonthTextField);
+
+    oPropertiesLayout.createRow(oSetInitialDateMonthLabelCell, oSetInitialDateMonthCell);
+
+    var oMonthApplyButton = new sap.ui.commons.Button({ text: "Apply" });
+    oMonthApplyButton.attachPress(handleMonthChange);
+    oPropertiesLayout.createRow(new sap.ui.commons.layout.MatrixLayoutCell(), new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment).addContent(oMonthApplyButton));
+
+    // Text field to set the start date for year
+    var oSetInitialDateYearLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateYearLabel = new sap.ui.commons.Label({
+        text: "Set Date for Year Range:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateYearLabelCell.addContent(oSetInitialDateYearLabel);
+
+    var oSetInitialDateYearCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateYearTextField = new sap.ui.commons.TextField("initial_date_year");
+    oSetInitialDateYearCell.addContent(oSetInitialDateYearTextField);
+
+    oPropertiesLayout.createRow(oSetInitialDateYearLabelCell, oSetInitialDateYearCell);
+
+    var oYearApplyButton = new sap.ui.commons.Button({ text: "Apply" });
+    oYearApplyButton.attachPress(handleYearChange);
+    oPropertiesLayout.createRow(new sap.ui.commons.layout.MatrixLayoutCell(), new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment).addContent(oYearApplyButton));
+
+    // Text fields to set the start date for custom interval
+    var oSetInitialDateCustomLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateCustomLabel = new sap.ui.commons.Label({
+        text: "Set Date for Custom Range:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateCustomLabelCell.addContent(oSetInitialDateCustomLabel);
+
+    var oSetInitialDateCustomCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateCustomTextField = new sap.ui.commons.TextField("initial_date_custom");
+    oSetInitialDateCustomCell.addContent(oSetInitialDateCustomTextField);
+
+    var oSetInitialDateCustomDurationLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oSetInitialDateCustomDurationLabel = new sap.ui.commons.Label({
+        text: "Set Duration (1-n):",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oSetInitialDateCustomDurationLabelCell.addContent(oSetInitialDateCustomDurationLabel);
+
+    var oSetInitialDateCustomDurationCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oSetInitialDateCustomDurationTextField = new sap.ui.commons.TextField("custom_duration");
+    oSetInitialDateCustomDurationCell.addContent(oSetInitialDateCustomDurationTextField);
+
+    oPropertiesLayout.createRow(oSetInitialDateCustomLabelCell, oSetInitialDateCustomCell, oSetInitialDateCustomDurationLabelCell, oSetInitialDateCustomDurationCell);
+
+    var oCustomApplyButton = new sap.ui.commons.Button({ text: "Apply" });
+    oCustomApplyButton.attachPress(handleCustomChange);
+    oPropertiesLayout.createRow(new sap.ui.commons.layout.MatrixLayoutCell(), new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment).addContent(oCustomApplyButton));
+
+    // Set date format based on system locale
+    var oApplySystemLocaleFormatLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    var oApplySystemLocaleFormatLabel = new sap.ui.commons.Label({
+        text: "Apply Default Date Format for System Locale:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    oApplySystemLocaleFormatLabelCell.addContent(oApplySystemLocaleFormatLabel);
+
+    var oApplySystemLocaleFormatBoxCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    var oApplySystemLocaleFormatCheckBox = new sap.ui.commons.CheckBox({
+        checked: false
+    });
+    oApplySystemLocaleFormatCheckBox.attachChange(handleApplySystemLocaleFormatChange);
+    oApplySystemLocaleFormatBoxCell.addContent(oApplySystemLocaleFormatCheckBox);
+
+    oPropertiesLayout.createRow(oApplySystemLocaleFormatLabelCell, oApplySystemLocaleFormatBoxCell);
+
+    // Text fields to display current start and end dates
+    var oStartDateLabel = new sap.ui.commons.Label({
+        text: "Start Date:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    var oStartDateLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    oStartDateLabelCell.addContent(oStartDateLabel);
+
+    var oStartDateValueField = new sap.ui.commons.Label({});
+    var oStartDateValueFieldCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    oStartDateValueFieldCell.addContent(oStartDateValueField);
+
+    oPropertiesLayout.createRow(oStartDateLabelCell, oStartDateValueFieldCell);
+
+    var oEndDateLabel = new sap.ui.commons.Label({
+        text: "End Date:",
+        design: sap.ui.commons.LabelDesign.Bold
+    });
+    var oEndDateLabelCell = new sap.ui.commons.layout.MatrixLayoutCell(oLabelAlignment);
+    oEndDateLabelCell.addContent(oEndDateLabel);
+
+    var oEndDateValueField = new sap.ui.commons.Label({});
+    var oEndDateValueFieldCell = new sap.ui.commons.layout.MatrixLayoutCell(oControlAlignment);
+    oEndDateValueFieldCell.addContent(oEndDateValueField);
+
+    oPropertiesLayout.createRow(oEndDateLabelCell, oEndDateValueFieldCell);
+
+    oPropertiesLayout.placeAt("dateRangeProperties");
+
+    updateStartEndFields();
+
+});

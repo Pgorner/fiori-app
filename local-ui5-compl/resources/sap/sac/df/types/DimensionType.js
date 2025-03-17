@@ -1,0 +1,7 @@
+/*!
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define("sap/sac/df/types/DimensionType",[],function(){var e={AbstractStructure:"AbstractStructure",AccountDimension:"AccountDimension",AttributeDimension:"AttributeDimension",CalculatedDimension:"CalculatedDimension",ContainerDimension:"ContainerDimension",CurrencyDimension:"CurrencyDimension",DateDimension:"DateDimension",Dimension:"Dimension",DimensionIncomplete:"DimensionIncomplete",FamCalculatedDimension:"FamCalculatedDimension",FormulaCalculatedDimension:"FormulaCalculatedDimension",GisDimension:"GisDimension",HierarchyNameDimension:"HierarchyNameDimension",HierarchyVersionDimension:"HierarchyVersionDimension",MbfCalculatedDimension:"MbfCalculatedDimension",MeasureStructure:"MeasureStructure",StructureDimension:"NonMeasureStructure",PresentationDimension:"PresentationDimension",SearchDimension:"SearchDimension",SearchResultDimension:"SearchResultDimension",SecondaryStructure:"SecondaryStructure",SuggestAttributeDimension:"SuggestAttributeDimension",SuggestScopeDimension:"SuggestScopeDimension",SuggestTermDimension:"SuggestTermDimension",TimeDimension:"TimeDimension",UnitDimension:"UnitDimension",VersionDimension:"VersionDimension"};return e});
+//# sourceMappingURL=DimensionType.js.map

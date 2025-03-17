@@ -1,0 +1,34 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio36dfc53c777647f18c3e6ff097790163" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/07_APF/deletion-of-personal-data-in-sap-business-suite-powered-by-sap-hana-36dfc53.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Deletion of Personal Data in SAP Business Suite powered by SAP HANA</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Deletion of Personal Data in SAP Business Suite powered by SAP HANA</h2></div><p>This section explains how an administrator or a user can delete personal data in SAP
+			Business Suite powered by SAP HANA.</p><section id="section_ix1_fbm_xz"><h2 class="title ">Deleting Analysis Paths</h2><p>When you create an
+				analysis path using an APF-based app, the path as well as the user who created the
+				path are stored in a SAP HANA database table. </p><section>
+				<h3 class="title ">Deletion by an Administrator</h3>
+				<p>When a user does not have access to the system any longer, for example, because
+					he or she left the company, an administrator can delete the user's analysis
+					paths. The analysis paths are stored in the following HANA database table:</p>
+				<p>Table name: <code>"sap.hba.r.apf.core.db::ANALYSIS_PATH"</code></p>
+				<p>Schema name: <code>"SAP_HBA". The user is stored in the table field "CREATED_BY_USER"</code></p>
+				<p>The administrator can delete the analysis paths with an SQL statement such as the
+					following:</p>
+				<p><code>delete from "SAP_HBA"."sap.hba.r.apf.core.db::ANALYSIS_PATH" where "CREATED_BY_USER"
+						= '&lt;user name&gt;'</code></p>
+			</section><section>
+				<h3 class="title ">Deletion by a User</h3>
+				<p>Users who still have system access can delete their own saved analysis paths directly in the
+					analysis path gallery of the runtime application. To do so, open the analysis
+					path menu and choose <span class="ph uicontrol">Delete</span>. This opens a list of all
+					saved analysis paths, which can be deleted individually. Repeat this for each
+					APF-based application since you can see only those analysis paths that were
+					created in the application you're currently using.</p>
+			</section></section><section id="section_dtm_zcm_xz">
+			<h2 class="title ">Personal Data in Analysis Paths</h2>
+			<p>In an APF-based application, personal data can also appear in an analysis path, for
+				example, as a measure in an analysis step such as 'revenue by consultant'. APF does
+				not persist these measures, but only filter criteria that are relevant for
+				selections made in a chart. When a user is deleted from the system, the personal
+				data of this user is not displayed any longer in an analysis path. The filter
+				criteria is also removed from the analysis path so that no personal data of the
+				deleted user shows up.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

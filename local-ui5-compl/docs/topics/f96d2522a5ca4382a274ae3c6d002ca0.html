@@ -1,0 +1,335 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof96d2522a5ca4382a274ae3c6d002ca0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-7-navigate-to-routes-with-mandatory-parameters-f96d252.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 7: Navigate to Routes with Mandatory Parameters</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 7: Navigate to Routes with Mandatory Parameters</h2></div><div class="shortdesc">In this step, we implement a feature that allows the user to click on an employee in
+		the list to see additional details of the employee. A route pattern can have one or more
+		mandatory parameters to identify objects in an app.</div><p>The detail page has to read the ID of the employee from the URL to fetch and display the
+			employee data from the server. If the employee was not found, for example, because an
+			invalid employee ID was passed on, we want to inform the user by displaying the
+				<code>notFound</code> target. Of course, the back navigation has to work as well
+			for this page.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loioc797ba8b9e704703bc4bd0b7860630bb_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Employee list with navigation option for items</h2></span></div>
+			<div><div class="fig"><img src="loioaf68fa98aa894030b537ce4893b31de2_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Detail Page for a selected employee</h2></span></div>
+			<div><div class="fig"><img src="loio8bec9718da5f44dab9cc929196750918_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "><span class="ph uicontrol">Not Found</span> page for an invalid
+						<code>EmployeeID</code></h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.07" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.07" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.07">Routing and Navigation - Step
+					7</a>.</p>
+			<div><div class="fig"><img src="loioad192cd8e896411b95fe430d84cac1cb_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Folder structure for this step</h2></span></div>
+		</section><section>
+			<h2 class="title ">webapp/manifest.json</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"_version": "1.12.0",
+	"sap.app": {
+		...
+	},
+	"sap.ui": {
+		...
+	},
+	"sap.ui5": {
+		...
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "sap.ui.demo.nav.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				}
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "appHome",
+				"target": "home"
+			}, {
+				"pattern": "employees",
+				"name": "employeeList",
+				"target": "employees"
+			}<span class="emphasis">, {
+				"pattern": "employees/{employeeId}",
+				"name": "employee",
+				"target": "employee"
+			}</span>],
+			"targets": {
+				"home": {
+					"id": "home",
+					"name": "Home",
+					"level" : 1
+				},
+				"notFound": {
+					"id": "notFound",
+					"name": "NotFound",
+					"transition": "show"
+				},
+				"employees": {
+					"id": "employeeList",
+					"path": "sap.ui.demo.nav.view.employee",
+					"name": "EmployeeList",
+					"level" : 2
+				}<span class="emphasis">,
+				"employee": {
+					"id": "employee",
+					"name": "employee.Employee",
+					"level" : 3
+				}</span>
+			}
+		}
+	}
+}</pre></div></div></section>
+			<p>From our data model (<code>webapp/localService/metadata.xml</code> or
+					<code>webapp/localService/mockdata/Employees.json</code>), you can see that
+				each employee entity is identified by an <code>EmployeeID</code>. We define a
+				new route that expects a mandatory <code>employeeId</code> in its pattern to
+				address an employee. Unlike the patterns we used before, this pattern has a dynamic
+				part. We create a new route <code>employee</code> and use
+					<code>employees/{employeeId}</code> as its pattern.</p>
+			<p>The <code>{employeeId}</code> part of the pattern is a mandatory parameter as
+				indicated by the curly brackets. The hash that contains an actual employee ID is
+				matched against that pattern at runtime.</p>
+			<p>The following hashes would match in our case: <code>employees/2</code>,
+					<code>employees/7</code>, <code>employees/anInvalidId,</code> and so on.
+				However, the hash <code>employees/</code> will not match as it does not contain
+				an ID at all. The target of our route is <code>employee</code>. We create the
+				target <code>employee</code> with <code>level</code>
+				<code>3</code>. With that, we make sure that we have the correct slide animation
+				direction.</p>
+			<p>Next, we have to create the view <code>employees.Employee</code>; for better
+				illustration the <code>path</code> is not specified this time. </p>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/Employee.view.xml (New)</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.employee.Employee"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	busyIndicatorDelay="0"&gt;
+	&lt;Page
+		id="employeePage"
+		title="{i18n&gt;EmployeeDetailsOf} {FirstName} {LastName}"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+		class="sapUiResponsiveContentPadding"&gt;
+		&lt;content&gt;
+			&lt;Panel
+				id="employeePanel"
+				width="auto"
+				class="sapUiResponsiveMargin sapUiNoContentPadding"&gt;
+				&lt;headerToolbar&gt;
+					&lt;Toolbar&gt;
+						&lt;Title text="{i18n&gt;EmployeeIDColon} {EmployeeID}" level="H2"/&gt;
+						&lt;ToolbarSpacer /&gt;
+					&lt;/Toolbar&gt;
+				&lt;/headerToolbar&gt;
+				&lt;content&gt;
+					&lt;f:SimpleForm
+						minWidth="1024"
+						editable="false"
+						layout="ResponsiveGridLayout"
+						labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4"
+						columnsL="1" columnsM="1"&gt;
+						&lt;f:content&gt;
+							&lt;Label text="{i18n&gt;formFirstName}"/&gt;
+							&lt;Text text="{FirstName}"/&gt;
+							&lt;Label text="{i18n&gt;formLastName}"/&gt;
+							&lt;Text text="{LastName}"/&gt;
+							&lt;Label text="{i18n&gt;formAddress}"/&gt;
+							&lt;Text text="{Address}"/&gt;
+							&lt;Label text="{i18n&gt;formCity}"/&gt;
+							&lt;Text text="{City}, {Region}"/&gt;
+							&lt;Label text="{i18n&gt;formPostalCode}"/&gt;
+							&lt;Text text="{PostalCode}"/&gt;
+							&lt;Label text="{i18n&gt;formPhoneHome}"/&gt;
+							&lt;Text text="{HomePhone}"/&gt;
+							&lt;Label text="{i18n&gt;formCountry}"/&gt;
+							&lt;Text text="{Country}"/&gt;
+						&lt;/f:content&gt;
+					&lt;/f:SimpleForm&gt;
+				&lt;/content&gt;
+			&lt;/Panel&gt;
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+			<p>Create the file <code>Employee.view.xml</code> inside the
+					<code>webapp/view/employee</code> folder. This employee view displays master
+				data for an employee in a panel with a <code>SimpleForm</code> control: first
+				name, last name and so on. The data comes from a relative data binding that is set
+				on the view level as we can see in the controller later. As we are focusing on the
+				navigation aspects in this tutorial, we won't go into detail on the controls of the
+				view. Just copy the code.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/employee/Employee.controller.js (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.Employee", {
+		onInit: function () {
+			var oRouter = this.getRouter();
+			oRouter.getRoute("employee").attachMatched(this._onRouteMatched, this);
+			// Hint: we don't want to do it this way
+			/*
+			oRouter.attachRouteMatched(function (oEvent){
+				var sRouteName, oArgs, oView;
+				sRouteName = oEvent.getParameter("name");
+				if (sRouteName === "employee"){
+					this._onRouteMatched(oEvent);
+				}
+			}, this);
+			*/
+		},
+		_onRouteMatched : function (oEvent) {
+			var oArgs, oView;
+			oArgs = oEvent.getParameter("arguments");
+			oView = this.getView();
+
+			oView.bindElement({
+				path : "/Employees(" + oArgs.employeeId + ")",
+				events : {
+					change: this._onBindingChange.bind(this),
+					dataRequested: function (oEvent) {
+						oView.setBusy(true);
+					},
+					dataReceived: function (oEvent) {
+						oView.setBusy(false);
+					}
+				}
+			});
+		},
+		_onBindingChange : function (oEvent) {
+			// No data for the binding
+			if (!this.getView().getBindingContext()) {
+				this.getRouter().getTargets().display("notFound");
+			}
+		}
+	});
+});</span></pre></div></div></section>
+			<p>Now we create the file <code>Employee.controller.js</code> in the
+					<code>webapp/controller/employee</code> folder. In this controller file, we
+				want to detect which employee shall be displayed in order to show the employee's
+				data in the view. Therefore, we query the router for the route
+					<code>employee</code> and attach a private event listener function
+					<code>_onRouteMatched</code> to the matched event of this route.</p>
+			<p>In the event handler, we can access the <code>arguments</code> parameter from the
+					<code>oEvent</code> parameter that contains all parameters of the pattern.
+				Since this listener is only called when the route is matched, we can be sure that
+				the mandatory parameter <code>employeeId</code> is always available as a key in
+					<code>arguments</code>; otherwise the route would not have matched. The name
+				of the mandatory parameter <code>employeeId</code> correlates to the
+					<code>{employeeId}</code> from our pattern definition of the route
+					<code>employee</code> and thus to the value in the URL.</p>
+			<p>In <code>_onRouteMatched</code> we call <code>bindElement()</code> on the
+				view to make sure that the data of the specified employee is available in the view
+				and its controls. The <code>ODataModel</code> will handle the necessary data
+				requests to the back end in the background. While the data is loading, it would be
+				nice to show a busy indicator by simply setting the view to <code>busy</code>.
+				Therefore, we pass an events object to <code>bindElement()</code> to listen to
+				the events <code>dataRequested</code> and <code>dataReceived</code>. The
+				attached functions handle the busy state by calling
+					<code>oView.setBusy(true)</code> and <code>oView.setBusy(false)</code>
+				respectively. </p>
+			<p>We also add an event handler to the <code>change</code> event as a private
+				function <code>_onBindingChange</code>. It checks if the data could be loaded by
+				querying the binding context of the view. As seen in the previous steps, we will
+				display the <code>notFound</code> target if the data could not be loaded.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Instead of calling <code>attachMatched(…)</code> on a route we could also
+						call <code>attachRouteMatched(…)</code> directly on the router. However,
+						the event for the latter is fired for every matched event of any route in
+						the whole app. We don't use the latter because we would have to implement an
+						additional check for making sure that current route is the route that has
+						been matched. We want to avoid this extra overhead and register on the route
+						instead.</p>
+				<p></p></div></div><p></p>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/EmployeeList.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.employee.EmployeeList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Page
+		id="employeeListPage"
+		title="{i18n&gt;EmployeeList}"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+		class="sapUiResponsiveContentPadding"&gt;
+		&lt;content&gt;
+			&lt;List id="employeeList" headerText="{i18n&gt;ListOfAllEmployees}" items="{/Employees}"&gt;
+				&lt;items&gt;
+					&lt;StandardListItem
+						title="{FirstName} {LastName}"
+						iconDensityAware="false"
+						iconInset="false"
+						<span class="emphasis">type="Navigation"
+						press=".onListItemPressed"</span>/&gt;
+				&lt;/items&gt;
+			&lt;/List&gt;
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>It's time to change the <code>EmployeeList</code> view so that we can navigate to
+				the new view. We set the attribute type of the <code>StandardListItem</code>
+				template to <code>Navigation</code> to make the item clickable and indicate a
+				navigation feature to the user. Additionally, we add an event handler for the
+					<code>press</code> event that is called when the user clicks on an employee
+				list item.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/employee/EmployeeList.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.EmployeeList", {
+<span class="emphasis">		onListItemPressed : function(oEvent){
+			var oItem, oCtx;
+			oItem = oEvent.getSource();
+			oCtx = oItem.getBindingContext();
+			this.getRouter().navTo("employee",{
+				employeeId : oCtx.getProperty("EmployeeID")
+			});
+		}</span>
+	});
+});</pre></div></div></section>
+			<p>Finally, we add the handler <code>onListItemPressed</code> for the
+					<code>press</code> event to the <code>EmployeeList</code> controller. In
+				the handler, we determine the <code>EmployeeID</code> of the list item by
+				querying the binding context and accessing the property <code>EmployeeID</code>
+				from the data model.</p>
+			<p>Then we navigate to the <code>employee</code> route and pass a configuration
+				object on to the <code>navTo</code> method with the mandatory parameter
+					<code>employeeId</code> filled with the correct <code>EmployeeID</code>.
+				The router always makes sure that mandatory parameters as specified in the route's
+				pattern are set; otherwise an error is thrown.</p>
+		</section><section>
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">...
+EmployeeDetailsOf=Employee Details of
+EmployeeIDColon=Employee ID:
+formFirstName=First Name
+formLastName=Last Name
+formAddress=Address
+formCity=City
+formPostalCode=Postal Code
+formPhoneHome=Phone (Home)
+formCountry=Country</span></pre></div></div></section>
+			<p>Add the new texts to the <code>i18n.properties</code> file.</p>
+			<p>That's it. You can go to <code>webapp/index.html#/employees</code> and click on
+				any list item to be redirected to corresponding employee's details. Check also what
+				happens when you directly navigate to the following files:</p><ul class="ul ">
+					<li class="li">
+						<p><code>webapp/index.html#/employees/3</code></p>
+					</li>
+					<li class="li">
+						<p><code>webapp/index.html#/employees/33</code></p>
+					</li>
+				</ul><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/782aac08f2de4003a2fcbdd39d27f374">Step 6: Navigate to Routes with Hard-Coded Patterns</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/3e5f6f3e163f46ecaef376950258e5e4">Step 8: Navigate with Flip Transition</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.model.Binding" title="api/sap.ui.model.Binding" class="sap-doc" alt="api/sap.ui.model.Binding">API Reference: sap.ui.model.Binding</a></li>
+
+	</ul></section></div></section></div></body></html>

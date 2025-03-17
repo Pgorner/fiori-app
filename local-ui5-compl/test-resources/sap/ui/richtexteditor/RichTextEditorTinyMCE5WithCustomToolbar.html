@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>RichTextEditorTinyMCE5 - sap.ui.richtexteditor</title>
+
+	<script src="../../../../resources/sap-ui-core.js"
+		type="text/javascript"
+		charset="UTF-8"
+		id="sap-ui-bootstrap"
+		data-sap-ui-libs="sap.ui.richtexteditor, sap.m"
+		data-sap-ui-theme="sap_fiori_3"
+		data-sap-ui-preload="async">
+	</script>
+
+	<script>
+		sap.ui.getCore().attachInit(function () {
+			sap.ui.require([
+				"sap/ui/richtexteditor/RichTextEditor",
+				"sap/ui/richtexteditor/RTESplitButton",
+				"sap/m/App",
+				"sap/m/Page",
+				"sap/m/Button",
+				"sap/ui/core/InvisibleText"
+			], function (RTE, RTESplitButton, App, Page, Button, InvisibleText) {
+
+				var oApp = new App("myApp", {
+					initialPage: "myPage"
+				});
+
+				var oRichTextEditor = new RTE("myRTE", {
+					editorType: sap.ui.richtexteditor.EditorType.TinyMCE5,
+					width: "100%",
+					height: "300px",
+					showGroupFont: true,
+					showGroupUndo: true,
+					showGroupLink: true,
+					showGroupInsert: true,
+					customToolbar: true,
+					customButtons: [
+						new Button({
+							text: "Custom Button",
+							icon: "sap-icon://crm-sales",
+							type: "Transparent",
+							tooltip: "Custom button",
+							press: function () {
+								oRichTextEditor.setValue("Hello world!");
+							}
+						})
+					]
+				});
+
+				var oInvisibleText = new InvisibleText({
+					id: "textForRTE",
+					text: "RichTextEditor with a custom toolbar",
+				});
+				oRichTextEditor.addAriaLabelledBy(oInvisibleText);
+
+				//This timeout is needed because the custom toolbar must be rendered before adding new groups in it.
+				setTimeout(function() {
+					oRichTextEditor.addButtonGroup("styleselect");
+					oRichTextEditor.addButtonGroup("table");
+				},500);
+
+				var oPage = new Page("myPage", {
+					title: "Fully featured RichTextEditorTinyMCE5 with a custom toolbar",
+					contentOnlyBusy: true,
+					content: [
+						oInvisibleText,
+						oRichTextEditor
+					]
+				});
+
+				oApp.addPage(oPage).placeAt("content");
+			});
+		});
+	</script>
+</head>
+<body class="sapUiBody">
+<div id="content"></div>
+</body>
+</html>

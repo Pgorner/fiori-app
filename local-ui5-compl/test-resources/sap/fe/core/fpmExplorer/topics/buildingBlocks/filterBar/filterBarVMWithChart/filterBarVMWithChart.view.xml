@@ -1,0 +1,42 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+	xmlns:f="sap.f"
+	xmlns:mdc="sap.ui.mdc"
+	controllerName="sap.fe.core.fpmExplorer.filterBarVMWithChart.filterBarVMWithChart"
+>
+	<f:DynamicPage id="FilterBarVMWithChart" class="sapUiResponsiveContentPadding">
+		<f:title>
+			<f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
+				<f:heading>
+					<macros:VariantManagement
+						id="VM"
+						for="FilterBar,chartDefault"
+						showSetAsDefault="true"
+						executeOnSelectionForStandardDefault="true"
+						headerLevel="H2"
+					/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<f:header>
+			<f:DynamicPageHeader id="_IDGenDynamicPageHeader1" pinnable="true">
+				<VBox id="_IDGenVBox1">
+					<macros:FilterBar metaPath="@com.sap.vocabularies.UI.v1.SelectionFields#SF1" id="FilterBar" />
+				</VBox>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<macros:Chart
+				id="chartDefault"
+				metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.Chart"
+				selectionChange=".onChartSelectionChanged"
+				personalization="Sort,Type,Item"
+				selectionMode="Multiple"
+				filterBar="FilterBar"
+			/>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

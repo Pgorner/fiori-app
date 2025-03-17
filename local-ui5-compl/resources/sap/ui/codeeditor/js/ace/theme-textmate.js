@@ -1,0 +1,2 @@
+ace.define("ace/theme/textmate",["require","exports","module","ace/theme/textmate-css","ace/lib/dom"],function(e,t,s){"use strict";t.isDark=false;t.cssClass="ace-tm";t.cssText=e("./textmate-css");t.$id="ace/theme/textmate";var c=e("../lib/dom");c.importCssString(t.cssText,t.cssClass,false)});(function(){ace.require(["ace/theme/textmate"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
+//# sourceMappingURL=theme-textmate.js.map

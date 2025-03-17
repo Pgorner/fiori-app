@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="GANTT_CHART_ODATA_SRV"
+			xml:lang="en" sap:schema-version="1"
+			xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="ProjectElemDetail" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ObjectID" />
+				</Key>
+				<Property Name  ="ObjectID" Type="Edm.String" Nullable="false"
+					sap:label   ="ObjectID" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="ParentObjectID" Type="Edm.String" Nullable="false"
+					sap:label   ="ParentObjectID" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="HierarchyNodeLevel" Type="Edm.Int32" Nullable="false"
+					sap:label   ="HierarchyNodeLevel" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="DrillDownState" Type="Edm.String" Nullable="false"
+					sap:label   ="DrillDownState" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="Magnitude" Type="Edm.Int32" Nullable="false"
+					sap:label   ="Magnitude" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="StartDate" Type="Edm.DateTime" Precision="7"
+					sap:label   ="Start Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="EndDate" Type="Edm.DateTime" Precision="7"
+					sap:label   ="End Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<NavigationProperty Name="to_NonWorkingTime"
+					Relationship="GANTT_CHART_ODATA_SRV.NonWorkingTime" FromRole="FromRole_NonWorkingTime"
+					ToRole="ToRole_NonWorkingTime" />
+				<NavigationProperty Name="to_DownTime"
+					Relationship="GANTT_CHART_ODATA_SRV.DownTime" FromRole="FromRole_DownTime"
+					ToRole="ToRole_DownTime" />
+			</EntityType>
+			<EntityType Name="NonWorkingTimeDetail" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="NonWorkingTimeID" />
+				</Key>
+				<Property Name  ="NonWorkingTimeID" Type="Edm.String" Nullable="false"
+					sap:label   ="NonWorkingTimeID" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="ParentObjectID" Type="Edm.String" Nullable="false"
+					sap:label   ="ParentObjectID" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="NonWorkingStartDate" Type="Edm.DateTime" Precision="7"
+					sap:label   ="Start Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="NonWorkingEndDate" Type="Edm.DateTime" Precision="7"
+					sap:label   ="End Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+			</EntityType>
+			<EntityType Name="DownTimeDetail" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="DownTimeID" />
+				</Key>
+				<Property Name  ="DownTimeID" Type="Edm.String" Nullable="false"
+					sap:label   ="DownTimeID" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="ParentObjectID" Type="Edm.String" Nullable="false"
+					sap:label   ="ParentObjectID" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="DownTimeStartDate" Type="Edm.DateTime" Precision="7"
+					sap:label   ="Start Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+				<Property Name  ="DownTimeEndDate" Type="Edm.DateTime" Precision="7"
+					sap:label   ="End Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" />
+			</EntityType>
+			<Association Name="NonWorkingTime" sap:content-version="1">
+				<End Type="GANTT_CHART_ODATA_SRV.ProjectElemDetail"
+					Multiplicity="1" Role="FromRole_NonWorkingTime" />
+				<End Type="GANTT_CHART_ODATA_SRV.NonWorkingTimeDetail"
+					Multiplicity="*" Role="ToRole_NonWorkingTime" />
+				<ReferentialConstraint>
+					<Principal Role="FromRole_NonWorkingTime">
+						<PropertyRef Name="ObjectID" />
+					</Principal>
+					<Dependent Role="ToRole_NonWorkingTime">
+						<PropertyRef Name="ParentObjectID" />
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="DownTime" sap:content-version="1">
+				<End Type="GANTT_CHART_ODATA_SRV.ProjectElemDetail"
+					Multiplicity="1" Role="FromRole_DownTime" />
+				<End Type="GANTT_CHART_ODATA_SRV.DownTimeDetail"
+					Multiplicity="*" Role="ToRole_DownTime" />
+				<ReferentialConstraint>
+					<Principal Role="FromRole_DownTime">
+						<PropertyRef Name="ObjectID" />
+					</Principal>
+					<Dependent Role="ToRole_DownTime">
+						<PropertyRef Name="ParentObjectID" />
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="GANTT_CHART_ODATA_SRV_Entities"
+				m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="ProjectElems"
+					EntityType="GANTT_CHART_ODATA_SRV.ProjectElemDetail"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false"
+					sap:pageable="false" sap:content-version="1" />
+				<EntitySet Name="NonWorkingTime"
+					EntityType="GANTT_CHART_ODATA_SRV.NonWorkingTimeDetail"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false"
+					sap:pageable="false" sap:content-version="1" />
+				<EntitySet Name="DownTime"
+					EntityType="GANTT_CHART_ODATA_SRV.DownTimeDetail"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false"
+					sap:pageable="false" sap:content-version="1" />
+				<AssociationSet Name="NonWorkingTime"
+					Association="GANTT_CHART_ODATA_SRV.NonWorkingTime"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false"
+					sap:content-version="1">
+					<End EntitySet="ProjectElems" Role="FromRole_NonWorkingTime" />
+					<End EntitySet="NonWorkingTime" Role="ToRole_NonWorkingTime" />
+				</AssociationSet>
+				<AssociationSet Name="DownTime"
+					Association="GANTT_CHART_ODATA_SRV.DownTime"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false"
+					sap:content-version="1">
+					<End EntitySet="ProjectElems" Role="FromRole_DownTime" />
+					<End EntitySet="DownTime" Role="ToRole_DownTime" />
+				</AssociationSet>
+			</EntityContainer>
+			<atom:link rel="self"
+				href="http://my.test.service.com/sap/opu/odata/sap/GANTT_CHART_ODATA_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom" />
+			<atom:link rel="latest-version"
+				href="http://my.test.service.com/sap/opu/odata/sap/GANTT_CHART_ODATA_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom" />
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/base/Log","sap/gantt/shape/Path"],function(t,e){"use strict";var i=e.extend("sap.gantt.shape.ext.Cursor",{metadata:{properties:{isClosed:{type:"boolean",defaultValue:true},length:{type:"float",defaultValue:10},width:{type:"float",defaultValue:5},pointHeight:{type:"float",defaultValue:5}}}});i.prototype.init=function(){var t=sap.ui.getCore().getLibraryResourceBundle("sap.gantt");this.setProperty("ariaLabel",t.getText("ARIA_CURSOR"))};i.prototype.getD=function(e,i){var r;if(this.mShapeConfig.hasShapeProperty("d")){r=this._configFirst("d",e)}else{var a=this.getPointHeight(e,i);var n=this.getWidth(e,i);var o=this.getLength(e,i);var s=o/2;var u=this.getRotationCenter(e,i);if(u&&u.length===2&&jQuery.isNumeric(a)&&jQuery.isNumeric(n)&&jQuery.isNumeric(o)&&jQuery.isNumeric(s)){r="M "+u.join(" ")+" m "+-s+" "+-(n+a)/2+" l "+o+" 0 l 0 "+n+" l -"+s+" "+a+" l -"+s+" -"+a+" z"}}if(this.isValid(r)){return r}else{t.warning("Cursor shape generated invalid d: "+r+" from the given data: "+e);return null}};i.prototype.getLength=function(t){return this._configFirst("length",t,true)};i.prototype.getWidth=function(t){return this._configFirst("width",t,true)};i.prototype.getPointHeight=function(t){return this._configFirst("pointHeight",t,true)};return i},true);
+//# sourceMappingURL=Cursor.js.map

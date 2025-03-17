@@ -1,0 +1,92 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiofe6792fa673c4b0fba91d35fd6493c86" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/t-account-fe6792f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">T Account</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">T Account</h2></div><div class="shortdesc">The T account control displays debit and credit entries on a general ledger
+		account.</div><p>The <code>TAccount</code> control can be used to display debit and credit entries on
+			a general ledger account, visualizing the flow of transactions through the accounts
+			where they are stored.</p><p>You can group T accounts by type, such as balance sheet T accounts and income statement T
+			accounts, displaying multiple T accounts together. The T account group provides total
+			balances for all T accounts included in this group. It also highlights matching debit
+			and credit entries within the same group when an entry is clicked or tapped. In
+			addition, you can display all T accounts and T account groups on a T account panel that
+			provides a toolbar with total balances for all T account and T account groups included
+			in the panel.</p><p>For more
+				information about this control, see the <a href="api/sap.suite.ui.commons.taccount.TAccount" title="api/sap.suite.ui.commons.taccount.TAccount" class="sap-doc" alt="api/sap.suite.ui.commons.taccount.TAccount">API Reference</a> and the <a href="entity/sap.suite.ui.commons.taccount.TAccount" title="entity/sap.suite.ui.commons.taccount.TAccount" class="sap-doc" alt="entity/sap.suite.ui.commons.taccount.TAccount">samples</a> in the Demo Kit.</p><section id="section_ok4_lwb_mfb">
+			<h2 class="title ">Overview</h2>
+			<p>In double-entry bookkeeping, journal entries are transferred to the general ledger by
+				posting their debit and credit amounts on specific ledger accounts, which are often
+				referred to as T accounts. A ledger account (or T account) is usually displayed in a
+				format that resembles the letter T: with the account name above the T, debit entries
+				to the left of the T, and credit entries to the right of the T.</p>
+			<p>T accounts are usually clustered together, so that accountants can analyze how
+				individual line items from different journal entries affect the ledger balances.</p>
+			<div><div class="fig"><img src="loio3894aebc01bc487dbc78ef83eccc0bdd_LowRes.jpg" title="T Accounts" alt="T Accounts" usemap="#"></div></div>
+		</section><section id="section_zdq_fcc_mfb">
+			<h2 class="title ">Details</h2>
+			<p><span class="emphasis">Layout and Grouping</span></p>
+			<ul class="ul ">
+				<li class="li">
+					<p>The T account control provides three subcontrols that can be used to create
+						different layout combinations:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p><a href="api/sap.suite.ui.commons.taccount.TAccount" title="api/sap.suite.ui.commons.taccount.TAccount" class="sap-doc" alt="api/sap.suite.ui.commons.taccount.TAccount"><code>TAccount</code></a>
+								– A basic T account control with debit and credit entries arranged
+								on either side of the T shape.</p>
+						</li>
+						<li class="li">
+							<p><a href="api/sap.suite.ui.commons.taccount.TAccountGroup" title="api/sap.suite.ui.commons.taccount.TAccountGroup" class="sap-doc" alt="api/sap.suite.ui.commons.taccount.TAccountGroup"><code>TAccountGroup</code></a> – A group that includes
+								multiple <code>TAccount</code> controls and displays them side
+								by side. A T account group can be expanded or collapsed. It also
+								provides total balance for the accounts included in the group.</p>
+						</li>
+						<li class="li">
+							<p><a href="api/sap.suite.ui.commons.taccount.TAccountPanel" title="api/sap.suite.ui.commons.taccount.TAccountPanel" class="sap-doc" alt="api/sap.suite.ui.commons.taccount.TAccountPanel"><code>TAccountPanel</code></a> – A panel that combines
+								multiple <code>TAccountGroup</code> and
+									<code>TAccount</code> controls, providing total balance for
+								all accounts and groups included in this panel. It also enables you
+								to switch between T account view and table view and adjust display
+								options.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<p><span class="emphasis">Customizing</span></p>
+			<ul class="ul ">
+				<li class="li">
+					<p>You can add color indicators for debit and credit entries using the
+							<code>color</code> property of the <code>TAccountItem</code>
+						control. This can be an arbitrary color, but for consistency with other SAP
+						Fiori apps, it is recommended that you use semantic colors defined by the
+							<a href="api/sap.m.ColorPalette" title="api/sap.m.ColorPalette" class="sap-doc" alt="api/sap.m.ColorPalette">sap.m.ColorPalette</a> or <a href="api/sap.ui.unified.ColorPicker" title="api/sap.ui.unified.ColorPicker" class="sap-doc" alt="api/sap.ui.unified.ColorPicker">sap.ui.unified.ColorPicker</a> on the
+						app level.</p>
+				</li>
+				<li class="li">
+					<p>You can define additional properties for debit and credit entries using
+							<code>TAccountItemProperty</code> elements that can be added to the
+							<code>properties</code> aggregation of the
+							<code>TAccountItem</code> control. For details, see <a href="api/sap.suite.ui.commons.taccount.TAccountItemProperty" title="api/sap.suite.ui.commons.taccount.TAccountItemProperty" class="sap-doc" alt="api/sap.suite.ui.commons.taccount.TAccountItemProperty">the API Reference</a>.</p>
+				</li>
+			</ul>
+			<p><span class="emphasis">Restrictions</span></p>
+			<ul class="ul ">
+				<li class="li">
+					<p>It is recommended that all entries displayed in a single T account use the
+						same currency.</p>
+					<p>If debit and credit entries are in different currencies, the
+							<code>TAccount</code> control does not convert the values to the
+						currency specified in its <code>measureOfUnit</code> property. In such
+						cases, the overall account balance is not displayed.</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>Entries greater than 9007199254740992 should be passed as a string to
+							prevent truncation or loss of precision.</p>
+					<p></p></div></div>
+				</li>
+				<li class="li">
+					<p>Similarly, if T accounts in a T account group are in different currencies,
+						the overall balance of the group cannot be calculated and is not
+						displayed.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

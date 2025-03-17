@@ -1,0 +1,551 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f2f2866f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/number-format-91f2f28.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Number Format</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Number Format</h2></div><div class="shortdesc">The <code>sap.ui.core.format.NumberFormat</code> class can be used to parse a
+		string representing a number (float or integer) into a JavaScript <code>number</code>
+		and vice versa (also known as <code>format</code>).</div><p><code>NumberFormat</code> uses the parameters defined for the current locale. These
+			parameters can be overwritten on each instance by setting the format options.</p><p>There are five types of formatters defined in <code>NumberFormat</code>:</p><ul class="ul ">
+				<li class="li">
+					<p>Integer formatter: formats and parses only the integer digits; decimal digits are ignored</p>
+				</li>
+				<li class="li">
+					<p>Float formatter: formats and parses both integer and decimal digits.</p>
+				</li>
+				<li class="li">
+					<p>Percent formatter: formats the number into a string with percentage sign. It validates the number whether it contains the right
+						percentage sign in its parser.</p>
+				</li>
+				<li class="li">
+					<p>Currency formatter: formats the number by using the parameters defined for the given currency code. Either currency symbol,
+						currency code, or none of both can be included in the final formatted string. It parses the given string into an array which
+						contains both the currency number and currency code.</p>
+				</li>
+				<li class="li">
+					<p>Unit formatter: formats the number by using the parameters defined for the given unit.</p>
+				</li>
+			</ul><p></p><section>
+			<h2 class="title ">Instantiation</h2>
+			<p>The instantiation of <code>sap.ui.core.format.NumberFormat</code> is done by calling a getter defined on <code>NumberFormat</code> (and
+				not by using the
+				constructor).</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "NumberFormat" required from module "sap/ui/core/format/NumberFormat"
+var oIntegerFormat = NumberFormat.getIntegerInstance();
+var oFloatFormat = NumberFormat.getFloatInstance();
+var oPercentFormat = NumberFormat.getPercentInstance();
+var oCurrencyFormat = NumberFormat.getCurrencyInstance();</pre></div></div></section><p></p>
+		</section><section><h2 class="title ">Parameters</h2><p>All parameters have their default value defined in the
+				current locale. Therefore, if no parameter is given when instantiating the formatter
+				instance, it fetches the parameters from the current locale. The samples here assume
+				that the current locale is <code>en-US</code>.</p><p>All parameters can be overwritten by giving a format option object in the getter of the formatter. There are a number of parameters defined for the
+				four types of formatters. Most of them are shared among the types, and the rest are specifically defined for a certain kind of
+				formatter.</p><section>
+				<h3 class="title ">Integer and Decimal Digits</h3>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>minIntegerDigits</code>: minimal number of non-fractional digits. If there are fewer integer digits in the number than the value
+							defined here, <code>"0"</code>s are prepended to the final result.</p>
+					</li>
+					<li class="li">
+						<p><code>maxIntegerDigits</code>: maximum number of non-fractional digits. If there are more digits in the number than the value defined
+							here, all integer digits in the final result are replaced by <code>"?"</code>.</p>
+					</li>
+					<li class="li">
+						<p><code>minFractionDigits</code>: minimal number of fractional digits. If there are fewer decimal digits in the number than the value
+							defined here, <code>"0"</code>s are appended to the final result.</p>
+					</li>
+					<li class="li">
+						<p><code>maxFractionDigits</code>: maximum number of fractional digits. If there are more decimal digits in the number than the value
+							defined here, the surplus digits are discarded, and the least significant digit is calculated via the given
+								<code>roundingMode</code> parameter.</p>
+					</li>
+					<li class="li">
+						<p><code>decimals</code>: number of decimal digits in the final result. The same result is achieved by setting both
+								<code>minFractionDigits</code> and <code>maxFractionDigits</code> to this value.</p>
+					</li>
+					<li class="li">
+						<p><code>precision</code>: maximum number of digits in the formatted representation of a number; if the <code>precision</code> is less
+							than the overall length of the number, the fractional part is truncated by rounding. The integer part can have more digits
+							than defined by the <code>precision</code>; it can only be affected by rounding when this option is used.</p>
+						<p>For integer format types, this option is only considered if formatting leads to a representation of a number with decimal
+							places, e.g. if the option <code>style: "short"</code> is set.</p>
+						<p><span class="emphasis">Example 1:</span></p><ul class="ul ">
+								<li class="li">Number to format: <code>1234.5678</code></li>
+								<li class="li">Precision: <code>2</code></li>
+								<li class="li">Formatted result: <code>"1,235"</code> (rounding is applied)</li>
+							</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>The integer value of the number is <code>1234</code>, the decimal value is <code>5678</code>, and the
+									precision defines the number of digits to express the value of the number as <code>2</code>. As the integer
+									part must remain unaffected by this constraint, the decimals are removed in the formatted result. In addition,
+									rounding is applied.</p>
+							<p></p></div></div><p></p>
+						<p><span class="emphasis">Example 2:</span></p><ul class="ul ">
+								<li class="li">Number to format: <code>1234.5678</code></li>
+								<li class="li">Precision: <code>6</code></li>
+								<li class="li">Formatted result: <code>"1,234.57"</code> (rounding is applied)</li>
+							</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>The integer value of the number is <code>1234</code>, the decimal value is <code>5678</code>, and the
+									precision defines the number of digits to express the value of the number as <code>6</code>. Thus, only the
+									first 2 decimal places are retained and rounding is again applied.</p>
+							<p></p></div></div><p></p>
+						<p><span class="emphasis">Example 3 (integer type):</span></p><ul class="ul ">
+								<li class="li">Number to format: <code>123567</code></li>
+								<li class="li">Precision: <code>6</code></li>
+								<li class="li">Style option: <code>short</code></li>
+								<li class="li">Formatted result: <code>"123.567K"</code></li>
+							</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>The integer value of the number is <code>123567</code>. Applying the <code>short</code> format to this
+									number results in a representation with decimal places. The K stands for "kilo", which is to be interpreted as 3
+									powers of ten.</p>
+								<p> If the <code>precision</code> would now be reduced to, e.g. <code>2</code>, the formatted result would now
+									become <code>124K</code> as the decimal places would get truncated and the integer part would be affected by
+									rounding.</p>
+							<p></p></div></div><p></p>
+					</li>
+					<li class="li">
+						<p><code>shortDecimals</code>: number of decimal digits in the shortifed number when the <code>style</code> parameter is set to
+								<code>"short"</code> or <code>"long"</code>. If this isn't set, the parameter <code>decimal</code> is used
+							instead.</p>
+					</li>
+				</ul>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oFormatOptions = {
+    minIntegerDigits: 3,
+    maxIntegerDigits: 5,
+    minFractionDigits: 2,
+    maxFractionDigits: 4
+};
+
+// "NumberFormat" required from module "sap/ui/core/format/NumberFormat"
+var oFloatFormat = NumberFormat.getFloatInstance(oFormatOptions);
+oFloatFormat.format(1.1); // returns "001.10"
+oFloatFormat.format(1234.567); // returns "1,234.567"
+oFloatFormat.format(123456.56789); // returns "??,???.5679"</pre></div></div></section>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oFormatOptions = {
+    style: "short",
+    decimals: 1,
+    shortDecimals: 2
+};
+
+// "NumberFormat" required from module "sap/ui/core/format/NumberFormat"
+var oFloatFormat = NumberFormat.getFloatInstance(oFormatOptions);
+oFloatFormat.format(1234.56); // returns "1.23K" (shortified number takes the shortDecimals parameter)
+oFloatFormat.format(123.456); // returns "123.5" (non-shortified number takes the decimals parameter)</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Separator and Signs</h3>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>decimalSeparator</code> defines the symbol used for the decimal point.</p>
+					</li>
+					<li class="li">
+						<p><code>groupingBaseSize</code> only used if your locale uses a specific group size for the first group (e.g. Indian
+							locale) and you don't want to use this standard.</p>
+					</li>
+					<li class="li">
+						<p><code>groupingEnabled</code> defines whether the integer digits are put into groups which are separated by the
+								<code>groupingSeparator</code> parameter.</p>
+					</li>
+					<li class="li">
+						<p><code>groupingSeparator</code> defines the separator of grouping.</p>
+					</li>
+					<li class="li">
+						<p><code>groupingSize</code> only used if you don't want the locale-specific grouping, for example, 3 digits for <code>de</code> or
+								<code>en</code>.</p>
+					</li>
+					<li class="li">
+						<p><code>minusSign</code></p>
+					</li>
+					<li class="li">
+						<p><code>plusSign</code></p>
+					</li>
+				</ul>
+			</section><section>
+				<h3 class="title ">Compact Format</h3>
+				<p>You can use compact format to format a number using a given scale. For example,
+					1000000 may be formatted under en-US locale as <span class="ph uicontrol">1
+					Million</span>.</p>
+				<p>To format a number in compact format, set the <code>style</code> option to either <code>"short"</code> or <code>"long"</code>.
+					These styles control which version of scale name is used. For example, 1000000 is formatted as <span class="ph uicontrol">1M</span> with
+						<code>"short"</code> and <span class="ph uicontrol">1 Million</span> with <code>"long"</code>.</p>
+				<p>The scale can be selected automatically based on the given number, or you can set it explicitly by using <code>shortRefNumber</code>. You
+					can set this option with a number which is then used for calculating the scaling factor for formatting all given numbers to this
+					formatter.</p>
+				<p>To hide the scaling formatter from the formatted number and only be shown once on the screen, you can use option <code>showScale</code>. In
+					order to get the scaling factor name of the number set to <code>shortRefNumber</code> under the current locale,
+						<code>getScale</code> can be used.</p>
+				<p>To control the starting point of numbers which should be displayed in compact format, <code>shortLimit</code> can be used.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><p>In the following chart, all numbers both on the chart and the axis should be formatted using the same scaling factor. The scaling factor
+						should only appear in the chart title and be hidden from the formatted number. In order to achieve this, the option
+							<code>shortRefNumber</code> is set to <code>1000000</code>, and <code>showScale</code> is set to
+							<code>false</code>. The corresponding scaling factor name is returned by calling the <code>getScale</code>
+						method.</p>
+					<p><img src="loiodd8f106a130b484a86f4c56955006207_LowRes.png" usemap="#"></p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Miscellaneous</h3>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>emptyString</code> defines what empty string
+								(<code>""</code>) is parsed as and what is formatted as
+								<code>emptyString</code>. The allowed values are only
+								<code>NaN</code>, <code>null</code> or <code>0</code>.
+							Default setting is <code>NaN</code>.</p>
+					</li>
+					<li class="li">
+						<p><code>pattern</code>: a pattern which follows the CLDR syntax. The
+							number is then formatted according to the given pattern.</p>
+					</li>
+					<li class="li">
+						<p><code>roundingMode</code>: defines a rounding behavior for discarding
+							the digits after the maximum decimal digits defined by
+								<code>maxFractionDigits</code> or <code>decimals</code>.
+							Rounding will only be applied, if the formatting value is of type
+							number.</p>
+						<div class="tableWrapper "><div class="fig"><table border="1" id="table_wdt_rpl_2y" class=" ">
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								<thead>
+									<tr>
+										<th colspan="1" rowspan="1">
+											<p>Number</p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>FLOOR</code></p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>CEILING</code></p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>TOWARDS_ZERO</code></p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>AWAY_FROM_ZERO</code></p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>HALF_FLOOR</code></p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>HALF_CEILING</code></p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>HALF_TOWARDS_ZERO</code></p>
+										</th>
+										<th colspan="1" rowspan="1">
+											<p><code>HALF_AWAY_FROM_ZERO</code></p>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>2.21</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>2.25</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>2.29</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3.</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>2.3</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>-2.21</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>-2.25</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="1" rowspan="1">
+											<p>-2.29</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.2</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+										<td colspan="1" rowspan="1">
+											<p>-2.3</p>
+										</td>
+									</tr>
+								</tbody>
+							</table></div></div>
+					</li>
+				</ul>
+			</section></section><section id="section_NFP"><h2 class="title ">Parsing and Validation of User Input</h2>
+			<p>You can parse a formatted number, which can contain locale-dependent grouping separators, 
+				a locale-dependent decimal separator or a percentage sign, into a number object using
+					<code>sap.ui.core.format.NumberFormat</code>. Such a number string may not be
+				correctly parsed by using <code>parseInt</code> or <code>parseFloat</code>
+				in JavaScript.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "NumberFormat" required from module "sap/ui/core/format/NumberFormat"
+var oFloatFormat = NumberFormat.getFloatInstance();
+
+oFloatFormat.parse("1,234.567"); // returns 1234.567
+oFloatFormat.parse("12.34%"); // returns 0.1234</pre></div></div></section>
+			<p>When users switch between multiple UIs, websites or editors, they may encounter different characters being used as decimal and grouping
+				separators. This can lead to incorrect numerical input if the user assumes a locale different from the one actually used by the UI.
+				For example, in English locales the grouping separator is a comma (",") and the decimal separator is a dot ("."), whereas in German
+				locales it is the other way around.</p>
+			<p>To prevent an accidental mix-up of decimal and grouping separator in the user input, we have introduced a stricter parsing logic of
+					<code>sap.ui.core.format.NumberFormat</code> by using <span class="emphasis">decimal separator validation</span> with an optional
+					<span class="emphasis">strict grouping validation</span>. Instead of ignoring the grouping separators when parsing user input, several
+				checks are carried out on the grouping to identify potential input errors.</p>
+			<section>
+				<h3 class="title ">Decimal Separator Validation</h3>
+				<p>If not otherwise mentioned, the examples below are based on the US locale standard settings
+					(en-US):</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "NumberFormat" required from module "sap/ui/core/format/NumberFormat"
+var oOptions = {
+  decimalSeparator : ".",
+  groupingSeparator : ",",
+  groupingSize : 3
+};
+var oFloatFormat = NumberFormat.getFloatInstance(oOptions);</pre></div></div></section><p></p>
+				<p>The following user input is considered to be potentially wrong and therefore <span class="emphasis">invalid</span>:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>There is no decimal separator and only one grouping separator, which occurs at an unexpected
+							position.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oFloatFormat.parse("1,2"); // NaN (before: 12)
+oFloatFormat.parse("1,23"); // NaN (before: 123)
+oFloatFormat.parse("1,2345"); // NaN (before: 12345)</pre></div></div></section><p></p>
+						<p><span class="emphasis">Assumption:</span> As the position of the grouping separator does not match the locale-specific convention,
+							the user might have intended to use a decimal separator but used a separator from a different locale by mistake.</p>
+					</li>
+					<li class="li">
+						<p>There is no decimal separator, only a single grouping separator is present, and at least one additional grouping separator is missing,
+								<span class="emphasis">including the least significant (lowest) grouping
+							separator</span>.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oFloatFormat.parse("1234,567891"); // NaN (before: 1234567891)</pre></div></div></section><p></p>
+						<p><span class="emphasis">Assumption:</span> Any user aware of the right grouping separator would probably have added the missing
+							grouping separator(s) as well. It is therefore likely that the grouping separator was confused with the decimal
+							separator.</p>
+					</li>
+				</ul>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Regarding the return value, a number with invalid grouping is treated in the same way as user input that cannot be parsed:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>Unit and currency instances return <code>null</code>.</p>
+						</li>
+						<li class="li">
+							<p>Float, percent, and integer instances return <code>NaN</code>.</p>
+						</li>
+					</ul>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oFloatFormat.parse("1,2"); // NaN
+ 
+NumberFormat.getCurrencyInstance(oOptions).parse("1,2 EUR"); // null</pre></div></div></section>
+				<p></p></div></div>
+				<p>The following user input is considered to be <span class="emphasis">valid</span>:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>There is no decimal separator, <span class="emphasis">only the least significant (lowest) grouping separator is present</span>, and at least one
+							additional grouping separator is
+							missing.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oFloatFormat.parse("1234,567"); // 1234567</pre></div></div></section><p></p>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>While the presence of a single grouping separator in combination with the absence of additional grouping separator(s)
+								hints at a potential confusion with the decimal separator, the input is nevertheless accepted in this case. The reason
+								for this is that UI5 validation would otherwise contradict the UI behavior implemented in classic SAP GUI
+								applications.</p>
+						<p></p></div></div>
+						<p>For an option to bring UI5 validation even closer to the behavior of the classic SAP GUI, see <cite>Strict Grouping Validation</cite>
+							below.</p>
+					</li>
+					<li class="li">
+						<p>At least 2 grouping separators are present in the
+							input.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oFloatFormat.parse("1234,567,892"); // 1234567892</pre></div></div></section><p></p>
+						<p><span class="emphasis">Assumption:</span> As more than one grouping separator was used and as decimal separators must only occur
+							once, a mix-up of the separators can be ruled out.</p>
+					</li>
+					<li class="li">
+						<p>One decimal separator and at least one grouping separator are present in correct sequential
+							order.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oFloatFormat.parse("1234,567.89"); // 1234567.89</pre></div></div></section><p></p>
+						<p><span class="emphasis">Assumption:</span> As both separators are used in the expected order, a wrong usage is not likely.</p>
+					</li>
+					<li class="li">
+						<p>There are no decimal or grouping separators (trivial as no misinterpretation
+							possible).</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oFloatFormat.parse("1234567891"); // 1234567891</pre></div></div></section><p></p>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h3 class="title ">Strict Grouping Validation (optional)</h3>
+				<p>For an even stricter parsing of number strings, you have the option of additionally enforcing <span class="emphasis">strict grouping validation</span>
+					by setting the <code>strictGroupingValidation</code> format option to <code>true</code>. For more information, see the
+							<a href="api/sap.ui.core.format.NumberFormat" title="api/sap.ui.core.format.NumberFormat" class="sap-doc" alt="api/sap.ui.core.format.NumberFormat">API
+							Reference</a>.</p>
+				<p>While grouping separators are then still treated as optional and can be wholly or partially absent from the input, all grouping separators that
+					are present must be at a correct position according to the user's locale. Numbers with wrongly placed grouping separators are
+					refused in all cases. This brings UI5 validation closer to the UI behavior implemented in classic SAP GUI applications.</p>
+				<p><span class="emphasis">Example:</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "NumberFormat" required from module "sap/ui/core/format/NumberFormat"
+var oOptions = {
+  decimalSeparator : ".",
+  groupingSeparator : ",",
+  groupingSize : 3<span class="emphasis">,
+  strictGroupingValidation: true</span>
+};
+var oFloatFormat = NumberFormat.getFloatInstance(oOptions);
+
+oFloatFormat.parse("1,2,3"); // NaN (before: 123)</pre></div></div></section><p></p>
+			</section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.core.format.NumberFormat" title="api/sap.ui.core.format.NumberFormat" class="sap-doc" alt="api/sap.ui.core.format.NumberFormat">API Reference: sap.ui.core.format.NumberFormat</a></li>
+		<li><a href="topic/8e618a8d93cb4f92adc911b96047eb8d" title="SAPUI5 supports the formatting and parsing of units. These unit formats are by default taken from the CLDR. Besides the default units defined in the CLDR, you can also define custom units." class="sap-doc">Unit Formatting</a></li>
+		<li><a href="topic/e978728a6ef6490c971248948f9101e0" title="e978728a6ef6490c971248948f9101e0.xml" class="sap-doc">Currency Formatting</a></li>
+	</ul></section></div></section></div></body></html>

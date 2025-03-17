@@ -1,0 +1,36 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob6ab31cb81bd443996cde2f91d203072" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/events-fired-on-the-pages-b6ab31c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Events Fired on the Pages</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Events Fired on the Pages</h2></div><div class="shortdesc">Events fired on the pages allow a decentral reaction to navigation.</div><p>The <code>NavContainer</code> fires events to its child controls when they're displayed or
+			when they're hidden.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Although this documentation calls them "pages" and an <code>sap.m.Page</code> control is
+				the typical child of a <code>NavContainer</code>, any full screen control can be
+				used, for example, an <code>sap.m.Carousel</code> control or a custom control.
+				The direct child controls often are views. In this case, the events are fired on the
+				views, and not on a page control that is contained in the view. Thus, the event is
+				not fired <b>by</b> the child control, but by the <code>NavContainer</code>
+				<b>on</b> the child control (whatever type it is). This causes the different
+				registration compared to normal control events.</p>
+		<p></p></div></div><p>Before the navigation animation starts, the <code>NavContainer</code> fires the following
+			events: </p><ul class="ul ">
+			<li class="li"><code>beforeHide</code> on the page which is about to be left</li>
+			<li class="li"><code>beforeFirstShow</code> on the page which is about to be shown; this event is only
+				fired if the respective page has not been shown before</li>
+			<li class="li"><code>beforeShow</code> on the page which is about to be shown</li>
+		</ul><p>These events can be used to create or update the user interface of the new page and to stop any
+			activity, such as animations or repeated data polling, on the page which is left.</p><p>After the navigation has been completed and the new page has covered the whole screen, the
+			following events are fired: </p><ul class="ul ">
+			<li class="li"><code>afterShow</code> on the page which is now shown</li>
+			<li class="li"><code>afterHide</code> on the page which has been left</li>
+		</ul><p>You can destroy the hidden page, and the now active page can start its activity.</p><p>You can use the <code>addEventDelegate</code> function to register to these events. This
+			function is available on every control.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">page1.addEventDelegate({
+   onBeforeShow: function(evt) {
+      // page1 is about to be shown; act accordingly - if required you can read event information from the evt object
+   },
+   onAfterHide: function(evt) {
+      // ...
+   }
+});</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.m.NavContainerChild" title="api/sap.m.NavContainerChild" class="sap-doc" alt="api/sap.m.NavContainerChild">API Reference: sap.m.NavContainerChild</a></li>
+	</ul></section></div></section></div></body></html>

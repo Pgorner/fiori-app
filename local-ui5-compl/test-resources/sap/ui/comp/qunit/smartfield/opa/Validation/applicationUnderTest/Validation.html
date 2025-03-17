@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField with local Metadata</title>
+
+	<script id="sap-ui-bootstrap"
+		data-sap-ui-async="true"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-animation-mode="none"
+		data-sap-ui-language="en"
+		data-sap-ui-libs="sap.m, sap.ui.comp"
+		data-sap-ui-log-level="0"
+		src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="MyView"
+				controllerName="myTest.MyTestApplication.controller.MyApplication"
+				xmlns:mvc="sap.ui.core.mvc"
+				xmlns:uxap="sap.uxap"
+				xmlns:core="sap.ui.core"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				displayBlock="true"
+				xmlns="sap.m">
+			<Shell id="shell">
+				<App id="app">
+					<Page>
+						<uxap:ObjectPageLayout
+								id="op"
+								useIconTabBar="true"
+								showFooter="false"
+								binding="{/Employees('0001')}"
+								alwaysShowContentHeader="false"
+								enableLazyLoading="true">
+
+							<uxap:ObjectPageSection title="Details">
+								<uxap:ObjectPageSubSection>
+
+									<smartForm:SmartForm id="smartForm"
+														 editable="true"
+														 title="Fixed-list"
+														 validationMode="Async">
+
+										<smartForm:Group title="Non mandatory">
+											<smartForm:GroupElement label="None">
+												<smartField:SmartField id="Field1" value="{Field1}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListNoValidation">
+												<smartField:SmartField id="Field2" value="{Field2}" textInEditModeSource="ValueListNoValidation"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListWarning">
+												<smartField:SmartField id="Field3" value="{Field3}" textInEditModeSource="ValueListWarning"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueList">
+												<smartField:SmartField id="Field4" value="{Field4}" textInEditModeSource="ValueList"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="fixedValueListValidationEnabled">
+												<smartField:SmartField id="Field5" value="{Field5}" fixedValueListValidationEnabled="true" textInEditModeSource="ValueList"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+										<smartForm:Group title="Mandatory">
+											<smartForm:GroupElement label="None">
+												<smartField:SmartField value="{Field6}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListNoValidation">
+												<smartField:SmartField value="{Field7}" textInEditModeSource="ValueListNoValidation"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListWarning">
+												<smartField:SmartField value="{Field8}" textInEditModeSource="ValueListWarning"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueList">
+												<smartField:SmartField value="{Field9}" textInEditModeSource="ValueList"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="fixedValueListValidationEnabled">
+												<smartField:SmartField value="{Field10}" fixedValueListValidationEnabled="true"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+								<uxap:ObjectPageSubSection>
+
+									<smartForm:SmartForm id="smartForm2"
+														 editable="true"
+														 title="Standard"
+														 validationMode="Async">
+
+										<smartForm:Group title="Non mandatory">
+											<smartForm:GroupElement label="None">
+												<smartField:SmartField value="{Field11}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListNoValidation">
+												<smartField:SmartField value="{Field12}" textInEditModeSource="ValueListNoValidation"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListWarning">
+												<smartField:SmartField value="{Field13}" textInEditModeSource="ValueListWarning"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueList">
+												<smartField:SmartField value="{Field14}" textInEditModeSource="ValueList"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="fixedValueListValidationEnabled">
+												<smartField:SmartField value="{Field15}" fixedValueListValidationEnabled="true"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+										<smartForm:Group title="Mandatory">
+											<smartForm:GroupElement label="None">
+												<smartField:SmartField value="{Field16}"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListNoValidation">
+												<smartField:SmartField value="{Field17}" textInEditModeSource="ValueListNoValidation"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueListWarning">
+												<smartField:SmartField value="{Field18}" textInEditModeSource="ValueListWarning"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueList">
+												<smartField:SmartField value="{Field19}" textInEditModeSource="ValueList"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="fixedValueListValidationEnabled">
+												<smartField:SmartField value="{Field20}" fixedValueListValidationEnabled="true"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+								<uxap:ObjectPageSubSection>
+
+									<smartForm:SmartForm id="smartForm3"
+														 editable="false"
+														 editTogglable="true"
+														 title="Display->Edit"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement label="ValueListWarning">
+												<smartField:SmartField id="DisplayField3" value="{Field3}" textInEditModeSource="ValueListWarning"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueList">
+												<smartField:SmartField id="DisplayField4" value="{Field4}" textInEditModeSource="ValueList"/>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+								<uxap:ObjectPageSubSection>
+
+									<VBox>
+										<smartForm:SmartForm id="smartForm4"
+															 editable="true"
+															 editTogglable="true"
+															 title="TextArrangement runtime change"
+															 validationMode="Async">
+
+											<smartForm:Group>
+												<smartForm:GroupElement>
+													<smartField:SmartField id="DelayField21" value="{Field21}"/>
+												</smartForm:GroupElement>
+											</smartForm:Group>
+
+										</smartForm:SmartForm>
+
+										<SegmentedButton width="100%">
+											<items>
+												<SegmentedButtonItem text="None" id="switchToNone" press=".switchToNone"/>
+												<SegmentedButtonItem text="ValueList" id="switchToValueList"  press=".switchToValueList"/>
+												<SegmentedButtonItem text="ValueListWarning" id="switchToValueListWarning" press=".switchToValueListWarning"/>
+											</items>
+										</SegmentedButton>
+									</VBox>
+
+
+								</uxap:ObjectPageSubSection>
+								<uxap:ObjectPageSubSection>
+
+									<smartForm:SmartForm id="smartForm5"
+														 editable="true"
+														 editTogglable="true"
+														 title="ValueList definition valid for validation only"
+														 validationMode="Async">
+
+										<smartForm:Group>
+											<smartForm:GroupElement label="ValueListWarning">
+												<smartField:SmartField id="ValidationField1" value="{Field22}" textInEditModeSource="ValueListWarning"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="ValueList">
+												<smartField:SmartField id="ValidationField2" value="{Field23}" textInEditModeSource="ValueList"/>
+											</smartForm:GroupElement>
+											<smartForm:GroupElement label="Non validation field">
+												<smartField:SmartField id="NonValidationField1" value="{Field24}">
+													<smartField:customData>
+														<core:CustomData key="defaultTextInEditModeSource" value="ValueListNoValidation"/>
+													</smartField:customData>
+												</smartField:SmartField>
+											</smartForm:GroupElement>
+										</smartForm:Group>
+
+									</smartForm:SmartForm>
+
+								</uxap:ObjectPageSubSection>
+								<uxap:ObjectPageSubSection>
+									<VBox>
+										<Text text="Pending changes:"/>
+										<Text id="modelDump" renderWhitespace="true"/>
+									</VBox>
+								</uxap:ObjectPageSubSection>
+							</uxap:ObjectPageSection>
+
+						</uxap:ObjectPageLayout>
+						<footer>
+							<Toolbar>
+								<Button id="messagePopoverButton"
+										icon="sap-icon://alert"
+										text="{= ${message>/}.length }"
+										visible="{= ${message>/}.length > 0 }"
+										type="Emphasized"
+										press=".onMessagePopoverPress" />
+
+								<ToolbarSpacer/>
+
+								<Button id="resetModel" text="Reset model" press=".resetModel"/>
+								<Button id="bindInvalid" text="Bind invalid" press=".bindInvalid"/>
+							</Toolbar>
+						</footer>
+					</Page>
+				</App>
+			</Shell>
+		</mvc:View>
+	</script>
+
+	<script id="messagePopover" type="application/xml">
+		<core:FragmentDefinition
+				xmlns="sap.m"
+				xmlns:core="sap.ui.core">
+			<MessagePopover
+					items="{message>/}"
+					initiallyExpanded="true">
+				<MessageItem
+						type="{message>type}"
+						title="{message>message}"
+						subtitle="{message>additionalText}"
+						activeTitle="{= !!${message>controlIds}.length}"
+						description="{message>description}"/>
+			</MessagePopover>
+		</core:FragmentDefinition>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee" sap:label="Employees" sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id" Type="Edm.String" Nullable="false" sap:label="Employee Id"/>
+
+						<Property Name="Field1" Type="Edm.String" MaxLength="20" sap:label="Field1" sap:value-list="fixed-values"/>
+						<Property Name="Field2" Type="Edm.String" MaxLength="20" sap:label="Field2" sap:value-list="fixed-values"/>
+						<Property Name="Field3" Type="Edm.String" MaxLength="20" sap:label="Field3" sap:value-list="fixed-values"/>
+						<Property Name="Field4" Type="Edm.String" MaxLength="20" sap:label="Field4" sap:value-list="fixed-values"/>
+						<Property Name="Field5" Type="Edm.String" MaxLength="20" sap:label="Field5" sap:value-list="fixed-values"/>
+
+						<Property Name="Field6" Type="Edm.String" Nullable="false" sap:label="Field6" sap:value-list="fixed-values"/>
+						<Property Name="Field7" Type="Edm.String" Nullable="false" sap:label="Field7" sap:value-list="fixed-values"/>
+						<Property Name="Field8" Type="Edm.String" Nullable="false" sap:label="Field8" sap:value-list="fixed-values"/>
+						<Property Name="Field9" Type="Edm.String" Nullable="false" sap:label="Field9" sap:value-list="fixed-values"/>
+						<Property Name="Field10" Type="Edm.String" Nullable="false" sap:label="Field10" sap:value-list="fixed-values"/>
+
+						<Property Name="Field11" Type="Edm.String" sap:label="Field11"/>
+						<Property Name="Field12" Type="Edm.String" sap:label="Field12"/>
+						<Property Name="Field13" Type="Edm.String" sap:label="Field13"/>
+						<Property Name="Field14" Type="Edm.String" sap:label="Field14"/>
+						<Property Name="Field15" Type="Edm.String" sap:label="Field15"/>
+
+						<Property Name="Field16" Type="Edm.String" Nullable="false" sap:label="Field16"/>
+						<Property Name="Field17" Type="Edm.String" Nullable="false" sap:label="Field17"/>
+						<Property Name="Field18" Type="Edm.String" Nullable="false" sap:label="Field18"/>
+						<Property Name="Field19" Type="Edm.String" Nullable="false" sap:label="Field19"/>
+						<Property Name="Field20" Type="Edm.String" Nullable="false" sap:label="Field20"/>
+
+						<Property Name="Field21" Type="Edm.String" sap:label="Field21" sap:value-list="fixed-values"/>
+
+						<Property Name="Field22" Type="Edm.String" sap:label="Field22" sap:value-list="standard"/>
+						<Property Name="Field23" Type="Edm.String" sap:label="Field23" sap:value-list="standard"/>
+
+						<Property Name="Field24" Type="Edm.String" sap:label="Field24" sap:value-list="standard"/>
+
+					</EntityType>
+
+					<EntityType Name="StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityType Name="AirlineVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" sap:text="TXT" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityType Name="AirlineValidationVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="StringVH"
+								   EntityType="EmployeesNamespace.StringVHType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="AirlineVH"
+								   EntityType="EmployeesNamespace.AirlineVHType"
+								   sap:content-version="1" />
+
+						<EntitySet Name="AirlineValidationVH"
+								   EntityType="EmployeesNamespace.AirlineValidationVHType"
+								   sap:content-version="1" />
+
+					</EntityContainer>
+
+					<Annotations Target="EmployeesNamespace.StringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="TXT">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						</Annotation>
+
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field1"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field1"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field2"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field3"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field3"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field4"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field4"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field5"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field5"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field6"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field6"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field7"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field7"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field8"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field8"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field9"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field9"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field10"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field10"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field11"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field11"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field12"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field12"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field13"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field13"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field14"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field14"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field15"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field15"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field16"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field16"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field17"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field17"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field18"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field18"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field19"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field19"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Field20"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field20"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field21"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextOnly" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="AirlineVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field21"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field22"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="AirlineValidationVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field22"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field23"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="AirlineValidationVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field23"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+					<Annotations Target="EmployeesNamespace.Employee/Field24"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst" />
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="AirlineValidationVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Field24"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="employees" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+					"Field1": null,
+					"Field2": null,
+					"Field3": null,
+					"Field4": null,
+					"Field5": null,
+					"Field6": null,
+					"Field7": null,
+					"Field8": null,
+					"Field9": null,
+					"Field10": null,
+					"Field11": null,
+					"Field12": null,
+					"Field13": null,
+					"Field14": null,
+					"Field15": null,
+					"Field16": null,
+					"Field17": null,
+					"Field18": null,
+					"Field19": null,
+					"Field20": null,
+					"Field21": "AA",
+					"Field22": null,
+					"Field23": null,
+					"Field24": null,
+					"Id": "0001"
+				}
+			]
+		}}
+	</script>
+	<script id="employees_invalid" type="application/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0002')", "type": "EmployeesNamespace.Employee" },
+					"Field1": "Invalid model update",
+					"Field2": "Invalid model update",
+					"Field3": "Invalid model update",
+					"Field4": "Invalid model update",
+					"Field5": "Invalid model update",
+					"Field6": "Invalid model update",
+					"Field7": "Invalid model update",
+					"Field8": "Invalid model update",
+					"Field9": "Invalid model update",
+					"Field10": "Invalid model update",
+					"Field11": "Invalid model update",
+					"Field12": "Invalid model update",
+					"Field13": "Invalid model update",
+					"Field14": "Invalid model update",
+					"Field15": "Invalid model update",
+					"Field16": "Invalid model update",
+					"Field17": "Invalid model update",
+					"Field18": "Invalid model update",
+					"Field19": "Invalid model update",
+					"Field20": "Invalid model update",
+					"Field21": "Invalid model update",
+					"Field22": "Invalid model update",
+					"Field23": "Invalid model update",
+					"Field24": "Invalid model update",
+					"Id": "0002"
+				}
+			]
+		}}
+	</script>
+
+	<script id="stringVH" type="application/json">
+		{"d": {
+			"__count": "3",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0001')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "1",
+					"TXT": "John Doe 1"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0002')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "2",
+					"TXT": "John Doe 2"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0003')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "3",
+					"TXT": "John Doe 3"
+				}
+			]
+		}}
+	</script>
+
+	<script id="AirlineVH" type="application/json">
+		{"d": {
+			"__count": "3",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.AirlineVH/AirlineVH('AA')",
+						"type": "MyNameSpace.AirlineVH"
+					},
+					"KEY": "AA",
+					"TXT": "American Airlines Inc."
+				},
+				{
+					"__metadata": {
+						"uri": "testService.AirlineVH/AirlineVH('AC')",
+						"type": "MyNameSpace.AirlineVH"
+					},
+					"KEY": "AC",
+					"TXT": "Air Canada"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.AirlineVH/AirlineVH('BC')",
+						"type": "MyNameSpace.AirlineVH"
+					},
+					"KEY": "BC",
+					"TXT": "British Airways p.l.c."
+				}
+			]
+		}}
+	</script>
+
+	<script id="stringVHNoResults" type="application/json">
+		{"d": {
+			"__count": "0",
+			"results": []
+		}}
+	</script>
+
+</head>
+
+<script src="./Validation.js"></script>
+
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+</html>

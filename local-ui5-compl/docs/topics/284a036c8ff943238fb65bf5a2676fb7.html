@@ -1,0 +1,167 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio284a036c8ff943238fb65bf5a2676fb7" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-15-aggregation-binding-using-a-factory-function-284a036.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 15: Aggregation Binding Using a Factory Function</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 15: Aggregation Binding Using a Factory Function</h2></div><div class="shortdesc">Instead of using a single hard-coded template control, we now opt for a factory function to generate different controls based on the data
+		received at runtime. This approach is much more flexible and allows for the display of complex or heterogeneous data.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loiodb27ba88d80c4778809bdb9b971531f9_LowRes.png" title="The graphic has an explanatory text" alt="The graphic has an explanatory text" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">A different type of list item is displayed for a discontinued product</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the Demo Kit at <a href="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.15" title="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.15" class="sap-doc" alt="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.15">Data Binding - Step 15</a>.</p>
+			<ol>
+				<li class="li">
+					<p>Create a <code>ProductSimple.fragment.xml</code> file in the <code>view</code> folder. Here, define an
+							<code>sap.m.StandardListItem</code> that is used when the stock level is zero and the product is discontinued. In this
+						simple use case, you only need to define a warning icon and a "Product Discontinued" message in the <code>info</code>
+						property.</p>
+					<p><span class="emphasis">webapp/view/ProductSimple.fragment.xml
+						(New)</span></p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"&gt;
+	&lt;StandardListItem
+		id="productSimple"
+		icon="sap-icon://warning"
+		title="{products&gt;ProductName} ({products&gt;QuantityPerUnit})"
+		info="{i18n&gt;Discontinued}"
+		type="Active"
+		infoState="Error"
+		press=".onItemSelected"&gt;
+	&lt;/StandardListItem&gt;
+&lt;/core:FragmentDefinition&gt;
+</span></pre></div></div></section><p></p>
+				</li>
+				<li class="li">
+					<p>Create a new <code>ProductExtended.fragment.xml</code> file in the <code>view</code> folder. In this extended use case, you create an
+							<code>ObjectListItem</code> to display more product details. The properties are bound to the fields of the current
+						data binding context. This allows the use of types, formatters, and all handlers defined in the assigned controller. However,
+						you can't define more complex logic declaratively in XML. Therefore, we add a single <code>sap.m.ObjectAttribute</code> in
+						a factory function of the controller using JavaScript, which displays an "Out of Stock" message when the stock level is
+						zero.</p>
+					<p><span class="emphasis">webapp/view/ProductExtended.fragment.xml
+						(New)</span></p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"&gt;
+	&lt;ObjectListItem
+		id="productExtended"
+		title="{products&gt;ProductName} ({products&gt;QuantityPerUnit})"
+		number="{
+			parts: [
+				{path: 'products&gt;UnitPrice'},
+				{path: '/currencyCode'}
+			],
+			type: 'sap.ui.model.type.Currency',
+			formatOptions : {
+				showMeasure : false
+			}
+		}"
+		type="Active"
+		numberUnit="{/currencyCode}"
+		press=".onItemSelected"&gt;
+	&lt;/ObjectListItem&gt;
+&lt;/core:FragmentDefinition&gt;</span></pre></div></div></section><p></p>
+				</li>
+				<li class="li">
+					<p>In the <code>App.view.xml</code> file, add an XML namespace for <code>sap.ui.core</code>. Then, remove the <code>items</code>
+						aggregation from the <code>sap.m.List</code> XML element. Add an <code>id</code> attribute to the
+							<code>sap.m.List</code> and include the factory function in the items' binding definition. Lastly, add the two newly
+						created fragments as dependents to the <code>sap.m.List</code>.</p>
+					<p><span class="emphasis">webapp/view/App.view.xml</span></p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="ui5.databinding.controller.App"
+	xmlns="sap.m"
+	<span class="emphasis">xmlns:core="sap.ui.core"</span>
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+...
+	&lt;Panel headerText="{i18n&gt;panel3HeaderText}" class="sapUiResponsiveMargin" width="auto"&gt;
+		<span class="emphasis">&lt;List
+			id="ProductList"
+			headerText="{i18n&gt;productListTitle}"
+			items="{
+				path: 'products&gt;/Products',
+				factory: '.productListFactory'
+			}"&gt;
+			&lt;dependents&gt;
+				&lt;core:Fragment fragmentName="ui5.databinding.view.ProductSimple" type="XML"/&gt;
+				&lt;core:Fragment fragmentName="ui5.databinding.view.ProductExtended" type="XML"/&gt;
+			&lt;/dependents&gt;
+		&lt;/List&gt;</span>
+	&lt;/Panel&gt;
+...
+&lt;/mvc:View&gt;</pre></div></div></section><p></p>
+					<p>The <code>sap.m.List</code> that previously held the product list is now just a named, but otherwise empty placeholder. Without a factory
+						function to populate it, this <code>List</code> would always remain empty. As the fragments are declared as dependents,
+						they also inherit the controller of the view. This means that the <code>onItemSelect</code> function of the
+							<code>App.controller.js</code> can still be used in the <code>ProductExtended.fragment.xml</code>.</p>
+				</li>
+				<li class="li">
+					<p>In the <code>App.controller.js</code> file, add a new import for the <code>sap.m.ObjectAttribute</code> class and create a new
+						function called <code>productListFactory</code>. This factory function returns a control for the associated binding
+						context, similar to the XML templates we've defined in the previous steps. The controls returned by this factory function must
+						suit the items aggregation of the <code>sap.m.List</code> object. In this case, it returns either an
+							<code>sap.m.StandardListItem</code> or an <code>sap.m.ObjectListItem</code> based on the data stored in the
+						context of the item to be created. </p>
+					<p><span class="emphasis">webapp/controller/App.controller.js</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/m/library",
+<span class="emphasis">	"sap/m/ObjectAttribute",</span>
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/type/Currency"
+], (mobileLibrary, <span class="emphasis">ObjectAttribute</span>, Controller, Currency) =&gt; {
+	...
+<span class="emphasis">		productListFactory(sId, oContext) {
+			let oUIControl;
+
+			// Decide based on the data which dependent to clone
+			if (oContext.getProperty("UnitsInStock") === 0 && oContext.getProperty("Discontinued")) {
+				// The item is discontinued, so use a StandardListItem
+				oUIControl = this.byId("productSimple").clone(sId);
+			} else {
+				// The item is available, so we will create an ObjectListItem
+				oUIControl = this.byId("productExtended").clone(sId);
+
+				// The item is temporarily out of stock, so we will add a status
+				if (oContext.getProperty("UnitsInStock") &lt; 1) {
+					oUIControl.addAttribute(new ObjectAttribute({
+						text : {
+							path: "i18n&gt;outOfStock"
+						}
+					}));
+				}
+			}
+
+			return oUIControl;
+		}
+</span>
+	});
+});</pre></div></div></section><p></p>
+					<p>The function decides which type of control to return by checking the current stock level and whether the product is discontinued. For both
+						options, it loads and clones the respective XML fragment, which allows the view logic to be defined dynamically. If the stock
+						level is zero and the product is discontinued, the <code>ProductSimple</code> XML fragment is used. Otherwise, the
+							<code>ProductExtended</code> XML fragment is used.</p>
+					<p>For each item of the list, the corresponding control is cloned. This method creates a fresh copy of a control that can be bound to the context
+						of the list item. Remember, in a factory function you are responsible for the life cycle of the control you create.</p>
+					<p>If the product is not discontinued but the stock level is zero, we're temporarily out of stock. In this case, a single
+							<code>sap.m.ObjectAttribute</code> is added to the cloned control. The "Out of Stock" message is bound to the
+							<code>sap.m.ObjectAttribute</code>'s <code>text</code> property using JavaScript. Like declarative definitions in
+						the XML view or fragments, you can bind properties using data binding syntax. Here, the text is bound to an entry in the
+						resource bundle. Since the <code>sap.m.ObjectAttribute</code> is a child of the list item, it has access to all assigned
+						models and the current binding context.</p>
+					<p>Finally, the function returns the control that is then displayed inside the list.</p>
+				</li>
+				<li class="li">
+					<p>Lastly, add the new texts to the <code>i18n.properties</code> and <code>i18n_de.properties</code> files.</p>
+					<p><span class="emphasis">webapp/i18n/i18n.properties</span></p><section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+# Product Details
+...
+<span class="emphasis">outOfStock=Out of Stock</span></pre></div></div></section><p></p>
+					<p><span class="emphasis">webapp/i18n/i18n_de.properties</span></p><section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+# Product Details
+...
+<span class="emphasis">outOfStock=Nicht vorr\u00e4tig</span></pre></div></div></section><p></p>
+				</li>
+			</ol>
+			<p>Congratulations! You've completed the Data Binding tutorial.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/e5310932a71f42daa41f3a6143efca9c">Data Binding Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/5cff8d1c3fb84c5db7a00f2daca125af">Step 14: Expression Binding</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f057786f4d1014b6dd926db0e91070" title="List binding (or aggregation binding) is used to automatically create child controls according to model data." class="sap-doc">List Binding (Aggregation Binding)</a></li>
+		<li><a href="topic/2c677b574ea2486a8d5f5414d15e21c5" title="XML fragments are similar to XML view, but have no &lt;View&gt; tag as root element. Instead, there is an SAPUI5 control." class="sap-doc">XML Fragments</a></li>
+		<li><a href="topic/335848ac1174435c901baaa55f6d7819" title="335848ac1174435c901baaa55f6d7819.xml" class="sap-doc">Using Factory Functions</a></li>
+	</ul></section></div></section></div></body></html>

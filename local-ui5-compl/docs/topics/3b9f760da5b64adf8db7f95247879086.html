@@ -1,0 +1,206 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3b9f760da5b64adf8db7f95247879086" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/types-of-layout-3b9f760.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Types of Layout</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Types of Layout</h2></div><div class="shortdesc">Overview of the possible layouts for an <code>sap.f.FlexibleColumnLayout</code>,
+		as defined in the <code>sap.f.LayoutType</code> enumeration.</div><p>Although the <code>FlexibleColumnLayout</code> can display 2 or 3 pages at one time,
+			they can never have equal width (50%/50% or 33%/33%/33%). One of the pages is always
+			larger (expanded) or even takes up the full width of the control (fullscreen). This is
+			intentional because users should have a clear indication of what to focus their
+			attention on at any given moment, for example, a list of items, one particular item, one
+			item's details.</p><p>Transitioning from a one-column layout to any two-column layout, and then to any
+			three-column layout is seen by the user as new columns appearing/disappearing on
+			desktop/tablet or the next column replacing the previous one - on phone (small screen
+			size). The app does not need to provide separate logic for the different screen sizes,
+			but only change the layout based on the user input and desired behavior. The
+				<code>FlexibleColumnLayout</code> will internally manage column visibility and
+			resizing. If at any time, the browser size changes, this will be reflected by the
+			control automatically.</p><p>There are 9 allowed variations of width and visibility for the 3 columns. They are
+			represented with the values of the <code>layout</code> property, which is of type
+				<code>sap.f.LayoutType</code>.</p><p>The table below shows how each of the 9 layout types affects the column visibility and
+			width, based on the control size:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_ryj_x1b_yy" class=" ">
+				
+				
+				<thead>
+					<tr>
+						<th colspan="1" rowspan="1">
+							<p>Layout Types</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Desktop / Tablet / Phone</p>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>OneColumn</code></span></p>
+							<p>This is the default layout type for a
+									<code>FlexibleColumnLayout</code>. Only the
+									<code>Begin</code> column is displayed, no matter the
+								control size.</p>
+							<p>Use to show the first logical information level (list page) only.</p>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loiod7914916d4674c3481d67658eae465a1_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>TwoColumnsBeginExpanded</code></span></p>
+							<p>Use this layout type to display two logical levels of information (list and detail pages,
+								list being expanded) on desktop/tablet, or the second logical level
+								of information only (detail page) on phone. On desktop/tablet the
+								transition from <code>OneColumn</code> to
+									<code>TwoColumnsBeginExpanded</code> is seen by the user as
+								the <code>Begin</code> column shrinking and <code>Mid</code>
+								column opening, while on phone it's seen as the <code>Mid</code>
+								column replacing the <code>Begin</code> column.</p>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loio9a603876f70a47aeabf08c030a5e9daa_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>TwoColumnsMidExpanded</code></span></p>
+							<p>Similar to <code>TwoColumnsBeginExpanded</code>, but this time
+								the <code>Mid</code> column is the wider one.</p>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loioc0d69368378f4d0dac00d62801fd64e5_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>MidColumnFullScreen</code></span></p>
+							<p>Use this layout to display the second logical level of information
+								(detail page) only. The <code>Mid</code> column takes up the
+								whole available control width for all control sizes.</p>
+							<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>On small screen sizes, the layouts
+									<code>TwoColumnsBeginExpanded</code>,
+									<code>TwoColumnsMidExpanded</code> and
+									<code>MidColumnFullScreen</code> all lead to the same result
+								for the user – the <code>Mid</code> column taking up the whole
+								control width. However, if the user resizes the browser and makes
+								space, the control will automatically apply the rules of the current
+								layout for the new width.</p></div></div>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loioa01d72d41f014168b9438d12e650f4ad_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>ThreeColumnsMidExpanded</code></span></p>
+							<p>Use this layout to display up to three logical levels of information side by side (list,
+								detail, and detail-detail pages), when the user should focus
+								primarily on the content of the <code>Mid</code> column (as it
+								is wider than the other two). On desktop, all three columns will be
+								displayed, on tablet – the <code>Mid</code> and
+									<code>End</code> columns only (with a layout arrow to access
+								the <code>Begin</code> column), and on phone – the
+									<code>End</code> column only.</p>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loiod1f89e8ad3f9409aa14e8e98a07f8bb4_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>ThreeColumnsEndExpanded</code></span></p>
+							<p>Similar to <code>ThreeColumnsMidExpanded</code>, but this time
+								the <code>End</code> column is expanded, and this is where the
+								user is supposed to focus their attention.</p>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loio2cef71c4c5e64dea975c6b44196d2ca7_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>ThreeColumnsMidExpandedEndHidden</code></span></p>
+							<p>Use this layout to show the <code>Begin</code> and
+									<code>Mid</code> columns only (<code>Mid</code> being
+								expanded), while the <code>End</code> column is hidden but
+								accessible with a layout arrow. The difference between this layout
+								and the <code>TwoColumnsMidExpanded</code> layout is that for
+									<code>TwoColumnsMidExpanded</code> the user cannot access
+								the <code>End</code> column at all, as only two logical levels
+								of information are offered (the third may not be loaded yet), while
+								for <code>ThreeColumnsMidExpandedEndHidden</code> the
+									<code>End</code> column is not empty, but just not currently
+								displayed. Its content is loaded and easily accessible (most
+								commonly already seen by the user, and now hidden so more space can
+								be freed for the other columns).</p>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loio21a31d26b82d4c8ea2d17fe28a792026_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>ThreeColumnsBeginExpandedEndHidden</code></span></p>
+							<p>Similar to <code>ThreeColumnsMidExpandedEndHidden</code>, but
+								this time the <code>Begin</code> column is expanded. A layout
+								arrow is provided to shrink the <code>Begin</code> column, thus
+								transitioning the layout to
+									<code>ThreeColumnsMidExpandedEndHidden</code>.</p>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loioe98b27beff5145b79cd3a7a7392f9167_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1" valign="middle">
+							<p><span class="emphasis"><code>EndColumnFullScreen</code></span></p>
+							<p>Use this layout to display the third logical level of information
+								(detail-detail page) only. The <code>End</code> column takes up
+								the whole available control width for all screen sizes.</p>
+							<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>On small screen sizes all three-column layouts and
+									<code>EndColumnFullScreen</code> lead to the same result for
+								the user – the <code>End</code> column taking up the whole
+								control width. However, if the user resizes the browser and makes
+								space, the control will automatically apply the rules of the current
+								layout for the new width.</p></div></div>
+						</td>
+						<td colspan="1" rowspan="1" valign="middle">
+							<div><div class="fig"><img src="loio1129d11a2aa3466c937db16d8e9c149a_LowRes.png" usemap="#"></div></div>
+						</td>
+					</tr>
+				</tbody>
+			</table></div></div><p>For each value of the layout property, the <code>FlexibleColumnLayout</code> displays
+			a different combination of columns, based on the available control width (or screen
+			width, if the control takes up the whole screen).</p><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_xnq_1n5_vy" class=" "><thead>
+				<tr><th colspan="1" rowspan="1">
+					<p>Control size</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Columns</p>
+				</th>
+			</tr></thead><tbody><tr>
+				<td colspan="1" rowspan="1">
+					<p>Up to 960px (Phone)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>1 column max</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p>960px – 1280px (Tablet)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>2 column max</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p>1280px and above (Desktop)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>3 column max</p>
+				</td>
+			</tr></tbody></table></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.f.LayoutType" title="api/sap.f.LayoutType" class="sap-doc" alt="api/sap.f.LayoutType">API Reference: sap.f.LayoutType</a></li>
+	</ul></section></div></section></div></body></html>

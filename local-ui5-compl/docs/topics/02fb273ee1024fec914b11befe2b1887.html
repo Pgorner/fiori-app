@@ -1,0 +1,232 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio02fb273ee1024fec914b11befe2b1887" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/custom-actions-02fb273.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Custom Actions</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Custom Actions</h2></div><div class="shortdesc">You
+		can assign custom actions to quick view cards that open in the object stream of the stack
+		card. These custom actions are displayed as buttons in the card footer.</div><section>
+      <h2 class="title ">Procedure</h2>
+      
+      <p>To define a custom action in quick view cards, proceed as follows:</p>
+      <ol>
+        <li class="li">
+          <p>Create a JavaScript file in your project folder for defining custom controls. For
+            example, <code>customConfiguration.controller.js</code>.</p>
+        </li>
+        <li class="li">
+          <p>Open the JavaScript file you created and define the custom actions, as shown in the
+            following sample code:</p>
+          <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+            </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([], function () {
+    "use strict";
+    return {
+        /*
+        The following Hook function "onCustomActionPress" accepts only one argument name of the press handler as a string and return the press handler function defined in the custom controller.       
+        */
+        onCustomActionPress: function(sCustomAction) {
+            if (sCustomAction === "press1") {
+                return this.press1;
+            } else if (sCustomAction === "press2") {
+                return this.press2;
+            }
+        },
+        /*
+        The following Press Handler contains the custom actions to be performed on click of the button in quickview action footer.
+        */
+        press1: function(oEvent) {
+            window.open("https://www.google.co.in");
+        },
+        press2: function(oEvent) {
+            window.open("http://www.sap.com/index.html");
+        }
+    };
+});
+</pre></div></div></section>
+          <p></p></div></div>
+        </li>
+        <li class="li">
+          <p>Configure the application descriptor file by performing the following steps:</p>
+        </li>
+        <li class="li">
+          <ol>
+            <li class="li">
+              <p>Add your JavaScript filepath in the <code>extends</code> section of the
+                descriptor, as shown in the following sample code:</p>
+              <section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"extends": {
+        "extensions": {
+             "sap.ui.controller.Extensions": {
+                     "sap.ovp.app.Main": {
+                                 "controllerName": "my_app.ext.controller.OverViewPageExt"
+                      }
+              }
+        }
+}
+</pre></div></div></section>
+            </li>
+            <li class="li">
+              <p>Add the <code>customActions</code> property under the stack card settings
+                  <code>objectStreamCardsSettings</code> property and define the following
+                mandatory properties:</p>
+              <ul class="ul ">
+                <li class="li">
+                  <p><code>text</code>: Enter the string to be shown in the quick view action
+                    footer</p>
+                </li>
+                <li class="li">
+                  <p><code>press</code>: Enter the name of a press handler defined in the
+                    JavaScript file</p>
+                </li>
+                <li class="li">
+                  <p><code>position</code>: Enter a numeric value to position the order of
+                    actions in the quick view action footer</p>
+                </li>
+              </ul>
+              <p>Check out the following sample code:</p>
+              <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"card007_ProductsOutOfStock": {
+  "model": "salesOrder",
+  "template": "sap.ovp.cards.stack",
+  "settings": {
+    "itemText": "{{stackCard_itemText}}",
+    "title": "Products Out of Stock",
+    "subTitle": "SalesOrderSet Stack Card",
+    "requireAppAuthorization": "#Action-toappnavsample",
+    "entitySet": "SalesOrderSet",
+    "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification,com.sap.vocabularies.UI.v1.Identification#item2",
+    "objectStreamCardsSettings": {
+      "showFirstActionInFooter": false,
+      "customActions": [
+        {
+          "text": "text1",
+          "press": "press1",
+          "position": 1
+        },
+        {
+          "text": "text2",
+          "press": "press2",
+          "position": 10
+        },
+        {
+          "text": "text3",
+          "press": "press1",
+          "position": 3
+        },
+        {
+          "text": "text4",
+          "press": "press2",
+          "position": 8
+        },
+        {
+          "text": "text5",
+          "press": "press1",
+          "position": 5
+        },
+        {
+          "text": "text6",
+          "press": "press2",
+          "position": 6
+        }
+      ]
+    }
+  }
+}, </pre></div></div></section>
+              <p></p></div></div>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      
+      
+    </section><section id="section_zfy_m3p_k2b">
+			<h2 class="title ">Global Actions on the Filter Bar</h2>
+			<p>To add custom global actions on the smart filter bar, you need to configure the descriptor
+        file, define a fragment in the view extension, and create
+        a
+          <code>controller.js</code> file to handle the events. For
+        example:</p>
+			<p>
+				</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Descriptor
+					Setting</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+   "_version": "1.1.0",
+       "dependencies": {
+         "libs": {
+           "sap.ovp": {}
+         }
+       },
+   "models": {
+      "i18n": {
+         "type": "sap.ui.model.resource.ResourceModel",
+         "uri": "i18n/i18n.properties"
+      },
+      "salesOrder": {
+         "dataSource": "salesOrder",
+         "settings": {}
+      }
+       },
+       "extends": {
+         "extensions": {
+           "sap.ui.controllerExtensions": {
+             "sap.ovp.app.Main": {
+               "controllerName": "sap.ovp.demo.ext.customFilter"
+             }
+           },
+           "sap.ui.viewExtensions": {
+             "sap.ovp.app.Main": {
+               "SmartFilterBarControlConfigurationExtension|GlobalFilters": {
+                 "className": "sap.ui.core.Fragment",
+                 "fragmentName": "sap.ovp.demo.ext.customFilter",
+                 "type": "XML"
+               },
+               "SmartFilterBarGlobalActionExtension": {
+                 "className": "sap.ui.core.Fragment",
+                 "fragmentName": "sap.ovp.demo.ext.customAction",
+                 "type": "XML"
+               }
+             }
+ 
+           }
+         }
+       }
+   },</pre></div></div></section><p></p></div></div>
+			<p></p>
+			<p>Add controller and view extensions with a path to the custom controller name and fragment
+				name.</p>
+			<p>
+        </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+          Fragment
+          for view extension:
+          <code>customAction.fragment.xml</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition xmlns="sap.m" xmlns:smartfilterbar="sap.ui.comp.smartfilterbar" xmlns:core="sap.ui.core"&gt;
+ 
+    &lt;Button text="Action" press="handleCustomAction" type="Transparent"&gt;&lt;/Button&gt;
+ 
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section><p></p></div></div>
+      <p></p>
+			<p>
+        </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+          <code>customFilter.controller.js</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define("sap.ovp.demo.ext.customFilter", [
+    "sap/ui/model/Filter",
+    "sap/m/MessageToast"
+], function (Filter, MessageToast) {
+    "use strict";
+ 
+    //Extension controller for ovp demo app
+    return {
+         *  /*
+            This is for Custom Global Action
+         */
+        handleCustomAction : function(){
+             var msg = 'Custom Global Action clicked';
+             MessageToast.show(msg);
+        }
+    };
+});</pre></div></div></section><p></p></div></div>
+      <p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

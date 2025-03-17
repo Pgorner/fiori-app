@@ -1,0 +1,38 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod2ce3f51e5e34198b0c1a7f6ddd98def" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/sorting-d2ce3f5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Sorting</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Sorting</h2></div><div class="shortdesc">The OData V4 model supports server side sorting on lists.</div><p>To use server side sorting, set the operation mode to <a href="api/sap.ui.model.odata.OperationMode#properties" title="api/sap.ui.model.odata.OperationMode#properties" class="sap-doc" alt="api/sap.ui.model.odata.OperationMode#properties">sap.ui.model.odata.OperationMode.Server</a> as described
+			unter <a href="topic/5338bd1f9afb45fb8b2af957c3530e8f" title="The OData V4 Model supports server side filtering on lists." class="sap-doc">Filtering</a>.</p><p><code>ODataListBinding</code> allows to set static and dynamic sorters:</p><ul class="ul ">
+			<li class="li">
+				<p>For setting a static sorter, the <code>$orderby</code> system query option in
+					the binding parameters is used. The static sorter value is sent with every data
+					service request for the binding. The static sorter cannot be overwritten for an
+					existing binding.</p>
+			</li>
+			<li class="li">
+				<p>The dynamic sorter is a <a href="api/sap.ui.model.Sorter" title="api/sap.ui.model.Sorter" class="sap-doc" alt="api/sap.ui.model.Sorter">sap.ui.model.odata.Sorter</a> instance, or an array
+					thereof in which case the sorters are concatenated. You can set the initial
+					value for the dynamic sorter in <a href="api/sap.ui.model.odata.v4.ODataModel#methods/bindList" title="api/sap.ui.model.odata.v4.ODataModel#methods/bindList" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataModel#methods/bindList">ODataModel.bindList</a>, or declaratively in an XML
+					view with the sorter property in an aggregation's binding information. For
+					setting the dynamic sorter, the <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/sort" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/sort" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/sort">ODataListBinding.sort</a> method is used. The sorter
+					that is given here overwrites the initial value specified on binding
+					construction.</p>
+			</li>
+		</ul><p>Dynamic sorters are transformed to an OData <code>$orderby</code> system query option
+			value and the static sorters are always appended as secondary sort criterion. In this
+			example, the equipments are first ordered by <span class="parmname">Category</span> (dynamic
+			sorter) and then by <span class="parmname">Name</span> (secondary sort criterion, static sorter).
+			For a description of the <code>group</code> property, see <a href="api/sap.ui.model.Sorter#methods/getGroup" title="api/sap.ui.model.Sorter#methods/getGroup" class="sap-doc" alt="api/sap.ui.model.Sorter#methods/getGroup">getGroup</a>.</p><p><span class="emphasis">Example: Dynamic and static sorters</span></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><code>#js</code>
+&lt;Table growing="true" growingThreshold="5" id="Equipments"
+    items="{
+            path : '/Equipments',
+            parameters : {
+                $$operationMode : 'Server',
+                $orderby : 'Name',                             &lt;-- static sorter
+                $select : 'Category,EmployeeId,ID,Name'
+            },
+            sorter : {                                      &lt;-- dynamic sorter; can be overwritten by calling sort on the list binding
+                path : 'Category',
+                group : true                                &lt;-- optional, see parameter <code>vGroup</code> of <a href="api/sap.ui.model.Sorter/constructor" title="api/sap.ui.model.Sorter/constructor" class="external-link" target="_blank" rel="noopener" alt="api/sap.ui.model.Sorter/constructor">sap.ui.model.Sorter</a>
+            }
+        }"&gt;</pre></div></div></section><p>In this example, the equipments are first ordered by <code>Category</code> (dynamic
+			sorter) and then by <code>Name</code> (secondary sort criterion, static sorter).</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

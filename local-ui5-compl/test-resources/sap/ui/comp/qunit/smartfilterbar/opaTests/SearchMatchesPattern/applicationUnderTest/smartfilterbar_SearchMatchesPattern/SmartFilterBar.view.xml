@@ -1,0 +1,71 @@
+<mvc:View controllerName="applicationUnderTest.smartfilterbar_SearchMatchesPattern.SmartFilterBar"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:l="sap.ui.layout"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:sv="sap.ui.comp.smartvariants"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
+
+	<App>
+		<pages>
+			<f:DynamicPage id="dynamicPage" class="sapUiSizeCompact">
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:actions>
+							<Button id="showAllFilterFields" text="Show All Filters" press="onShowAllFilterFields" />
+							<Label text="UTC Mode ('on' is default):"/>
+							<Switch id="UtcModeSwitch" customTextOn="On" customTextOff="Off" change="onUtcModeChange">
+								<layoutData>
+									<FlexItemData growFactor="1" />
+								</layoutData>
+							</Switch>
+						</f:actions>
+						<f:heading>
+							<sv:SmartVariantManagement id="__SVM01" persistencyKey="smartfilterbar_SearchMatchesPattern" showShare="true" entitySet="ZEPM_C_SALESORDERITEMQUERYResults" showExecuteOnSelection="true" />
+						</f:heading>
+						<f:snappedContent>
+							<Text id="statusText" />
+						</f:snappedContent>
+
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:header>
+					<f:DynamicPageHeader>
+						<f:content>
+							<smartFilterBar:SmartFilterBar id="smartFilterBar"
+														   advancedMode="false"
+														   smartVariant="__SVM01"
+														   persistencyKey="smartfilterbar_SearchMatchesPattern_sfb"
+														   initialized="onInitialized"
+														   clear="onClear"
+														   reset="onRestore"
+														   cancel="onCancel"
+														   search="onSearch"
+														   liveMode="false"
+														   considerAnalyticalParameters="true"
+														   assignedFiltersChanged="onAssignedFiltersChanged"
+														   entitySet="ZEPM_C_SALESORDERITEMQUERYResults"
+														   useToolbar="false"
+														   enableBasicSearch="true">
+
+								<smartFilterBar:customData>
+									<core:CustomData key="dateFormatSettings" value='\{"UTC":true, "style":"short"\}' />
+								</smartFilterBar:customData>
+
+								<smartFilterBar:layoutData>
+									<FlexItemData shrinkFactor="0" />
+								</smartFilterBar:layoutData>
+							</smartFilterBar:SmartFilterBar>
+
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+			</f:DynamicPage>
+
+		</pages>
+	</App>
+</mvc:View>

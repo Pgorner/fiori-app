@@ -1,0 +1,123 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio27c9c3bad6eb4d99bc18a661fdb5e246" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/event-driven-side-effects-27c9c3b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Event-Driven
+		Side Effects</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Event-Driven
+		Side Effects</h2></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is only applicable to SAP Fiori elements for OData
+                            V4.</p>
+		<p></p></div></div><p>In SAP Fiori elements for OData
+                            V4, you can
+			annotate side effect events. In contrast to side effects with source properties or
+			entities that are triggered by user interactions, side
+			effect
+			events are triggered by the application server. The server triggers the event by sending
+			a message to the client through the <code>WebSocket</code> connection. The message
+			contains the event name and the entity key of the entity type that should be refreshed.
+			The client then checks if this entity is currently shown to the user, fetches the entity
+			from the server, and updates the properties accordingly. </p><p>See the following example of how to annotate a side effect event: </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+			Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="MyService.MyEntityType"&gt; 
+     &lt;Annotation Term="com.sap.vocabularies.UI.v1.SideEffects"&gt; 
+          &lt;Record Type="SAP__common.SideEffectsType"&gt; 
+               &lt;PropertyValue Property="SourceEvents"&gt; 
+                    &lt;Collection&gt; 
+                         &lt;String&gt;MyEventName&lt;/String&gt; 
+                    &lt;/Collection&gt; 
+               &lt;/PropertyValue&gt; 
+               &lt;PropertyValue Property="TargetProperties"&gt; 
+                    &lt;Collection&gt; 
+                         &lt;String&gt;Property1&lt;/String&gt; 
+                         &lt;String&gt;Property2&lt;/String&gt; 
+                    &lt;/Collection&gt; 
+               &lt;/PropertyValue&gt; 
+          &lt;/Record&gt; 
+     &lt;/Annotation&gt; 
+&lt;/Annotations&gt; </pre></div></div></section><p></p></div></div><p>Whenever the  <code>MyEventName</code> event  is triggered on the server, the client
+			is notified to refresh the  <code>Property1</code> and <code>Property2</code>
+			properties of the  <code>MyEntityType</code> entity type. </p><p>In the list report, a typical use case requires refreshing the entire table. To do that,
+			use an absolute path for the <code>TargetEntities</code> property in the side
+			effects definition.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+			Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="MyService.MyEntityType"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.UI.v1.SideEffects"&gt;
+        &lt;Record Type="Common.SideEffectsType"&gt;
+            &lt;PropertyValue Property="SourceEvents"&gt;
+                &lt;Collection&gt;
+                        &lt;String&gt;MyEventName&lt;/String&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+            &lt;PropertyValue Property="TargetEntities"&gt;
+                &lt;Collection&gt;
+                    &lt;NavigationPropertyPath&gt;/MyService.EntityContainer/MyEntity&lt;/NavigationPropertyPath&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div><p>The application can provide the <code>WebSocket</code> connection through the
+				<code>WebSocketBaseURL</code> and the <code>WebSocketChannel</code>
+			annotations.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+			Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.Container"&gt; 
+     &lt;Annotation Term="SAP__common.WebSocketBaseURL" String="testEndpoint" /&gt; 
+     &lt;Annotation Term="SAP__common.WebSocketChannel" Qualifier="sideEffects" String="cinema" /&gt; 
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div><section id="section_v52_l5c_3bc">
+			<h2 class="title ">Interaction Type</h2>
+			<p>SAP Fiori elements for OData
+                            V4 supports
+				three interaction types if data is refreshed: </p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>"Notification"</code>: The data is automatically refreshed. A
+						notification is shown to the user. This is the default setting.</p>
+				</li>
+				<li class="li">
+					<p><code>"Confirmation"</code>: A confirmation dialog is shown to the user.
+						The user can decide whether to refresh the data.</p>
+				</li>
+				<li class="li">
+					<p><code>"None"</code>: The data is automatically refreshed without any UI
+						interaction.</p>
+				</li>
+			</ul>
+			<p>The interaction type can be defined in the <code>manifest.json</code>. </p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{ 
+     "sap.fe": { 
+          "app": { 
+               "sideEffectsEventsInteractionType": "Confirmation" 
+          }
+     } 
+}</pre></div></div></section><p></p></div></div>
+			
+			<p>You can also define different interaction types for specific events, as shown in the
+				following example. The interaction type defined as <code>default</code> is
+				applied to all events that are not listed.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "sap.fe": {
+        "app": {
+            "sideEffectsEventsInteractionType": {
+                "default": "None",
+                "events": {
+                    "myEventName": "Confirmation",
+                    "myOtherEventName": "Notification"
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div>
+			
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

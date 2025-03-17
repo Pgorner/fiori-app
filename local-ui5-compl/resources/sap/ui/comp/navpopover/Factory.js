@@ -1,0 +1,6 @@
+/*!
+ * SAPUI5
+ * (c) Copyright 2009-2024 SAP SE. All rights reserved.
+ */
+sap.ui.define(["sap/ui/comp/library","sap/base/Log"],function(e,i){"use strict";var n={getUShellContainer:function(){return sap.ui.require("sap/ushell/Container")},getService:function(e,n){if(!n){i.warning("sap.ui.comp.navpopover.Factory: calling getService synchronously should not be done as it's deprecated.")}const r=this.getUShellContainer();if(!r){return n?Promise.resolve(null):null}switch(e){case"CrossApplicationNavigation":i.warning("sap.ui.comp.navpopover.Factory: Service 'CrossApplicationNavigation' should not be used as it's deprecated.");return n?r.getServiceAsync("CrossApplicationNavigation"):r.getService("CrossApplicationNavigation");case"URLParsing":return n?r.getServiceAsync("URLParsing"):r.getService("URLParsing");case"Navigation":return n?r.getServiceAsync("Navigation"):r.getService("Navigation");default:return n?Promise.resolve(null):null}},getServiceAsync:function(e){return this.getService(e,true)}};return n},true);
+//# sourceMappingURL=Factory.js.map

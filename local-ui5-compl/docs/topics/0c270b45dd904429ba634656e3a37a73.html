@@ -1,0 +1,90 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0c270b45dd904429ba634656e3a37a73" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-12-adding-a-search-0c270b4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 12: Adding a Search</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 12: Adding a Search</h2></div><div class="shortdesc">We now add a search field to our bulletin board and define a filter that represents
+		the search term. This is done similarly as in step 24 of the Walkthrough
+		tutorial.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loiob012fdf751b947f08cf77cf124334c9f_LowRes.jpg" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Search field</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.12" title="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.12" class="sap-doc" alt="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.12">Testing - Step 12</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/view/Worklist.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+         &lt;Table
+               id="table"
+               width="auto"
+               class="sapUiResponsiveMargin"
+               growing="true"
+               items="{
+               path: '/Posts',
+               sorter: {
+                  path: 'Title',
+                  descending: false
+                  }
+               }"
+               busyIndicatorDelay="{worklistView&gt;/tableBusyDelay}"
+               updateFinished=".onUpdateFinished"&gt;
+            &lt;headerToolbar&gt;
+               &lt;Toolbar&gt;
+                  &lt;Label id="tableHeader" text="{worklistView&gt;/worklistTableTitle}"/&gt;
+                  <span class="emphasis">&lt;ToolbarSpacer /&gt;
+                  &lt;SearchField id="searchField" width="auto" search=".onFilterPosts" /&gt;</span>
+               &lt;/Toolbar&gt;
+            &lt;/headerToolbar&gt;
+...</pre></div></div></section>
+			<p>We add a <code>ToolbarSpacer</code> and a <code>SearchField</code> to the
+					<code>headerToolbar</code> of our table.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/Worklist.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	'./BaseController',
+	'sap/ui/model/json/JSONModel',
+	'../model/formatter',
+	'../model/FlaggedType',
+	'sap/m/library'<span class="emphasis">,
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"</span>
+
+], function (BaseController, JSONModel, formatter, FlaggedType, mobileLibrary<span class="emphasis">, Filter, FilterOperator</span>) {
+	"use strict";
+...
+		onUpdateFinished: function (oEvent) {
+			// update the worklist's object counter after the table update
+			var sTitle,
+				oTable = oEvent.getSource(),
+				iTotalItems = oEvent.getParameter("total");
+			// only update the counter if the length is final and
+			// the table is not empty
+			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+				sTitle = this.getResourceBundle().getText("worklistTableTitleCount", [iTotalItems]);
+			} else {
+				sTitle = this.getResourceBundle().getText("worklistTableTitle");
+			}
+			this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
+		},
+
+		<span class="emphasis">onFilterPosts: function (oEvent) {
+
+			// build filter array
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter.push(new Filter("Title", FilterOperator.Contains, sQuery));
+			}
+
+			// filter binding
+			var oTable = this.byId("table");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aFilter);
+		},
+</span>
+...</pre></div></div></section>
+			<p>To enable filtering, we extend the controller with a method that applies the search
+				term entered in the search field to the list binding, similarly as we did for
+					<code>InvoiceList.controller.js</code> in step 24 of the Walkthrough
+				tutorial.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/291c9121e6044ab381e0b51716f97f52">Testing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/92959b10ecf14582b65eaadb40571156">Step 11: Testing User Input</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/19ccd473c9a14c2ab7529303a2232d2c">Step 13: Testing User Interaction</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/5295470d7eee46c1898ee46c1b9ad763" title="In this step, we add a search field for our product list and define a filter that represents the search term. When searching, the list is automatically updated to show only the items that match the search term." class="sap-doc">Step 42 of Walkthrough: Filtering</a></li>
+	</ul></section></div></section></div></body></html>

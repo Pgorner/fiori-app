@@ -1,0 +1,120 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio43ae317cf39640a88bc8be979d2671df" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/sap-ui-layout-grid-43ae317.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">sap.ui.layout.Grid</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">sap.ui.layout.Grid</h2></div><div class="shortdesc">A flexible layout that positions its items in a 12-column flow layout.</div><section id="section_r1y_nf5_xfb">
+			<h2 class="title ">Overview</h2>
+			<p>The <code>sap.ui.layout.Grid</code> is a powerful grid system that can be
+				configured to display a variable number of columns depending on the available screen
+				size. You can achieve complex but flexible layouts and line breaks for extra large,
+				large, medium, and small-sized screens, such as desktop, tablet, and mobile.</p>
+			<p>With this control, you can define how many items are displayed per row depending on
+				the available screen size, with a maximum of 12. The height of a single row is
+				always based on the content of the highest item in that row.</p>
+			<p>The flow direction of the items is horizontal only. For example, if the control is
+				configured to display six items per row, the seventh item is displayed on the next
+				row.</p>
+		</section><section id="section_py1_5f5_xfb"><h2 class="title ">Usage</h2><p>You can use the
+					<code>sap.ui.layout.Grid</code> on its own or in combination with the
+					<code>sap.ui.layout.GridData</code>. The APIs in the
+					<code>sap.ui.layout.Grid</code> apply for all grid items while with the
+					<code>sap.ui.layout.GridData</code> you can manipulate individual grid
+				items.</p><section>
+				<h3 class="title ">Using <code>sap.ui.layout.Grid</code> on its
+					own</h3>
+				<p><code>defaultSpan</code> and <code>defaultIndent</code> are the main two
+					properties that enable you to define a specific layout for the grid. The number
+					of grid columns is always 12 but the span and indentation of the items determine
+					how many are displayed in one row.</p>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_qrp_j2w_xfb" class=" "><thead>
+						<tr><th colspan="1" rowspan="1">Property</th>
+						<th colspan="1" rowspan="1">Example Values</th>
+						<th colspan="1" rowspan="1">Description</th>
+					</tr></thead><tbody><tr>
+						<td colspan="1" rowspan="1"><code>defaultSpan</code></td>
+						<td colspan="1" rowspan="1">
+							<pre class="lines"><code>"XL3 L4 M6 S12"</code>
+<code>"XL6 M6"</code>
+<code>"S2"</code></pre>
+						</td>
+						<td colspan="1" rowspan="1">Determines the span of the items for the different screen/container
+							sizes (XL, L, M, and S). Each item can be set to span over several grid
+							columns (from 1 to 12).</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1"><code>defaultIndent</code></td>
+						<td colspan="1" rowspan="1">
+							<pre class="lines"><code>"XL4 L3 M2 S1"</code>
+<code>"XL2 L1"</code>
+<code>"S6"</code></pre>
+						</td>
+						<td colspan="1" rowspan="1">Defines the number of columns with which each item is indented for
+							the different screen/container sizes (XL, L, M, and S). Each item can be
+							indented with several grid columns (from 0 to 11).</td>
+					</tr></tbody></table></div></div>
+				<p>More properties are available for defining the horizontal and vertical spacing
+					between the grid items, setting a specific width, defining the position for the
+					grid as a whole, and so on. For
+						more information, see the available properties in the <a href="api/sap.ui.layout.Grid/controlProperties" title="api/sap.ui.layout.Grid/controlProperties" class="sap-doc" alt="api/sap.ui.layout.Grid/controlProperties">API Reference</a>.</p>
+			</section><section>
+				<h3 class="title ">Using <code>sap.ui.layout.GridData</code> to manipulate
+					individual grid items</h3>
+				<p>To achieve a layout where the individual grid items have a different
+					configuration, use <code>sap.ui.layout.GridData</code>.</p>
+				<p>In addition to individual span and indentation, there is a large number of
+					properties that allow for setting the visibility of items and adding line
+						breaks. For
+						more information, see the available properties in the <a href="api/sap.ui.layout.GridData/controlProperties" title="api/sap.ui.layout.GridData/controlProperties" class="sap-doc" alt="api/sap.ui.layout.GridData/controlProperties">API Reference</a>.</p>
+			</section><section>
+				<h3 class="title ">Examples</h3>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_c54_qfw_xfb" class=" "><tbody><tr>
+						<td colspan="1" rowspan="1">
+							<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;l:Grid
+		defaultSpan="<span class="emphasis">XL3 L4 M6 S12</span>"&gt;
+	&lt;Image src="/item1.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item2.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item3.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item4.png" width="100%"&gt;&lt;/Image&gt;
+&lt;/l:Grid&gt;</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1"><p>XL container/screen size (one item spans over 3
+								columns)</p><img src="loio9abe089fdafb4b80977828c461e52a6f_LowRes.png" usemap="#"><p>L container/screen
+								size (one item spans over 4 columns)</p><img src="loio946464afb7da47d689a69896b96af818_LowRes.png" usemap="#"><p>M container/screen size (one item spans over 6
+								columns)</p><img src="loio6f160ed0ff3c4f228408901f15b71ac5_LowRes.png" usemap="#"><p>S container/screen
+								size (one item spans over 12 columns)</p><img src="loio8412d67065d04fc88009008a919fb3e2_LowRes.png" usemap="#"></td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">
+							<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;l:Grid
+		defaultSpan="<span class="emphasis">XL3</span> L4 M6 S12"
+		defaultIndent="<span class="emphasis">XL1</span> L1 M1 S1"&gt;
+	&lt;Image src="/item1.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item2.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item3.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item4.png" width="100%"&gt;&lt;/Image&gt;
+&lt;/l:Grid&gt;</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1"><p>XL container/screen size (items are indented with 1
+								column)</p><img src="loiod86735c6b14d4e6c89b0c6313680351a_LowRes.png" usemap="#"></td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">
+							<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;l:Grid
+		defaultSpan="XL3 L4 M6 S6"&gt;
+	&lt;Image src="/item1.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item2.png" width="100%"&gt;
+<span class="emphasis">		&lt;layoutData&gt;
+			&lt;l:GridData span="XL4"/&gt;
+		&lt;/layoutData&gt;</span>
+	&lt;/Image&gt;
+	&lt;Image src="/item3.png" width="100%"&gt;&lt;/Image&gt;
+	&lt;Image src="/item4.png" width="100%"&gt;
+<span class="emphasis">		&lt;layoutData&gt;
+			&lt;l:GridData span="XL2"/&gt;
+		&lt;/layoutData&gt;</span>
+	&lt;/Image&gt;
+&lt;/l:Grid&gt;</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1"><p>Individual span for item2 and item4 using
+									<code>sap.ui.layout.GridData</code></p><img src="loio147f0975ec374b01ab642678664fc206_LowRes.png" usemap="#"></td>
+					</tr></tbody></table></div></div>
+			</section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.layout.Grid" title="api/sap.ui.layout.Grid" class="sap-doc" alt="api/sap.ui.layout.Grid">API Reference: sap.ui.layout.Grid</a></li>
+		<li><a href="api/sap.ui.layout.GridData" title="api/sap.ui.layout.GridData" class="sap-doc" alt="api/sap.ui.layout.GridData">API Reference: sap.ui.layout.GridData</a></li>
+		<li><a href="entity/sap.ui.layout.Grid" title="entity/sap.ui.layout.Grid" class="sap-doc" alt="entity/sap.ui.layout.Grid">Samples: sap.ui.layout.Grid</a></li>
+	</ul></section></div></section></div></body></html>

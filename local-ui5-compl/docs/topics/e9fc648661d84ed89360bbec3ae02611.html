@@ -1,0 +1,165 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioe9fc648661d84ed89360bbec3ae02611" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/setting-themes-e9fc648.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Setting Themes</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Setting Themes</h2></div><div class="shortdesc">You define which theme is used by your app either by using the <code>theme</code>
+		configuration parameter or the <code>sap/ui/core/Theming.setTheme</code>
+		method.</div><ul class="ul ">
+			<li class="li">
+				<p>By default, there is a default theme configured for each SAPUI5 version that
+					is applied, if not configured differently. The following example shows how to
+					overwrite the SAPUI5
+					default
+					theme as part of the bootstrap configuration:
+					</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id="sap-ui-bootstrap"
+    type="text/javascript"
+    src="resources/sap-ui-core.js"
+    data-sap-ui-theme="my_custom_theme"&gt;
+&lt;/script&gt;</pre></div></div></section><p></p>
+			</li>
+			<li class="li">
+				<p>It is also possible to change the theme using any other source for configuration
+					options, such as a URL parameter (for example,
+						<code>html?sap-ui-theme=my_custom_theme</code>).</p>
+			</li>
+			<li class="li">
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>You can provide the theme parameter either as <code>sap-theme</code> or
+							<code>sap-ui-theme</code>. The only exception is the
+							<code>globalThis["sap-ui-config"]</code> object where only
+							<code>theme</code> is valid, since a parameter must not be prefixed
+						within the <code>globalThis</code> object. The configuration uses the
+							<code>sap-theme</code> value, if both notations exist. </p>
+					<p>If you use the UI theme designer to define your own custom theme, you can
+						append the location of the custom theme as a server-relative path to the
+							<code>theme</code> parameter, separated by an <code>@</code>
+						sign:</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">http://myserver.com/sap/myapp/?sap-ui-theme=my_custom_theme@/sap/public/bc/themes/~client-111</pre></div></div></section><p></p>
+					<p>Although a full URL can be specified, the framework will only use the path information of the URL to prevent CSS-based attacks that would
+						otherwise be possible by referencing CSS from a malicious server, unless the origin has been added to
+							<code>sap-allowed-theme-origins</code>. For more information, see <a href="topic/e9fc648661d84ed89360bbec3ae02611.html#loioe9fc648661d84ed89360bbec3ae02611/section_TOA" title="e9fc648661d84ed89360bbec3ae02611.xml#loioe9fc648661d84ed89360bbec3ae02611/section_TOA" class="sap-doc">Theme Origin Allowlist</a>. In a more complex landscape, for example, if the
+						infrastructure of the UI theme designer is running on a separate server, a Web dispatcher can be used to combine both servers
+						in one endpoint.</p>
+				<p></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The UI theme designer infrastructure stores themes for multiple technologies in the same
+						location, each in its own subdirectory (<code>UI5/</code> for SAPUI5). Other
+						SAP products (such as SAP Enterprise Portal) append only the common root URL
+						to the <code>theme</code> parameter. SAPUI5
+						therefore appends folder <code>UI5/</code> to any given path that is
+						defined in the <code>theme</code> parameter. </p>
+				<p></p></div></div>
+			</li>
+			<li class="li">
+				<p>You can use the <code>sap/ui/core/Theming.setTheme</code> method to switch themes during
+					runtime. When setting the <code>theme</code> parameter via API, the
+					application state is not lost, and only the style sheets are exchanged.</p>
+			</li>
+		</ul><section>
+			<h2 class="title ">Using Custom Themes</h2>
+			<p>To load an external custom theme, you can either declare it statically on the page or by
+				setting the <code>theme-root</code> configuration parameter.</p><ul class="ul ">
+					<li class="li">
+						<p>You can configure the theme by using one of the following options:</p><ul class="ul ">
+								<li class="li">
+									<p>Use the same object structure as JSON string in an attribute
+										of the SAPUI5 bootstrap <code>script</code> tag, for
+										example:</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script id="sap-ui-bootstrap" 
+	type="text/javascript"
+	src="resources/sap-ui-core.js"
+	data-sap-ui-theme-roots='{"my_custom_theme" : "http://themes.org/ui5"}'&gt;
+&lt;/script&gt;</pre></div></div></section><p></p>
+								</li>
+								<li class="li">
+									<p>Specify the location of a theme with a <span class="emphasis">URL
+											parameter</span>:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">http://myserver.com/sap/myapp/?sap-ui-theme=my_custom_theme@/sap/public/bc/themes/~client-111</pre></div></div></section><p></p>
+								</li>
+								<li class="li">
+									<p>Use the global configuration object. Create and load an
+										additional <code>&lt;additional-config.js&gt;</code>
+										file with the following content:
+										</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"> // Be mindful of already existing configuration options
+    globalThis["sap-ui-config"] ??= {};
+    globalThis["sap-ui-config"] = Object.assign(globalThis["sap-ui-config"]["theme-roots"] || {}, {
+        "my_preconfigured_theme" : "http://preconfig.com/ui5-themes",
+        "my_second_preconfigured_theme" : {
+            "" : "http://preconfig.com/ui5-themes",
+            "sap.ui.core" : "http://core.com/ui5"
+        }
+    });</pre></div></div></section><p></p>
+									<p>The first theme is loaded for all libraries from the location
+										specified. The second theme is loaded for the
+											<code>sap.ui.core</code> library from the location
+										specified. For all other libraries, the theme is loaded from
+										the default location.</p>
+								</li>
+							</ul><p></p>
+					</li>
+				</ul><p></p>
+		</section><section id="section_TOA">
+			<h2 class="title ">Theme Origin Allowlist</h2>
+			<p>When configuring a theme with a <code>themeRoot</code> URL via the <code>theme</code>
+				parameter, security restrictions apply. Absolute URLs to an origin other than the
+				current page are cut off by default. The path segment will be resolved relative to
+				the current page origin.</p>
+			<p>In
+				order to allow other origins to be used via the URL parameter, the <code>sap-allowed-theme-origins</code>
+				configuration option can be used:</p>
+			<p><code>&lt;meta name="sap-allowed-theme-origins"
+					content="https://example.com"&gt;</code></p>
+			<p>This allows you to load a theme from <code>https://example.com</code>, which is provided
+				via the URL parameter:</p>
+			<p><code>https://myserver.com/sap/myapp/?sap-theme=my_theme@https://example.com/custom-themes/</code></p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p><code>sap-allowed-theme-origins</code> can only be provided using bootstrap
+					or the <code>&lt;meta&gt;</code> tag. Origins provided via configuration
+					must contain the same protocol, host, and port as the origin provided in the
+						<code>theme</code> parameter. Multiple allowed origins can be separated
+					by a comma.</p>
+				<p>A general wildcard (*) can also be used to allow all origins. However, this
+					should only be used in combination with additional security mechanisms, such as
+					CSP style-src directives. Wildcards to allow sub-domains are not supported.</p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">Listening to the <code>Theming.applied</code> Event</h2>
+			<p>Whenever the theme is switched, an event is fired indicating that a theme switch has been
+				triggered. If your application needs to take theming into consideration, attach an
+				event handler, like this:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require([
+    "sap/ui/core/Theming"
+], (
+    Theming
+) =&gt; {
+    "use strict";
+     
+    // Whenever the theme is switched, an event is fired,
+    // indicating that a theme switch has been triggered.
+    Theming.attachApplied((oEvent) =&gt; {
+        // Note: The event callback has no longer a &lt;this&gt; context,
+        // thus we use an arrow function here
+ 
+        // Note: the Event object now has a different API than on the Core facade:
+        // no more getParameters(), but simple properties like the Web API events.
+        // Therefore, you can access the new "theme" like so:
+        const sTheme = oEvent.theme;
+    });
+    ...
+});</pre></div></div></section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The handler of the <code>applied</code> event will be executed immediately once if all <code>*.css</code> files are loaded and there
+					are no further requests pending for the theme.</p>
+				<p>After that, it will only be executed in case of new <code>*.css</code> files, which may happen for a complete theme change or
+					the loading of additional libraries. Keep in mind that the <span class="emphasis"><code>onThemeChanged</code></span> hook is not
+					executed initially if the theme has already been applied.</p>
+			<p></p></div></div>
+			<p>For more
+					information, see the <a href="api/module:sap/ui/core/Theming#events/applied" title="api/module:sap/ui/core/Theming#events/applied" class="sap-doc" alt="api/module:sap/ui/core/Theming#events/applied">API Reference</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f08de06f4d1014b6dd926db0e91070.html#loio91f08de06f4d1014b6dd926db0e91070/section_ACO" title="91f08de06f4d1014b6dd926db0e91070.xml#loio91f08de06f4d1014b6dd926db0e91070/section_ACO" class="sap-doc">Available Configuration Options</a></li>
+		<li><a href="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.setTheme" title="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.setTheme" class="sap-doc" alt="api/module:sap/ui/core/Theming#methods/sap/ui/core/Theming.setTheme">API Reference: sap/ui/core/Theming.setTheme</a></li>
+	</ul></section></div></section></div></body></html>

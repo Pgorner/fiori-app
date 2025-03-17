@@ -1,0 +1,265 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioab134ef3932c4b42898c79c10341e8b5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-1-overview-and-testing-strategy-ab134ef.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 1: Overview and Testing Strategy</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 1: Overview and Testing Strategy</h2></div><div class="shortdesc">In this step, we will take a look at the prototype and define the test strategy for
+		our app. The prototype already contains the infrastructure for unit and integration testing
+		and a minimum set of tests and features.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>In this tutorial we will focus on writing clean unit and integration tests for apps.
+				They build the foundation and are crucial for good application quality. We will also
+				outline how to write testable code. Not all implementation patterns can be tested
+				easily, but when writing the test code together with the implementation code as we
+				have in this tutorial, testable code is a natural result.</p>
+		<p></p></div></div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio7946d242c8a14ac39fb22556b59d4bcd_LowRes.jpg" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The prototype app</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<ol>
+				<li class="li">
+					<p>To set up your project for this tutorial, download the files 
+						at <a href="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.01" title="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.01" class="sap-doc" alt="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.01">Testing - Step 1</a>.</p>
+				</li>
+				<li class="li">Extract the downloaded <code>.zip</code> file at the desired location on your local machine.</li>
+				<li class="li">Open a shell in the extracted folder and execute <code>npm install</code>.</li>
+				<li class="li">Execute <code>npm start</code> to start the web server.</li>
+			</ol>
+			<p>After downloading <span class="ph uicontrol">Step 1</span>, you should have the following
+				files:</p>
+			<div><div class="fig"><img src="loio80078484830540769b67f12a6b88bbd3_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Folder structure with downloaded files</h2></span></div>
+		</section><section>
+			<h2 class="title ">The Initial App</h2>
+			<p>With the downloaded code, you now have the bulletin board prototype, set up according
+				to the SAPUI5 best
+				practices. The prototype provides the common features of an SAPUI5 app. If you have
+				completed the Walkthrough tutorial, you should be familiar with most of the source
+				code in this step. Additional features of the app are:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><span class="emphasis">Entry Page</span></p>
+					<p>In this tutorial, we will often switch between testing application features manually, and
+						running automated tests. The <code>webapp/test.html</code> file
+						provides a list of entry points for the app so that you do not have to enter
+						the URLs manually.  From this page you can open the app with mock data or
+						run the app test suite which contains the unit and integration tests. Note
+						that in a productive scenario we would have an additional entry point that
+						calls the app with a real service. At this stage we are working with mock
+						data and don't have a real service for our prototype yet, so we have left
+						this step out.</p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Home Page</span></p>
+					<p>The home page of our bulletin board app is the
+							<code>webapp/test/mockServer.html</code> file. On this page, we
+						initialize SAPUI5, start the mock server, and instantiate our app component. It consists of
+						a single view that displays a list of posts from a bulletin board with
+						several attributes in a table.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>We do not yet have a real service for
+							the bulletin board prototype so run the app with mock data and this test
+							page throughout the tutorial. The mock server helps by mimicking a real
+							service and it processes requests with a small delay, just as a real
+							service would. This is perfect for realistic application testing and is
+							also helpful for local development tests. It is a good practice to put
+							all test pages in the test folder of the app, so that they are clearly
+							separated from the productive coding.</p></div></div><p></p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Data</span></p>
+					<p>In the <code>webapp/localService/</code> folder, you can find the
+						metadata and the mock data for the app. The
+							<code>metadata.xml</code> file is used by the mock server to
+						simulate real back-end service calls in the app. It describes our OData
+						service and you can replace it later with a real service. The service we use
+						has a single OData entity:</p><ul class="ul ">
+							<li class="li">
+								<p><span class="emphasis">Post</span></p>
+								<p>A post consists of typical properties like
+										<span class="ph uicontrol">Title</span>,
+										<span class="ph uicontrol">Description</span>, and
+										<span class="ph uicontrol">Price</span>. Each post is assigned to a
+										<span class="ph uicontrol">Category</span> and a
+										<span class="ph uicontrol">Contact</span>. The entity can be identified
+									with its ID property: <code>PostID</code>. The corresponding
+										<code>EntitySet</code> is <code>Posts</code>. </p>
+							</li>
+							<li class="li">
+								<p><span class="emphasis">Category</span></p>
+								<p>In our example, the category only has a <code>Name</code>
+									property. Posts are sorted into a category by the category name.
+									The corresponding <code>EntitySet</code> is
+										<code>Categories</code>.</p>
+							</li>
+							<li class="li">
+								<p><span class="emphasis">Comment</span></p>
+								<p>A comment has an <code>Author</code>, a
+									<code>Date</code>, and a <code>CommentText</code>
+									property. The entity can be identified by the
+										<code>CommentID</code> property and is linked to a
+										<code>post</code> by the <code>ParentID</code>. The
+									corresponding <code>EntitySet</code> is
+										<code>Comments</code>.</p>
+							</li>
+						</ul><p></p>
+					<p>The actual test data containing several mock posts is located in the
+							<code>webapp/localService/mockdata/Posts.json</code> file.</p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Testing Functionality</span></p>
+					<p>The team that created the first prototype already took care of the basic test
+						setup. Everything required for application testing is shipped with SAPUI5 and can
+						simply be used within the app. The testing infrastructure is set up in the
+							<code>test</code> folder that is located in the
+							<code>webapp</code> folder of the app:</p><ul class="ul ">
+							<li class="li">
+								<p><span class="emphasis">Mock Server</span></p>
+								<p>The mock server is set up in the
+										<code>webapp/localService/mockserver.js</code> file.
+									It loads the metadata and the mock data in the same folder.
+									Using the mock server allows us to run the app easily and show
+									realistic data for testing, even without a network connection
+									and without the need of having a remote server for our
+									application data.</p>
+								<p>There is a configurable delay for each request that is processed
+									by the mock server that allows you to mimick a slow back-end
+									server.</p>
+							</li>
+							<li class="li">
+								<p><span class="emphasis">Unit Tests</span></p>
+								<p>All unit tests are located in the <code>webapp/test/unit</code> folder.
+									Initially, there are only a few tests for model instantiation
+									and formatters that cover basic functionality in the prototype.
+									We will give you more details about the unit test setup later in
+									the tutorial.</p>
+							</li>
+							<li class="li">
+								<p><span class="emphasis">Integration Tests</span></p>
+								<p>Integration tests are written in OPA5 – a tool for integration testing that is included
+									in SAPUI5 – and can be found in the
+										<code>webapp/test/integration</code> folder. OPA5
+									tests are organized in test journeys, and we have included a
+									worklist journey that checks if the table of posts is displayed
+									properly. We will give you more details about the integration
+									test setup later in the tutorial.</p>
+							</li>
+							<li class="li">
+								<p><span class="emphasis">Test Suite</span></p>
+								<p> Unit and integration tests are part of a test suite that is
+									located at <code>webapp/test/testsuite.qunit.js</code>.
+									The test suite lists all tests of a project and contains
+									configuration for the test setup. The test suite can be started
+									by opening the <code>testsuite.qunit.html</code> file in
+									the same folder.</p>
+							</li>
+						</ul><p></p>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Other quality-related features of the app</span></p>
+					<p>The app is set up according to best practices and already contains many
+						helpful features. </p><ul class="ul ">
+							<li class="li">
+								<p><span class="emphasis">Separation of concerns (MVC)</span></p>
+								<p>All artifacts are located in either the
+										<code>model</code>, <code>view</code>, or
+										<code>controller</code> folder of the app. The app's
+									component and its descriptor configure which of those MVC
+									artifacts to load. This configuration controls the navigation
+									flow of the app.</p>
+							</li>
+							<li class="li">
+								<p><span class="emphasis">Separation of productive and nonproductive
+										code</span></p>
+								<p>All nonproductive code is located in the
+										<code>test</code> subfolder. This includes the unit
+									and integration tests, and the test page to call the app with
+									mock data. All productive code is located in the
+										<code>webapp</code> folder. This clearly separates
+									the test artifacts from the application coding and makes it easy
+									to remove all test-related artifacts before deploying the app
+									for productive use.</p>
+							</li>
+							<li class="li">
+								<p><span class="emphasis">Busy handling</span></p>
+								<p>As a best practice, you should always give users instant feedback
+									when triggering actions and navigating in the app. The app
+									already includes functionality to display a busy indication when
+									data is loaded or actions are triggered. To simulate a slow
+									backend and show the behavior of the app, the mock server is
+									configured with a delay of one second for each request.</p>
+							</li>
+						</ul><p></p>
+				</li>
+			</ul>
+			<p>Now that we have a running prototype, we can further extend it with additional tests and
+				features. Make sure that the app is running by calling the test page and the test
+				suite from the entry page <code>webapp/test.html</code>. The app should
+				display a list of bulletin board posts as seen in the screenshot above and the tests
+				should run without errors.</p>
+			<div><div class="fig"><img src="loiob5ea0590dd68474786ab3b494564fae3_LowRes.jpg" usemap="#"></div></div>
+		</section><section>
+			<h2 class="title ">Test Strategy</h2>
+			<p>Let's first take a look at best practices for testing apps written in SAPUI5. JavaScript is a
+				dynamic programming language and only some issues can be detected by static code
+				check tools and manual testing. Automated tests that execute the code regularly are
+				beneficial for good quality and development productivity – especially when you're
+				developing in short development cycles.</p>
+			<p>We expect our prototype to be released and shipped as a product soon, so we need a
+				solid testing strategy. Fortunately the prototype team has already thought ahead and
+				prepared an infrastructure for unit and integration testing that is included in the
+				app. This is a really good starting point for further enhancements of the app.</p>
+			<p>The mock server is also set up and allows us to test the app with local test data
+				instead of a real back-end service. We can use the mock data for writing reliable
+				integration tests that do not depend on another system which might be unavailable
+				when the tests are run.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If you start developing an app from scratch, you should always consider testing
+				from the very beginning of the software life cycle. Nobody wants to write tests for
+				undocumented code and make assumptions about the logic. It is worth the effort to
+				think about code checks, unit and integration testing, and a solid testing strategy
+				from the very start.</p></div></div>
+			<p>Before you start implementing your first test, you should think about how to test the
+				different aspects of your application. The image below shows the testing tools along
+				the agile testing pyramid.</p>
+			<div><div class="fig"><img src="loio88758c3b4ad94e9ca6508d106fe66972_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Testing pyramid</h2></span></div>
+			<p>When you set up application testing, you should automate as many testing steps as
+				possible. If you immediately write a test for all the features that we implement,
+				then you can greatly reduce manual testing efforts that are time consuming and
+				cumbersome. If you change something later, you can simply run the existing tests and
+				see if the functionality is still working as expected.</p>
+			<p>SAPUI5 comes with two
+				testing tools: QUnit for unit testing and OPA5 for integration testing. The unit
+				tests are the foundation of our testing pyramid and they should validate the most
+				important logic of our app. In addition, you can write integration tests for more
+				interaction-related functionality, such as interacting with UI elements of the app. </p>
+			<p>There might still be features that are hard to test with these client-side testing
+				frameworks. Certain features might require a more sophisticated system test, such as
+				a screenshot comparison that can be implemented with additional testing frameworks.
+				And of course, you should also schedule manual tests (for example, browser,
+				performance, or security tests) to make sure that the app is behaving as expected.
+			</p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Write unit tests in QUnit for more logic-related functionality</p>
+				</li>
+				<li class="li">
+					<p>Write integration tests in OPA5 for user interaction</p>
+				</li>
+				<li class="li">
+					<p>Separate productive and nonproductive code in the app
+							(<code>webapp</code>, <code>test</code> folder)</p>
+				</li>
+				<li class="li">
+					<p>Provide a local test page that triggers the app in test mode with mock data
+							(<code>test/mockServer.html</code>)</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/291c9121e6044ab381e0b51716f97f52">Testing Tutorial</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/b81736e0fcb246efb3b0cf0ca422f8fd">Step 2: A First Unit Test</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/7cdee404cac441888539ed7bfe076e57" title="SAPUI5 provides several testing options, like to unit and integration tests and the OData V2 mock server." class="sap-doc">Testing</a></li>
+		<li><a href="topic/09d145cd86ee4f8e9d08715f1b364c51" title="QUnit is a powerful, easy-to-use JavaScript unit testing framework. It is used by the jQuery, jQuery UI and jQuery Mobile projects and is capable of testing any generic JavaScript code. It supports asynchronous tests out-of-the-box." class="sap-doc">Unit Testing with QUnit</a></li>
+		<li><a href="topic/2696ab50faad458f9b4027ec2f9b884d" title="OPA5 is an API for SAPUI5 controls. It hides asynchronicity and eases access to SAPUI5 elements. This makes OPA especially helpful for testing user interactions, integration with SAPUI5, navigation, and data binding." class="sap-doc">Integration Testing with One Page Acceptance Tests (OPA5)</a></li>
+		<li><a href="topic/69d3cbd4150c4ffb884e788f7f60fd93" title="A mock server mimics one or more back-end services. It is used to simplify integration testing and to decouple UI development from service development. By using a mock server you can develop and test the UI even if the service in the back end is incomplete or unstable." class="sap-doc">Mock Server</a></li>
+		<li><a href="topic/3da5f4be63264db99f2e5b04c5e853db" title="In this tutorial we will introduce you to all major development paradigms of SAPUI5." class="sap-doc">Walkthrough Tutorial (JavaScript)</a></li>
+	</ul></section></div></section></div></body></html>

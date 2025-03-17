@@ -1,0 +1,44 @@
+<mvc:View xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="sap.ushell.playground.controller.ContentNodeSelector" >
+    <Page title="Content Node Selector" class="sapUiStdPage sapUiContentPadding" >
+        <Panel id="ContentNodeSelectorContainer" headerText="Control" />
+
+        <Panel headerText="Selected Content Nodes" >
+            <VBox >
+                <Text class="sapUiSmallMarginBottom"
+                    text="This sync button reflects the API getSelectedContentNodes and shows all selected nodes in the list." />
+                <Button press="onSubmit" text="Sync" class="sapUiSmallMarginBottom" />
+                <List id="SelectedNodesList" items="{/selectedNodes}" >
+                    <items >
+                        <StandardListItem title="{label}" description="{id}" />
+                    </items >
+                </List >
+            </VBox >
+        </Panel >
+
+        <Panel headerText="Settings" >
+            <HBox alignItems="Center" class="sapUiSmallMarginBottom" >
+                <Label text="Pages mode enabled:" />
+                <Switch change=".onModeChange" />
+            </HBox >
+            <VBox >
+                <Button press="onClearSelection" text="Clear selection" class="sapUiSmallMarginBottom" />
+                <Label text="Trigger value states" />
+                <Text class="sapUiSmallMarginBottom"
+                    text="With these buttons you can simulate possible value states. To change the validation message, click on a value state first, type in the text in the input field, press enter and click into the control." />
+                <OverflowToolbar class="sapUiMarginMedium">
+                    <Button press="onSetValueStateWarning" text="Show warning" />
+                    <Button press="onSetValueStateError" text="Show error" />
+                    <Button press="onSetValueStateSuccess" text="Show success" />
+                    <Button press="onSetValueStateInformation" text="Show information" />
+                    <Button press="onSetValueStateNone" text="Clear value state" />
+                    <Input placeholder="valueStateText" submit="onSetValueStateText" width="200px" />
+                </OverflowToolbar >
+                <Label text="Triggered events"></Label>
+                <Text class="sapUiSmallMarginBottom" text="selectionChanged: {/eventCount}" />
+            </VBox >
+        </Panel >
+
+    </Page >
+</mvc:View >

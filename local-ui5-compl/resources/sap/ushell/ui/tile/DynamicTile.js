@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/library","./TileBase","./DynamicTileRenderer"],function(e,a,t){"use strict";var r=e.ui.tile.State;var u=e.ui.tile.StateArrow;var l=a.extend("sap.ushell.ui.tile.DynamicTile",{metadata:{library:"sap.ushell",properties:{numberValue:{type:"string",group:"Data",defaultValue:"0.0"},numberState:{type:"sap.ushell.ui.tile.State",group:"Appearance",defaultValue:r.Neutral},numberUnit:{type:"string",group:"Data",defaultValue:null},numberDigits:{type:"int",group:"Appearance",defaultValue:0},stateArrow:{type:"sap.ushell.ui.tile.StateArrow",group:"Appearance",defaultValue:u.None},numberFactor:{type:"string",group:"Data",defaultValue:null}}},renderer:t});return l});
+//# sourceMappingURL=DynamicTile.js.map

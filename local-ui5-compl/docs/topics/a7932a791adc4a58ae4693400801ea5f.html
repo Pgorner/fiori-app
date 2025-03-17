@@ -1,0 +1,66 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa7932a791adc4a58ae4693400801ea5f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-16-handle-invalid-hashes-by-listening-to-bypassed-events-a7932a7.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 16: Handle Invalid Hashes by Listening to Bypassed Events </h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 16: Handle Invalid Hashes by Listening to Bypassed Events </h2></div><div class="shortdesc">So far we have created many useful routes in our app. In the very early steps we have
+		also made sure that a <span class="ph uicontrol">Not Found</span> page is displayed in case the app was
+		called with an invalid hash. Now, we proceed further and track invalid hashes to be able to
+		detect and correct any invalid links or add new URL patterns that are often requested but
+		not found. Therefore, we simply listen to the bypassed events</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio6f2e76a0c5dc476ba8381865a06748c9_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Console output for invalid hashes when listening to bypassed events</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.16" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.16" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.16">Routing and Navigation - Step
+					16</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/App.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController",
+	"sap/base/Log"
+], function (BaseController, Log) {
+	"use strict";
+
+	return BaseController.extend("sap.ui.demo.nav.controller.App", {
+
+		onInit: function () {
+			<span class="emphasis">// This is ONLY for being used within the tutorial.
+			// The default log level of the current running environment may be higher than INFO,
+			// in order to see the debug info in the console, the log level needs to be explicitly
+			// set to INFO here.
+			// But for application development, the log level doesn't need to be set again in the code.
+			Log.setLevel(Log.Level.INFO);
+
+			var oRouter = this.getRouter();
+
+			oRouter.attachBypassed(function (oEvent) {
+				var sHash = oEvent.getParameter("hash");
+				// do something here, i.e. send logging data to the backend for analysis
+				// telling what resource the user tried to access...
+				Log.info("Sorry, but the hash '" + sHash + "' is invalid.", "The resource was not found.");
+			});</span>
+		}
+
+	});
+
+});</pre></div></div></section>
+			<p>All we need to do is listen to the bypassed event on the router. If the bypassed
+				event is triggered, we simply get the current hash and log a message. In an actual
+				app this is probably the right place to add some application analysis features, i.e.
+				sending analytical logs to the back end for later evaluation and processing. This
+				could be used to improve the app, for example, to find out why the user called the
+				app with an invalid hash.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>We have chosen to place this piece of code into the <code>App</code>
+						controller because this is a global feature of the app. However, you could
+						also place it anywhere else, for example in the <code>NotFound</code>
+						controller file or in a helper module related to analysis.</p>
+				<p></p></div></div>Now try to access <code>webapp/index.html#/thisIsInvalid</code> while you
+				have your browser console open. As you can see, there is a message that issues a
+				faulty hash. Furthermore, our <code>NotFound</code> page is displayed.<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/877d57e3b5654b19a2d2e5190dc43b0d">Step 15: Reuse an Existing Route</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/4a063b8250f24d0cbf7c689821df7199">Step 17: Listen to Matched Events of Any Route</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+
+		<li><a href="api/sap.m.routing.Router" title="api/sap.m.routing.Router" class="sap-doc" alt="api/sap.m.routing.Router">API Reference: sap.m.routing.Router</a></li>
+
+
+	</ul></section></div></section></div></body></html>

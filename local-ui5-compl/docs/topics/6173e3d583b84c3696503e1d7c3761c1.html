@@ -1,0 +1,309 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio6173e3d583b84c3696503e1d7c3761c1" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-30-routing-and-navigation-typescript-6173e3d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 30: Routing and Navigation (TypeScript)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 30: Routing and Navigation (TypeScript)</h2></div><div class="shortdesc">So far, we have put all app content on one single page. As we add more and more
+		features, we want to split the content and put it on separate pages.</div><p> In this step, we will use the SAPUI5 navigation features
+			to load and show a separate detail page that we can later use to display details for an
+			invoice. In the previous steps, we defined the page directly in the app view so that it
+			is displayed when the app is loaded. We will now use the SAPUI5 router class to load
+			the pages and update the URL for us automatically. We specify a routing configuration
+			for our app and create a separate view for each page of the app, then we connect the
+			views by triggering navigation events.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio94152a595fe24d45b12223e0abcccb9c_LowRes.png" title="A page consisting of Walkthrough - Details header and Invoice as body text
+					" alt="A page consisting of Walkthrough - Details header and Invoice as body text
+					" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">A second page is added to display the invoice</h2></span></div>
+		</section><section id="section_ips_rvh_tyb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view all files at <a href="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/30" title="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/30" class="external-link" target="_blank" rel="noopener">OpenUI5 TypeScript Walkthrough - Step 30: Routing and Navigation</a> and <a href="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-30.zip" title="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-30.zip" class="external-link" target="_blank" rel="noopener">download the solution as a zip file</a>.</p>
+		</section><section id="section_wd5_kcv_4zb">
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<p>First, we add a new text-value pair to our resource bundle to define a title for the new detail page we'd like to create.</p>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+# Invoice List
+invoiceListTitle=Invoices
+invoiceStatusA=New
+invoiceStatusB=In Progress
+invoiceStatusC=Done
+
+<span class="emphasis"># Detail Page
+detailPageTitle=UI5 TypeScript Walkthrough - Details</span></pre></div></div></section>
+		</section><section id="section_anj_4cv_4zb">
+			<h2 class="title ">webapp/view/Detail.view.xml (New)</h2>
+			<p>Now we add the new <code>Detail.view.xml</code> file to our view folder. Besides the root node of the XML structure and the required
+				namespaces, it only contains a <code>Page</code> control that displays the title we just defined in our resource bundle and an
+					<code>ObjectHeader</code> control with a static text <span class="ph uicontrol">Invoice</span> assigned to the <code>title</code>
+				attribute (this we will change in the next step).</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Page
+		title="{i18n&gt;detailPageTitle}"&gt;
+		&lt;ObjectHeader title="Invoice"/&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+		</section><section id="section_lcd_qcv_4zb">
+			<h2 class="title ">webapp/view/Overview.view.xml (New)</h2>
+			<p>Next, we create another view in the view folder, called <code>Overview.view.xml.</code> We add the root node of the XML structure
+				including the required namespaces to it. Then we copy and paste from the app view everything between and including the
+					<code>Page</code> control to our new view.</p>
+			<p>For simplicity, we reuse the controller <code>ui5.walkthrough.controller.App</code> for our new view as it only contains our helper
+				method to open the dialog.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+    controllerName="ui5.walkthrough.controller.App"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"&gt;
+    &lt;Page title="{i18n&gt;homePageTitle}"&gt;
+        &lt;content&gt;
+            &lt;mvc:XMLView viewName="ui5.walkthrough.view.HelloPanel" /&gt;
+            &lt;mvc:XMLView viewName="ui5.walkthrough.view.InvoiceList" /&gt;
+        &lt;/content&gt;
+    &lt;/Page&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+			<p>As we reuse the controller <code>ui5.walkthrough.controller.App</code> for two different views (for the new overview and for the app
+				view), two instances of that controller are instantiated at runtime. In general, one instance of a controller is instantiated for each
+				view that references the controller.</p>
+		</section><section id="section_mcd_qcv_4zb">
+			<h2 class="title ">webapp/view/App.view.xml</h2>
+			<p>In the app view, we now remove everything and between the control aggregation
+					<code>pages</code>, as this content has a new home in the overview view we
+				just created. We provide an <code>id</code> to the app control as we want to use
+				this control for our router configuration in the app descriptor in the next
+				step.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+    controllerName="ui5.walkthrough.controller.App"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"&gt;
+    &lt;Shell&gt;
+        &lt;App
+            class="myAppDemoWT"
+            <span class="emphasis">id="app"</span>/&gt;
+    &lt;/Shell&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+		</section><section id="section_jps_rvh_tyb">
+			<h2 class="title ">webapp/manifest.json</h2>
+			<p>We thus have everything we need to define a routing from the start view to the details view we just defined. We'd like to start with
+				the app view loading our new overview view by default and being replaced by the detail view when a specific route has been hit.</p>
+			<p>We add a new "routing" section to the <code>sap.ui5</code> part of the descriptor. There are three subsections that define the
+				routing and navigation structure of the app: </p><ul class="ul ">
+					<li class="li">
+						<p><code>config</code></p>
+						<p>This section contains the global router configuration and default values that apply for all
+							routes and targets. The property <code>routerClass</code> is special
+							as it determines the router implementation. The default value is
+								<code>sap.ui.core.routing.Router</code>. Here, we set it to
+								<code>sap.m.routing.Router</code>, because our app is based on
+								<code>sap.m</code>. All other properties in
+								<code>config</code> are given to the router instance. For
+							example, we define in <code>path</code> where our views are located
+							in the app. As we want to specify view-to-view navigation and we only
+							use XML views in our app, we preset also the parameters
+								<code>type</code> and <code>viewType</code>. To load and
+							display views automatically, we also specify the
+								<code>controlId</code> of the control that will contain the
+							views, and the aggregation (<code>controlAggregation</code>) of the
+							control where the views will be added. Here, we specify that the views
+							are loaded into the <code>pages</code> aggregation of the control
+							with the ID we provided in the app view.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>The possible values for <code>routerClass</code> are
+										<code>sap.ui.core.routing.Router</code>,
+										<code>sap.m.routing.Router</code>, or any other subclass
+									of <code>sap.ui.core.routing.Router</code>. Compared to
+										<code>sap.ui.core.routing.Router</code>, the
+										<code>sap.m.routing.Router</code> is optimized for
+									mobile apps and adds the properties <code>level</code>,
+										<code>transition</code> and
+										<code>transitionParameters</code>, which can be
+									specified for each route or target created by
+										<code>sap.m.routing.Router</code>.</p>
+							<p></p></div></div><p></p>
+					</li>
+					<li class="li">
+						<p><code>routes</code></p>
+						<p>Each route defines a name, a pattern, and one or more targets to navigate to when the route has been hit. The pattern is basically the URL
+							part that matches to the route, we define two routes for our app. The first one is a default route that will show the
+							overview page with the content from the previous steps, and the second is the detail route with the URL pattern
+								<code>detail</code> that will show our new details page.</p>
+					</li>
+					<li class="li">
+						<p><code>targets</code></p>
+						<p> A target defines a view, or even another component, that is displayed; it is associated with one or more routes, and it
+							can also be displayed manually from within the app. Whenever a target is displayed, the corresponding view is loaded and
+							shown in the app. In our app we simply define two targets with a view name that corresponds to the target name.</p>
+					</li>
+				</ul>
+			<p></p>
+			<section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  ...
+  "sap.ui5": {
+  ...
+    <span class="emphasis">"routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "ui5.walkthrough.view",
+        "controlId": "app",
+        "controlAggregation": "pages"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "overview",
+          "target": "overview"
+        },
+        {
+          "pattern": "detail",
+          "name": "detail",
+          "target": "detail"
+        }
+      ],
+      "targets": {
+        "overview": {
+          "id": "overview",
+          "name": "Overview"
+        },
+        "detail": {
+          "id": "detail",
+          "name": "Detail"
+        }
+      }
+    }</span>
+  }
+}</pre></div></div></section>
+			<p>The router will automatically add the view that corresponds to the current URL into the app
+				control. The router identifies the app control with the ID that corresponds to the
+				property <code>controlId: "app"</code> in the app descriptor.</p>
+			<p>The overview view is always shown when the hash is empty. The detail view is shown when the hash matches the pattern
+					<code>detail</code>.</p>
+			<p>
+				</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The sequence of the routes in the routes definition is important. As soon as a pattern is matched, the following patterns are ignored. To
+						prevent this for a specific route, you can use the <code>greedy</code> parameter. If set to <code>true</code>, the
+						route is always taken into account.</p>
+				<p></p></div></div>
+			<p></p>
+		</section><section>
+			<h2 class="title ">webapp/Component.ts</h2>
+			<p>In the component initialization method, we now add a call to initialize the router.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">import UIComponent from "sap/ui/core/UIComponent";
+import JSONModel from "sap/ui/model/json/JSONModel";
+
+/**
+ * @namespace ui5.walkthrough
+ */
+export default class Component extends UIComponent {
+    public static metadata = {
+        "interfaces": ["sap.ui.core.IAsyncContentCreation"],
+        "manifest": "json"
+    };
+    init(): void {
+        // call the init function of the parent
+        super.init();
+        
+        // set data model
+        const data = {
+            recipient: {
+                name: "World"
+            }
+        };
+        const model = new JSONModel(data);
+        this.setModel(model);
+
+        <span class="emphasis">// create the views based on the url/hash
+        this.getRouter().initialize();</span>
+    };
+};</pre></div></div></section>
+			<p>We do not need to instantiate the router manually, it is automatically instantiated based on our configuration in the app descriptor and
+				assigned to the component.</p>
+			<p>Initializing the router will evaluate the current URL and load the corresponding view automatically. This is done with the help of the routes
+				and targets that have been configured in the <code>manifest.json</code>. If a route has been hit, the view of its corresponding
+				target is loaded and displayed.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/InvoiceList.controller.ts</h2>
+			<p>What is still missing is the event handler that performs a navigation to the detail page by clicking an item in the invoice list: To access the
+				router instance for our app, use the static method <code>getRouterFor()</code> on the <code>UIComponent</code> module. On the
+				router, we call the <code>navTo</code> method passing the pattern name we defined in our app descriptor for routing to the details
+				page.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">import Controller from "sap/ui/core/mvc/Controller";
+import JSONModel from "sap/ui/model/json/JSONModel";
+import { SearchField$SearchEvent } from "sap/m/SearchField";
+import Filter from "sap/ui/model/Filter";
+import FilterOperator from "sap/ui/model/FilterOperator";
+import ListBinding from "sap/ui/model/ListBinding";
+<span class="emphasis">import UIComponent from "sap/ui/core/UIComponent";</span>
+
+/**
+ * @namespace ui5.walkthrough.controller
+ */
+export default class App extends Controller {
+		…
+    <span class="emphasis">onPress(): void {
+        const router = UIComponent.getRouterFor(this);
+        router.navTo("detail");
+    }</span>
+};</pre></div></div></section>
+		</section><section id="section_q2r_5cv_4zb">
+			<h2 class="title ">webapp/view/InvoiceList.view.xml</h2>
+			<p>In the invoice list view we add a press event to the list item we just defined in the controller and set the item type to
+					<code>Navigation</code> so that the item can actually be clicked.</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+    controllerName="ui5.walkthrough.controller.InvoiceList"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"&gt;
+    ...
+        &lt;items&gt;
+            &lt;ObjectListItem
+                title="{invoice&gt;Quantity} x {invoice&gt;ProductName}"
+                number="{
+                    parts: [
+                        'invoice&gt;ExtendedPrice',
+                        'view&gt;/currency'
+                    ],
+                    type: 'sap.ui.model.type.Currency',
+                    formatOptions: {
+                        showMeasure: false
+                    }
+                }"
+                numberUnit="{view&gt;/currency}"
+                numberState="{= ${invoice&gt;ExtendedPrice} &gt; 50 ? 'Error' : 'Success' }"
+                <span class="emphasis">type="Navigation"
+                press=".onPress"</span> &gt;
+                &lt;firstStatus&gt;
+                    &lt;ObjectStatus
+                        core:require="{
+                            Formatter: 'ui5/walkthrough/model/formatter'
+                        }"
+                        text="{
+                            path: 'invoice&gt;Status',
+                            formatter: 'Formatter.statusText.bind($controller)'
+                        }"/&gt;
+                &lt;/firstStatus&gt;
+            &lt;/ObjectListItem&gt;
+        &lt;/items&gt;
+    &lt;/List&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>If you open the app, you should now see the detail page when clicking an item in the list of invoices.</p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Define the routing configuration in the descriptor</p>
+				</li>
+				<li class="li">Initialize the router at the end of your <code>Component#init</code> function</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dad1905a07f849ce9c509721317d38d8">Walkthrough Tutorial (TypeScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/50990a077f964958a6e5cef1002e5316">Step 29: Debugging Tools (TypeScript)</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/afd5eb688b234c37a2a57e86fe729745">Step 31: Routing with Parameters (TypeScript)</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/902313063d6f45aeaa3388cc4c13c34e" title="Routing configuration consists of routes, targets, config, and owner." class="sap-doc">Routing Configuration</a></li>
+		<li><a href="topic/516e477e7e0b4e188b19a406e7528c1e" title="SAPUI5 provides a method and events for navigation." class="sap-doc">Methods and Events for Navigation</a></li>
+		<li><a href="topic/acdb6cd408ec4b9eb5e1fe45e607abdd" title="This topic describes how to initialize routing in a component and access the routing functions." class="sap-doc">Initializing and Accessing a Routing Instance</a></li>
+		<li><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d" title="SAPUI5 comes with a powerful routing API that helps you control the state of your application efficiently. This tutorial will illustrate all major features and APIs related to navigation and routing in SAPUI5 apps by creating a simple and easy to understand mobile app. It represents a set of best practices for applying the navigation and routing features of SAPUI5 to your applications." class="sap-doc">Tutorial: Navigation and Routing</a></li>
+		<li><a href="api/sap.m.routing.Router" title="api/sap.m.routing.Router" class="sap-doc" alt="api/sap.m.routing.Router">API Reference: sap.m.routing.Router</a></li>
+		<li><a href="entity/sap.m.routing.Router" title="entity/sap.m.routing.Router" class="sap-doc" alt="entity/sap.m.routing.Router">Samples: sap.m.routing.Router
+			</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,38 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout"
+    controllerName="sap.ushell.demo.TargetResolutionTool.view.IntentResolution">
+    <ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" focusable="true">
+        <layout:VerticalLayout class="sapUiContentPadding" width="100%">
+            <layout:content>
+                <Label text="Intent" />
+                <Input id="txtIntent" type="Text" placeholder="Intent e.g., #Object-action?param1=value1" submit="onBtnResolveHashPress" />
+                <Button text="Resolve" class="sapUiSmallMarginBottom" press="onBtnResolveHashPress" />
+                <layout:HorizontalLayout>
+                    <Label design="Bold" text="Matching inbounds" class="sapUiTinyMarginEnd" />
+                    <Label text="{/tookString}" />
+                </layout:HorizontalLayout>
+                <List
+                    id="lstInbounds"
+                    items="{/matchedInbounds}"
+                    growing="true"
+                    growingThreshold="10"
+                    busyIndicatorDelay="100"
+                    enableBusyIndicator="true"
+                    noDataText="No inbounds"
+                    includeItemInSelection="true">
+                    <StandardListItem
+                        title="{intent} {resolvedIn}"
+                        info="{priorityString}"
+                        description="{compactSignature}"
+                        icon="sap-icon://target-group"
+                        iconInset="false"
+                        type="Navigation"
+                        press="onInboundListItemSelected" />
+                </List>
+            </layout:content>
+        </layout:VerticalLayout>
+    </ScrollContainer>
+</mvc:View>

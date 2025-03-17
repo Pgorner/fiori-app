@@ -1,0 +1,134 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio784d317546c54c85b5fc0b2a4dd4e5c6" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/time-series-chart-card-784d317.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Time Series Chart Card</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Time Series Chart Card</h2></div><div class="shortdesc">A time series chart contains a time axis instead of a categorical axis.</div><p> This chart type represents a time-based dimension that is more responsive to a change in
+            card size. Analytical cards use the time axis automatically if these conditions
+                apply:</p><ul class="ul ">
+                <li class="li">
+                    <p>The chart type must be either vertical bullet, stacked column, scatter, line,
+                        bubble, column, waterfall, combination, or dual combination.</p>
+                </li>
+                <li class="li">
+                    <p>The chart is configured with only one dimension for bubble, column,
+                        waterfall, and combination charts. However, you can use two dimensions for
+                        line charts. The second dimension can be the color dimension. The dimension
+                        with the <code>uid</code> color has to have the
+                            <span class="emphasis">Series</span> role assigned to it.</p>
+                </li>
+                <li class="li">The data type of the dimension is either <code>edm.datetime</code> or
+                        <code>edm.string</code>. If the data type is
+                    <code>edm.string</code>, then it needs to have the additional annotation in
+                    the OData metadata annotation: <code>sap:semantics:"year (YYYY) or yearweek
+                        (YYYYWW) or yearmonth (YYYYMM) or yearquarter (YYYYQ)"</code>.</li>
+                <li class="li">
+                    <p>If it is a bubble chart, it needs to have two measures. If the chart is a
+                        combination chart, it needs to have at least two measures.</p>
+                </li>
+                <li class="li">
+                    <p>Vertical bullet, stacked column, and scatter charts need at least one measure
+                        and one dimension. Extra color and shape dimensions are suppored only in
+                        scatter charts.</p>
+                </li>
+            </ul><p></p><p>
+            </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Metadata
+                Sample</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Property Name="Date" Type="Edm.DateTime" sap:display-format="Date" sap:label="Date" sap:aggregation-role="dimension"/&gt;</pre></div></div></section><p></p></div></div>
+        <p></p><section>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.Chart" Qualifier="Line-Time_-Currency"&gt;
+    &lt;Record Type="UI.ChartDefinitionType"&gt;
+        &lt;PropertyValue Property="Title" String="View1" /&gt;
+        &lt;PropertyValue Property="ChartType" EnumMember="UI.ChartType/Line"/&gt;
+        &lt;PropertyValue Property="MeasureAttributes"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="UI.ChartMeasureAttributeType"&gt;
+                    &lt;PropertyValue Property="Measure" PropertyPath="SalesShare" /&gt;
+                    &lt;PropertyValue Property="Role"
+                                   EnumMember="UI.ChartMeasureRoleType/Axis1" /&gt;
+                    &lt;PropertyValue Property="DataPoint" AnnotationPath="@UI.DataPoint#Eval_by_CtryCurr_-SalesShare"/&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="DimensionAttributes"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="UI.ChartDimensionAttributeType"&gt;
+                    &lt;PropertyValue Property="Dimension" PropertyPath="Date" /&gt;
+                    &lt;PropertyValue Property="Role"
+                                   EnumMember="UI.ChartDimensionRoleType/Category" /&gt;
+                &lt;/Record&gt;
+                &lt;Record Type="UI.ChartDimensionAttributeType"&gt;
+                    &lt;PropertyValue Property="Dimension" PropertyPath="Sales_CURRENCY"/&gt;
+                    &lt;PropertyValue Property="Role"
+                                   EnumMember="UI.ChartDimensionRoleType/Series"/&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Chart: [
+  {
+    title: 'View1',
+    chartType: #LINE,
+    measureAttributes: [
+      {
+        measure: 'SalesShare',
+        role: #AXIS_1,
+		asDataPoint: true
+      }
+    ],
+    dimensionAttributes: [
+      {
+        dimension: 'Date',
+        role: #CATEGORY
+      },
+      {
+        dimension: 'Sales_CURRENCY',
+        role: #SERIES
+      }
+    ],
+    qualifier: 'Line-Time-Currency'
+  }
+]
+annotate view VIEWNAME with { }
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.Chart #Line-Time-Currency : {
+    $Type : 'UI.ChartDefinitionType',
+    Title : 'View1',
+    ChartType : #Line,
+    MeasureAttributes : [
+        {
+            $Type : 'UI.ChartMeasureAttributeType',
+            Measure : SalesShare,
+            Role : #Axis1,
+            DataPoint : '@UI.DataPoint#Eval_by_CtryCurr-SalesShare'
+        }
+    ],
+    DimensionAttributes : [
+        {
+            $Type : 'UI.ChartDimensionAttributeType',
+            Dimension : Date,
+            Role : #Category
+        },
+        {
+            $Type : 'UI.ChartDimensionAttributeType',
+            Dimension : Sales_CURRENCY,
+            Role : #Series
+        }
+    ]
+}
+</pre></div></div></section><p></p></div></div>
+            <div><div class="fig"><img src="loio2ae1caf78aff4f6fb6649356ea5f0608_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Example of a Time Series Chart Card</h2></span></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

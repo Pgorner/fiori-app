@@ -1,0 +1,1802 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio65731e6b823240398e33133908efdaa1" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/annotations-used-in-overview-pages-65731e6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Annotations Used in Overview Pages </h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Annotations Used in Overview Pages </h2></div><div class="shortdesc">This topic provides a list of the annotations used in overview pages. They are as
+		follows:</div><section>
+			<ul class="ul ">
+				<li class="li"><code>com.sap.vocabularies.UI.v1.HeaderInfo</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.DataField</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldForAnnotation</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldForAction</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldWithUrl</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.DataPoint</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.Identification</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.LineItem</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.Facets</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.FieldGroup</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.SelectionVariant</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.PresentationVariant</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.SelectionPresentationVariant</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.SelectionPresentationVariant</code></li>
+				<li class="li"><code>com.sap.vocabularies.UI.v1.KPI</code></li>
+				<li class="li"><code>com.sap.vocabularies.Common.v1.Text</code></li>
+				<li class="li"><code>com.sap.vocabularies.PersonalData.v1</code></li>
+			</ul>
+			
+		</section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.HeaderInfo</code></h2><p>The following
+				properties are supported: </p><ul class="ul ">
+					<li class="li"><code>TypeName</code></li>
+					<li class="li"><code>TypeNamePlural</code></li>
+					<li class="li"><code>ImageUrl</code></li>
+					<li class="li"><code>Title</code></li>
+					<li class="li"><code>Description</code><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>The value of <code>dynamicSubtitleAnnotationPath</code> is picked from the value of the <code>path</code>, if pointed to the
+                                descriptor file
+                                    (<code>manifest.json</code>).
+                                For more information, see <a href="topic/f194b411027e4402a0be0537fa7b803b" title="The descriptor file (manifest.json) is an application configuration file that contains valid entries for initializing an application." class="sap-doc">Descriptor Configuration for the Overview Page</a>.</p>
+						<p></p></div></div></li>
+				</ul>
+			<p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation 
+	    Term="com.sap.vocabularies.UI.v1.HeaderInfo"
+    	Qualifier="dynamicSubtitle"&gt;
+		&lt;Record&gt;
+        	&lt;PropertyValue Property="TypeName" String="Product"/&gt;
+        	&lt;PropertyValue Property="TypeNamePlural" String="Products"/&gt;
+        	&lt;PropertyValue Property="Title"&gt;
+            	&lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+                	&lt;PropertyValue Property="Value" Path="Name"&gt;&lt;/PropertyValue&gt;
+            	&lt;/Record&gt;
+        	&lt;/PropertyValue&gt;
+        	&lt;PropertyValue Property="Description"&gt;
+            	&lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+                	&lt;PropertyValue Path="Description" Property="Value"/&gt;
+           	 &lt;/Record&gt;
+        	&lt;/PropertyValue&gt;
+        	&lt;PropertyValue Property="ImageUrl" Path="ProductPicUrl"/&gt;
+    	&lt;/Record&gt;
+	&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.headerInfo: {
+  typeName: 'Product',
+  typeNamePlural: 'Products',
+  title: {
+    value: 'NAME',
+    type: #STANDARD
+  },
+  description: {
+    value: 'DESCRIPTION',
+    type: #STANDARD
+  },
+  imageUrl: 'PRODUCTPICURL'
+}
+annotate view VIEWNAME with { 
+
+}</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.HeaderInfo #dynamicSubtitle : {
+    TypeName : 'Product',
+    TypeNamePlural : 'Products',
+    Title : {
+        $Type : 'UI.DataField',
+        Value : Name
+    },
+    Description : {
+        $Type : 'UI.DataField',
+        Value : Description
+    },
+    ImageUrl : ProductPicUrl
+}</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.DataField</code></h2><p>You can use
+                <code>DataField</code> to
+                display simple text fields. The following properties are supported: </p><ul class="ul ">
+                    <li class="li"><code>Label</code>: the label of the field</li>
+                    <li class="li"><code>Value</code>: the value of the field, usually pointing to a path in the metadata</li>
+                </ul>
+            <p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+    &lt;PropertyValue Property="Label" String="Total Sum"/&gt;
+    &lt;PropertyValue Property="Value" Path="TotalSum"/&gt;
+&lt;/Record&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{ label: 'Total Sum' }
+  TOTALSUM;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    $Type : 'UI.DataField',
+    Label : 'Total Sum',
+    Value : TotalSum
+}</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.DataFieldForAnnotation</code></h2><p>You can use
+                <code>DataFieldForAnnotation</code>to
+                reference a different annotation term using the
+                    <code>Target</code> property. The following properties are supported:</p><ul class="ul ">
+                    <li class="li"><code>Label</code>: the label of the field</li>
+                    <li class="li"><code>Target</code>: reference to a different term in the annotation document</li>
+                </ul>
+            <p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation" Qualifier="WeightMeasure"&gt;
+    &lt;PropertyValue Property="Label" String="Weight Measure"/&gt;
+    &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#WeightMeasure"/&gt;
+&lt;/Record&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  {
+    label: 'Weight Measure',
+    valueQualifier: 'WeightMeasure',
+    type: #AS_DATAPOINT
+  }
+  Weight;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    $Type : 'UI.DataFieldForAnnotation',
+    Label : 'Weight Measure',
+    Target : '@UI.DataPoint#WeightMeasure'
+}</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.DataFieldForAction</code></h2><p><code>DataFieldForAction</code> is used for OData actions that can be
+                performed
+                on an entity and refer to a
+                    <code>FunctionImport</code> action definition in the OData metadata. The following properties are supported: </p><ul class="ul ">
+                    <li class="li"><code>Label</code>: the navigation label displayed in the footer of the quick view
+                        card</li>
+                    <li class="li"><code>Action</code>: name of the <code>FunctionImport</code> action definition to use</li>
+                </ul><p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAction"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/Medium" /&gt;
+    &lt;PropertyValue Property="Label" String="Confirm" /&gt;
+    &lt;PropertyValue Property="Action" String="GWSAMPLE_BASIC.GWSAMPLE_BASIC_Entities/SalesOrder_Confirm" /&gt;
+&lt;/Record&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  {
+    importance: #MEDIUM,
+    label: 'Confirm',
+    dataAction: 'GWSAMPLE_BASIC.GWSAMPLE_BASIC_Entities/SalesOrder_Confirm',
+    type: #FOR_ACTION
+  }</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    $Type : 'UI.DataFieldForAction',
+    Label : 'Confirm',
+    Action : 'GWSAMPLE_BASIC.GWSAMPLE_BASIC_Entities/SalesOrder_Confirm',
+    ![@UI.Importance] : #Medium
+}</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation</code></h2><p>The
+					<code>DataFieldForIntentBasedNavigation</code> record type supports the
+				following properties:</p><ul class="ul ">
+					<li class="li"><code>SemanticObject</code>: intent-based
+                        semantic object</li>
+					<li class="li"><code>Action</code>: action of the intent</li>
+					<li class="li"><code>Label</code>: the navigation label displayed in the footer of the
+						quick view card</li>
+				</ul><p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation"&gt;
+    &lt;PropertyValue Property="SemanticObject" String="SemanticObject1"/&gt;
+    &lt;PropertyValue Property="Action" String="Action1"/&gt;
+     can also contain an intent based navigation with
+     route (static or dynamic with arguments).&lt;PropertyValue Property="Label" String="App1"/&gt;
+    &lt;Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/Medium"/&gt;
+&lt;/Record&gt;&lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation"</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@Consumption.semanticObject: 'SemanticObject1'
+annotate view VIEWNAME with { 
+
+ @UI.lineItem: [
+ {
+    importance: #MEDIUM,
+    semanticObjectAction: 'Action1',
+    label: 'App1',
+    type: #FOR_INTENT_BASED_NAVIGATION
+  },
+  {
+    type: #FOR_INTENT_BASED_NAVIGATION
+  }
+ ]
+ property_name;
+
+}
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    $Type : 'UI.DataFieldForIntentBasedNavigation',
+    SemanticObject : 'SemanticObject1',
+    Action : 'Action1',
+    Label : 'App1',
+    ![@UI.Importance] : #Medium
+}</pre></div></div></section><p></p></div></div></section><section id="section_iwl_hwq_n2b">
+            <h2 class="title "><code>com.sap.vocabularies.UI.v1.DataFieldWithUrl</code></h2>
+            <p>The <code>com.sap.vocabularies.UI.v1.DataFieldWithUrl</code> record type supports the following properties:</p><ul class="ul ">
+                    <li class="li">
+                        <p><code>Url</code>: Use this property to configure the URL details.</p>
+                        <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                            </p><p><code>Url</code> can also contain an
+                                intent-based
+                                navigation with a route
+                                (static or dynamic with arguments).</p>
+                        <p></p></div></div>
+                    </li>
+                    <li class="li">
+                        <p><code>Label</code>: Use this
+                            property to specify the navigation label. The label appears in the
+                            action footer
+                            area of the quick view card for
+                            the stack card type.</p>
+                    </li>
+                </ul><p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldWithUrl"&gt;
+    &lt;PropertyValue Property="Label" String="Link to"/&gt;
+    &lt;PropertyValue Property="Value" String="Google Maps"/&gt;
+    &lt;PropertyValue Property="Url"&gt;
+        &lt;Apply Function="odata.fillUriTemplate"&gt;
+            &lt;String&gt;https://www.google.de/maps/place/{street},{city}&lt;/String&gt;
+            &lt;LabeledElement Name="street"&gt;
+                &lt;Apply Function="odata.uriEncode"&gt;
+                    &lt;Path&gt;Address/Street&lt;/Path&gt;
+                &lt;/Apply&gt;
+            &lt;/LabeledElement&gt;
+            &lt;LabeledElement Name="city"&gt;
+                &lt;Apply Function="odata.uriEncode"&gt;
+                    &lt;Path&gt;Address/City&lt;/Path&gt;
+                &lt;/Apply&gt;
+            &lt;/LabeledElement&gt;
+        &lt;/Apply&gt;
+    &lt;/PropertyValue&gt;
+&lt;/Record&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  {
+    label: 'Link to',
+    type: #WITH_URL
+  }</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  $Type : 'UI.DataFieldWithUrl',
+  Value : 'Google Maps',
+  Label : 'Link to',
+  Url   : {
+             $edmJson : {
+              $Apply: [
+                'https://www.google.de/maps/place/{street},{city}',
+                {
+                  $LabeledElement : {
+                      $Apply    : [{$Path : 'Address/Street'}],
+                      $Function : 'odata.uriEncode'
+                   },
+                   $Name           : 'street'
+                },
+                {
+                  $LabeledElement : {
+                     $Apply    : [{$Path : 'Address/City'}],
+                     $Function : 'odata.uriEncode'
+                  },
+                  $Name           : 'city'
+                },
+            ],
+            $Function : 'odata.fillUriTemplate'
+           }
+         }
+}
+</pre></div></div></section><p></p></div></div>
+            
+            <ul class="ul ">
+                <li class="li">
+                    <p><code>com.sap.vocabularies.HTML5.v1.LinkTarget</code>: Use this property to specify in which window, tab, or frame the link
+                        target is opened. The following values are supported:</p>
+                    <ul class="ul ">
+                        <li class="li">
+                            <p><code>com.sap.vocabularies.HTML5.v1.LinkTarget/_self</code>: The link is opened in the same tab or window
+                                (default).</p>
+                        </li>
+                        <li class="li">
+                            <p><code>com.sap.vocabularies.HTML5.v1.LinkTarget/_blank</code>: The link is opened in a new tab or window.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>com.sap.vocabularies.HTML5.v1.LinkTarget/_parent</code>: The link is opened in the parent frame or
+                                window.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>com.sap.vocabularies.HTML5.v1.LinkTarget/_top</code>: The link is opened in the full browser window,
+                                overriding any nested frames.</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+        </section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.DataPoint</code></h2>The
+                <code>DataPoint</code> term is used to display fields with special formatting.
+            The following properties are supported: <ul class="ul ">
+                <li class="li"><code>Title</code>: Used in table cards for the column name</li>
+                <li class="li"><code>Value</code>: Field to display</li>
+                <li class="li"><code>ValueFormat</code>: Used with the <code>NumberFormat</code>
+                    annotation to format a decimal value<ul class="ul ">
+                        <li class="li">
+                            <p><code>com.sap.vocabularies.UI.v1.NumberFormat</code>:</p>
+                            <ul class="ul ">
+                                <li class="li"><code>ScaleFactor</code>: Scale factor for large
+                                    numbers.</li>
+                                <li class="li"><code>NumberOfFractionalDigits</code>: Number of decimal
+                                    points to display.</li>
+                            </ul>
+                        </li>
+                    </ul></li>
+                <li class="li">
+                    <p><code>com.sap.vocabularies.UI.v1.Criticality</code>: An enumeration value
+                        that can be used to highlight the value with a certain color. The following
+                        values are supported:</p>
+                    <ul class="ul ">
+                        <li class="li"><code>com.sap.vocabularies.UI.v1.CriticalityType/Neutral</code>:
+                            Value is displayed using a neutral color (default). </li>
+                        <li class="li"><code>com.sap.vocabularies.UI.v1.CriticalityType/Negative</code>:
+                            Value is displayed using a color for errors (red). </li>
+                        <li class="li"><code>com.sap.vocabularies.UI.v1.CriticalityType/Critical</code>:
+                            Value is displayed using a color for critical values (orange). </li>
+                        <li class="li"><code>com.sap.vocabularies.UI.v1.CriticalityType/Positive</code>:
+                            Value is displayed using a color for positive values (green). </li>
+                    </ul>
+                </li>
+                <li class="li">
+                    <p><code>com.sap.vocabularies.UI.v1.CriticalityCalculation</code>: Used to
+                        color the value dynamically according to the value in the
+                            <code>com.sap.vocabularies.UI.v1.CriticalityCalculationType</code>
+                        record type. It supports the following values:</p>
+                    <ul class="ul ">
+                        <li class="li"><code>ImprovementDirection</code>: Defines what is considered a positive value.
+                            
+                            The following values are supported:<ul class="ul ">
+                                <li class="li">
+                                    <p><code>Minimize</code>: If <code>Minimize</code> is the improvement direction, the
+                                            <code>DeviationRangeHighValue</code> and <code>ToleranceRangeHighValue</code> properties are
+                                        required.</p>
+                                    <ul class="ul ">
+                                        <li class="li">If the value is
+                                            lower
+                                            than the <code>ToleranceRangeHighValue</code>, the value is considered positive and is displayed in
+                                            green.</li>
+                                        <li class="li">If the value is between the <code>ToleranceRangeHighValue</code> and the
+                                                <code>DeviationRangeHighValue</code>, the value is considered critical and is displayed in
+                                            orange.</li>
+                                        <li class="li">If the value is greater than the <code>ToleranceRangeHighValue</code>, the value is considered
+                                            negative and is displayed in red.</li>
+                                    </ul>
+                                </li>
+                                <li class="li">
+                                    <p><code>Target</code>: If <code>Target</code> is the improvement direction, the
+                                            <code>DeviationRangeLowValue</code>, <code>DeviationRangeHighValue</code>,
+                                            <code>ToleranceRangeLowValue</code>, and <code>ToleranceRangeHighValue</code> properties are
+                                        required.</p>
+                                    <ul class="ul ">
+                                        <li class="li">If the value is between the <code>ToleranceRangeHighValue</code> and the
+                                                <code>ToleranceRangeLowValue</code>, the value is considered positive and is displayed in
+                                            green.</li>
+                                        <li class="li">If the value is between the <code>DeviationRangeLowValue</code> and the
+                                                <code>DeviationRangeLowValue</code>, or between the <code>DeviationRangeHighValue</code> and
+                                            the <code>ToleranceRangeHighValue</code>, the value is considered critical and is displayed in
+                                            orange.</li>
+                                        <li class="li">If the value is lower than the <code>DeviationRangeLowValue</code> or higher than the
+                                                <code>DeviationRangeHighValue</code>, the value is considered negative and is displayed in
+                                            red.</li>
+                                    </ul>
+                                </li>
+                                <li class="li">
+                                    <p><code>Maximize</code>: If <code>Maximize</code> is the improvement direction, the
+                                            <code>DeviationRangeLowValue</code> and <code>ToleranceRangeLowValue</code> properties are
+                                        required.</p>
+                                    <ul class="ul ">
+                                        <li class="li">If the value is greater than the <code>ToleranceRangeLowValue</code>, the value is considered positive
+                                            and is displayed in green.</li>
+                                        <li class="li">If the value is between the <code>ToleranceRangeLowValue</code> and the
+                                                <code>DeviationRangeLowValue</code>, the value is considered critical and is displayed in
+                                            orange.</li>
+                                        <li class="li">If the value is lower than the <code>ToleranceRangeLowValue</code>, the value is considered negative
+                                            and is displayed in red.</li>
+                                    </ul>
+                                </li>
+                            </ul></li>
+                    </ul>
+                </li>
+                <li class="li">
+                    <p><code>com.sap.vocabularies.UI.v1.TargetValue</code>: A reference value
+                        for trend calculation. Use this value to calculate the deviation percent
+                        value. For example, <code>Deviation = (DataPoint Value - ReferenceValue) /
+                            ReferenceValue.</code></p>
+                </li>
+            </ul><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.DataPoint" Qualifier="Eval_by_Country"&gt;
+	&lt;Record Type="UI.DataPointType"&gt;
+		&lt;PropertyValue Property="Title" String="Sales India - Line Card" /&gt;
+		&lt;PropertyValue Property="Value" Path="Sales" /&gt;
+		&lt;PropertyValue Property="NumberValueFormat"&gt;
+			&lt;Record&gt;
+				&lt;PropertyValue Property="ScaleFactor" IntDecimal="0" /&gt;
+				&lt;PropertyValue Property="NumberOfFractionalDigits"
+					Int="3" /&gt;
+			&lt;/Record&gt;
+		&lt;/PropertyValue&gt;
+		&lt;PropertyValue Property="CriticalityCalculation"&gt;
+			&lt;Record&gt;
+				&lt;PropertyValue Property="ImprovementDirection"
+					EnumMember="UI.ImprovementDirectionType/Minimizinge" /&gt;
+				&lt;PropertyValue Property="DeviationRangeHighValue"
+					String="7300" /&gt;
+				&lt;PropertyValue Property="ToleranceRangeHighValue"
+					String="7200" /&gt;
+			&lt;/Record&gt;
+		&lt;/PropertyValue&gt;
+		&lt;PropertyValue Property="TargetValue" String="2.000 " /&gt;
+		&lt;PropertyValue Property="TrendCalculation"&gt;
+			&lt;Record&gt;
+				&lt;PropertyValue Property="ReferenceValue" String="5201680" /&gt;
+				&lt;PropertyValue Property="DownDifference" IntDecimal="10000000.0" /&gt;
+			&lt;/Record&gt;
+		&lt;/PropertyValue&gt;
+	&lt;/Record&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.dataPoint: { 
+	 title: 'Sales India - Line Card',
+	 valueFormat: { scaleFactor: 0,
+	 numberOfFractionalDigits: 3 },
+	 criticalityCalculation: { 
+	   improvementDirection: #MINIMIZE,
+	   deviationRangeHighValue: 7300,
+	   toleranceRangeHighValue: 7200
+	 },
+	 targetValue: 2.000,
+	 trendCalculation: { 
+	 referenceValue: 'refValElement', 
+	 downDifference: 10000000.0 }
+}
+Sales;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.DataPoint #Eval_by_Country : {
+    $Type : 'UI.DataPointType',
+    Title : 'Sales India - Line Card',
+    Value : Sales,
+    NumberFormat : {
+        ScaleFactor : 0,
+        NumberOfFractionalDigits : 3
+    },
+    CriticalityCalculation : {
+        ImprovementDirection : #Minimizing,
+        DeviationRangeHighValue : '7300',
+        ToleranceRangeHighValue : '7200'
+    },
+    TargetValue : '2.000 ',
+    TrendCalculation : {
+        ReferenceValue : '5201680',
+        DownDifference : 10000000.0
+    }
+}
+</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.Identification</code></h2><p>This term is
+				used as a container for card actions. The following record types are supported: </p><ul class="ul ">
+					<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldForAction</code>
+					</li>
+					<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation</code></li>
+					<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldWithUrl</code></li>
+				</ul>
+			<p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.Identification"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation"&gt;
+            &lt;PropertyValue Property="SemanticObject" String="Action"/&gt;
+            &lt;PropertyValue Property="Action" String="toappnavsample"/&gt;
+            &lt;PropertyValue Property="Label" String="SO Navigation (M)"/&gt;
+            &lt;Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/Medium"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Sales Order ID"/&gt;
+            &lt;PropertyValue Property="Value" Path="SalesOrderID"/&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.identification: [
+  {
+    importance: #MEDIUM,
+    semanticObjectAction: 'toappnavsample',
+    label: 'SO Navigation (M)',
+    type: #FOR_INTENT_BASED_NAVIGATION,
+    position: 10
+  }
+]
+PROPERT_NAME;
+
+@UI.identification: [
+  {
+    label: 'Sales Order ID',
+    position: 20
+  }
+]
+SALESORDERID;
+
+@Consumption.semanticObject: 'Action'
+annotate view VIEWNAME with { 
+
+}
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.Identification : [
+    {
+        $Type : 'UI.DataFieldForIntentBasedNavigation',
+        SemanticObject : 'Action',
+        Action : 'toappnavsample',
+        Label : 'SO Navigation (M)',
+        ![@UI.Importance] : #Medium
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Sales Order ID',
+        Value : SalesOrderID
+    }
+]
+</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.LineItem</code></h2><p>This term is used
+				to display lists of fields in a list or a table. The following record types are
+				supported: </p><ul class="ul ">
+					<li class="li"><code>com.sap.vocabularies.UI.v1.DataField</code></li>
+					<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldForAnnotation</code></li>
+					<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation</code>
+					</li>
+					<li class="li"><code>com.sap.vocabularies.UI.v1.DataFieldWithUrl</code></li>
+				</ul><p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.LineItem"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Sales Order ID"/&gt;
+            &lt;PropertyValue Property="Value" Path="SalesOrderID"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Customer Name"/&gt;
+            &lt;PropertyValue Property="Value" Path="CustomerName"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Status"/&gt;
+            &lt;PropertyValue Property="Value" Path="Status"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+            &lt;PropertyValue Property="Label" String="Note"/&gt;
+            &lt;PropertyValue Property="Value" Path="Note"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation" Qualifier="TotalSum"&gt;
+            &lt;PropertyValue Property="Label" String="Total Sum"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#TotalSum"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation" Qualifier="NetSum"&gt;
+            &lt;PropertyValue Property="Label" String="Net Sum"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#NetSum"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation" Qualifier="Tax"&gt;
+            &lt;PropertyValue Property="Label" String="Tax"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#Tax"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation"&gt;
+            &lt;PropertyValue Property="SemanticObject" String="Action"/&gt;
+            &lt;PropertyValue Property="Action" String="toappnavsample2"/&gt;
+            &lt;PropertyValue Property="Label" String="SO Navigation (M)"/&gt;
+            &lt;Annotation Term="com.sap.vocabularies.UI.v1.Importance" EnumMember="com.sap.vocabularies.UI.v1.ImportanceType/Medium"/&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.lineItem: [
+  {
+    label: 'Sales Order ID',
+    position: 10
+  }
+]
+SALESORDERID;
+
+@UI.lineItem: [
+  {
+    label: 'Customer Name',
+    position: 20
+  }
+]
+CUSTOMERNAME;
+
+@UI.lineItem: [
+  {
+    label: 'Status',
+    position: 30
+  }
+]
+STATUS;
+
+@UI.lineItem: [
+  {
+    label: 'Note',
+    position: 40
+  }
+]
+NOTE;
+
+@UI.lineItem: [
+  {
+    label: 'Total Sum',
+    valueQualifier: 'TotalSum',
+    type: #AS_DATAPOINT,
+    position: 50 
+  },
+  {
+    label: 'Net Sum',
+    valueQualifier: 'NetSum',
+    type: #AS_DATAPOINT,
+    position: 60
+  },
+  {
+    label: 'Tax',
+    valueQualifier: 'Tax',
+    type: #AS_DATAPOINT,
+    position: 70
+  },
+  {
+    importance: #MEDIUM,
+    semanticObjectAction: 'toappnavsample2',
+    label: 'SO Navigation (M)',
+    type: #FOR_INTENT_BASED_NAVIGATION,
+    position: 80
+  }
+]
+PROPERT_NAME;
+
+@Consumption.semanticObject: 'Action'
+annotate view VIEWNAME with { }
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.LineItem : [
+    {
+        $Type : 'UI.DataField',
+        Label : 'Sales Order ID',
+        Value : SalesOrderID
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Customer Name',
+        Value : CustomerName
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Status',
+        Value : Status
+    },
+    {
+        $Type : 'UI.DataField',
+        Label : 'Note',
+        Value : Note
+    },
+    {
+        $Type : 'UI.DataFieldForAnnotation',
+        Label : 'Total Sum',
+        Target : '@UI.DataPoint#TotalSum'
+    },
+    {
+        $Type : 'UI.DataFieldForAnnotation',
+        Label : 'Net Sum',
+        Target : '@UI.DataPoint#NetSum'
+    },
+    {
+        $Type : 'UI.DataFieldForAnnotation',
+        Label : 'Tax',
+        Target : '@UI.DataPoint#Tax'
+    },
+    {
+        $Type : 'UI.DataFieldForIntentBasedNavigation',
+        SemanticObject : 'Action',
+        Action : 'toappnavsample2',
+        Label : 'SO Navigation (M)',
+        ![@UI.Importance] : #Medium
+    }
+]
+</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.Facets</code></h2>The
+                <code>Facets</code> term contains a collection of facets. <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>Overview pages only support the
+                        <code>com.sap.vocabularies.UI.v1.ReferenceFacet</code> record type.</p>
+            <p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.Facets"&gt;
+    &lt;Collection&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.ReferenceFacet"&gt;
+            &lt;Annotation Term="com.sap.vocabularies.UI.v1.IsSummary"/&gt;
+            &lt;PropertyValue Property="Label" String="Amounts"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.FieldGroup#Amounts"/&gt;
+        &lt;/Record&gt;
+        &lt;Record Type="com.sap.vocabularies.UI.v1.ReferenceFacet"&gt;
+            &lt;Annotation Term="com.sap.vocabularies.UI.v1.IsSummary"/&gt;
+            &lt;PropertyValue Property="Label" String="Note1"/&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.FieldGroup#Status"/&gt;
+        &lt;/Record&gt;
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Facet: [
+  {
+    isSummary: true,
+    label: 'Amounts',
+    targetQualifier: 'Amounts',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #STANDARD
+  },
+  {
+    isSummary: true,
+    label: 'Note1',
+    targetQualifier: 'Status',
+    type: #FIELDGROUP_REFERENCE,
+    purpose: #STANDARD
+  }
+]
+PROPERT_NAME;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.Facets : [
+    {
+        $Type : 'UI.ReferenceFacet',
+        Label : 'Amounts',
+        Target : '@UI.FieldGroup#Amounts',
+        ![@UI.IsSummary]
+    },
+    {
+        $Type : 'UI.ReferenceFacet',
+        Label : 'Note1',
+        Target : '@UI.FieldGroup#Status',
+        ![@UI.IsSummary]
+    }
+]</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.FieldGroup</code></h2>This term consists
+            of a label and a collection of
+                <code>com.sap.vocabularies.UI.v1.DataFieldAbstract</code>
+                fields.<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.FieldGroup" Qualifier="Amounts"&gt;
+    &lt;Record Type="com.sap.vocabularies.UI.v1.FieldGroupType"&gt;
+        &lt;PropertyValue Property="Label" String="Amounts"/&gt;
+        &lt;PropertyValue Property="Data"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+                    &lt;PropertyValue Property="Label" String="Total Sum"/&gt;
+                    &lt;PropertyValue Property="Value" Path="TotalSum"/&gt;
+                &lt;/Record&gt;
+                &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+                    &lt;PropertyValue Property="Label" String="Net Sum"/&gt;
+                    &lt;PropertyValue Property="Value" Path="NetSum"/&gt;
+                &lt;/Record&gt;
+                &lt;Record Type="com.sap.vocabularies.UI.v1.DataField"&gt;
+                    &lt;PropertyValue Property="Label" String="Tax"/&gt;
+                    &lt;PropertyValue Property="Value" Path="Tax"/&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.fieldGroup: [
+  {
+    label: 'Total Sum',
+    position: 10,
+    qualifier: 'Amounts',
+    groupLabel: 'Amounts'
+  }
+]
+TOTALSUM;
+
+@UI.fieldGroup: [
+  {
+    label: 'Net Sum',
+    position: 20,
+    qualifier: 'Amounts'
+  }
+]
+NETSUM;
+
+@UI.fieldGroup: [
+  {
+    label: 'Tax',
+    position: 30,
+    qualifier: 'Amounts'
+  }
+]
+TAX;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.FieldGroup #Amounts : {
+    $Type : 'UI.FieldGroupType',
+    Label : 'Amounts',
+    Data : [
+        {
+            $Type : 'UI.DataField',
+            Label : 'Total Sum',
+            Value : TotalSum
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Net Sum',
+            Value : NetSum
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : 'Tax',
+            Value : Tax
+        }
+    ]
+}
+</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.SelectionVariant</code></h2><p>This term
+				consists of a combination of parameters and filters that query the annotated entity
+				set. You can use <code>SelectionVariant</code> separately, or together with the
+					<code>SelectionPresentationVariant</code> annotation. The following
+				properties are supported:</p><ul class="ul ">
+				<li class="li"><code>ID</code>: Can contain an identifier to reference this instance from
+					external context </li>
+				<li class="li"><code>Text</code>: The name of the selection variant </li>
+				<li class="li"><code>Parameters</code>: A collection of <code>com.sap.vocabularies.UI.v1.ParameterAbstract</code> terms </li>
+				<li class="li"><code>SelectOptions</code>: A collection of <code>com.sap.vocabularies.UI.v1.SelectOptionType</code> terms used to define filters on
+                    this entity set</li>
+			</ul>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.SelectionVariant"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="SelectOptions"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="TotalSum" /&gt;
+               &lt;PropertyValue Property="Ranges"&gt;
+                  &lt;Collection&gt;
+                     &lt;Record&gt;
+                        &lt;PropertyValue Property="Sign"
+                           EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I" /&gt;
+                        &lt;PropertyValue Property="Option"
+                           EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeOptionType/BT" /&gt;
+                        &lt;PropertyValue Property="Low" String="0" /&gt;
+                        &lt;PropertyValue Property="High" String="8000" /&gt;
+                     &lt;/Record&gt;
+                  &lt;/Collection&gt;
+               &lt;/PropertyValue&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.SelectionVariant : {
+    SelectOptions : [
+        {
+            PropertyName : TotalSum,
+            Ranges : [
+                {
+                    Sign : #I,
+                    Option : #BT,
+                    Low : '0',
+                    High : '8000'
+                }
+            ]
+        }
+    ]
+}</pre></div></div></section><p></p></div></div></section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.PresentationVariant</code></h2><p>Defines the way in which the result of a queried collection of entities is displayed in the KPI header. You can use
+                    <code>PresentationVariant</code> separately or together with the  <code>SelectionPresentationVariant</code> annotation.
+                The following properties are supported: </p><ul class="ul ">
+                    <li class="li"><code>ID</code>: Can contain an identifier to reference this instance from external context </li>
+                    <li class="li"><code>Text</code>: The name of the presentation variant </li>
+                    <li class="li"><code>SortOrder</code>: A collection of <code>com.sap.vocabularies.Common.v1.SortOrderType</code> records </li>
+                    <li class="li"><code>RequestAtLeast</code>: A collection of fields that must be part of selection fields. The
+                            <code>requestAtLeast</code> property lets you receive additional dimensions from the back end. The additional
+                        dimensions are added to the result of a queried collection for further navigation.<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>In an aggregated service, additional
+                            dimensions may cause issues while rendering the chart.</p></div></div></li>
+                    <li class="li"><code>Visualizations</code>: Supports the <code>LineItem</code> or <code>Chart</code> annotation path<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                            </p><p>You can only define this property when it is used together with the <code>SelectionPresentationVariant</code>
+                                annotation.</p>
+                        <p></p></div></div></li>
+                </ul><p></p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="GroupBy"&gt;
+         &lt;Collection&gt;
+            &lt;PropertyPath&gt;Status&lt;/PropertyPath&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="SortOrder"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="Property" PropertyPath="TotalSum" /&gt;
+               &lt;PropertyValue Property="Descending" Bool="true" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="RequestAtLeast"&gt;
+          &lt;Collection&gt;
+             &lt;Record&gt;
+                &lt;PropertyPath&gt;CustomerID&lt;/PropertyPath&gt;
+             &lt;/Record&gt;
+          &lt;/Collection&gt;
+       &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.PresentationVariant: [
+  {
+    groupBy: [
+      'STATUS'
+    ],
+    sortOrder: [
+      {
+        by: 'TOTALSUM',
+        direction: #DESC
+      }
+    ],
+	requestAtLeast: ['CustomerID'],
+	
+  }
+]
+annotate view VIEWNAME with { 
+
+}
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.PresentationVariant : {
+    GroupBy : [
+        Status
+    ],
+    SortOrder : [
+        {
+            Property : TotalSum,
+            Descending : true
+        },
+    ],
+    RequestAtLeast : [
+        {
+            CustomerID
+        }
+    ]
+}
+</pre></div></div></section><p></p></div></div></section><section>
+            <h2 class="title "><code>com.sap.vocabularies.UI.v1.SelectionPresentationVariant</code></h2>
+            <p>Provides a combination of capabilities from <code>SelectionVariant</code> and
+                    <code>PresentationVariant</code>. The
+                    <code>SelectionPresentationVariant</code> supports the following
+                properties:</p>
+            <ul class="ul ">
+                <li class="li"><code>SelectionVariant</code>: Specifies the <code>SelectionVariant</code> annotation path</li>
+                <li class="li"><code>PresentationVariant</code>: Specifies the <code>PresentationVariant</code> annotation path</li>
+            </ul>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.SelectionPresentationVariant" Qualifier="BothSelectionAndPresentation"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="SelectionVariant" Path="@UI.SelectionVariant#SP2"/&gt;
+        &lt;PropertyValue Property="PresentationVariant" Path="@UI.PresentationVariant#customer"/&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.SelectionPresentationVariant: [
+  {
+    selectionvariantqualifier: 'SP2',
+    presentationvariantqualifier: 'customer',
+    qualifier: 'BothSelectionAndPresentation'
+  }
+]
+annotate view VIEWNAME with { 
+
+}
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.SelectionPresentationVariant #BothSelectionAndPresentation : {
+    SelectionVariant : ![@UI.SelectionVariant#SP2],
+    PresentationVariant : ![@UI.PresentationVariant#customer]
+},
+</pre></div></div></section><p></p></div></div>
+            <section>
+                <h3 class="title "><code>SelectionVariant</code></h3>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.SelectionVariant" Qualifier="SP2"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="SelectOptions"&gt;
+            &lt;Collection&gt;
+                &lt;Record&gt;
+                    &lt;PropertyValue Property="PropertyName" PropertyPath="CustomerName"/&gt;
+                    &lt;PropertyValue Property="Ranges"&gt;
+                        &lt;Collection&gt;
+                            &lt;Record&gt;
+                                &lt;PropertyValue Property="Sign"
+                                               EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I"/&gt;
+                                &lt;PropertyValue Property="Option"
+                                               EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeOptionType/EQ"/&gt;
+                                &lt;PropertyValue Property="Low" String="Asia High tech"/&gt;
+                            &lt;/Record&gt;
+                        &lt;/Collection&gt;
+                    &lt;/PropertyValue&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.SelectionVariant #SP2 : {
+    SelectOptions : [
+        {
+            PropertyName : CustomerName,
+            Ranges : [
+                {
+                    Sign : #I,
+                    Option : #EQ,
+                    Low : 'Asia High tech'
+                }
+            ]
+        }
+    ]
+}</pre></div></div></section><p></p></div></div>
+            </section>
+            <section>
+                <h3 class="title "><code>PresentationVariant</code></h3>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.PresentationVariant" Qualifier="customer"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="GroupBy"&gt;
+            &lt;Collection&gt;
+                &lt;PropertyPath&gt;BillingStatusDescription&lt;/PropertyPath&gt;
+                &lt;PropertyPath&gt;DeliveryStatusDescription&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="Visualizations"&gt;
+            &lt;Collection&gt;
+                &lt;AnnotationPath&gt;@UI.LineItem#View2&lt;/AnnotationPath&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="SortOrder"&gt;
+            &lt;Collection&gt;
+                &lt;Record&gt;
+                    &lt;PropertyValue Property="Property" PropertyPath="CustomerName" /&gt;
+                    &lt;PropertyValue Property="Descending" Boolean="true" /&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.PresentationVariant: [
+  {
+    groupBy: [
+      'BILLINGSTATUSDESCRIPTION',
+      'DELIVERYSTATUSDESCRIPTION'
+    ],
+    visualizations: [
+      {
+        type: #AS_LINEITEM,
+        qualifier: 'View2'
+      }
+    ],
+    sortOrder: [
+      {
+        by: 'CUSTOMERNAME'
+      }
+    ],
+    qualifier: 'customer'
+  }
+]
+annotate view VIEWNAME with { 
+
+}
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.PresentationVariant #customer : {
+    GroupBy : [
+        BillingStatusDescription,
+        DeliveryStatusDescription,
+    ],
+    Visualizations : [
+        '@UI.LineItem#View2'
+    ],
+    SortOrder : [
+        {
+            Property : CustomerName,
+            Descending : true
+        }
+    ]
+}
+</pre></div></div></section><p></p></div></div>
+            </section>
+        </section><section><h2 class="title "><code>com.sap.vocabularies.UI.v1.Chart</code></h2><p>Defines the dimensions
+				and measures used in charts. The following properties are supported: </p><ul class="ul ">
+				<li class="li"><code>Title</code>
+				</li>
+				<li class="li"><code>Description</code>
+				</li>
+				<li class="li"><code>ChartType</code></li>
+				<li class="li"><code>Measures</code>: A collection of <code>PropertyPath</code>
+                    properties
+                </li>
+				<li class="li"><code>MeasureAttributes</code>: A collection of
+						<code>com.sap.vocabularies.UI.v1.ChartMeasureAttributeType</code>
+					records describing attributes for measures. All measures used in this collection
+					must also be part of the <code>Measures</code> property.</li>
+				<li class="li"><code>Dimensions</code>: A collection of <code>PropertyPath</code>
+                    properties.</li>
+				<li class="li"><code>DimensionAttributes</code>: A collection of <code>com.sap.vocabularies.UI.v1.ChartDimensionAttributeType</code> records
+                    describing attributes for dimensions. All dimensions used in this collection must also be part of the <code>Dimensions</code>
+                    property.</li>
+			</ul>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="com.sap.vocabularies.UI.v1.Chart"&gt;
+   &lt;Record Type="com.sap.vocabularies.UI.v1.ChartDefinitionType"&gt;
+      &lt;PropertyValue Property="Title" String="View1" /&gt;
+      &lt;PropertyValue Property="MeasureAttributes"&gt;
+         &lt;Collection&gt;
+            &lt;Record Type="com.sap.vocabularies.UI.v1.ChartMeasureAttributeType"&gt;
+               &lt;PropertyValue Property="Measure" PropertyPath="TotalSum" /&gt;
+               &lt;PropertyValue Property="Role" EnumMember="com.sap.vocabularies.UI.v1.ChartMeasureRoleType/Axis1" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="DimensionAttributes"&gt;
+         &lt;Collection&gt;
+            &lt;Record Type="com.sap.vocabularies.UI.v1.ChartDimensionAttributeType"&gt;
+               &lt;PropertyValue Property="Dimension" PropertyPath="Status" /&gt;
+               &lt;PropertyValue Property="Role" EnumMember="com.sap.vocabularies.UI.v1.ChartDimensionRoleType/Series" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Chart: [
+  {
+    title: 'View1',
+    measureAttributes: [
+      {
+        measure: 'TotalSum',
+        role: #AXIS_1
+      }
+    ],
+    dimensionAttributes: [
+      {
+        dimension: 'Status',
+        role: #SERIES
+      }
+    ]
+  }
+]
+annotate view VIEWNAME with { }
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.Chart : {
+    $Type : 'UI.ChartDefinitionType',
+    Title : 'View1',
+    MeasureAttributes : [
+        {
+            $Type : 'UI.ChartMeasureAttributeType',
+            Measure : TotalSum,
+            Role : #Axis1
+        },
+    ],
+    DimensionAttributes : [
+        {
+            $Type : 'UI.ChartDimensionAttributeType',
+            Dimension : Status,
+            Role : #Series
+        }
+    ]
+}
+</pre></div></div></section><p></p></div></div></section><section id="section_v4w_ttq_n2b"><h2 class="title ">KPI Annotation</h2><p>Use this annotation to create
+				KPI tags for your overview page cards. The KPI information appears on the header
+				area of the card and reacts to the filter conditions you set. This annotation
+				provides the capabilities of <code>SelectionVariant</code>,
+					<code>PresentationVarint</code>, and <code>DataPoint</code> annotations.
+				Additionally, the KPI annotation has the semantic object property and action to
+				configure the navigation parameters.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lnag-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.KPI" Qualifier="Eval_by_Country_-Generic"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="DataPoint" Path="@UI.DataPoint#Eval_by_Country_-Generic" /&gt;
+        &lt;PropertyValue Property="Detail"&gt;
+            &lt;Record Type="UI.KPIDetailType"&gt;
+                &lt;PropertyValue Property="DefaultPresentationVariant" Path="@UI.PresentationVariant#Eval_by_Currency1" /&gt;
+                &lt;PropertyValue Property="AlternativePresentationVariants"&gt;
+                    &lt;Collection&gt;
+                        &lt;Path&gt;@UI.PresentationVariant#Eval_by_Currency_Column&lt;/Path&gt;
+                    &lt;/Collection&gt;
+                &lt;/PropertyValue&gt;
+                &lt;PropertyValue String="Action" Property="SemanticObject" /&gt;
+                &lt;PropertyValue String="toappnavsample" Property="Action" /&gt;
+            &lt;/Record&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue String="String for KPI Annotation" Property="ID" /&gt;
+        &lt;PropertyValue Property="SelectionVariantQualifier" Path="@UI.SelectionVariant#Eval_by_Currency_1" /&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+&lt;Annotation Term="UI.DataPoint" Qualifier="Eval_by_Country_-Generic"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="Value" Path="Currency" /&gt;
+        &lt;PropertyValue String="test" Property="Title" /&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.KPI: [
+  {
+    detail: {
+      defaultPresentationVariantQualifier: 'Eval_by_Currency1',
+      alternativePresentationVariantQualifiers: [
+        'Eval_by_Currency_Column'
+      ],
+      semanticObject: 'Action',
+      semanticObjectAction: 'toappnavsample'
+    },
+    selectionVariantQualifier: 'Eval_by_Currency_1',
+    id: 'String for KPI Annotation',
+    qualifier: 'Eval_by_Country-Generic',
+    dataPoint.title: 'test'
+  }
+]
+Eval_by_Country-Generic;
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.KPI #AllActualCosts : {
+    $Type : 'UI.KPIType',
+    Detail : {
+        $Type : 'UI.KPIDetailType',
+        DefaultPresentationVariant : ![@UI.PresentationVariant#Eval_by_Currency1],
+        AlternativePresentationVariants : [
+            ![@UI.PresentationVariant#Eval_by_Currency_Column],
+        ],
+        SemanticObject : 'Action',
+        Action : 'toappnavsample',
+    },
+    SelectionVariant : ![@UI.SelectionVariant#Eval_by_Currency_1],
+    DataPoint : ![@UI.DataPoint#Eval_by_Country-Generic],
+    ID : 'String for KPI Annotation'
+},
+</pre></div></div></section><p></p></div></div>
+            <section>
+                <h3 class="title "><code>PresentationVariant</code></h3>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.PresentationVariant" Qualifier="Eval_by_Currency1"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="MaxItems" Int="5" /&gt;
+      &lt;PropertyValue Property="GroupBy"&gt;
+         &lt;Collection&gt;
+            &lt;PropertyPath&gt;Country&lt;/PropertyPath&gt;
+            &lt;PropertyPath&gt;Currency&lt;/PropertyPath&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="SortOrder"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="Property" PropertyPath="TotalSales" /&gt;
+               &lt;PropertyValue Property="Descending" Boolean="true" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="Visualizations"&gt;
+         &lt;Collection&gt;
+            &lt;AnnotationPath&gt;@UI.Chart#Eval_by_Currency_Donut&lt;/AnnotationPath&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.PresentationVariant: [
+  {
+    maxItems: 5,
+    groupBy: [
+      'COUNTRY',
+      'CURRENCY'
+    ],
+    sortOrder: [
+      {
+        by: 'TOTALSALES'
+      }
+    ],
+    visualizations: [
+      {
+        type: #AS_CHART,
+        qualifier: 'Eval_by_Currency_Donut'
+      }
+    ],
+    qualifier: 'Eval_by_Currency1'
+  }
+]
+annotate view VIEWNAME with { }
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.PresentationVariant #Eval_by_Currency1 : {
+    MaxItems : 5,
+    GroupBy : [
+        Country,
+        Currency
+    ],
+    SortOrder : [
+        {
+            Property : TotalSales,
+            Descending : true
+        },
+    ],
+    Visualizations : [
+        '@UI.Chart#Eval_by_Currency_Donut'
+    ]
+},
+</pre></div></div></section><p></p></div></div>
+            </section>
+            <section>
+                <h3 class="title "><code>SelectionVariant</code></h3>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.SelectionVariant" Qualifier="Eval_by_Currency_1"&gt;
+   &lt;Record&gt;
+      &lt;PropertyValue Property="SelectOptions"&gt;
+         &lt;Collection&gt;
+            &lt;Record&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="Country" /&gt;
+               &lt;PropertyValue Property="Ranges"&gt;
+                  &lt;Collection&gt;
+                     &lt;Record&gt;
+                        &lt;PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I" /&gt;
+                        &lt;PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/EQ" /&gt;
+                        &lt;PropertyValue Property="Low" String="IN" /&gt;
+                     &lt;/Record&gt;
+                  &lt;/Collection&gt;
+               &lt;/PropertyValue&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="Parameters"&gt;
+         &lt;Collection&gt;
+            &lt;Record Type="UI.Parameter"&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="Currency_Target" /&gt;
+               &lt;PropertyValue Property="PropertyValue" String="EUR" /&gt;
+            &lt;/Record&gt;
+            &lt;Record Type="UI.Parameter"&gt;
+               &lt;PropertyValue Property="PropertyName" PropertyPath="UoM_Target" /&gt;
+               &lt;PropertyValue Property="PropertyValue" String="KGM" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.SelectionVariant: [
+  {
+    qualifier: 'Eval_by_Currency_1',
+	parameters: [
+	  {name: 'PropertyName', value: 'Currency_Target' },
+	  { name: 'PropertyValue', value: 'EUR'},
+	  { name: 'PropertyValue', value: 'UoM_Target'},
+	  { name: 'PropertyValue', value: 'KGM'}
+	]
+  }
+]
+annotate view VIEWNAME with { 
+
+}</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.SelectionVariant #Eval_by_Currency_1 : {
+    SelectOptions : [
+        {
+            PropertyName : Country,
+            Ranges : [
+                {
+                    Sign : #I,
+                    Option : #EQ,
+                    Low : 'IN'
+                }
+            ]
+        }
+    ],
+    Parameters : [
+        {
+            $Type : 'UI.Parameter',
+            PropertyName : Currency_Target,
+            PropertyValue : 'EUR'
+        },
+        {
+            $Type : 'UI.Parameter',
+            PropertyName : UoM_Target,
+            PropertyValue : 'KGM'
+        }
+    ]
+}
+</pre></div></div></section><p></p></div></div>
+            </section>
+            <section>
+                <h3 class="title "><code>DataPoint</code></h3>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                    Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.DataPoint" Qualifier="Eval_by_Country_-Generic"&gt;
+   &lt;Record Type="UI.DataPointType"&gt;
+      &lt;PropertyValue Property="Title" String="Sales India - Generic Card" /&gt;
+      &lt;PropertyValue Property="Value" Path="Sales" /&gt;
+      &lt;PropertyValue Property="ValueFormat"&gt;
+         &lt;Record&gt;
+            &lt;PropertyValue Property="ScaleFactor" IntDecimal="2" /&gt;
+            &lt;PropertyValue Property="NumberOfFractionalDigits" Int="1" /&gt;
+         &lt;/Record&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="CriticalityCalculation"&gt;
+         &lt;Record&gt;
+            &lt;PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Minimizinge" /&gt;
+            &lt;PropertyValue Property="DeviationRangeHighValue" String="7300" /&gt;
+            &lt;PropertyValue Property="ToleranceRangeHighValue" String="7200" /&gt;
+         &lt;/Record&gt;
+      &lt;/PropertyValue&gt;
+      &lt;PropertyValue Property="TargetValue" String="2.000 " /&gt;
+      &lt;PropertyValue Property="TrendCalculation"&gt;
+         &lt;Record&gt;
+            &lt;PropertyValue Property="ReferenceValue" String="5201680" /&gt;
+            &lt;PropertyValue Property="DownDifference" IntDecimal="10000000.0" /&gt;
+         &lt;/Record&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.dataPoint: { 
+	 title: 'Sales India - Generic Card',
+	 valueFormat: { scaleFactor: 2, numberOfFractionalDigits: 1 },
+	 criticalityCalculation: { 
+	   improvementDirection: #MINIMIZE,
+	   deviationRangeHighValue: 7300,
+	   toleranceRangeHighValue: 7200
+	 },
+	 targetValue: 2.000,
+	 trendCalculation: { referenceValue: 'refValElement', downDifference: 10000000.0 }
+}
+Sales;
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                    Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.DataPoint #Eval_by_Country-Generic : {
+    $Type : 'UI.DataPointType',
+    Title : 'Sales India - Generic Card',
+    Value : Sales,
+    ValueFormat : {
+        ScaleFactor : 2,
+        NumberOfFractionalDigits : 1
+    },
+    CriticalityCalculation : {
+        ImprovementDirection : #Minimizing,
+        DeviationRangeHighValue : '7300',
+        ToleranceRangeHighValue : '7200'
+    },
+    TargetValue : '2.000 ',
+    TrendCalculation : {
+        ReferenceValue : '5201680',
+        DownDifference : 10000000.0
+    }
+}
+</pre></div></div></section><p></p></div></div>
+            </section></section><section id="section_kjl_wvq_n2b"><h2 class="title ">Text Arrangement</h2><p>The text arrangement
+				annotation lets you format text.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="GWSAMPLE_BASIC.SalesOrder/CustomerID"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="Supplier_Name"/&gt;
+    &lt;Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" /&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view SALESORDER with {
+  @UI.TextArrangement: #TEXT_LAST
+  customerid;
+}</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate GWSAMPLE_BASIC.SalesOrder with {
+  @Common.Text : Supplier_Name
+  @UI.TextArrangement : #TextLast
+  CustomerID
+};</pre></div></div></section><p></p></div></div><p>In the preceding example, the text <code>Customer</code> is bound to the <code>ContactID</code> property and appears as shown in
+                the following table:</p><p>
+				</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_gkn_d5v_kcb" class=" ">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>Text Arrangement Type</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Result</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>TextLast</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>ContractID (Customer)</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>TextFirst</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Customer (ContractID)</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>TextOnly</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Customer</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			<p></p></section><section id="section_f2b_ysk_sfb"><h2 class="title ">Potentially Sensitive Personal Data</h2><p>To define a
+				property as sensitive data, configure the target property and set it as personally
+				sensitive.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SEPMRA_OVW.SEPMRA_C_OVW_SalesOrderType/CompanyCode"&gt;
+           &lt;Annotation Term="com.sap.vocabularies.PersonalData.v1.IsPotentiallySensitive"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@Semantics.personalData.isPotentiallySensitive: true
+CompanyCode;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate SEPMRA_OVW.SEPMRA_C_OVW_SalesOrderType with {
+  @PersonalData.IsPotentiallySensitive
+  CompanyCode
+};</pre></div></div></section><p></p></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

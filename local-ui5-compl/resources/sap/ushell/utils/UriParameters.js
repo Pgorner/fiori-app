@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(function(){"use strict";function r(r){const e=r.indexOf("#");if(e>=0){r=r.slice(0,e)}const s=r.indexOf("?");if(s>=0){return r.slice(s+1)}return""}class e extends URLSearchParams{#r;constructor(e){super(r(e))}get mParams(){if(this.#r===null||this.#r===undefined){this.#r=Array.from(this.keys()).reduce((r,e)=>{r[e]=this.getAll(e);return r},Object.create(null))}return this.#r}static fromURL(r){return new e(r)}}return e});
+//# sourceMappingURL=UriParameters.js.map

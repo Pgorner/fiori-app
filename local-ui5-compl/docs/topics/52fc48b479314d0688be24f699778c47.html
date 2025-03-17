@@ -1,0 +1,196 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio52fc48b479314d0688be24f699778c47" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/extending-delivered-apps-using-adaptation-extensions-52fc48b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Extending Delivered Apps Using Adaptation Extensions</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Extending Delivered Apps Using Adaptation Extensions</h2></div><div class="shortdesc">You can extend delivered apps based on SAP Fiori elements by using the
+			Adaptation Editor in SAP Business Application Studio. It allows you to
+		create adaptation projects on top of delivered apps.</div><section id="context_ijc_3wz_5zb" class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+			<p>You can implement extension functions as part of a UI adaptation project by using the Adaptation Editor in SAP Business Application Studio. The
+				adaptation project references the applications delivered by SAP as base or parent
+				applications.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This procedure is relevant only for list reports, object pages, overview pages, and
+				analytical list pages. </p><p>The flexible column layout is not supported by the Adaptation Editor.</p><p></p></div></div>
+			<p>You can try the adaptation extensions by creating an adaptation project described in
+					<a href="https://help.sap.com/docs/bas/developing-sap-fiori-app-in-sap-business-application-studio/extending-sap-fiori-application" title="https://help.sap.com/docs/bas/developing-sap-fiori-app-in-sap-business-application-studio/extending-sap-fiori-application" class="external-link" target="_blank" rel="noopener">Extending an SAP Fiori Application</a>.</p>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section><section id="task_u52_ds1_34b" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/extending-delivered-apps-using-adaptation-extensions-52fc48b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+				<p>You can use adaptation extensions for the following extension points:</p><ul class="ul ">
+						<li class="li">
+							<p>List report and analytical list page</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>Add additional fields to the smart filter bar </p>
+								</li>
+								<li class="li">
+									<p>Add additional columns to tables </p>
+								</li>
+								<li class="li">
+									<p>Add additional table toolbar buttons and extension controller
+										logic. For an example, see <a href="topic/a269671fc49e4c75920c108961bf31f2" title="In this example, you add a button to the table toolbar in the list report and extend it to filter only the records which have a price that is greater than or equal to 1000." class="sap-doc">Adaptation Extension Example: Adding a Button to the Table Toolbar in the List Report</a></p>
+									<div><div class="fig"><img src="loiod09b292f52fa462aa45c5dab394c260a_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Adaptation Extension Options in the List
+											Report</h2></span></div>
+								</li>
+								<li class="li">
+									<p>Override extension functions</p>
+									<ul class="ul ">
+										<li class="li">
+											<p><code>onInitSmartFilterBar</code></p>
+										</li>
+										<li class="li">
+											<p><code>provideExtensionAppStateData</code></p>
+										</li>
+										<li class="li">
+											<p><code>restoreExtensionAppStateData</code></p>
+										</li>
+										<li class="li">
+											<p><code>ensureFieldsForSelect</code></p>
+										</li>
+										<li class="li">
+											<p><code>addFilters</code></p>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<p>These extension functions can be consumed as a part of
+									<code>ControllerExtension</code>, by overriding the
+									<code>templateBasedExtension</code> points.</p>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Overriding <code>addFilters</code> extension
+								function</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">override: {	
+                  // 	override public method of the ListReport controller 
+                  templateBaseExtension: {	
+				          addFilters: function(fnAddFilter, sControlId){							
+                              // custom logic
+                				}
+		}
+</pre></div></div></section><p></p></div></div>
+						</li>
+						<li class="li">
+							<p>Object page</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>Toolbar actions </p>
+								</li>
+								<li class="li">
+									<p>Additional sections </p>
+								</li>
+								<li class="li">
+									<p>Add additional fields to the header facet </p>
+								</li>
+								<li class="li">
+									<p>Add additional fields and field groups to forms</p>
+									<div><div class="fig"><img src="loio07345eb1771743fcbd190efbc9a695d2_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Adaptation Extension Options on the Object
+											Page</h2></span></div>
+								</li>
+								<li class="li">
+									<p>Override extension functions</p>
+									<ul class="ul ">
+										<li class="li">
+											<p><code>provideExtensionStateData</code></p>
+										</li>
+										<li class="li">
+											<p><code>restoreExtensionStateData</code></p>
+										</li>
+										<li class="li">
+											<p><code>ensureFieldsForSelect</code></p>
+										</li>
+										<li class="li">
+											<p><code>addFilters</code></p>
+										</li>
+									</ul>
+									<p>These extension functions can be consumed as part of the
+											<code>ControllerExtension</code>, by overriding the
+											<code>templateBasedExtension</code> points.</p>
+								</li>
+							</ul>
+							<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>The extension points mentioned in the <a href="api/sap.suite.ui.generic.template.ListReport.controllerFrameworkExtensions#overview" title="api/sap.suite.ui.generic.template.ListReport.controllerFrameworkExtensions#overview" class="external-link" target="_blank" rel="noopener" alt="api/sap.suite.ui.generic.template.ListReport.controllerFrameworkExtensions#overview">API Reference</a> cannot be consumed as
+									a part of the adaptation project.</p>
+							<p></p></div></div>
+						</li>
+						<li class="li">
+							<p>Overview page</p><ul class="ul ">
+									<li class="li">
+										<p>Add additional fields to the smart filter bar </p>
+									</li>
+									<li class="li">
+										<p>Add global actions to the filter bar</p>
+									</li>
+									<li class="li">
+										<p>Add additional extension controller logic</p>
+									</li>
+									<li class="li">
+										<p>Add cards</p>
+									</li>
+									<li class="li">
+										<p>Clone cards</p>
+									</li>
+									<li class="li">
+										<p>Edit cards</p>
+									</li>
+									<li class="li">
+										<p>Override extension functions</p>
+										<ul class="ul ">
+											<li class="li">
+												<p><code>provideExtensionAppStateData</code></p>
+											</li>
+											<li class="li">
+												<p><code>restoreExtensionAppStateData</code></p>
+											</li>
+											<li class="li">
+												<p><code>addFilters</code></p>
+											</li>
+											<li class="li">
+												<p><code>provideStartupExtension</code></p>
+											</li>
+											<li class="li">
+												<p><code>provideExtensionNavigation</code></p>
+											</li>
+											<li class="li">
+												<p><code>provideCustomActionPress</code></p>
+											</li>
+											<li class="li">
+												<p><code>provideCustomParameter</code></p>
+											</li>
+										</ul>
+									</li>
+								</ul><p></p>
+						</li>
+					</ul><p></p>
+				<section>
+					<h3 class="title ">More Information</h3>
+					<p>For more information, see <a href="topic/82630e5a31b940b68ea1bd2ca44eeb9c" title="In this document, you can find the details of all the extension functions that can be used for extending delivered apps using adaptation extensions." class="sap-doc">Details of Extension Functions Used for Extending Delivered Apps</a>.</p>
+				</section>
+			</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section><section id="task_yb4_1s1_34b" class="collapsible expanded section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/extending-delivered-apps-using-adaptation-extensions-52fc48b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><section id="context_p3h_bs1_34b" class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+				<p>You can use the <code>controllerextensions</code> API to override the existing behavior
+					of the SAP Fiori elements
+					framework, and to implement hooks to implement your custom logic. For
+						information about the <code>controllerextensions</code> API, see the
+							<a href="api/sap.fe.core.controllerextensions" title="api/sap.fe.core.controllerextensions" class="sap-doc" alt="api/sap.fe.core.controllerextensions">API Reference</a>.
+					You can also explore and work with the coding yourself in the flexible
+					programming model explorer at <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/controllerExtensions/controllerExtensionsOverview" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/controllerExtensions/controllerExtensionsOverview" class="sap-doc">Overview of Controller
+					Extensions</a>.</p>
+				<p>As a developer you can adapt your UI in Safe Mode. For more information, see <a href="topic/a8e55aa2f8bc4127923b20685a6d1621" title="Modification-free, cost-saving, easy to use, and performant: Discover the new flexibility when adapting SAP Fiori UIs using SAPUI5 flexibility." class="sap-doc">SAPUI5 Flexibility: Adapting UIs Made Easy</a>.</p>
+			</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section><section id="topic_gds_rdg_vzb" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/extending-delivered-apps-using-adaptation-extensions-52fc48b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Related Information</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Related Information</h2></div><ul class="ul ">
+				<li class="li">
+					<p><a href="topic/f1430c0337534d469da3a56307ff76af" title="Here's what you have to consider when developing apps that support UI adaptation." class="sap-doc">SAPUI5 Flexibility: Enable Your App for UI Adaptation</a></p>
+				</li>
+				<li class="li">
+					<p><a href="topic/a8e55aa2f8bc4127923b20685a6d1621" title="Modification-free, cost-saving, easy to use, and performant: Discover the new flexibility when adapting SAP Fiori UIs using SAPUI5 flexibility." class="sap-doc">SAPUI5 Flexibility: Adapting UIs Made Easy</a></p>
+				</li>
+				<li class="li">
+					<p><a href="topic/59bfd317ed5d4af3b490abbe7a9731d8" title="Both application developers and key users can extend and customize SAP Fiori applications by adapting the UI." class="sap-doc">Adapting the UI</a></p>
+				</li>
+				<li class="li">
+					<p><a href="https://help.sap.com/docs/bas/developing-sap-fiori-app-in-sap-business-application-studio/extending-sap-fiori-application?locale=en-US" title="https://help.sap.com/docs/bas/developing-sap-fiori-app-in-sap-business-application-studio/extending-sap-fiori-application?locale=en-US" class="external-link" target="_blank" rel="noopener">Extending SAP Fiori
+						Applications</a></p>
+				</li>
+			</ul><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></section></div></body></html>

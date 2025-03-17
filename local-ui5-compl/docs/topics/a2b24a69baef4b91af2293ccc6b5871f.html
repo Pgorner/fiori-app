@@ -1,0 +1,680 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa2b24a69baef4b91af2293ccc6b5871f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/extending-the-delivered-apps-manifest-using-an-adaptation-project-a2b24a6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Extending the Delivered Apps Manifest Using an Adaptation Project</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Extending the Delivered Apps Manifest Using an Adaptation Project</h2></div><div class="shortdesc">You can extend the SAP-delivered list report and object page apps that are developed on SAP Fiori elements.</div><p>The delivered apps can be extended by adding a new node in the object page or by
+            modifying the manifest configurations settings through the adaptation project. By
+            configuring the adaptation project manifest, you can enable the following features:</p><p>
+            </p><ul class="ul ">
+                <li class="li">
+                    <p>Add a new subobject page for the newly extended
+                        node.</p>
+                </li>
+                <li class="li">
+                    <p>Define configurations for the newly extended node or existing
+                        pages.</p>
+                </li>
+                <li class="li">
+                    <p>Perform additional configurations that can be modified for an
+                        application.</p>
+                </li>
+            </ul>
+        <p></p><section id="section_w5x_1vf_zcc" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><section>
+                <h3 class="title ">Prerequisites</h3>
+                <p>You're working on SAPUI5 1.108 or higher (ABAP platform 2021 or higher).</p>
+                <p>In the manifest file of the app, the pages and subpages section must be specified
+                    in the object format and not in the array format, within
+                        <code>sap.ui.generic.app</code>.</p>
+            </section><section>
+                <h3 class="title ">Adding a New Subobject Page for the Newly Extended
+                    Node</h3>
+                <p>As a prerequisite, the new node must be added in the back end, and the metadata
+                    properties for the new node must be available through service metadata. A detail
+                    page for the new node can be added using the following definition in the
+                        <code>manifest.appdescr_variant</code> file:</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                    </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "changeType": "appdescr_ui_generic_app_addNewObjectPage",
+    "content": {
+            "parentPage": {
+                    "component": "sap.suite.ui.generic.template.ObjectPage",
+                    "entitySet": "C_STTA_SalesOrder_WD_20"
+                },
+            "childPage": {
+                    "id": "customer.ObjectPage|to_extendedNode",
+                    "definition": {
+                            "navigationProperty": "to_extendedNode",
+                            "entitySet": "C_STTA_ExtendedNode"
+                    }
+            }
+      }
+}</pre></div></div></section>
+                <p></p></div></div>
+                <p>You must add the parameters in the <code>changeType</code>,
+                        <code>layer</code>, <code>parentPage</code>, and
+                        <code>childPage</code> sections for the mergers to be executed.</p><ul class="ul ">
+                        <li class="li">
+                            <p><code>changeType</code> defines the merger to be invoked.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>parentPage</code> and <code>entitySet</code> are used
+                                to identify the location in the manifest file where the child page
+                                has to be added.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>childPage</code> defines the extended node to be added to
+                                the manifest, where the <code>id</code> is the unique page key
+                                and the <code>definition</code> object holds the
+                                    <code>navigationProperty</code> and
+                                    <code>entitySet</code> of the extended node. The
+                                    <code>childPage.id</code> name should have a prefix using
+                                the target layer name. If the target layer name is
+                                    <code>customer</code> or <code>customer_base</code>, add
+                                the <code>customer.</code> prefix. However, if the target layer
+                                name is <code>vendor</code>, a prefix is not required.</p>
+                        </li>
+                    </ul><p></p>
+            </section><section>
+                <h3 class="title ">Defining Configurations for a Node</h3>
+                <p>The following sample code is a definition to set the <code>createMode</code>
+                    and table type for a node in the object page. It must be added to the
+                        <code>manifest.appdescr_variant</code> file of the adaptation
+                    project.</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                    </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+    "content": {
+            "parentPage": {
+                    "component": "sap.suite.ui.generic.template.ObjectPage",
+                    "entitySet": "C_STTA_SalesOrder_WD_20"
+                    },
+            "entityPropertyChange": {
+                    "propertyPath": "component/settings/sections/extendedFacetId",
+                    "operation": "UPSERT",
+                    "propertyValue": {
+                            "createMode": "inline",
+                            "tableSettings": {
+                                    "tableType": "GridTable"
+                                }
+                        }
+                }
+        }
+}</pre></div></div></section>
+                <p></p></div></div>
+                <p>You must add the parameters in the <code>changeType</code>,
+                        <code>parentPage</code>, and <code>entityPropertyChange</code>
+                    sections for the mergers to be executed.</p><ul class="ul ">
+                        <li class="li">
+                            <p><code>changeType</code> defines the merger to be invoked.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>layer</code> defines the target layer.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>parentPage</code> and <code>entitySet</code> are used
+                                to identify the location in the manifest where the setting has to be
+                                changed.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>entityPropertyChange</code> contains the following:</p><ul class="ul ">
+                                    <li class="li">
+                                        <p><code>propertyPath</code> is the path in the manifest
+                                            where the changes have to be added. For example,
+                                                <code>component/settings/sections/extendedFacetId</code>,
+                                            where <code>extendedFacetId</code> is the reference
+                                            facet ID of the new node. If you are modifying an
+                                            existing node using the adaptation project, you must
+                                            specify the facet ID of the section.</p>
+                                    </li>
+                                    <li class="li">
+                                        <p><code>operation</code> should be set as
+                                                <code>UPSERT</code>.</p>
+                                    </li>
+                                    <li class="li">
+                                        <p><code>propertyValue</code> defines the new properties
+                                            to be included in the manifest.</p>
+                                    </li>
+                                </ul><p></p>
+                        </li>
+                    </ul><p></p>
+                <p>For detailed steps explaining how to work in an adaptation project, see the
+                        <cite>Procedure</cite> section of <a href="topic/52fc48b479314d0688be24f699778c47" title="You can extend delivered apps based on SAP Fiori elements by using the Adaptation Editor in SAP Business Application Studio. It allows you to create adaptation projects on top of delivered apps." class="sap-doc">Extending Delivered Apps Using Adaptation Extensions</a>.</p>
+            </section><section>
+                <h3 class="title ">Additional Configurations That Can Be Modified for an
+                    Application</h3>
+                <p>You can perform additional configurations that can be modified for an application
+                    using the following settings:</p>
+                <ul class="ul ">
+                    <li class="li">
+                        <p>Application-level settings</p>
+                        <ul class="ul ">
+                            <li class="li">
+                                <p><code>createMode</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>flexibleColumnLayout</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>inBoundParameters</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>externalNavigationSettings</code></p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li">
+                        <p>List report page</p>
+                        <ul class="ul ">
+                            <li class="li">
+                                <p><code>filterSettings</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>dataLoadSettings</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>enableTableFilterInPageVariant</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>condensedTableLayout</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>tableSettings</code></p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li">
+                        <p>Object page</p>
+                        <ul class="ul ">
+                            <li class="li">
+                                <p><code>editableHeaderContent</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>showRelatedApps</code></p>
+                            </li>
+                            <li class="li">
+                                <p><code>tableSettings</code></p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Define the following definition in the <code>manifest.appdescr_variant</code>
+                    file as part of the <code>content[]</code>:</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Modifying <code>createMode</code> and
+                        <code>flexibleColumnLayout</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+    "content": {
+       "parentPage": {
+         "component": "sap.suite.ui.generic.template"
+       },
+       "entityPropertyChange": {
+         "propertyPath": "settings",
+         "operation": "UPSERT",
+         "propertyValue": {
+            "tableSettings": {
+                "createMode": "creationRows"
+         },
+       "flexibleColumnLayout": {
+           "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+           "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
+         }
+       }
+     }
+   }
+ }</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Modifying <code>externalNavigationSettings</code> and
+                        <code>inBoundParameters</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+   "content": {
+     "parentPage": {
+       "component": "sap.suite.ui.generic.template"
+     },
+     "entityPropertyChange": {
+       "propertyPath": "settings",
+       "operation": "UPSERT",
+       "propertyValue": {
+         "externalNavigationSettings": {
+           "defaultOutboundSettings": {
+             "refreshStrategyOnAppRestore": {
+               "entitySets": {
+                 "STTA_C_MP_Product": "self"
+               }
+             }
+           }
+         },
+         "inboundParameters": {
+           "Supplier": {
+             "useForCreate": true
+           }
+         }
+       }
+     }
+   }
+ }</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Adding <code>filterSettings</code> with
+                        <code>historySettings</code> and
+                    <code>dateSettings</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+     "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+     "content": {
+         "parentPage": {
+             "component": "sap.suite.ui.generic.template.ListReport",
+             "entitySet": "STTA_C_MP_Product"
+         },
+         "entityPropertyChange": {
+             "propertyPath": "component/settings",
+             "operation": "UPSERT",
+             "propertyValue": {
+                 "filterSettings": {
+                     "historySettings": {
+                         "historyEnabled": "enabled"
+                     },
+                     "dateSettings": {
+                         "useDateRange": false,
+                         "selectedValues": "DAYS,WEEK,MONTH,DATERANGE",
+                         "fields": {
+                             "SemanticDate1": {
+                                 "selectedValues": "TOMORROW",
+                                 "exclude": true
+                             },
+                             "SemanticDate2": {
+                                 "defaultValue": {
+                                     "operation": "LASTYEAR"
+                                 }
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Adding <code>enableTableFilterInPageVariant</code>,
+                        <code>dataLoadSettings</code>, and
+                    <code>condensedTableLayout</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+        "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+        "content": {
+                "parentPage": {
+                     "component": "sap.suite.ui.generic.template.ListReport",
+                     "entitySet": "STTA_C_MP_Product"
+                 },
+                "entityPropertyChange": {
+                     "propertyPath": "component/settings",
+                     "operation": "UPSERT",
+                     "propertyValue": {
+                         "enableTableFilterInPageVariant":true,
+                         "dataLoadSettings": {
+                             "loadDataOnAppLaunch": "never"
+                         },
+                         "condensedTableLayout":true
+            }
+        }
+    }
+}
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Adding or modifying <code>tableSettings</code> such as
+                        <code>type</code>, <code>multiselect</code>,
+                        <code>selectAll</code>, and
+                    <code>multiEdit</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+             "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+             "content": {
+                 "parentPage": {
+                     "component": "sap.suite.ui.generic.template.ListReport",
+                     "entitySet": "STTA_C_MP_Product"
+                 },
+                 "entityPropertyChange": {
+                     "propertyPath": "component/settings/tableSettings",
+                     "operation": "UPSERT",
+                     "propertyValue": {
+                         "type": "GridTable",
+                         "multiSelect": true,
+                         "selectAll": false,
+                         "multiEdit": {
+                             "enabled": true
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Adding fields to the <code>createWithDialogParameter</code>
+                    dialog </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+                 "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+                 "content": {
+                     "parentPage": {
+                         "component": "sap.suite.ui.generic.template.ListReport",
+                         "entitySet": "STTA_C_SO_SalesOrder_ND"
+                     },
+                     "entityPropertyChange": {
+                         "propertyPath": "component/settings/tableSettings/createWithParameterDialog/fields",
+                         "operation": "UPSERT",
+                         "propertyValue": {
+                             "CurrencyCode":{"path":"CurrencyCode"}
+                             
+                         }
+                     }
+                 }
+             }</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Modifying <code>editableHeaderContent</code> and
+                        <code>ShowRelatedApps</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+            "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+            "content": {
+                "parentPage" : {
+                    "component": "sap.suite.ui.generic.template.ObjectPage",
+                    "entitySet": "STTA_C_MP_Product"
+                },
+                "entityPropertyChange": {
+                    "propertyPath": "component/settings",
+                    "operation": "UPSERT",
+                    "propertyValue": {
+                        "editableHeaderContent":false,
+                        "showRelatedApps":false
+                    }
+                }
+                
+            }
+    }
+</pre></div></div></section><p></p></div></div>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Adding <code>createMode</code> for an object
+                    page</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+ "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+ "content": {
+        "parentPage": {
+            "component": "sap.suite.ui.generic.template.ObjectPage",
+            "entitySet": "STTA_C_SO_SalesOrder_ND"
+            },
+        "entityPropertyChange": {
+            "propertyPath": "component/settings/tableSettings",
+            "operation": "UPSERT",
+            "propertyValue": {
+                "createMode": "creationRows",
+                "multiSelect": true,
+                "selectAll": false
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div>
+                <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                    </p><p>As part of <code>filterSettings</code>, adding or modifying
+                            <code>filter[]</code> configurations per field and
+                            <code>customDateRangeImplementation</code>, is not supported.</p>
+                <p></p></div></div>
+                <p>You must add the parameters in the <code>changeType</code>,
+                        <code>parentPage</code>, and <code>entityPropertyChange </code> for
+                    the mergers to be executed.</p><ul class="ul ">
+                        <li class="li">
+                            <p><code>changeType</code> defines the merger to be invoked.</p>
+                            <p><code>changeType</code>:
+                                    <code>appdescr_sap_ui_generic_app_changePageConfiguration.</code></p>
+                        </li>
+                        <li class="li">
+                            <p><code>parentPage</code> and <code>entitySet</code> are used
+                                to identify the location in the manifest where the setting has to be
+                                changed.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>entityPropertyChange</code> contains the following:</p><ul class="ul ">
+                                    <li class="li">
+                                        <p><code>propertyPath</code> the path in the manifest
+                                            where the changes have to be added. For example,
+                                                <code>component/settings/</code>.</p>
+                                    </li>
+                                    <li class="li">
+                                        <p><code>operation</code> should be set as
+                                                <code>UPSERT</code>.</p>
+                                    </li>
+                                    <li class="li">
+                                        <p><code>propertyValue</code> defines the new properties
+                                            to be included in the manifest.</p>
+                                    </li>
+                                </ul><p></p>
+                        </li>
+                    </ul><p></p>
+                <p><span class="emphasis">Configuring a Selection Presentation Variant and Providing
+                        Corresponding Definition</span></p>
+                <p>Define the following definition in the <code>manifest.appdescr_variant</code>
+                    file as part of the <code>content[]</code>:</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Adding <code>annotationPath</code> to include a selection
+                    presentation variant in the list report
+                    page</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+            "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+            "content": {
+                "parentPage" : {
+                    "component": "sap.suite.ui.generic.template.ListReport",
+                    "entitySet": "STTA_C_MP_Product"
+                },
+                "entityPropertyChange": {
+                    "propertyPath": "component/settings",
+                    "operation": "UPSERT",
+                    "propertyValue": {
+                       "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#DefaultSPV"
+                    }
+                }
+            }
+    }
+</pre></div></div></section><p></p></div></div>
+                <p>You must add the parameters in the <code>changeType</code>,
+                        <code>parentPage</code>, and <code>entityPropertyChange </code> for
+                    the mergers to be executed.</p><ul class="ul ">
+                        <li class="li">
+                            <p><code>changeType</code> defines the merger to be invoked</p>
+                            <p><code>changeType</code>:
+                                    <code>appdescr_sap_ui_generic_app_changePageConfiguration</code></p>
+                        </li>
+                        <li class="li">
+                            <p><code>parentPage</code> and <code>entitySet</code> are used
+                                to identify the location in the manifest where the setting has to be
+                                changed</p>
+                        </li>
+                        <li class="li">
+                            <p><code>entityPropertyChange</code> contains the following:</p><ul class="ul ">
+                                    <li class="li">
+                                        <p><code>propertyPath</code> the path in the manifest
+                                            where the changes have to be added. For example,
+                                                <code>component/settings/</code></p>
+                                    </li>
+                                    <li class="li">
+                                        <p><code>operation</code> should be set as
+                                                <code>UPSERT</code></p>
+                                    </li>
+                                    <li class="li">
+                                        <p><code>propertyValue</code> defines the new properties
+                                            to be included in the manifest</p>
+                                    </li>
+                                </ul><p></p>
+                        </li>
+                    </ul><p></p>
+                <p>The definition of a selection presentation variant must be maintained by creating
+                    a local annotation file in the adaptation project. You can do so by following
+                    the procedure described in <a href="https://help.sap.com/viewer/584e0bcbfd4a4aff91c815cefa0bce2d/Cloud/en-US/ef009e3d533940f6b93b6996af486389.html" title="https://help.sap.com/viewer/584e0bcbfd4a4aff91c815cefa0bce2d/Cloud/en-US/ef009e3d533940f6b93b6996af486389.html" class="external-link" target="_blank" rel="noopener">Adding Annotation Files</a>.</p>
+                <p>Once the annotation file is added, you can continue as follows:</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                    </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;. Also, while running the app you should first use my
+				workspace in the configuration. &lt;edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0"&gt;
+	&lt;edmx:Reference
+		Uri="https://fiorielementsqh3815snapshot-xdf25c17a.dispatcher.neo.ondemand.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"&gt;
+		&lt;edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/&gt;
+	&lt;/edmx:Reference&gt;edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0"&gt;
+	&lt;edmx:Reference
+		Uri="https://fiorielementsqh3815snapshot-xdf25c17a.dispatcher.neo.ondemand.com/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"&gt;
+		&lt;edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/&gt;
+	&lt;/edmx:Reference&gt;
+	&lt;edmx:Reference Uri="/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/UI.xml"&gt;
+		&lt;edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/&gt;
+	&lt;/edmx:Reference&gt;
+	&lt;edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/cs01/vocabularies/Org.OData.Capabilities.V1.xml"&gt;
+		&lt;edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/&gt;
+	&lt;/edmx:Reference&gt;
+	&lt;edmx:Reference
+		Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"&gt;
+		&lt;edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/&gt;
+	&lt;/edmx:Reference&gt;
+	&lt;edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/cs01/vocabularies/Org.OData.Measures.V1.xml"&gt;
+		&lt;edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/&gt;
+	&lt;/edmx:Reference&gt;
+	&lt;edmx:Reference Uri="/sap/opu/odata/sap/STTA_PROD_MAN/$metadata"&gt;
+		&lt;edmx:Include Alias="STTA_PROD_MAN" Namespace="STTA_PROD_MAN"/</pre></div></div></section>
+                <p></p></div></div>
+                <section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Including newly createdPropertyValue Property="Label" String="New Activate Button"/&gt; &lt;PropertyValue Property="Action" String="STTA_PROD_MAN.STTA_PROD_MAN_Entities/STTA_C_MP_ProductActivation"/&gt; &lt;PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/ChangeSet"/&gt; &lt;/Record&gt; &lt;Record Type="UI.DataField"&gt; &lt;PropertyValue Property="Value" Path="ProductPictureURL"/&gt; &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt; &lt;/Record&gt; &lt;Record Type="UI.DataField"&gt; &lt;PropertyValue Property="Value" Path="Supplier"/&gt; &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt; &lt;/Record&gt; &lt;Record Type="UI.DataField"&gt; &lt;PropertyValue Property="Label" String="Product-ID/-Text"/&gt; &lt;PropertyValue Property="Value" Path="ProductForEdit"/&gt; &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt; &lt;/Record&gt; &lt;Record Type="UI.DataField"&gt; &lt;PropertyValue Property="Label" String="Width"/&gt; &lt;PropertyValue Property="Value" Path="Width"/&gt; &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt; &lt;/Record&gt; &lt;/Collection&gt; &lt;/Annotation&gt; &lt;Annotation Term="UI.SelectionFields"&gt; &lt;Collection&gt; &lt;PropertyPath&gt;Width&lt;/PropertyPath&gt; &lt;/Collection&gt; &lt;/Annotation&gt; &lt;Annotation Term="UI.SelectionVariant" Qualifier="FilterDefaults"&gt; &lt;Record&gt; &lt;PropertyValue Property="Parameters"&gt; &lt;Collection&gt;&lt;/Collection&gt; &lt;/PropertyValue&gt; &lt;PropertyValue Property="SelectOptions"&gt; &lt;Collection&gt; &lt;Record Type="UI.SelectOptionType"&gt; &lt;PropertyValue Property="PropertyName" PropertyPath="Width"/&gt; &lt;PropertyValue Property="Ranges"&gt; &lt;Collection&gt; &lt;Record&gt; &lt;PropertyValue Property="Sign" EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I"/&gt; &lt;PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/BT"/&gt; &lt;PropertyValue Property="Low" String="1.0"/&gt; &lt;PropertyValue Property="High" String="20.00"/&gt; &lt;/Record&gt; &lt;/Collection&gt; &lt;/PropertyValue&gt; &lt;/Record&gt; &lt;/Collection&gt; &lt;/PropertyValue&gt; &lt;/Record&gt; &lt;/Annotation&gt; &lt;/Annotations&gt; &lt;/Schema&gt; &lt;/edmx:DataServices&gt; &lt;/edmx:Edmx&gt; {
+            "changeType": "appdescr_app_addAnnotationsToOData",
+            "content": {
+                "dataSourceId": "mainService",
+                "annotations": ["customer.localAnnotationsNew"],
+                "annotationsInsertPosition": "END",
+                "dataSource": {
+                    "customer.localAnnotationsNew": {
+                        "uri": "changes/annotations/annotations.xml",
+                        "type": "ODataAnnotation"
+                    }
+                }
+            }
+        }
+</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">Including a Reuse Component in an Adaption
+                    Project</h3>
+                <p>This section describes the change mergers that are used to include a reuse
+                    component in an adaptation project. The following example shows an
+                        <code>Annotations
+                    Target="STTA_PROD_MAN.STTA_C_MP_ProductType"</code>.</p>
+                <p>As a prerequisite, the reuse component must be present in the target backend
+                    system. Reuse component is to be cloned to the workspace and its library
+                    reference must be added in <code>&lt;/edmx:Reference&gt; &lt;edmx:Reference
+                        Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Core.V1.xml"&gt;
+                        &lt;edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/&gt;
+                        &lt;/edmx:Reference&gt; &lt;edmx:DataServices&gt; &lt;Schema
+                        xmlns="http://docs.oasis-open.org/odata/ns/edm"neo-app.json</code>.</p>
+                <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                    </p><p>You must follow corresponding reuse component configuration for the
+                        application to work. For example, attachment reuse component needs few
+                        parameters to be added in the <code>neo-app.json</code>. For more
+                        information, see <a href="https://wiki.wdf.sap.corp/wiki/display/PLMOH/Attachments+Development+Guideline" title="https://wiki.wdf.sap.corp/wiki/display/PLMOH/Attachments+Development+Guideline" class="external-link" target="_blank" rel="noopener">Attachments Development Guideline</a>.</p>
+                <p></p></div></div>
+                <p>The following parameters must be included as <code>headerWhiteList</code> in
+                    the consuming application's <code>neo-app.json</code> file.</p>
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>headerWhiteList</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"headerWhiteList": [
+       "objecttype",
+       "objectkey",
+       "slug",
+       "MarkForDeletion",
+       "documentType",
+       "documentNumber",
+       "documentVersion",
+       "documentPart",
+       "semanticobjecttype"
+]
+</pre></div></div></section><p></p></div></div>
+                <p>These changes are to be added to <code>manifest.appdescr_variant</code>
+                    file in the adaptation project.</p>
+                
+                <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                    </p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "changeType": "appdescr_ui_generic_app_changePageConfiguration",
+    "content": {
+        "parentPage": {
+            "component": "sap.suite.ui.generic.template.ObjectPage",
+            "entitySet": "C_PaymentRunPlanTP"
+        },
+        "entityPropertyChange": {
+            "propertyPath": "embeddedComponents",
+            "operation": "UPSERT",
+            "propertyValue": {
+                "simple::Attachments": {
+                    "id": "simple::Attachments",
+                    "componentUsage": "attachmentReuseComponent",
+                    "title": "Attachment",
+                    "settings": {
+                        "mode": "C",
+                        "objectType": "SCASE",
+                        "objectKey": "{PaymentRunPlanName}",
+                        "isGuid": true
+                    }
+                }
+            }
+        }
+    }
+},
+
+// Specifies the Component usage reference
+{
+    "changeType": "appdescr_ui5_addComponentUsages",
+    "content": {
+        "componentUsages": {
+            "attachmentReuseComponent": {
+                "name": "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent",
+                "settings": {}
+            }
+        }
+    }
+},
+{
+    "changeType": "appdescr_ui5_addLibraries",
+    "content": {
+        "libraries": {
+            "sap.se.mi.plm.lib.attachmentservice": {
+                "minVersion": "Active",
+                "lazy": true
+            }
+        }
+    }
+},</pre></div></div></section>
+                <p></p></div></div>
+            </section></div></section><section id="section_qmw_cxf_zcc" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>For information about how to extend the delivered apps manifest for SAP Fiori elements for OData
+                            V4, see <a href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/072f566ed1d845b6aa41cb01057700d5.html" title="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/072f566ed1d845b6aa41cb01057700d5.html" class="external-link" target="_blank" rel="noopener">Creating the Project</a> in the User Guide for SAP Fiori tools.</p></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

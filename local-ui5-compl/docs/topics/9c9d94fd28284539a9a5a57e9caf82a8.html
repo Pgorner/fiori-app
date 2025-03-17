@@ -1,0 +1,357 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9c9d94fd28284539a9a5a57e9caf82a8" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/object-page-headers-comparison-9c9d94f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Object Page Headers Comparison</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Object Page Headers Comparison</h2></div><div class="shortdesc">This section explains the differences and similarities between the two types of
+		header of the <code>sap.uxap.ObjectPageLayout</code> control.</div><div class="tableWrapper "><div class="fig"><table border="1" id="table_cj5_lbl_sbb" class=" ">
+				
+				
+				
+				<thead>
+					<tr>
+						<th colspan="1" rowspan="1">
+							<p>Header Area</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Classic Header</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Dynamic Header</p>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<p>Title</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>sap.uxap.ObjectPageHeader</code></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>sap.uxap.ObjectPageDynamicHeaderTitle</code></p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<p>Content (controls are used internally)</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>sap.uxap.ObjectPageHeaderContent</code></p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>sap.uxap.ObjectPageDynamicHeaderContent</code></p>
+						</td>
+					</tr>
+				</tbody>
+			</table></div></div><section id="section_szt_d3l_sbb">
+			<h2 class="title ">Differences between the classic and the dynamic header</h2>
+			<p>The classic header title is largely semantic, meaning that it has properties, such as
+					<code>objectTitle</code>, <code>objectSubtitle</code> and
+					<code>objectImageURI</code>. It has a very specific layout based on these
+				properties.</p>
+			<p>On the contrary, the dynamic header title is general-purpose. It doesn't have any
+				properties describing the represented object, but rather several aggregations, such
+				as <code>heading</code> and <code>content</code>, which the app can use to
+				display any information and build any layout. This requires more work by the app
+				developer, but also more flexibility. The new header uses internally
+					<code>sap.m.OverflowToolbar</code> for the implementation of the
+					<code>actions</code> aggregation, which allows actions to have priority,
+				grouping, and other <code>sap.m.OverflowToolbar</code> features.</p>
+			<p>The main difference between the classic and dynamic header content is that the
+				dynamic header has the Pin functionality, allowing the user to prevent it from
+				scrolling out of view.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The controls, comprising the dynamic header title and header content, extend the
+					<code>sap.f.DynamicPage</code> title and header controls. They are adapted
+				for the <code>ObjectPageLayout</code> use case, but essentially they provide the
+				same functionality.</p></div></div>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_gpd_k3l_sbb" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Layout Control</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Header Title</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Header Content</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.uxap.ObjectPageLayout</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.uxap.ObjectPageDynamicHeaderTitle</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.uxap.ObjectPageDynamicHeaderContent</code></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.f.DynamicPage</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.f.DynamicPageTitle</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.f.DynamicPageHeader</code></p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		</section><section id="section_urf_2ll_sbb">
+			<h2 class="title ">Similarities between the classic and the dynamic header</h2>
+			<p>Both header title controls have the <code>actions</code> aggregation, intended
+				for buttons that perform actions on the represented object.</p>
+			<p>Both header content controls have the <code>content</code> aggregation.</p>
+		</section><section id="section_msr_jll_sbb">
+			<h2 class="title ">Features exclusive to the classic or the dynamic header</h2>
+			<p>Some <code>ObjectPageLayout</code> features associated with the behavior of the
+				classic header are considered legacy (although technically not deprecated), and have
+				more robust counterparts for the dynamic header.</p>
+			<p>Similarly, the dynamic header comes with a set of features (apart from its general
+				structure) that are exclusive to itself, and are not taken into account in the use
+				case of the classic header.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_nxg_tpt_sbb" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Features Exclusive to the Classic Header</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>showTitleInHeaderContent</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Determines whether the title, image, markers and
+										<code>selectTitleArrow</code> are displayed in the
+									Header Content area.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>isChildPage</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Determines whether the page is a child page and renders it with a
+									different design. Child pages have an additional
+									(darker/lighter) stripe on the left side of their header content
+									area.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>alwaysShowContentHeader</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Determines whether Header Content will always be expanded on
+									desktop.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>showEditHeaderButton</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Determines whether an <span class="ph uicontrol">Edit</span> button will be
+									displayed in the Header Content.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>sap.uxap.ObjectPageHeaderLayoutData</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The <code>sap.uxap.ObjectPageHeaderLayoutData</code> can only
+									be set on <code>headerContent</code> items for the classic
+									header use case.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_o2z_1qt_sbb" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Features Exclusive to the Dynamic Header</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>headerContentPinnable</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Determines whether the Header Content area can be pinned.</p>
+								<p>When set to true, a pin button is displayed within the Header
+									Content area. The pin button allows the user to make the Header
+									Content always visible at the top of the page above any
+									scrollable content.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>toggleHeaderOnTitleClick</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Determines whether the user can switch between the
+									expanded/collapsed states of the dynamic header by
+									clicking/tapping on the Header Title. If set to
+										<code>false</code>, the Header Title is not clickable
+									and the app must provide other means for expanding/collapsing
+									the dynamic header, if necessary.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>preserveHeaderStateOnScroll</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Preserves the current header state when scrolling. For example,
+									if the user expands the header by clicking on the title and then
+									scrolls down the page, the header will remain expanded.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>toggleHeaderOnTitleClick</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>When the feature is enabled, arrow buttons below the Header
+									Content appear, the Header Title and the arrow buttons can be
+									clicked/tapped for collapsing/expanding the header and there is
+									additional visual indication while hovering over the Header
+									Title area or the arrow buttons.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>If a legacy property, for example <code>showTitleInHeaderContent</code> is set,
+				but an instance of <code>sap.uxap.ObjectPageDynamicHeaderTitle</code> is used
+				for the <code>headerTitle</code> aggregation (which will be paired internally
+				with an instance of <code>sap.uxap.ObjectPageDynamicHeaderContent</code> for the
+				header content), this property will be ignored.</p>
+			<p>Similarly, if <code>toggleHeaderOnTitleClick</code> is set, but the classic title
+				is used (<code>sap.uxap.ObjectPageHeader</code> passed as the value of the
+					<code>headerTitle</code> aggregation), the property will be ignored as this
+				feature is not supported by the classic header title/header content pair.</p>
+		</section><section id="section_q1f_rpl_sbb">
+			<h2 class="title ">Which header should I use in my app?</h2>
+			<p>The dynamic header is recommended as it supports advanced features, such as pinning
+				and collapse/expand visual indication.</p>
+			<p>Here is a sample usage of the dynamic header - the value of the
+					<code>headerTitle</code> aggregation in an XML view:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;headerTitle&gt;
+	&lt;ObjectPageDynamicHeaderTitle primaryArea="Left"&gt;
+		&lt;breadcrumbs&gt;
+			&lt;m:Breadcrumbs currentLocationText="My Profile"&gt;
+				&lt;m:Link text='My Company' /&gt;
+				&lt;m:Link text='My Department' /&gt;
+				&lt;m:Link text='Employees' /&gt;
+			&lt;/m:Breadcrumbs&gt;
+		&lt;/breadcrumbs&gt;
+
+		&lt;expandedHeading&gt;
+			&lt;m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center"&gt;
+				&lt;m:Title text="Denise Smith" wrapping="true" class="sapUiTinyMarginEnd"/&gt;
+				&lt;m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd"&gt;
+					&lt;m:ObjectMarker type="Favorite" class="sapUiTinyMarginEnd"/&gt;
+					&lt;m:ObjectMarker type="Flagged"/&gt;
+					&lt;m:Button icon="sap-icon://private" type="Transparent"/&gt;
+					&lt;m:Button icon="sap-icon://arrow-down" type="Transparent"/&gt;
+				&lt;/m:FlexBox&gt;
+			&lt;/m:FlexBox&gt;
+		&lt;/expandedHeading&gt;
+
+		&lt;snappedHeading&gt;
+			&lt;m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center"&gt;
+				&lt;m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd"&gt;
+					&lt;f:Avatar src="../../sap/f/images/Woman_avatar_02.png" displaySize="S" class="sapUiTinyMarginEnd"/&gt;
+					&lt;m:Title text="Denise Smith" wrapping="true" class="sapUiTinyMarginEnd"/&gt;
+				&lt;/m:FlexBox&gt;
+				&lt;m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd"&gt;
+					&lt;m:ObjectMarker type="Favorite" class="sapUiTinyMarginEnd"/&gt;
+					&lt;m:ObjectMarker type="Flagged"/&gt;
+					&lt;m:Button icon="sap-icon://private" type="Transparent"/&gt;
+					&lt;m:Button icon="sap-icon://arrow-down" type="Transparent"/&gt;
+				&lt;/m:FlexBox&gt;
+			&lt;/m:FlexBox&gt;
+		&lt;/snappedHeading&gt;
+
+		&lt;expandedContent&gt;
+			&lt;m:Text text="Senior Developer" /&gt;
+		&lt;/expandedContent&gt;
+
+		&lt;snappedContent&gt;
+		   &lt;m:Text text="Senior Developer" /&gt;
+		&lt;/snappedContent&gt;
+
+		&lt;content&gt;
+			&lt;m:OverflowToolbar&gt;
+				&lt;m:Button text="KPI 1" class="sapUiTinyMargin"/&gt;
+				&lt;m:Button text="KPI 2" class="sapUiTinyMargin"/&gt;
+				&lt;m:Button text="KPI 3" class="sapUiTinyMargin"/&gt;
+				&lt;m:Button text="KPI 4" class="sapUiTinyMargin"/&gt;
+				&lt;m:Button text="KPI 5" class="sapUiTinyMargin"/&gt;
+				&lt;m:Button text="KPI 6" class="sapUiTinyMargin"/&gt;
+			&lt;/m:OverflowToolbar&gt;
+		&lt;/content&gt;
+
+		&lt;actions&gt;
+			&lt;m:OverflowToolbarButton type="Transparent" icon="sap-icon://copy"/&gt;
+			&lt;m:OverflowToolbarButton type="Transparent" icon="sap-icon://delete"/&gt;
+			&lt;m:OverflowToolbarButton type="Transparent" icon="sap-icon://add"/&gt;
+			&lt;m:OverflowToolbarButton type="Transparent" icon="sap-icon://paste"/&gt;
+		&lt;/actions&gt;
+
+		&lt;navigationActions&gt;
+			&lt;m:OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" tooltip="Enter Full Screen Mode"/&gt;
+			&lt;m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" tooltip="Close column"/&gt;
+		&lt;/navigationActions&gt;
+
+	&lt;/ObjectPageDynamicHeaderTitle&gt;
+&lt;/headerTitle&gt;
+</pre></div></div></section>
+			<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+				</p><p>When <code>sap.uxap.ObjectPageLayout</code> is given the
+						<code>sap.uxap.ObjectPageDynamicHeaderTitle</code>, it loads the
+						<code>sap.f</code> library on demand as a lazy dependency. To speed up
+					your app, you should preload the <code>sap.f</code> library directly in the
+						SAPUI5
+					bootstrap along with the other libraries needed for your app.</p>
+				<p>Example:</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">data-sap-ui-libs="sap.m,sap.uxap,sap.ui.layout,sap.f"</pre></div></div></section>
+				<p>This way, the <code>ObjectPageLayout</code> will already have
+						<code>sap.f</code> loaded and it will not need to fetch it.</p>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.uxap.sap.uxap.ObjectPageHeader" title="api/sap.uxap.sap.uxap.ObjectPageHeader" class="sap-doc" alt="api/sap.uxap.sap.uxap.ObjectPageHeader">API Reference: sap.uxap.ObjectPageHeader</a></li>
+		<li><a href="api/sap.uxap.ObjectPageDynamicHeaderTitle" title="api/sap.uxap.ObjectPageDynamicHeaderTitle" class="sap-doc" alt="api/sap.uxap.ObjectPageDynamicHeaderTitle">API Reference:
+				sap.uxap.ObjectPageDynamicHeaderTitle</a></li>
+		<li><a href="api/sap.f.DynamicPageTitle" title="api/sap.f.DynamicPageTitle" class="sap-doc" alt="api/sap.f.DynamicPageTitle">API Reference: sap.f.DynamicPageTitle</a></li>
+		<li><a href="api/sap.f.DynamicPageHeader" title="api/sap.f.DynamicPageHeader" class="sap-doc" alt="api/sap.f.DynamicPageHeader">API Reference: sap.f.DynamicPageHeader</a></li>
+	</ul></section></div></section></div></body></html>

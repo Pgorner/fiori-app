@@ -1,0 +1,164 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof5df293b96dc41699b8b357e9bcf7ed6" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/message-handling-f5df293.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Message Handling</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Message Handling</h2></div><div class="shortdesc">Recommended guidelines for message handling. </div><p>We recommend to invest care and energy in good message content: </p><ul class="ul ">
+			<li class="li">Provide short and crisp error messages to the user. </li>
+			<li class="li">A message should always contain a 'Call for Action'.</li>
+			<li class="li">To achieve the above, you need to map error messages from a back-end system. </li>
+			<li class="li">Focus on the most common error situations and improve the messages there. </li>
+			<li class="li">You need to detect all problems related to network connectivity and indicate them as such.</li>
+		</ul><section id="section_N10035_N10011_N10001"><h2 class="title ">Messages Related to a Page</h2><p>For showing messages to the user that are related to
+				the currrent page, you have several possible controls. Each of these offers a different type of interaction from the user. Choose the
+				control that fits best in you interaction pattern. </p><section>
+				<h3 class="title ">Message Dialog</h3>
+				<ul class="ul ">
+					<li class="li">A message dialog interrupts the user's workflow by blocking the current page and needs to be closed by the user. </li>
+					<li class="li">Use a message dialog if the message is important and must be acknowledged by the user. </li>
+					<li class="li">The easiest way of showing a message dialog is to use the <code>sap.m.MessageBox</code>.</li>
+					<li class="li">If you want full control of the content you can also use <code>sap.m.Dialog</code> control and set the type to
+							<code>sap.m.DialogType.Message</code>. </li>
+					<li class="li">As <code>MessageBox</code> is a static class, a <code>sap.ui.require("sap.m.MessageBox");</code> statement must be
+						explicitly executed before the class can be used.</li>
+				</ul>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	// load MessageBox asynchronously
+	sap.ui.require(['sap/m/MessageBox'], function(MessageBox) {
+	
+		// and display message
+		MessageBox.show(
+			"This message should appear in the message box.", {
+				icon: MessageBox.Icon.INFORMATION,
+				title: "My message box title",
+				actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				onClose: function(oAction) { / * do something * / }
+			}
+		);
+	});</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Message Toast</h3>
+				<ul class="ul ">
+					<li class="li">A message toast is an overlay that disappears after some time or if the user taps somewhere else. It does not block the user. </li>
+					<li class="li">The message will automatically fade out, unless it is selected by the user.</li>
+					<li class="li">Use this pattern if the message is less important and the user should not be blocked in his work. </li>
+					<li class="li">You can open a message toast easily with the <code>sap.m.MessageToast</code> API. </li>
+				</ul>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	// add MessageToast as import
+	sap.ui.define([..., 'sap/m/MessageToast', ...], function(..., MessageToast, ...) {
+
+		...
+		// show toast when needed
+		MessageToast.show("Item deleted");
+		...
+
+	});</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">MessageStrip</h3>
+				<p><code>MessageStrip</code> enables the embedding of short application-related messages in the application. There are four types
+					of messages and each is color-coded and has an icon corresponding to its type: <code>Information</code>,
+						<code>Success</code>, <code>Warning</code> and <code>Error</code>. </p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">	// add MessageStrip and MessageType as imports
+	sap.ui.define([..., 'sap/m/MessageStrip', 'sap/ui/core/library', ...], function(..., MessageToast, coreLibrary, ...) {
+	
+	...
+		var MessageType = coreLibrary.MessageType;
+		
+		var msg = new MessageStrip({
+			id: "importantMessage",
+			text: "This is a sample text",
+			type: MessageType.Error,
+			showIcon: true,
+			showCloseButton: true
+		});
+		
+	...
+	});</pre></div></div></section>
+				<p></p></div></div>
+				<p>The <code>MessageStrip</code> is useful when you want to display short notices, for example of finished background tasks, that
+					do not require further user interaction. </p>
+			</section><section>
+				<h3 class="title ">MessagePopover</h3>
+				<p><code>MessagePopover</code> displays a summarized list of different types of messages (errors, warnings, success and
+					information). It provides a handy and systemized way to navigate and explore details for every message. You can find more
+					information on <code>MessagePopover</code>
+					<a href="topic/52824a6c316a413dbd7bd5f29522dce2" title="Message Popover is used to display a summarized list of different types of messages (errors, warnings, success and information). It provides a handy and systemized way to navigate and explore details for every message." class="sap-doc">here</a>. </p>
+			</section><section>
+				<h3 class="title ">MessageView</h3>
+				<p><code>MessageView</code> displays the same type of summarized messages list as the <code>MessagePopover</code>. The main
+					difference between the controls is that the <code>MessageView</code> can be embedded in any suitable control (for example a
+						<code>Dialog</code>). This allows displaying of the message summary in any part of the application. As of version 1.46,
+					the <code>MessagePopover</code> has been refactored to automatically instantiate and use a <code>MessageView</code> for
+					its content. All other controls need to instantiate it themselves. Here is a sample for a <code>MessageView</code> in a
+						<code>Dialog:</code></p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+	sap.ui.require(['sap/m/Dialog', 'sap/m/MessageView', 'sap/m/Bar', 'sap/m/Button', 'sap/m/Text'], 
+		function(Dialog, MessageView, Bar, Button, Text) {
+	
+			// create message view 
+			var oMessageView = new MessageView({
+				showDetailsPageHeader: false,
+				itemSelect: function () {
+					that._oBackButton.setVisible(true);
+				},
+				items: {
+					path: "/",
+					template: oMessageTemplate
+				}
+			});
+
+			...
+
+			var oDialog = new Dialog({
+				title: "Messages",
+				resizable: true,
+				content: oMessageView,
+				state: 'Error',
+				beginButton: new Button({
+					press: function () {
+						oDialog.close();
+					},
+					text: "Close"
+				}),
+				customHeader: new Bar({
+					contentMiddle: [
+						new Text({ text: "Error"})
+					],
+					contentLeft: [
+						oBackButton
+					]
+				}),
+				contentHeight: "300px",
+				contentWidth: "500px",
+				verticalScrolling: false
+			});
+	
+			oDialog.open();
+			...
+		
+		}
+	);
+...</pre></div></div></section>
+			</section></section><section id="section_N1008E_N10011_N10001">
+			<h2 class="title ">Messages Related to Elements of a Page</h2>
+			<p>For showing messages to the user that are related to a specific element of a page there is no dedicated UI control available in
+					<code>sap.m</code> in this version. We recommend to use the <code>sap.ui.core.HTML</code> control to show these error
+				messages 'somewhere close to the input' or use some kind of overlay. Consider that the user will have the on screen keyboard open
+				which might hide messages. Putting the message above an input field could help. </p>
+			<p>You can set the <code>ValueState</code> of the <code>sap.m.Input</code> control to <code>Error</code> to indicate that the
+				content is not correct. </p>
+		</section><section id="section_N100AF_N10011_N10001">
+			<h2 class="title ">Multiple Messages</h2>
+			<p>SAPUI5 Mobile does <b>not</b> support multiple messages at the same time.
+				Mobile Designs recommend to be 'more sparse' with messages, that is, only show one message at a time. This can also be achieved by
+				combining and reducing multiple messages.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/52824a6c316a413dbd7bd5f29522dce2" title="Message Popover is used to display a summarized list of different types of messages (errors, warnings, success and information). It provides a handy and systemized way to navigate and explore details for every message." class="sap-doc">Message Popover</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,81 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa2c67acd17a948ee89344676762e0c2a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/creating-themable-user-interfaces-a2c67ac.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating
+		Themable
+		User Interfaces</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating
+		Themable
+		User Interfaces</h2></div><div class="shortdesc">There are several things you should keep in mind to ensure that an application can
+		actually be themed.</div><section>
+			<h2 class="title ">General Aspects</h2>
+			<p>Do not hard-code colors and fonts if you want your control or application to be
+				themable in the theme designer tool.</p>
+			<p>For example, if you hard-coded the font color to black, this color cannot be adjusted
+				when you apply a custom theme. This can be problematic if you want to apply a custom
+				theme with a dark background color because the font color cannot be adjusted to a
+				light color.</p>
+		</section><section>
+			<h2 class="title ">Stable Theme Parameters</h2>
+			<ul class="ul ">
+				<li class="li">Themes in SAPUI5
+					are built with the CSS preprocessor <a href="http://lesscss.org/" title="http://lesscss.org/" class="external-link" target="_blank" rel="noopener"> LESS</a> and make use of a
+					complex parameter structure.</li>
+				
+				<li class="li">You can
+						view the entire set of basic theme parameters in this <a href="entity/sap.ui.core.theming/sample/sap.ui.core.sample.BasicThemeParameters" title="entity/sap.ui.core.theming/sample/sap.ui.core.sample.BasicThemeParameters" class="sap-doc" alt="entity/sap.ui.core.theming/sample/sap.ui.core.sample.BasicThemeParameters">sample</a> in the Demo Kit.</li>
+				<li class="li">SAPUI5 applications
+					have access to these parameters at runtime via the API call
+						<span class="keynote apiname">Parameters.get\(\)</span> from module
+						<span class="keynote apiname">sap/ui/core/theming/Parameters</span>. These parameters not only
+					differ in terms of themes, they are also not necessarily stable across different
+					versions of SAPUI5.
+					For this reason, you cannot rely on the completeness of the set of
+					parameters.</li>
+				<li class="li">To allow developers to build theme-dependent, custom-styled applications or
+					controls, a subset of roughly 70 parameters representing colors for different
+					types of usage (such as border, backgrounds, charts) is available.</li>
+				<li class="li">The parameters in this subset can be considered as "stable", which means the
+					following: <ul class="ul ">
+						<li class="li">We will not change the naming for these parameters.</li>
+						<li class="li">The contrast ratio between foreground- colors like text and the related
+							background will remain stable.</li>
+					</ul></li>
+				<li class="li">Always choose parameters that fit best from a semantic perspective, do
+						<span class="emphasis">not</span> choose them based on their color value.</li>
+				<li class="li">This set is available across all predefined themes and should be handled with care. You
+					should test your implementations for all themes to ensure the results are as expected.<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>This approach can only cover the most common use cases. In addition, be
+							aware that due to parameter value changes with future versions of SAPUI5 it
+							might be necessary to rework your applications even when using the
+							"stable" theme parameters described here.</p>
+					<p></p></div></div></li>
+				<li class="li">For charts, two individual sets are available, Chart Accent and Chart Semantic.
+					Both sets are logically independent. Therefore only one of these sets is to be
+					used consistently across individual charts.</li>
+				
+			</ul>
+		</section><section>
+			<h2 class="title ">Tips for SAPUI5
+				Application Developers Writing Custom HTML</h2>
+			<ul class="ul ">
+				<li class="li">LESS parameters are not accessible via CSS and only support standard
+					libraries.</li>
+				<li class="li">To ensure theme-dependent styling, only use basic theme parameters.</li>
+				<li class="li">Read appropriate parameter values via API and set the elements' CSS properties rather than
+					hard-coding colors or borrowing arbitrary style classes from control
+					sets:<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/theming/Parameters"], function(Parameters){
+    var myColor = Parameters.get("sapUiButtonHoverBorderColor");
+});</pre></div></div></section></li>
+			</ul>
+		</section><section>
+			<h2 class="title "> Tips for SAPUI5
+				Control Developers </h2>
+			<ul class="ul ">
+				<li class="li">Use the theme LESS parameters in CSS class definitions and rules.</li>
+				<li class="li">Use the appropriate level of parameters for the control, creating new ones as
+					appropriate. For example, do not use color values or quick theming parameters
+					directly in CSS rules.</li>
+				<li class="li">Follow the control parameter hierarchy conventions.</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

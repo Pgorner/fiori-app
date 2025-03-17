@@ -1,0 +1,8 @@
+/*
+ * ! SAP UI development toolkit for HTML5 (SAPUI5)
+
+        (c) Copyright 2009-2015 SAP SE. All rights reserved
+    
+ */
+sap.ui.define(["jquery.sap.global","sap/ui/core/Control","../Extension"],function(jQuery,e,t){"use strict";var i=t.extend("sap.ui.vtm.extensions.SceneNodeHoverHighlightExtension",{metadata:{interfaces:["sap.ui.vtm.interfaces.ISceneNodeHoverHighlightExtension"],properties:{highlightColor:{type:"sap.ui.core.CSSColor",defaultValue:"rgba(0, 0, 255, 0.7)"}}},constructor:function(e,i){t.apply(this,arguments)},initialize:function(){this._panelPanelInitialized=new Map;this.applyPanelHandler(function(e){var t=e.getViewport();var i=this._vtm.getScene();i.attachLoadCompleted(function(i){if(!i.getParameter("succeeded")){return}if(this._panelPanelInitialized.get(e)){return}this._panelPanelInitialized.set(e,true);var n=new sap.ui.vtm.DisplayGroup;var a=n.getDisplayStatesBySceneNodeId();var r=sap.ve.dvl.DVLID_INVALID;t.addOverrideDisplayGroup(n);var s=function(){if(r){if(a[r]){delete a[r]}}};var o=function(e,t){if(e!==sap.ve.dvl.DVLID_INVALID){a[e]={highlightColor:t}}};this.attachEnabledChanged(function(e){if(this.getEnabled()&&r){o(r,this.getHighlightColor())}else{s()}t.refresh()}.bind(this));t.addEventDelegate({onmouseout:function(){s();r=sap.ve.dvl.DVLID_INVALID;t.refresh()}},t);t.attachHover(function(e){var i=e.getParameter("nodeId");if(!this.getEnabled()){r=i;return}if(i!==r){s();r=i;o(i,this.getHighlightColor());t.refresh()}}.bind(this));t.attachBeginGesture(function(e){s();r=sap.ve.dvl.DVLID_INVALID;t.refresh()})}.bind(this))}.bind(this))}});return i});
+//# sourceMappingURL=SceneNodeHoverHighlightExtension.js.map

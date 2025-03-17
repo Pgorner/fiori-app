@@ -1,0 +1,63 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio196a7cd972e24983ac891a7d1cf8fc5b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/enable-a-library-for-design-time-usage-196a7cd.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enable a Library for Design-Time Usage</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enable a Library for Design-Time Usage</h2></div><div class="shortdesc">To enable a library for design-time usage, follow the steps described here.</div><section id="context_ffr_rgd_gyb" class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+			<p>These steps  need to be done only once for a library that contains multiple controls.</p>
+		</div></section><section class="section steps  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Procedure</h2></div><ol class="fig">
+			<li class="step">
+				<span class="cmd">Create a <code>designtime</code> folder in the root of the library
+					(<code>&lt;lib_namespace&gt;/designtime</code>).</span>
+			</li>
+			<li class="step">
+				<span class="cmd">Create a <code>library.designtime.js</code> file in this folder
+						(<code>&lt;lib_namespace&gt;/designtime/library.designtime.js</code>).</span>
+				<div class="itemgroup info">
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Initial Content (replace
+							<code>&lt;lib_namespace&gt;</code>)</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/**
+ * Initialization of design-time code and shared classes for the library &lt;lib_namespace&gt;.
+ */
+sap.ui.define([], function() {
+    "use strict";
+    return {};
+});</pre></div></div></section><p></p></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">Open the <code>library.js</code> file of the library and add the module path to the
+						<code>library.designtime.js</code> file.</span>
+				<div class="itemgroup info">
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(['sap/ui/core/Lib'], function(Library) {
+...
+    Library.init({
+        name : "<var class="varname">lib_namespace</var>",
+        apiVersion: 2,
+        version: "${version}",
+        dependencies : ["sap.ui.core"],
+        designtime: "&lt;lib_namespace&gt;/designtime/library.designtime" //HERE
+    });
+});</pre></div></div></section>
+					<p></p></div></div>
+				</div>
+			</li>
+			<li class="step">
+				<span class="cmd">If you're using translated texts in your <code>designtime</code> file, add a
+						<code>messagebundle.properties</code> file and include the texts.</span>
+				<div class="itemgroup info">
+					<p>Provide a new GUID for the message bundle, like in line 2 in the following example:</p>
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">#This is the resource bundle for design time of the &lt;lib_namespace&gt; library
+#__ldi.translation.uuid=35653b13-1ec8-4fb2-83d9-ac4d31591f1d
+
+#XMIT: Radio button control name caption
+RADIOBUTTON_NAME=Radio Button
+</pre></div></div></section>
+					<p></p></div></div>
+				</div>
+			</li>
+		</ol></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

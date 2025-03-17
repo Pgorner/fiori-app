@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/ui/core/Element","sap/m/CheckBox"],function(e,t){"use strict";var a=e.extend("sap.gantt.simple.ListLegendItem",{metadata:{library:"sap.gantt",properties:{legendName:{type:"string"},interactive:{type:"boolean",defaultValue:false},selected:{type:"boolean",defaultValue:true},visible:{type:"boolean",defaultValue:true}},defaultAggregation:"shape",aggregations:{shape:{type:"sap.gantt.simple.BaseShape",group:"Misc",multiple:false,defaultValue:null},legendShapeGroup:{type:"sap.gantt.simple.LegendShapeGroup",group:"Misc",multiple:false,defaultValue:null},_checkbox:{type:"sap.m.CheckBox",multiple:false,visibility:"hidden"}},events:{interactiveChange:{parameters:{legendName:{type:"string"},value:{type:"boolean"}}}},designtime:"sap/ui/dt/designtime/notAdaptable.designtime"}});a.prototype.init=function(){var e=new t({selected:this.getSelected()}).attachSelect(this._onInteractiveChange,this);this.setAggregation("_checkbox",e);this._getInteractiveCheckBox().setVisible(this.getInteractive())};a.prototype.setInteractive=function(e){this.setProperty("interactive",e,true);this._getInteractiveCheckBox().setVisible(e);return this};a.prototype.setSelected=function(e){this.setProperty("selected",e,true);this.getAggregation("_checkbox").setSelected(e);return this};a.prototype._getInteractiveCheckBox=function(){return this.getAggregation("_checkbox")};a.prototype._onInteractiveChange=function(e){this.fireInteractiveChange({legendName:this.getLegendName(),value:e.getParameter("selected")});this.setSelected(e.getParameter("selected"))};return a},true);
+//# sourceMappingURL=ListLegendItem.js.map

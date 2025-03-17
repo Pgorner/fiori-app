@@ -1,0 +1,94 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5d49e31cd38048bc9557179cdc453e86" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adding-subpages-5d49e31.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adding Subpages</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adding Subpages</h2></div><div class="shortdesc">You can add additional subpages based on the object page template to your app, and, if required, remove them again.</div><p>We recommend that you use <a href="https://help.sap.com/viewer/product/SAP_FIORI_tools/Latest/en-US" title="https://help.sap.com/viewer/product/SAP_FIORI_tools/Latest/en-US" class="external-link" target="_blank" rel="noopener">SAP Fiori tools</a>, which is a set of extensions for SAP Business Application Studio and Visual Studio Code, to add, remove, and
+            configure pages with the Page Map tool.</p><section id="section_aqf_fpr_1mb">
+            <h2 class="title ">Adding and Removing Further Subpages Manually</h2>
+            <p>You can add further subpages manually in the <code>manifest.json</code> file
+                post-generation.</p>
+            
+        </section><section id="section_yg2_j1k_ctb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>You can also use the SAP Fiori
+                generator
+                to create
+                a
+                subpage (detail page) for the object page when you create your app. This is expressed in the code as a 1:n association to the root
+                entity and is rendered as a table on the
+                
+                page.</p><p>
+                
+                </p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app":{
+   "pages":{
+      "entitySet":"SEPMRA_I_ProductWithDraft",
+      "component":{
+         "name":"sap.suite.ui.generic.template.ListReport",
+         "list":true
+      },
+      "pages":{
+         "entitySet":"SEPMRA_I_ProductWithDraft",
+         "component":{
+            "name":"sap.suite.ui.generic.template.ObjectPage"
+         },
+         "pages":{
+            "entitySet":"SEPMRA_I_ProductTextWithDraft",
+            "navigationProperty":"to_ProductText",
+            "component":{
+               "name":"sap.suite.ui.generic.template.ObjectPage"
+            }
+         }
+      }
+   }
+},</pre></div></div></section>
+            <p></p><p>When first and second level entities are
+                selected during app creation, navigation from the object page to the subpage is automatic based on the configuration. You can remove
+                this configuration from the manifest to delete the subpage and its corresponding link from the object
+                page.</p><p>
+                </p><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>SAP Web IDE is no longer available
+                                via SAP Business Technology Platform trial accounts. Any references to SAP Web IDE in this documentation are only relevant for you if you
+                                have access to SAP Web IDE through a productive SAP BTP account. Please consider SAP Business Application Studio as an alternative. See <a href="topic/6bbad66475d040f39df6fbbaabe6f40f" title="Learn how you can use SAP Business Application Studio together with UI5 Tooling to develop state-of-the-art UI5 apps." class="sap-doc">App Development Using SAP Business Application Studio</a>.</p></div></div>
+            <p></p></div></section><section id="section_c4c_k1k_ctb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>To add a
+                subpage
+                manually,
+                you need two objects in the <code>manifest.json</code> file.</p><ol>
+                <li class="li">
+                    <p>Route: to be added to the <code>routing</code> section. This specifies
+                        the target to be used.</p>
+                </li>
+                <li class="li">
+                    <p>Target: to specify the component to be loaded.</p>
+                </li>
+            </ol><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+        ...
+        "routing": {
+                ...
+                {
+                    "pattern": "SalesOrderManage({key})/_Item({key2}):?query:",
+                    "name": "SalesOrderItemObjectPage",
+                    "target": "SalesOrderItemObjectPage"
+                }
+            ],
+            "targets": {
+                "SalesOrderItemObjectPage": {
+                    "type": "Component",
+                    "id": "SalesOrderItemObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/SalesOrderItem",
+                            ...
+                        }
+                    }
+                }
+            }
+        }
+    }
+</pre></div></div></section><p>To remove the
+                    <code>Subpage</code>,
+                the route and the target must be
+                removed.</p></div></section><section id="section_tcd_xsm_bmb">
+            <h2 class="title ">More Information</h2>
+            <p>For information about defining an external navigation target using intent-based
+                navigation, see
+                <a href="topic/8bd546e27a5f41cea6e251ba04534d70" title="Navigation from the list report view to the object page in the same app is enabled by default. If required, you can disable this navigation or replace it with navigation to another app (external navigation)." class="sap-doc">Changing Navigation to Object Page</a>.
+                .</p>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

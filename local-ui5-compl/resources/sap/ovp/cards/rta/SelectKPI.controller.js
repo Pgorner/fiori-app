@@ -1,0 +1,5 @@
+/*!
+ * Copyright (c) 2009-2014 SAP SE, All Rights Reserved
+ */
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/model/Filter","sap/ui/model/FilterOperator"],function(e,t,i){"use strict";return e.extend("sap.ovp.cards.rta.SelectKPI",{onInit:function(){},onAfterRendering:function(){},_filterTable:function(e,n,r){var o=e.getParameter("query"),a=null,l=[];for(var s=0;s<n.length;s++){l.push(new t(n[s],i.Contains,o))}if(o){a=new t(l,false)}this.getView().byId(r).getBinding("items").filter(a,"Application")},onSearch:function(e){var t=this.getView(),i=t.getModel(),n;this._filterTable(e,["GroupTitle","KPITitle","GroupID","KPIID","KPIQualifier"],"KPITable");n=t.byId("KPITable").getBinding("items").getLength();i.setProperty("/NoOfKPIItem",n);i.refresh(true)},onItemPress:function(e){var t=e.getSource(),i=t.getBindingContext(),n=i.getObject();this.updateKPIItemPath(n,e)}})});
+//# sourceMappingURL=SelectKPI.controller.js.map

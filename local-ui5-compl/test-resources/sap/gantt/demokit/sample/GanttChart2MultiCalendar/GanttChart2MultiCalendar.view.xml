@@ -1,0 +1,160 @@
+<mvc:View height="100%"
+	controllerName="sap.gantt.sample.GanttChart2MultiCalendar.GanttChart2MultiCalendar"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:gnt="sap.gantt"
+	xmlns:gnt-def="sap.gantt.def"
+	xmlns:gnt-pattern="sap.gantt.def.pattern"
+	xmlns:gnt-cal="sap.gantt.def.cal"
+	xmlns:axistime="sap.gantt.axistime"
+	xmlns:config="sap.gantt.config"
+	xmlns:gnt2="sap.gantt.simple"
+	xmlns:rm="sap.ui.table.rowmodes">
+
+	<gnt2:GanttChartContainer id="container">
+		<gnt2:ganttCharts>
+			<gnt2:GanttChartWithTable id="gantt1" ghostAlignment="Start" enableSelectAndDrag="false" adhocLineLayer="Bottom"
+				shapeResize="onShapeResize"
+				shapeDrop="onShapeDrop"
+				shapeConnect="onShapeConnect"
+				shapeOverRelationship="false"
+				showExportTableToExcel="true"
+				shapePress="onShapePress"
+				shapeSelectionMode="MultiWithKeyboardAndLasso">
+					<gnt2:table>
+						<TreeTable
+							selectionMode="Single"
+							selectionBehavior="RowSelector"
+							enableColumnReordering="true"
+							rows="{
+								path: 'data>/ProjectElems',
+								parameters: {
+									operationMode: 'Server',
+									numberOfExpandedLevels: 2,
+									treeAnnotationProperties: {
+										hierarchyNodeFor: 'ObjectID',
+										hierarchyParentNodeFor: 'ParentObjectID',
+										hierarchyLevelFor: 'HierarchyNodeLevel',
+										hierarchyDrillStateFor: 'DrillDownState',
+										hierarchyNodeDescendantCountFor: 'Magnitude'
+									}
+								}
+							}">
+							<rowSettingsTemplate>
+								<gnt2:GanttRowSettings rowId="{data>ObjectID}" calendars="{path:'data>to_NonWorkingTime',templateShareable:false}" calendars1="{path:'data>to_DownTime',templateShareable:false}">
+									<gnt2:calendars>
+										<gnt2:BaseCalendar 
+										shapeId="{data>NonWorkingTimeID}"
+											time="{data>NonWorkingStartDate}" endTime="{data>NonWorkingEndDate}"
+											fill="@sapUiChartPaletteQualitativeHue9"
+											tooltip ="Non working time"
+											/>
+									</gnt2:calendars>
+									<gnt2:calendars1>
+										<gnt2:BaseCalendar 
+											time="{data>DownTimeStartDate}" endTime="{data>DownTimeEndDate}"
+											fill="@sapUiChartPaletteSemanticNeutralLight3"
+											/>
+									</gnt2:calendars1>
+									<gnt2:shapes1>
+										<gnt2:BaseRectangle title="{data>ObjectName}"
+															shapeId="{data>ObjectID}"
+															time="{data>StartDate}" endTime="{data>EndDate}"
+															tooltip="{data>ObjectName}"
+															fill="#0092D1"
+															resizable="true"
+															draggable="true"
+															selectable="true"
+															hoverable="true"
+															height="19"
+															horizontalTextAlignment="Start"
+															verticalTextAlignment="Center"
+															/>
+									</gnt2:shapes1>
+								</gnt2:GanttRowSettings>
+							</rowSettingsTemplate>
+							<rowMode>
+								<rm:Auto minRowCount="12"/>
+							</rowMode>
+							<columns>
+								<Column sortProperty="ObjectName" filterProperty="ObjectName">
+									<customData>
+										<core:CustomData key="exportTableColumnConfig"
+											value='{"columnKey": "ObjectName",
+											"leadingProperty":"ObjectName",
+											"dataType": "string",
+											"hierarchyNodeLevel": "HierarchyNodeLevel",
+											"wrap": true}' />
+									</customData>
+									<m:Text text="Object Name"/>
+									<template>
+										<m:Label text="{data>ObjectName}"/>
+									</template>
+								</Column>
+								<Column sortProperty="StartDate" filterProperty="StartDate">
+									<customData>
+										<core:CustomData key="exportTableColumnConfig"
+											value='{"columnKey": "StartDate",
+											"leadingProperty":"StartDate",
+											"displayFormat": "mmm-dd, yyyy",
+											"dataType": "stringDate"}' />
+									</customData>
+									<m:Text text="Start Date" />
+									<template>
+										<m:DatePicker dateValue="{data>StartDate}"/>
+									</template>
+								</Column>
+								<Column sortProperty="EndDate" filterProperty="EndDate">
+									<customData>
+										<core:CustomData key="exportTableColumnConfig"
+											value='{"columnKey": "EndDate",
+											"leadingProperty":"EndDate",
+											"displayFormat": "mmm-dd, yyyy",
+											"dataType": "dateTime"}' />
+									</customData>
+									<m:Text text="End Date" />
+									<template>
+										<m:DatePicker dateValue="{data>EndDate}"/>
+									</template>
+								</Column>
+							</columns>
+						</TreeTable>
+					</gnt2:table>
+
+					<gnt2:simpleAdhocLines>
+						<gnt2:AdhocLine stroke="#FF0000" strokeDasharray="5, 1" timeStamp="20160813000000"/>
+						<gnt2:AdhocLine stroke="#FFD700" strokeDasharray="5, 2" timeStamp="20161213000000"/>
+					</gnt2:simpleAdhocLines>
+
+					<gnt2:axisTimeStrategy>
+						<axistime:ProportionZoomStrategy>
+							<axistime:totalHorizon>
+								<config:TimeHorizon startTime="20160501000000" endTime="20170901000000"/>
+							</axistime:totalHorizon>
+							<axistime:visibleHorizon>
+								<config:TimeHorizon startTime="20160501000000" endTime="20170601000000"/>
+							</axistime:visibleHorizon>
+						</axistime:ProportionZoomStrategy>
+					</gnt2:axisTimeStrategy>
+
+					<!-- <gnt2:calendarDef>
+						<gnt-cal:CalendarDefs defs2="{path:'data>/ProjectElems', parameters: {expand:'to_NonWorkingTime'}}" defs1="{path:'data>/ProjectElems', parameters: {expand:'to_DownTime'}}">
+							<gnt-cal:defs2>
+								<gnt-cal:Calendar key="NonWorkingTime" timeIntervals="{path:'data>to_NonWorkingTime', templateShareable: 'true'}" backgroundColor="sapUiChartPaletteQualitativeHue9">
+									<gnt-cal:TimeInterval startTime="{data>NonWorkingStartDate}" endTime="{data>NonWorkingEndDate}"/>
+								</gnt-cal:Calendar>
+							</gnt-cal:defs2>
+							<gnt-cal:defs1>
+								<gnt-cal:Calendar key="DownTime" timeIntervals="{path:'data>to_DownTime', templateShareable: 'true'}" backgroundColor="sapUiChartPaletteSemanticNeutralLight3">
+									<gnt-cal:TimeInterval startTime="{data>DownTimeStartDate}" endTime="{data>DownTimeEndDate}"/>
+								</gnt-cal:Calendar>
+							</gnt-cal:defs1>
+						</gnt-cal:CalendarDefs>
+					</gnt2:calendarDef> -->
+
+			</gnt2:GanttChartWithTable>
+		</gnt2:ganttCharts>
+	</gnt2:GanttChartContainer>
+</mvc:View>

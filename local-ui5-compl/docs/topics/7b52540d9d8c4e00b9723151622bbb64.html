@@ -1,0 +1,123 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7b52540d9d8c4e00b9723151622bbb64" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/defining-the-control-metadata-7b52540.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Defining the Control Metadata</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Defining the Control Metadata</h2></div><div class="shortdesc">Control metadata consists of properties, events, as well as aggregations and
+		associations.</div><p>The control metadata is defined as follows:</p><ul class="ul ">
+			<li class="li">
+				<p>Properties</p>
+				<p>A property has a name and an associated data type. It has a well-defined default
+					value expressed as a literal of that data type. Properties are accessible to
+					application code via the element's API as getters and setters, but are also used
+					by a control's renderer in a read-only way. The following list gives an overview
+					of the most important settings for a property:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>type</code>: Data type of the control property; SAPUI5
+							provides an automatic type validation. Valid types are, for example,
+								<code>string</code> (default) for a string property,
+								<code>int</code> or <code>float</code> for number
+							properties, <code>int[]</code>, etc. for arrays and
+								<code>sap.ui.core.CSSSize</code> for a custom-defined type.</p>
+						<p>For more information, see <a href="topic/ac56d92162ed47ff858fdf1ce26c18c4" title="ac56d92162ed47ff858fdf1ce26c18c4.xml" class="sap-doc">Defining Control Properties</a>.</p>
+					</li>
+					<li class="li">
+						<p><code>defaultValue</code>: Default value that is set if the
+							application does not set a value; if no default value is defined, the
+							property value is <code>undefined</code>.</p>
+					</li>
+				</ul>
+				<p>These control-specific settings are only available when inheriting from a control
+					or one of the base classes <code>sap.ui.core.Control</code>,
+						<code>sap.ui.core.Element</code>,
+						<code>sap.ui.base.ManagedObject</code>, see <a href="topic/91f29fea6f4d1014b6dd926db0e91070" title="SAPUI5 supports the extension of plain objects that are not elements or controls." class="sap-doc">Object Metadata and Implementation</a>. For a complete list of the
+					possible settings, see <a href="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend" title="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend">API Reference:
+								<code>sap.ui.base.ManagedObject.extend</code></a>.</p>
+			</li>
+			<li class="li">
+				<p>Events</p>
+				<p>An event has a name as well as any number of parameters. The element's API offers
+					support to manage event subscriptions.</p>
+				<p>It is defined by its name only.</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">events: {
+   "logout": {}
+}</pre></div></div></section>
+				<p>For each event, methods for registering, de-registering and firing the event are created. For
+					the <code>logout</code> event, for example, the
+						<code>attachLogout</code>, <code>detachLogout</code>,
+						<code>fireLogout</code> methods are created.</p>
+				<p>A control can enable events to be interrupted by the application. A tab control, for example,
+					can enable the application to cancel a <code>close</code> event by setting
+					the <code>allowPreventDefault</code> property of the event to
+						<code>true</code> and checking the return value after firing the
+					event:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">events: {
+   "close": {allowPreventDefault : true}  
+}</pre></div></div></section>
+			</li>
+			<li class="li">
+				<p>Aggregations and Associations</p>
+				<p>An <span class="emphasis">aggregation</span> is a special relation between two UI element
+					types. It is used to define the parent-child relationship within the above
+					mentioned tree structure. The parent end of the aggregation has cardinality
+						<code>0..1</code>, while the child end may have <code>0..1</code> or
+						<code>0..*</code>. The element's API offers convenient and consistent
+					methods to deal with aggregations (e.g. to get, set, or remove target elements).
+					Examples are table rows and cells, or the content of a table cell.</p>
+				<p>An <span class="emphasis">association</span> is another type of relation between two UI
+					element types which is independent of the parent-child relationship within the
+					above mentioned tree structure. Directed outgoing associations to a target of
+					cardinality <code>0..1</code> are supported. They represent a loose coupling
+					only and are thus implemented by storing the target element instance's ID. The
+					most prominent example is the association between a label and its field.</p>
+				<p>Aggregations and associations are defined by their name and a configuration
+					object with the following information:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>
+							<code>type</code>: The type should be a subclass of the element or
+							the control; the default is <code>sap.ui.core.control</code></p>
+					</li>
+					<li class="li">
+						<p>
+							<code>multiple</code>: Defines whether it is a 0..1 aggregation or a
+							0..n aggregation; the default for aggregations is <code>true</code>
+							= 0..n, and for associations the default is <code>false</code></p>
+					</li>
+					<li class="li">
+						<p>
+							<code>singularName</code>: For 0..n aggregations, the aggregation
+							name typically is plural, but certain methods are created where the
+							singular form is required (for example, <code>addWorksetItem</code>}
+							for the "worksetItems" aggregation). </p>
+					</li>
+				</ul>
+				<p>If only the type needs to be set, you can just give it as a string instead of the
+					configuration object. </p>
+				<p>One example: </p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">aggregations: {
+   "acceptButton" : "sap.m.Button", // if only type is given, no object is required
+   "content" : {singularName: "content"},    // default type is "sap.ui.core.Control", 
+                                             // which is appropriate for generic containers
+   "toolbarItems" : {type : "sap.m.Button", multiple : true, singularName : "toolbarItem"}
+                                             // a fully specified aggregation
+}</pre></div></div></section>
+				<p>Multiple methods are created automatically at runtime, depending on the multiplicity, for
+					example <code>getWorksetItems</code>, <code>insertWorksetItem</code>,
+						<code>addWorksetItem</code>, <code>removeWorksetItem</code>,
+						<code>removeAllWorksetItems</code>, <code>indexOfWorksetItem</code>,
+						<code>destroyWorksetItems</code>. These methods have a default
+					implementation which does everything to handle the aggregation properly, but
+					they can be overridden and extended by the control implementation.</p>
+				<p>If you want to mark one aggregation as default aggregation in order to be able to omit the
+					aggregation tag in XML views, you can do this by setting the
+						<code>defaultAggregation</code> property to the name of the aggregation
+					as shown in the following code snippet:</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">aggregations: {
+   "content": {singularName: "content"} // default type is "sap.ui.core.Control", multiple is "true"
+
+},
+defaultAggregation: "content"</pre></div></div></section>
+			</li>
+		</ul><p>For a brief explanation of the differences between an aggregation and an association, see the
+				<span class="ph uicontrol">Control Metadata</span> section under <a href="topic/91f0a22d6f4d1014b6dd926db0e91070" title="Controls are used to define the appearance and behavior of screen areas." class="sap-doc">Working with Controls</a>. For a complete list of the possible
+			settings, see <a href="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend" title="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/sap.ui.base.ManagedObject.extend">API Reference:
+						<code>sap.ui.base.ManagedObject.extend</code></a>.</p><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/91f29fea6f4d1014b6dd926db0e91070">Object Metadata and Implementation</a></li><li><a href="topic/ac56d92162ed47ff858fdf1ce26c18c4">Defining Control Properties</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

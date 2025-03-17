@@ -1,0 +1,47 @@
+<mvc:View controllerName="applicationUnderTest.smartfilterbar_DDR_mandatory.SmartFilterBar"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:l="sap.ui.layout"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:sv="sap.ui.comp.smartvariants"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
+
+	<App>
+		<pages>
+			<f:DynamicPage id="dynamicPage" class="sapUiSizeCompact">
+				<f:header>
+					<f:DynamicPageHeader>
+						<f:content>
+							<smartFilterBar:SmartFilterBar id="smartFilterBar"
+														   advancedMode="false"
+														   smartVariant="__SVM01"
+														   persistencyKey="smartfilterbar_types_sfb"
+														   liveMode="false"
+														   considerAnalyticalParameters="true"
+														   showRestoreOnFB="true"
+														   entitySet="ZEPM_C_SALESORDERITEMQUERYResults"
+														   useToolbar="false"
+														   useDateRangeType="true"
+														   enableBasicSearch="true">
+									<smartFilterBar:customData>
+<!--										USC is false for the opa test to be able to calculate expected result in the query-->
+										<core:CustomData key="dateFormatSettings" value='\{"UTC":false,"style":"short"\}' />
+									</smartFilterBar:customData>
+									<smartFilterBar:controlConfiguration>
+							<!--				//Test1-->
+											<smartFilterBar:ControlConfiguration
+													key="DDR_Mandatory" visibleInAdvancedArea="true"
+													conditionType="{module: 'sap.ui.comp.config.condition.DateRangeType'}" />
+									</smartFilterBar:controlConfiguration>
+							</smartFilterBar:SmartFilterBar>
+
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+			</f:DynamicPage>
+		</pages>
+	</App>
+</mvc:View>

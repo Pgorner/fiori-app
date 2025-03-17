@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8">
+
+<title>Testpage - sap.suite.ui.microchart.HarveyBallMicroChart</title>
+
+<base href="../../../../../">
+
+<script id="sap-ui-bootstrap"
+	data-sap-ui-async="true"
+	data-sap-ui-compat-version="edge"
+	data-sap-ui-libs="sap.ui.layout, sap.m, sap.suite.ui.microchart"
+	data-sap-ui-theme="sap_horizon"
+	src="resources/sap-ui-core.js"
+	data-sap-ui-on-init="module:local/controller/HarveyBallMicroChart.controller"
+	data-sap-ui-resourceroots='{"local": "test-resources/sap/suite/ui/microchart/"}'
+	>
+</script>
+
+<script id="view1" type="sapui5/xmlview">
+	<mvc:View controllerName="test" xmlns="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m">
+		<m:Table items="{/items}">
+			<m:columns>
+				<m:Column demandPopin="true" minScreenWidth="Tablet">
+					<m:Text text="Chart" />
+				</m:Column>
+			</m:columns>
+			<m:items>
+				<m:ColumnListItem>
+					<m:cells>
+						<m:FlexBox height="100px" width="100px">
+							<HarveyBallMicroChart id="chart"
+								press="press"
+								size="Responsive"
+								total="{total}"
+								totalLabel ="{totalLabel}"
+								totalScale="{totalScale}"
+								items="{path: 'items', templateShareable:false}">
+								<items>
+									<HarveyBallMicroChartItem fraction="{fraction}" fractionLabel="{fractionLabel}" fractionScale="{fractionScale}" />
+								</items>
+							</HarveyBallMicroChart>
+						</m:FlexBox>
+					</m:cells>
+				</m:ColumnListItem>
+			</m:items>
+		</m:Table>
+	</mvc:View>
+</script>
+</head>
+
+<body class="sapUiBody" role="application">
+	<div id="content"></div>
+</body>
+</html>

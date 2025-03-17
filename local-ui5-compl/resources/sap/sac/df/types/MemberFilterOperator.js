@@ -1,0 +1,7 @@
+/*!
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define("sap/sac/df/types/MemberFilterOperator",["sap/sac/df/types/ComparisonOperator"],function(r){"use strict";var E={EQ:[{Operator:r.EQUAL,Sign:"INCLUDING"},{Operator:r.NOT_EQUAL,Sign:"EXCLUDING"}],NE:[{Operator:r.NOT_EQUAL,Sign:"INCLUDING"},{Operator:r.EQUAL,Sign:"EXCLUDING"}],LT:[{Operator:r.LESS_THAN,Sign:"INCLUDING"},{Operator:r.GREATER_THAN,Sign:"EXCLUDING"}],LE:[{Operator:r.LESS_EQUAL,Sign:"INCLUDING"},{Operator:r.GREATER_EQUAL,Sign:"EXCLUDING"}],GT:[{Operator:r.GREATER_THAN,Sign:"INCLUDING"},{Operator:r.LESS_THAN,Sign:"EXCLUDING"}],GE:[{Operator:r.GREATER_EQUAL,Sign:"INCLUDING"},{Operator:r.LESS_EQUAL,Sign:"EXCLUDING"}],BT:[{Operator:r.BETWEEN,Sign:"INCLUDING"},{Operator:r.NOT_BETWEEN,Sign:"EXCLUDING"}],NB:[{Operator:r.NOT_BETWEEN,Sign:"INCLUDING"},{Operator:r.BETWEEN,Sign:"EXCLUDING"}],Contains:[{Operator:r.LIKE,Sign:"INCLUDING"}],NotContains:[{Operator:r.LIKE,Sign:"EXCLUDING"}],StartsWith:[{Operator:r.LIKE,Sign:"INCLUDING"}],NotStartsWith:[{Operator:r.LIKE,Sign:"EXCLUDING"}],EndsWith:[{Operator:r.LIKE,Sign:"INCLUDING"}],NotEndsWith:[{Operator:r.LIKE,Sign:"EXCLUDING"}]};return E});
+//# sourceMappingURL=MemberFilterOperator.js.map

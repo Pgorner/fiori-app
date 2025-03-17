@@ -1,0 +1,177 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio121b8e6337d147af9819129e428f1f75" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/controller-121b8e6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Controller</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Controller</h2></div><div class="shortdesc">A controller contains methods that define how models and views interact.</div><p>You define a simple controller as follows:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/mvc/Controller"
+], function(Controller) {
+    "use strict";
+    return Controller.extend("sap.hcm.Address", {
+        // controller logic goes here
+    });
+});</pre></div></div></section><p>The string in quotes specifies the controller name. The controller file's name should be
+			named as the string in the quotes, <code>Address.controller.js</code>. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>The suffix <code>.controller.js</code> is mandatory for controllers.</p>
+		<p></p></div></div><section id="section_EF7E041513E34F3FAB23FCF5F5BB1F8B">
+			<h2 class="title ">Lifecycle Hooks</h2>
+			<p>SAPUI5 provides
+				predefined lifecycle hooks for implementation. You can add event handlers or other
+				functions to the controller and the controller can fire events, for which other
+				controllers or entities can register. </p>
+			<p>SAPUI5 provides the
+				following lifecycle hooks: </p>
+			<ul class="ul ">
+				<li class="li">
+					<p>
+						<code>onInit()</code>: Called when a view is instantiated and its
+						controls (if available) have already been created; used to modify the view
+						before it is displayed to bind event handlers and do other one-time
+						initialization </p>
+				</li>
+				<li class="li">
+					<p><code>onExit()</code>: Called when the view is destroyed; used to free
+						resources and finalize activities </p>
+				</li>
+				<li class="li">
+					<p><code>onAfterRendering()</code>: Called when the view has been rendered,
+						and therefore, its HTML is part of the document; used to do post-rendering
+						manipulations of the HTML. SAPUI5 controls
+						get this hook after being rendered. </p>
+				</li>
+				<li class="li">
+					<p><code>onBeforeRendering()</code>: Called every time the view is rendered,
+						before the renderer is called and the HTML is placed in the DOM tree.</p>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>For controllers without a view, no lifecycle
+				hooks are called.</p></div></div>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/mvc/Controller"
+], function(Controller) {
+    "use strict";
+    return Controller.extend("sap.hcm.Address", {
+        onInit: function() {
+            this.counter = 0;
+        }
+    });
+});</pre></div></div></section>
+			<p></p></div></div>
+		</section><section id="section_F8A9D332F0C347529B0C97330B1C9B2F">
+			<h2 class="title ">Event Handlers and Other Functions</h2>
+			<p>In addition to lifecycle hooks, a controller can define additional methods that serve
+				as event handlers or additional functionality offered by the controller. </p>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/mvc/Controller"
+], function(Controller) {
+    "use strict";
+    return Controller.extend("sap.hcm.Address", {
+        increaseCounter: function() {
+            this.counter++;
+        }
+    });
+});</pre></div></div></section>
+			<p></p></div></div>
+		</section><section id="section_vsy_gkm_n2b">
+			<h2 class="title "><code>Methods</code> Section in the Controller Metadata</h2>
+			<p>By default, all methods that <span class="emphasis">do not</span> start with an underscore or
+				with prefix "on", "init" or "exit" are public. You can get all public methods of a
+				controller by using the
+					<code>oController.getMetadata().getPublicMethods()</code> API.</p>
+			<p>When you use the new <code>methods</code> section in the controller metadata,
+				only functions prefixed by "_" become private by default. In addition, you get the
+				possibility to control the visibility, flag methods as final, or define an
+					<code>overrideExecution</code> strategy. The same applies for the new
+				controller extension metadata. This makes the definition of a public interface more
+				flexible.</p>
+			<p>Only public methods and methods that are not flagged as final could be overridden by
+				a controller extension.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If you don't use the new <code>methods</code> definition for controllers, you
+					could override the <code>onInit</code>, <code>onExit</code>,
+						<code>onAfterRendering</code> and <code>onBeforeRendering</code>
+					methods of the controller even if they are private by default.</p>
+			<p></p></div></div>
+			<p>The following sample code shows how to define an extension to an existing
+				controller.</p>
+			<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>Sample controller
+				extension:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/core/mvc/OverrideExecution'], function (Controller, OverrideExecution) {
+    "use strict";
+    return Controller.extend("sap.hcm.Address", {
+        metadata: {
+            // extension can declare the public methods
+            // in general methods that start with "_" are private
+            methods:{
+                publicMethod: {public: true /*default*/, final: false /*default*/, overrideExecution: OverrideExecution.Instead /*default*/},
+                finalMethod: {final: true},
+                onMyHook: {public: true /*default*/, final: false /*default*/, overrideExecution: OverrideExecution.After},
+                couldBePrivate: {public: false}
+            }
+        },
+
+        // adding a private method, only accessible from this controller
+        _privateMethod: function() {
+        },
+        // adding a public method, might be called from, but not overridden by other controllers or controller extensions as well
+        publicMethod: function() {
+        },
+        // adding a final method, might be called from, but not overridden by other controllers or controller extensions as well
+        finalMethod: function() {
+        },
+        // adding a hook method, might be called from, but not overridden by a controller extension
+        // override these method does not replace the implementation, but executes after the original method
+        onMyHook: function() {
+        },
+        // method public by default, but made private via metadata
+        couldBePrivate: function() {
+        }
+       
+    });
+});
+</pre></div></div></section><p></p></div></div>
+		</section><section id="section_nbl_l1p_42b">
+			<h2 class="title ">Controller Extensions Implementation Guidelines</h2>
+			<p>All public methods need to stay compatible:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Parameters of the method can be enhanced only with new optional
+						parameters.</p>
+				</li>
+				<li class="li">
+					<p>It is recommended to use a JS object to pass the parameters. Extension can be
+						done by adding an optional key, while working with parameters needs to stick
+						to the sequence.</p>
+				</li>
+				<li class="li">
+					<p>Documentation should be maintained for all public methods.</p>
+				</li>
+				<li class="li">
+					<p>Use the <code>@since</code> version to tell the consumer on which version
+						this method was introduced.</p>
+				</li>
+			</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Within the methods of a controller extension, the reserved <code>base</code> member allows access to the public functions of the extended
+					controller.</p>
+				<p>Functionality can be called by using
+						<code>this.base.basePublicMethod()</code>.</p>
+			<p></p></div></div>
+		</section><section id="section_hrk_l1p_42b">
+			<p>For more information on how to use controller extensions, see <a href="topic/21515f09c0324218bb705b27407f5d61" title="Controller extensions allow you to add functionality to existing applications. They can be used for extensibility purposes, for example by a customer wishing to extend SAP-delivered applications, or as a reusable part that is added to the original application." class="sap-doc">Using Controller Extension</a>.</p>
+		</section><section>
+			<h2 class="title ">API Reference</h2>
+			<p><a href="api/sap.ui.core.mvc.Controller" title="api/sap.ui.core.mvc.Controller" class="sap-doc" alt="api/sap.ui.core.mvc.Controller">sap.ui.core.mvc.Controller</a></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

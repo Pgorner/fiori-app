@@ -1,0 +1,5 @@
+/*!
+ * (c) Copyright 2010-2019 SAP SE or an SAP affiliate company.
+ */
+sap.ui.define(["sap/zen/crosstab/rendering/RenderingConstants","sap/zen/crosstab/IDataCell"],function(t,e){"use strict";var a={apiVersion:1};a.render=function(a,s){"use strict";var n=s.getArea();var r=n.getCrosstab();var i=n.getRenderCellCallback();var o=s.getText();var l=null;if(i){var d=i(new e(s));l=d.additionalStyles;o=d.renderText}a.openStart("td",s);var c=s.getCssClassNames(r.isIE8Mode(),r.getPropertyBag().isRtl(),r.getUtils().isMsIE());a.attr("class",c);a.attr("tabindex",t.TABINDEX);a.openEnd();a.openStart("div",s.getId()+"_contentDiv");a.attr("tabindex",t.TABINDEX);a.class("sapzencrosstab-DataCellContentDiv");if(s.isLoading()){a.class("sapzencrosstab-LoadingCellContentDiv")}if(l){for(var v in l){a.sStyle(v,l[v])}}a.openEnd();a.text(o);a.close("div");a.close("td")};return a},true);
+//# sourceMappingURL=DataCellRenderer.js.map

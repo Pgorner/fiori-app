@@ -1,0 +1,8 @@
+/*
+ * ! SAP UI development toolkit for HTML5 (SAPUI5)
+
+        (c) Copyright 2009-2015 SAP SE. All rights reserved
+    
+ */
+sap.ui.define(["jquery.sap.global","sap/ui/core/Control","../Extension"],function(jQuery,e,t){"use strict";var n=t.extend("sap.ui.vtm.extensions.SelectionLinkingExtension",{metadata:{interfaces:["sap.ui.vtm.interfaces.ISelectionLinkingExtension"],properties:{findMatchingTreeItems:{type:"any",group:"Behavior",defaultValue:null}}},constructor:function(e,n){t.apply(this,arguments)},initialize:function(){this._handlingEvent=new Map;this.applyPanelHandler(function(e){var t=e.getTree();t.attachSelectionChanged(function(n){if(!this.getEnabled()){return}if(this._handlingEvent.get(e)){return}this._onSelectionChanged(t.getPanel())}.bind(this));t.attachEvent("vtmInternalSetTreeSelectionComplete",function(t){this._handlingEvent.set(e,false)}.bind(this));t.attachModelUpdated(function(e){if(!this.getEnabled()){return}var t=this._getPrimaryPanel();if(t){this._onSelectionChanged(t)}}.bind(this))}.bind(this));this.attachEnabledChanged(function(){if(this.getEnabled()){var e=this._getPrimaryPanel();if(e){this._onSelectionChanged(e)}}})},_getPrimaryPanel:function(){var e=this._vtm.getPanels();if(!e||!e.length){return null}return this._vtm.getActivePanel()||e[0]},_onSelectionChanged:function(e){var t=e.getTree();var n=t.getSelectedItems();var i=this._vtm.getPanels();var a=this.getFindMatchingTreeItems();if(!a){return}i.forEach(function(i){var r=i.getTree();var s=[];if(i!==e){n.forEach(function(e){var n=a(e,t,r);Array.prototype.push.apply(s,n)});this._handlingEvent.set(i,true);r.setSelectedItems(s)}}.bind(this));return}});return n});
+//# sourceMappingURL=SelectionLinkingExtension.js.map

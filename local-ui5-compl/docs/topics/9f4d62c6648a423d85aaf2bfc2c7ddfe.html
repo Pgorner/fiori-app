@@ -1,0 +1,231 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9f4d62c6648a423d85aaf2bfc2c7ddfe" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/logging-and-tracing-9f4d62c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Logging and Tracing</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Logging and Tracing</h2></div><div class="shortdesc">Use the built-in SAPUI5
+		logging mechanisms to debug and analyze applications or framework errors.</div><p>You can view the log in the console in the developer tools of your browser. A log entry
+			contains a timestamp, a log level, a message with optional details, and component
+			information.</p><p>Log messages can be written by the framework or the application code. Which log messages are
+			contained in the log is defined according to their severity and the log level that is
+			currently set.</p><p>Specific log messages only appear in the console when the severity of the issue is equal to or
+			higher than the currently set log level. For example, when opening an SAPUI5 app without any
+			additional configuration, the default log level (1 = <code>ERROR</code>) is applied.
+			Only messages with severity <code>FATAL</code> and <code>ERROR</code> will be
+			written to the console; other messages are not logged for performance reasons.</p><div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+			</p><p>In productive applications, you should keep the system defaults for log levels for performance
+				reasons.</p>
+		<p></p></div></div><p>
+			</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_ihz_4ld_xz" class=" ">
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Severity</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Log Level</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Example</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NONE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>-1</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No messages are written to the console</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>
+							</p></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>FATAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>0</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Unrecoverable situations</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A parse error occurred while processing a JavaScript file or an
+									XML view</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ERROR</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1 (Default) </p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Erroneous but recoverable situations</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Loading a requested module failed</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>WARNING</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>2</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Unwanted but foreseen situations</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Wrong property format was passed to a control</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>INFO</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>3</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Purely informative</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A configuration parameter was set</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DEBUG</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>4
+									(Debug
+									Mode)</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Information necessary for debugging</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A framework event was fired</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>TRACE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>5</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Tracing the program flow</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A certain position in the code was reached</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ALL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>6</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Messages of all severity categories are written to the
+									console</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>
+							</p></td>
+						</tr>
+					</tbody>
+				</table></div></div>
+		<p></p><section id="section_wmr_fnd_xz">
+			<h2 class="title ">Tracing Errors</h2>
+			<p>During development, or when you're troubleshooting application errors, you can increase the
+				log level for debugging . When you enable debug mode, for example in the
+					<span class="ph uicontrol">Technical Information</span> dialog, the log level is
+				automatically increased to 4 (<code>DEBUG</code>) and you will see messages in
+				the console that might be helpful for finding bugs.</p>
+			<p>You can also set the log level manually, either by calling <code>Log.setLevel(&lt;level&gt;)</code> in the application code (see the <a href="api/module:sap/base/Log#methods/sap/base/Log.setLevel" title="api/module:sap/base/Log#methods/sap/base/Log.setLevel" class="sap-doc" alt="api/module:sap/base/Log#methods/sap/base/Log.setLevel">API
+						Reference </a>) or by setting the <code>sap-ui-log-level=&lt;level&gt;</code> framework parameter (see <a href="topic/91f2d03b6f4d1014b6dd926db0e91070" title="The following tables show available configuration options." class="sap-doc">Configuration Options and URL Parameters</a>). Depending on the log level, you might get a large amount of log messages in the
+				console. The error might not be clearly visible from a single log message and might need further analysis.</p>
+			<p>Log entries are written to the console in chronological order. When you identify a
+				message in the console that is connected to the error you are tracing, there might
+				be other related log messages written shortly before or after the current
+				message.</p>
+			<p>A dash separates the log message and the component (or feature) that logged it.</p>
+			<p>To find out which messages are related to a specific error, you can filter the
+				messages in the console. Narrow down the log messages by selecting a severity or
+				doing a full-text search, for example for a specific keyword or an SAPUI5 component.</p>
+		</section><section id="section_g5r_gnd_xz"><h2 class="title ">Adding Your Own Log Messages</h2><p>You can define your
+				own log messages in your code to help tracing errors and understanding the
+				application flow. You can use the <code>Log</code> API to create and manage log
+				entries (see
+					the <a href="api/module%3Asap%2Fbase%2FLog" title="api/module%3Asap%2Fbase%2FLog" class="sap-doc" alt="api/module%3Asap%2Fbase%2FLog">API Reference:
+						<code>sap/base/log</code></a>).</p><section>
+				<h3 class="title ">Generic Log Entries</h3>
+				<p>To log a message, simply call <code>Log.*</code> with the specific method
+					that corresponds to the log levels described above. The following code line
+					issues a log statement with severity <span class="ph uicontrol">Error</span>. The browser
+					highlights the statement in red to indicate an application
+					error:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Log" required from module "sap/base/Log"
+Log.error("This should never have happened!");</pre></div></div></section><p></p>
+				<p>The next code line issues a log statement with severity
+						<span class="ph uicontrol">Information</span>. The browser does not display this
+					statement if your log console is set to filter for errors
+					only:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Log" required from module "sap/base/Log"
+Log.info("Something has happened");</pre></div></div></section><p></p>
+			</section><section>
+				<h3 class="title ">Component Logging</h3>
+				<p>The log statements above do not contain the component. A log component can be
+					used to semantically group log entries that belong to the same software
+					component (or feature).</p>
+				<p>It can be specified as an additional argument to the log function or as a default
+					for all log entries written by a certain component. With
+						<code>Log.getLogger("&lt;component&gt;")</code>, you can retrieve a
+					logger that automatically adds the given component as component parameter to
+					each log
+					entry.</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Log" required from module "sap/base/Log"
+this._oLogger = Log.getLogger("sap.ui.demo.MyComponent");
+this._oLogger.info("Something has happened");</pre></div></div></section><p></p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The log entries can also be accessed programmatically. You can also register
+						a listener to the log that will be notified whenever a new entry is added to
+						the log.</p>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Assertions</h3>
+				<p>For logical checks in your application flow, you can use assertions. With
+						<code>sap/base/assert</code> an error message is logged when a given
+					condition is not met.</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "assert" required from module "sap/base/assert"
+assert(aValues.length === 10, "There are 10 values stored in the array")</pre></div></div></section>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Assertions might be removed when the JavaScript code is optimized during a
+						build. Therefore, callers should not rely on any side effects of this
+						method.</p>
+				<p></p></div></div>
+			</section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/c9b0f8cca852443f9b8d3bf8ba5626ab.html#loioc9b0f8cca852443f9b8d3bf8ba5626ab" title="When developing apps, searching for bugs is an inevitable part of the process. To analyze an issue, you can use the developer tools of your browser and built-in SAPUI5 tools. In this section, we give an overview of the SAPUI5 tools you can use when debugging. To learn more about the developer tools of your browser, check the documentation of the browser." class="sap-doc">Debugging</a></li>
+		<li><a href="topic/eadd60ae907646bbb838866566b23182" title="In this step, you will learn how to use your browser's developers tools to troubleshoot your SAPUI5 app." class="sap-doc">Troubleshooting Tutorial Step 1: Browser Developer Tools</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,83 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio58cf64cbb951496a99ac94e01a0905b2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/with-58cf64c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">with</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">with</h2></div><div class="shortdesc">The <code>&lt;template:with&gt;</code> instruction can be used to change a variable's
+		value or to add a variable with a new name. </div><p>This changed variable is available only within the scope of the <code>with</code>
+			instruction. In the example titled <span class="emphasis">"with" Template</span>,
+				<code>"meta&gt;com.sap.vocabularies.UI.v1.Badge"</code> refers to
+				<code>"/dataServices/schema/0/entityType/0/com.sap.vocabularies.UI.v1.Badge"</code>
+			within <code>oMetaModel</code>. <code>"badge"</code> then becomes a valid model
+			name while processing the content of the <code>with</code> instruction, in addition
+			to the existing ones:</p><ul class="ul ">
+				<li class="li">
+					<p>meta = <code>oMetaModel, "/dataServices/schema/0/entityType/0"</code></p>
+				</li>
+				<li class="li">
+					<p>badge = <code>oMetaModel,
+							"/dataServices/schema/0/entityType/0/com.sap.vocabularies.UI.v1.Badge"</code></p>
+				</li>
+			</ul><p></p><p>If you omit the "var" attribute, the same model name will be reused; for example, "meta" in our
+			example, and the <code>with</code> instruction changes the binding context locally.
+			A new variable name improves readability.</p><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">"with" Template</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;template:with path="meta&gt;com.sap.vocabularies.UI.v1.Badge" var="badge"&gt;
+    &lt;!-- ... --&gt;
+&lt;/template:with&gt;
+</pre></div></div></section>
+		</div></section><section>
+			<p>A helper can be called from a <code>with</code> instruction. It receives an
+					<code>sap.ui.model.Context</code> object identifying the model and path from
+				the instruction's "path" property and may return one of the following: </p><ul class="ul ">
+					<li class="li">
+						<p>A <code>sap.ui.model.Context</code> object that is assigned to the
+							variable</p>
+					</li>
+					<li class="li">
+						<p>A non-empty string that is used as a path within the same model and
+							assigned to the variable</p>
+					</li>
+					<li class="li">
+						<p>Undefined, in which case the helper is ignored and the original path is
+							assigned to the variable</p>
+					</li>
+					<li class="li">
+						<p>A thenable (usually a Promise) resolving with any of the above, if the
+							view is loaded asynchronously.</p>
+					</li>
+				</ul><p></p>
+			<p>The helper can analyze the object the path points to and derive a "resolved path"
+				from that, such as by normalization or following references. Typically, it only
+				points to a different path, but it can even change the model instance, such as
+				jumping from a data model to its meta model or jumping to a resource model, and so
+				on.</p>
+			<p>The example titled <span class="emphasis">"with" Template Including Helper</span> assumes that "field"
+				is an OData meta model with a current binding context that points to a field inside
+				some annotation, such as
+					<code>"/dataServices/schema/0/entityType/0/com.sap.vocabularies.UI.v1.Badge/MainInfo"</code>.
+				The helper function <code>sap.ui.model.odata.AnnotationHelper.resolvePath</code>
+				is used to follow the field value's <code>path</code> property. For more
+					information, see <a href="topic/dbec058964f545e4bb3b7e9fbaa0602d" title="A collection of methods which help to consume OData Version 4.0 annotations in XML template views." class="sap-doc">Annotation
+						Helper</a> and <a href="api/sap.ui.model.odata.AnnotationHelper" title="api/sap.ui.model.odata.AnnotationHelper" class="sap-doc" alt="api/sap.ui.model.odata.AnnotationHelper">API Reference:
+							<code>sap.ui.model.odata.AnnotationHelper.resolvePath</code></a>.</p>
+			
+			<p>It returns a path inside the meta model which refers to the corresponding property's meta
+				data, such as
+					<code>"/dataServices/schema/&lt;i&gt;/entityType/&lt;j&gt;/property/&lt;k&gt;"</code>.
+				This result is in turn assigned by the <code>with</code> instruction to the
+				variable named "target".</p>
+		</section><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">"with" Template Including Annotation Helper</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;template:with path="meta&gt;Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="target"&gt;
+  &lt;template:if test="{= {target&gt;sap:semantics} === 'email'}" &gt;
+    &lt;core:Icon src="sap-icon://email" /&gt;
+  &lt;/template:if&gt;
+  &lt;template:if test="{= {target&gt;sap:semantics} === 'tel'}" &gt;
+    &lt;core:Icon src="sap-icon://phone" /&gt;
+  &lt;/template:if&gt;
+&lt;/template:with&gt;</pre></div></div></section>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/dbec058964f545e4bb3b7e9fbaa0602d" title="A collection of methods which help to consume OData Version 4.0 annotations in XML template views." class="sap-doc">Annotation Helper</a></li>
+	</ul></section></div></section></div></body></html>

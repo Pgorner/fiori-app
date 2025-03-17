@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<HBox alignItems="Center" width="100%" core:require="{handler: 'sap/fe/core/fpmExplorer/filterBarCustoms/CustomFilter'}">
+		<!-- // either handle value change in the handler... // -->
+		<!--  <RatingIndicator id="MyCustomRatingIndicatorId" value="{= ${filterValues>} ? ${filterValues>}.substring(1) : null }" change="handler.onRatingIndicatorValueChanged" /> -->
+
+		<!-- // ...or bind it directly (and use a filter value type) (recommended) // -->
+		<RatingIndicator id="MyCustomRatingIndicatorId" value="{path: 'filterValues>', type: 'sap.fe.macros.filter.type.Value'}" />
+
+		<!-- // Example for adapting the used operator, using GT (greater than) instead of default EQ // -->
+		<!-- <RatingIndicator -->
+		<!--         id="MyCustomRatingIndicatorId" -->
+		<!--         value="{path: 'filterValues>', type: 'sap.fe.macros.filter.type.Value', formatOptions: { operator: 'GT' }}" -->
+		<!-- /> -->
+
+		<core:Icon src="sap-icon://reset" press="handler.onRatingIndicatorReset" class="sapUiSmallMarginBegin" />
+	</HBox>
+</core:FragmentDefinition>

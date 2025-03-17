@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell_abap/pbServices/ui2/Chip"],function(t){"use strict";t.addContract("url",function(t){this.addSystemToServiceUrl=function(e,i){return t.getChip().getCatalog().addSystemToServiceUrl(e,i)};this.getApplicationSystem=function(){return t.getChip().getCatalog().getSystemAlias()};this.toAbsoluteUrl=function(e){return t.getChip().toAbsoluteUrl(e)}})});
+//# sourceMappingURL=url.js.map

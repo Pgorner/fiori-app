@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/shape/Shape","sap/gantt/misc/Format"],function(t,e){"use strict";var i=t.extend("sap.gantt.shape.Line",{metadata:{properties:{tag:{type:"string",defaultValue:"line"},isDuration:{type:"boolean",defaultValue:true},x1:{type:"float"},y1:{type:"float"},x2:{type:"float"},y2:{type:"float"}}}});i.prototype.init=function(){t.prototype.init.apply(this,arguments);var e=sap.ui.getCore().getLibraryResourceBundle("sap.gantt");this.setProperty("ariaLabel",e.getText("ARIA_LINE"))};i.prototype.getX1=function(t,i){if(this.mShapeConfig.hasShapeProperty("x1")){return this._configFirst("x1",t)}return this.getAxisTime().timeToView(e.abapTimestampToDate(this.getTime(t,i)))};i.prototype.getY1=function(t,e){if(this.mShapeConfig.hasShapeProperty("y1")){return this._configFirst("y1",t,true)}return this.getRowYCenter(t,e)};i.prototype.getX2=function(t,i){if(this.mShapeConfig.hasShapeProperty("x2")){return this._configFirst("x2",t)}return this.getAxisTime().timeToView(e.abapTimestampToDate(this.getEndTime(t,i)))};i.prototype.getY2=function(t,e){if(this.mShapeConfig.hasShapeProperty("y2")){return this._configFirst("y2",t,true)}return this.getRowYCenter(t,e)};i.prototype.getStyle=function(e,i){var r=t.prototype.getStyle.apply(this,arguments);var a={"stroke-dasharray":this.getStrokeDasharray(e,i),"fill-opacity":this.getFillOpacity(e,i),"stroke-opacity":this.getStrokeOpacity(e,i)};var o=Object.assign(r,a);return o};return i},true);
+//# sourceMappingURL=Line.js.map

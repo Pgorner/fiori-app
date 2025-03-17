@@ -1,0 +1,77 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiodb3b70d6bab2485796128cb792429a00" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/adapting-transient-messages-that-come-from-the-back-end-db3b70d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Adapting Transient Messages that Come from the Back End</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Adapting Transient Messages that Come from the Back End</h2></div><div class="shortdesc">You can use an extension point to adapt transient messages that come from the back-end
+		system for the list report and object page as well as for the analytical list page. </div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+		<p></p></div></div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+                </p><p>Use app extensions with caution and only if you cannot produce the required
+                    behavior by other means, such as manifest settings or annotations. To correctly
+                    integrate your app extension coding with SAP Fiori elements, use
+                    only the <code>extensionAPI</code> of SAP Fiori elements. For
+                    more information, see <a href="topic/bd2994b69ef542998becbc69ab093f7e" title="The extensionAPI consists of several elements that are described below. It can be used for the list report and object page." class="sap-doc">Using the extensionAPI</a>.</p>
+                <p>After you've created an app extension, its display (for example, control
+                    placement and layout) and system behavior (for example, model and binding usage,
+                    busy handling) lies within the application's responsibility. SAP Fiori elements
+                    provides support only for the official <code>extensionAPI</code> functions.
+                    Don't access or manipulate controls, properties, models, or other internal
+                    objects created by the SAP Fiori elements
+                    framework.</p>
+                
+            <p></p></div></div><p>The extension point (<code>adaptTransientMessageExtension</code>) is hit always
+			before the transient message is displayed. If your app uses the flexible column layout,
+			the extension point of the list report, the extension point of the object page, and the
+			analytical list page extension point are hit. Note that you have to ensure that the
+			message model has been adapted for list report, object page, and analytical list page. </p><p>Perform these steps:</p><ol>
+			<li class="li">
+				<p>Register your extension in the <code>manifest.json</code>, as follows:</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"extends": {
+   "extensions": {
+      ... 
+      "sap.ui.controllerExtensions": { 
+         ...
+         "sap.suite.ui.generic.template.ListReport.view.ListReport": { 
+            ... 
+            "controllerName": "STTA_MP.ext.controller.ListReportExtension",
+            ...
+         }
+      } 
+      ...
+</pre></div></div></section>
+			</li>
+			<li class="li">
+				<p>Implement your controller extension. </p>
+				<p>You have to implement the <code>adaptTransientMessageExtension</code>
+					function within the list report controller extension, the object page controller
+					extension, or the analytical list page extension, respectively.</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">    // "Messaging" required from module "sap/ui/core/Messaging"
+    // "Message" required from module "sap/ui/core/message/Message"
+    // "MessageType" required from module "sap/ui/core/MessageType"
+    adaptTransientMessageExtension:function() {
+            if (Messaging.getMessageModel().oData.length) {
+                    var msgText = "This message has been added through List Extension" ;
+                    var consolidatedMessage = new Message({
+                        message: msgText,
+                        type: MessageType.Information,
+                        target: '',
+                        persistent: true
+                    });
+                    Messaging.addMessages(consolidatedMessage);
+            }		
+    }
+    
+    ```</pre></div></div></section>
+			</li>
+		</ol><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>The extension point is only available for transient messages. Do not make any changes to state messages from the message model
+					(<code>Messaging.getMessageManager().getMessageModel()</code>) where <code>Messaging</code> is required from module
+					<code>sap/ui/core/Messaging</code>. </p>
+			<p>Do not alter the target of any message from the message model as this may cause the
+				message model services to stop working.</p>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,7 @@
+/*
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define("sap/sac/df/_internal/controls/MultiDimChat",["sap/sac/df/controls/MultiDimControlBase","sap/sac/df/firefly/library","sap/sac/df/firefly/ff8020.olap.ui.plugins"],function(i,n){var e=i.extend("sap.sac.df._internal.controls.MultiDimChat",{metadata:{library:"sap.sac.df",properties:{serviceEndpoint:{type:"string"}}},init:function(){if(i.prototype.init){i.prototype.init.apply(this,arguments)}},renderer:i.getMetadata().getRenderer().render,getPluginConfigName:function(){return"InsightVisionAi"},_getPluginConfig:function(){if(!this._oPluginConfig){this._oPluginConfig={configuration:{toolbarVisible:false,menuVisible:false,statusBarVisible:false},layout:{type:"SinglePlugin"},plugins:[{plugin:"InsightVisionAi",config:{serviceEndpoint:this.getServiceEndpoint()||"https://firefly.wdf.sap."+"corp/openai",useServiceEndpoint:true}}],commands:[{plugin:"DataProviderCommand"},{plugin:"MenuActionsProviderPlugin"},{plugin:"MenuEngine"}]}}return this._oPluginConfig},addSystemMessage:function(i){this.oHorizonProgram.executeActionById(n.OpInsightVisionAiPlugin.PLUGIN_NAME+"."+n.HpAzureOpenAiCommandPlugin.SET_SYSTEM_MESSAGE,i)},addFunction:function(i,e,t){let o=n.UtAzureOpenAiConnectorFunction.create(i,e);o.setFunction(()=>{t()});o.setFunction(()=>n.XPromise.resolve(t()));this.oHorizonProgram.executeActionById(n.HpAzureOpenAiCommandPlugin.PLUGIN_NAME+"."+n.HpAzureOpenAiCommandPlugin.ADD_FUNCTION,o)}});return e});
+//# sourceMappingURL=MultiDimChat.js.map

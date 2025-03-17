@@ -1,0 +1,303 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4363b3fe3561414ca1b030afc8cd30ce" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/troubleshooting-for-loading-modules-4363b3f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Troubleshooting for Loading Modules</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Troubleshooting for Loading Modules</h2></div><div class="shortdesc">The following sections give examples that you must avoid because they cause problems
+		when loading your module.</div><section id="section_moduleloading"><h2 class="title ">Why was my Module Not Loaded Correctly?</h2><p>The
+				following list contains possible reasons why your module does not load. To see how
+				it is done correctly, see <a href="topic/00737d6c1b864dc3ab72ef56611491c4.html#loio00737d6c1b864dc3ab72ef56611491c4/section_DefineModules" title="00737d6c1b864dc3ab72ef56611491c4.xml#loio00737d6c1b864dc3ab72ef56611491c4/section_DefineModules" class="sap-doc">Best
+					Practices for Loading Modules - How to Define Modules</a>.</p><section>
+				<h3 class="title ">The module name is given in
+					<code>sap.ui.define</code></h3>
+				<p>If you explicitly give the module name in <code>sap.ui.define</code>, you
+					introduce additional complexity to the project structure which may cause
+					inconcistencies and clashing module names. This problem is difficult to detect
+					and can easily and proactively be avoided by omitting the module name in
+						<code>sap.ui.define</code>.</p>
+				<p>The following example shows how it must <i>not</i> be done: The library file
+					structure of <code>myLib</code> does not fit the module name. If there is
+					another module named <code>MyModule</code> in the <code>myLib</code>
+					library, the module would be hard to address. If you use an unnamed module
+					instead, the module names would reflect the library file structure. By this, you
+					reduce the probability of module name conflicts. In general, when addressing UI5
+					modules, make sure you separate all parts of the module's name with slashes
+					instead of dots, for example <code>myLib/MyModule</code> instead of
+						<code>myLib.MyModule</code>.</p>
+				<p><code>myLib/myAdditionalPathSegment/MyModule.js</code></p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// CAUTION: BAD EXAMPLE - DON'T DO THIS
+sap.ui.define("myLib.MyModule", [], function(){
+    ...
+});</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Using multiple <code>sap.ui.define</code> calls with unnamed
+					modules</h3>
+				<p>If you have more than one <code>sap.ui.define</code> call in a JavaScript file, the
+					module loader does not know which definition actually represents the module. As
+					there is no scenario that requires multiple module definitions in one file and
+					in order to comply with the AMD specification (see <a href="https://github.com/amdjs/amdjs-api/wiki/AMD" title="https://github.com/amdjs/amdjs-api/wiki/AMD" class="external-link" target="_blank" rel="noopener">https://github.com/amdjs/amdjs-api/wiki/AMD</a>), the
+					async variant of the SAPUI5 module
+					loader does <i>not</i> tolerate multiple definitions anymore and throws an
+					error.</p>
+				<p><span class="emphasis">Example</span>: The <code>myModule</code> module is defined
+					twice. This was most probably done by accident. To resolve this, the two module
+					definitions have to be split into two separate modules.</p>
+				<p><code>myModule.js</code></p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// BAD EXAMPLE - DON'T DO THIS
+sap.ui.define([], function(){
+    ...
+});
+sap.ui.define([], function(){
+    ...
+});</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Combining conditional modules with
+					<code>sap.ui.define</code></h3>
+				<p>Conditional module definitions should <i>not</i> be used because of the following
+					reasons:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>The modules cannot be required with parameters because the check
+							conditions are related to globals.</p>
+					</li>
+					<li class="li">
+						<p>The export value is not consistent. This makes it difficult to consume
+							the module.</p>
+					</li>
+					<li class="li">
+						<p>The module dependencies are unclear. This prevents an efficient module
+							bundling.</p>
+					</li>
+				</ul>
+				<p><span class="emphasis">Example</span>: The export value of <code>myModule</code>
+					depends on the global <code>myProperty</code> property. In this case, it
+					makes sense to split the two definitions into separate files for example into
+					the two variants <code>myModuleA</code> and <code>myModuleB</code>.
+					Another module can then make the required <code>myProperty</code> check and
+					require the variant of <code>myModule</code> via
+						<code>sap.ui.require</code>.</p>
+				<p><code>myModule.js</code></p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// BAD EXAMPLE - DON'T DO THIS
+if (myProperty){
+    sap.ui.define([], function(){
+        ... 
+    });
+else {
+    sap.ui.define([], function(){
+        ... 
+    });
+}</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Mixing old and new loader APIs</h3>
+				<p>Using deprecated APIs is not recommended and mixing old and new loader APIs is
+					even worse: If the synchronicity has changed between older and newer APIs,
+					mixing them will cause timing-related issues as well as general
+					inconsistencies.</p>
+				<p><span class="emphasis">Example</span>: The namespace <code>myLib.myModule</code> is
+					registered through the <code>jQuery.sap.declare</code> call. Besides
+					actually defining the module export value, the subsequent
+						<code>sap.ui.define</code> call does the same registration. So, the
+						<code>jQuery.sap.declare</code> in this example is unnecessary and must
+					be omitted in this example.</p>
+				<p><code>myLib/MyModule.js</code></p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// BAD EXAMPLE - DON'T DO THIS
+jQuery.sap.declare("myLib.myModule");
+sap.ui.define([], function(){
+    ...
+});</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Using <code>sap.ui.require</code> instead of
+						<code>sap.ui.define</code> on the top level</h3>
+				<p>Although the API signature for <code>sap.ui.define</code> and
+						<code>sap.ui.require</code> looks similar, you must use the
+						<code>sap.ui.define</code> API to define a reusable JavaScript object
+					(that is, a module). Note the following differences between
+						<code>sap.ui.require</code> and <code>sap.ui.define</code>:</p>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_hw1_5zq_mfb" class=" "><thead>
+						<tr><th colspan="1" rowspan="1">
+							<p>Action</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>sap.ui.require</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>sap.ui.define</p>
+						</th>
+					</tr></thead><tbody><tr>
+						<td colspan="1" rowspan="1">
+							<p>Value export</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Not possible</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>The callback function defines an export to provide functionality to
+								other modules.</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">
+							<p>Module name registration</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Not possible</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>The module name is registered at the loader registry and can be used
+								to address the module.</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">
+							<p>Relative dependencies</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>This is not possible, because no module name is registered and a
+								reference point is missing.</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Can be used.</p>
+						</td>
+					</tr><tr>
+						<td colspan="1" rowspan="1">
+							<p>Execution order</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Dependent modules can be executed before the
+									<code>sap.ui.require</code> callback has been executed.
+								Therefore, using <code>sap.ui.require</code> instead of
+									<code>sap.ui.define</code> can break the intended dependency
+								graph and module execution order.</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>The dependent modules are waiting for the module callback execution
+								to be finished.</p>
+						</td>
+					</tr></tbody></table></div></div>
+				<p><span class="emphasis">Example</span>: The file for module C has one top-level
+						<code>sap.ui.require</code> instead of a top-level
+						<code>sap.ui.define</code> call. The module callback evaluation order
+					starts with module B, because it has no dependencies. Afterwards, the framework
+					can execute module A or module C, because the intended module C is not a module
+					from the module loader perspective. Furthermore, the undefined export value of
+					module C will most probably lead to errors in module A. If module C is defined
+					correctly via a top-level <code>sap.ui.define</code> call, the module
+					callback execution order is clear: B - C - A.</p>
+				<img src="loio87c101d607a94ae689013c3478799879_LowRes.png" usemap="#">
+			</section><section>
+				<h3 class="title ">Defining (unnamed) modules via inline scripts</h3>
+				<p>It is unclear how modules that are defined via inline scripts can by addresses by
+					other modules. Therefore, the inline scripts must be omitted.</p>
+				<p><span class="emphasis">Example</span>: Module A is defined after bootstrapping UI5 and
+					before the actual app is started. As the module is not addressable, the module
+					definition must be moved to a separate file.</p>
+				<p><code>startMyApp.html</code></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!-- BAD EXAMPLE - DON'T DO THIS --&gt;
+&lt;html&gt;
+...  
+    &lt;script&gt;  
+        //Boot UI5  
+    &lt;/script&gt;  
+    &lt;script&gt;  
+        //Definition for Module A  
+        sap.ui.define(function(){  
+            ...  
+        });  
+    &lt;/script&gt;  
+    &lt;script&gt;  
+        // Start UI5 Application  
+    &lt;/script&gt;  
+...  
+&lt;/html&gt;</pre></div></div></section><p></p>
+			</section><section>
+				<h3 class="title ">Avoiding synchronous access to a module definition
+					export</h3>
+				<p>Never do a synchronous access to the export of a module definition because the
+					module definition could be done asynchronously. Never rely on the synchronicity
+					of a module definition, even if a module has no dependencies.</p>
+				<p><span class="emphasis">Example</span>: The <code>sap.ui.define</code> call for the
+						<code>myModule</code> module is made and the export value is
+					synchronously used by creating a new object of that export. Although this may
+					work in some scenarios, never do it this way, because it is unclear whether the
+					module definition is already done. Instead, use the export of
+						<code>myModule</code> in a separate module with a correctly maintained
+					dependency to the <code>myModule</code> module.</p>
+				<p><code>myLib/MyModule.js</code></p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// BAD EXAMPLE - DON'T DO THIS
+sap.ui.define([], function(){
+    ...
+});  
+...  
+var oMyModule = new myLib.MyModule();  
+...</pre></div></div></section>
+				<p>For more information,
+						see the API Reference for <a href="api/sap.ui#methods/sap.ui.define" title="api/sap.ui#methods/sap.ui.define" class="sap-doc" alt="api/sap.ui#methods/sap.ui.define">sap.ui.define - Asynchronuous
+							Contract</a>.</p>
+			</section><section>
+				<h3 class="title ">Avoid synchronous probing after module definition</h3>
+				<p>Similar to the synchronous access of a module's export value, you also must omit
+					the synchronous probing for modules defined in the same browser task.</p>
+				<p><span class="emphasis">Example</span>: The <code>sap.ui.define</code> call for the
+						<code>myModule</code> module is made and is synchronously checked by
+					probing through calling <code>sap.ui.require</code>. Instead, the probing
+					for <code>myModule</code> must be done in a separate module with a correctly
+					maintained dependency to <code>myModule</code>.</p>
+				<p><code>myLib/MyModule.js</code></p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// BAD EXAMPLE - DON'T DO THIS
+sap.ui.define([], function(){
+    ...
+});
+var MyModule = sap.ui.require('myLib/MyModule');</pre></div></div></section>
+			</section></section><section id="section_moduleaddressing"><h2 class="title ">What is wrong with the way I am addressing the
+				modules?</h2><p>The following examples show how you should <i>not</i> address a
+				module. To see how it is done correctly, see <a href="topic/00737d6c1b864dc3ab72ef56611491c4.html#loio00737d6c1b864dc3ab72ef56611491c4/section_AddressModules" title="00737d6c1b864dc3ab72ef56611491c4.xml#loio00737d6c1b864dc3ab72ef56611491c4/section_AddressModules" class="sap-doc">Best
+					Practices for Loading Modules - How to Address Modules</a>.</p><section>
+				<h3 class="title ">Case insensitivity when addressing modules</h3>
+				<p>Addressing a module inconsistently can cause various side-effects. If the server
+					is not case sensitive, for example, the same resource can be addressed with URLs
+					that differ only in case sensitivity. Besides that, it is bad from a performance
+					perspective if the same resource is loaded twice and the same module is defined
+					twice. This is similar to the example for multiple definitions above: multiple
+					definitions of the same module can cause several issues, such as failing checks
+					of <code>instanceof</code>.</p>
+				<p><span class="emphasis">Example</span>: If we assume a server that is <i>not</i>
+					case-sensitive, the <code>sap.m</code> library's <code>Button</code>
+					control is loaded and evaluated twice.</p>
+				<p><code>myView.xml</code></p>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!-- BAD EXAMPLE - DON'T DO THIS --&gt;
+&lt;mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m"&gt;
+    ...
+    &lt;m:Button&gt;&lt;/m:Button&gt;
+    &lt;m:button&gt;&lt;/m:button&gt;
+    ...
+&lt;/mvc:View&gt;</pre></div></div></section>
+				<p><code>myModule.js</code></p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+    // BAD EXAMPLE - DON'T DO THIS
+    sap.ui.require(['sap/m/button'], function(){
+        ...
+    });
+    sap.ui.require(['sap/m/Button'], function(){
+        ...
+    });
+...</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Manual loading of UI5 modules via script tags</h3>
+				<p>When you load modules manually, the module loader cannot know how the module
+					shall be named. Therefore, UI5 modules must always be loaded and evaluated via
+					the UI5 module loader APIs.</p>
+				<p>Example: The <code>myModule</code> module is loaded via a script tag.
+					Instead, use a <code>sap.ui.require</code> call to loading the module.</p>
+				<p><code>startMyApp.js</code></p>
+				<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;html&gt;
+...
+    &lt;script src="https://myhost/mypath/myModule.js"&gt;&lt;/script&gt;
+...
+&lt;/html&gt;</pre></div></div></section>
+			</section></section><section id="section_cyclicdependencies"><h2 class="title ">How can I remove project structures with cyclic dependencies?</h2><p>When you use cyclic
+				dependencies in the project structure, the module dependencies cannot be resolved. The UI5 module load detects the cycle and returns
+				an undefined value instead of the correct module export.</p><p>As an exception, in specific scenarios, you may make the involved
+				modules robust enough to handle undefined module exports at module callback execution time and use the export value via probing later.
+				However, if you use the async variant of the loader, all modules that belong to a cycle must be able to handle undefined
+				exports.</p><p>To see how to set up a correct project structure, see <a href="topic/00737d6c1b864dc3ab72ef56611491c4.html#loio00737d6c1b864dc3ab72ef56611491c4/section_StructureProject" title="00737d6c1b864dc3ab72ef56611491c4.xml#loio00737d6c1b864dc3ab72ef56611491c4/section_StructureProject" class="sap-doc">Best Practices for Loading Modules - How to Structure a
+					Project</a>.</p><p><span class="emphasis">Example</span>: All modules have exactly one dependency, which cannot be resolved
+				correctly.</p><img src="loio01905ac71cff4f7db3cb4d76142b887b_LowRes.png" usemap="#"><p><i>Solution 1 – Resolved cycle</i>: The
+				following figure shows how the cycle can be resolved by moving the functionality of module A, which is used by module B, to a separate
+				module (module A2). In general, resolving cyclic dependencies can require a larger refactoring of all involved modules, especially
+				when multiple cycles have to be resolved.</p><img src="loio544e019da7f6421394bf838f218e814f_LowRes.png" usemap="#"><p><i>Solution 2 – Probing modules</i>: In the example given in the following figure, the cycle is not resolved, but the
+				involved modules do not access the dependent modules directly when the module callback is executed. They access them later via
+				probing.</p><img src="loioe598bbc91b504be4bf3ad08191260b47_LowRes.png" usemap="#"></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

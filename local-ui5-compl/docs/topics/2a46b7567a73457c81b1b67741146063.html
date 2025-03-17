@@ -1,0 +1,305 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio2a46b7567a73457c81b1b67741146063" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-10-descriptor-for-applications-typescript-2a46b75.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 10: Descriptor for Applications (TypeScript)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 10: Descriptor for Applications (TypeScript)</h2></div><div class="shortdesc">All application-specific configuration settings will now further be put in a separate
+		descriptor file called <code>manifest.json</code>. This clearly separates the
+		application coding from the configuration settings and makes our app even more flexible. For
+		example, all SAP Fiori applications
+		are realized as components and come with a descriptor file in order to be hosted in the
+			SAP Fiori launchpad.</div><p>The SAP Fiori launchpad acts as an
+			application container and instantiates the app without having a local HTML file for the
+			bootstrap. Instead, the descriptor file will be parsed and the component is loaded into
+			the current HTML page. This allows several apps to be displayed in the same context.
+			Each app can define local settings, such as language properties, supported devices, and
+			more. And we can also use the descriptor file to load additional resources and
+			instantiate models like our <code>i18n</code> resource bundle.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio7b2aef85c016485da4a31c087bf4c0f0_LowRes.png" title="An input field and a description displaying the value of the input field
+						(No visual changes to last step)" alt="An input field and a description displaying the value of the input field
+						(No visual changes to last step)" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "> An input field and a description displaying the value of the input field (No
+					visual changes to last step)</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view all files at <a href="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/10" title="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/10" class="external-link" target="_blank" rel="noopener">OpenUI5 TypeScript Walkthrough - Step 10: Descriptor for Applications</a> and <a href="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-10.zip" title="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-10.zip" class="external-link" target="_blank" rel="noopener">download the solution as a zip file</a>.</p>
+		</section><section id="section_oxj_qkk_lzb">
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<p>In our text bundle, we include two new name-value pairs: <code>appTitle</code> for the title of our app and
+					<code>appDescription</code> for a brief description. These texts will be used in our app descriptor later on. To improve
+				readability, we also add comments to separate the bundle texts based on their meaning.</p>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis"># App Descriptor
+appTitle=Hello World
+appDescription=A simple walkthrough app that explains the most important concepts of UI5
+
+# Hello Panel</span>
+showHelloButtonText=Say Hello
+helloMsg=Hello {0}
+</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">webapp/manifest.json</h2>
+			<p>As mentioned in Step 1 the manifest file is used by SAPUI5 to instantiate
+				the component. We have already configured the essential attributes of the file so that it can be used with UI5 Tooling. Now, we'll add
+				further attributes that are important for creating a proper UI component in SAPUI5.</p>
+			<p>We enhance the <code>sap.app</code> namespace by adding configuration for the following application-specific attributes:</p><ul class="ul ">
+					<li class="li">
+						<p><code>i18n</code>: This property is an attribute to configure internationalization settings. It is optional and only
+							necessary if the manifest contains text symbols (placeholders in <code>{{...}}</code> syntax). The
+								<code>i18n</code> property has the following subsettings:</p><ul class="ul ">
+								<li class="li">
+									<p>The <code>bundleName</code> parameter specifies the name of the resource bundle file that contains the text
+										symbols for the descriptor. The file is referenced using a dot-notation namespace. We store our texts for the
+										app descriptor in the same resource bundle as the remaining texts, so we reference the properties file stored
+										in the <code>i18n</code> folder.</p>
+								</li>
+								<li class="li">
+									<p>The <code>supportedLocales</code> property defines an array of locales supported by the application (for
+										example, <code>en_GB</code>, <code>en-GB</code>, or <code>en</code>). This helps optimizing the
+										loading performance of resource bundles as it controls the language fallback chain and prevents unnecessary
+										and potentially failing requests. In our application, we only use the base <code>i18n.properties</code>
+										file for simplicity, so we set this property to an empty string. This ensures that the browser does not
+										attempt to load additional <code>i18n_*.properties</code> files based on your browser's settings and your
+										locale.</p>
+								</li>
+								<li class="li">
+									<p>The <code>fallbackLocale</code> property specifies the fallback locale to be used if the user's locale is
+										not present in the list of supported locales or if the required text can't be found in any other resource
+										bundle. The fallback locale must be listed in the <code>supportedLocales</code>. In our application, we
+										specify an empty string as per default the <code>fallbackLocale</code> is set to "<code>en</code>"</p>
+								</li>
+							</ul><p></p>
+					</li>
+					<li class="li">
+						<p><code>title</code>: In Step 1 we recommended making the title language-dependent. We now implement this by referencing
+							the <code>appTitle</code> text from the resource bundle using the handlebar syntax: <code>{{key}}</code></p>
+					</li>
+					<li class="li">
+						<p><code>description</code>: Similarly, we make the description text language-dependent by referencing the
+								<code>appDescription</code> text from the resource bundle using the handlebar syntax: <code>{{key}}</code></p>
+						<div class="note remember  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Remember
+				</strong></div></div><div class="fig"><p>
+							</p><p>Properties of the resource bundle are enclosed in two curly brackets in the descriptor. This is not an SAPUI5 data binding syntax, but a variable reference to
+								the resource bundle in the descriptor in handlebars syntax. The referred texts are not visible in the app built in
+								this tutorial but can be read by an application container like the SAP Fiori launchpad.</p>
+						<p></p></div></div>
+					</li>
+				</ul><p></p>
+			<p>In addition to the <code>sap.app</code> namespace, there are two other important namespaces:</p>
+			<p>The <span class="emphasis"><code>sap.ui</code></span> namespace is used for UI-specific attributes and comes with the following main
+					attributes:</p><ul class="ul ">
+					<li class="li">
+						<p><code>technology</code>: This property specifies the technology used for the application; its value is
+								<code>UI5</code></p>
+					</li>
+					<li class="li">
+						<p><code>deviceTypes</code> (mandatory): This property defines the supported device types for the application. It's an
+							object that contains three Boolean properties: <code>desktop</code>, <code>tablet</code>, and
+								<code>phone</code>. Each property indicates whether the application is designed to be used on that particular
+							device type. We define all three device types as <code>true</code>, which means that our application is intended to be
+							used on desktops, tablets, and phones.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>By configuring the <code>deviceTypes</code> property, you can ensure that your application's user interface is
+									optimized for different device types, providing a consistent and responsive experience across various devices.</p>
+							<p></p></div></div><p></p>
+					</li>
+				</ul><p></p>
+			<p>The <span class="emphasis"><code>sap.ui5</code></span> namespace adds SAPUI5-specific
+				configuration parameters that are automatically processed by SAPUI5. The
+				most important parameters are:</p><ul class="ul ">
+					<li class="li">
+						<p><code>dependencies</code> (mandatory): This section defines the dependencies of the component. It comes with the
+							following subsettings:</p><ul class="ul ">
+								<li class="li">
+									<p>The <code>minUI5Version</code> property is mandatory and specifies the minimum version of SAPUI5 required by the component. Our component
+										requires SAPUI5 version 1.20 as a minimum.</p>
+								</li>
+								<li class="li">
+									<p>The <code>libs</code> settings declare the libraries that the SAPUI5 core should load for use in the component.
+										To benefit from the asynchronous library preload, it's essential to add all obligatory libraries here. You can
+										set the <code>lazy</code> parameter to <code>true</code> to indicate that the lib shall be
+										lazy-loaded, so that it only gets loaded once needed. If your app requires a minimum version of the lib, you
+										also need to specify the <code>minVersion</code> for information purposes. We declare here the two
+										libraries <code>sap.ui.core</code> and <code>sap.m</code> as dependencies to be loaded directly when
+										starting the component.</p>
+								</li>
+							</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>Make sure that you don't load too many dependencies. In most apps it's enough to load the
+										<code>sap.ui.core</code> and <code>sap.m</code> libraries by default, and add any additional libraries
+									only when needed.</p>
+							<p></p></div></div><p></p>
+					</li>
+					<li class="li">
+						<p><code>rootView</code>: This section defines the root view of the application. The root view is the initial view that is
+							displayed when the component is loaded. It specifies either the view name as a string for XML views, or a view
+							configuration object with the properties <code>viewName</code> for the view name as a string, <code>type</code>
+							for the view type, <code>id</code> for the view ID, and possibly <code>async</code> as well as other properties of
+								<code>sap.ui.core.mvc.view</code>. We configure our app view as the root view and add the <code>app</code> ID
+							to it.</p>
+					</li>
+					<li class="li">
+						<p><code>models</code>: This section is used to define the models that will be created or destroyed during the lifecycle
+							of the app. Each model is identified by a unique key, and an empty string (<code>""</code>) as key is used to
+							represent the default model. For each model, you need to specify its type, and depending on your chosen type, you may also
+							need to provide additional settings.</p>
+						<p>In our current scenario, we only have one model called <code>i18n</code>, which is a resource model. To configure it,
+							we set its name as its key and specify its type as <code>sap.ui.model.resource.ResourceModel</code>. We can reuse the
+							same settings that we already defined for the <code>i18n</code> properties in the <code>sap.app</code>
+							namespace.</p>
+					</li>
+				</ul><p></p>
+			<section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "ui5.walkthrough",
+        "type": "application",
+        <span class="emphasis">"i18n": {
+            "bundleName": "ui5.walkthrough.i18n.i18n",
+            "supportedLocales": [
+                ""
+            ],
+            "fallbackLocale": ""
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",</span>
+        "applicationVersion": {
+            "version": "1.0.0"
+        }
+    }<span class="emphasis">,
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "minUI5Version": "1.120",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {}
+            }
+        },
+        "rootView": {
+            "viewName": "ui5.walkthrough.view.App",
+            "type": "XML",
+            "id": "app"
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ui5.walkthrough.i18n.i18n",
+                    "supportedLocales": [
+                        ""
+                    ],
+                    "fallbackLocale": ""
+                }
+            }
+        }
+    }</span>
+}</pre></div></div></section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In this tutorial, we only introduce the most important settings and parameters of the descriptor file. In some development
+					environments you may get validation errors because some settings are missing - you can ignore those in this context.</p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">webapp/Component.ts</h2>
+			<p>To apply the settings specified in the app descriptor to the component, we need to include the descriptor file in the component's
+				metadata. To do this, we add a <code>manifest</code> property to the <code>metadata</code> section of the component and set it
+				to <code>json</code>. This property acts as a reference to the <code>manifest.json</code> file that will be loaded and
+				used.</p>
+			<p>Now that the resource model is automatically instantiated based on the configuration in the app descriptor, we can safely remove the
+				corresponding code block from the <code>init</code> method in our component controller. This also means that we can remove the
+				import statement for the <code>ResourceModel</code> module from <code>sap/ui/model/resource/ResourceModel</code>, as it is no
+				longer needed. Additionally, we can remove the <code>createContent</code> call, since the configuration of the rootView is
+				specified in the app descriptor and therefore makes the implementation in this method unnecessary.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">import UIComponent from "sap/ui/core/UIComponent";
+import JSONModel from "sap/ui/model/json/JSONModel";
+
+/**
+ * @namespace ui5.walkthrough
+ */
+export default class Component extends UIComponent {
+    public static metadata = {
+        "interfaces": ["sap.ui.core.IAsyncContentCreation"],
+        <span class="emphasis">"manifest": "json"</span> 
+    };
+    init(): void {
+        // call the init function of the parent
+        super.init();
+        
+        // set data model
+        const data = {
+            recipient: {
+                name: "World"
+            }
+        };
+        const dataModel = new JSONModel(data);
+        this.setModel(dataModel);
+    };
+};</pre></div></div></section>
+		</section><section id="section_ok2_4n5_zgb">
+			<h2 class="title ">webapp/index.html</h2>
+			<p>Let's explore how we can create a component in a simple and straightforward way directly in the HTML markup of our
+					<code>index.html</code> file. To do this, we need to make a few changes in our HTML document.</p>
+			<p>First, we need to remove the reference to the <code>ui5/walkthrough/index</code> module from the
+					<code>data-sap-ui-on-init</code> attribute. Instead, we set it to the <code>sap/ui/core/ComponentSupport</code> module.
+				Next, we add a <code>div</code> tag to the body of our HTML file. Inside, we add a special data attribute called
+					<code>data-sap-ui-component</code>. This attribute is important because the <code>sap/ui/core/ComponentSupport</code>
+				module scans the HTML elements for it. Any element marked with it will be considered a container element into which a
+					<code>sap/ui/core/ComponentContainer</code> is inserted. We can also use additional data attributes to define the constructor
+				arguments for the <code>ComponentContainer</code> instance. We transfer the arguments used to configure the
+					<code>CompontentContainer</code> instance in the <code>index.ts</code> file to data attributes on our <code>div</code>
+				tag.</p>
+			<p>It's worth noting that the <code>ComponentSupport</code> module enforces asynchronous loading of the respective component, so we
+				don't need to set the <code>async</code> attribute to <code>true</code> in this case. It also sets the
+					<code>autoPrefixId</code> property to <code>true</code> by default, so we don't need to set this attribute here
+				either.</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI5 TypeScript Walkthrough&lt;/title&gt;
+	&lt;script
+		id="sap-ui-bootstrap"
+		src="resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-on-init="module:<span class="emphasis">sap/ui/core/ComponentSupport</span>"
+		data-sap-ui-resource-roots='{
+			"ui5.walkthrough": "./"
+		}'&gt;
+	&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="sapUiBody" id="content"&gt;
+<span class="emphasis">	&lt;div data-sap-ui-component data-name="ui5.walkthrough" data-id="container" data-settings='{"id" : "walkthrough"}'&gt;&lt;/div&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section>
+			<p>We can delete our <code>index.ts</code>, because the descriptor now takes care of everything.</p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>The descriptor file is named <code>manifest.json</code> and stored as a JSON file.</p>
+				</li>
+				<li class="li">
+					<p>The descriptor file is located in the <code>webapp</code> folder.</p>
+				</li>
+				<li class="li">
+					<p> Use translatable strings for the title and the description of the app.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dad1905a07f849ce9c509721317d38d8">Walkthrough Tutorial (TypeScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/f9d0e2fcd2134ff7923fcdcba8bded96">Step 9: Component Configuration (TypeScript)</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/feed6135dbcf4ba38bdd5a3c68fbedcc">Step 11: Pages and Panels (TypeScript)</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/be0cf40f61184b358b5faedaec98b2da" title="The manifest (also known as descriptor for applications, components, and libraries, in short: app descriptor) is inspired by the WebApplication Manifest concept introduced by the W3C. The manifest provides a central, machine-readable, and easy-to-access location for storing metadata associated with an application, an application component, or a library." class="sap-doc">Manifest (Descriptor for Applications, Components, and Libraries)</a></li>
+		<li><a href="topic/ec753bc539d748f689e3ac814e129563" title="You can configure a list of supported locales and a fallback locale in your app's manifest to control the loading of resource bundles and avoid '404 Not Found' network responses." class="sap-doc">Supported Locales and Fallback Chain</a></li>
+		<li><a href="topic/eba8d25a31ef416ead876e091e67824e" title="By defining terminologies together with additional resource bundles, an application can easily be switched from one scenario or industry to another." class="sap-doc">Terminologies</a></li>
+		<li><a href="topic/82a0fcecc3cb427c91469bc537ebdddf" title="The declarative API enables you to define the initially started component directly in the HTML markup." class="sap-doc">Declarative API for Initial Components</a></li>
+		<li><a href="api/sap.ui.core.ComponentSupport" title="api/sap.ui.core.ComponentSupport" class="sap-doc" alt="api/sap.ui.core.ComponentSupport">API Reference: sap.ui.core.ComponentSupport</a></li>
+		<li><a href="topic/1f81a093a9f3433983dcb2ebe11cd4cd" title="CSP stands for Content Security Policy and is a security standard to prevent cross-site scripting or other code injection attacks." class="sap-doc">Make Your App CSP Compliant</a></li>
+	</ul></section></div></section></div></body></html>

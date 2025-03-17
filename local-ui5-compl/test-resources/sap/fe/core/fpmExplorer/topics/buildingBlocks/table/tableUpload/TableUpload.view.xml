@@ -1,0 +1,31 @@
+<mvc:View
+	controllerName="sap.fe.core.fpmExplorer.tableUpload.TableUpload"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+>
+	<!--
+		The contextPath is set to "/RootEntity" - therefore all tables use a relative metaPath to "/RootEntity"
+	-->
+
+	<NavContainer id="wizardNavContainer">
+		<pages>
+			<Page id="TableUpload">
+				<Panel headerText="{i18n>pageSettings}">
+					<headerToolbar>
+						<OverflowToolbar>
+							<CheckBox text="{i18n>toggleEditMode}" selected="{ui>/isEditable}" select=".onSelectEdit" />
+						</OverflowToolbar>
+					</headerToolbar>
+					<Panel headerText="{i18n>tableUpload}">
+						<macros:Table metaPath="@com.sap.vocabularies.UI.v1.LineItem" id="LineItemTableUpload" />
+					</Panel>
+					<Text text="You can upload files by clicking on the Upload button or by using drag and drop." />
+					<Text
+						text="Please note that this is a demo service only, and the files are not stored in the service. This means you also can't download the uploaded files."
+					/>
+				</Panel>
+			</Page>
+		</pages>
+	</NavContainer>
+</mvc:View>

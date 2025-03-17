@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta charset="UTF-8" />
+        <title>OVP apps sandbox</title>
+        <script>
+            window["sap-ushell-config"] = {
+                "defaultRenderer": "fiori2",
+                "bootstrapPlugins": {
+                    "RuntimeAuthoringPlugin": {
+                        "component": "sap.ushell.plugins.rta",
+                        "config": {
+                            "validateAppVersion": false
+                        }
+                    },
+                    "PersonalizePlugin": {
+                        "component": "sap.ushell.plugins.rta-personalize",
+                        "config": {
+                            "validateAppVersion": false
+                        }
+                    },
+                    "CollaborationPlugin": {
+                        "component": "sap.suite.ui.commons.collaboration.flpplugins.msplugin",
+                        "config": {
+                            "isShareAsLinkEnabled": true,
+                            "isShareAsTabEnabled": false
+                        }
+                    }
+                },
+                "renderers": {
+                    "fiori2": {
+                        "componentData": {
+                            "config": {
+                                "enableSearch": false,
+                                "enableUserDefaultParameters": true,
+                                "rootIntent": "Shell-home",
+                                "sapHorizonEnabled": true
+                            }
+                        }
+                    }
+                },
+                "applications": {
+                    "procurement-overview": {
+                        "title": "Procurement Overview Page",
+                        "description": "Procurement Overview Page Demo App",
+                        "applicationType": "URL",
+                        "url": "./apps/procurement/webapp",
+                        "additionalInformation": "SAPUI5.Component=procurement"
+                    },
+                    "sales-overview": {
+                        "title": "Sales(Analytical) Overview Page",
+                        "description": "Sales Overview Page Demo App",
+                        "applicationType": "URL",
+                        "url": "./apps/sales/webapp",
+                        "additionalInformation": "SAPUI5.Component=sales"
+                    },
+                    "browse-books": {
+                        "title": "Browse Books (V24)",
+                        "description": "Bookshop",
+                        "applicationType": "URL",
+                        "url": "./apps/bookshop/webapp",
+                        "additionalInformation": "SAPUI5.Component=bookshop"
+                    },
+                    "books-overview": {
+                        "title": "Books overview",
+                        "description": "Contains Books",
+                        "applicationType": "URL",
+                        "url": "./apps/books/webapp",
+                        "additionalInformation": "SAPUI5.Component=books"
+                    },
+                    "saphanaoverview-display": {
+                        "title": "SAP HANA overview",
+                        "description": "Demo App",
+                        "applicationType": "URL",
+                        "url": "./apps/saphanaoverview/webapp",
+                        "additionalInformation": "SAPUI5.Component=saphanaoverview"
+                    },
+                    "freestyle-inbound": {
+                        "title": "Freestyle Inbound",
+                        "description": "free style inbound",
+                        "applicationType": "URL",
+                        "url": "./apps/Freestyle-Inbound/webapp",
+                        "additionalInformation": "SAPUI5.Component=Freestyle-Inbound"
+                    }
+                }
+            };
+        </script>
+        <script src="/resources/sap/ushell/bootstrap/sandbox2.js" id="sap-ushell-bootstrap"></script>
+
+        <script
+            id="sap-ui-bootstrap"
+            src="/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m,sap.ushell,sap.ui.layout"
+            data-sap-ui-compatVersion="edge"
+            data-sap-ui-theme="sap_horizon"
+            data-sap-ui-flexibilityServices='[{"connector": "LocalStorageConnector"}]'
+            data-sap-ui-oninit="module:sandbox/fioriSandboxInit"
+            data-sap-ui-resourceroots='{
+                "procurement": "../",
+                "sales": "../",
+                "bookshop": "../",
+                "Freestyle-Inbound": "../",
+                "books": "../",
+                "saphanaoverview": "../",
+                "sandbox": "./sandbox",
+                "sap.ushell.demo": "/ushell/test-resources/sap/ushell/demoapps"
+            }'
+            data-sap-ui-frameOptions="allow"
+        ></script>
+    </head>
+    <!-- UI Content -->
+    <body class="sapUiBody" id="content"></body>
+</html>

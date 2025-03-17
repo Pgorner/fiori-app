@@ -1,0 +1,431 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f2eba36f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/date-format-91f2eba.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Date Format</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Date Format</h2></div><div class="shortdesc">The <code>sap.ui.core.format.DateFormat</code> class can be used to parse a
+        string representing a date, time, or the combination of date and time into a JavaScript date
+        object and vice versa (also known as format). </div><p><code>DateFormat</code> formats and parses date and time values according to a set of
+            format options. It can also be used to format intervals. A pattern base on Locale Data
+            Markup Language (LDML) date format notation can be given and the date is formatted
+            following the given pattern. <code>DateFormat</code> can also format the date and
+            time into relative values on "day" level.</p><p>An <code>sap.ui.core.format.DateFormat</code> instance takes the time zone from <code>sap/base/i18n/Localization.getTimezone</code>
+            and considers it when using the <code>format</code> and <code>parse</code> methods. This means that dates are converted to the
+            configured time zone. However, for instances created with <code>sap.ui.core.format.DateFormat#getDateTimeWithTimezoneInstance</code>,
+            the <code>format</code> and <code>parse</code> methods accept a time zone parameter which is preferred over the
+                <code>timezone</code> configuration parameter from <code>sap/base/i18n/Localization.getTimezone</code>.</p><p>If no time zone is configured, the browser's local time zone is used.</p><section>
+            <h2 class="title ">Instantiation</h2>
+            <p>You instantiate of <code>sap.ui.core.format.DateFormat</code> by calling the
+                    <code>getter</code> defined on the <code>DateFormat</code> (and not by
+                calling the
+                constructor):</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance();
+// or
+var oDateTimeFormat = sap.ui.core.format.DateFormat.getDateTimeInstance();
+// or
+var oDateTimeWithTimezoneFormat = sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance();
+// or
+var oTimeFormat = sap.ui.core.format.DateFormat.getTimeInstance();</pre></div></div></section><p></p>
+        </section><section><h2 class="title ">Parameters</h2><p>There are several parameters which affect the final
+                result of formatting and parsing a date. If no parameter is set, the default setting
+                defined in the current locale is used to format and parse the date.</p><section>
+                <h3 class="title ">Date Pattern</h3>
+                <p><code>format</code> (recommended): </p>
+                <p>The format string does contain pattern symbols (e.g. <code>yMMMd</code> or
+                        <code>Hms</code>) and will be converted into the pattern in the used
+                    locale, which matches the wanted symbols best.</p>
+                <p>The symbols must be in canonical order, that is: Era (<code>G</code>), Year
+                        (<code>y</code>/<code>Y</code>), Quarter
+                        (<code>q</code>/<code>Q</code>), Month
+                        (<code>M</code>/<code>L</code>), Week
+                        (<code>w</code>/<code>W</code>), Day-Of-Week
+                        (<code>E</code>/<code>c</code>), Day
+                        (<code>d</code>/<code>D</code>), Hour
+                        (<code>h</code>/<code>H</code>/<code>k</code>/<code>K</code>),
+                    Minute (<code>m</code>), Second (<code>s</code>), Timezone
+                        (<code>z</code>/<code>Z</code>/<code>v</code>/<code>V</code>/<code>O</code>/<code>X</code>/<code>x</code>).</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+	format: "yMMMd"
+});
+
+oDateFormat.format(UI5Date.getInstance()); // string in locale de "29. Jan. 2017"; string in locale en "Jan 29, 2017" </pre></div></div></section>
+                <p><code>pattern</code>: A date pattern in LDML date format notation. The date is formatted based on the given pattern.</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+    pattern: "EEE, MMM d, yyyy"
+});
+
+oDateFormat.format(UI5Date.getInstance()); //string in the same format as "Thu, Jan 29, 2017"</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                        </p><p>If you define <code>format</code> and <code>pattern</code>, the <code>format</code> will be ignored!</p>
+                    <p></p></div></div><p></p>
+                <p>The letters which can be included in this pattern are explained in the following
+                        table:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_i53_5gl_2y" class=" ">
+                            
+                            
+                            <thead>
+                                <tr>
+                                    <th colspan="1" rowspan="1">
+                                        <p>Letter</p>
+                                    </th>
+                                    <th colspan="1" rowspan="1">
+                                        <p>Replaced By</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>G</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>era string for the current date</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>y</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>year</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>Y</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>calendar year based on the calendar week</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>Q</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>quarter number</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>q</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>quarter number in stand-alone format</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>M</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>month</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>L</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>month in stand-alone format</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>w</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>week number in year</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p>(<code>W</code>)</p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>(currently not supported) week number in month </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p>(<code>D</code>)</p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>(currently not supported) day number in year</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>d</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>day number in month</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p>(<code>F</code>)</p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>(currently not supported) day of week in month</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>E</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>day of week</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>c</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>day of week in stand-alone format</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>u</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>day number of week</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>a</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>AM or PM</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>B</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>flexible day period, e.g. "afternoon" or "midnight", for the time provided</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>j</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>Can only be used in the <code>format</code> option,
+                                            not in the <code>pattern</code>. It will be replaced
+                                            by <code>h</code>, <code>H</code>,
+                                                <code>K</code> or <code>k</code> depending
+                                            on the locale preferred time cycle type (12-hour or
+                                            24-hour).</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>J</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>Can only be used in the <code>format</code> option,
+                                            not in the <code>pattern</code>. It will be replaced
+                                            by <code>h</code>, <code>H</code>,
+                                                <code>K</code> or <code>k</code>. However
+                                            unlike <code>j</code> it requests no
+                                                <code>dayPeriod</code> marker such as "am" or
+                                            "pm". It is typically used where there is enough context
+                                            that the day period not necessary. For example, with
+                                                <code>jmm</code>, "18:00" could appear as "6:00
+                                            PM", while with <code>Jmm</code>, it would appear as
+                                            "6:00" (no PM).</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>H</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>hour (0-23)</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>k</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>hour (1-24)</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>K</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>hour (0-11)</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>h</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>hour (1-12)</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>m</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>minute</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>s</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>second</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>S</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>fractional second</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>z</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>time zone</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>Z</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>time zone in RFC 822 format</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>X</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>time zone in ISO 8601 format</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1" rowspan="1">
+                                        <p><code>V</code></p>
+                                    </td>
+                                    <td colspan="1" rowspan="1">
+                                        <p>time zone as IANA time zone ID, e.g.
+                                            "America/New_York"</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table></div></div><p></p>
+            </section><section>
+                <h3 class="title ">Style</h3>
+                <p>This can be set with either <code>empty</code>, <code>short</code>,
+                        <code>medium</code> or <code>long</code>. If no pattern is given, a
+                    locale-dependent default date pattern of that style is used which is extracted
+                    from the current locale.</p>
+                <p>If in addition to <code>style</code>
+                    <code>pattern</code> or <code>format</code> is defined, the
+                        <code>style</code> is ignored.</p>
+                <p>If you use the <code>datetime</code> instance by calling
+                        <code>getDateTimeInstance</code>, you can define different styles for
+                        <code>date</code> and <code>time</code>. For example,
+                        <code>medium/short</code> defines medium style for the
+                        <code>date</code> and short style for the <code>time</code>.</p>
+            </section><section>
+                <h3 class="title ">Format with IANA time zone ID</h3>
+                <p>When using <code>DateFormat.getDateTimeWithTimezoneInstance</code>, the time
+                    zone can be specified in the <code>format</code> method:</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateTimeWithTimezoneFormat = sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance();
+
+oDateTimeWithTimezoneFormat.format(UI5Date.getInstance(), "America/New_York") // Returns "10.02.2022, 10:01:14 America/New_York"</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">Relative Format</h3>
+                <p>Relative format on "day"' level is only supported by the date instance but not
+                    the date time or the time instance.</p><ul class="ul ">
+                        <li class="li">
+                            <p><code>relative</code>: if this is set to <code>true</code>,
+                                the date is formatted relatively to the actual date if it's within
+                                the given date range.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>relativeRange</code>: the day range used for relative
+                                formatting. The default is set to <code>6</code> which means
+                                only dates within the last six days, the acutal date, and the next
+                                six days are formatted relatively.</p>
+                        </li>
+                        <li class="li">
+                            <p><code>relativeScale</code>: the relative scale is chosen
+                                depending on the difference between the given date and now, possible
+                                relative scales are: <code>year</code>, <code>month</code>,
+                                    <code>week</code>, <code>day</code>,
+                                    <code>hour</code>, <code>minute</code>,
+                                    <code>second</code>, and <code>auto</code></p>
+                            <p>If <code>auto</code> is set, the scale is chosen dependent on the
+                                actual difference.</p>
+                        </li>
+                    </ul><p></p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+    relative: true
+});
+ 
+var nMS = 1000 * 60 * 60 * 24; // milliseconds in a day
+var oDate = UI5Date.getInstance(Date.now() - nMS);
+oDateFormat.format(oDate); // returns "yesterday"
+ 
+oDate = UI5Date.getInstance(Date.now() + 7 * nMS);
+oDateFormat.format(oDate); // isn't returned in relative format because the default value of relativeRange is [6|-6,]</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">Interval</h3>
+                <p><code>interval</code>: If this is set to <code>true</code>, the
+                        <code>DateFormat</code> is capable to format two dates as an interval.
+                    The <code>format</code> method expects an array with two dates as the first
+                    argument.</p>
+                <p>If the format option is set with necessary symbols, the
+                        <code>DateFormat</code> displays the fields which have the same value
+                    between the two dates only once in the result string. For example, the interval
+                    "Jan 10, 2008 - Jan 12, 2008" will be formatted as "Jan 10-12, 2008". Otherwise
+                    the two given dates are formatted separately and concatenated with
+                    locale-dependent pattern.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oFormat = sap.ui.core.format.DateFormat.getInstance({
+	format: "yMMMd",
+	interval: true
+});
+var oDate1 = UI5Date.getInstance(2017, 3, 11);
+var oDate2 = UI5Date.getInstance(2017, 4, 11);
+oFormat.format([oDate1, oDate2]);  
+// string in locale de "11. Apr. – 11. Mai 2017"; 
+// string in locale en "Apr 11 – May 11, 2017"  </pre></div></div></section>
+            </section><section>
+                <h3 class="title ">Parsing</h3>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+    pattern: "EEE, MMM d, yyyy"
+});
+ 
+oDateFormat.parse("Thu, Feb 10, 2022") // Returns a JavaScript Date object</pre></div></div></section>
+                <p><code>strictParsing</code>: If this is set to <code>true</code>, the
+                        <code>date</code> string is validated during parsing. If it doesn't pass
+                    the validation, <code>null</code> is returned.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+    pattern: "EEE, MMM d, yyyy",
+    strictParsing: true
+});
+
+oDateFormat.parse("Thu, Feb 31, 2022") // Returns null</pre></div></div></section>
+                <p>When using <code>DateFormat.getDateTimeWithTimezoneInstance</code>, the time
+                    zone can be specified in the <code>parse</code> method:</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oDateTimeWithTimezoneFormat = sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance();
+
+oDateTimeWithTimezoneFormat.parse("10.02.2022, 10:01:14 America/New_York", "America/New_York") // Returns [JavaScript Date object, "America/New_York"]</pre></div></div></section>
+            </section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="api/sap.ui.core.format.DateFormat" title="api/sap.ui.core.format.DateFormat" class="sap-doc" alt="api/sap.ui.core.format.DateFormat">API Reference: sap.ui.core.format.DateFormat</a></li>
+    </ul></section></div></section></div></body></html>

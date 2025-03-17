@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../../../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="brokerClient.js"></script>
+    <link rel="stylesheet" href="brokerClient.css" />
+</head>
+<body id="wrapper">
+<input id="txtMessageId" type="hidden"/>
+<div id="group1">
+    <fieldset>
+        <legend>Client Connection Information:</legend>
+        <div>
+            <label>My client id:</label>
+            <select id="txtClientId">
+                <option selected="selected">AppUI5</option>
+                <option>AppRuntime</option>
+                <option>AppHTML</option>
+                <option>Plugin1</option>
+                <option>Plugin2</option>
+            </select>
+            <button id="btnBrokerConnect">Connect</button>
+            <button id="btnBrokerDisconnect">Disconnect</button>
+            <label id="txtStatusId">Not connected</label>
+        </div>
+        <div>
+            <label>Supported channels:</label>
+            <input id="txtChannels" type="text" value="math,app.context,app.screenshot"/>
+            <button id="btnSubscribe">Subscribe</button>
+            <button id="btnUnsubscribe">Unsubscribe</button>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Publish Message:</legend>
+        <div>
+            <label>To client:</label>
+            <select id="txtTargetClientId">
+                <option selected="selected">*</option>
+                <option>AppUI5</option>
+                <option>AppRuntime</option>
+                <option>AppHTML</option>
+                <option>Plugin1</option>
+                <option>Plugin2</option>
+            </select>
+        </div>
+        <div>
+            <label>In channel:</label>
+            <input id="txtChannelId" type="text" value="math"/>
+        </div>
+        <div>
+            <label>Message name:</label>
+            <input id="txtMessageName" type="text" value="add"/>
+        </div>
+        <div>
+            <label>Data:</label>
+            <textarea id="txtMessage" rows="6">{&#13;&#10;   "x": 100,&#13;&#10;   "y": 200&#13;&#10;}</textarea>
+        </div>
+        <div>
+            <label></label>
+            <button id="btnSendMessage">Publish Message</button>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Message/Response Received:</legend>
+        <input id="txtFromMessageId" type="hidden"/>
+        <div>
+            <label>From client:</label>
+            <input id="txtFromClientId" type="text" readonly/>
+        </div>
+        <div>
+            <label>Message channel:</label>
+            <input id="txtFromChannelId" type="text" readonly/>
+        </div>
+        <div>
+            <label>Message name:</label>
+            <input id="txtFromMessageName" type="text" readonly/>
+        </div>
+        <div>
+            <label>Data:</label>
+            <textarea id="txtFromMessage" rows="6"></textarea>
+        </div>
+        <div>
+            <label>Response Data:</label>
+            <textarea id="txtResponse" rows="6"></textarea>
+        </div>
+        <div>
+            <label></label>
+            <button id="btnSendResponse">Send Response</button>
+        </div>
+    </fieldset>
+</div>
+<div id="group2">
+    <fieldset>
+        <legend>Log</legend>
+        <textarea id="txtLog" rows="45" style="width:99%"></textarea>
+        <button id="btnClearLog">Clear Log</button>
+    </fieldset>
+</div>
+</div>
+</body>
+</html>

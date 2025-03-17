@@ -1,0 +1,534 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4bd7590569c74c61a0124c6e370030f6" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/configuring-filter-bars-4bd7590.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuring Filter Bars</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuring Filter Bars</h2></div><div class="shortdesc">You can configure filter bars in both list report applications and
+		 analytical list
+		pages.</div><p>By default, only the fields included in <code>UI.SelectionFields</code>, along with all mandatory filter fields, are displayed in the filter bar. The
+				<span class="ph uicontrol">Editing Status</span> filter is added automatically if you have a draft service.</p><p>The filter bar is available only if the service configured for the application supports filtering using the following annotations:</p><p>SAP Fiori elements for OData
+                            V2: <code>sap-filterable=true</code></p><p>SAP Fiori elements for OData
+                            V4: <code>Capabilities.Filterable=true</code></p><section id="section_rym_zkz_jqb">
+			<h2 class="title ">Annotation for <code>UI.SelectionFields</code></h2>
+			
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.SelectionFields"&gt;
+   &lt;Collection&gt;
+     &lt;PropertyPath&gt;SalesOrder&lt;/PropertyPath&gt;
+     &lt;PropertyPath&gt;SoldToParty&lt;/PropertyPath&gt;
+     &lt;PropertyPath&gt;OverallSDProcessStatus&lt;/PropertyPath&gt;
+     &lt;PropertyPath&gt;SalesOrderDate&lt;/PropertyPath&gt;
+     &lt;PropertyPath&gt;_Item/Material&lt;/PropertyPath&gt;
+   &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.SelectionField: [{ position: 10 }]
+SALESORDER;
+
+@UI.SelectionField: [{ position: 20 }]
+SOLDTOPARTY;
+ 
+@UI.SelectionField: [{ position: 30 }]
+OVERALLSDPROCESSSTATUS;
+ 
+@UI.SelectionField: [{ position: 40 }]
+SALESORDERDATE;
+
+@UI.SelectionField: [{ position: 50, element: '_Item.Material' }]
+_Item;</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate service.SalesOrderManage with @(
+  UI.SelectionFields  : [
+     SalesOrder,
+     SoldToParty,
+     OverallSDProcessStatus,
+     SalesOrderDate,
+     Item.Material
+]
+);</pre></div></div></section><p></p></div></div>
+		</section><section id="section_z2j_m4c_pdc">
+			<h2 class="title ">Configuring Search Behavior in Filter Bars</h2>
+			<section>
+				<h3 class="title "><span class="ph uicontrol">Go</span> Button Mode</h3>
+				<p>In Go button mode, the search isn't invoked and the content area does not refresh when an end user modifies the filter fields unless they explicitly click
+						<span class="ph uicontrol">Go</span>. By default, the <span class="ph uicontrol">Go</span> button is displayed on the filter bar. You can modify the default content loading
+					behavior during the initial load of the application by configuring the <code>manifest.json</code> file. For more information, see <a href="topic/9f4e1192f1384b85bc160288e17f69c4" title="Several factors affect the loading behavior of data on initial launch of the application." class="sap-doc">Loading Behavior of Data on Initial Launch of the Application </a>.</p>
+			</section>
+			<section id="live_mode">
+				<h3 class="title ">Live Mode</h3>
+				<p>In live mode, any changes made by an end user to the filter fields automatically invokes a search and refreshes the content area. In this mode, if the variant
+					management feature is enabled, the application does not display the <span class="ph uicontrol">Apply Automatically</span> checkbox, as selecting a variant automatically
+					invokes the filter search.</p>
+				<p>This mode is ideal for applications with a small amount of data that have no performance issues from the underlying database layer, such as those requiring
+					complex joins to execute actions.</p>
+				<p>For more information about how to enable the live mode in OData V2, see the <a href="topic/4bd7590569c74c61a0124c6e370030f6.html#loio4bd7590569c74c61a0124c6e370030f6/live_mode_v2" title="4bd7590569c74c61a0124c6e370030f6.xml#loio4bd7590569c74c61a0124c6e370030f6/live_mode_v2" class="sap-doc">Enabling Live
+						Mode</a> subsection in the <span class="emphasis">Additional Features in SAP Fiori elements for OData
+                            V2</span> section
+					of this topic.</p>
+				<p>For more information about how to enable the live mode in OData V4, see the <a href="topic/4bd7590569c74c61a0124c6e370030f6.html#loio4bd7590569c74c61a0124c6e370030f6/live_mode_v4" title="4bd7590569c74c61a0124c6e370030f6.xml#loio4bd7590569c74c61a0124c6e370030f6/live_mode_v4" class="sap-doc">Enabling Live
+						Mode</a> subsection in the <span class="emphasis">Additional Features in SAP Fiori elements for OData
+                            V4</span> section
+					of this topic.</p>
+				<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>Impact on performance</p><p>When live mode is enabled, the content area loads automatically during the initial load of the
+						application, regardless of the initial load settings in the <code>manifest.json</code> file. Additionally, the content area refreshes each time a filter
+						field value changes. This behavior can negatively impact the performance, especially when dealing with large datasets or complex database constraints, such
+						as compiling complex join queries whenever there is a change in the filter field values. You must perform thorough testing to ensure acceptable end-to-end
+						performance before enabling live mode.</p><p></p></div></div>
+			</section>
+		</section><section id="section_jl2_54v_wsb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><section>
+				<h3 class="title "><code>entitySet</code> with Input Parameters</h3>
+				<p>If the <code>entitySet</code> has any input parameters, then it is shown in the filter bar automatically without the <code>UI.SelectionFields</code>
+					annotation.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					
+					</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="SalesShareParametersType" sap:semantics="parameters"&gt;
+    &lt;Key&gt;          
+        &lt;PropertyRef Name="P_Currency"/&gt;
+        &lt;PropertyRef Name="P_Country"/&gt;
+        &lt;PropertyRef Name="P_Optional"/&gt;
+    &lt;/Key&gt;
+    &lt;Property Name="P_Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Currency" sap:parameter="mandatory"/&gt;
+    &lt;Property Name="P_Country" Type="Edm.String" Nullable="false" DefaultValue="3" MaxLength="20" sap:label="CountryCode" sap:parameter="mandatory"/&gt;
+    &lt;Property Name="P_Optional" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Optional" sap:parameter="optional"/&gt;
+    &lt;NavigationProperty Name="Results" Relationship="sap.smartbusinessdemo.services.SalesShareParameters_SalesShareType" FromRole="SalesShareParametersPrincipal" ToRole="SalesShareDependent"/&gt;
+&lt;/EntityType&gt;
+</pre></div></div></section>
+				<p></p></div></div>
+				<p>In this example, <code>P_Currency</code> and <code>P_Country</code> are mandatory and they must be filled with
+					a valid input value to trigger the filter query. However,
+						<code>P_Optional</code> is an optional input parameter. If there is no parameter value defined, by default an empty string value is used.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Current support for optional parameters only includes the <code>Edm.String</code> type.</p>
+				<p></p></div></div>
+			</section><section id="live_mode_v2">
+				<h3 class="title ">Enabling Live Mode</h3>
+				<p>You can enable live mode by setting <code>liveMode</code> to <code>true</code> using UI adaptation. For more information, see <a href="topic/0d2f1a9ebd2d4a4c906216ded1d33783" title="Application developers can extend and customize specific features of the list report and object page." class="sap-doc">Adapting the UI: List Report and Object Page</a>.</p>
+			</section></div></section><section id="section_dyt_hc2_wpb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+				<h3 class="title ">Adding Filter Fields Using SAP Fiori Tools</h3>
+				
+				<ol>
+					<li class="li">
+						<p>Launch the <span class="ph uicontrol">Page Map</span>. You can launch the <span class="ph uicontrol">Page Map</span> in several ways, for example by right-clicking the project
+							folder and selecting<span class="ph uicontrol"> Show Page Map</span>. For more information, see <a href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/bae38e6216754a76896b926a3d6ac3a9.html" title="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/bae38e6216754a76896b926a3d6ac3a9.html" class="external-link" target="_blank" rel="noopener">Define
+								Application Structure</a>.</p>
+					</li>
+					<li class="li">Launch the <span class="ph uicontrol">Page Editor</span> for your list report page. Click the <span class="SAP-icons sapUiInheritedElement sapUiInheritedBackground" style="font-size:inherit;"></span><span class="$description/@outputclass"></span> (<span class="ph uicontrol">Edit</span>) icon next to <span class="ph uicontrol">List Report</span>.</li>
+					<li class="li">Expand the <span class="ph uicontrol">Filter Fields</span> node in the outline
+						tree. Click the <span class="SAP-icons sapUiInheritedElement sapUiInheritedBackground" style="font-size:inherit;"></span><span class="$description/@outputclass"></span> (<span class="ph uicontrol">Arrow</span>) icon next to <span class="ph uicontrol">Filter
+							Fields</span>.<p>The following screenshot shows the outline of the
+							application with the <span class="ph uicontrol">Filter Fields</span> node expanded:</p><div><div class="fig"><img src="loio5b1c16de83bc4c789e80bf8df16aa935_LowRes.png" usemap="#"></div></div></li>
+					<li class="li">Click the <span class="SAP-icons sapUiInheritedElement sapUiInheritedBackground" style="font-size:inherit;"></span><span class="$description/@outputclass"></span> (<span class="ph uicontrol">Add</span>) icon next to <span class="ph uicontrol">Filter Fields</span>.</li>
+					<li class="li">Click <span class="ph uicontrol">Add Filter Fields</span>.</li>
+					<li class="li">Select the fields you wish to add from the dropdown.</li>
+					<li class="li">Click <span class="ph uicontrol">Add</span>.<p>For more information about configuring filter
+							fields using SAP Fiori tools, see <a href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/0b8428645243486680ffa22c0b541039.html" title="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/0b8428645243486680ffa22c0b541039.html" class="external-link" target="_blank" rel="noopener">Filter
+								Fields</a>.</p></li>
+					<li class="li">To preview your new filter field, see <a href="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/b962685bdf9246f6bced1d1cc1d9ba1c.html" title="https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/b962685bdf9246f6bced1d1cc1d9ba1c.html" class="external-link" target="_blank" rel="noopener">Previewing an
+							Application</a>.</li>
+				</ol>
+				<p>The following screenshot shows the filter fields in a previewed application:</p>
+				<div><div class="fig"><img src="loio01c10c9fcef04abb9d4f52095719699b_LowRes.png" usemap="#"></div></div>
+				<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+					</p><p>You can reorder your filter fields by using drag and drop in the <span class="ph uicontrol">Page Editor</span>.</p>
+				<p></p></div></div>
+				<p>The following screen recording shows how to add a new filter field:</p>
+				
+					
+					
+				
+				
+			</section><section>
+				<h3 class="title ">Hiding the Filter Bar</h3>
+				<p>You can configure your application to disable the filter bar on a list
+					report by making the corresponding settings in the <code>manifest.json</code>
+					file.</p>
+				<p>You can choose to actively disable the filter bar, even if the entity set contains filterable fields. Your
+					application then loads with the following behavior:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>The content area is always loaded, irrespective of the <code>initialLoad</code> setting in the <code>manifest.json</code>.</p>
+					</li>
+					<li class="li">
+						<p>The <span class="ph uicontrol">Search</span> field is provided in the table toolbar.</p>
+					</li>
+				</ul>
+				<p>You can disable the filter bar by setting <code>hideFilterBar</code> to <code>true</code> in the
+					<code>manifest.json</code> file, as shown in the following sample
+					code:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+     "sap.ui5": {
+          "routing": {
+               "targets": {
+                    "SalesOrderManageList": {
+                         "options": {
+                              "settings": {
+                                   "hideFilterBar": true
+                              }
+                         }
+                    }
+               }
+          }
+     }
+}</pre></div></div></section><p></p></div></div>
+				
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>If the filter bar contains mandatory filter fields or parameter fields without a default value, then this setting is ignored and the filter bar is
+						displayed.</p>
+				<p></p></div></div>
+				
+			</section><section id="live_mode_v4">
+				<h3 class="title ">Enabling Live Mode </h3>
+				<p>You can enable live mode by setting the <code>liveMode</code> to <code>true</code> in the <code>manifest.json</code> file, as shown in the following
+					sample code: </p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"routing": {
+	"targets": {
+                    "MyEntitiesList": {
+                            "type": "Component",
+                            "name": "sap.fe.templates.ListReport",
+                            "id": "MyEntitiesList",
+                            "options": {
+                                            "settings": {
+                                                            "liveMode": true,
+                                                                 …..
+                                                                ….
+                                                        }
+                                        }
+                                }
+                }
+}</pre></div></div></section><p></p></div></div>
+				<p>Enabling live mode may have some impact on performance. For more information, see the Note in the <a href="topic/4bd7590569c74c61a0124c6e370030f6.html#loio4bd7590569c74c61a0124c6e370030f6/live_mode" title="4bd7590569c74c61a0124c6e370030f6.xml#loio4bd7590569c74c61a0124c6e370030f6/live_mode" class="sap-doc">Live Mode</a> subsection of this topic.</p>
+			</section><section>
+				<h3 class="title ">Configuring Mandatory Filter Fields</h3>
+				<p>You can configure the filter fields as mandatory using the <code>Capabilities.RequiredProperties</code> annotation. Such properties need a value before the
+					filter fields can be triggered.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.Container/SalesOrder"&gt;
+   &lt;Annotation Term="SAP__capabilities.FilterRestrictions"&gt;
+      &lt;Record&gt;
+         &lt;PropertyValue Property="RequiredProperties"&gt;
+            &lt;Collection&gt;
+               &lt;PropertyPath&gt;OrderType&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+         &lt;/PropertyValue&gt;
+      &lt;/Record&gt;
+   &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@Consumption.filter.mandatory: true
+OrderType;</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate service.SalesOrder with @Capabilities : {
+    FilterRestrictions : {
+        $Type : 'Capabilities.FilterRestrictionsType',
+        RequiredProperties : [
+            OrderType
+        ],
+    },
+};</pre></div></div></section><p></p></div></div>
+			</section><section>
+				<h3 class="title ">Configuring Fields to Remain Hidden in the Filter Bar and the <span class="ph uicontrol">Adapt Filters</span> Dialog</h3>
+				<p>Applications can ensure that a field within the entity to which the filter bar is bound remains hidden in both the filter bar and the <span class="ph uicontrol">Adapt
+						Filters</span> dialog. You can use the <code>Capabilities.NonFilterableProperties</code> annotation to achieve this behavior.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.Container/SalesOrder"&gt;
+   &lt;Annotation Term="SAP__capabilities.FilterRestrictions"&gt;
+      &lt;Record&gt;
+         &lt;PropertyValue Property="NonFilterableProperties"&gt;
+            &lt;Collection&gt;
+               &lt;PropertyPath&gt;DeliveryChannel&lt;/PropertyPath&gt;
+            &lt;/Collection&gt;
+         &lt;/PropertyValue&gt;
+      &lt;/Record&gt;
+   &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@ObjectModel.filter.enabled: false
+DeliveryChannel;</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate service.SalesOrder with @Capabilities : {
+    FilterRestrictions : {
+        $Type : 'Capabilities.FilterRestrictionsType',
+        NonFilterableProperties : [
+            DeliveryChannel
+        ],
+    },
+};</pre></div></div></section><p></p></div></div>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Properties annotated with <code>UI.Hidden</code> or <code>UI.HiddenFilter</code> are not displayed in either the filter bar or the <span class="ph uicontrol">Adapt
+							Filters</span> dialog.</p>
+				<p></p></div></div>
+			</section><section id="suppprting_parameterized_entities_subsection">
+				<h3 class="title ">Supporting Parameterized Entities</h3>
+				<p>To access the data of parameterized services, the parameter fields need to be supplied with parameter values when making the data call. These parameter values
+					are then used to load the data for the view (including the data in the object page or subobject page). Furthermore, the invocation of any action that needs
+					context to be passed, is also passed using these parameter values.</p>
+				<p>For example, the <code>"CustomerType"</code> in the following sample
+					code represents the main entity set from which further data needs to be
+					fetched. This has a <code>"Parameters"</code> navigation entity set defined as well:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Metadata of parameterized main entity
+					type</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="CustomerType"&gt;
+    &lt;Key&gt;
+        &lt;PropertyRef Name="Customer"/&gt;
+        &lt;PropertyRef Name="CompanyCode"/&gt;
+        ……
+        ……
+    &lt;/Key&gt;
+    &lt;Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10"/&gt;
+    &lt;Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4"/&gt;
+    &lt;Property Name="SalesOrganization" Type="Edm.String" Nullable="false" MaxLength="4"/&gt;
+    ……
+    ……
+    ……
+    &lt;NavigationProperty Name="Parameters" Type="com.sap.gateway.srvd.zrc_arcustomer_definition.v0001.CustomerParameters" Nullable="false"/&gt;
+    ......
+    ......
+&lt;/EntityType&gt;</pre></div></div></section><p></p></div></div>
+				<p>Furthermore, the <code>"CustomerParameters"</code> entity type is annotated with the <code>"ResultContext"</code> annotation, indicating that the parent
+					entity set (in our example <code>"CustomerType"</code>) is a parameterized entity set:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>"ResultContext"</code>
+					annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.CustomerParameters"&gt;
+    &lt;Annotation Term="SAP__common.ResultContext"/&gt;
+    ......
+    ......
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+				<p>In the <code>"CustomerParameters"</code> entity type, you can now find the parameters that need to be supplied with values to access the data from the main
+					parameterized entity set:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Parameter entity
+					type</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="CustomerParameters"&gt;
+    &lt;Key&gt;
+        &lt;PropertyRef Name="P_CompanyCode"/&gt;
+    &lt;/Key&gt;
+    &lt;Property Name="P_CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4"/&gt;
+    &lt;NavigationProperty Name="Set" Type="Collection(com.sap.gateway.srvd.zrc_arcustomer_definition.v0001.CustomerType)" Partner="Parameters" ContainsTarget="true"/&gt;
+&lt;/EntityType&gt;</pre></div></div></section><p></p></div></div>
+				<p>Note that the <code>"Partner"</code> term points to <code>"Parameters"</code> here, which was also the navigation entity set pointing to this
+						<code>"CustomerParameter"</code> in the main entity type.</p>
+				<p>To access the data residing in the main entity set, that is, the entity
+					set corresponding to the <code>"CustomerType"</code> entity type, we need to access it through the entity set corresponding to the navigation entity set,
+					which is marked with the <code>"ResultContext"</code> annotation – so in this case through the entity set corresponding to the
+						<code>"CustomerParameters"</code> entity type. <code>"Customer"</code> is the entity set that corresponds to the
+						<code>"CustomerParameters"</code> entity type:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Entity set corresponding to
+					<code>CustomerParameters</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityContainer Name="Container"&gt;
+    &lt;EntitySet Name="Customer" EntityType="com.sap.gateway.srvd.zrc_arcustomer_definition.v0001.CustomerParameters"&gt;
+        &lt;NavigationPropertyBinding Path="Set/Parameters" Target="Customer"/&gt;
+        .......
+        .......
+    &lt;/EntitySet&gt;
+    ......
+    ......
+&lt;/EntityContainer&gt;</pre></div></div></section><p></p></div></div>
+				<p>Here's an example of how the call to fetch results from the main entity set in the above sample would look:
+						<code>http://&lt;path&gt;/Customer(P_CompanyCode='0001')/Set?$count=true</code></p>
+				<p>The call has to go through the <code>"Customer"</code> entity set by passing the values of all parameters to it. Then we have to call the entity set that
+					holds the results (in this case the <code>"Set"</code> entity set).</p>
+			</section><section>
+				<h3 class="title ">Specifying Filter Restrictions for the Main Entity Set (Parameterized Entities Only)</h3>
+				<p>You can use one of the following two approaches:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>Filter Restrictions at Main Entity with <code>PropertyPath</code> Pointing to the Filter Field of the Main Entity</p>
+						<p>The restrictions can be defined at the main entity set with the property path pointing to the filter field or the main entity type (containment) (for
+							example, <code>SalesOrganization</code> from a previous example) via the containment navigation (<code>Set</code> in a previous example)</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation: Filter restrictions with <code>PropertyPath</code> pointing to the filter field of the main entity set
+							</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.Container/Customer"&gt;
+   &lt;Record Type="SAP__capabilities.FilterRestrictionsType"&gt;
+      &lt;PropertyValue Property="FilterExpressionRestrictions"&gt;
+         &lt;Collection&gt;
+            &lt;Record Type="Capabilities.FilterExpressionRestrictionType"&gt;
+               &lt;PropertyValue Property="Property" PropertyPath="Set/SalesOrganization" /&gt;
+               &lt;PropertyValue Property="AllowedExpressions" String="MultiValue" /&gt;
+            &lt;/Record&gt;
+         &lt;/Collection&gt;
+      &lt;/PropertyValue&gt;
+   &lt;/Record&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><p>No ABAP CDS annotation sample is available. Please use the local XML annotation.</p><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+							Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity Customer   @(
+    Capabilities : {
+        FilterRestrictions:{
+            $Type: 'Capabilities.FilterRestrictionsType',
+            FilterExpressionRestrictions: [{
+                Property: 'Set/SalesOrganization',
+                AllowedExpressions: 'MultiValue'
+            }]
+    }
+}</pre></div></div></section><p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Navigation Restrictions at Main Entity</p>
+						<p>The filter restrictions can be defined in the parameterized entity set (in the previous example, via the <samp class="ph systemoutput">"Customer"</samp> entity
+							set) through navigation restrictions with a path pointing to the target entity type, which is the containment navigation (in our case
+								<samp class="ph systemoutput">"Set"</samp>, which points to <samp class="ph systemoutput">"CustomerType"</samp>).</p>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation: Filter Restrictions Using Navigation
+							Restrictions</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SAP__self.Container/Customer"&gt;
+   &lt;Annotation Term="SAP__capabilities.NavigationRestrictions"&gt;
+      &lt;Record&gt;
+         &lt;PropertyValue Property="RestrictedProperties"&gt;
+            &lt;Collection&gt;
+               &lt;Record&gt;
+                  &lt;PropertyValue Property="NavigationProperty" NavigationPropertyPath="Set" /&gt;
+                     &lt;PropertyValue Property="FilterRestrictions"&gt;
+                        &lt;Record&gt;
+                           ....
+                           ....
+                           &lt;PropertyValue Property="FilterExpressionRestrictions"&gt;
+                              &lt;Collection&gt;
+                                 &lt;Record&gt;
+                                    &lt;PropertyValue Property="Property" PropertyPath="SalesOrganization" /&gt;
+                                    &lt;PropertyValue Property="AllowedExpressions" String="MultiValue" /&gt;
+                                 &lt;/Record&gt;
+                              &lt;/Collection&gt;
+                           &lt;/PropertyValue&gt;
+                        &lt;/Record&gt;
+                     &lt;/PropertyValue&gt;
+                  &lt;/PropertyValue&gt;
+               &lt;/Record&gt;
+            &lt;/Collection&gt;
+         &lt;/PropertyValue&gt;
+      &lt;/Record&gt;
+   &lt;/Annotation&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><p>No ABAP CDS annotation sample is available. Please use the local XML annotation.</p><p></p></div></div>
+						<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+							Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">service MyService {
+    @Capabilities.NavigationRestrictions.RestrictedProperties : [{
+        $Type              : 'Capabilities.NavigationPropertyRestriction',
+        NavigationProperty : 'Set',
+        FilterRestrictions : {
+            $Type                        : 'Capabilities.FilterRestrictionsType',
+            FilterExpressionRestrictions : [{
+                $Type              : 'Capabilities.FilterExpressionRestrictionType',
+                Property           : 'Set.SalesOrganization',
+                AllowedExpressions : 'MultiValue'
+            }]
+        }
+    }]
+}</pre></div></div></section><p></p></div></div>
+					</li>
+				</ul>
+			</section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If the filter restrictions are provided using <code>NavigationRestriction</code>, then this restriction is prioritized over other restrictions applied
+					directly to the main entity.</p>
+			<p></p></div></div><div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p>Parameter support is currently only available for read-only services. For editable services, parameter support is currently unavailable because of
+							back-end restrictions.</p>
+					</li>
+					
+					<li class="li">
+						<p>Parameter values aren't passed when an external navigation is triggered.</p>
+					</li>
+					<li class="li">
+						<p>Parameters aren't supported if multiple view mode is used – unless single-table mode is used, where the data from all views comes from the same table
+							that is part of the main entity set.</p>
+					</li>
+					<li class="li">
+						<p>None of the navigation entity sets associated with the main entity set can be parameterized.</p>
+					</li>
+					<li class="li">
+						<p>Sort restrictions aren't supported for first-level navigation entity sets when used within parameterized scenarios (meaning when a root node is a
+							parameterized entity).</p>
+					</li>
+					
+					<li class="li">
+						<p>Filtering on properties defined as measures is not supported.</p>
+					</li>
+					
+				</ul>
+			<p></p></div></div></div></section><section id="section_dqs_ppb_psb">
+			<h2 class="title ">More Information</h2>
+			<p>For more information about how to configure filter bars, see <a href="topic/609c39a7498541559dbef503c1ffd194" title="You can adapt the filter bar using additional annotations or configuring the manifest.json file." class="sap-doc">Adapting the Filter Bar</a>.</p>
+			<p>For information about the initial loading of data, see <a href="topic/9f4e1192f1384b85bc160288e17f69c4" title="Several factors affect the loading behavior of data on initial launch of the application." class="sap-doc">Loading Behavior of Data on Initial Launch of the Application</a>.</p>
+			
+			<p>For more information about using extension APIs for custom filter fields, see <a href="topic/5fb9f57fcf12401bbe39a635e9a32a4e" title="You can extend the filter bar by using a custom filter field." class="sap-doc">Adding Custom Fields to the Filter Bar</a>.</p>
+			
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

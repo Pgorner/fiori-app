@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/misc/Format","sap/gantt/shape/ext/ubc/UbcPolygon"],function(t,e){"use strict";var i=e.extend("sap.gantt.shape.ext.ubc.UbcShortageCapacityPolygon",{});i.prototype.getFill=function(t,e){if(this.mShapeConfig.hasShapeProperty("fill")){return this._configFirst("fill",t)}return"#FF0000"};i.prototype.getStroke=function(t,e){if(this.mShapeConfig.hasShapeProperty("stroke")){return this._configFirst("stroke",t)}return"#CAC7BA"};i.prototype.getStrokeWidth=function(t,e){if(this.mShapeConfig.hasShapeProperty("strokeWidth")){return this._configFirst("strokeWidth",t)}return.3};i.prototype.getPoints=function(e,i){if(this.mShapeConfig.hasShapeProperty("points")){return this._configFirst("points",e)}var r="";var a=this._getMaxY(e,i);var o=i.y;var s=this._getMaxTotalRevised(e);var n=i.rowHeight-1;var p=e.drawData?e.drawData:e.period;var h=this.getAxisTime();for(var f=0;f<p.length;f++){var g=p[f];var d,u;d=h.timeToView(t.abapTimestampToDate(g.start_date)).toFixed(1);if(f<p.length-1){u=h.timeToView(t.abapTimestampToDate(p[f+1].start_date)).toFixed(1)}else{u=h.timeToView(t.abapTimestampToDate(p[f].start_date)).toFixed(1)}if(!jQuery.isNumeric(d)){d=h.timeToView(0).toFixed(1)}if(!jQuery.isNumeric(u)){u=h.timeToView(0).toFixed(1)}if(f===0){r+=d+","+a+" "}var m=a;if(g.demand>g.supply){if(g.demand/s>1){m=o}else{m=a-g.demand/s*n}}m=m.toFixed(1);r+=d+","+m+" ";r+=u+","+m+" ";if(f===p.length-1){r+=d+","+m+" ";r+=d+","+a+" "}}return r};return i},true);
+//# sourceMappingURL=UbcShortageCapacityPolygon.js.map

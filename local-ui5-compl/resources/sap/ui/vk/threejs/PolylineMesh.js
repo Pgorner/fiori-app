@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+        (c) Copyright 2009-2015 SAP SE. All rights reserved
+    
+ */
+sap.ui.define(["../thirdparty/three","./PolylineGeometry","./PolylineMaterial"],function(e,t,a){"use strict";function r(i,l){var n=i!==undefined?i:new t;var c=l!==undefined?l:new a;var s=new e.Mesh(n,c);Object.setPrototypeOf(s,r.prototype);this.type="PolylineMesh";return s}r.prototype=Object.assign(Object.create(e.Mesh.prototype),{constructor:r,isPolylineMesh:true,computeLineDistances:function(){var t=new e.Vector4;var a=new e.Vector4;var r=new e.Vector2;var i=new e.Vector2;return function(e,l,n){var c=this.geometry;var s=c.attributes.instanceDistance.data;var o=s.array;const p=c.vertices;const y=c.indices;let u=this.material.dashOffset,f;if(!y){a.copy(p[0]).applyMatrix4(e)}for(let c=0,w=0,d=s.count;c<d;c++,w+=2){if(y){t.copy(p[y[c<<1]]).applyMatrix4(e);a.copy(p[y[(c<<1)+1]]).applyMatrix4(e);u=this.material.dashOffset}else{t.copy(a);a.copy(p[c+1]).applyMatrix4(e)}if(n!==undefined){if(t.w>=n){r.copy(t).multiplyScalar(1/t.w);if(a.w>=n){i.copy(a).multiplyScalar(1/a.w)}else{f=(t.w-n)/(t.w-a.w);i.copy(a).sub(t).multiplyScalar(f).add(t).multiplyScalar(1/n)}}else if(a.w>=n){i.copy(a).multiplyScalar(1/a.w);f=(a.w-n)/(a.w-t.w);r.copy(t).sub(a).multiplyScalar(f).add(a).multiplyScalar(1/n)}else{r.set(0,0,0);i.set(0,0,0)}}else{r.copy(t);i.copy(a)}o[w]=u;u+=i.sub(r).multiply(l).length()*.5;o[w+1]=u}this.material.lineLength=u;s.needsUpdate=true;return this}}()});return r});
+//# sourceMappingURL=PolylineMesh.js.map

@@ -1,0 +1,319 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio85ec3a9454ac4eb1a901745e773844d3" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-4-quick-filter-for-the-worklist-85ec3a9.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 4: Quick Filter for the Worklist</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 4: Quick Filter for the Worklist</h2></div><div class="shortdesc">For easily detecting and managing product shortages in our app, we will add a quick
+		filter for the worklist table. Users can press the filter tabs to display the products
+		according to whether they are in stock, have low stock or no stock. The table will update
+		accordingly and show only the products matching the criteria.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio395f8acac5fd4fbc9a1c52c615fa07d3_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">A quick filter allows filtering the product table</h2></span></div>
+		</section><section><h2 class="title ">Coding</h2><p>You can view and download all files in the Demo Kit at <a href="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.04" title="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.04" class="sap-doc" alt="entity/sap.m.tutorial.worklist/sample/sap.m.tutorial.worklist.04">Worklist App - Step 4</a>.</p><section>
+				<h3 class="title ">webapp/view/Worklist.view.xml [MODIFY]</h3>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="mycompany.myapp.MyWorklistApp.controller.Worklist"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"&gt;
+
+	&lt;semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"&gt;
+
+		&lt;semantic:titleHeading&gt;
+			&lt;Title text="{i18n&gt;worklistTitle}" /&gt;
+		&lt;/semantic:titleHeading&gt;
+
+		&lt;semantic:<span class="emphasis">headerContent</span>&gt;
+<span class="emphasis">			&lt;IconTabBar
+				id="iconTabBar"
+				select=".onQuickFilter"
+				expandable="false"&gt;
+				&lt;items&gt;
+					&lt;IconTabFilter
+						key="all"
+						showAll="true"
+						count="{worklistView&gt;/countAll}"
+						text="{i18n&gt;WorklistFilterProductsAll}"/&gt;
+					&lt;IconTabSeparator/&gt;
+					&lt;IconTabFilter
+						key="inStock"
+						icon="sap-icon://message-success"
+						iconColor="Positive"
+						count="{worklistView&gt;/inStock}"
+						text="{i18n&gt;WorklistFilterInStock}"/&gt;
+					&lt;IconTabFilter
+						key="shortage"
+						icon="sap-icon://message-warning"
+						iconColor="Critical"
+						count="{worklistView&gt;/shortage}"
+						text="{i18n&gt;WorklistFilterShortage}"/&gt;
+					&lt;IconTabFilter
+						key="outOfStock"
+						icon="sap-icon://message-error"
+						iconColor="Negative"
+						count="{worklistView&gt;/outOfStock}"
+						text="{i18n&gt;WorklistFilterOutOfStock}"/&gt;
+				&lt;/items&gt;
+				&lt;content&gt;</span>
+					&lt;Table
+...
+					&lt;/Table&gt;
+<span class="emphasis">				&lt;/content&gt;
+			&lt;/IconTabBar&gt;
+</span>
+
+		&lt;/semantic:<span class="emphasis">headerContent</span>&gt;
+		&lt;semantic:sendEmailAction&gt;
+			&lt;semantic:SendEmailAction
+				id="shareEmail"
+				press="onShareEmailPress"/&gt;
+		&lt;/semantic:sendEmailAction&gt;
+	&lt;/semantic:SemanticPage&gt;
+&lt;/mvc:View&gt;
+</pre></div></div></section>
+				<p>We now update the view and add the new UI for the quick filter to the content
+					aggregation of the <code>sap.m.SemanticPage</code> control just before the
+						<code>table</code>. It is modeled using a
+						<code>sap.m.IconTabBar</code> control and a
+						<code>sap.m.IconTabFilter</code> for each of the following filter
+						options:</p><ul class="ul ">
+						<li class="li">
+							<p><span class="ph uicontrol">Total Stock</span></p>
+							<p>This tab will simply show the overall number of products that has
+								been returned by the data service. The <code>count</code>
+								property is bound to a local view model and the number will be
+								updated in the controller later in this step. This tab will show a
+								larger number only (optional) and no icon by using the
+									<code>showAll</code> property.</p>
+						</li>
+						<li class="li">
+							<p><span class="ph uicontrol">Out of Stock</span></p>
+							<p>This tab will show all the products that are out of stock. We choose
+								a matching icon from the icon font and set the icon color to the
+								semantic <code>Negative</code> state so that it will appear in
+								red.</p>
+						</li>
+						<li class="li">
+							<p><span class="ph uicontrol">Shortage</span></p>
+							<p>This tab will show products that have less than 10 pieces remaining
+								with a semantic <code>Critical</code> state that will make the
+								icon appear in orange. The count of the number of low stock products
+								will be displayed on the tab and the icon will appear in orange.
+							</p>
+						</li>
+						<li class="li">
+							<p><span class="ph uicontrol">Plenty in Stock</span></p>
+							<p>This tab will show products that have more than 10 pieces in stock.
+								The semantic <code>Positive</code> state will let the icon
+								appear in green. As usual the UI texts for the tabs are linked to
+								the resource bundle file and will be added later. Do not forget to
+								set the standard CSS class <code>sapUiNoMarginTop</code> on the
+								table to remove the spacing between the <code>IconTabBar</code>
+								and the <code>table</code> and make the UI look nicer. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>Each <code>IconTabFilter</code> element has a
+											<code>key</code> property that is used to identify
+										the tab that was pressed in the event handler
+											<code>onQuickFilter</code> that is registered on the
+											<code>IconTabBar</code> control directly. The event
+										handler implementation does the actual filtering on the
+										table and is defined in the controller.</p>
+								<p></p></div></div><p></p>
+						</li>
+					</ul><p></p>
+			</section><section>
+				<h3 class="title ">webapp/controller/Worklist.controller.js [MODIFY]</h3>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		onInit : function () {
+			var oViewModel,
+				iOriginalBusyDelay,
+				oTable = this.byId("table");
+
+			// Put down worklist table's original value for busy indicator delay,
+			// so it can be restored later on. Busy handling on the table is
+			// taken care of by the table itself.
+			iOriginalBusyDelay = oTable.getBusyIndicatorDelay();
+<span class="emphasis">			this._oTable = oTable;</span>
+			// keeps the search state
+			this._aTableSearchState = [];
+
+			// Model used to manipulate control states
+			oViewModel = new JSONModel({
+				worklistTableTitle: this.getResourceBundle().getText("worklistTableTitle"),
+				shareOnJamTitle: this.getResourceBundle().getText("worklistTitle"),
+				shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
+				shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailWorklistMessage", [location.href]),
+				tableNoDataText: this.getResourceBundle().getText("tableNoDataText"),
+				tableBusyDelay: 0<span class="emphasis">,
+				inStock: 0,
+				shortage: 0,
+				outOfStock: 0,
+				countAll: 0</span>
+			});
+			this.setModel(oViewModel, "worklistView");
+<span class="emphasis">			// Create an object of filters
+			this._mFilters = {
+				"inStock": [new Filter("UnitsInStock", FilterOperator.GT, 10)],
+				"outOfStock": [new Filter("UnitsInStock", FilterOperator.LE, 0)],
+				"shortage": [new Filter("UnitsInStock", FilterOperator.BT, 1, 10)],
+				"all": []
+			};</span>
+
+			// Make sure, busy indication is showing immediately so there is no
+			// break after the busy indication for loading the view's meta data is
+			// ended (see promise 'oWhenMetadataIsLoaded' in AppController)
+			oTable.attachEventOnce("updateFinished", function(){
+				// Restore original busy indicator delay for worklist's table
+				oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
+			});
+		},
+		...</pre></div></div></section>
+				<p>As a preparation step for the filter tabs we add properties for the counters into
+					the local view model of the worklist controller. We initialize the four values
+					with <code>0</code> each. Furthermore, we create an object
+						<code>_mFilters</code> that contains a filter for each tab. We will use
+					the filters for filtering the table below the tabs. The properties in
+						<code>_mFilters</code> correlate to the keys of the
+						<code>IconTabFilter</code> controls we defined above in the
+						<code>Worklist.view.xml</code> file. This way we can easily access a
+					filter for a given tab based on the key of the corresponding tab.</p>
+				<p> Creating a simple filter requires a binding path as first parameter of the
+					filter constructor (e.g. <code>"UnitsInStock"</code>), a filter operator
+					(e.g. <code>"GT"</code>) as second argument, and a value to compare (e.g.
+						<code>10</code>) as the third argument. We create such filters for all
+					three tabs with different filter operators as described in the view part above.
+					Additionally, we create an <code>all</code> filter, which is an empty array
+					for clearing the binding again (when the user chooses the
+						<span class="ph uicontrol">All</span> tab).</p>
+			</section><section>
+				<h3 class="title ">webapp/controller/Worklist.controller.js [MODIFY]</h3>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		onUpdateFinished : function (oEvent) {
+			// update the worklist's object counter after the table update
+			var sTitle,
+				oTable = oEvent.getSource(),
+<span class="emphasis">				oViewModel = this.getModel("worklistView"),
+</span>
+				iTotalItems = oEvent.getParameter("total");
+			// only update the counter if the length is final and
+			// the table is not empty
+			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+				sTitle = this.getResourceBundle().getText("worklistTableTitleCount", [iTotalItems]);
+<span class="emphasis">				// Get the count for all the products and set the value to 'countAll' property
+				this.getModel().read("/Products/$count", {
+					success: function (oData) {
+						oViewModel.setProperty("/countAll", oData);
+					}
+				});
+				// read the count for the unitsInStock filter
+				this.getModel().read("/Products/$count", {
+					success: function (oData) {
+						oViewModel.setProperty("/inStock", oData);
+					},
+					filters: this._mFilters.inStock
+				});
+				// read the count for the outOfStock filter
+				this.getModel().read("/Products/$count", {
+					success: function(oData){
+						oViewModel.setProperty("/outOfStock", oData);
+					},
+					filters: this._mFilters.outOfStock
+				});
+				// read the count for the shortage filter
+				this.getModel().read("/Products/$count", {
+					success: function(oData){
+						oViewModel.setProperty("/shortage", oData);
+					},
+					filters: this._mFilters.shortage
+				});
+</span>
+			} else {
+				sTitle = this.getResourceBundle().getText("worklistTableTitle");
+			}
+			this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
+		},
+		...</pre></div></div></section>
+				<p>In the <code>onUpdateFinished</code> function, we get the count of all
+					products by triggering a read operation on the model with the appropriate
+					filter. The filter is a helper object of SAPUI5 that defines
+					the condition for each tab on the data binding level. We already created the
+					filters in the <code>onInit</code> function.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The <code>v2.ODataModel</code> will automatically bundle these
+							<code>read</code> requests to one batch request to the server (if
+						batch mode is enabled).</p>
+				<p></p></div></div>
+				<p>In the <code>success</code> handler of each <code>read</code> operation
+					we update the corresponding property in the view model with the real count of
+					the matching items that were returned by the service.</p>
+			</section><section>
+				<h3 class="title ">webapp/controller/Worklist.controller.js [MODIFY]</h3>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		_applySearch: function(aTableSearchState) {
+			var oTable = this.byId("table"),
+				oViewModel = this.getModel("worklistView");
+			oTable.getBinding("items").filter(aTableSearchState, "Application");
+			// changes the noDataText of the list in case there are no filter results
+			if (aTableSearchState.length !== 0) {
+				oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
+			}
+		}<span class="emphasis">,
+
+		/**
+		 * Event handler when a filter tab gets pressed
+		 * @param {sap.ui.base.Event} oEvent the filter tab event
+		 * @public
+		 */
+		onQuickFilter: function(oEvent) {
+			var oBinding = this._oTable.getBinding("items"),
+				sKey = oEvent.getParameter("selectedKey");
+			oBinding.filter(this._mFilters[sKey]);
+		}
+</span>
+
+	});
+
+});</pre></div></div></section>
+				<p>Next, we implement the handler for the <code>select</code> event of the
+						<code>IconTabBar</code>. In this event handler we get a reference to the
+					binding for the <code>items</code> aggregation of our <code>table</code>
+					and store it in the variable <code>oBinding</code>. Then we read the
+					parameter <code>selectedKey</code> from the <code>event</code> object to
+					find out which tab has been selected. This <code>selectedKey</code> is used
+					to get the correct filter for the selected tab. Next, we simply call the filter
+					method on <code>oBinding</code> and pass the correct filter of the selected
+					tab.</p>
+				<p>The filters are always applied as an array on the binding level, so you don't
+					need to take care of managing the data, the data binding features of SAPUI5 will
+					automatically take care.</p>
+			</section><section>
+				<h3 class="title ">webapp/i18n/i18n.properties [MODIFY]</h3>
+				<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+
+<span class="emphasis">
+#XTIT: The title of the products quick filter
+WorklistFilterProductsAll=Products
+
+#XTIT: The title of the out of stock products filter
+WorklistFilterOutOfStock=Out of Stock
+
+#XTIT: The title of the low stock products filter
+WorklistFilterShortage=Shortage
+
+#XTIT: The title of the products in stock filter
+WorklistFilterInStock=Plenty in Stock
+</span>
+
+#~~~ Object View ~~~~~~~~~~~~~~~~~~~~~~~~~~
+...</pre></div></div></section>
+				<p>We finally add the texts for the tab filters to the resource bundle. Copy the
+					text definitions from the code section above to the end of the <code>Worklistn
+						View</code> section in the i18n file.</p>
+				<p>Now run the app again and click the filter icons on top of the table. The
+					products should be filtered according to the selection in the filter bar and the
+					count should match the number of items displayed.</p>
+			</section></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/6a6a621c978145ad9eef2b221d2cf21d">Worklist App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/84100bcfd5b34f62858bdd6f67976b4a">Step 3: Extending the Worklist Table</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/2da220ff496c4b0f9ce29208cbd089f3">Step 5: Adding Actions to the Worklist</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.model.ListBinding" title="api/sap.ui.model.ListBinding" class="sap-doc" alt="api/sap.ui.model.ListBinding">API Reference: sap.ui.model.ListBinding.filter </a></li>
+	</ul></section></div></section></div></body></html>

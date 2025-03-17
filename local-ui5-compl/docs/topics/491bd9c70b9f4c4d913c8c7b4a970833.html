@@ -1,0 +1,308 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio491bd9c70b9f4c4d913c8c7b4a970833" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/deprecated-factories-replacement-491bd9c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Deprecated Factories Replacement</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Deprecated Factories Replacement</h2></div><div class="shortdesc">Overview of the replacement of global functions with the factory
+		functions</div><p>The AMD module syntax already avoids Globals and enforces the strict dependency declaration. The following table shows how APIs which use
+			synchronous requests to fetch modules or resources internally, can be replaced with asynchronous alternatives. The WHATWG has already
+			deprecated the use of synchronous requests in the browser main thread, so this replacement prepares your applications for the removal of
+			synchronous requests.</p><p>The SAPUI5 framework by default uses synchronous requests internally in several
+			places. Most have already been replaced by asynchronous alternatives, or prepared to exchange the synchronous behaviour shown below. The
+			asynchronous adoption starts from the beginning with the bootstrap script tag, where the <code>async</code> configuration parameter
+			should be set to <code>true</code>. The examples below show only the most frequently used synchronous APIs. There are more of these
+			APIs, and most often the asynchronous alternatives return a <code>Promise</code> that can be used to retrieve the former return
+			value.</p><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_bpv_cnv_cfb" class=" ">
+				
+				
+				<thead>
+					<tr>
+						<th colspan="1" rowspan="1">
+							<p>Legacy, synchronous API</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Modern API</p>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="2" rowspan="1">
+							<p>Components</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oComponentInstance = sap.ui.component({
+    name: "my.comp"
+});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/Component"], (Component)=&gt; {
+    Component.create({
+        name: "my.comp"
+    }).then((oComp) =&gt; {/*...*/});
+});</pre></div></div></section>
+							<p>Alternatively, migrate to <code>componentUsages</code> with an
+								additional adaption in the <code>manifest.json</code> file:</p>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">createContent: function() {
+   var oReuseComponentPromise = this.createComponent({
+      "usage": "reuse"
+  }).then((oComp) =&gt; {/*...*/});
+}</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oComponentClass = sap.ui.component.load({
+    name: "my.comp"
+});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/Component"], (Component) =&gt; {
+    Component.load({
+        name: "my.comp"
+    }).then((oClass) =&gt; {
+        var oComponentInstance = new oClass({/*...*/});
+    });
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oComponentInstance = sap.ui.component("my-comp-id");</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/Component"], (Component) =&gt; {
+    var oComponentInstance = Component.get("my-comp-id");
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="1">
+							<p>i18n texts</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">jQuery.sap.resources({
+    url: "mybundle.properties"
+});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// sap/ui/Resources -&gt; sap/base/i18n/ResourceBundle
+
+sap.ui.require(["sap/base/i18n/ResourceBundle"], (Resource) =&gt; {
+    ResourceBundle.create({
+        url: "mybundle.properties",
+	   async: true
+    }).then((oResource) =&gt; {/*...*/});
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="1">
+							<p>Views</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oView = sap.ui.view({
+    viewName: "my.View",
+    type: "XML"
+});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/mvc/View"], (View) =&gt; {
+    View.create({ 
+        viewName: "my.View",
+        type: "XML"
+    }).then((oView) =&gt; {/*...*/});
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oView = sap.ui.xmlview({
+    viewName: "my.View"
+});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/mvc/XMLView"], (XMLView) =&gt; {
+    XMLView.create({ 
+        viewName: "my.View"
+    }).then((oView) =&gt; {/*...*/});
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oView = sap.ui.jsview({							
+    viewName: "my.View"						
+});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>For defining views, use <code>View.extend</code>. For loading and creating a view instance, use <code>View.create</code>. Refer also
+								to the dedicated <a href="topic/e6bb33d076dc4f23be50c082c271b9f0" title="A view can also be defined by extending the sap.ui.core.mvc.View class. Such a view is referred to as a typed view. This means the view definition represents its own view class." class="sap-doc">Typed View</a> documentation and the <a href="entity/sap.ui.core.mvc.View/sample/sap.ui.core.sample.View.navigationTypedView" title="entity/sap.ui.core.mvc.View/sample/sap.ui.core.sample.View.navigationTypedView" class="sap-doc" alt="entity/sap.ui.core.mvc.View/sample/sap.ui.core.sample.View.navigationTypedView">code sample</a>.</p>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/mvc/View", "sap/m/Panel"], function(View, Panel){					
+    return View.extend("my.View", {
+
+		// define, which controller to use
+		getControllerName: function() {
+			return "my.Controller";
+		},
+
+		// whether the ID of content controls should be prefixed automatically with the view ID
+		getAutoPrefixId: function() {
+			return true; // default is false
+		},
+
+		// create view content and return the root control(s)
+		createContent: async function() {
+			const someControl = await somethingAsync();
+			return new Panel({
+				content: [someControl, /*...*/]
+			});
+    	}						
+    });
+});</pre></div></div></section>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/mvc/View"], (View) =&gt; {
+    View.create({ 		
+        viewName: "module:my/View"			
+    }).then((oView) =&gt; {/*...*/});
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="1">
+							<p>Controllers</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oController = sap.ui.controller({/*...*/});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>To define an <code>sap/ui/core/mvc/Controller</code> subclass, you can simply extend it:</p>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/mvc/Controller"], (Controller) =&gt; {
+    return Controller.extend("my.sample.ControllerClass", {
+
+        /* lifecycle hooks, controller methods etc. */
+        onInit: function() {/*...*/}
+    });
+});</pre></div></div></section>
+							<p>To manually instantiate a Controller class, you can use the <code>Controller.create()</code> factory function:</p>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/mvc/Controller"], (Controller) =&gt; {
+    Controller.create({ 
+        // ...
+    }).then((oController) =&gt; {/*...*/});
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="1">
+							<p>Extension Points</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var aControls = sap.ui.extensionpoint(/*...*/);</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/ExtensionPoint"], (ExtensionPoint) =&gt; {
+    ExtensionPoint.load({ 
+        async: true;
+        // ...
+    }).then((aControls) =&gt; {/*...*/});
+});</pre></div></div></section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="1">
+							<p>Fragments</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// generic factory function
+var aControls = sap.ui.fragment({ 
+    name: "my.fragment",
+    type: "XML"
+});</pre></div></div></section>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// JS fragments
+var aControls = sap.ui.jsfragment({ 
+    name: "my.fragment"
+});</pre></div></div></section>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// XML Fragments
+var aControls = sap.ui.xmlfragment({ 
+    name: "my.fragment"
+});</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>If you're instantiating your fragment inside a controller which extends <code>sap.ui.core.mvc.Controller</code>, you can use the
+									<code>loadFragment</code> function:</p>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/mvc/Controller"], (Controller) =&gt; {
+    return Controller.extend("my.MyController", {
+
+        onInit: function() {
+            // Beware: The controller's "onInit" lifecycle hook is NOT an async function;
+            //         returning a Promise is not supported by the framework.
+            //         Any asynchronous behavior must be handled manually.
+            this.loadFragment({
+                name: "my.fragment",
+                // ...
+            }).then((oControl) =&gt; {/*...*/});
+        }
+    });
+});</pre></div></div></section>
+							<p>If you're instantiating your fragment outside a controller, you can use the static <code>Fragment.load</code> function:</p>
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require([
+    "sap/ui/core/Component", 
+    "sap/ui/core/Fragment"
+], (Component, Fragment) =&gt; {
+    // ...
+
+    // "oPage" is an exemplary sap.m.Page control
+    const oComponent = Component.getOwnerComponentFor(oPage);
+
+    oComponent.runAsOwner(function() {
+        Fragment.load({
+            name: "my.fragment",
+            type: "XML" // or type: "JS"
+        }).then((oControl) =&gt; {/*...*/});
+    });
+});</pre></div></div></section>
+							<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+								</p><ul class="ul ">
+									<li class="li">
+										<p>Make sure you assign the correct owner component by running the <code>runAsOwner()</code> call on the
+											Component instance. See <a href="topic/a7a313889e874a118c5e17803c958b24" title="If you wish to extend your view or controller, you must define the extension in the manifest.json of their owner component." class="sap-doc">The Owner Component</a> for more information.</p>
+									</li>
+									<li class="li">
+										<p>Make sure that you are correctly chaining to the <code>loadFragment</code> or
+												<code>Fragment.load</code> Promise! Calling <code>oController.byId("...")</code> will result
+											in <code>undefined</code> if called before the<code> loadFragment</code> or
+												<code>Fragment.load</code> Promise is resolved.</p>
+									</li>
+								</ul>
+							<p></p></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan="1">
+							<p>Version Info</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oVersionInfo = sap.ui.getVersionInfo();</pre></div></div></section>
+						</td>
+						<td colspan="1" rowspan="1">
+							<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/core/VersionInfo"], (VersionInfo) =&gt; {
+    VersionInfo.load({ 
+        // ...
+    }).then((oVersionInfo) =&gt; {/*...*/});
+});</pre></div></div></section>
+						</td>
+					</tr>
+				</tbody>
+			</table></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

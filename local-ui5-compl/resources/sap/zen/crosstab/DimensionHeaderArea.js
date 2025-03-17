@@ -1,0 +1,5 @@
+/*!
+ * (c) Copyright 2010-2019 SAP SE or an SAP affiliate company.
+ */
+sap.ui.define(["jquery.sap.global","sap/zen/crosstab/BaseArea","sap/zen/crosstab/rendering/RenderingConstants"],function(jQuery,e,a){"use strict";jQuery.sap.declare("sap.zen.crosstab.DimensionHeaderArea");sap.zen.crosstab.DimensionHeaderArea=function(r){e.call(this,r);this.sAreaType=a.TYPE_DIMENSION_HEADER_AREA};sap.zen.crosstab.DimensionHeaderArea.prototype=jQuery.sap.newObject(e.prototype);sap.zen.crosstab.DimensionHeaderArea.prototype.renderArea=function(e){var a="sapzencrosstab-DimensionHeaderArea";if(this.oCrosstab.getPropertyBag().isMobileMode()){a+=" sapzencrosstab-MobileHeaderSeparator"}this.renderContainerStructure(e,a,false,false)};sap.zen.crosstab.DimensionHeaderArea.prototype.getPageManager=function(){return null};return sap.zen.crosstab.DimensionHeaderArea});
+//# sourceMappingURL=DimensionHeaderArea.js.map

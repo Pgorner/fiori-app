@@ -1,0 +1,2 @@
+"use strict";sap.ui.define(["sap/cards/ap/transpiler/thirdparty/sap-ux/integration-card-converter"],function(t){"use strict";const e=t["convertToAdaptiveCard"];const n=function(t,n){let r=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];const o={};r.forEach(t=>{o[t.key]=t.formattedValue});const a={context:o,serviceUrl:window.location.origin,appIntent:n};return e(t,a)};var r={__esModule:true};r.convertIntegrationCardToAdaptive=n;return r});
+//# sourceMappingURL=Transpile.js.map

@@ -1,0 +1,5 @@
+/*
+ * Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+ */
+jQuery.sap.declare("sap.ca.ui.OverflowContainerRenderer");sap.ca.ui.OverflowContainerRenderer={};sap.ca.ui.OverflowContainerRenderer.render=function(e,r){var t=r.getContent();e.write("<div");e.writeControlData(r);e.addStyle("max-height",r.getExpanded()?"none":r.getOverflowHeight());e.writeStyles();e.addClass("sapCaUiOC");e.writeClasses();e.write(">");e.write("<div id='"+r.getId()+"-content'");e.writeClasses();e.write(">");jQuery.each(t,function(r){e.renderControl(t[r])});e.write("</div>");e.write("<div");e.writeAttributeEscaped("id",r.getId()+"-overlay");e.addClass("sapCaUiOCOverlay");e.writeClasses();e.write(">");e.write("</div>");e.renderControl(r._getButton());e.write("</div>")};
+//# sourceMappingURL=OverflowContainerRenderer.js.map

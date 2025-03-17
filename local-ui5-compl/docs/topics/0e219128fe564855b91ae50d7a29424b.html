@@ -1,0 +1,391 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0e219128fe564855b91ae50d7a29424b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-1-3d-viewer-with-single-file-loading-0e21912.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 1: 3D Viewer With Single File Loading</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 1: 3D Viewer With Single File Loading</h2></div><div class="shortdesc">In this step, you will be creating a 3D Viewer application that allows a user to load
+        a single 2D image or 3D model that is stored locally or remotely.</div><section>
+            <h2 class="title ">Preview</h2>
+            <p>By the end of this step, you will have created a Viewer application that allows you
+                to load a 2D or 3D resource. The Viewer application will look as follows: </p>
+            <div><div class="fig"><img src="loiod751e9e17eb0440db218e038e0c4d994_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Viewer application with single file loading functionality</h2></span></div>
+        </section><section id="section_lv5_lvy_zbc">
+            <h2 class="title ">Setup</h2>
+            <p>Open a terminal and install UI5 Tooling globally on your machine by executing the following command:</p>
+            <p><code>npm install --global @ui5/cli</code></p>
+        </section><section><h2 class="title ">Coding</h2><p>You can view and download all files at <a href="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.01" title="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.01" class="sap-doc" alt="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.01">3D Viewer - Step 1 - 3D Viewer With Single
+                        File Loading</a>.</p>
+            <ol>
+                <li class="li">Create a folder on your local machine which will contain all the sources of the app we're going to build. We'll refer to this
+                    folder as the "app root folder".</li>
+                <li class="li">
+                    <p>Create a new file called <code>package.json</code> which will enable you to execute commands and consume packages from
+                            the<a href="https://www.npmjs.com/" title="https://www.npmjs.com/" class="external-link" target="_blank" rel="noopener"> npm registry</a> via the npm command line
+                        interface. Enter the following content:</p>
+                    <p><span class="emphasis">package.json (New)</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">{
+  "name": "ui5.3dviewer",
+  "version": "1.0.0",
+  "description": "The UI5 3D viewer application",
+  "scripts": {
+      "start": "ui5 serve -o index.html"
+  }
+}</span>
+</pre></div></div></section><p></p>
+                </li>
+                <li class="li">
+                    <p>Create a new folder named <code>webapp</code> in the app root folder. It will contain all the sources that become available
+                        in the browser later. We'll refer to this folder as the "webapp folder".</p>
+                </li>
+                <li class="li">
+                    <p>Create a new HTML file named <code>index.html</code> in your webapp folder and enter the following content.</p>
+                    <p><span class="emphasis">webapp/index.html (New)</span></p>
+                    <p>In the first <code>script</code> element of this <code>index.html</code> file, we are referencing:</p><ul class="ul ">
+                            <li class="li">
+                                <p>the <code>sap.ui.vk</code>3D Viewer - Step 1 - 3D Viewer With Single library, which contains the controls for
+                                    adding 3D visualization functionality (the <code>sap.ui.vk</code> value in the
+                                        <code>data-sap-ui-libs</code> property)</p>
+                            </li>
+                            <li class="li">
+                                <p>the component file called <code>Component.js</code> (the <code>data-sap-ui-resource-roots</code>
+                                    property)</p>
+                            </li>
+                        </ul><p></p>
+                    <p>We specify that resources related to <code>singleFile</code> are located in the same folder as this
+                            <code>index.html</code> file.</p>
+                    <p>In the second <code>script</code> element, we create a function that will be called as soon as SAPUI5 is loaded and initialized. We add our application into
+                        this function.</p>
+                    <section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/&gt; 
+    &lt;script id="sap-ui-bootstrap"
+        src="resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-compat-version="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-libs="sap.ui.vk, sap.m"
+        data-sap-ui-resource-roots='{
+            "singleFile": "./"
+         }' &gt;
+    &lt;/script&gt;
+    &lt;script&gt;
+    sap.ui.getCore().attachInit(function(){
+        new sap.m.Shell({
+            app: new sap.ui.core.ComponentContainer({
+                name : "singleFile"
+            })
+        }).placeAt("content");
+    });
+    &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body id="content" class="sapUiBody"&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section>
+                </li>
+                <li class="li">
+                    <p>In the <code>Component.js</code> the only item for you to consider is the reference to the <code>manifest.json</code>
+                        file:</p>
+                    <p><span class="emphasis">webapp/Component.js (New)</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"></pre></div></div></section><p></p>
+                </li>
+                <li class="li">
+                    <p>The <code>i18n.properties</code> file contains all the user interface labels for the application, which includes the labels
+                        for the toolbar, the page title, the buttons, the text input fields, and the error message that will be displayed when no URL
+                        is specified.sap.ui.define([
+    "sap/ui/core/UIComponent"
+], function (UIComponent) {
+    "use strict";
+
+    return UIComponent.extend("singleFile.Component", {
+
+        metadata: {
+            manifest: "json"
+        },
+
+        init: function () {
+            // call the init function of the parent
+            UIComponent.prototype.init.apply(this, arguments);
+        }
+    });
+});</p>
+                    <p><span class="emphasis">webapp/i18n/i18n.properties (New)</span></p>
+                    <section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"># App Descriptor
+appTitle=App title
+appDescription=This is a description coming from the i18n as specified in manifest.json
+
+# Viewer Descriptor
+viewerToolbarTitle=Single file load
+
+# Page Descriptor
+pageTitle=Single File
+
+# Form Descriptor
+formRemoteURL=Remote Model URL
+buttonLoadModel=Load
+buttonLoadImage=Load Image
+formLocalFileName=Local File Name
+
+# Message Toast
+missingUrl=Please specify a URL</pre></div></div></section>
+                </li>
+                <li class="li">
+                    <p>The <code>manifest.json</code> file contains information about the files that we need to use in our application.</p>
+                    <p>In this file, we reference the <code>i18n.properties</code> file to specify what language the user interface of our
+                        application will have. We also specify what the root view of the application is, that is, the page that is loaded first when
+                        the application is first started. This is set in the <code>rootView</code> property.</p>
+                    <p><span class="emphasis">webapp/manifest.json (New)</span></p>
+                    <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  "_version": "1.8.0",
+  "sap.app": {
+    "id": "singleFile",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": "singleFile.view.App",
+    "dependencies": {
+      "minUI5Version": "1.30",
+      "libs": {
+        "sap.m": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "singleFile.i18n.i18n"
+        }
+      }
+    }
+  }
+}</pre></div></div></section>
+                </li>
+                <li class="li">
+                    <p>The <code>App.view.xml</code>sap.ui.define([ file specifies how the page in the application will be laid out. We have one form container
+                        containing two form elements (<code>formElement</code>). The first <code>formElement</code> element contains the
+                        fields for loading 2D or 3D resources located remotely. We have specifed one input text field, and two buttons: one button for
+                        loading 2D images, and the other button for loading 3D models.</p>
+                    <p>In the second <code>formElement</code>, we use the <code>FileUploader</code> control to generate an input text field
+                        and a button to load 2D or 3D resources stored locally. We have specified the following file types as valid file types for
+                        loading using this <code>formElement</code>.</p>
+                    <p>The labels for each of the fields are specified in the text attributes.</p>
+                    <p><span class="emphasis">webapp/view/App.view.xml (New)</span></p>
+                    <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+   controllerName="singleFile.controller.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:vk="sap.ui.vk"
+   xmlns:l="sap.ui.layout"
+   xmlns:f="sap.ui.layout.form"
+   xmlns:u="sap.ui.unified"
+   displayBlock="true"&gt;
+    &lt;App id="singleFile"&gt;
+        &lt;Page
+            title="{i18n&gt;pageTitle}"&gt;
+            &lt;vk:Viewer
+                id="viewer"
+                toolbarTitle="{i18n&gt;viewerToolbarTitle}"
+                width="100%"
+                height="85%"
+                       /&gt;
+                &lt;f:Form editable="true"&gt;
+                    &lt;f:layout&gt;
+                        &lt;f:GridLayout/&gt;
+                    &lt;/f:layout&gt;
+                    &lt;f:formContainers&gt;
+                        &lt;f:FormContainer&gt;
+                            &lt;f:formElements&gt;
+                                &lt;f:FormElement&gt;      
+                                    &lt;f:fields&gt;
+                                        &lt;Input
+                                           value="{source&gt;/remoteUrl}"
+                                           valueLiveUpdate="true"
+                                           placeholder="{i18n&gt;formRemoteURL}"&gt;
+                                            &lt;layoutData&gt;
+                                                &lt;l:GridElementData hCells="auto" /&gt;
+                                            &lt;/layoutData&gt;
+                                        &lt;/Input&gt;
+                                        &lt;Button
+                                            text="{i18n&gt;buttonLoadModel}"
+                                            press="onPressLoadRemoteModel"&gt;
+                                            &lt;layoutData&gt;
+                                                &lt;l:GridElementData hCells="2" /&gt;
+                                            &lt;/layoutData&gt;
+                                        &lt;/Button&gt;
+                                        &lt;Button
+                                            text="{i18n&gt;buttonLoadImage}"
+                                            press="onPressLoadRemoteImage"&gt;
+                                            &lt;layoutData&gt;
+                                                &lt;l:GridElementData hCells="3" /&gt;
+                                            &lt;/layoutData&gt;
+                                        &lt;/Button&gt;
+                                    &lt;/f:fields&gt;
+                                &lt;/f:FormElement&gt;
+                                &lt;f:FormElement&gt;      
+                                    &lt;f:fields&gt;
+                                        &lt;u:FileUploader
+                                           fileType="vds,png,jpg,jpeg,gif"
+                                           placeholder="{i18n&gt;formLocalFileName}"
+                                           width="100%"
+                                           change="onChangeFileUploader"&gt;
+                                        &lt;/u:FileUploader&gt;
+                                    &lt;/f:fields&gt;
+                                &lt;/f:FormElement&gt;
+                            &lt;/f:formElements&gt;
+                        &lt;/f:FormContainer&gt;
+                    &lt;/f:formContainers&gt;
+                &lt;/f:Form&gt;
+            &lt;/Page&gt;
+        &lt;/App&gt;
+    &lt;/mvc:View&gt;</pre></div></div></section>
+                </li>
+                <li class="li">Create the file <code>webapp/controller/App.controller.js</code> containing the logic for loading files into the Viewer application.<p>
+                        </p><ul class="ul ">
+                            <li class="li">The <code>handleEmptyUrl</code> function specifies what should occur if a user clicks on any of the buttons for
+                                loading, without having specified a URL to a resource first.</li>
+                            <li class="li">The <code>loadModelIntoViewer</code> function specifies how the resource will be loaded into the Viewer
+                                application for viewing.</li>
+                            <li class="li">The following event functions specify how the form elements should behave during certain events. The following list
+                                outlines what each of the functions do:<ul class="ul ">
+                                    <li class="li"><code>onInit</code> - declares an empty structure when the controller is initialized. The empty structure
+                                        is set as the model for the URLs.</li>
+                                    <li class="li"><code>onPressLoadRemoteModel</code> - the logic for the button that loads 3D resources stored
+                                        remotely.</li>
+                                    <li class="li"><code>onPressLoadRemoteImage</code> - the logic for the button that loads 2D resources stored
+                                        remotely.</li>
+                                    <li class="li"><code>onChangeFileUploader</code> - the logic for the fields that load 2D or 3D resources stored
+                                        locally.</li>
+                                </ul></li>
+                        </ul>
+                    <p></p><p><span class="emphasis">webapp/controller/App.controller.js (New)</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/vk/ContentResource",
+    "sap/m/MessageToast"
+], function(Controller, JSONModel, ContentResource, MessageToast) {
+    "use strict";
+
+    var handleEmptyUrl = function(view) {
+        var oBundle = view.getModel("i18n").getResourceBundle();
+        var msg = oBundle.getText("missingUrl");
+        MessageToast.show(msg);
+    };
+
+    var loadModelIntoViewer = function(viewer, remoteUrl, sourceType, localFile) {
+        //what is currently loaded in the view is destroyed
+        viewer.destroyContentResources();
+
+        var source = remoteUrl || localFile;
+
+        if (source) {
+            
+            //content of viewer is replaced with new data
+            var contentResource = new ContentResource({
+                source: source,
+                sourceType: sourceType,
+                sourceId: "abc"
+            });
+
+            //content: chosen path. content added to the view
+            viewer.addContentResource(contentResource);
+        } 
+    };
+
+    return Controller.extend("singleFile.controller.App", {
+        onInit: function() {
+            var sourceData = {
+                localFile: undefined,
+                remoteUrl: undefined
+            };
+            var model = new JSONModel();
+            model.setData(sourceData);
+            this.getView().setModel(model, "source");
+        },
+
+        onPressLoadRemoteModel: function(event) {
+            var view = this.getView();
+            var sourceData = view.getModel("source").oData;
+            var viewer = view.byId("viewer");
+            if (sourceData.remoteUrl) {
+                loadModelIntoViewer(viewer, sourceData.remoteUrl, "vds4");
+            } else {
+                handleEmptyUrl(view);
+            }
+        },
+
+        onPressLoadRemoteImage: function(event) {
+            var view = this.getView();
+            var sourceData = view.getModel("source").oData;
+            var viewer = view.byId("viewer");
+            if (sourceData.remoteUrl) {
+                loadModelIntoViewer(viewer, sourceData.remoteUrl, "jpg");
+            } else {
+                handleEmptyUrl(view);
+            }
+        },
+
+        onChangeFileUploader: function(event) {
+            var view = this.getView();
+            var viewer = view.byId("viewer");
+            var localFile = event.getParameter("files")[0];
+            //if user selects a local file
+            if (localFile) {
+                var fileName = localFile.name;
+                var index = fileName.lastIndexOf(".");
+                if (index &gt;= 0 && index &lt; fileName.length - 1) {
+                    var sourceType = fileName.substring(index + 1).toLowerCase();                     
+                if (sourceType == "vds") { 
+
+                    sourceType = "vds4"; // Use new loader 
+
+                } ;
+                    loadModelIntoViewer(viewer, null, sourceType, localFile);
+                }
+            }
+        }
+    });
+});</pre></div></div></section></li>
+            </ol><section>
+                <h3 class="title ">Testing the Application</h3>
+                <p>To test that the application works, we will load a local 3D resource into the
+                    Viewer application.</p>
+                <ol>
+                    <li class="li">
+                        <p>Download the <code>cooper.vds</code> file from the <span class="ph uicontrol">Samples</span>.</p>
+                    </li>
+                    <li class="li">
+                        <p>Open a terminal in the app root folder and execute <code>npm i -D @ui5/cli</code> to install UI5 Tooling.</p>
+                    </li>
+                    <li class="li">
+                        <p>Execute <code>ui5 init</code> in the app root folder.</p>
+                    </li>
+                    <li class="li">
+                        <p>Execute <code>ui5 use SAPUI5</code></p>
+                    </li>
+                    <li class="li">
+                        <p>Execute <code>ui5 add sap.m sap.ui.core sap.ui.layout sap.ui.vk themelib_sap_horizon</code></p>
+                    </li>
+                    <li class="li">
+                        <p>Execute <code>npm start</code> to start the web server and to open a new browser window hosting your newly created
+                                <code>webapp/index.html</code>.</p>
+                    </li>
+                    <li class="li">Click the <span class="ph uicontrol">Browse...</span> button, navigate to the folder where the 3D resource is located, and load the
+                        model. Your screen should look like the following:</li>
+                </ol>
+                <div><div class="fig"><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Viewer application loaded with a single VDS file</h2></span></div>
+            </div></section></section><section>
+            <h2 class="title ">API Reference</h2>
+            <ul class="ul ">
+                <li class="li"><a href="api/sap.ui.vk.Viewer" title="api/sap.ui.vk.Viewer" class="sap-doc" alt="api/sap.ui.vk.Viewer"><code>sap.ui.vk.Viewer</code></a></li>
+                <li class="li"><a href="api/sap.ui.vk.ContentResource" title="api/sap.ui.vk.ContentResource" class="sap-doc" alt="api/sap.ui.vk.ContentResource"><code>sap.ui.vk.ContentResource</code></a></li>
+            </ul>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

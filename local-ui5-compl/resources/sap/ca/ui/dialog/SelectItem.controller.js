@@ -1,0 +1,5 @@
+/*
+ * Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+ */
+jQuery.sap.require("sap.ca.ui.utils.resourcebundle");sap.ui.controller("sap.ca.ui.dialog.SelectItem",{_SELECTITEM_DIALOG_ID:"DLG_SLTITEM",_SELECTITEM_LIST_ID:"LST_ITEMS",onBeforeOpenDialog:function(){var e=this.getView().byId(this._SELECTITEM_DIALOG_ID).getModel();if(e){var t=e.getProperty("/defaultIndex");var i=this.getView().byId(this._SELECTITEM_LIST_ID);var I=i.getItems();if(I&&t>=0&&t<I.length){i.setSelectedItem(I[t],true)}}},onSelectionChange:function(e){var t=e.getParameters().listItem;if(t&&t.getBindingContext()){this.getView().byId(this._SELECTITEM_DIALOG_ID).close();var i=t.getBindingContext().getObject();var I={selectedIndex:e.getParameters().listItem.getParent().indexOfItem(t),selectedItem:i};sap.ca.ui.dialog.factory.closeDialog(this._SELECTITEM_DIALOG_ID,I)}},onCancelDialog:function(){var e={selectedIndex:-1,selectedItem:null};sap.ca.ui.dialog.factory.closeDialog(this._SELECTITEM_DIALOG_ID,e)}});
+//# sourceMappingURL=SelectItem.controller.js.map

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" />
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Service.annotations">
+			<Annotations Target="Service.RootEntity/FieldControlDynamicIf">
+				<Annotation Term="com.sap.vocabularies.Common.v1.FieldControl">
+					<If>
+						<Eq>
+							<Path>FieldControlDynamicIfValue</Path>
+							<Int>5</Int>
+						</Eq>
+						<EnumMember>Common.FieldControlType/ReadOnly</EnumMember>
+						<EnumMember>Common.FieldControlType/Optional</EnumMember>
+					</If>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

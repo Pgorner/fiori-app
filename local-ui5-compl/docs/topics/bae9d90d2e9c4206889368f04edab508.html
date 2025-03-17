@@ -1,0 +1,278 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobae9d90d2e9c4206889368f04edab508" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-26-mock-server-configuration-bae9d90.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 26: Mock Server Configuration</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 26: Mock Server Configuration</h2></div><div class="shortdesc">We just ran our app against a real service, but for developing and testing our app we
+		do not want to rely on the availability of the "real" service or put additional load on the
+		system where the data service is located.</div><p>This system is the so-called back-end system that we will now simulate with an SAPUI5 feature called mock
+			server. It serves local files, but it simulates a back-end system more realistically
+			than just loading the local data. We will also change the model instantiation part so
+			that the model is configured in the descriptor and instantiated automatically by SAPUI5. This way, we do not
+			need to take care of the model instantiation in the code.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loiofe1403346ce9499f8bb102beaa4986d5_LowRes.png" title="The graphic has an explanatory text." alt="The graphic has an explanatory text." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The list of invoices is now served by the Mock Server</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.26" title="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.26" class="sap-doc" alt="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.26">Walkthrough - Step 26</a>.</p>
+			<div><div class="fig"><img src="loio7a5e2b02d72d40d388f5e601d7de74df_LowRes.png" title="The graphic has an explanatory text." alt="The graphic has an explanatory text." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Folder Structure for this Step</h2></span></div>
+			<p>The folder structure of our app project is clearly separating test and productive
+				files after this step. The new <code>test</code> folder now contains a new HTML
+				page <code>mockServer.html</code> which will launch our application in test
+				mode without calling the real service.</p>
+			<p>The new <code>localService</code> folder contains a
+					<code>metadata.xml</code> service description file for OData, the
+					<code>mockserver.js</code> file that simulates a real service with local
+				data, and the <code>mockdata</code> subfolder that contains the local test
+				data (<code>Invoices.json</code>).</p>
+		</section><section>
+			<h2 class="title ">webapp/test/mockServer.html (New)</h2>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;SAPUI5 UI5 Walkthrough - Mockserver Test Page&lt;/title&gt;
+	&lt;script
+		id="sap-ui-bootstrap"
+		src="../resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-on-init="module:ui5/walkthrough/test/initMockServer"
+		data-sap-ui-resource-roots='{
+			"ui5.walkthrough": "../"
+		}'&gt;
+	&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="sapUiBody" id="content"&gt;
+	&lt;div data-sap-ui-component data-name="ui5.walkthrough" data-id="container" data-settings='{"id" : "walkthrough"}'&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</span></pre></div></div></section>
+			<p>We copy the <code>index.html</code> to a separate file in the
+					<code>webapp/test</code> folder and name it
+				<code>mockServer.html</code>. We will now use this file to run our app in test
+				mode with mock data loaded from a JSON file. Test pages should not be placed in the
+				application root folder but in a subfolder called <code>test</code> to clearly
+				separate productive and test coding. </p>
+			<p>From this point on, you have two different entry pages: One for the real "connected" app (<code>index.html</code>) and one for local testing
+					(<code>mockServer.html</code>). You can freely decide if you want to do the next steps on the real service data or on the
+				local data within the app.</p>
+			<p>We modify the <code>mockServer.html</code> file and change the page title to distinguish it from the productive start page. In
+				the bootstrap, the <code>data-sap-ui-resource-roots</code> property is also changed. The namespace now points to the folder above
+					(<code>"../"</code>), because the <code>mockServer.html</code> file is now in a subfolder of the
+					<code>webapp</code> folder. Instead of loading the app component directly, we now call a script
+					<code>initMockServer.js</code>.</p>
+		</section><section id="section_oxn_5zr_yfb">
+			<h2 class="title ">webapp/test/initMockServer.js (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"../localService/mockserver"
+], (mockserver) =&gt; {
+	"use strict";
+
+	// initialize the mock server
+	mockserver.init();
+
+	// initialize the embedded component on the HTML page
+	sap.ui.require(["sap/ui/core/ComponentSupport"]);
+});
+</span></pre></div></div></section>
+			<p>The first dependency is a file called <code>mockserver.js</code> that will be
+				located in the <code>localService</code> folder later.</p>
+			<p>The <code>mockserver</code> depencency that we are about to implement is our
+				local test server. Its <code>init</code> method is immediately called before we
+				load the component. This way we can catch all requests that would go to the "real"
+				service and process them locally by our test server when launching the app with the
+					<code>mockServer.html</code> file. The component itself does not "know" that
+				it will now run in test mode.</p>
+		</section><section>
+			<h2 class="title ">webapp/localService/mockdata/Invoices.json (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">[
+  {
+	"ProductName": "Pineapple",
+	"Quantity": 21,
+	"ExtendedPrice": 87.2,
+	"ShipperName": "Fun Inc.",
+	"ShippedDate": "2015-04-01T00:00:00",
+	"Status": "A"
+  },
+  {
+	"ProductName": "Milk",
+	"Quantity": 4,
+	"ExtendedPrice": 10,
+	"ShipperName": "ACME",
+	"ShippedDate": "2015-02-18T00:00:00",
+	"Status": "B"
+  },
+  {
+	"ProductName": "Canned Beans",
+	"Quantity": 3,
+	"ExtendedPrice": 6.85,
+	"ShipperName": "ACME",
+	"ShippedDate": "2015-03-02T00:00:00",
+	"Status": "B"
+  },
+  {
+	"ProductName": "Salad",
+	"Quantity": 2,
+	"ExtendedPrice": 8.8,
+	"ShipperName": "ACME",
+	"ShippedDate": "2015-04-12T00:00:00",
+	"Status": "C"
+  },
+  {
+	"ProductName": "Bread",
+	"Quantity": 1,
+	"ExtendedPrice": 2.71,
+	"ShipperName": "Fun Inc.",
+	"ShippedDate": "2015-01-27T00:00:00",
+	"Status": "A"
+  }
+]</span></pre></div></div></section>
+			<p>The <code>Invoices.json</code> file is similar to our previous file in the
+					<code>webapp</code> folder. Just copy the content and remove the outer
+				object structure with the key <code>invoices</code> so that the file consists of
+				one flat array of invoice items. This file will automatically be read by our server
+				later in this step.</p>
+			<p>Remove the old <code>Invoices.json</code> file from the <code>webapp</code>
+				folder, it is no longer used.</p>
+		</section><section>
+			<h2 class="title ">webapp/localService/metadata.xml (New)</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"&gt;
+	&lt;edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0"
+			xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"&gt;
+		&lt;Schema Namespace="NorthwindModel" xmlns="http://schemas.microsoft.com/ado/2008/09/edm"&gt;
+			&lt;EntityType Name="Invoice"&gt;
+				&lt;Key&gt;
+					&lt;PropertyRef Name="ProductName"/&gt;
+					&lt;PropertyRef Name="Quantity"/&gt;
+					&lt;PropertyRef Name="ShipperName"/&gt;
+				&lt;/Key&gt;
+				&lt;Property Name="ShipperName" Type="Edm.String" Nullable="false" MaxLength="40" FixedLength="false"
+							Unicode="true"/&gt;
+				&lt;Property Name="ProductName" Type="Edm.String" Nullable="false" MaxLength="40" FixedLength="false"
+							Unicode="true"/&gt;
+				&lt;Property Name="Quantity" Type="Edm.Int16" Nullable="false"/&gt;
+				&lt;Property Name="ExtendedPrice" Type="Edm.Decimal" Precision="19" Scale="4"/&gt;
+				&lt;Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="1" FixedLength="false"
+							Unicode="true"/&gt;
+			&lt;/EntityType&gt;
+		&lt;/Schema&gt;
+		&lt;Schema Namespace="ODataWebV2.Northwind.Model" xmlns="http://schemas.microsoft.com/ado/2008/09/edm"&gt;
+			&lt;EntityContainer Name="NorthwindEntities" m:IsDefaultEntityContainer="true" p6:LazyLoadingEnabled="true"
+					xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation"&gt;
+				&lt;EntitySet Name="Invoices" EntityType="NorthwindModel.Invoice"/&gt;
+			&lt;/EntityContainer&gt;
+		&lt;/Schema&gt;
+	&lt;/edmx:DataServices&gt;
+&lt;/edmx:Edmx&gt;
+</span></pre></div></div></section>
+			<p>The metadata file contains information about the service interface and does not need
+				to be written manually. It can be accessed directly from the "real" service by
+				calling the service URL and adding <code>$metadata</code> at the end (e.g. in
+				our case
+					<code>http://services.odata.org/V2/Northwind/Northwind.svc/$metadata</code>).
+				The mock server will read this file to simulate the real OData service, and will
+				return the results from our local source files in the proper format so that it can
+				be consumed by the app (either in XML or in JSON format).</p>
+			<p> For simplicity, we have removed all content from the original Northwind OData
+				metadata document that we do not need in our scenario. We have also added the
+					<code>status</code> field to the metadata since it is not available in the
+				real Northwind service.</p>
+		</section><section>
+			<h2 class="title ">webapp/localService/mockserver.js (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/core/util/MockServer"
+], (MockServer) =&gt; {
+	"use strict";
+
+	return {
+		init() {
+			// create
+			const oMockServer = new MockServer({
+				rootUri: sap.ui.require.toUrl("ui5/walkthrough") + "/V2/Northwind/Northwind.svc/"
+			});
+
+			const oUrlParams = new URLSearchParams(window.location.search);
+
+			// configure mock server with a delay
+			MockServer.config({
+				autoRespond: true,
+				autoRespondAfter: oUrlParams.get("serverDelay") || 500
+			});
+
+			// simulate
+			const sPath = sap.ui.require.toUrl("ui5/walkthrough/localService");
+			oMockServer.simulate(sPath + "/metadata.xml", sPath + "/mockdata");
+
+			// start
+			oMockServer.start();
+		}
+	};
+});
+</span></pre></div></div></section>
+			<p>Now that we have added the OData service description file
+					<code>metadata.xml</code> file, we can write the code to initialize the mock
+				server which will then simulate any OData request to the real Northwind server.</p>
+			<p>We load the standard SAPUI5
+				<code>MockServer</code> module as a dependency and create a helper object that
+				defines an <code>init</code> method to start the server. This method is called
+				before the component initialization in the <code>mockServer.html</code> file
+				above. The <code>init</code> method creates a <code>MockServer</code>
+				instance with the same URL as the real service calls.</p>
+			<p>The URL in the <code>rootUri</code> configuration parameter has to point to the same URL as defined in the <code>uri</code> property of
+				the data source in the <code>manifest.json</code> descriptor file. In the <code>manifest.json</code>, UI5 automatically
+				interprets a relative URL as being relative to the application namespace. In the JavaScript code, you can ensure this by using the
+					<code>sap.ui.require.toUrl</code> method. The <code>sap/ui/core/util/MockServer</code> then catches every request to the
+				real service and returns a response. Next, we set two global configuration settings that tell the server to respond automatically and
+				introduce a delay of 500 ms to imitate a typical server response time. Otherwise, we would have to call the respond method on the
+					<code>MockServer</code> manually to simulate the call.</p>
+			<p>To simulate a service, we can simply call the <code>simulate</code> method on the
+					<code>MockServer</code> instance with the path to our newly created
+					<code>metadata.xml</code>. This will read the test data from our local file
+				system and set up the URL patterns that will mimic the real service.</p>
+			<p>Finally, we call start on <code>oMockServer</code>. From this point, each request to the URL pattern <code>rootUri</code> will be
+				processed by the <code>MockServer</code>. If you switch from the <code>index.html</code> file to the
+					<code>mockServer.html</code> file in the browser, you can now see that the test data is displayed from the local sources
+				again, but with a short delay. The delay can be specified with the URI parameter <code>serverDelay</code>.</p>
+			<p>This approach is perfect for local testing, even without any network connection. This
+				way your development does not depend on the availability of a remote server, i.e. to
+				run your tests.</p>
+			<p>Try calling the app with the <code>index.html</code> file and the
+					<code>mockServer.html</code> file to see the difference. If the real service
+				connection cannot be made, for example when there is no network connection, you can
+				always fall back to the local test page.</p>
+		</section><section id="section_lfx_4dg_tyb">
+			<h2 class="title ">package.json</h2>
+			<p>For easier local development, we adjust the <code>start</code> script in the <code>package.json</code> to open
+					<code>mockServer.html</code> instead of <code>index.html</code>: </p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  "name": "ui5.walkthrough",
+  "version": "1.0.0",
+  "description": "The UI5 walkthrough application",
+  "scripts": {
+      "start": "ui5 serve -o <span class="emphasis">test/mockServer.html</span>"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^3",
+    "ui5-middleware-simpleproxy": "^3"
+  }
+}
+</pre></div></div></section><p></p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>The <code>webapp/test</code> folder contains non-productive code
+						only.</p>
+				</li>
+				<li class="li">
+					<p>Mock data and the script to start the <code>MockServer</code> are stored
+						in the <code>webapp/localService</code> folder.</p>
+				</li>
+				<li class="li">
+					<p>The script to start the <code>MockServer</code> is called
+							<code>mockserver.js</code>.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/44062441f3bd4c67a4f665ae362d1109">Step 25: Remote OData Service</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/e1ce1de315994a02bf162f4b3b5a9f09">Step 27: Unit Test with QUnit</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/69d3cbd4150c4ffb884e788f7f60fd93" title="A mock server mimics one or more back-end services. It is used to simplify integration testing and to decouple UI development from service development. By using a mock server you can develop and test the UI even if the service in the back end is incomplete or unstable." class="sap-doc">Mock Server</a></li>
+		<li><a href="api/sap.ui.core.util.MockServer" title="api/sap.ui.core.util.MockServer" class="sap-doc" alt="api/sap.ui.core.util.MockServer">API Reference: sap.ui.core.util.MockServer</a></li>
+		<li><a href="topic/3a16c7a2f1e944deb000db49e5ece6be" title="Configure a destination in the SAP BTP Cockpit in order to bypass the same-origin policy of the browser." class="sap-doc">Create a Northwind Destination</a></li>
+	</ul></section></div></section></div></body></html>

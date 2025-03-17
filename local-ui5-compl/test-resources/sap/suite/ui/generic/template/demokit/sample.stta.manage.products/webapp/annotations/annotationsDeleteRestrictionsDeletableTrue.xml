@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+	<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+		<edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+	</edmx:Reference>
+	<edmx:Reference
+		Uri="/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/UI.xml">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
+	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/cs01/vocabularies/Org.OData.Capabilities.V1.xml">
+		<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+	</edmx:Reference>
+	<edmx:Reference
+		Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+		<edmx:Include Namespace="com.sap.vocabularies.Communication.v1"
+			Alias="Communication" />
+	</edmx:Reference>
+	<edmx:Reference
+		Uri="http://docs.oasis-open.org/odata/odata/v4.0/cs01/vocabularies/Org.OData.Measures.V1.xml">
+		<edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1" />
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/sap/STTA_PROD_MAN/$metadata">
+		<edmx:Include Alias="STTA_PROD_MAN" Namespace="STTA_PROD_MAN" />
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+			<Annotations Target="STTA_PROD_MAN.STTA_PROD_MAN_Entities/STTA_C_MP_Product">
+				<Annotation Term="com.sap.vocabularies.Common.v1.FilterExpressionRestriction">
+					<Collection>
+						<Record>
+							<PropertyValue Property="Property" PropertyPath="Supplier"/>
+							<PropertyValue Property="AllowedExpressions" EnumMember="com.sap.vocabularies.Common.v1.FilterExpressionType/SingleInterval"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="STTA_PROD_MAN.STTA_PROD_MAN_Entities/STTA_C_MP_Product">
+				<!-- Deletable-path using test data -->
+				<Annotation Term="Capabilities.DeleteRestrictions">
+					<Record>
+						<PropertyValue Property="Deletable" Bool="true" />
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<!--==Entity Type from chosen collection== -->
+			<Annotations Target="STTA_PROD_MAN.STTA_C_MP_ProductType">				
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="ProductForEdit" />
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+							<!-- <Annotation Term="UI.Hidden" Path="to_Product/TableColumnHidden"/> -->
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Price" />
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

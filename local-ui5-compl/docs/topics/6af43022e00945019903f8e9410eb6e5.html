@@ -1,0 +1,29 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio6af43022e00945019903f8e9410eb6e5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/deactivating-adaptation-of-controls-6af4302.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Deactivating Adaptation of Controls</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Deactivating Adaptation of Controls</h2></div><div class="shortdesc">You can specify that some controls cannot be adapted.</div><p>To deactivate adaptation of controls, use the following design-time metadata: </p><ul class="ul ">
+			<li class="li">
+				<p><code>{ actions: "not-adaptable" }</code>: Disable all actions.</p>
+			</li>
+			<li class="li">
+				<p><code>{ actions: "not-adaptable-tree" }</code>: Disable all actions on a control and all its children.</p>
+			</li>
+			<li class="li">
+				<p><code>{ actions: "not-adaptable-visibility" }</code>: Disable all actions that influence the visibility: <cite>reveal</cite> and
+						<cite>remove</cite>.</p>
+			</li>
+		</ul><p>You can deactivate adaptation of dependent child controls by overwriting the <code>actions</code> property. There are two options to do
+			so:</p><ul class="ul ">
+			<li class="li">
+				<p>Overwrite with <code>null</code> value (soft)</p>
+				<p>Overwrites all actions for all other controls with <code>null</code> values. No actions are available for adaptation, but the controls are
+					still adaptable. They can have property changes or other technical change handlers, like <code>addXML</code>.</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">... propagateMetadata: function() { return { actions: null } } ...</pre></div></div></section>
+			</li>
+			<li class="li">
+				<p>Overwrite with <code>not-adaptable</code> value (hard)</p>
+				<p>Overwrites all actions for all other controls with <code>null</code> values and determines that the control is not adaptable (not
+					editable). Also, no property changes and other technical change handlers are possible.</p>
+				<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">... propagateMetadata: function() { return { actions: "not-adaptable" } } ...</pre></div></div></section>
+			</li>
+		</ul><p>You can also deactivate adaptation for a particular instance with instance-specific control design-time metadata. For more information, see
+				<a href="topic/8fa23241746c45eab2bce0c1e33305da" title="If you want to change the adaptability of a control in a specific instance only, you can provide instance-specific design-time metadata." class="sap-doc">Instance-Specific Design-Time Metadata</a>.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,31 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+    controllerName="sap.ushell.playground.controller.SettingsDialog">
+    <Page title="Settings Dialog" class="sapUiStdPage sapUiContentPadding">
+        <Button id="openDialog" icon="sap-icon://action-settings" press=".openDialog" class="sapUiMediumMarginBeginEnd" />
+        <form:SimpleForm editable="true" layout="ColumnLayout" title="Modify User Settings Entity">
+            <Label text="Has User Image"/>
+            <Switch state="{/hasImage}" change=".updateImage"/>
+            <Label text="enableUserImgConsent config"/>
+            <Switch state="{/enableUserImgConsent}" change=".recreateComponent"/>
+        </form:SimpleForm>
+        <form:SimpleForm editable="true" layout="ColumnLayout" title="Modify Language and Region Entry">
+            <Label text="enableSetLanguage"/>
+            <Switch state="{/enableSetLanguage}" change=".recreateComponent"/>
+        </form:SimpleForm>
+        <form:SimpleForm editable="true" layout="ColumnLayout" title="Modify Development Test Entity">
+            <Label text="Timeout to resolve valueResult in msec"/>
+            <Input value="{/timeoutValueResult}"/>
+            <Label text="valueResult"/>
+            <Input value="{/valueResult}"/>
+            <Label text="Should use custom content?"/>
+            <Switch state="{/bUseCustomResult}" change=".updateDeveloperEntityContent"/>
+            <Label text="Should custom content be resolve?"/>
+            <Switch state="{/bCustomResultResolve}" enabled="{/bUseCustomResult}"/>
+            <Label text="Timeout to resolve content in msec"/>
+            <Input value="{/timeoutContentResult}" enabled="{/bUseCustomResult}"/>
+        </form:SimpleForm>
+    </Page>
+</mvc:View>

@@ -1,0 +1,103 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+		   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+		   xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZEPM_C_SALESORDERITEMQUERY_CDS" xml:lang="en" sap:schema-version="1">
+
+			<EntityType Name="ZEPM_C_SALESORDERITEMQUERYResult" sap:semantics="aggregate" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ID" />
+				</Key>
+				<Property Name="DATETIME_SINGLE_d-f_Date" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="single-value" sap:label="DateTime Single display Date"/>
+				<Property Name="DATETIME_MULTIPLE_d-f_Date" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="multi-value" sap:label="DateTime Multiple display Date"/>
+				<Property Name="DATETIME_INTERVAL_d-f_Date" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="interval" sap:label="DateTime Interval display Date"/>
+				<Property Name="DATETIME_AUTO_d-f_Date" Type="Edm.DateTime" sap:display-format="Date" sap:label="DateTime Auto display Date"/>
+
+				<Property Name="DATETIME_SINGLE" Type="Edm.DateTime" sap:filter-restriction="single-value" sap:label="DateTime Single"/>
+				<Property Name="DATETIME_MULTIPLE" Type="Edm.DateTime" sap:filter-restriction="multi-value" sap:label="DateTime Multiple"/>
+				<Property Name="DATETIME_INTERVAL" Type="Edm.DateTime" sap:filter-restriction="interval" sap:label="DateTime Interval"/>
+				<Property Name="DATETIME_AUTO" Type="Edm.DateTime" sap:label="DateTime Auto"/>
+
+				<Property Name="DTOFFSET_SINGLE" Type="Edm.DateTimeOffset" sap:filter-restriction="single-value" sap:label="DTOffset Single"/>
+				<Property Name="DTOFFSET_MULTIPLE" Type="Edm.DateTimeOffset" sap:filter-restriction="multi-value" sap:label="DTOffset Multiple"/>
+				<Property Name="DTOFFSET_INTERVAL" Type="Edm.DateTimeOffset" sap:filter-restriction="interval" sap:label="DTOffset Interval"/>
+				<Property Name="DTOFFSET_AUTO" Type="Edm.DateTimeOffset" sap:label="DTOffset Auto"/>
+
+				<Property Name="DTOFFSET_SINGLE_DATE" Type="Edm.DateTimeOffset" sap:filter-restriction="single-value" sap:label="DTOffset Single with controlType 'date'"/>
+				<Property Name="DTOFFSET_INTERVAL_DATE" Type="Edm.DateTimeOffset" sap:filter-restriction="interval" sap:label="DTOffset Interval with controlType 'date'" Nullable="false" Precision="0" />
+
+				<Property Name="STRINGDATE_SINGLE" Type="Edm.String" sap:filter-restriction="single-value" sap:label="StringDate Single"/>
+				<Property Name="STRINGDATE_MULTIPLE" Type="Edm.String" sap:filter-restriction="multi-value" sap:label="StringDate Multiple"/>
+				<Property Name="STRINGDATE_INTERVAL" Type="Edm.String" sap:filter-restriction="interval" sap:label="StringDate Interval"/>
+				<Property Name="STRINGDATE_AUTO" Type="Edm.String" sap:label="StringDate Auto"/>
+
+				<Property Name="TIME_SINGLE" Type="Edm.Time" sap:filter-restriction="single-value" sap:label="Time Single"/>
+				<Property Name="TIME_MULTIPLE" Type="Edm.Time" sap:filter-restriction="multi-value" sap:label="Time Multiple"/>
+				<Property Name="TIME_INTERVAL" Type="Edm.Time" sap:filter-restriction="interval" sap:label="Time Interval"/>
+				<Property Name="TIME_AUTO" Type="Edm.Time" sap:label="Time Auto"/>
+
+
+				<Property Name="DTOFFSET_Precision0" Type="Edm.DateTimeOffset" Precision="0" sap:filter-restriction="interval" sap:label="DTOffset Precision=0"/>
+				<Property Name="DTOFFSET_Precision1" Type="Edm.DateTimeOffset" Precision="1" sap:filter-restriction="interval" sap:label="DTOffset Precision=1"/>
+				<Property Name="DTOFFSET_Precision2" Type="Edm.DateTimeOffset" Precision="2" sap:filter-restriction="interval" sap:label="DTOffset Precision=2"/>
+				<Property Name="DTOFFSET_Precision3" Type="Edm.DateTimeOffset" Precision="3" sap:filter-restriction="interval" sap:label="DTOffset Precision=3"/>
+				<Property Name="DTOFFSET_Precision4" Type="Edm.DateTimeOffset" Precision="4" sap:filter-restriction="interval" sap:label="DTOffset Precision=4"/>
+				<Property Name="DTOFFSET_Precision5" Type="Edm.DateTimeOffset" Precision="5" sap:filter-restriction="interval" sap:label="DTOffset Precision=5"/>
+				<Property Name="DTOFFSET_Precision6" Type="Edm.DateTimeOffset" Precision="6" sap:filter-restriction="interval" sap:label="DTOffset Precision=6"/>
+				<Property Name="DTOFFSET_Precision7" Type="Edm.DateTimeOffset" Precision="7" sap:filter-restriction="interval" sap:label="DTOffset Precision=7"/>
+
+			</EntityType>
+
+			<EntityType Name="ZEPM_C_SALESORDERITEMQUERYParameters" sap:semantics="parameters" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="P_KeyDate" />
+				</Key>
+				<Property Name="P_KeyDate" Type="Edm.DateTime" Nullable="false" DefaultValue="2018-12-01T00:00:00" Precision="0" sap:display-format="Date" sap:parameter="mandatory" sap:label="Key Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+				<Property Name="P_KeyDate2" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:parameter="mandatory" sap:label="Key Date 2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+				<NavigationProperty Name="Results" Relationship="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_ISOIQParametersToResult" FromRole="FromRole_ZEPM_ISOIQParametersToResult" ToRole="ToRole_ZEPM_ISOIQParametersToResult" />
+			</EntityType>
+
+
+			<EntityContainer Name="ZEPM_C_SALESORDERITEMQUERY_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="ZEPM_C_SALESORDERITEMQUERYResults" EntityType="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:addressable="false" sap:content-version="1" />
+				<EntitySet Name="ZEPM_C_SALESORDERITEMQUERY" EntityType="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYParameters" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" />
+			</EntityContainer>
+
+			<Association Name="ZEPM_ISOIQParametersToResult" sap:content-version="1">
+				<End Type="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYParameters" Multiplicity="1" Role="FromRole_ZEPM_ISOIQParametersToResult" />
+				<End Type="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult" Multiplicity="*" Role="ToRole_ZEPM_ISOIQParametersToResult" />
+			</Association>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRINGDATE_SINGLE"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRINGDATE_MULTIPLE"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRINGDATE_INTERVAL"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult/STRINGDATE_AUTO"
+						 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.IsCalendarDate" Bool="true" />
+			</Annotations>
+			<Annotations Target="ZEPM_C_SALESORDERITEMQUERY_CDS.ZEPM_C_SALESORDERITEMQUERYResult" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+				<Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
+					<Collection>
+						<Record Type="com.sap.vocabularies.UI.v1.DataField">
+							<PropertyValue Property="Value" Path="DATETIME_INTERVAL"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

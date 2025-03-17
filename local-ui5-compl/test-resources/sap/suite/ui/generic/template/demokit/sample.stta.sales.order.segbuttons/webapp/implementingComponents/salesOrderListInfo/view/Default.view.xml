@@ -1,0 +1,25 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:uxap="sap.uxap"
+          controllerName="ManageSalesOrderWithSegButtons.implementingComponents.salesOrderListInfo.view.Default" >
+	<App>
+		<pages>
+			<Page id="group" title="{i18n>groupTitle}">
+				<content>
+					<VBox id="ServiceBox">
+						<f:SimpleForm columnsL="3" columnsM="2" editable="false" emptySpanL="0" emptySpanM="0" id="aForm" labelSpanL="4" labelSpanM="4"
+							layout="ResponsiveGridLayout" maxContainerCols="2" title="{i18n>formTitle}">
+							<f:content>
+								<core:Title text="{i18n>properties}"/>
+								<Label id="salesOrderIdsLabel" text="{i18n>SalesOrderIds}"/>
+								<Text id="salesOrderIds" text="{component>/SalesOrderIds}"/>
+							</f:content>
+						</f:SimpleForm>
+						<HBox class="sapUiSmallMargin">
+							<Button id="goToFirstSalesOrder" text="{i18n>lblGoToFirstSalesOrder}" class="sapUiTinyMarginEnd" press="navigateToFirstSalesOrder" visible="{= ${component>/SalesOrderIdArray}.length > 1}"/>
+							<Button id="goToLastSalesOrder" text="{i18n>lblGoToLastSalesOrder}" class="sapUiTinyMarginEnd" press="navigateToLastSalesOrder" visible="{= ${component>/SalesOrderIdArray}.length > 1}"/>
+						</HBox>	
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

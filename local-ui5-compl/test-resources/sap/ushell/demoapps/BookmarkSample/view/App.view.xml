@@ -1,0 +1,47 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    height="100%"
+    controllerName="sap.ushell.demo.bookmark.controller.App" >
+    <Page showHeader="false">
+        <content >
+            <IconTabBar
+                id="idIconTabBarNoIcons"
+                class="sapUiResponsiveContentPadding"
+                expandable="false"
+                select=".onTabSelect" >
+                <items >
+                    <IconTabFilter text="{i18n>standard.tabTitle}" key="addBookmark" >
+                        <core:Fragment fragmentName="sap.ushell.demo.bookmark.view.StandardAdd" type="XML" />
+                        <customData>
+                            <core:CustomData key="help-id" value="BookmarkSample-addBookmark" writeToDom="true" />
+                        </customData>
+                    </IconTabFilter>
+
+                    <IconTabFilter text="{i18n>standardModify.tabTitle}" key="modifyBookmark" >
+                        <core:Fragment fragmentName="sap.ushell.demo.bookmark.view.StandardModify" type="XML" />
+                        <customData>
+                            <core:CustomData key="help-id" value="BookmarkSample-modifyBookmark" writeToDom="true" />
+                        </customData>
+                    </IconTabFilter>
+
+                    <IconTabFilter text="{i18n>custom.tabTitle}" key="addCustomBookmark" >
+                        <core:Fragment fragmentName="sap.ushell.demo.bookmark.view.CustomAdd" type="XML" />
+                        <customData>
+                            <core:CustomData key="help-id" value="BookmarkSample-addCustomBookmark" writeToDom="true" />
+                        </customData>
+                    </IconTabFilter>
+
+                    <IconTabFilter text="{i18n>customModify.tabTitle}" key="modifyCustomBookmark" >
+                        <core:Fragment fragmentName="sap.ushell.demo.bookmark.view.CustomModify" type="XML" />
+                        <customData>
+                            <core:CustomData key="help-id" value="BookmarkSample-modifyCustomBookmark" writeToDom="true" />
+                        </customData>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+            <Button id="useV2Service" text="'BookmarkV2' Service is now used. Change to old 'Bookmark'" press="onUseV2Service"/>
+        </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,232 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:gnt2="sap.gantt.simple"
+	xmlns:gch2="sap.gantt.multiactivity.test"
+	xmlns:core="sap.ui.core"
+	xmlns:gnt2Overlays="sap.gantt.overlays"
+	xmlns:gnt2GanttRowOverlay="sap.gantt.overlays.GanttRowOverlay">
+	<gnt2:MultiActivityRowSettings highlight="{data>Status}" rowId="{data>ProjectElemID}"
+		calendars="{path:'data>ProjectWorkingTime', templateShareable: 'true'}"
+		tasks="{path:'data>ProjectTasks',templateShareable: 'true'}"
+		shapes1="{path:'data>ProjectChartShapes',templateShareable: 'true'}"
+		shapes2="{path:'data>ProjectLazyShapes',templateShareable: 'true'}"
+		shapes3="{path:'data>ProjectCustomShapes',templateShareable: 'true'}"
+		shapes4="{path:'data>ProjectCustomPathShapes',templateShareable: 'true'}"
+		shapes5="{path:'data>ProjectGroupShapes',templateShareable: 'true'}"
+		overlays2 ="{path:'data>ProjectOverlays2Shapes',templateShareable: 'true'}"
+		overlays3 ="{path:'data>ProjectOverlays3Shapes',templateShareable: 'true'}"
+		overlays4 ="{path:'data>ProjectOverlays4Shapes',templateShareable: 'true'}"
+		overlays5 ="{path:'data>ProjectOverlays5Shapes',templateShareable: 'true'}"
+>
+		<gnt2:calendars>
+			<gnt2:BaseCalendar shapeId="{data>WorkingTimeID}" calendarName="{data>CalendarName}"/>
+		</gnt2:calendars>
+		<!-- <gnt2:shapes1 connectable="true" shapeId="scheme_for_shape1" hoverable="false" selectable="false" draggable="false"
+			expandable="true" highlightable="false">
+			<gnt2:BaseRectangle connectable="true" countInBirdEye= "true" resizable="true" draggable="true" selectable="true" shapeId="{data>TaskID}" tooltip="{data>Tooltip}" hoverable="true" highlightable="true" scheme="scheme_for_shape1"
+			time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" fill="pink" height="20" title="{data>TaskDesc}" showTitle="true"
+			expandable="true" />
+		</gnt2:shapes1> -->
+		<gnt2:shapes1 expandable="true">
+			<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}" expandable="true"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}"
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+		</gnt2:shapes1>
+		<gnt2:shapes2>
+			<gnt2:BaseConditionalShape connectable="true" countInBirdEye= "{data>countInBirdEye}" draggable="true" selectable="true" scheme="scheme_for_shape2" expandable="true" hoverable="true" resizable="true" highlightable="true" shapeId="{data>TaskID}" activeShape="{data>Type}">
+				<gnt2:shapes>
+					<gnt2:BaseRectangle height="20" connectable="true" countInBirdEye= "{data>countInBirdEye}"  scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" time="{data>StartDate}" endTime="{data>EndDate}" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+						fill="red"/>
+					<gnt2:BaseChevron leftAnchorPosition="100" height="20" connectable="true" countInBirdEye= "{data>countInBirdEye}"  scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+						fill="green"/>
+					<gnt2:BaseTriangle orientation="top" leftAnchorPosition="100" rightAnchorPosition="100" connectable="true" countInBirdEye= "{data>countInBirdEye}" time="{data>StartDate}" endTime="{data>EndDate}" scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+						fill="blue" width="auto" height="20"/>
+					<gnt2:BaseCursor leftAnchorPosition="20" rightAnchorPosition="80" connectable="true" countInBirdEye= "{data>countInBirdEye}"  scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" time="{path: 'data>StartDate', formatter: '.formatDateToUTCEndTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+						fill="@sapUiChartPaletteQualitativeHue11" selectedFill="@sapUiAccent2"/>
+					<gnt2:BaseDiamond connectable="true" countInBirdEye= "{data>countInBirdEye}" time="{data>StartDate}" scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" endTime="{data>EndDate}" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+						fill="@sapUiChartPaletteQualitativeHue7" selectedFill="@sapUiAccent2"/>
+					<gnt2:BaseText connectable="true" countInBirdEye= "{data>countInBirdEye}" time="{data>StartDate}" scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" endTime="{data>EndDate}" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+						text="Test text" fill="@sapUiChartPaletteQualitativeHue7"/>
+					<gnt2:BaseImage leftAnchorPosition="60" rightAnchorPosition="30" connectable="true" countInBirdEye= "{data>countInBirdEye}" time="{data>StartDate}" scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" selectedFill="red"
+						showTitle="true" endTime="{data>EndDate}" shapeId="{data>TaskID}" title="{data>TaskDesc}"
+						src="sap-icon://accept" />
+				</gnt2:shapes>
+			</gnt2:BaseConditionalShape>
+		</gnt2:shapes2>
+		<gnt2:shapes3>
+			 <gch2:CustomShape rightAnchorPosition="40" leftAnchorPosition="40" connectable="true" countInBirdEye= "true"  strokeWidth="3" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" type="{data>Type}" shapeId="{data>TaskID}"  fill="gray" stroke="none"/>
+		</gnt2:shapes3>
+		<gnt2:shapes4>
+			<gch2:CustomPath leftAnchorPosition="50" rightAnchorPosition="80" connectable="true" countInBirdEye= "false" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" scheme="scheme_for_shape2" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" shapeId="{data>TaskID}"  fill="@sapUiChartPaletteQualitativeHue5" selectedFill="@sapUiAccent2"/>
+		</gnt2:shapes4>
+		<gnt2:shapes5>
+			<gnt2:BaseGroup  rightAnchorPosition="70" countInBirdEye= "{data>countInBirdEye}" connectable="true" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" draggable="true" scheme="scheme_for_shape1" expandable="true" hoverable="true" resizable="true" highlightable="true" shapeId="{data>TaskID}" selectable="true">
+				<gnt2:shapes>
+					<gnt2:BaseDiamond connectable="true" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" scheme="scheme_for_shape1" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						showTitle="true" title="{data>TaskDesc}" fill="@sapUiChartPaletteQualitativeHue7" selectedFill="@sapUiAccent2"/>
+					<gnt2:BaseRectangle time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" scheme="scheme_for_shape1" draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+						 showTitle="true" title="{data>TaskDesc}" fill="@sapUiChartPaletteQualitativeHue6" selectedFill="@sapUiAccent2"/>
+				</gnt2:shapes>
+			</gnt2:BaseGroup>
+		</gnt2:shapes5>
+		<gnt2:overlays1>
+			<gnt2Overlays:GanttRowOverlay
+						binding = "{path:'overlayData>/'}"
+						staticOverlay = "{path:'overlayData>overlays/staticOverlays',templateShareable: true}" expandedOverlay="{path:'overlayData>overlays/expandedOverlays',templateShareable: true}">
+				<gnt2Overlays:staticOverlay>
+					<gnt2Overlays:Overlay>
+						<gnt2:BaseImage leftAnchorPosition="80" rightAnchorPosition="80" src = "{overlayData>Src}" shapeId = "{overlayData>shapeId}"
+									fill = "sapUiCriticalElement" selectable = "true" draggable = "true"
+									countInBirdEye = "true" time = "{overlayData>StartDate}" endTime = "{overlayData>EndDate}" />
+					</gnt2Overlays:Overlay>
+				</gnt2Overlays:staticOverlay>
+				<gnt2Overlays:expandedOverlay>
+					<gnt2Overlays:Overlay>
+						<gnt2:BaseImage leftAnchorPosition="80" rightAnchorPosition="80" src = "{overlayData>Src}" shapeId = "{overlayData>shapeId}"
+									fill = "sapUiCriticalElement" selectable = "true" draggable = "true"
+									countInBirdEye = "true" scheme = "{overlayData>scheme}" time = "{overlayData>StartDate}" endTime = "{overlayData>EndDate}" />
+					</gnt2Overlays:Overlay>
+				</gnt2Overlays:expandedOverlay>
+			</gnt2Overlays:GanttRowOverlay>
+		</gnt2:overlays1>
+		<gnt2:overlays2>
+        <gnt2Overlays:GanttRowOverlay
+		 staticOverlay = "{path:'data>Overlays2ToOverlay',templateShareable: 'true'}"
+		 expandedOverlay = "{path:'data>Overlays2ToOverlay',templateShareable: 'true'}" >
+            <gnt2Overlays:staticOverlay>
+                <gnt2Overlays:Overlay>
+                    <gnt2:BaseImage src="{data>Src}" fill="sapUiNegativeElement" shapeId = "{data>shapeId}" draggable="true" connectable="true" selectable="true" 	countInBirdEye= "true" time="{data>StartDate}" endTime="{data>EndDate}"/>
+                </gnt2Overlays:Overlay>
+            </gnt2Overlays:staticOverlay>
+            <gnt2Overlays:expandedOverlay>
+                <gnt2Overlays:Overlay overlayLevel = "{data>overlayLevel}" overlayShapeId= "{data>overlayShapeId}">
+                    <gnt2:BaseImage leftAnchorPosition="80" rightAnchorPosition="80" src="{data>Src}" scheme="{data>scheme}"  fill="sapUiNegativeElement" draggable="true" shapeId = "{data>shapeId}" connectable="true" countInBirdEye= "true" selectable="true"  time="{data>StartDate}" endTime="{data>EndDate}"/>
+                </gnt2Overlays:Overlay>
+            </gnt2Overlays:expandedOverlay>
+        </gnt2Overlays:GanttRowOverlay>
+   	    </gnt2:overlays2>
+		<gnt2:overlays3>
+        <gnt2Overlays:GanttRowOverlay
+		 expandedOverlay = "{path:'data>Overlays3ToOverlay',templateShareable: 'true'}" >
+            <gnt2Overlays:expandedOverlay>
+                <gnt2Overlays:Overlay overlayLevel = "{data>overlayLevel}">
+                	<gnt2:BaseChevron leftAnchorPosition="100" rightAnchorPosition="50" height="19" draggable="true" selectable="true" connectable="true" scheme="{data>scheme}"   shapeId = "{data>shapeId}" 	countInBirdEye= "true"
+							time="{data>StartDate}" endTime="{data>EndDate}" tooltip="{data>ObjectName}"  hoverable="true" fill="lightblue"/>
+                </gnt2Overlays:Overlay>
+            </gnt2Overlays:expandedOverlay>
+        </gnt2Overlays:GanttRowOverlay>
+   	    </gnt2:overlays3>
+		<gnt2:overlays4>
+		<gnt2Overlays:GanttRowOverlay
+		 expandedOverlay = "{path:'data>Overlays4ToOverlay',templateShareable: 'true'}" >
+            <gnt2Overlays:expandedOverlay>
+                <gnt2Overlays:Overlay overlayLevel = "{data>overlayLevel}">
+                	<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}"
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+                </gnt2Overlays:Overlay>
+            </gnt2Overlays:expandedOverlay>
+        </gnt2Overlays:GanttRowOverlay>
+   	    </gnt2:overlays4>
+		<gnt2:overlays5>
+		<gnt2Overlays:GanttRowOverlay
+		 expandedOverlay = "{path:'data>Overlays5ToOverlay',templateShareable: 'true'}" >
+            <gnt2Overlays:expandedOverlay>
+			<gnt2Overlays:Overlay overlayLevel = "{data>overlayLevel}" overlayShapeId= "{data>overlayShapeId}">
+			<gnt2:StockChart shapeId="{data>ResourceID}" title="{data>ResourceName}"
+									time="{data>ValidityFrom}" endTime="{data>ValidityTo}"
+									stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+									minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+									relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+									<gnt2:StockChartDimension
+										name="{data>UtilizationName}"
+										relativePoint="{data>relativeMidPoint}"
+										dimensionPathColor="{data>Color}"
+										stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+										<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+									</gnt2:StockChartDimension>
+								</gnt2:StockChart>
+				<!-- <gnt2:BaseGroup countInBirdEye= "true"  scheme="{data>scheme}"  shapeId="{data>ResourceID}" countInBirdEye= "true" draggable="true" selectable="true" connectable="true" >
+								<gnt2:shapes>
+						  			  <gnt2:StockChart  title="{data>ResourceName}"
+										time="{data>ValidityFrom}" endTime="{data>ValidityTo}"
+										stockChartDimensions="{path: 'data>ResourceToUtilization',templateShareable: true}"
+										minValue="{data>minValue}" maxValue="{data>maxValue}" scheme="{data>scheme}"
+										relativeMiddleLinePoint="{data>relativeMiddleLinePoint}">
+										<gnt2:StockChartDimension
+											name="{data>UtilizationName}"
+											relativePoint="{data>relativeMidPoint}"
+											dimensionPathColor="{data>Color}"
+											stockChartPeriods="{path:'data>UtilizationToItems',templateShareable: true}" >
+											<gnt2:StockChartPeriod from="{data>StartDateTime}" to="{data>EndDateTime}" value="{data>Value}"/>
+										</gnt2:StockChartDimension>
+									</gnt2:StockChart>
+									<gnt2:BaseText time="{data>EndDate}" text="{data>Tooltip}" fill="sapUiNegativeElement" draggable="true" connectable="true"  selectable="true"/>
+								</gnt2:shapes>
+				</gnt2:BaseGroup> -->
+				</gnt2Overlays:Overlay>
+            </gnt2Overlays:expandedOverlay>
+        </gnt2Overlays:GanttRowOverlay>
+   	    </gnt2:overlays5>
+		<gnt2:tasks>
+			<gnt2:MultiActivityGroup connectable="true" shapeId="{data>TaskID}" scheme="main_row_shape"
+				time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}"
+				tooltip="{data>Tooltip}"
+				countInBirdEye= "false"
+				draggable="true" selectable="true" expandable="true" hoverable="true" resizable="true" highlightable="true"
+				subTasks= "{path: 'data>TaskToSteps',templateShareable: true}">
+				<gnt2:task>
+					<gnt2:BaseRectangle connectable="true" resizable="true" draggable="true" selectable="true" shapeId="{data>TaskID}" tooltip="{data>Tooltip}" hoverable="true" highlightable="true" scheme="main_row_shape" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" fill="#1A9898" height="20" title="{data>TaskDesc}" showTitle="true"/>
+				</gnt2:task>
+				<!-- <gnt2:indicators>
+					<gnt2:BaseRectangle scheme="task_to_step" shapeId="{data>StepID}" time="{data>StartDate}" endTime="{data>EndDate}" height="20"
+						fill="{path: 'data>StepStatus',formatter:'.stepShapeColorFormatter'}" yBias="-2" draggable="true" selectable="true"  hoverable="true" resizable="true"/>
+				</gnt2:indicators>	 -->
+				<gnt2:subTasks>
+					<gnt2:BaseRectangle shapeId="{data>StepID}" scheme="task_to_step" time="{path: 'data>StartDate', formatter: '.formatDateToUTCTime'}" endTime="{path: 'data>EndDate', formatter: '.formatDateToUTCEndTime'}" height="15"
+						fill="{path: 'data>StepStatus',formatter:'.stepShapeColorFormatter'}"
+						transform="translate(1, 1)" title="{data>StepDesc}" tooltip="{data>Tooltip}" draggable="true" selectable="true"   hoverable="true" resizable="true" highlightable="true"/>
+				</gnt2:subTasks>
+			</gnt2:MultiActivityGroup>
+		</gnt2:tasks>
+		 <!-- <gnt2:pseudoShapeTemplate>
+			<gnt2:BasePseudoShape
+				typeOfOverlapIndicator="Both">
+				<gnt2:task>
+					<gnt2:BaseRectangle horizontalTextAlignment="Start" title="Overlaps" fill="#a0f2c6" height="21" />
+				</gnt2:task>
+				<gnt2:indicators>
+					<gnt2:BaseRectangle  fill="#a401d1" height="2" yBias="14"/>
+				</gnt2:indicators>
+			</gnt2:BasePseudoShape>
+		</gnt2:pseudoShapeTemplate>  -->
+	</gnt2:MultiActivityRowSettings>
+</core:FragmentDefinition>

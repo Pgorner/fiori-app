@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+		<edmx:Reference Uri="sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+			<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" /></edmx:Reference>
+		<edmx:Reference Uri="sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+			<edmx:Include Alias="UI" Namespace="UI" /></edmx:Reference>
+		<edmx:Reference Uri="sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+			<edmx:Include Alias="Communication" Namespace="com.sap.vocabularies.Communication.v1" /></edmx:Reference>
+		<edmx:Reference Uri="sap/opu/odata/SAP/HEPM_OVP_TECH_VAL/$metadata">
+			<edmx:Include Alias="SAP" Namespace="HEPM_OVP_TECH_VAL" /></edmx:Reference>
+		<edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+			<edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+		</edmx:Reference>
+		<edmx:DataServices>
+			<Schema Namespace="HEPM_OVP_TECH_VAL" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+				<Annotations Target="HEPM_OVP_TECH_VAL.SEPM_I_Address_Spot_SmartType">
+					<Annotation Term="UI.GeoLocation">
+						<Record Type="UI.GeoLocationType">
+							<PropertyValue Property="Latitude" Path="Latitude" />
+							<PropertyValue Property="Longitude" Path="Longitude" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.HeaderInfo">
+						<Record>
+							<PropertyValue Property="TypeName" String="City" />
+							<PropertyValue Property="TypeNamePlural" String="Cities" />
+							<PropertyValue Property="Title">
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CityName"></PropertyValue>
+								</Record>
+							</PropertyValue>
+							<PropertyValue Property="Description">
+								<Record Type="UI.DataField">
+									<PropertyValue Path="PostalCode" Property="Value" />
+								</Record>
+							</PropertyValue>
+							<PropertyValue Property="ImageUrl" String="sap-icon://laptop" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.Identification">
+						<Collection>
+							<Record Type="UI.DataFieldForIntentBasedNavigation">
+								<PropertyValue Property="SemanticObject" String="Action" />
+								<PropertyValue Property="Action" String="toappnavsample" />
+								<PropertyValue Property="Label" String="SO Navigation (M)" />
+								<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium" />
+							</Record>
+							<!--DataFieldWithUrl is required for navigation-->
+							<Record Type="UI.DataFieldWithUrl">
+								<PropertyValue Property="Label" String="Link to" />
+								<PropertyValue Property="Value" String="Some Intent" />
+								<PropertyValue Property="Url" String="#Action-toappperssample2&amp;/location/" />
+							</Record>
+							<Record Type="UI.DataField">
+								<Annotation EnumMember="UI.ImportanceType/High" Term="UI.Importance" />
+								<PropertyValue Path="CityName" Property="Value" />
+							</Record>
+						</Collection>
+					</Annotation>
+					<Annotation Term="UI.DataPoint" Qualifier="OverdueTime">
+						<Record Type="UI.DataPointType">
+							<PropertyValue Property="Title" String="Overdue Time" />
+							<PropertyValue Property="Value" Path="OverdueTime" />
+							<PropertyValue Property="Criticality" Path="Criticality" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.Facets">
+						<Collection>
+							<Record Type="UI.ReferenceFacet">
+								<Annotation Term="UI.IsSummary" />
+								<PropertyValue Property="Label" String="Address Details" />
+								<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Address" />
+							</Record>
+						</Collection>
+					</Annotation>
+					<Annotation Term="UI.FieldGroup" Qualifier="Address">
+						<Record Type="UI.FieldGroupType">
+							<PropertyValue Property="Label" String="Address Details" />
+							<PropertyValue Property="Data">
+								<Collection>
+									<Record Type="UI.DataField">
+										<PropertyValue Property="Label" String="House Number" />
+										<PropertyValue Property="Value" Path="HouseNumber" />
+									</Record>
+									<Record Type="UI.DataField">
+										<PropertyValue Property="Label" String="Street Name" />
+										<PropertyValue Property="Value" Path="StreetName" />
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+					</Annotation>
+				</Annotations>
+
+				<Annotations Target="HEPM_OVP_TECH_VAL.SEPM_I_AddressType">
+					<Annotation Term="UI.GeoLocation">
+						<Record Type="UI.GeoLocationType">
+							<PropertyValue Property="Latitude" Path="Latitude" />
+							<PropertyValue Property="Longitude" Path="Longitude" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.HeaderInfo">
+						<Record>
+							<PropertyValue Property="TypeName" String="Product" />
+							<PropertyValue Property="TypeNamePlural" String="Products" />
+							<PropertyValue Property="Title">
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CityName"></PropertyValue>
+								</Record>
+							</PropertyValue>
+							<PropertyValue Property="Description">
+								<Record Type="UI.DataField">
+									<PropertyValue Path="PostalCode" Property="Value" />
+								</Record>
+							</PropertyValue>
+							<PropertyValue Property="ImageUrl" String="sap-icon://laptop" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.Identification">
+						<Collection>
+							<Record Type="UI.DataFieldForIntentBasedNavigation">
+								<PropertyValue Property="SemanticObject" String="Action" />
+								<PropertyValue Property="Action" String="toappnavsample" />
+								<PropertyValue Property="Label" String="SO Navigation (M)" />
+								<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium" />
+							</Record>
+							<!--DataFieldWithUrl is required for navigation-->
+							<Record Type="UI.DataFieldWithUrl">
+								<PropertyValue Property="Label" String="Link to" />
+								<PropertyValue Property="Value" String="Some Intent" />
+								<PropertyValue Property="Url" String="#Action-toappperssample2&amp;/location/" />
+							</Record>
+							<Record Type="UI.DataField">
+								<Annotation EnumMember="UI.ImportanceType/High" Term="UI.Importance" />
+								<PropertyValue Path="CityName" Property="Value" />
+							</Record>
+						</Collection>
+					</Annotation>
+					<Annotation Term="UI.DataPoint" Qualifier="OverdueTime">
+						<Record Type="UI.DataPointType">
+							<PropertyValue Property="Title" String="Overdue Time" />
+							<PropertyValue Property="Value" Path="OverdueTime" />
+							<PropertyValue Property="Criticality" Path="Criticality" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.Facets">
+						<Collection>
+							<Record Type="UI.ReferenceFacet">
+								<Annotation Term="UI.IsSummary" />
+								<PropertyValue Property="Label" String="Address Details" />
+								<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Address" />
+							</Record>
+						</Collection>
+					</Annotation>
+					<Annotation Term="UI.FieldGroup" Qualifier="Address">
+						<Record Type="UI.FieldGroupType">
+							<PropertyValue Property="Label" String="Address Details" />
+							<PropertyValue Property="Data">
+								<Collection>
+									<Record Type="UI.DataField">
+										<PropertyValue Property="Label" String="House Number" />
+										<PropertyValue Property="Value" Path="HouseNumber" />
+									</Record>
+									<Record Type="UI.DataField">
+										<PropertyValue Property="Label" String="Street Name" />
+										<PropertyValue Property="Value" Path="StreetName" />
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+					</Annotation>
+				</Annotations>
+
+				<Annotations Target="HEPM_OVP_TECH_VAL.SEPM_I_Address_SpotType">
+					<Annotation Term="UI.GeoLocation">
+						<Record Type="UI.GeoLocationType">
+							<PropertyValue Property="Latitude" Path="Latitude" />
+							<PropertyValue Property="Longitude" Path="Longitude" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.HeaderInfo">
+						<Record>
+							<PropertyValue Property="TypeName" String="Product" />
+							<PropertyValue Property="TypeNamePlural" String="Products" />
+							<PropertyValue Property="Title">
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CityName"></PropertyValue>
+								</Record>
+							</PropertyValue>
+							<PropertyValue Property="Description">
+								<Record Type="UI.DataField">
+									<PropertyValue Path="PostalCode" Property="Value" />
+								</Record>
+							</PropertyValue>
+							<PropertyValue Property="ImageUrl" String="sap-icon://laptop" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.Identification">
+						<Collection>
+							<Record Type="UI.DataFieldForIntentBasedNavigation">
+								<PropertyValue Property="SemanticObject" String="Action" />
+								<PropertyValue Property="Action" String="toappnavsample" />
+								<PropertyValue Property="Label" String="SO Navigation (M)" />
+								<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium" />
+							</Record>
+							<!--DataFieldWithUrl is required for navigation-->
+							<Record Type="UI.DataFieldWithUrl">
+								<PropertyValue Property="Label" String="Link to" />
+								<PropertyValue Property="Value" String="Some Intent" />
+								<PropertyValue Property="Url" String="#Action-toappperssample2&amp;/location/" />
+							</Record>
+							<Record Type="UI.DataField">
+								<Annotation EnumMember="UI.ImportanceType/High" Term="UI.Importance" />
+								<PropertyValue Path="CityName" Property="Value" />
+							</Record>
+						</Collection>
+					</Annotation>
+					<Annotation Term="UI.DataPoint" Qualifier="OverdueTime">
+						<Record Type="UI.DataPointType">
+							<PropertyValue Property="Title" String="Overdue Time" />
+							<PropertyValue Property="Value" Path="OverdueTime" />
+							<PropertyValue Property="Criticality" Path="Criticality" />
+						</Record>
+					</Annotation>
+					<Annotation Term="UI.Facets">
+						<Collection>
+							<Record Type="UI.ReferenceFacet">
+								<Annotation Term="UI.IsSummary" />
+								<PropertyValue Property="Label" String="Address Details" />
+								<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Address" />
+							</Record>
+						</Collection>
+					</Annotation>
+					<Annotation Term="UI.FieldGroup" Qualifier="Address">
+						<Record Type="UI.FieldGroupType">
+							<PropertyValue Property="Label" String="Address Details" />
+							<PropertyValue Property="Data">
+								<Collection>
+									<Record Type="UI.DataField">
+										<PropertyValue Property="Label" String="House Number" />
+										<PropertyValue Property="Value" Path="HouseNumber" />
+									</Record>
+									<Record Type="UI.DataField">
+										<PropertyValue Property="Label" String="Street Name" />
+										<PropertyValue Property="Value" Path="StreetName" />
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+					</Annotation>
+				</Annotations>
+
+			</Schema>
+		</edmx:DataServices>
+	</edmx:Edmx>

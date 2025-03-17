@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ui/core/mvc/View","sap/ui/core/UIComponent"],function(e,t){"use strict";return t.extend("sap.ushell.components.tiles.applauncher",{metadata:{interfaces:["sap.ui.core.IAsyncContentCreation"]},createContent:function(){var t=this.getComponentData();return e.create({viewName:"module:sap/ushell/components/tiles/applauncher/StaticTile.view",viewData:t})}})});
+//# sourceMappingURL=Component.js.map

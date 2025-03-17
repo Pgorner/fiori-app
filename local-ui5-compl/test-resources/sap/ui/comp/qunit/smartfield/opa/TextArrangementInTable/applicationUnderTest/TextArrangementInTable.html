@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField With TextArrangement in Table</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-animation-mode="none"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-language="en"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-log-level="0"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="mainView"
+				xmlns:core="sap.ui.core"
+				xmlns:mvc="sap.ui.core.mvc"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:st="sap.ui.comp.smarttable"
+				xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+				height="100%">
+			<App>
+				<Page id="page" title="Smart Field Snippet">
+					<st:SmartTable
+							id="smartTable"
+							entitySet="Employees"
+							smartFilterId="smartFilterBar"
+							tableType="ResponsiveTable"
+							showFullScreenButton="true"
+							header="Cost Center"
+							height="250px"
+							showRowCount="true"
+							editable="true"
+							fieldChange=".handleFieldChange"
+							editTogglable="true"
+							customData:useSmartField="true"
+							customizeConfig='{"textInEditModeSource": {"*": "ValueList"}}'
+							enableAutoBinding="true">
+							<st:customData>
+								<core:CustomData key="defaultShowAllFilters" value='true'/>
+								<core:CustomData key="defaultFilterBarExpanded" value='true'/>
+							</st:customData>
+					</st:SmartTable>
+					<Text id="text" renderWhitespace="true"/>
+					<List id="events" headerText="LOG:"/>
+				</Page>
+			</App>
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+			<edmx:DataServices m:DataServiceVersion="2.0">
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+						<Property Name="LOCALKEY2"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:label="Local Key"
+								  sap:creatable="false"/>
+						<Property Name="Name"
+								  Type="Edm.String"
+								  MaxLength="4"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name"/>
+						<Property Name="LocalText"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Local text"
+								  Nullable="false"/>
+					</EntityType>
+					<EntityType Name="StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" sap:sortable="true"  Nullable="false" MaxLength="20" sap:label="Key" sap:text="TXT"/>
+						<Property Name="KEY2" Type="Edm.String" sap:sortable="false" Nullable="false" MaxLength="20" sap:label="Key2"/>
+						<Property Name="CONSTANT" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Constant"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+						<Property Name="TXT2" Type="Edm.String" sap:label="Desc 2" />
+						<Property Name="TXT3" Type="Edm.String" sap:label="Desc 3" />
+						<Property Name="TXT4" Type="Edm.String" sap:label="Desc 4" />
+						<Property Name="TXT5" Type="Edm.String" sap:label="Desc 5" />
+						<Property Name="TXT6" Type="Edm.String" sap:label="Desc 6" />
+						<Property Name="TXT7" Type="Edm.String" sap:label="Desc 7" />
+					</EntityType>
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+						<EntitySet Name="StringVH"
+								   EntityType="EmployeesNamespace.StringVHType"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+					</EntityContainer>
+					<Annotations Target="EmployeesNamespace.Employee"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
+							<Collection>
+								<Record Type="com.sap.vocabularies.UI.v1.DataField">
+									<PropertyValue Property="Value" Path="Name" />
+								</Record>
+							</Collection>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.StringVHType/KEY"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Name"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast" />
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Name"/>
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterIn">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LOCALKEY2"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterConstant">
+											<PropertyValue Property="Constant" String="Bulgaria"/>
+											<PropertyValue Property="ValueListProperty" String="CONSTANT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LocalText"/>
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LocalDescription"/>
+											<PropertyValue Property="ValueListProperty" String="KEY2"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+		{"d": {
+			"__count": "3",
+			"results": [
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+						"Name": "1",
+						"LOCALKEY2": "AAA",
+						"LocalText": "Common.text",
+						"Id": "0001"
+					},
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0003')", "type": "EmployeesNamespace.Employee" },
+						"Name": "3",
+						"LOCALKEY2": "AAA",
+						"LocalText": "Common.text2",
+						"Id": "0003"
+					},
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0004')", "type": "EmployeesNamespace.Employee" },
+						"Name": "4",
+						"LOCALKEY2": "AAA",
+						"LocalText": "Common.text3",
+						"Id": "0004"
+					}
+				]
+			}
+		}
+</script>
+
+	<script id="dataSectionVH" type="text/json">
+		{"d": {
+			"__count": "12",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0001')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "1",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Soundstation"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0002')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "2",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Car"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0002')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "2",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Airplane"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0003')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "3",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Boat"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0004')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "4",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Helicopter"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0005')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "5",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0006')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "6",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0007')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "7",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0008')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "8",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0009')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "9",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0010')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "10",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0011')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "11",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0012')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "12",
+					"KEY2": "AAA",
+					"CONSTANT": "Bulgaria",
+					"TXT": "Bus"
+				}
+			]
+		}}
+</script>
+<script id="dataSectionVHZero" type="text/json">
+	{"d": {
+		"__count": "0",
+		"results": []
+	}}
+	</script>
+<script src="./TextArrangementInTable.js"></script>
+
+</head>
+
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+</html>

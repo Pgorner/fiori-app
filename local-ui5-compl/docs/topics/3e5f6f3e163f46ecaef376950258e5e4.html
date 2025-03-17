@@ -1,0 +1,330 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3e5f6f3e163f46ecaef376950258e5e4" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-8-navigate-with-flip-transition-3e5f6f3.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 8: Navigate with Flip Transition</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 8: Navigate with Flip Transition</h2></div><div class="shortdesc">In this step, we want to illustrate how to navigate to a page with a custom
+		transition animation. Both forward and backward navigation will use the "flip"
+		transition but with a different direction. We will create a simple link on the
+			<span class="ph uicontrol">Employee</span> view that triggers a flip navigation to a page that
+		displays the resume data of a certain employee. Pressing the <span class="ph uicontrol">Back</span>
+		button will navigate back to the <span class="ph uicontrol">Employee</span> view with a reversed flip
+		transition.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loioe56a3f094dbd4b01b8f6a1e57e9366d5_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "><span class="ph uicontrol">Employee Details</span> page with <span class="ph uicontrol">Flip to
+						Resume</span> link</h2></span></div>
+			<div><div class="fig"><img src="loio6ab9122f07db475c892926ed86ece7f7_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "><span class="ph uicontrol">Resume</span> page with multiple tabs</h2></span></div>
+			<div><div class="fig"><img src="loio36aff02e6b6e48f2aa097afa29f16cb4_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "><span class="ph uicontrol">Not Found</span> page for resume</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.08" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.08" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.08">Routing and Navigation - Step
+					8</a>.</p>
+			<div><div class="fig"><img src="loio2ca76d0f0f3240318212047da0a10b7c_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Folder structure for this step</h2></span></div>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/Employee.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.employee.Employee"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	busyIndicatorDelay="0"&gt;
+	&lt;Page
+		id="employeePage"
+		title="{i18n&gt;EmployeeDetailsOf} {FirstName} {LastName}"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+		class="sapUiResponsiveContentPadding"&gt;
+		&lt;content&gt;
+			&lt;Panel
+				id="employeePanel"
+				width="auto"
+				class="sapUiResponsiveMargin sapUiNoContentPadding"&gt;
+				&lt;headerToolbar&gt;
+					&lt;Toolbar&gt;
+						&lt;Title text="{i18n&gt;EmployeeIDColon} {EmployeeID}" level="H2"/&gt;
+						&lt;ToolbarSpacer /&gt;
+						<span class="emphasis">&lt;Link text="{i18n&gt;FlipToResume}" tooltip="{i18n&gt;FlipToResume.tooltip}" press=".onShowResume"/&gt;</span>
+					&lt;/Toolbar&gt;
+				&lt;/headerToolbar&gt;
+				&lt;content&gt;
+					...
+				&lt;/content&gt;
+			&lt;/Panel&gt;
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>First we add the <span class="ph uicontrol">Flip to Resume</span> link to the
+					<span class="ph uicontrol">Employee Details</span> view to trigger the navigation to the
+				resume of the employee that is currently displayed.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/employee/Employee.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.Employee", {
+		...
+		_onBindingChange : function (oEvent) {
+			// No data for the binding
+			if (!this.getView().getBindingContext()) {
+				this.getRouter().getTargets().display("notFound");
+			}
+		}
+			...
+		}<span class="emphasis">,
+		onShowResume : function (oEvent) {
+			var oCtx = this.getView().getElementBinding().getBoundContext();
+
+			this.getRouter().navTo("employeeResume", {
+				employeeId : oCtx.getProperty("EmployeeID")
+			});
+		}
+</span>
+	});
+});</pre></div></div></section>
+			<p> Then we change the <code>Employee.controller.js</code> file by adding the press
+				handler <code>onShowResume</code> for the <span class="ph uicontrol">Flip to Resume</span>
+				link. The handler simply navigates to a new route <code>employeeResume</code>
+				and fills the mandatory parameter <code>employeeId</code> with the property
+					<code>EmployeeID</code> from the view's bound context. The route
+					<code>employeeResume</code> is not available yet, so we will have to add it
+				to our routing configuration.</p>
+		</section><section>
+			<h2 class="title ">webapp/manifest.json</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"_version": "1.12.0",
+	"sap.app": {
+		...
+	},
+	"sap.ui": {
+		...
+	},
+	"sap.ui5": {
+		...
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "sap.ui.demo.nav.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				}
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "appHome",
+				"target": "home"
+			}, {
+				"pattern": "employees",
+				"name": "employeeList",
+				"target": "employees"
+			}, {
+				"pattern": "employees/{employeeId}",
+				"name": "employee",
+				"target": "employee"
+			}<span class="emphasis">, {
+				"pattern": "employees/{employeeId}/resume",
+				"name": "employeeResume",
+				"target": "employeeResume"
+			}</span>],
+			"targets": {
+				"home": {
+					"id": "home",
+					"name": "Home",
+					"level" : 1
+				},
+				"notFound": {
+					"id": "notFound",
+					"name": "NotFound",
+					"transition": "show"
+				},
+				"employees": {
+					"id": "employees",
+					"path": "sap.ui.demo.nav.view.employee",
+					"name": "EmployeeList",
+					"level" : 2
+				},
+				"employee": {
+					"id": "employee",
+					"name": "employee.Employee",
+					"level" : 3
+				}<span class="emphasis">,
+				"employeeResume": {
+					"id": "resume",
+					"name": "employee.Resume",
+					"level" : 4,
+					"transition": "flip"
+				}</span>
+			}
+		}
+	}
+}</pre></div></div></section>
+			<p>In the routing configuration, we add a new route <code>employeeResume</code>
+				which references a target with the same name. The route's pattern expects an
+					<code>{employeeId}</code> as a mandatory parameter and ends with the static
+				string <code>/resume</code>.</p>
+			<p>The target <code>employeeResume</code> references the view
+					<code>employee.Resume</code> that we are about to create. The target's
+					<code>level</code> is <code>4</code>; compared to the employee target
+				this is one level lower again. To configure a flip navigation, we simply set the
+				transition of our target to <code>flip</code>. Together with the correct
+					<code>level</code> configuration this will trigger the correct forward and
+				backward flip navigation whenever the target is displayed.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>Possible values for the <code>transition</code> parameter are:</p><ul class="ul ">
+							<li class="li">
+								<p><code>slide</code> (default)</p>
+							</li>
+							<li class="li">
+								<p><code>flip</code></p>
+							</li>
+							<li class="li">
+								<p><code>show</code></p>
+							</li>
+							<li class="li">
+								<p><code>fade</code></p>
+							</li>
+						</ul><p></p>
+					<p>You can also implement your own transitions and add it to a control that
+						extends <code>sap.m.NavContainer</code> (for example,
+							<code>sap.m.App</code> or <code>sap.m.SplitApp</code>).  For
+							more information, see the <a href="api/sap.m.NavContainer" title="api/sap.m.NavContainer" class="sap-doc" alt="api/sap.m.NavContainer">API Reference:
+									<code>NavContainer</code></a>.
+						
+					</p>
+				<p></p></div></div><p></p>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/Resume.view.xml (New)</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.employee.Resume"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Page
+		title="{i18n&gt;ResumeOf} {FirstName} {LastName}"
+		id="employeeResumePage"
+		showNavButton="true"
+		navButtonPress=".onNavBack"&gt;
+		&lt;content&gt;
+			&lt;IconTabBar
+				id="iconTabBar"
+				headerBackgroundDesign="Transparent"
+				class="sapUiResponsiveContentPadding"
+				binding="{Resume}"&gt;
+				&lt;items&gt;
+					&lt;IconTabFilter id="infoTab" text="{i18n&gt;tabInfo}" key="Info"&gt;
+						&lt;Text text="{Information}"/&gt;
+					&lt;/IconTabFilter&gt;
+					&lt;IconTabFilter id="projectsTab" text="{i18n&gt;tabProjects}" key="Projects"&gt;
+						&lt;mvc:XMLView viewName="sap.ui.demo.nav.view.employee.ResumeProjects"&gt;&lt;/mvc:XMLView&gt;
+					&lt;/IconTabFilter&gt;
+					&lt;IconTabFilter id="hobbiesTab" text="{i18n&gt;tabHobbies}" key="Hobbies"&gt;
+						&lt;Text text="{Hobbies}"/&gt;
+					&lt;/IconTabFilter&gt;
+					&lt;IconTabFilter id="notesTab" text="{i18n&gt;tabNotes}" key="Notes"&gt;
+						&lt;Text text="{Notes}"/&gt;
+					&lt;/IconTabFilter&gt;
+				&lt;/items&gt;
+			&lt;/IconTabBar&gt;
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;
+</span></pre></div></div></section>
+			<p>Create a file <code>Resume.view.xml</code> inside the
+					<code>webapp/view/employee</code> folder. The view uses an
+					<code>IconTabBar</code> to display the resume data. Therefore, its binding
+				attribute is set to <code>{Resume}</code>.</p>
+			<p>In the <code>IconTabBar</code> we display four tabs. Three of them simply use a
+					<code>Text</code> control to display the data from the service. The
+					<span class="ph uicontrol">Projects</span> tab uses a nested XML view to display the
+				projects of the employee. SAPUI5 takes care of
+				loading the XML view automatically when the user navigates to the
+					<span class="ph uicontrol">Resume</span> page. </p>
+		</section><section>
+			<h2 class="title ">webapp/controller/employee/Resume.controller.js (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.Resume", {
+		onInit: function () {
+			var oRouter = this.getRouter();
+			oRouter.getRoute("employeeResume").attachMatched(this._onRouteMatched, this);
+		},
+		_onRouteMatched : function (oEvent) {
+			var oArgs, oView;
+			oArgs = oEvent.getParameter("arguments");
+			oView = this.getView();
+			oView.bindElement({
+				path : "/Employees(" + oArgs.employeeId + ")",
+				events : {
+					change: this._onBindingChange.bind(this),
+					dataRequested: function (oEvent) {
+						oView.setBusy(true);
+					},
+					dataReceived: function (oEvent) {
+						oView.setBusy(false);
+					}
+				}
+			});
+		},
+		_onBindingChange : function (oEvent) {
+			// No data for the binding
+			if (!this.getView().getBindingContext()) {
+				this.getRouter().getTargets().display("notFound");
+			}
+		}
+	});
+});</span></pre></div></div></section>
+			<p>Create a file <code>Resumee.controller.js</code> in the
+					<code>webapp/controller/employee</code> folder. In this controller, we make
+				sure to bind the view to the correct employee whenever the
+					<code>employeeResume</code> route has matched. We have already used this
+				approach in the previous step so you should be able to recognize the building blocks
+				in the code above. Again, in case the user cannot be found we display the
+					<code>notFound</code> target.</p>
+		</section><section>
+			<h2 class="title ">webapp/view/employee/ResumeProjects.view.xml (New)</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Text text="{Projects}"/&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+			<p>Create a file <code>ResumeProjects.view.xml</code> in the
+					<code>webapp/view/employee</code> folder. This view does not have a
+				controller as we don't need it. It just displays a <code>Text</code> control
+				with the projects text of the selected employee. It illustrates that using nested
+				views works just fine in combination with navigation and routing in SAPUI5. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>For more complex applications, the performance is significantly increased if
+						parts of the UI are only loaded when the user is actively selecting it. In
+						this example, the view is always loaded even though the user never decided
+						to display the project information. In the next steps, we will extend the UI
+						so that the content is loaded "lazy" by SAPUI5 only
+						when the filter item is clicked. The back-end service will fetch the data
+						only on request and the UI will only have to be updated with the selected
+						data instead of loading all data.</p>
+				<p></p></div></div><p></p>
+		</section><section>
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">...
+ResumeOf=Resume of
+tabInfo=Info
+tabProjects=Projects
+tabHobbies=Hobbies
+tabNotes=Notes
+FlipToResume=Flip to Resume
+FlipToResume.tooltip=See the resume of this employee</span></pre></div></div></section>
+			<p>Add the new texts to the <code>i18n.properties</code> file.</p>
+			<p>You can go to <code>webapp/index.html#/employees/3</code> and click on the
+					<span class="ph uicontrol">Flip to Resume</span> link to be redirected with a nice flip
+				transition to the employee's resume. The back navigation uses a reverse flip
+				navigation to get back to the <span class="ph uicontrol">Employee Details</span> page. You can
+				also directly navigate to <code>webapp/index.html#/employees/3/resume</code> or
+					<code>webapp/index.html#/employees/33/resume</code> to see what happens.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/f96d2522a5ca4382a274ae3c6d002ca0">Step 7: Navigate to Routes with Mandatory Parameters</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/b8561ff6f4c34c85a91ed06d20814cd3">Step 9: Allow Bookmarkable Tabs with Optional Query Parameters</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.m.NavContainer" title="api/sap.m.NavContainer" class="sap-doc" alt="api/sap.m.NavContainer">API Reference: sap.m.NavContainer</a></li>
+		<li><a href="entity/sap.m.NavContainer" title="entity/sap.m.NavContainer" class="sap-doc" alt="entity/sap.m.NavContainer">API Overview and Samples: sap.m.NavContainer
+			</a></li>
+	</ul></section></div></section></div></body></html>

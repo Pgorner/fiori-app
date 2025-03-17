@@ -1,0 +1,68 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod71998265d714004a815e55b2dde5f5d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/defining-determining-actions-in-list-reports-d719982.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Defining Determining Actions in List Reports</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Defining Determining Actions in List Reports</h2></div><div class="shortdesc">You can add a determining action button to the footer of the list report
+		view.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V2.</p>
+		<p></p></div></div><div class="note other recommendation "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Recommendation
+				</strong></div></div><div class="fig"><p>
+			</p><p>Please note that this feature is deprecated. SAP Fiori elements supports this feature only for compatibility reasons. We recommend that you
+				avoid using determining actions in list reports.</p>
+		<p></p></div></div><p>Determining actions are used to trigger actions directly using the context of the table in the
+			list report.</p><p>There are two types of determining actions:</p><ul class="ul ">
+				<li class="li">
+					<p>Actions that trigger a back-end call through the OData service
+							(<code>Function</code>, <code>FunctionImport</code>,
+							<code>Action</code>, or <code>ActionImport</code>), represented
+						by the complex type <code>DataFieldForAction</code></p>
+				</li>
+				<li class="li">
+					<p>Actions that trigger intent-based navigation, represented by the complex type
+							<code>DataFieldForIntentBasedNavigation</code></p>
+				</li>
+			</ul><p></p><p>To add a determining action to the footer of the list report, use the annotation term
+				<code>UI.LineItem</code> and set the <code>Determining</code> property to
+				<code>true</code> for the complex type. This is displayed as shown below:</p><p><img src="loio5adb885146e146f99357bb42c1bdb0c0_LowRes.png" usemap="#"></p><p>The following code sample shows an example of how to create your annotations for the
+			determining actions in the list report:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.LineItem"&gt;
+   &lt;Collection&gt;
+      &lt;Record Type="UI.DataFieldForAction"&gt;
+         &lt;PropertyValue Property="Label" String="Copy with new Supplier"/&gt;
+         &lt;PropertyValue Property="Action"
+           String="STTA_PROD_MAN.STTA_PROD_MAN_Entities/
+            STTA_C_MP_ProductCopywithparams"/&gt;
+         &lt;PropertyValue Property="InvocationGrouping"   
+            EnumMember="UI.OperationGroupingType/Isolated"/&gt;
+      &lt;/Record&gt;
+      &lt;Record Type="UI.DataFieldForAction"&gt;
+         &lt;PropertyValue Property="Label" String="Copy"/&gt;
+         &lt;PropertyValue Property="Action"
+            String="STTA_PROD_MAN.STTA_PROD_MAN_Entities/STTA_C_MP_ProductCopy"/&gt;
+         &lt;PropertyValue Property="Determining" Bool="true"/&gt;
+         &lt;PropertyValue Property="InvocationGrouping"   
+            EnumMember="UI.OperationGroupingType/Isolated"/&gt;
+      &lt;/Record&gt;
+      &lt;Record Type="UI.DataFieldForIntentBasedNavigation"&gt;
+         &lt;PropertyValue Property="Label" String="Manage Products (ST)"/&gt;
+         &lt;PropertyValue Property="SemanticObject" String="EPMProduct"/&gt;
+         &lt;PropertyValue Property="Action" String="manage_st"/&gt;
+         &lt;PropertyValue Property="Determining" Bool="true"/&gt;
+      &lt;/Record&gt;
+   &lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section>
+		<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>The <code>UI.LineItem</code> vocabulary term is used to define the columns for
+				the smart table.</p>
+		<p></p></div></div><p>In the example above for the first record type, the <code>DataFieldForAction</code>
+			complex type does not contain the <code>Determining</code> property. Therefore, the
+			action button will appear in the smart table toolbar.</p><p>With the last two record types, the <code>DataFieldForAction</code> and
+				<code>DataFieldForIntentBasedNavigation</code>, complex types are used and
+			contain the <code>Determining</code> property, which is set to
+			<code>true</code>. This means the action buttons will appear in the footer.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

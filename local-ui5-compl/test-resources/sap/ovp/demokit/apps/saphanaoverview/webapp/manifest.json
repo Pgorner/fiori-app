@@ -1,0 +1,272 @@
+{
+    "_version": "1.1.0",
+    "start_url": "start.html",
+    "sap.app": {
+        "_version": "1.1.0",
+        "id": "sapHanaOverview",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.2.2"
+        },
+        "title": "{{APP_TITLE}}",
+        "description": "{{APP_DESCRIPTION}}",
+        "dataSources": {
+            "normalUserServiceV4": {
+                "uri":"/sap/opu/odata/sap/normalUserServiceV4/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "annotationNormalUserV4"
+                    ],
+                    "odataVersion": "4.0"
+                }
+            },
+            "annotationNormalUserV4": {
+                "type": "ODataAnnotation",
+                "uri": "/sap/opu/odata/sap/normalUserServiceV4;v=2/Annotations*",
+                "settings": {}
+            }
+        }
+    },
+    "sap.ui": {
+        "_version": "1.2.0",
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://dimension"
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": ["sap_hcb", "sap_bluecrystal"]
+    },
+    "sap.ui5": {
+        "_version": "1.1.0",
+        "dependencies": {
+            "minUI5Version": "1.32.0",
+            "libs": {
+                "sap.ovp": {
+                    "minVersion": "1.32.0"
+                }
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "normalUserModelV4": {
+                "dataSource": "normalUserServiceV4",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "extends": {
+            "component": "sap.ovp.app",
+            "minVersion": "1.32.0",
+            "extensions": {}
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ovp": {
+        "_version": "1.1.0",
+        "globalFilterModel": "normalUserModelV4",
+        "globalFilterEntityType": "C_GLOBAL_FILTER_V4_TEST",
+        "smartVariantRequired": true,
+        "enableLiveFilter": false,
+        "chartSettings": {
+            "showDataLabel": true
+        },
+        "dataLoadSettings" : {
+            "loadDataOnAppLaunch" : "ifAnyFilterExist"
+        },
+        "containerLayout": "resizable",
+        "cards": {
+            "analysisCard": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "{{analysisCard_title}}",
+                    "subTitle": "{{analysisCard_sub_title}}",
+                    "entitySet": "C_ANALYSIS_ALL_N_V4_TEST",
+                    "listType": "condensed",
+                    "listFlavor": "bar",
+                    "sortOrder": "descending",
+                    "sortBy": "counter",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#counterPerPPMS",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#DPcounter",
+                    "addODataSelect": true,
+                    "showLineItemDetail": false
+                }
+            },
+            "uniqueCustomerCard": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.table",
+                "settings": {
+                    "title": "{{uniqueCustomerCard_title}}",
+                    "entitySet": "C_ANALYSIS_UNIQUE_N",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#counters",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numOfCustomers",
+                    "addODataSelect": true
+                }
+            },
+            "memoryColumnCard": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "{{memoryColumnCard_title}}",
+                    "entitySet": "C_MEMORY_REQUIREMENT_UNIQUE_N",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#memoryColumn",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#memoryPresentation"
+                }
+            },
+            "analysisItemCard": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "{{analysisItemCard_title}}",
+                    "subTitle": "{{analysisItemCard_sub_title}}",
+                    "entitySet": "C_SITEM_RELEVANCE_ALL_N",
+                    "listType": "condensed",
+                    "listFlavor": "bar",
+                    "sortOrder": "descending",
+                    "sortBy": "counter",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#counterPerSvalue",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numOfAnalysis"
+                }
+            },
+            "innovationDonut": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "{{innovationDonut_title}}",
+                    "subTitle": "{{innovationDonut_sub_title}}",
+                    "entitySet": "C_INNOVATION_UNIQUE_N",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#innovationDonut",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numOfCustomers"
+                }
+            },
+            "quickAccess": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.linklist",
+                "settings": {
+                    "title": "{{quickAccess_title}}",
+                    "subTitle": "{{quickAccess_sub_title}}",
+                    "listFlavor": "standard",
+                    "staticContent": [
+                        {
+                            "title": "SAP Hana Memory Management",
+                            "imageUri": "sap-icon://customer-financial-fact-sheet",
+                            "imageAltText": "SAP Hana Memory Consumption"
+                        },
+                        {
+                            "title": "Hana Simplifications",
+                            "imageUri": "sap-icon://customer-financial-fact-sheet",
+                            "imageAltText": "Hana Simplifications"
+                        },
+                        {
+                            "title": "Hana Memory Requirements",
+                            "imageUri": "sap-icon://customer-financial-fact-sheet",
+                            "imageAltText": "Hana Memory Requirements"
+                        },
+                        {
+                            "title": "Hana Unique Customers",
+                            "imageUri": "sap-icon://customer-financial-fact-sheet",
+                            "imageAltText": "Hana Unique Customers"
+                        }
+                    ]
+                }
+            },
+            "tablesBarCard": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "{{tablesBarCard_title}}",
+                    "tabs": [
+                        {
+                            "entitySet": "C_HANA_SIZE_UNIQUE_N",
+                            "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#tableSizeBar",
+                            "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#tableSize",
+                            "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#tableSizePresentation",
+                            "value": "By Size (in GB)"
+                        },
+                        {
+                            "entitySet": "C_HANA_SIZE_UNIQUE_N",
+                            "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#tableRecordBar",
+                            "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#tableRecord",
+                            "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#tableRecordPresentation",
+                            "value": "By Records"
+                        }
+                    ]
+                }
+            },
+            "cardFDQdonut": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "{{cardFDQdonut_title}}",
+                    "subTitle": "{{cardFDQdonut_subTitle}}",
+                    "entitySet": "C_FDQ_HEADER_ALL_N",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#fdqDonut",
+                    "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#numOfCustomers"
+                }
+            },
+            "sizeDonut": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "{{sizeDonut_title}}",
+                    "subTitle": "{{sizeDonut_subTile}}",
+                    "entitySet": "C_SIZE_CATEGORY_ALL_N",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#sizeDonut"
+                }
+            },
+            "addOnDonut": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "{{addOnDonut_title}}",
+                    "entitySet": "C_ADDON_ALL_N",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#addonDonut",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#addonPresent"
+                }
+            },
+            "ibfDonut": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "{{ibfDonut_title}}",
+                    "subTitle": "{{ibfDonut_subTitle}}",
+                    "entitySet": "C_BUSINESS_FUNCTION_ALL_N",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ibfDonut",
+                    "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#ibfPresent"
+                }
+            },
+            "FDQGLCard": {
+                "model": "normalUserModelV4",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "Financial Data Quality - General Ledger",
+                    "subTitle": "Top 5 Error Messages - Issue card",
+                    "entitySet": "C_FDQ_GL_AND_AA_ALL_N",
+                    "listType": "condensed",
+                    "listFlavor": "bar",
+                    "sortOrder": "descending",
+                    "sortBy": "errorMessageCounter",
+                    "selectionPresentationAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#gl",
+                    "addODataSelect": true,
+                    "showLineItemDetail": false
+                }
+            }
+        }
+    }
+}

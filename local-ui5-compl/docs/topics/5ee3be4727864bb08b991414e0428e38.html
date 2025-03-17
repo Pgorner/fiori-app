@@ -1,0 +1,70 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5ee3be4727864bb08b991414e0428e38" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/control-properties-and-associations-in-xml-views-5ee3be4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Control Properties and Associations in XML Views</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Control Properties and Associations in XML Views</h2></div><section>
+			<h2 class="title ">Properties</h2>
+			<p>Property values for controls in XML views are specified as attributes of the XML element tag of the control. The name of the attribute
+				corresponds to the name of the property in the API reference, for example, the property <code>text</code> of a the
+					<code>sap.m.Text</code> control is specified as <code>text="<i>value</i>"</code>.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The XML view offers special handling for context bindings and style classes. You can specify them via the <code>binding</code> and
+						<code>class</code> attributes on a control's XML node.</p>
+				<p>Please be aware that these attributes are not properties of the respective controls and thus are not supported by a control's constructor. For
+					more information, see <a href="topic/91f05e8b6f4d1014b6dd926db0e91070" title="Context binding (or element binding) allows you to bind elements to a specific object in the model data, which will create a binding context and allow relative binding within the control and all of its children. This is especially helpful in list-detail scenarios." class="sap-doc">Context Binding (Element Binding)</a> and <a href="topic/b564935324f449209354c7e2f9903f22" title="Style sheets are included in XML views in the same way as plain HTML. To add further CSS classes to SAPUI5 controls, use the class attribute." class="sap-doc">Using CSS Style Sheets in XML Views (deprecated)</a>.</p>
+			<p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Escape characters that have a special meaning in XML (like <code>&lt;</code>, or <code>&</code>) when they occur in a property
+					value. Use XML entities instead (like <code>&amp;lt;</code> instead of a <code>&lt;</code>, or <code>&amp;</code> instead of
+						<code>&</code>).</p>
+			<p></p></div></div>
+			<p>Attributes in XML views use the same binding syntax as constructors of controls. For example, <code>"{customerName}"</code> is used to bind a property
+				against the model property with name <code>"customerName"</code>.</p>
+			<p><span class="emphasis">Example:</span>
+				<code>sap.m.Text</code> with plain text:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Text text="My Text"/&gt;</pre></div></div></section><p></p>
+			<p><span class="emphasis">Example:</span>
+				<code>sap.m.Text</code> with text provided by a
+				binding:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Text text="{customerName}"/&gt;</pre></div></div></section><p></p>
+			<p><span class="emphasis">Example:</span>
+				<code>sap.m.Text</code> with escaped special
+				characters:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Text text="&amp;lt;div&gt;My HTML Text&amp;lt;/div&gt;"/&gt;</pre></div></div></section><p></p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Properties of type <code>function</code> can be specified similar to <a href="topic/b0fb4de7364f4bcbb053a99aa645affe" title="XML views use event handlers as attributes: The attribute name is the event name, such as &quot;press&quot; for a button, and the attribute value is the event handler name." class="sap-doc">event handlers in
+						XML views</a>. However, the legacy syntax of function names without dots is not supported.</p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">Associations</h2>
+			<p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p>Associations of <span class="emphasis">cardinality <code>1</code></span>: Define the ID of the associated element in an attribute that has
+							the same name as the association in the XML view.</p>
+						<p><span class="emphasis">Example:</span>
+							<code>sap.m.Select</code> with preselected item with ID <span class="emphasis">item2</span>
+							:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Select selectedItem="item2"&gt;
+    &lt;items&gt;
+        &lt;core:Item id="item1" key="article_1" text="Article 1" /&gt;
+        &lt;core:Item id="item2" key="article_2" text="Article 2" /&gt;
+        &lt;core:Item id="item3" key="article_3" text="Article 3" /&gt;
+    &lt;/items&gt;
+&lt;/Select&gt;</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Associations of <span class="emphasis">cardinality <code>0..n</code></span>: You can define multiple IDs separated by a blank.</p>
+						<p><span class="emphasis">Example:</span>
+							<code>sap.m.MultiComboBox</code> with preselected items <span class="emphasis">item2</span> and
+							<span class="emphasis">item3</span>:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;MultiComboBox selectedItems="item2 item3"&gt;
+    &lt;items&gt;
+        &lt;core:Item id="item1" key="article_1" text="Article 1" /&gt;
+        &lt;core:Item id="item2" key="article_2" text="Article 2" /&gt;
+        &lt;core:Item id="item3" key="article_3" text="Article 3" /&gt;
+    &lt;/items&gt;
+&lt;/MultiComboBox&gt;</pre></div></div></section><p></p>
+					</li>
+				</ul>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

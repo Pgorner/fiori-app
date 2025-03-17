@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell_abap/pbServices/ui2/Chip","sap/ushell_abap/pbServices/ui2/Error","sap/ushell_abap/pbServices/ui2/Utils"],function(i,t,e){"use strict";i.addContract("search",function(i){var r,s;this.setKeywords=function(i){if(!e.isArray(i)){throw new t("Not an array: "+i,"chip.search")}s=i.slice()};this.attachHighlight=function(i){if(typeof i!=="function"){throw new t("Not a function: "+i,"chip.search")}r=i};return{getKeywords:function(){return s?s.slice():[]},fireHighlight:function(i){if(r){r(i)}}}})});
+//# sourceMappingURL=search.js.map

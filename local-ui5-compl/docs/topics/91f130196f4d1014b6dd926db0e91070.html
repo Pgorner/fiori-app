@@ -1,0 +1,56 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f130196f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/declarative-support-deprecated-91f1301.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Declarative Support (deprecated)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Declarative Support (deprecated)</h2></div><div class="shortdesc">Declarative programming allows you to define the UI within the HTML document as
+		elements.</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+			</p><p> Deprecated as of UI5 version 1.120, replaced by <a href="topic/91f292806f4d1014b6dd926db0e91070" title="The XML view type is defined in an XML file, with a file name ending in .view.xml. The file name and the folder structure together specify the name of the view that equals the SAPUI5 module name." class="sap-doc">XML View</a>.</p>
+		<p></p></div></div><p>For this, SAPUI5 provides the  <code>sap.ui.core.plugin.DeclarativeSupport</code> plugin that
+			can be included either as required or marked as a module in the initial bootstrap script
+			tag. The plugin parses the document and converts its tags with special attributes into
+		SAPUI5 controls. </p><p>Declarative support is aware of properties,
+			associations, events, and aggregations in a SAPUI5 control manner. This means
+		that you can specify them within the markup of the HTML document either as data
+		attributes or as child elements. 
+	 </p><p>The following sections provide an overview of the
+	 	declarative support and introduce the use of declarative support in SAPUI5. 
+	 </p><section id="section_C1D3894EF36F4766B06E27E5675CA11F"> 
+		<h2 class="title ">Example</h2> 
+		<p>The following example shows the concept by combining a <code>sap.m.input</code> with a
+					<code>sap.m.Button</code> control. When you click the button, the value of
+				the text field is displayed in an alert box: </p> 
+		<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!Doctype HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt;Declarative Programming for SAPUI5 - sample01&lt;/title&gt;
+	&lt;script id="sap-ui-bootstrap"
+	     type="text/javascript"
+	     src="resources/sap-ui-core.js"
+	     data-sap-ui-theme="sap_horizon"
+	     data-sap-ui-libs="sap.m"
+	     data-sap-ui-modules="sap.ui.core.plugin.DeclarativeSupport"
+	     &gt;
+	&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="sapUiBody"&gt;
+  &lt;div data-sap-ui-type="sap.m.Input" id="message" class="my-button" data-value="Hello World"&gt;&lt;/div&gt;
+  &lt;div data-sap-ui-type="sap.m.Button" data-text="Click me!" data-press="handlePress"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section> 
+	 </section><section id="section_E477586F3CAD4371AC5E8CAEB1021D5E"> 
+		<h2 class="title ">Summary: Attributes Used by Declarative
+		  Support</h2> 
+		<p>The table summarizes the attributes used by
+		  declarative support and gives examples. 
+		</p> 
+		<div class="tableWrapper "><div class="fig"><table border="1" class=" "><thead><tr><th colspan="1" rowspan="1">Attribute</th><th colspan="1" rowspan="1">Description</th><th colspan="1" rowspan="1">Example</th></tr></thead><tbody><tr><td colspan="1" rowspan="1"><code>data-sap-ui-type</code></td><td colspan="1" rowspan="1">Type of control</td><td colspan="1" rowspan="1"><code>&lt;div data-sap-ui-type="sap.m.Button"&gt;&lt;/div&gt;</code></td></tr><tr><td colspan="1" rowspan="1"><code>data-sap-ui-aggregation</code></td><td colspan="1" rowspan="1">Defines the aggregation that shall be used for the
+				element or child element</td><td colspan="1" rowspan="1"><code>&lt;div data-sap-ui-type="sap.m.Panel"&gt;&lt;div data-sap-ui-aggregation="content"
+							data-sap-ui-type="sap.m.Button" data-text="My
+							Button"&gt;&lt;/div&gt;&lt;/div&gt;</code></td></tr><tr><td colspan="1" rowspan="1"><code>data-sap-ui.default-aggregation</code></td><td colspan="1" rowspan="1">Sets or overrides the default aggregation of a
+				control</td><td colspan="1" rowspan="1"><code>&lt;div data-sap-ui-type="sap.m.Panel"
+							data-sap-ui-default-aggregation="headerToolbar"&gt;&lt;div
+							data-sap-ui-type="sap.m.Toolbar"&gt;&lt;/div&gt;&lt;/div&gt;</code>
+					</td></tr><tr><td colspan="1" rowspan="1"><code>id</code></td><td colspan="1" rowspan="1">Defines the ID property of a control</td><td colspan="1" rowspan="1"><code>&lt;div data-sap-ui-type="sap.m.Button" id="myButton"&gt;&lt;/div&gt;</code>
+					</td></tr><tr><td colspan="1" rowspan="1"><code>class</code></td><td colspan="1" rowspan="1">Adds a style class to the control</td><td colspan="1" rowspan="1"><code>&lt;div data-sap-ui-type="sap.m.Button" class="myButton"&gt;&lt;/div&gt;</code>
+					</td></tr></tbody></table></div></div> 
+	 </section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/91f17d636f4d1014b6dd926db0e91070">Enabling Declarative Support (deprecated)</a></li><li><a href="topic/91f1539c6f4d1014b6dd926db0e91070">Defining Controls (deprecated)</a></li><li><a href="topic/91f161996f4d1014b6dd926db0e91070">Declarative Support: Properties (deprecated)</a></li><li><a href="topic/91f13d9a6f4d1014b6dd926db0e91070">Declarative Support: Associations (deprecated)</a></li><li><a href="topic/91f15ad16f4d1014b6dd926db0e91070">Declarative Support: Events (deprecated)</a></li><li><a href="topic/91f136c76f4d1014b6dd926db0e91070">Declarative Support: Aggregations (deprecated)</a></li><li><a href="topic/020990b1210e47c89a58a4f4e790c476">Declarative Support: Data Binding (deprecated)</a></li><li><a href="topic/91f1454b6f4d1014b6dd926db0e91070">Compiling Declarative HTML (deprecated)</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,187 @@
+<mvc:View
+        controllerName="sap.ndc.sample.BarcodeScannerButtonWithZebraEB.controller.BarcodeScannerButtonWithZebraEB"
+        xmlns:ndc="sap.ndc"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:core="sap.ui.core"
+        xmlns="sap.m">
+	<VBox id="sampleBarcodeScannerVBox">
+		<Label text="{/scanAPIInfo}" class="sapUiSmallMarginBegin"/>
+		<VBox class="sapUiSmallMargin">
+			<Label text="Barcode Button One:"/>
+			<CheckBox text="keepCameraScan One" selected="{/keepCameraScanOne}"/>
+			<HBox class="sapUiTinyMarginTop">
+				<Input
+					id="sampleBarcodeScannerResultOne"
+					type="Text"
+					placeholder="Enter Result One"
+					width="20rem"
+				/>
+				<ndc:BarcodeScannerButton
+					id="sampleBarcodeScannerButtonZebraOne"
+					scanSuccess="onScanSuccessOne"
+					scanFail="onScanErrorOne"
+					inputLiveUpdate="onScanLiveUpdate"
+					dialogTitle="Barcode Scanner Button1 Sample"
+					keepCameraScan="{/keepCameraScanOne}"
+					class="sampleBarcodeScannerButtonWithZebraEB"
+				/>
+			</HBox>
+		</VBox>
+
+		<VBox class="sapUiSmallMargin">
+			<Label text="Barcode Button Two:"/>
+			<CheckBox text="keepCameraScan Two" selected="{/keepCameraScanTwo}"/>
+			<HBox class="sapUiTinyMarginTop">
+				<Input
+					id="sampleBarcodeScannerResultTwo"
+					type="Text"
+					placeholder="Enter Result Two"
+					width="20rem"
+				/>
+				<ndc:BarcodeScannerButton
+					id="sampleBarcodeScannerButtonZebraTwo"
+					scanSuccess="onScanSuccessTwo"
+					scanFail="onScanErrorTwo"
+					inputLiveUpdate="onScanLiveUpdate"
+					dialogTitle="Barcode Scanner Button2 Sample"
+					keepCameraScan="{/keepCameraScanTwo}"
+					class="sampleBarcodeScannerButtonWithZebraEB"
+				/>
+			</HBox>
+		</VBox>
+
+		<VBox class="sapUiSmallMargin">
+			<Label text="Barcode Button Three:"/>
+			<CheckBox text="keepCameraScan Three" selected="{/keepCameraScanThree}"/>
+			<HBox class="sapUiTinyMarginTop">
+				<Input
+					id="sampleBarcodeScannerResultThree"
+					type="Text"
+					placeholder="Enter Result Three"
+					width="20rem"
+				/>
+				<ndc:BarcodeScannerButton
+					id="sampleBarcodeScannerButtonZebraThree"
+					scanSuccess="onScanSuccessThree"
+					scanFail="onScanErrorThree"
+					inputLiveUpdate="onScanLiveUpdate"
+					dialogTitle="Barcode Scanner Button3 Sample"
+					keepCameraScan="{/keepCameraScanThree}"
+					class="sampleBarcodeScannerButtonWithZebraEB"
+				/>
+			</HBox>
+		</VBox>
+		<Button text="Reset" press="onReset" class="sapUiSmallMarginTop sapUiSmallMarginBegin" type="Emphasized"/>
+		<VBox class="sapUiSmallMargin">
+			<HBox>
+				<Panel id="bluetoothScannerConfigPanel" expandable="true" expand="onExpand" width="auto">
+					<headerToolbar>
+						<OverflowToolbar>
+							<Title id="bluetoothScannerPanelTitle" text="Bluetooth Scanner"/>
+							<Switch
+								id="bluetoothScannerSwitch"
+								state="true"
+								change="onSwitchBluetoothScanner"
+							/>
+						</OverflowToolbar>
+					</headerToolbar>
+					<content>
+						<Label text="Bluetooth Scanner Settings"/>
+						<List class="sapUiSmallMarginBeginEnd">
+							<items>
+								<InputListItem label="Trigger One Time">
+									<CheckBox
+										id="triggerOneTime"
+										selected="{/triggerOneTime}"
+										select="updateBluetoothScannerSettings">
+									</CheckBox>
+								</InputListItem>
+								<InputListItem label="Handle Focused Element">
+									<CheckBox
+										id="handleFocusedElement"
+										selected="{/handleFocusedElement}"
+										select="updateBluetoothScannerSettings">
+									</CheckBox>
+								</InputListItem>
+								<InputListItem label="replaceGS1Separator">
+									<CheckBox
+										id="replaceGS1Separator"
+										selected="{/replaceGS1Separator}"
+										select="updateBluetoothScannerSettings">
+									</CheckBox>
+								</InputListItem>
+								<InputListItem label="GS1 Function Key" class="sapUiSmallMarginBegin">
+									<Select
+										id="GS1FunctionKey"
+										visible="{/replaceGS1Separator}"
+										selectedKey="{/GS1FunctionKey}"
+										showSecondaryValues="false"
+										change="updateBluetoothScannerSettings"
+										items="{path: '/GS1FunctionKeyItems'}">
+										<core:ListItem key="{keyId}" text="{keyName}" />
+									</Select>
+								</InputListItem>
+								<InputListItem label="GS1ReplacementCharacter" class="sapUiSmallMarginBegin">
+									<Input
+										id="GS1ReplacementCharacter"
+										visible="{/replaceGS1Separator}"
+										placeholder="Enter GS1ReplacementCharacter"
+										value= "{/GS1ReplacementCharacter}"
+										liveChange="updateBluetoothScannerSettings">
+									</Input>
+								</InputListItem>
+								<InputListItem label="Scanning Mode">
+									<Select
+										id="scanningMode"
+										selectedKey="{/scanningMode}"
+										showSecondaryValues="false"
+										change="updateBluetoothScannerSettings"
+										items="{path: '/scanningModeItems'}">
+										<core:ListItem key="{modeId}" text="{modeName}" />
+									</Select>
+								</InputListItem>
+								<InputListItem label="intervalForDetection" class="sapUiSmallMarginBegin">
+									<Input
+										id="intervalForDetection"
+										visible="{= ${/scanningMode} === 'TimeInterval'}"
+										type="Number"
+										placeholder="Enter intervalForDetection"
+										value= "{/intervalForDetection}"
+										liveChange="updateBluetoothScannerSettings">
+									</Input>
+								</InputListItem>
+								<InputListItem label="prefix" class="sapUiSmallMarginBegin">
+									<Input
+										id="prefix"
+										visible="{= ${/scanningMode} === 'PrefixSuffix'}"
+										placeholder="Enter prefix"
+										value= "{/prefix}"
+										liveChange="updateBluetoothScannerSettings">
+									</Input>
+								</InputListItem>
+								<InputListItem label="suffix" class="sapUiSmallMarginBegin">
+									<Input
+										id="suffix"
+										visible="{= ${/scanningMode} === 'PrefixSuffix'}"
+										placeholder="Enter suffix"
+										value= "{/suffix}"
+										liveChange="updateBluetoothScannerSettings">
+									</Input>
+								</InputListItem>
+								<InputListItem label="maxPrefixSuffixScanningTime" class="sapUiSmallMarginBegin">
+									<Input
+										id="maxPrefixSuffixScanningTime"
+										visible="{= ${/scanningMode} === 'PrefixSuffix'}"
+										placeholder="Enter maxPrefixSuffixScanningTime"
+										value= "{/maxPrefixSuffixScanningTime}"
+										liveChange="updateBluetoothScannerSettings">
+									</Input>
+								</InputListItem>
+							</items>
+						</List>
+					</content>
+				</Panel>
+			</HBox>
+		</VBox>
+	</VBox>
+</mvc:View>

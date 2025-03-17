@@ -1,0 +1,118 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioed8fda66cd3b406cbd22f6019188ce82" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-1-smart-field-ed8fda6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 1: Smart Field</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 1: Smart Field</h2></div><div class="shortdesc">One important building block of smart controls is the <code>SmartField</code>
+		control that, depending on the OData metadata defined, allows you to render other controls
+		and, for example, define fields with certain attributes based on the metadata. </div><p>So we start our journey into the world of smart controls by looking at the
+				<code>SmartField</code> control and, in particular, an example in which a price
+			together with its currency is displayed. Later we will see more complex examples.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio379bc52065a64aad8601231b0824362f_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Smart Field</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.01" title="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.01" class="sap-doc" alt="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.01">Smart Controls - Step 1 - Smart
+					Field</a>.</p>
+		</section><section>
+			<h2 class="title ">SmartField.view.xml </h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.demo.smartControls.SmartField"
+	xmlns="sap.m"
+	xmlns:smartForm="sap.ui.comp.smartform"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:sap.ui.layout="sap.ui.layout"
+	xmlns:smartField="sap.ui.comp.smartfield"&gt;
+	&lt;smartForm:SmartForm editable="true"&gt;
+		&lt;smartForm:layout&gt;
+			&lt;smartForm:ColumnLayout 
+				emptyCellsLarge="4"
+				labelCellsLarge="4"
+				columnsM="1"
+				columnsL="1"
+				columnsXL="1"/&gt;
+		&lt;/smartForm:layout&gt;
+		&lt;smartForm:Group&gt;
+			&lt;smartForm:GroupElement&gt;
+				&lt;smartField:SmartField value="{Price}" id="idPrice"/&gt;
+			&lt;/smartForm:GroupElement&gt;
+		&lt;/smartForm:Group&gt;
+	&lt;/smartForm:SmartForm&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>This view basically specifies a form with an appropriate layout, the content of which
+				consists of a <code>SmartLabel</code> control along with a
+					<code>SmartField</code> control . The connection between
+					<code>SmartLabel</code> and <code>SmartField</code> is essential since
+				metadata for <code>SmartLabel</code> is controlled via the binding of
+					<code>SmartField</code>. <code>SmartField</code> and
+					<code>SmartLabel</code> are connected by <code>id</code> and
+					<code>labelFor</code>, respectively, in this case
+				<code>idPrice</code>.</p>
+		</section><section>
+			<h2 class="title ">SmartField.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function(Controller) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.smartControls.SmartField", {
+		onInit: function() {
+			this.getView().bindElement("/Products('4711')");
+		}
+	});
+
+});</pre></div></div></section>
+			<p>In the <code>SmartField.controller.js</code> file you will see that we bind the
+				view to <code>"/Products('4711')"</code>. </p>
+		</section><section>
+			<h2 class="title ">metadata.xml </h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;edmx:Edmx Version="1.0"
+		   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+		   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+		   xmlns:sap="http://www.sap.com/Protocols/SAPData"&gt;
+	&lt;edmx:DataServices m:DataServiceVersion="2.0"&gt;
+		&lt;Schema Namespace="com.sap.wt01"
+				sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm"&gt;
+			&lt;EntityType Name="Product"&gt;
+				&lt;Key&gt;
+					&lt;PropertyRef Name="ProductId"/&gt;
+				&lt;/Key&gt;
+				&lt;Property Name="ProductId" Type="Edm.String"/&gt;
+				&lt;Property Name="Price" Type="Edm.String"
+						  sap:unit="CurrencyCode" sap:label="Price"
+						  Precision="13" Scale="6"
+						  sap:updatable="true"/&gt;
+				&lt;Property Name="CurrencyCode" Type="Edm.String"
+						  MaxLength="3" sap:label="Currency" sap:semantics="currency-code"
+						  sap:updatable="true"/&gt;
+			&lt;/EntityType&gt;
+			&lt;EntityContainer m:IsDefaultEntityContainer="true"
+							 sap:supported-formats="atom json"&gt;
+				&lt;EntitySet Name="Products" EntityType="com.sap.wt01.Product"
+						   sap:updatable="true"/&gt;
+			&lt;/EntityContainer&gt;
+		&lt;/Schema&gt;
+	&lt;/edmx:DataServices&gt;
+&lt;/edmx:Edmx&gt;
+</pre></div></div></section>
+			<p>The metadata document corresponds to the <code>$metadata</code> document of your OData service. You will find the <code>Price</code> and
+				the <code>CurrencyCode</code> metadata here, and, in particular, you will see that the <code>Price</code> property defines
+					<code>CurrencyCode</code> as its unit. The relationship is automatically picked up by <code>SmartField</code>, and it
+				decides on the particular rendering of the price along with its currency based on additional metadata, such as <code>Type</code>,
+					<code>Scale</code> and <code>Precision</code>. For more information, see <a href="topic/e978728a6ef6490c971248948f9101e0" title="e978728a6ef6490c971248948f9101e0.xml" class="sap-doc">Currency Formatting</a>. With <code>sap:updatable="true"</code> we define that the field is
+				editable; <code>sap:updatable="false"</code> would indicate that the field is read-only. All Boolean-like properties default to
+				true if not specified otherwise. To make this clearer, however, we sometimes still include them in the <code>metadata.xml</code>
+				document, like <code>sap:updatable="true</code>" in this case. Later, we will see other examples of how the
+					<code>SmartField</code> control shows a "smart" behavior as to which controls are rendered on the UI.</p>
+		</section><section>
+			<h2 class="title ">Products.json</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">[{
+	"ProductId": "4711",
+	"Price": 856.49,
+	"CurrencyCode": "EUR"
+}]</pre></div></div></section>
+			<p>Finally, we include the <code>Products.json</code> file (as referred to in the
+					<code>metadata.xml</code> as <code>EntitySet</code>) in our example,
+				which contains the data shown on the UI.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/64bde9a8879d4f418e2849f7285dd757">Smart Controls Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/0e84ac7c9d3e4acaa49e61e6ee808649">Prerequisites</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/3361e270c62c46c9893eaefb2966d62e">Step 2: Smart Field with Value Help</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/4864403f08c64ca08a2b0ee1fa9cb5e2" title="The sap.ui.comp.smartfield.SmartField control offers a wrapper for other controls using OData metadata to determine which control has to be instantiated and makes it possible to add input-enabled fields to an application." class="sap-doc">Smart Field</a></li>
+	</ul></section></div></section></div></body></html>

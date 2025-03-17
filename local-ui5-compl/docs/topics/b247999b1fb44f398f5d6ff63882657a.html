@@ -1,0 +1,116 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob247999b1fb44f398f5d6ff63882657a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/07_APF/enhancing-an-apf-based-application-b247999.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enhancing an APF-Based Application</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enhancing an APF-Based Application</h2></div><p>You have installed an APF-based application that was shipped by SAP. If you want to make
+			changes to the application, you can do so using the APF Configuration Modeler. Proceed
+			as follows:</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>Steps 1 through 8 are relevant for SAP Business Suite powered by SAP HANA only. If
+				you use SAP S/4HANA, proceed with step 9.</p>
+		<p></p></div></div><ol>
+			<li class="li">
+				<p>In your SAP Fiori frontend server system, run transaction
+					<code>SE80</code>.</p>
+			</li>
+			<li class="li">
+				<p>In the Repository Browser, select <kbd class="ph userinput">BSP Application</kbd> and enter the name
+					of your Business Server Page (BSP) application.</p>
+			</li>
+			<li class="li">
+				<p>In the folder structure, open <span class="ph menucascade">
+						<span class="ph uicontrol">Page Fragments</span>
+						<span class="ph uicontrol">config</span>
+					</span> and double-click the analytical configuration file to open it. </p>
+			</li>
+			<li class="li">
+				<p>Copy the entire content of the file and paste it into a text editor.</p>
+			</li>
+			<li class="li">
+				<p>Save the text file using the file extension <code>.json</code>.</p>
+			</li>
+			<li class="li">
+				<p>Go to <span class="ph menucascade">
+						<span class="ph uicontrol">Page Fragments</span>
+						<span class="ph uicontrol">i18n</span>
+					</span> and double-click the .properties file for the required
+					language.</p>
+			</li>
+			<li class="li">
+				<p>Copy the entire content of the file and paste it into a text editor.</p>
+			</li>
+			<li class="li">
+				<p>Save the text file using the file extension .properties.</p>
+			</li>
+			<li class="li">
+				<p>Import the JSON file and the <code>.properties</code> text file into the APF
+					Configuration Modeler app in one of the following ways:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>If you use SAP Business Suite powered by SAP HANA, choose <span class="ph uicontrol">Import</span> and
+							specify the files you want to import.</p>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>You can import the <code>.properties</code> file in any language.
+								This allows you to switch the development language.</p>
+						<p></p></div></div>
+					</li>
+					<li class="li">
+						<p>If you use SAP S/4HANA, choose <span class="ph uicontrol">Import Delivered Content</span> and select
+							the desired configuration from the value help.</p>
+						<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p> You can import the <code>.properties</code> file in the
+								development language only.</p>
+						<p></p></div></div>
+					</li>
+				</ul>
+			</li>
+			<li class="li">
+				<p>Make the required changes in the APF Configuration Modeler as explained under <a href="topic/b57224b3f6d14640b36e696537653e98" title="b57224b3f6d14640b36e696537653e98.xml" class="sap-doc">APF Configuration Modeler</a> and save the
+					configuration.</p>
+				<p>For example:</p>
+				<ul class="ul ">
+					<li class="li"> Change requests, for example, to replace the shipped data provisioning with
+						your own one.</li>
+					<li class="li"> Create new categories for the analysis step gallery.</li>
+					<li class="li"> Reassign steps to other categories.</li>
+					<li class="li"> Create new analysis steps.</li>
+					<li class="li"> Add representation types to a step.</li>
+					<li class="li"> Change filter configurations.</li>
+					<li class="li">Add or change navigation targets.</li>
+				</ul>
+			</li>
+			<li class="li"> Ensure that the correct configuration has been specified in the tile definition. To do so,
+				proceed as follows:<ul class="ul ">
+					<li class="li">
+						<p>For SAP Business Suite powered by SAP HANA:</p>
+						<p>If you launch your application from a Smart Business KPI tile, ensure that the correct
+							configuration is selected in the <span class="ph uicontrol">Configure KPI
+								Tiles</span> app.</p>
+						<p>If you launch your application from a Fiori app launcher tile, maintain
+							the configuration ID as the value for parameter
+								<code>sap-apf-configuration-id</code>. </p>
+					</li>
+					<li class="li">
+						<p>For SAP S/4HANA:</p>
+						<p>If you launch your application from a Smart Business KPI tile, ensure
+							that the correct configuration is selected in the <span class="ph uicontrol">Create
+								Tile</span> app.</p>
+						<p>If you launch your application from a Fiori app launcher tile, maintain
+							the application ID and the configuration ID as the value for parameter
+								<code>sap-apf-configuration-id</code> in the format
+								<var class="varname">application ID</var>.<var class="varname">configuration
+								ID</var>.</p>
+					</li>
+				</ul></li>
+			<li class="li"> If you changed or created texts that must be translated into languages other than
+				your development language, export the text pool into a .properties file and perform
+				the file-based translation process. </li>
+		</ol><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/b57224b3f6d14640b36e696537653e98" title="b57224b3f6d14640b36e696537653e98.xml" class="sap-doc">APF Configuration Modeler</a></li>
+		<li><a href="topic/374364eb58444ac5b56b357808603f98" title="374364eb58444ac5b56b357808603f98.xml" class="sap-doc">Configuring the SAP Smart Business KPI Tile</a></li>
+		<li><a href="topic/6528aa8787c94993a971697025cc4290" title="6528aa8787c94993a971697025cc4290.xml" class="sap-doc">Import</a></li>
+		<li><a href="topic/4510c30482da4d438a7e76f991781845" title="4510c30482da4d438a7e76f991781845.xml" class="sap-doc">Translation</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,206 @@
+<mvc:View controllerName="applicationUnderTest.smartfilterbar_DDR.SmartFilterBar"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:l="sap.ui.layout"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:sv="sap.ui.comp.smartvariants"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
+
+	<App>
+		<pages>
+			<f:DynamicPage id="dynamicPage" class="sapUiSizeCompact">
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:actions>
+							<Label text="UTC Mode ('on' is default):"/>
+							<Switch id="UtcModeSwitch" customTextOn="On" customTextOff="Off" change="onUtcModeChange">
+								<layoutData>
+									<FlexItemData growFactor="1" />
+								</layoutData>
+							</Switch>
+						</f:actions>
+						<f:heading>
+							<sv:SmartVariantManagement id="__SVM01" persistencyKey="smartfilterbar_types" showShare="true" entitySet="ZEPM_C_SALESORDERITEMQUERYResults" showExecuteOnSelection="true" />
+						</f:heading>
+						<f:snappedContent>
+							<Text id="statusText" />
+						</f:snappedContent>
+
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:header>
+					<f:DynamicPageHeader>
+						<f:content>
+							<smartFilterBar:SmartFilterBar id="smartFilterBar"
+														   advancedMode="false"
+														   smartVariant="__SVM01"
+														   persistencyKey="smartfilterbar_types_sfb"
+														   initialized="onInitialized"
+														   clear="onClear"
+														   cancel="onCancel"
+														   search="onSearch"
+														   liveMode="false"
+														   considerAnalyticalParameters="true"
+														   showRestoreOnFB="true"
+														   assignedFiltersChanged="onAssignedFiltersChanged"
+														   entitySet="ZEPM_C_SALESORDERITEMQUERYResults"
+														   useToolbar="false"
+														   enableBasicSearch="true"
+														   showMessages="true">
+									<smartFilterBar:customData>
+<!--										USC is false for the opa test to be able to calculate expected result in the query-->
+										<core:CustomData key="dateFormatSettings" value='\{"UTC":false,"style":"short"\}' />
+									</smartFilterBar:customData>
+									<smartFilterBar:controlConfiguration>
+							<!--				//Test1-->
+											<smartFilterBar:ControlConfiguration
+													key="Test1" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test1'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test2-->
+											<smartFilterBar:ControlConfiguration
+													key="Test2" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test2'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test3-->
+											<smartFilterBar:ControlConfiguration
+													key="Test3" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test3'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test4-->
+											<smartFilterBar:ControlConfiguration
+													key="Test4" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test4'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test5-->
+											<smartFilterBar:ControlConfiguration
+													key="Test5" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test5'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test6-->
+											<smartFilterBar:ControlConfiguration
+													key="Test6" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test6'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test7-->
+											<smartFilterBar:ControlConfiguration
+													key="Test7" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test7'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test8-->
+												<smartFilterBar:ControlConfiguration
+														key="Test8" visibleInAdvancedArea="true"
+														conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test8'}">
+												</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test9-->
+											<smartFilterBar:ControlConfiguration
+													key="Test9" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test9'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test10-->
+											<smartFilterBar:ControlConfiguration
+													key="Test10" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test10'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test11-->
+											<smartFilterBar:ControlConfiguration
+													key="Test11" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test11'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test12-->
+											<smartFilterBar:ControlConfiguration
+													key="Test12" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test12'}">
+											</smartFilterBar:ControlConfiguration>
+
+							<!--				//Test13-->
+											<smartFilterBar:ControlConfiguration
+													key="Test13" visibleInAdvancedArea="true"
+													conditionType="{module: 'applicationUnderTest.smartfilterbar_DDR.Test13'}">
+											</smartFilterBar:ControlConfiguration>
+
+								</smartFilterBar:controlConfiguration>
+							</smartFilterBar:SmartFilterBar>
+
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+
+					<VBox>
+						<Panel expandable="false" expanded="false" width="auto" class="sapUiResponsiveMargin" headerText="FilterProvider">
+							<l:Grid containerQuery="true" defaultSpan="XL6 L6 M12">
+								<l:VerticalLayout width="100%">
+									<Title text="FilterProvider.model.oData:" />
+									<ce:CodeEditor id="filterProviderOdata" width="100%" height="300px" type="jsoniq" value=""/>
+								</l:VerticalLayout>
+								<l:VerticalLayout width="100%">
+									<HBox fitContainer="true">
+										<Title text="get/setFilterData:" />
+										<Button id="setfilterDataAsString" text="setFilterDataAsString" press="onSetFilterDataAsString" />
+										<Button id="setfilterData" text="Test setFilterData(getFilterData()))" press="onSetFilterData" />
+									</HBox>
+									<ce:CodeEditor id="outputAreagetFilterData" width="100%" height="300px" type="jsoniq" value=""/>
+								</l:VerticalLayout>
+							</l:Grid>
+						</Panel>
+
+						<Panel expandable="false" expanded="true" width="auto" class="sapUiResponsiveMargin">
+							<Title text="Request URL (including Parameters):" />
+							<Text id="outputAreaUrl" width="100%" />
+
+							<Title text="Filters:" />
+							<Text id="outputAreaFilters" width="100%" />
+						</Panel>
+						<Panel expandable="true" expanded="true" width="auto" class="sapUiResponsiveMargin" headerText="UIState and TextValues">
+							<l:Grid containerQuery="true" defaultSpan="XL6 L6 M12">
+								<l:VerticalLayout width="100%">
+									<Title text="UIState (DateSuiteFormat):" />
+									<ce:CodeEditor id="outputAreaDataSuite" width="100%" height="300px" type="jsoniq" value=""/>
+								</l:VerticalLayout>
+								<l:VerticalLayout width="100%">
+									<Title text="Values:" />
+									<ce:CodeEditor id="outputAreaValueTexts" width="100%" height="300px" type="jsoniq" value=""/>
+								</l:VerticalLayout>
+							</l:Grid>
+						</Panel>
+
+						<Panel expandable="true" expanded="false" width="auto" class="sapUiResponsiveMargin">
+							<l:Grid containerQuery="true" defaultSpan="XL6 L6 M12">
+								<l:VerticalLayout width="100%">
+									<Text text="SelectionVariant:" />
+									<HBox fitContainer="true">
+										<Button id="toSelectionVariant" text="Convert to SelectionVariant" press="onCreateToSelectionVariant" />
+									</HBox>
+									<ce:CodeEditor id="outputAreaToSelectionVariant" width="100%" height="300px" type="jsoniq" value=""/>
+								</l:VerticalLayout>
+
+								<l:VerticalLayout width="100%">
+									<Text text="Applied SelectionVariant:" />
+									<HBox fitContainer="true">
+										<Button id="fromSelectionVariant" text="Assign to FilterBar" press="onCreatetFromSelectionVariant" />
+									</HBox>
+									<ce:CodeEditor id="outputAreaFromSelectionVariant" width="100%" height="300px" type="jsoniq" value=""/>
+								</l:VerticalLayout>
+							</l:Grid>
+						</Panel>
+					</VBox>
+				</f:content>
+			</f:DynamicPage>
+		</pages>
+	</App>
+</mvc:View>

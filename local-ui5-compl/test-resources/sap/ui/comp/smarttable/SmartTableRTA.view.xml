@@ -1,0 +1,32 @@
+<mvc:View
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	controllerName="test.sap.ui.comp.smarttable.SmartTableRTA">
+	<App id="app">
+		<Page id="page" title="SmartTable Toolbar Action RTA Test">
+			<smartTable:SmartTable
+				class="sapUiLargeMarginTop" id="smarttable" entitySet="Products" tableType="ResponsiveTable"
+				initiallyVisibleFields="ProductId,Name,Description"
+				header="Customers" showPasteButton="true" showRowCount="true" persistencyKey="SmartTable_Persist"
+				enableAutoBinding="true" useVariantManagement="true" enableCopy="false">
+				<smartTable:customToolbar>
+					<OverflowToolbar id="toolbar" design="Transparent">
+						<SearchField id="sf" width="150px"/>
+						<ToolbarSpacer id="spacer"/>
+						<Button id="rta" tooltip="RTA" icon="sap-icon://wrench" press=".startRTA"/>
+						<Button id="recr" text="Recreate TB" press=".recreateToolbar"/>
+						<MenuButton id="menu" text="My Menu"/>
+						<Button text="Button without ID"/>
+						<customData>
+							<core:CustomData key="someTestData" value="Hello"/>
+						</customData>
+					</OverflowToolbar>
+				</smartTable:customToolbar>
+			</smartTable:SmartTable>
+		</Page>
+	</App>
+</mvc:View>

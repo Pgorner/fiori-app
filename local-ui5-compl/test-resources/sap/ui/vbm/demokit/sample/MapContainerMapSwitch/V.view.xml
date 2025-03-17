@@ -1,0 +1,42 @@
+<mvc:View controllerName="sap.ui.vk.sample.MapContainerMapSwitch.C"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns="sap.m"
+	xmlns:vbm="sap.ui.vbm" height="100%" displayBlock="true">
+	<l:FixFlex class="fixFlexVertical">
+		<l:fixContent>
+			<Panel expandable="true" expanded="{= !${device>/system/phone} }"
+				headerText="Description">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Description" />
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<VBox class="sapUiTinyMargin">
+						<Text text="The Map Container provides a predefined feature set which is tailored for the map usage. The view switch can be used for instance to switch between analytic or geo map but also to switch between maps and charts, maps and tables, etc. The application can add additional buttons to the segmented view switch button and also new buttons to the transparent toolbar. In addition the map container provides also a list panel stack which can for instance be used for a legend or other application specific content."/>
+					</VBox>
+				</content>
+			</Panel>
+		</l:fixContent>
+		<l:flexContent>
+			<vbm:MapContainer autoAdjustHeight="true">
+				<vbm:content>					
+					<vbm:ContainerContent title="Geo Map"
+						icon="sap-icon://map-2">
+						<vbm:content>
+							<vbm:GeoMap id="vbi1">
+							</vbm:GeoMap>
+						</vbm:content>
+					</vbm:ContainerContent>
+					<vbm:ContainerContent title="Analytic Map"
+						icon="sap-icon://choropleth-chart">
+						<vbm:content>
+							<vbm:AnalyticMap id="vbi2">
+							</vbm:AnalyticMap>
+						</vbm:content>
+					</vbm:ContainerContent>
+				</vbm:content>
+			</vbm:MapContainer>
+		</l:flexContent>
+	</l:FixFlex>
+</mvc:View>

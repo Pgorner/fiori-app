@@ -1,0 +1,363 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod886cc08245d4a0cb3f870f7e8c176c9" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/date-filter-fields-d886cc0.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Date Filter Fields</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Date Filter Fields</h2></div><div class="shortdesc">There are various scenarios in which you can use dates as filter fields in
+			<code>SmartFilterBar</code>.</div><p><code>SmartFilterBar</code> is a metadata driven control. The generated filter fields
+			depend on the properties defined in the metadata. To use dates as filters fields, you
+			need to ensure that the corresponding property is of type <code>Edm.DateTime</code>
+			and it is annotated with the <code>sap:display-format="Date"</code> attribute.</p><p>In this document you can find more information about using dates and semantic dates as filter
+			fields and as <code>InOut</code> parameters of the <code>ValueList</code>
+			annotation.</p><section id="section_p11_lv1_d1c">
+			<h2 class="title ">Dates as Filter Fields</h2>
+			<p>A property can be annotated with the <a href="https://sap.github.io/odata-vocabularies/docs/v2-annotations.html#attribute-sapfilter-restriction" title="https://sap.github.io/odata-vocabularies/docs/v2-annotations.html#attribute-sapfilter-restriction" class="external-link" target="_blank" rel="noopener"><code>sap:filter-restriction</code></a> attribute in
+				OData V2 expression syntax with values: </p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>single-value</code>;</p>
+				</li>
+				<li class="li">
+					<p><code>multi-value</code>;</p>
+				</li>
+				<li class="li">
+					<p><code>interval</code>.</p>
+				</li>
+			</ul>
+			<p><code>SmartFilterBar</code> supports the following <a href="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#filterexpressiontype" title="https://github.com/oasis-tcs/odata-vocabularies/blob/main/vocabularies/Org.OData.Capabilities.V1.md#filterexpressiontype" class="external-link" target="_blank" rel="noopener"><code>FilterExpressionType</code></a>
+				values in OData V4 expression syntax:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>SingleValue</code>;</p>
+				</li>
+				<li class="li">
+					<p><code>MultiValue</code>;</p>
+				</li>
+				<li class="li">
+					<p><code>SingleRange</code>.</p>
+				</li>
+			</ul>
+			<section>
+				<h3 class="title ">Setting Filter Restrictions</h3>
+			</section>
+			<ul class="ul ">
+				<li class="li">
+					<p><span class="emphasis">Date filter fields with
+								<code>single-value</code> filtering</span></p>
+					<p>If <code>single-value</code> is set for
+							<code>sap:filter-restriction</code>, a <a href="api/sap.m.DatePicker" title="api/sap.m.DatePicker" class="external-link" target="_blank" rel="noopener" alt="api/sap.m.DatePicker"><code>sap.m.DatePicker</code></a> is rendered.</p>
+					<p>OData V2 expression syntax</p>
+					<section class="collapsible expanded language-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Property Name="DATE_SINGLE" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="single-value" sap:label="Date"/&gt;</pre></div></div></section>
+					<p>OData V4 expression syntax</p>
+					<section class="collapsible expanded language-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.MyEnitityContainer/MyEntitySet&gt; 
+  &lt;Annotation Term="Org.OData.Capabilities.V1.FilterRestrictions"&gt; 
+        &lt;Record&gt; 
+          &lt;PropertyValue Property="FilterExpressionRestrictions"&gt; 
+            &lt;Collection&gt; 
+            &lt;Record&gt; 
+            &lt;PropertyValue Property="Property" PropertyPath=" DATE_SINGLE"/&gt; 
+            &lt;PropertyValue Property="AllowedExpressions" String="SingleValue"/&gt; 
+            &lt;/Record&gt; 
+            &lt;/Collection&gt; 
+          &lt;/PropertyValue&gt; 
+        &lt;/Record&gt; 
+    &lt;/Annotation&gt; 
+&lt;/Annotations&gt; </pre></div></div></section>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Date filter fields with
+								<code>multi-value</code> filtering</span></p>
+					<p>If <code>multi-value</code> is set for
+							<code>sap:filter-restriction</code>, a multiple filter in
+							<code>SmartFilterBar</code> is rendered.</p>
+					<p>OData V2 expression syntax</p>
+					<section class="collapsible expanded language-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Property Name="DATE_MULTI" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="multi-value" sap:label="Date"/&gt;</pre></div></div></section>
+					<p>OData V4 expression syntax</p>
+					<section class="collapsible expanded language-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.MyEnitityContainer/MyEntitySet&gt; 
+    &lt;Annotation Term="Org.OData.Capabilities.V1.FilterRestrictions"&gt; 
+        &lt;Record&gt; 
+          &lt;PropertyValue Property="FilterExpressionRestrictions"&gt; 
+            &lt;Collection&gt; 
+            &lt;Record&gt; 
+            &lt;PropertyValue Property="Property" PropertyPath=" DATE_MULTI"/&gt; 
+            &lt;PropertyValue Property="AllowedExpressions" String="MultiValue"/&gt; 
+            &lt;/Record&gt; 
+          &lt;/Collection&gt; 
+          &lt;/PropertyValue&gt; 
+        &lt;/Record&gt; 
+    &lt;/Annotation&gt; 
+&lt;/Annotations&gt; </pre></div></div></section>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Date filter fields with
+								<code>interval</code> filtering</span></p>
+					<p>If <code>interval</code> is set for
+							<code>sap:filter-restriction</code>, a <a href="api/sap.m.DateRangeSelection" title="api/sap.m.DateRangeSelection" class="external-link" target="_blank" rel="noopener" alt="api/sap.m.DateRangeSelection"><code>sap.m.DateRangeSelection</code></a> is
+						rendered.</p>
+					<p>OData V2 expression syntax</p>
+					<section class="collapsible expanded language-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Property Name="DATE_INTERVAL" Type="Edm.DateTime" sap:display-format="Date" sap:filter-restriction="interval" sap:label="Date"/&gt;</pre></div></div></section>
+					<p>OData V4 expression syntax</p>
+					<section class="collapsible expanded language-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.MyEnitityContainer/MyEntitySet&gt; 
+    &lt;Annotation Term="Org.OData.Capabilities.V1.FilterRestrictions"&gt; 
+        &lt;Record&gt; 
+          &lt;PropertyValue Property="FilterExpressionRestrictions"&gt; 
+            &lt;Collection&gt; 
+            &lt;Record&gt; 
+            &lt;PropertyValue Property="Property" PropertyPath=" DATE_INTERVAL"/&gt; 
+            &lt;PropertyValue Property="AllowedExpressions" String="SingleRange"/&gt; 
+            &lt;/Record&gt; 
+            &lt;/Collection&gt; 
+           &lt;/PropertyValue&gt; 
+          &lt;/Record&gt; 
+    &lt;/Annotation&gt; 
+&lt;/Annotations&gt; </pre></div></div></section>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">Date filter fields with <code>auto</code>
+							filtering</span></p>
+					<p>If no <code>sap:filter-restriction</code> attribute is set in OData V2 or
+						no <code>AllowedExpressions</code> property is set in OData V4, a
+						multiple filter in <code>SmartFilterBar</code> is rendered.</p>
+				</li>
+			</ul>
+		</section><section id="section_cgv_kx1_d1c">
+			<h2 class="title ">Semantic Dates as Filters</h2>
+			<p>If you need to use semantic dates such as today, yesterday and others, you need to
+				enable the semantic operators in the <code>SmartFilterBar</code>. For more
+				information on how to do it for SAP Fiori elements
+				applications, see <a href="topic/fef65d03d01a4b2baca28983a5449cf7" title="You can use semantic date values, such as Today or Last Week, on the filter bar of list report and analytical list page applications." class="sap-doc">Enabling Semantic Operators in the Filter Bar</a>. </p>
+			<section>
+				<h3 class="title ">Setting the <code>useDateRangeType</code> property</h3>
+			</section>
+			<p><code>SmartFilterBar</code> has two options to use semantic instead of
+				non-semantic dates. The first one is to set the <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar#controlProperties" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar#controlProperties" class="external-link" target="_blank" rel="noopener" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar#controlProperties"><code>useDateRangeType</code></a> property to
+					<code>true</code>. By default, it is <code>false</code>. In this case,
+				semantic date filter fields (<code>sap.m.DynamicDateRange</code>) are rendered
+				only if the filter restriction is set to <code>single-value</code> or
+					<code>interval</code>. If the filter restriction is not set or its value is
+					<code>multi-value</code>, a multiple filter in
+					<code>SmartFilterBar</code> is rendered. Below you can see the different
+				options for the filter fields and their filter restriction: </p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_isc_p42_j1c" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Annotation</th>
+							<th colspan="1" rowspan="1">Value</th>
+							<th colspan="1" rowspan="1">Control/Rendered as</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="3" valign="middle"><code>sap:filter-restriction</code>
+							</td>
+							<td colspan="1" rowspan="1"><code>single-value</code></td>
+							<td colspan="1" rowspan="1"><code>sap.m.DynamicDateRange</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>multi-value</code></td>
+							<td colspan="1" rowspan="1">multiple filter in <code>SmartFilterBar</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>interval</code></td>
+							<td colspan="1" rowspan="1"><code>sap.m.DynamicDateRange</code></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">none*</td>
+							<td colspan="1" rowspan="1"><code>auto</code></td>
+							<td colspan="1" rowspan="1">multiple filter in <code>SmartFilterBar</code></td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>*If no <code>sap:filter-restriction</code> attribute is set in OData V2 expression syntax
+				or no <code>AllowedExpressions</code> property is set in OData V4 expression
+				syntax</p>
+			<section>
+				<h3 class="title ">Using the <code>DateRangeType</code>
+					<code>conditionType</code></h3>
+			</section>
+			<p>The second option to use semantic dates is to set the <code>DateRangeType</code>
+				as <code>conditionType</code> in the <code>SmartFilterBar</code> control
+				configuration: </p>
+			<section class="language-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;smartFilterBar:controlConfiguration&gt; 
+       &lt;smartFilterBar:ControlConfiguration key="DATE" visibleInAdvancedArea="true" conditionType="sap.ui.comp.config.condition.DateRangeType" /&gt; 
+&lt;/smartFilterBar:controlConfiguration&gt; </pre></div></div></section>
+			<p>No matter the value for the <code>filter-restriction</code> attribute, a
+					<code>sap.m.DynamicDateRange</code> is rendered in this case. </p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The recommended way to use semantic dates in <code>SmartFilterBar</code> is
+					to set the <code>useDateRangeType</code> property.</p>
+			<p></p></div></div>
+		</section><section id="section_krm_nx1_d1c">
+			<h2 class="title ">Dates as InOut Parameters of ValueList</h2>
+			<p><code>InOut</code> parameters of the <code>ValueList</code> annotation
+				support date filter fields, but there are some specific points described
+				below.  </p>
+			<p>Let's call the <code>Edm.String</code> filter field with <code>ValueList</code>
+				annotation a 'source' and the <code>Edm.DateTime</code> filter field a 'target'.
+				The target has a <code>LocalDataProperty</code> which is a property from the
+				main entity set and a <code>ValueListProperty</code> which is a property from
+				the <code>ValueHelp</code> entity set. </p>
+			<div class="note remember  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Remember
+				</strong></div></div><div class="fig"><p>If <code>InOut</code> parameter is set, the
+					<code>ValueListProperty</code> is filtered based on the value coming from
+				the <code>LocalDataProperty</code>.  </p></div></div>
+			<p><code>Out</code> parameter definition:</p>
+			<section class="language-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut"&gt;
+	    &lt;PropertyValue Property="LocalDataProperty" PropertyPath="DATE" /&gt; 
+	    &lt;PropertyValue Property="ValueListProperty" String="VALIDFROM" /&gt;
+&lt;/Record&gt;</pre></div></div></section>
+			<p><code>InOut</code> parameter definition:</p>
+			<section class="language-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut"&gt; 
+	     &lt;PropertyValue Property="LocalDataProperty" PropertyPath="DATE" /&gt; 
+	     &lt;PropertyValue Property="ValueListProperty" String="VALIDFROM" /&gt; 
+&lt;/Record&gt;</pre></div></div></section>
+			<section>
+				<h3 class="title ">String filter field as 'source' and date filter field as
+					'target'</h3>
+			</section>
+			<ul class="ul ">
+				<li class="li">The target field has <code>single-value</code> filtering<p>The selected
+						value from the <code>String</code> source is populated in the target
+						field (<code>sap.m.DatePicker</code>). If more than one value is
+						selected, only the first one is propagated to the target field. </p></li>
+				<li class="li">
+					<p>The target field has <code>multiple-value</code> or auto filtering </p>
+					<p>All selected values from the <code>String</code> source are propagated to
+						the target field (multiple filter).   </p>
+				</li>
+				<li class="li">
+					<p>The target field has <code>interval</code> filtering </p>
+					<p><code>Out</code> and <code>InOut</code> parameters are not supported
+						for <code>interval</code> date fields
+							(<code>sap.m.DateRangeSelection</code>). </p>
+				</li>
+			</ul>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_hrv_k5q_k1c" class=" ">
+					
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Source filter field</th>
+							<th colspan="4" rowspan="1"> Target filter field</th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">Type</th>
+							<th colspan="1" rowspan="1">Annotation</th>
+							<th colspan="1" rowspan="1">Value</th>
+							<th colspan="1" rowspan="1">Control/Rendered as</th>
+							<th colspan="1" rowspan="1">Populated in target field*</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="4" align="center" valign="middle"><code>string</code></td>
+							<td colspan="1" rowspan="3" valign="middle"><code>sap:filter-restriction</code></td>
+							<td colspan="1" rowspan="1"><code>single-value</code></td>
+							<td colspan="1" rowspan="1"><code>sap.m.DatePicker</code></td>
+							<td colspan="1" rowspan="1">first selected value</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>multiple-value</code></td>
+							<td colspan="1" rowspan="1">multiple filter in <code>SmartFilterBar</code></td>
+							<td colspan="1" rowspan="1">all selected values</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>interval</code></td>
+							<td colspan="1" rowspan="1"><code>sap.m.DateRangeSelection</code></td>
+							<td colspan="1" rowspan="1">not supported**</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">none</td>
+							<td colspan="1" rowspan="1"><code>auto</code></td>
+							<td colspan="1" rowspan="1">multiple filter in <code>SmartFilterBar</code></td>
+							<td colspan="1" rowspan="1">all selected values</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>* Indicates which selected value from the string 'source' is populated in the
+				'target' field.</p>
+			<p>**<code>Out</code> and <code>InOut</code> parameters are not supported for
+					<code>interval</code> date fields.</p>
+			<section>
+				<h3 class="title ">String filter field as 'source' and semantic date filter field as
+					'target'</h3>
+			</section>
+			<ul class="ul ">
+				<li class="li">The target field has <code>single-value</code> filtering <p>The selected
+						value from the <code>String</code> source is populated in the target
+						field (<code>sap.m.DynamicDateRange</code>).   </p></li>
+				<li class="li">The target field has <code>interval</code> filtering <p>If single value is
+						selected from the <code>String</code> source, its value is propagated to
+						the target field (<code>sap.m.DynamicDateRange</code>). If more than one
+						value is selected, the last one is propagated to the target
+					field.  </p></li>
+				<li class="li">The target field has <code>multi-value</code> or auto filtering <p>All
+						selected values from the <code>String</code> source are propagated to
+						the target field which in this case is a multiple filter. </p></li>
+			</ul>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_gh4_m5q_k1c" class=" ">
+					
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Source filter field</th>
+							<th colspan="4" rowspan="1">Target filter field</th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">Type</th>
+							<th colspan="1" rowspan="1">Annotation</th>
+							<th colspan="1" rowspan="1">Value</th>
+							<th colspan="1" rowspan="1">Control/Rendered as</th>
+							<th colspan="1" rowspan="1">Populated in target field*</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="4" align="center" valign="middle"><code>string</code></td>
+							<td colspan="1" rowspan="3" valign="middle"><code>sap:filter-restriction</code></td>
+							<td colspan="1" rowspan="1"><code>single-value</code></td>
+							<td colspan="1" rowspan="1"><code>sap.m.DynamicDateRange</code></td>
+							<td colspan="1" rowspan="1">first selected value</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>multiple-value</code></td>
+							<td colspan="1" rowspan="1">multiple filter in <code>SmartFilterBar</code></td>
+							<td colspan="1" rowspan="1">all selected values</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><code>interval</code></td>
+							<td colspan="1" rowspan="1"><code>sap.m.DynamicDateRange</code></td>
+							<td colspan="1" rowspan="1">last selected value</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">none</td>
+							<td colspan="1" rowspan="1"><code>auto</code></td>
+							<td colspan="1" rowspan="1">multiple filter in <code>SmartFilterBar</code></td>
+							<td colspan="1" rowspan="1">all selected values</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>* Indicates which selected value from the string 'source' is populated in the
+				'target' field.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

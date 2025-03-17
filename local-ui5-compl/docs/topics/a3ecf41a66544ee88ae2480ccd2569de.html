@@ -1,0 +1,186 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa3ecf41a66544ee88ae2480ccd2569de" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/provide-the-design-time-metadata-for-the-createcontainer-action-a3ecf41.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Provide the Design-Time Metadata for the <cite>CreateContainer</cite> Action</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Provide the Design-Time Metadata for the <cite>CreateContainer</cite> Action</h2></div><div class="shortdesc">Provide the design-time metadata and the meta functions needed when the <cite>createContainer</cite> action is performed.</div><p>The name of the design-time metadata file is <code>&lt;control&gt;.designtime.js</code>. The module returns an object literal with
+			the following properties:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_fdg_ktm_hyb" class=" ">
+				
+				
+				
+				
+				
+				
+				<thead>
+					<tr>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 1)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 2)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 3)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 4)</p>
+						</th>
+						<th colspan="1" rowspan="1">
+							<p>Property</p>
+							<p>(Level 5)</p>
+						</th>
+						<th colspan="1" rowspan="1">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="1" rowspan="11"><code>aggregations: &lt;object&gt; </code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Describes the aggregations of the element.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="10"><code>&lt;aggregationName&gt;: &lt;object&gt;</code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Describes the aggregation called <code>&lt;aggregationName&gt;</code>.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1">... other possible properties ... </td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>For more information, see <a href="topic/5866a476fa4445ec953181354b383097" title="Design-time metadata is defined as an SAPUI5 module. It can contain static information, such as a description of properties or aggregations, as well as executable functions that are called by design-time tools." class="sap-doc">Providing Design-Time Metadata</a>.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="3"><code>childNames: &lt;object&gt; | &lt;function&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Provide or compute a name for the controls inside the aggregation, which is understandable for the key user. This is
+								needed for the <cite>createContainer</cite> action to show the container title in the context menu (<span class="ph uicontrol">Create
+									&lt;singular&gt;</span>) and to show the default title when a new container is created (<span class="ph uicontrol">New
+									&lt;singular&gt;</span>). Currently only singular is required, but adding a value for the plural makes the
+								implementation future-proof.</p>
+							<p>Name your control based on the general UI concept and follow the <a href="https://experience.sap.com/fiori-design/" title="https://experience.sap.com/fiori-design/" class="external-link" target="_blank" rel="noopener">SAP Fiori Design Guidelines</a>. Example: Key
+								users don't care about the difference between a smart, mobile, or responsive version of a form - they just call it
+								"form".</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>"singular": &lt;string&gt; | &lt;function&gt;</code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>i18n</code> key from library resource bundle or function returning the translated text if library resource
+								bundles aren't used.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>"plural": &lt;string&gt; | &lt;function&gt;</code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p><code>i18n</code> key from library resource bundle or function returning the translated text if library resource
+								bundles aren't used.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="5"><code>actions: &lt;object&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Describes the actions that can be applied to the element.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="4"><code>"createContainer": &lt;object&gt; |&lt;function&gt;</code></td>
+						<td colspan="1" rowspan="1">
+							<p>-&gt;</p>
+						</td>
+						<td colspan="1" rowspan="1">
+							<p>Provides or computes the design-time metadata specific to the <cite>createContainer</cite> action for an element as an
+								object with the following properties.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>changeType: &lt;string&gt;</code> (mandatory)</td>
+						<td colspan="1" rowspan="1">
+							<p>Provides the value of <code>changeType</code> from the previous step.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>isEnabled: &lt;function&gt; | &lt;boolean&gt;</code> (optional)</td>
+						<td colspan="1" rowspan="1">
+							<p>Default is <code>true</code>. The <code>isEnabled</code> value or function is used to decide whether the
+									<cite>createContainer</cite> action is available in SAPUI5 flexibility. You get the selected SAPUI5 element as a
+								function parameter.</p>
+							<p>If under some boundary conditions you can't create containers inside, it returns <code>false</code>.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1" rowspan="1"><code>getCreatedContainerId: &lt;function&gt;</code> (optional)</td>
+						<td colspan="1" rowspan="1">
+							<p>Defaults to the ID of the newly created container.</p>
+							<p>If the <code>newControlId</code> isn't the real container that was created (but maybe only a wrapper around the
+								control that really represents the newly created container), you must return these IDs.</p>
+						</td>
+					</tr>
+				</tbody>
+			</table></div></div><p>Here's an example:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>&lt;control&gt;.designtime.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([], function() {
+    "use strict";
+    return {
+        aggregations: {
+            groups: {
+                childNames: {
+                    singular: "GROUP_CONTROL_NAME" // mandatory
+                    plural: "GROUP_CONTROL_NAME_PLURAL" // recommended
+                    },
+                actions: {
+                    createContainer:  {
+                        changeType: "addGroup" // mandatory
+                    }
+                }
+            }
+        }
+    };
+});</pre></div></div></section><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/52d9d893bac14c2391b927d9a78c09d8">Enabling the CreateContainer Action</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/8b8f6f7a135949f19571d89f9cae53d0">Implement and Register a CreateContainer Change Handler</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

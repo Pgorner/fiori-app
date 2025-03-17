@@ -1,0 +1,116 @@
+{
+	"SAPVB": {
+		"version": "2.0",
+		"DataTypes": {
+			"Set": {
+				"N": [
+					{
+						"key": "Key",
+						"maxSel": "-1",
+						"minSel": "0",
+						"name": "ExtAreas",
+						"A": [
+							{
+								"alias": "A",
+								"name": "GeoPosition",
+								"type": "vector"
+							},
+							{
+								"alias": "S",
+								"changeable": "true",
+								"name": "Scale",
+								"type": "vector"
+							},
+							{
+								"alias": "Y",
+								"name": "Rotation",
+								"type": "vector"
+							},
+							{
+								"alias": "B",
+								"name": "ToolTip",
+								"type": "string"
+							},
+							{
+								"alias": "C",
+								"name": "Color",
+								"type": "color"
+							},
+							{
+								"alias": "BC",
+								"name": "BorderColor",
+								"type": "color"
+							},
+							{
+								"alias": "HC",
+								"name": "HotColor",
+								"type": "string"
+							},
+							{
+								"alias": "SC",
+								"name": "SelectColor",
+								"type": "string"
+							},
+							{
+								"alias": "H",
+								"name": "PosList",
+								"type": "vectorarray"
+							},
+							{
+								"alias": "K",
+								"name": "Key",
+								"type": "string"
+							},
+							{
+								"alias": "ON",
+								"name": "OuterNormal",
+								"type": "vector"
+							}
+						]
+					}
+				]
+			}
+		},
+		"Windows": {
+			"Set": {
+				"Window": {
+					"caption": "MainWindow",
+					"id": "Main",
+					"modal": "true",
+					"refParent": "",
+					"refScene": "MainScene",
+					"type": "default"
+				}
+			}
+		},
+		"Scenes": {
+			"Set": {
+				"Scene": {
+					"ToolbarVisible": "true",
+					"id": "MainScene",
+					"initialPitch": "45.0",
+					"initialStartPosition": "0.0;0.0;0",
+					"initialYaw": "210.0",
+					"initialZoom": "0.2",
+					"VO": [
+						{
+							"id": "ExtArea",
+							"type": "{00100000-2014-0004-BDA8-87B904609063}",							
+							"datasource": "ExtAreas",
+							"pos.bind": "ExtAreas.GeoPosition",
+							"rot.bind": "ExtAreas.Rotation",
+							"scale.bind": "ExtAreas.Scale",
+							"OuterNormal.bind": "ExtAreas.OuterNormal",
+							"posarray.bind": "ExtAreas.PosList",
+							"color.bind": "ExtAreas.Color",
+							"selectColor.bind": "ExtAreas.SelectColor",
+							"hotDeltaColor.bind": "ExtAreas.HotColor",
+							"colorBorder.bind": "ExtAreas.BorderColor",
+							"tooltip.bind": "ExtAreas.ToolTip"
+						}
+					]
+				}
+			}
+		}
+	}
+}

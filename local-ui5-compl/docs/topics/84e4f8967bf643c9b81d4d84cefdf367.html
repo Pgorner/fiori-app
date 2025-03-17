@@ -1,0 +1,161 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio84e4f8967bf643c9b81d4d84cefdf367" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/configuring-the-delete-confirmation-dialog-box-84e4f89.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuring the Delete Confirmation Dialog Box</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuring the Delete Confirmation Dialog Box</h2></div><div class="shortdesc">You can adapt the text in the <span class="ph uicontrol">Delete</span> dialog box to match your requirements while deleting an object or an item from
+		the list report and object page tables.</div><section id="section_jls_dyr_cnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>The context displayed in the dialog box is taken from the <code>Title</code> and <code>Description</code> properties of the
+					<code>UI.HeaderInfo</code> annotation (defined in the <code>entitySet</code> bound to the table).</p><p>Depending on the <code>UI.HeaderInfo</code> annotation, there can be three different types of text that can appear in the dialog
+				box:</p><ul class="ul ">
+				<li class="li">
+					<p><span class="emphasis">When the <code>UI.HeaderInfo</code> annotation has both <code>Title</code> and <code>Description</code>
+							properties defined</span>:</p>
+					<p><span class="emphasis">Flexible Column Layout mode</span>: In this scenario, when you delete a single item from the table, the dialog
+						confirmation would show the message such as the one displayed below.</p>
+					<div><div class="fig"><img src="loio4e21c1947bd948f198c003a725fdcf7f_HiRes.png" usemap="#"></div></div>
+					<p><span class="emphasis">Fullscreen mode</span>: In this scenario, when you delete a single item from the table, the dialog confirmation
+						would show the message such as the one displayed below.</p>
+					<div><div class="fig"><img src="loioad1d3f404457418ab58e5aef40b84005_HiRes.png" usemap="#"></div></div>
+				</li>
+			</ul><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.HeaderInfo"&gt; 
+  &lt;Record&gt; 
+    &lt;PropertyValue Property="TypeName" String="Sales Order" /&gt; 
+    &lt;PropertyValue Property="TypeNamePlural" String="Sales Orders" /&gt; 
+    &lt;PropertyValue Property="Title"&gt; 
+      &lt;Record Type="UI.DataField"&gt; 
+        &lt;PropertyValue Property="Value" Path="so_id" /&gt; 
+       &lt;/Record&gt; 
+    &lt;/PropertyValue&gt; 
+    &lt;PropertyValue Property="Description"&gt; 
+      &lt;Record Type="UI.DataField"&gt; 
+        &lt;PropertyValue Property="Value" String="Sales Order" /&gt; 
+      &lt;/Record&gt;   
+    &lt;/PropertyValue&gt; 
+  &lt;/Record&gt; 
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.headerInfo: {
+  typeName: 'Sales Order',
+  typeNamePlural: 'Sales Orders',
+  title: {
+    value: 'SO_ID',
+    type: #STANDARD
+  },
+  description: {
+    type: #STANDARD
+  }
+}
+annotate view SALESORDERMANAGE with {
+
+}
+</pre></div></div></section><p></p></div></div><ul class="ul ">
+				<li class="li">
+					<p><span class="emphasis">When the <code>UI.HeaderInfo</code> annotation has only the <code>Title</code> property
+						defined</span>:</p>
+					<p>In this scenario, when you delete a single item from the table, the dialog confirmation would show the message such as the one
+						displayed below.</p>
+					<div><div class="fig"><img src="loiof8980327871d4fc09ce8fe0b695913bb_HiRes.png" usemap="#"></div></div>
+				</li>
+			</ul><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.HeaderInfo"&gt; 
+  &lt;Record&gt; 
+    &lt;PropertyValue Property="TypeName" String="Sales Order" /&gt; 
+    &lt;PropertyValue Property="TypeNamePlural" String="Sales Orders" /&gt; 
+    &lt;PropertyValue Property="Title"&gt; 
+      &lt;Record Type="UI.DataField"&gt; 
+        &lt;PropertyValue Property="Value" Path="so_id" /&gt; 
+       &lt;/Record&gt; 
+    &lt;/PropertyValue&gt; 
+  &lt;/Record&gt; 
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.headerInfo: {
+  typeName: 'Sales Order',
+  typeNamePlural: 'Sales Orders',
+  title: {
+    value: 'SO_ID',
+    type: #STANDARD
+  }
+}
+annotate view SALESORDERMANAGE with {
+
+}</pre></div></div></section><p></p></div></div><ul class="ul ">
+				<li class="li">
+					<p><span class="emphasis">When the <code>UI.HeaderInfo</code> annotation has neither the <code>Title</code> nor the
+								<code>Description</code> property defined:</span></p>
+					<p>In this scenario, when you delete a single item from the table, the dialog confirmation would show the message like the one
+						displayed below.</p>
+					<div><div class="fig"><img src="loioc55b1e8bb10c4727b75b1afc5df3916d_HiRes.png" usemap="#"></div></div>
+				</li>
+			</ul><p>The applications can override the default text by using the i18n keys mentioned below:</p><ul class="ul ">
+					<li class="li">
+						<p>Main Object: These are applicable when a deletion is triggered from the list report and the main object page</p><ul class="ul ">
+								<li class="li">
+									<p><code>UI.HeaderInfo</code> annotation has both <code>Title</code> and <code>Description</code>
+										defined</p>
+									<p>Flexible Column Layout mode: The i18n key to be used is <code>DELETE_WITH_OBJECTINFO</code></p>
+									<p>Fullscreen mode: The i18n key to be used is <code>DELETE_WITH_OBJECTTITLE</code></p>
+								</li>
+								<li class="li">
+									<p><code>UI.HeaderInfo</code> annotation has only <code>Title</code> defined:</p>
+									<p>The i18n key to be used is <code>DELETE_WITH_OBJECTTITLE</code></p>
+								</li>
+								<li class="li">
+									<p><code>UI.HeaderInfo</code> annotation has neither <code>Title</code> nor <code>Description</code>
+										defined:</p>
+									<p>The i18n key to be used is <code>ST_GENERIC_DELETE_SELECTED</code>.</p>
+								</li>
+							</ul><p></p>
+					</li>
+					<li class="li">
+						<p>Sub Entity: These are applicable when a deletion is triggered from object page tables or the subobject.</p><ul class="ul ">
+								<li class="li">
+									<p><code>UI.HeaderInfo</code> annotation has both <code>Title</code> and <code>Description</code>
+										defined</p>
+									<p>Flexible Column Layout mode: The i18n key to be used is
+										<code>DELETE_SELECTED_ITEM_WITH_OBJECTINFO</code></p>
+									<p>Fullscreen mode: The i18n key to be used is <code>DELETE_SELECTED_ITEM_WITH_OBJECTTITLE</code></p>
+								</li>
+								<li class="li">
+									<p><code>UI.HeaderInfo</code> annotation has only <code>Title</code> defined</p>
+									<p>The i18n key to be used is <code>DELETE_SELECTED_ITEM_WITH_OBJECTTITLE</code></p>
+								</li>
+								<li class="li">
+									<p><code>UI.HeaderInfo</code> annotation has neither <code>Title</code> nor <code>Description</code>
+										defined:</p>
+									<p>The i18n key to be used is <code>DELETE_SELECTED_ITEM</code></p>
+								</li>
+							</ul><p></p>
+					</li>
+				</ul><p></p></div></section><section id="section_uql_5yr_cnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>The delete message for the main object (list report) does not yet consider the <code>UI.HeaderInfo</code> annotation. This is also
+				true for a deletion from any table.</p><p>The applications can override the default text by the mechanism described in <a href="topic/b8cb649973534f08a6047692f8c6830d" title="If necessary, you can replace standard UI texts for apps that you have created with SAP Fiori elements." class="sap-doc">Localization of UI Texts</a>
+				using the i18n keys mentioned below:</p><ul class="ul ">
+				<li class="li"><p>Delete from List Report:</p><p>The generic delete confirmation message via the i18n key
+							<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR</code> is displayed. This can be
+						overridden by the applications.</p><img src="loiof70fafe438bd4078aaa7e20f618cb7c4_LowRes.png" usemap="#"></li>
+				<li class="li">
+					<p>Delete from Object Page (or Subobject Page) Header:</p>
+					<p>The i18n key to be used is <code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTINFO</code><img src="loioe7bb20c7377a42bb81de2e9fac4854bf_LowRes.png" usemap="#"></p>
+					<p>Only in this case is the <code>UI.HeaderInfo.Title</code> (<span class="emphasis">2915717</span> in the above screenshot) considered
+						along with the <code>UI.HeaderInfo.Description</code> (<span class="emphasis">Standard Order</span> in the above screenshot).</p>
+				</li>
+				<li class="li">
+					<p>Delete from Object or Subobject Page Table:</p>
+					<p>The i18n key to be used is <code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR</code></p>
+				</li>
+			</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Applications that override the delete message when a single entry is being deleted from the table should revisit the
+					<code>UI.HeaderInfo</code> annotation's configuration and adapt the texts accordingly.</p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

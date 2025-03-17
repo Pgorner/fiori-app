@@ -1,0 +1,205 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5260b9ca249f465ab33769b9edb442aa" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/the-field-building-block-5260b9c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">The <code>Field</code> Building Block</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">The <code>Field</code> Building Block</h2></div><p>The <code>Field</code> building block provides an easy way to instantiate a property that was configured as part of the service
+			metadata. The <code>Field</code> analyzes the different annotations that are defined for the property to create the most appropriate
+			controls and additionally offers you configuration options for adjusting the behavior to fit your needs.</p><section id="section_pzn_nmr_j5b">
+			<h2 class="title ">Usage</h2>
+			<p>You can instantiate the building block by referencing the building block namespace within a fragment enabled for building block
+				usage:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;macros:Field xmlns:macro="sap.fe.macros" metaPath="MyProperty"/&gt;</pre></div></div></section>
+			<p></p></div></div>
+			<p>This instantiates the actual control tree that corresponds to this building block.</p>
+			<p>You can use the <code>Field</code> building block either stand alone or inside the <code>fields</code> aggregation of a
+					<code>FormElement</code> building block for automatically getting a label for the field corresponding to the metadata. You can
+				use the <code>Field</code> building block inside custom header facets, custom sections, custom pages, and custom table
+				columns.</p>
+		</section><section id="section_idk_qmr_j5b"><h2 class="title ">API</h2>For information
+				about the <code>Field</code> API, see the <a href="api/sap.fe.macros.Field" title="api/sap.fe.macros.Field" class="sap-doc" alt="api/sap.fe.macros.Field">API Reference</a>.</section><section id="section_r5c_5mr_j5b">
+			<h2 class="title ">Examples</h2>
+			<ol>
+				<li class="li">
+					<p>When you use a <code>Field</code> building block, the differences in the bound data elements result in different UI
+						appearances, as shown in the following
+						examples:</p>
+					<ul class="ul ">
+						<li class="li"><p>A data element of type <code>Time</code> will appear as an input field with a time picker value help in edit
+								mode.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Custom Section Fragment for Data Element
+									<code>timeData</code> (XML)</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:macro="sap.fe.macros"
+&gt;
+	&lt;VBox width="30vw"&gt;
+		&lt;Text text="Time Data Field: " /&gt;
+		&lt;macro:Field metaPath="timeData" id="timeDataField" /&gt;
+	&lt;/VBox&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section><p></p></div></div><p>The image below shows how this will look on
+								the UI:</p><img src="loiof400a6e640bb4497ab576d3a30645e93_LowRes.png" usemap="#"></li>
+						<li class="li">
+							<p>A numerical field with a currency using the
+									<code>Currency</code>
+								type from
+									<code>sap/cds/common</code>
+								will appear as 2 input fields.</p>
+							<p>While the XML in the custom section fragment looks the same as in the previous example, a data element with a currency
+								will appear as 2 input fields: one for the numerical value and one for the selection of the currency in edit mode.</p>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Custom Section Fragment for Data Element
+									<code>numberWithCurrency</code>
+								(XML)</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:macro="sap.fe.macros"
+&gt;
+	&lt;VBox width="30vw"&gt;
+		&lt;Text text="Numeric Field with Currency: " /&gt;
+		&lt;macro:Field metaPath="numberWithCurrency" id="numberWithCurrencyField" /&gt;
+	&lt;/VBox&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section><p></p></div></div>
+							<p>The image below shows how this will look on the UI:</p>
+							<div><div class="fig"><img src="loiobbce28d5c8e24b1c8e2514d1947a7fda_LowRes.png" usemap="#"></div></div>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>In addition to the automatic generation of controls fitting best to the bound data when using the <code>Field</code>
+						building block, you can also influence the appearance using the <code>Field</code> building block API.</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>The following example shows how to use the <code>formatOptions</code> and the parameter
+									<code>measureDisplayMode</code> in order to influence the currency field input readiness or even hiding it
+								completely.</p>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Custom Section Fragment for Data Element
+									<code>numberWithCurrency</code> with <code>formatOptions</code> and parameter
+									<code>measureDisplayMode</code>
+								(XML)</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:macro="sap.fe.macros"
+&gt;
+	&lt;VBox width="30vw"&gt;
+		&lt;Text text="Numeric Field with Currency - no format Option: " /&gt;
+		&lt;macro:Field metaPath="numberWithCurrency" id="numberWithCurrencyField" /&gt;
+		&lt;Text text="Numeric Field with Currency - measureDisplayMode=ReadOnly: " /&gt;
+		&lt;macro:Field metaPath="numberWithCurrency" id="numberWithCurrencyFieldCurrencyReadOnly"&gt;
+			&lt;formatOptions measureDisplayMode="ReadOnly" /&gt;
+		&lt;/macro:Field&gt;
+		&lt;Text text="Numeric Field with Currency - measureDisplayMode=Hidden: " /&gt;
+		&lt;macro:Field metaPath="numberWithCurrency" id="numberWithCurrencyFieldCurrencyHidden"&gt;
+			&lt;formatOptions measureDisplayMode="Hidden" /&gt;
+		&lt;/macro:Field&gt;
+	&lt;/VBox&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section><p></p></div></div>
+							<p>The image below shows how this will look on the UI:</p>
+							<div><div class="fig"><img src="loioe80fd3f7eb3c4eb586cbbe00331f6201_LowRes.png" usemap="#"></div></div>
+						</li>
+						<li class="li">
+							<p>The following example shows how to use the <code>formatOptions</code> and the parameter
+									<code>displayMode</code> to influence the display of the value and description inside a currency field.</p>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Custom Section Fragment for Data Element
+									<code>currencyField_code</code> with <code>formatOptions</code> and parameter <code>displayMode</code>
+								(XML)</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:macro="sap.fe.macros"
+&gt;
+	&lt;VBox width="30vw"&gt;
+		&lt;Text text="Currency Field - displayMode=ValueDescription: " /&gt;
+		&lt;macro:Field metaPath="currencyField_code" id="currencyFieldValueDescription"&gt;
+			&lt;formatOptions displayMode="ValueDescription" /&gt;
+		&lt;/macro:Field&gt;
+		&lt;Text text="Currency Field - displayMode=DescriptionValue: " /&gt;
+		&lt;macro:Field metaPath="currencyField_code" id="currencyFieldDescriptionValue"&gt;
+			&lt;formatOptions displayMode="DescriptionValue" /&gt;
+		&lt;/macro:Field&gt;
+	&lt;/VBox&gt;
+&lt;/core:FragmentDefinition&gt;</pre></div></div></section><p></p></div></div>
+							<p>The image below shows how this will look on the UI:</p>
+							<div><div class="fig"><img src="loio9e7718e94e764ae39f849097ebbc93fd_LowRes.png" usemap="#"></div></div>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>If the referenced data element is configured to have a
+						value list with fixed values, you can use the <code>Field</code> building block to render the field as a radio button
+						group. To do this, set <code>formatOption</code> as <code>fieldEditStyle="RadioButtons"</code> For more information,
+						see <a href="topic/2a0a630e50c7472b803fb94dab922d18" title="If your value help contains a fixed number of values, a dropdown list is rendered." class="sap-doc">Value Help as a Dropdown List</a>.</p>
+					
+					<p>By default, the radio button group is rendered in a vertical layout. You can also configure the radio button group to render in
+						a horizontal layout by setting <code>radioButtonsHorizontalLayout</code> as <code>true</code> in the
+							<code>manifest.json</code> file.</p>
+					
+					<p>In the following
+						sample
+						code, the data element <code>FieldWithFixedValueList</code>
+						has
+						a value list containing fixed values, and the
+							<code>Field</code>
+						building block is configured to render the field as a radio button group in a horizontal layout.</p>
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+						Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Text text="Field with fixed value list as radio buttons: " /&gt;
+&lt;macros:Field metaPath="FieldWithFixedValueList " id="FieldWithFixedValueListRadioButtonsHorizontal"&gt;
+		&lt;formatOptions useRadioButtons="true" 
+		radioButtonsHorizontalLayout="true" /&gt;
+&lt;/macros:Field&gt;</pre></div></div></section><p></p></div></div>
+					<div><div class="fig"><img src="loioa26751174c34498da2d1cdab8fda7421_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Radio Buttons in Horizontal
+							Layout</h2></span></div>
+				</li>
+				
+				<li class="li">
+					<p>The <code>Field</code> building block can be used for displaying and editing data from a JSON model. It can be used also
+						for presenting a hard-coded string using the <code>value</code> property.</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>This functionality supports text fields, date and time picker, fields with value help, and object status. It doesn't
+							support editing of rating indicator field.</p>
+					<p></p></div></div>
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;macros:Field 
+    id="myCustomField" 
+    metaPath="/RootEntity/name" 
+    value="{myJSONModel&gt;/customModelBindingPath}" 
+/&gt;</pre></div></div></section>
+					<p></p></div></div>
+				</li>
+				
+				
+				<li class="li">
+					<p>You can bind the description of the <code>Field</code> with value help to a JSON model. To do it, use the
+							<code>description</code> property.</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>The <code>description</code> property should be used in conjunction with the <code>value</code> property.</p>
+					<p></p></div></div>
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;macros:Field 
+    id="myCustomField" 
+    metaPath="/RootEntity/name" 
+    value="{myJSONModel&gt;/customModelBindingPath}"
+    description="{myJSONModel&gt;/customModelDescriptionBindingPath}" 
+/&gt;</pre></div></div></section>
+					<p></p></div></div>
+				</li>
+				
+			</ol>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

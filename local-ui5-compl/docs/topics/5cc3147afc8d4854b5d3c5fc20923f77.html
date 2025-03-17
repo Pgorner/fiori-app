@@ -1,0 +1,107 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5cc3147afc8d4854b5d3c5fc20923f77" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-14-make-dialogs-bookmarkable-5cc3147.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 14: Make Dialogs Bookmarkable</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 14: Make Dialogs Bookmarkable</h2></div><div class="shortdesc">In this step, we want to allow bookmarking of the dialog box that is opened when the
+		user clicks the <span class="ph uicontrol">Sort</span> button. The dialog should automatically open
+		when the URL contains the query parameter <code>showDialog</code>. </div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loioea8f2d0be1cf4582b2d637cd6d85eb63_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Bookmark for a dialog</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.14" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.14" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.14">Routing and Navigation - Step
+					14</a>.</p>
+		</section><section>
+			<h2 class="title ">/controller/employee/overview/EmployeeOverviewContent.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/Sorter",
+	"sap/m/ViewSettingsDialog",
+	"sap/m/ViewSettingsItem"
+], function(
+	BaseController,
+	Filter,
+	FilterOperator,
+	Sorter,
+	ViewSettingsDialog,
+	ViewSettingsItem
+) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.employee.overview.EmployeeOverviewContent", {
+		onInit: function () {
+			...
+		},
+		_onRouteMatched: function (oEvent) {
+			// save the current query state
+			this._oRouterArgs = oEvent.getParameter("arguments");
+			this._oRouterArgs["?query"] = this._oRouterArgs["?query"] || {};
+			var oQueryParameter = this._oRouterArgs["?query"];
+
+			// search/filter via URL hash
+			this._applySearchFilter(oQueryParameter.search);
+
+			// sorting via URL hash
+			this._applySorter(oQueryParameter.sortField, oQueryParameter.sortDescending);
+
+			<span class="emphasis">// show dialog via URL hash
+			if (oQueryParameter.showDialog) {
+				this._oVSD.open();
+			}</span>
+			
+		},
+		onSortButtonPressed: function (oEvent) {
+			<span class="emphasis">var oRouter = this.getRouter();
+			this._oRouterArgs["?query"].showDialog = 1;
+			oRouter.navTo("employeeOverview", this._oRouterArgs);
+</span>
+		},
+		...
+		_initViewSettingsDialog: function () {
+			var oRouter = this.getRouter();
+			this._oVSD = new ViewSettingsDialog("vsd", {
+				confirm: function (oEvent) {
+					var oSortItem = oEvent.getParameter("sortItem");
+					this._oRouterArgs["?query"].sortField = oSortItem.getKey();
+					this._oRouterArgs["?query"].sortDescending = oEvent.getParameter("sortDescending");
+					<span class="emphasis">delete this._oRouterArgs["?query"].showDialog;</span>
+					oRouter.navTo("employeeOverview", this._oRouterArgs, true /*without history*/);
+				}.bind(this)<span class="emphasis">,
+				cancel: function (oEvent){
+					delete this._oRouterArgs["?query"].showDialog;
+					oRouter.navTo("employeeOverview", this._oRouterArgs, true /*without history*/);
+				}.bind(this)</span>
+			});
+			...
+		},
+		...
+	});
+});</pre></div></div></section>
+			<p>Once again we will update the <code>EmployeeOverviewContent</code> controller to
+				add support for the bookmarking of our sorting dialog. We decide to choose a query
+				parameter <code>showDialog</code> that controls if the dialog is opened directly
+				when we navigate to the page with a deep link. Therefore, we extend the matched
+				event handler for the <code>employeeOverview</code> route. If the query
+				parameter <code>showDialog</code> is set to <code>1</code>, we open the
+				dialog.</p>
+			<p>Next we change the <code>press</code> handler of the sort button. In the
+					<code>onSortButtonPressed</code> function we set
+					<code>this._oRouterArgs["?query"].showDialog = 1</code> and call
+					<code>navTo()</code> to let the router do the job instead of directly
+				opening the dialog. Finally, we delete
+					<code>this._oRouterArgs["?query"].showDialog</code> before calling
+					<code>navTo()</code> in the <code>confirm</code> and
+					<code>cancel</code> event handlers of the
+					<code>ViewSettingsDialog</code>. This is important to make sure that the
+				dialog does not open again by the matched handler.</p>
+			<p>We are now done with this step. Try to access the following pages:</p><ul class="ul ">
+					<li class="li">
+						<p><code>webapp/index.html#/employees/overview?showDialog=1</code></p>
+					</li>
+					<li class="li">
+						<p><code>webapp/index.html#/employees/overview?search=an&sortField=EmployeeID&sortDescending=true&showDialog=1</code></p>
+					</li>
+				</ul>As you can see, the dialog opens automatically if the parameter
+					<code>showDialog=1</code> is added to the URL. That's exactly what we
+				wanted.<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/39759878ae4f48dcad0cf34da1d299f0">Step 13: Make Table Sorting Bookmarkable</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/877d57e3b5654b19a2d2e5190dc43b0d">Step 15: Reuse an Existing Route</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

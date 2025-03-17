@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/shape/Polygon","sap/gantt/misc/Utility"],function(t,e){"use strict";var i=t.extend("sap.gantt.shape.ext.Pentangle",{metadata:{properties:{radius:{type:"float",defaultValue:10},radius2:{type:"float",defaultValue:undefined}}}});i.prototype.init=function(){var t=sap.ui.getCore().getLibraryResourceBundle("sap.gantt");this.setProperty("ariaLabel",t.getText("ARIA_PENTANGLE"))};i.prototype.getRadius=function(t){return this._configFirst("radius",t,true)};i.prototype.getRadius2=function(t,i){if(this.mShapeConfig.hasShapeProperty("radius2")){return this._configFirst("radius2",t,true)}var a=this.getProperty("radius2");if(a||a===0){var r=this.mChartInstance.getSapUiSizeClass();return e.scaleBySapUiSize(r,a)}else{return this.calRadius2ByGoldenRatio(this.getRadius(t,i))}};i.prototype.calRadius2ByGoldenRatio=function(t){return t*Math.cos(2*Math.PI/5)/Math.cos(Math.PI/5)};i.prototype.getPoints=function(t,e){if(this.mShapeConfig.hasShapeProperty("points")){return this._configFirst("points",t)}var i=this.getRotationCenter(t,e);var a=this.getRadius(t,e);var r=this.getRadius2(t,e);var n=[];if(i&&i.length===2&&jQuery.isNumeric(a)&&jQuery.isNumeric(r)){n=this._generatePentaclePoints(i,a,r)}return n.join("")};i.prototype._generatePentaclePoints=function(t,e,i){var a={},r=[],n=Math.PI/5,s=0;for(var o=0;o<10;o++){s=n*o;a.x=this._getPointX(t[0],o%2==0?e:i,s);a.y=this._getPointY(t[1],o%2==0?e:i,s);r.push(" "+a.x+","+a.y)}return r};i.prototype._getPointX=function(t,e,i){return t+e*Math.sin(i)};i.prototype._getPointY=function(t,e,i){return t-e*Math.cos(i)};return i},true);
+//# sourceMappingURL=Pentangle.js.map

@@ -1,0 +1,173 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio32b14d88bd484cd7b941aae37180f732" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-2-bootstrap-typescript-32b14d8.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 2: Bootstrap (TypeScript)</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 2: Bootstrap (TypeScript)</h2></div><div class="shortdesc">Before we can do something with SAPUI5, we need to load and
+		initialize it. This process of loading and initializing SAPUI5 is called
+		<span class="emphasis">bootstrapping</span>. Once this bootstrapping is finished, we simply
+		display an alert.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio0f6b6b9dc46a474da9287c382c8d3456_LowRes.png" title="An alert &quot;UI5 is ready&quot; is displayed" alt="An alert &quot;UI5 is ready&quot; is displayed" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">An alert "UI5 is ready" is displayed</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view all files at <a href="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/02" title="https://github.com/sap-samples/ui5-typescript-walkthrough/tree/main/steps/02" class="external-link" target="_blank" rel="noopener">OpenUI5 TypeScript Walkthrough - Step 2: Bootstrap</a> and <a href="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-02.zip" title="https://sap-samples.github.io/ui5-typescript-walkthrough/ui5-typescript-walkthrough-step-02.zip" class="external-link" target="_blank" rel="noopener">download the solution as a zip file</a>.</p>
+		</section><section id="section_mkm_zwb_syb">
+			<h2 class="title ">package.json</h2>
+			<p>As we'd like to use TypeScript with our project, we first need to install the TypeScript package. It provides the necessary tools and
+				utilities to compile TypeScript code into JavaScript.</p>
+			<p>Open a terminal in the app root folder and execute the following command:</p>
+			<p><code>npm install typescript --save-dev</code></p>
+			<p>This installs the latest stable version of TypeScript to your project and adds it as development dependency to your
+					<code>package.json</code>.</p>
+		</section><section id="section_fy4_zjy_kzb">
+			<h2 class="title ">tsconfig.json (New)</h2>
+			<p>Let's create the file <code>tsconfig.json</code> in the app root folder to indicate that this folder is the root of a TypeScript project.
+				This file specifies the root files and the compiler options required to compile the project.</p>
+			<p>Specify the compiler options as follows:</p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">{
+    "compilerOptions": {
+      "target": "es2023",
+      "module": "es2022",
+      "moduleResolution": "node",
+      "skipLibCheck": true,
+      "allowJs": true,
+      "strict": true,
+      "strictPropertyInitialization": false,
+      "rootDir": "webapp",
+      "baseUrl": "./",
+      "paths": {
+        "ui5/walkthrough/*": ["webapp/*"]
+      }
+    },
+    "include": ["webapp/**/*"]
+  }</span></pre></div></div></section><p></p>
+		</section><section id="section_r5p_fky_kzb">
+			<h2 class="title ">webapp/index.ts (New)</h2>
+			<p>Create a new <code>index.ts</code> script in the webapp folder and add a native <code>alert()</code> method with the
+				message "UI5 is ready" to it. We'll integrate this script to the <code>index.html</code> page next.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">alert("UI5 is ready");</span></pre></div></div></section>
+		</section><section>
+			<h2 class="title ">webapp/index.html</h2>
+			<p>In this step, we change the <code>index.html</code> page to make it load the SAPUI5 framework from the webserver provided by UI5 Tooling. We
+				initialize the core modules with the following configuration options:</p><ul class="ul ">
+					<li class="li">The <code>id</code> attribute of the <code>&lt;script&gt;</code> tag has to be exactly
+						<code>"sap-ui-bootstrap"</code> to ensure proper booting of the SAPUI5 runtime.</li>
+					<li class="li">
+						<p>The <code>src</code> attribute of the <code>&lt;script&gt;</code> tag tells the browser where to find the SAPUI5 core library – it initializes the SAPUI5 runtime and loads additional resources, such as the
+							theme specified in the <code>data-sap-ui-theme</code> attribute.</p>
+					</li>
+					<li class="li">
+						<p>The SAPUI5 controls support different themes. We choose
+							<code>sap_horizon</code> as our default theme.</p>
+					</li>
+					<li class="li">
+						<p>To make use of the most recent functionality of SAPUI5 we
+							define the compatibility version as <code>edge</code>.</p>
+					</li>
+					<li class="li">
+						<p> We configure the bootstrapping process to run asynchronously. This means that the SAPUI5 resources can be loaded simultaneously in the
+							background for performance reasons. </p>
+					</li>
+					<li class="li">With  the <code>data-sap-ui-on-init</code> attribute, we define that the <code>ui5/walkthrough/index</code> module is to be loaded
+						initially in a declarative way. With this, we avoid directly executable JavaScript code in the HTML file. This makes our app
+						more secure. Note that the path to our file includes the namespace, whereby the "." characters are replaced by "/" (see
+						explanation below). We've created the <code>index.ts</code> script that this attribute refers to already in the previous
+						step.</li>
+					<li class="li">
+						<p>The <code>data-sap-ui-resource-roots</code> attribute lets you map a namespace to a specific path. We define the<code>
+								ui5.walkthrough</code> namespace and map it relative to the location of <code>index.html</code>. In this way, we
+							tell the SAPUI5 core that resources in the
+								<code>ui5.walkthrough</code> namespace are located in the same folder as <code>index.html</code>.</p>
+					</li>
+				</ul><p></p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;UI5 TypeScript Walkthrough&lt;/title&gt;
+	<span class="emphasis">&lt;script
+		id="sap-ui-bootstrap"
+		src="resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-on-init="module:ui5/walkthrough/index"
+		data-sap-ui-resource-roots='{
+			"ui5.walkthrough": "./"
+		}'&gt;
+	&lt;/script&gt;</span>
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div&gt;Hello World&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section>
+		</section><section id="section_ks2_1bv_xfb">
+			<h2 class="title ">package.json</h2>
+			<p>Now it's time to enhance our tooling setup once again. This time we install some custom middleware for the ui5-server to facilitate the
+				handling of our development project.</p>
+			<p>Open a terminal and navigate to the app root folder. Then execute the following command:</p>
+			<p><code>npm install ui5-middleware-livereload ui5-middleware-serveframework ui5-tooling-transpile --save-dev</code></p>
+			<p>This will install the <code>ui5-middleware-livereload</code>, <code>ui5-middleware-serveframework</code>, and
+				<code>ui5-tooling-transpile</code> tooling extensions and add them as  development dependencies to your
+				<code>package.json</code>:</p><ul class="ul ">
+					<li class="li"><code>ui5-middleware-livereload</code> is a middleware for ui5-server which triggers a live reload whenever files inside
+						your directory change, e.g. upon <span class="ph uicontrol">Save</span>.</li>
+					<li class="li"><code>ui5-middleware-serveframework</code> is a middleware for ui5-server which delivers the SAPUI5 framework from a locally built version.</li>
+					<li class="li"><code>ui5-tooling-transpile</code> is a plugin for UI5 Tooling that transpiles mordern JavaScript (ES6+) and TypeScript into SAPUI5-compatible code. SAPUI5 is based on older versions of JavaScript, so this plugin
+						allows you to take advantage of the latest language features and syntax while ensuring that your code remains compatible with
+							SAPUI5.</li>
+				</ul><p></p>
+		</section><section id="section_hhn_jky_kzb">
+			<h2 class="title ">ui5.yaml</h2>
+			<p>Next, we need to do some additional configuration work for our UI5 Tooling setup.</p>
+			<p>Open a terminal in the app root folder and execute the following commands:</p><ul class="ul ">
+					<li class="li">
+						<p><code>ui5 use OpenUI5</code>
+						</p>
+						<p>This configures the latest OpenUI5 version in your UI5 Tooling setup.</p>
+					</li>
+					<li class="li">
+						<p><code>ui5 add sap.ui.core themelib_sap_horizon</code></p>
+						<p> This adds the <code> sap.ui.core</code> and <code>themelib_sap_horizon</code> libraries as dependencies to your
+								<code>ui5.yaml</code> file.</p>
+					</li>
+				</ul>Next, we have to configure the tooling extensions we installed from npm in our UI5 Tooling setup, so we can use them in our
+				project. To hook a custom task into a certain build phase of a project, it needs to reference another task that will get executed
+				before or after it. The same applies for a custom middleware:<ul class="ul ">
+					<li class="li">For the <code>ui5-tooling-transpile-task</code> we specify that this should happen after the<code>
+							replaceVersion</code> task.</li>
+					<li class="li">All our custom middleware extensions will be called after the <code>compression</code> middleware.</li>
+				</ul><p></p>
+			<p></p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Middleware configurations are applied in the order in which they are defined.</p></div></div><section class="language-ini"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">framework:
+  name: OpenUI5
+  version: "1.128.1"
+  libraries:
+    - name: sap.ui.core
+    - name: themelib_sap_horizon<span class="emphasis">
+builder:
+  customTasks:
+  - name: ui5-tooling-transpile-task
+    afterTask: replaceVersion
+server:
+  customMiddleware:
+  - name: ui5-tooling-transpile-middleware
+    afterMiddleware: compression
+  - name: ui5-middleware-serveframework
+    afterMiddleware: compression
+  - name: ui5-middleware-livereload
+    afterMiddleware: compression</span></pre></div></div></section>Now you can benefit from live reload on changes, built framework resources at development
+				time, and make use of TypeScript in SAPUI5!<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>During its initial run,
+					the <code>ui5-middleware-serveframework</code> middleware will build the framework, which can take a while. In all following
+					steps, the build will not happen again and the framework is served from the built resources.</p></div></div><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/dad1905a07f849ce9c509721317d38d8">Walkthrough Tutorial (TypeScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/c20489e2a59d46e99c83f0510392cb6c">Step 1: Hello World! (TypeScript)</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/0feb70c39c5e4074893c294667b3f36b">Step 3: Controls (TypeScript)</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html" title="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html" class="sap-doc">What is a tsconfig.json?</a></li>
+		<li><a href="topic/a04b0d10fb494d1cb722b9e341b584ba" title="To use SAPUI5 features in your HTML page, you have to load and initialize the SAPUI5 library." class="sap-doc">Bootstrapping: Loading and Initializing</a></li>
+		<li><a href="topic/fe1a6dba940e479fb7c3bc753f92b28c" title="Content Security Policy (CSP) adds an additional layer of security that can detect and mitigate certain types of attacks, such as cross-site scripting and data injection." class="sap-doc">Content Security Policy</a></li>
+		<li><a href="https://sap.github.io/ui5-tooling/v3/pages/OpenUI5/" title="https://sap.github.io/ui5-tooling/v3/pages/OpenUI5/" class="sap-doc">UI5 Tooling: Consuming OpenUI5 Libaries</a></li>
+		<li><a href="https://www.npmjs.com/package/ui5-middleware-livereload" title="https://www.npmjs.com/package/ui5-middleware-livereload" class="sap-doc">NPM Package: ui5-middleware-livereload</a></li>
+		<li><a href="https://www.npmjs.com/package/ui5-middleware-serveframework" title="https://www.npmjs.com/package/ui5-middleware-serveframework" class="sap-doc">NPM Package: ui5-middleware-serveframework</a></li>
+		<li><a href="https://www.npmjs.com/package/ui5-tooling-transpile" title="https://www.npmjs.com/package/ui5-tooling-transpile" class="sap-doc">NPM Package: ui5-tooling-transpile</a></li>
+		<li><a href="https://sap.github.io/ui5-tooling/v3/pages/extensibility/CustomTasks/" title="https://sap.github.io/ui5-tooling/v3/pages/extensibility/CustomTasks/" class="sap-doc">UI5 Tooling: Custom Tasks</a></li>
+		<li><a href="https://sap.github.io/ui5-tooling/v3/pages/extensibility/CustomServerMiddleware/" title="https://sap.github.io/ui5-tooling/v3/pages/extensibility/CustomServerMiddleware/" class="sap-doc">UI5 Tooling: Custom Server Middleware</a></li>
+	</ul></section></div></section></div></body></html>

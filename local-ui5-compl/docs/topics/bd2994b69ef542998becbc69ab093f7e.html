@@ -1,0 +1,204 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobd2994b69ef542998becbc69ab093f7e" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/using-the-extensionapi-bd2994b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Using the <code>extensionAPI</code></h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Using the <code>extensionAPI</code></h2></div><div class="shortdesc">The <code>extensionAPI</code> consists of several elements that are described below. It can be used for the list report and object
+		page.</div><section><h2 class="title ">API Methods</h2><p>When coding the implementation of an extension hook or an event handler used in a view extension,
+				you can use the public methods of <code>sap.ui.core.mvc.Controller</code>.
+				However: Don't access or manipulate controls, properties, models, or other internal
+				objects created by the SAP Fiori elements
+				framework.</p><p>Any other methods or properties of the controller (in particular any components whose names start
+				with <code>'_'</code>) should be considered private and therefore should not be
+				used. </p></section><section id="section_e55_4zp_znb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in
+					SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>The <code>extensionAPI</code> can also be used for the analytical
+				list page.</p><section>
+				<h3 class="title ">API Methods</h3>
+				<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p> Do not create any instances of classes in the namespace
+						<code>sap.suite.ui.generic.template</code>. This namespace is not
+					intended for public use.</p></div></div>
+				<p>You can also access services provided by the template framework. From the
+					controller, you can access these services through
+						<code>&lt;YourController&gt;.extensionAPI</code>.</p>
+				<p>This gets you an object that is specific to the template you are currently
+					enhancing, as shown in the examples below:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_w5j_vkl_4v" class=" ">
+							
+							
+							<thead>
+								<tr>
+									<th colspan="1" rowspan="1">
+										<p>Template</p>
+									</th>
+									<th colspan="1" rowspan="1">
+										<p>Instance</p>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="1" rowspan="1">
+										<p>List Report</p>
+									</td>
+									<td colspan="1" rowspan="1">
+										<p><code>sap.suite.ui.generic.template.ListReport.extensionAPI.ExtensionAPI</code></p>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="1" rowspan="1">
+										<p>Object Page</p>
+									</td>
+									<td colspan="1" rowspan="1">
+										<p><code>sap.suite.ui.generic.template.ObjectPage.extensionAPI.ExtensionAPI</code></p>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="1" rowspan="1">Analytical List Page</td>
+									<td colspan="1" rowspan="1"><code>sap.suite.ui.generic.template.AnalyticalListPage.extensionAPI.ExtensionAPI
+										</code></td>
+								</tr>
+								<tr>
+									<td colspan="1" rowspan="1">
+										
+									</td>
+									<td colspan="1" rowspan="1">
+								</td></tr>
+							</tbody>
+						</table></div></div><p></p>
+				<div class="note note  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Do not rely on the names of these classes in your coding, as they
+					can still be changed. However, the set of methods provided by these objects will
+					only be extended in a compatible way.</p></div></div>
+				<p>For more
+						information, see <a href="api/sap.suite.ui.generic.template.extensionAPI.extensionAPI" title="api/sap.suite.ui.generic.template.extensionAPI.extensionAPI" class="external-link" target="_blank" rel="noopener" alt="api/sap.suite.ui.generic.template.extensionAPI.extensionAPI">ExtensionAPI</a>, <a href="api/sap.suite.ui.generic.template.ListReport.extensionAPI.ExtensionAPI" title="api/sap.suite.ui.generic.template.ListReport.extensionAPI.ExtensionAPI" class="sap-doc" alt="api/sap.suite.ui.generic.template.ListReport.extensionAPI.ExtensionAPI">ExtensionAPI for list report
+							extensions</a> and <a href="api/sap.suite.ui.generic.template.ObjectPage.extensionAPI.ExtensionAPI" title="api/sap.suite.ui.generic.template.ObjectPage.extensionAPI.ExtensionAPI" class="sap-doc" alt="api/sap.suite.ui.generic.template.ObjectPage.extensionAPI.ExtensionAPI">ExtensionAPI for object page
+							extensions</a>.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*
+ * Assumed use case: When the price is changed to a critical value (more than 1000), an email should be generated and sent.
+ * This should not happen for changes to the draft but only after activation has been successfully processed in the
+ * back-end system.
+ */
+				
+ (function() {
+	"use strict";
+				
+	function onAfterActivate(oEvent) {
+		/*
+		* AfterActivate event is raised at the end of front-end processing for activation. The object handed into the
+		* handler contains a promise that is resolved after a successful response from the back-end system.
+		*/
+		oEvent.activationPromise.then(function(oResponse) {
+			if (oResponse.data.Price &gt; 1000) {
+			sap.m.URLHelper.triggerEmail(null, "critical price change", "changed price of " + oResponse.data.Product_Text
+			+ " to " + oResponse.data.Price + " " + oResponse.data.Currency);
+			}
+		});
+	}		</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Using the <code>invokeActions</code> Method of the
+						<code>extensionAPI</code></h3>
+				<p><code>invokeActions</code> method calls a particular action multiple times
+					and submits changes to the back end.</p>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_ytv_nlf_5mb" class=" " style="text-align: left">
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">Parameter Name</th>
+								<th colspan="1" rowspan="1">Details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1"><code>@param {string} sFunctionName</code>
+								</td>
+								<td colspan="1" rowspan="1">Name of the function or action</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>@param {array|sap.ui.model.Context}
+									vContext</code></td>
+								<td colspan="1" rowspan="1">Denotes the binding context</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>@param {map} [mUrlParameters]</code></td>
+								<td colspan="1" rowspan="1">Denotes URL parameters (name-value pairs) for the function or
+									action. This is not present in <code>oSettings</code> for
+									backward compatibility</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>@param {object} oSettings</code></td>
+								<td colspan="1" rowspan="1">Sets parameters for invoking application controller's
+										<code>invokeActions</code> method</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>@param {boolean}
+										oSettings.bInvocationGroupingChangeSet</code></td>
+								<td colspan="1" rowspan="1">Determines whether common or unique changeset is sent in
+									batches</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>@returns {Promise} A
+										&lt;code&gt;Promise&lt;/code&gt;</code></td>
+								<td colspan="1" rowspan="1">Performs asynchronous execution of the action, resolving the
+									same result as the
+										<code>&lt;code&gt;Promise&lt;/code&gt;</code></td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>@throws {Error}</code></td>
+								<td colspan="1" rowspan="1">Throws an error when the OData function import does not
+									exists or the action input parameters are invalid</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			</section></div></section><section id="section_myh_q3q_znb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in
+					SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+				<h3 class="title ">API Methods</h3>
+				<p>You can also access services provided by the template framework. From the
+					controller, you can access these services through
+						<code>getExtensionAPI</code>.</p>
+				<p>This gets you an object that is specific to the template you are currently
+					enhancing, as shown in the examples below:</p>
+				<p>
+					</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_hsh_5jq_znb" class=" ">
+							
+							
+							<thead>
+								<tr>
+									<th colspan="1" rowspan="1">
+										<p>Template</p>
+									</th>
+									<th colspan="1" rowspan="1">
+										<p>Instance</p>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="1" rowspan="1">
+										<p>List Report</p>
+									</td>
+									<td colspan="1" rowspan="1">
+										<p><code>sap.fe.templates.ListReport.ExtensionAPI</code></p>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="1" rowspan="1">
+										<p>Object Page</p>
+									</td>
+									<td colspan="1" rowspan="1">
+										<p><code>sap.fe.templates.ObjectPage.ExtensionAPI</code></p>
+									</td>
+								</tr>
+							</tbody>
+						</table></div></div>
+				<p></p>
+				<div class="note note  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Do not rely on the names of these classes in your coding, as they
+					can still be changed. However, the set of methods provided by these objects will
+					only be extended in a compatible way.</p></div></div>
+				<p>For information about the <code>ExtensionAPI</code>, see <a href="api/sap.fe.core.ExtensionAPI" title="api/sap.fe.core.ExtensionAPI" class="sap-doc" alt="api/sap.fe.core.ExtensionAPI">API Reference</a>.</p>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

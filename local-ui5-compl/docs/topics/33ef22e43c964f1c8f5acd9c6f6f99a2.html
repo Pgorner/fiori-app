@@ -1,0 +1,76 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio33ef22e43c964f1c8f5acd9c6f6f99a2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/registering-a-change-handler-for-a-specific-control-instance-33ef22e.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Registering a Change Handler for a Specific Control Instance</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Registering a Change Handler for a Specific Control Instance</h2></div><div class="shortdesc">Here's how to enable a change handler for certain instances.</div><p>There are some cases where you'd like to register a change handler to a specific control instance or a group of control instances without
+            modifying the change handling in other instances of these controls. For example, you want a certain button in your application to
+            implement a different <cite>rename</cite> action than the rest of the buttons in the application. Other use cases are virtual controls,
+            for example, object page header facets, and controls that were created only for your application (without a library). It's easy to define
+            an instance-specific change handler in your application view XML:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>InstanceSpecificControlViewExample.xml</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+&lt;smartForm:Group label="My Group" id="myGroup"&gt;
+    &lt;smartForm:GroupElement label="With specific flexibility definition" id="myGroupElement" sap.ui.fl:flexibility="sap/ui/rta/test/GroupElementTest.flexibility"&gt;
+        &lt;Input value="My label can only be renamed to capital letters" id="inputSpecificFlexibility"/&gt;
+    &lt;/smartForm:GroupElement&gt;
+&lt;/smartForm:Group&gt;
+...</pre></div></div></section><p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p><code>sap.ui.fl</code> must be defined as a namespace in your XML file.</p>
+			<p>Example: <code>xmlns:sap.ui.fl="sap.ui.fl"</code></p>
+		<p></p></div></div><p>Alternatively, you can also define an instance-specific change handler using JavaScript:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>SetInstanceSpecificChangeHandlerInJS.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var mCustomData = {
+    "key": "sap-ui-custom-settings",
+    "value": {
+        "sap.ui.fl": {
+            "flexibility": "sap/ui/rta/test/GroupElementTest.flexibility"
+        }
+    }
+};
+
+var oGroupElement = new sap.ui.comp.smartform.GroupElement("myGroupElement", {'customData': mCustomData});</pre></div></div></section><p></p></div></div><p><code>"flexibility"</code> is a string with the path pointing to the flexibility file, for
+            example <code>sap/m/flexibility/CustomPanel</code>. Any change handlers defined
+            on this file take priority over the other existing change handlers for that control. As
+            a result, the change handlers that you defined specifically for the desired change types
+            are called to execute the changes.</p><section id="section_nbh_rb2_2yb">
+			<h2 class="title ">Example</h2>
+			<p>The following flexibility file replaces the change handler for the change type <code>renameField</code> on the control
+                    <code>myGroupElement</code> as defined in the previous examples. The redefined change handler converts the new text to
+                uppercase before applying the change - but only on the <code>GroupElement</code> instances that were enriched with the
+                    <code>sap.ui.fl:flexibility</code> parameter from the previous examples.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>GroupElementTest.flexibility.js</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "/sap/ui/comp/smartform/flexibility/changes/RenameField"
+], function(RenameField) {
+    "use strict";
+
+    return {
+        // New change handler only for "renameField" - the other available actions on this control will use the "normal" change handlers defined for the control + change type
+        "renameField": {
+            "changeHandler": {
+                applyChange: async function(oChange, oControl, mPropertyBag) {
+                    const sValue = oChange.getText(CHANGE_PROPERTY_NAME);
+                    if (typeof sValue === "string") {
+                        const vOldValue = await this.setLabelPropertyOnControl(oControl, sValue, mPropertyBag.modifier, PROPERTY_NAME);
+                        oChange.setRevertData(vOldValue);
+                    }
+                },
+                revertChange: async function(oChange, oControl, mPropertyBag) {
+                    const vOldValue = oChange.getRevertData();
+                    if (vOldValue === "$$Handled_Internally$$") {
+                        vOldValue = undefined;
+                    }
+
+                    await this.setLabelPropertyOnControl(oControl, vOldValue, mPropertyBag.modifier, PROPERTY_NAME);
+                    oChange.resetRevertData();
+                    return true;
+                },
+                completeChangeContent: function(oChange, mSpecificChangeInfo, mPropertyBag){
+                    return RenameField.completeChangeContent(oChange, mSpecificChangeInfo, mPropertyBag);
+                }
+            }
+        }
+    };
+});</pre></div></div></section><p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

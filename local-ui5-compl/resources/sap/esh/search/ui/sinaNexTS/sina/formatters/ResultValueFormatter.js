@@ -1,0 +1,15 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){
+/*!
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["./Formatter","../AttributeType","../../sina/util","../../core/Log"],function(t,e,a,r){"use strict";const i=t["Formatter"];const u=e["AttributeType"];const n=a["stringifyValue"];const o=r["Log"];class s extends i{sina;ui5NumberFormat;ui5DateFormat;log=(()=>new o("ResultvalueFormatter"))();constructor(t){super();this.ui5NumberFormat=t?.ui5NumberFormat||undefined;this.ui5DateFormat=t?.ui5DateFormat||undefined}initAsync(){return Promise.resolve()}format(t){return this._formatItemsInUI5Form(t)}formatAsync(t){t=this._formatItemsInUI5Form(t);return Promise.resolve(t)}_formatItemsInUI5Form(t){const e=this;e.sina=t.sina;t.items.forEach(function(t){e._formatItemInUI5Form(t)});return t}_formatItemInUI5Form(t){const e=this;e.sina=t.sina;if(e.sina.getDataSource(t.dataSource.id)===undefined||e.sina.getDataSource(t.dataSource.id).attributeMetadataMap===undefined||Object.keys(e.sina.getDataSource(t.dataSource.id).attributeMetadataMap).length===0){return}t.titleAttributes.forEach(function(t){e.formatAttribute(t)});t.titleDescriptionAttributes.forEach(function(t){e.formatAttribute(t)});t.detailAttributes.forEach(function(t){e.formatAttribute(t)});t.attributes.forEach(function(t){e.formatAttribute(t)})}formatAttribute(t){const e=this;if(t?.metadata?.type===undefined){return}if(t.metadata.type&&t.metadata.type===u.Group){for(let a=0;a<t.attributes.length;a++){e.formatAttribute(t.attributes[a].attribute)}}else{e.formatSingleAttribute(t)}}formatSingleAttribute(t){t.valueFormatted=this.formatValue(t);if(t.valueHighlighted===undefined||t.valueHighlighted?.length===0){t.valueHighlighted=t.valueFormatted;if(t.isHighlighted){t.valueHighlighted="<b>"+t.valueHighlighted+"</b>"}}}formatValue(t){if(typeof t?.valueFormatted==="string"){return t.valueFormatted}return this.formatValueByUI5(t)}formatValueByUI5(t){try{let e="";let a=undefined;switch(t.metadata.type){case u.Integer:e=this.ui5NumberFormat.getIntegerInstance().format(t.value);break;case u.Double:e=this.ui5NumberFormat.getFloatInstance().format(t.value);break;case u.Timestamp:e="";a=t.value;if(a instanceof Date&&!isNaN(a.getTime())){e=this.ui5DateFormat.getDateTimeInstance().format(a)}break;case u.Date:e="";if(typeof t.value==="string"){a=new Date(t.value.replace(/\//g,"-"));if(a instanceof Date&&!isNaN(a.getTime())){e=this.ui5DateFormat.getDateInstance({UTC:true}).format(a)}}break;case u.Time:e="";if(typeof t.value==="string"){a=new Date("1970-01-01T"+t.value+".0000000Z");if(a instanceof Date&&!isNaN(a.getTime())){e=this.ui5DateFormat.getTimeInstance({UTC:true}).format(a)}}break;default:e=n(t?.value)}return e}catch(e){this.log.warn("Error in formatting value: "+e);return n(t?.value)}}formatValueByPlainJS(t){return n(t.value)}}var m={__esModule:true};m.ResultValueFormatter=s;return m})})();
+//# sourceMappingURL=ResultValueFormatter.js.map

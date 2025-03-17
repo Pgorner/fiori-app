@@ -1,0 +1,267 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio99e33bdfde074bb48d2e603fa5ecd2d0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/smart-form-99e33bd.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Smart Form</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Smart Form</h2></div><div class="shortdesc">The <code>sap.ui.comp.smartform.SmartForm</code> control makes it possible to render
+		a form. Depending on user authorizations, the form enables users, for example, to switch
+		from display to edit mode, add and group fields, rename field labels, and implement a user
+		input check.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The code samples in this section reflect examples of possible use
+				cases and might not always be suitable for your purposes. Therefore, we recommend
+				that you do not copy and use them directly.</p></div></div><p>For more information about this control, see the <a href="api/sap.ui.comp.smartform.SmartForm" title="api/sap.ui.comp.smartform.SmartForm" class="sap-doc" alt="api/sap.ui.comp.smartform.SmartForm">API Reference</a> and the <a href="entity/sap.ui.comp.smartform.SmartForm" title="entity/sap.ui.comp.smartform.SmartForm" class="sap-doc" alt="entity/sap.ui.comp.smartform.SmartForm">samples</a>.</p><section>
+			<h2 class="title ">Overview</h2>
+			<p>The <code>SmartForm</code> control displays form content. If used in combination
+				with the <code>SmartField</code> control and OData metadata annotations along
+				with additional configuration, the control allows you to create a form with minimal
+				effort.</p>
+			<p>The <code>SmartForm</code> control supports the following features:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Adaptation settings</p>
+					<p>A key user can adapt the form for all users in one client by doing the
+							following:</p><ul class="ul ">
+							<li class="li">
+								<p>Adding and hiding fields</p>
+							</li>
+							<li class="li">
+								<p>Adding and hiding groups</p>
+							</li>
+							<li class="li">
+								<p>Changing the order of fields and groups</p>
+							</li>
+							<li class="li">
+								<p>Renaming field labels</p>
+							</li>
+						</ul><p></p>
+				</li>
+				<li class="li">
+					<p><span class="ph uicontrol">Display/Edit</span> button</p>
+					<p>This optional button allows the user to toggle from display to edit mode. </p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Fields of type <code>SmartField</code> are automatically displayed
+						with
+						the appropriate
+						control
+						in the required mode, for example, texts on the user interface in display
+						mode and user input in edit mode. If controls other than the
+							<code>SmartField</code> control are used, the application in
+						question has to handle the switch between display and edit
+						mode.</p></div></div>
+				</li>
+				<li class="li">
+					<p>Field labels</p>
+					<p>For fields of type <code>SmartField</code>, the
+							<code>SmartForm</code> control automatically creates a label based
+						on the OData metadata annotations.</p>
+				</li>
+				<li class="li">
+					<p><span class="ph uicontrol">Check</span> button</p>
+					<p>This optional button allows the user to check the current user input. </p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>For fields of type <code>SmartField</code>, values will be checked based on the OData
+						metadata annotations.
+						Depending
+						on which theme is defined, the fields with errors will be
+						circled in red. When the user clicks on one of these fields, the relevant
+						error message is displayed.</p></div></div>
+				</li>
+			</ul>
+		</section><section><h2 class="title ">Details</h2><section>
+				<h3 class="title ">Groups</h3>
+				<p>A <code>SmartForm</code> control consists of groups
+						(<code>sap.ui.comp.smartform.Group</code>) and group elements
+						(<code>sap.ui.comp.smartform.GroupElement</code>). </p>
+				<p>A group element is a collection of controls that are displayed along with a
+					label. Typically, a group element consists of exactly one control and the
+					respective label. Multiple group elements can be grouped together. This group
+					then also has a label.</p>
+				<p>The <code>SmartForm</code> control aggregates groups, and a group aggregates
+					group elements. The group elements themselves aggregate elements of type
+						<code>sap.ui.core.Control</code>.</p>
+				<p>The following example shows the <code>SmartForm</code> control and its
+					entities:</p>
+				<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">
+&lt;smartForm:SmartForm id="MainForm" title="General Data"
+				entityType="Header, Tax" editTogglable="true" expandable="true"
+				expanded="true" ignoredFields="AccountingDocumentCategory"
+				checkButton="true"&gt;
+	&lt;smartForm:customData&gt;
+		&lt;core:CustomData key="suppressUnit" value="false" /&gt;
+		&lt;core:CustomData key="dateFormatSettings" value='\{"style":"short"\}' /&gt;
+		&lt;core:CustomData key="defaultDropDownDisplayBehaviour" value='descriptionAndId' /&gt;
+	&lt;/smartForm:customData&gt;
+	&lt;smartForm:customToolbar&gt;
+		&lt;Toolbar height="3rem"&gt;
+			&lt;Text text="Custom Toolbar with a header text" /&gt;
+			&lt;ToolbarSpacer /&gt;
+			&lt;Button icon="sap-icon://settings" /&gt;
+			&lt;Button icon="sap-icon://drop-down-list" /&gt;
+		&lt;/Toolbar&gt;
+	&lt;/smartForm:customToolbar&gt;
+	&lt;smartForm:Group id="GeneralLedgerDocument" label="General Ledger Document"
+					expandable="true"&gt;
+		&lt;smartForm:layout&gt;
+			&lt;layout:GridData span="L4 M4 S4" /&gt;
+		&lt;/smartForm:layout&gt;
+		&lt;smartForm:GroupElement id="GeneralLedgerDocument.CompanyCode"&gt;
+			&lt;smartField:SmartField value="{CompanyCode}"
+							enabled="true" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="GeneralLedgerDocument.AccountingDocument"&gt;
+			&lt;smartField:SmartField value="{AccountingDocument}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="GeneralLedgerDocument.FiscalYear"&gt;
+			&lt;smartField:SmartField value="{FiscalYear}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement
+						id="GeneralLedgerDocument.AccountingDocumentType"&gt;
+			&lt;smartField:SmartField value="{AccountingDocumentType}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement
+						id="GeneralLedgerDocument.AccountingDocumentHeaderText"&gt;
+			&lt;smartField:SmartField value="{AccountingDocumentHeaderText}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement
+						id="GeneralLedgerDocument.AccountingDocumentTypeName"&gt;
+			&lt;smartField:SmartField value="{AccountingDocumentTypeName}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="GeneralLedgerDocument.AmountInCoCodeCrcy"&gt;
+			&lt;smartField:SmartField value="{AmountInCoCodeCrcy}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="GeneralLedgerDocument.CoCodeCurrency"&gt;
+			&lt;smartField:SmartField value="{CoCodeCurrency}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="GeneralLedgerDocument.LedgerGroup"&gt;
+			&lt;smartField:SmartField value="{LedgerGroup}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+	&lt;/smartForm:Group&gt;
+	&lt;smartForm:Group label="Dates" id="Dates"&gt;
+		&lt;smartForm:layout&gt;
+			&lt;layout:GridData span="L3 M3 S3" /&gt;
+		&lt;/smartForm:layout&gt;
+		&lt;smartForm:GroupElement id="Dates.DocumentDate"&gt;
+			&lt;smartField:SmartField value="{DocumentDate}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="Dates.PostingDate"&gt;
+			&lt;smartField:SmartField value="{PostingDate}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+	&lt;/smartForm:Group&gt;
+	&lt;smartForm:Group label="Reversal" id="Reversal"&gt;
+		&lt;smartForm:layout&gt;
+			&lt;layout:GridData span="L3 M3 S3" /&gt;
+		&lt;/smartForm:layout&gt;
+		&lt;smartForm:GroupElement id="Reversal.ReversalDocument"&gt;
+			&lt;smartField:SmartField value="{ReverseDocument}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="Reversal.ReversalReasonName"&gt;
+			&lt;smartField:SmartField value="{ReversalReasonName}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+	&lt;/smartForm:Group&gt;
+	&lt;smartForm:Group label="Administrative Data" id="AdministrativeData"&gt;
+		&lt;smartForm:layout&gt;
+			&lt;layout:GridData span="L3 M3 S3" linebreak="true" /&gt;
+		&lt;/smartForm:layout&gt;
+		&lt;smartForm:GroupElement id="AdministrativeData.CreatedByUser"&gt;
+			&lt;smartField:SmartField value="{CreatedByUser}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="AdministrativeData.CreatedByUserName"&gt;
+			&lt;smartField:SmartField value="{CreatedByUserName}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+		&lt;smartForm:GroupElement id="AdministrativeData.CreationDate"&gt;
+			&lt;smartField:SmartField value="{CreationDate}" /&gt;
+		&lt;/smartForm:GroupElement&gt;
+	&lt;/smartForm:Group&gt;
+&lt;/smartForm:SmartForm&gt;</pre></div></div></section>
+			</section><section>
+				<h3 class="title ">Layout</h3>
+				<p>The <code>SmartForm</code> control uses a
+						<code>ResponsiveGridLayout</code> that can be adjusted. The following
+					properties are exposed in the aggregation
+					layout:</p>
+				
+				<ul class="ul ">
+					<li class="li">
+						<p><code>labelSpanXL</code>,
+								<code>labelSpanL</code>, <code>labelSpanM</code>,
+								<code>labelSpanS</code></p>
+					</li>
+					<li class="li">
+						<p>
+							<code>emptySpanXL</code>, <code>emptySpanL</code>
+							<code>emptySpanM</code>, <code>emptySpanS</code></p>
+					</li>
+					<li class="li">
+						<p><code>columnsXL</code>, <code>columnsL</code>,
+								<code>columnsM</code></p>
+					</li>
+					<li class="li">
+						<p><code>breakpointXL</code>, <code>breakpointL</code>,
+								<code>breakpointM</code>
+						</p>
+					</li>
+					<li class="li">
+						<p>
+							<code>gridDataSpan</code></p>
+					</li>
+					
+				</ul>
+				<p>To display the fields next to each other with a label on top, you can use the
+						<code>gridDataSpan</code> property of the <code>layout</code>
+					element in combination with the <code>useHorizontalLayout</code>
+					property.</p>
+				<p>The form will be embedded in an <code>sap.m.Panel</code> if the
+						<code>expandable</code> property is set. Using this property, the form
+					can also be collapsed and expanded.</p>
+			</section><section>
+				<h3 class="title ">Group Layout</h3>
+				<p>The
+						<code>layoutData</code>
+					aggregation
+					of
+					a group can be used to define a <code>GridData</code> layout.
+					With
+					this layout, the default span of a single group can be changed to allocate the
+					number of columns available to each group. The number of columns allocated to
+					each group depends on how many groups there are. Moreover, a
+					line break can be inserted to display the group in a new line.</p>
+			</section><section>
+				<h3 class="title ">Toolbar</h3>
+				<p>The <code>SmartForm</code> control uses a toolbar for displaying the title of
+					the form and the following buttons (if configured):</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><span class="ph uicontrol">Display/Edit </span>(<code>editTogglable</code>
+							property )</p>
+					</li>
+					<li class="li">
+						<p><span class="ph uicontrol">Check</span> (<code>checkButton</code> property)</p>
+					</li>
+				</ul>
+				<p>Alternatively, the custom toolbar can be used (<code>customToolbar</code>
+					aggregation). The <code>SmartForm</code> control will then replace the
+					standard toolbar with the custom toolbar and add the title and the buttons if
+					requested.</p>
+			</section></section><section>
+			<h2 class="title ">Key-User-Specific Adaptation</h2>
+			<p>To enable key user adaptation settings, the following prerequisites have to be
+				fulfilled:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Use of stable IDs for every <code>Group</code>,
+							<code>GroupElement</code>, and field in the XML view </p>
+					<p>The adaptation settings use control IDs to identify the entities that can be
+						modified.</p>
+				</li>
+				<li class="li">
+					<p>Use of the <code>entityType</code> property</p>
+					<p>The property determines the entity type of the OData service defining the
+						fields that can be added to the form.</p>
+					<p>Fields that must not be available on the adaptation dialog can be listed in
+						the <code>ignoredFields</code> property: Separate the property names by
+						commas without using spaces.</p>
+					
+				</li>
+				
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

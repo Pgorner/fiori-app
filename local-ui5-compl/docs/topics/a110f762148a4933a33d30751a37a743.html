@@ -1,0 +1,670 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa110f762148a4933a33d30751a37a743" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/migration-information-for-upgrading-the-manifest-file-a110f76.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Migration Information for Upgrading the Manifest File</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Migration Information for Upgrading the Manifest File</h2></div><div class="shortdesc">Information how to add new attributes of manifest (also known as descriptor) versions
+		higher than V2 (SAPUI5 1.30) to
+		the manifest file.</div><div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_etl_j41_d5" class=" "><thead>
+				<tr><th colspan="1" rowspan="1">
+					<p>Attribute</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Version*</p>
+				</th>
+				<th colspan="1" rowspan="1">
+					<p>Description</p>
+				</th>
+			</tr></thead><tbody><tr>
+				<td colspan="1" rowspan="1"><code>sap.ui5/dependencies/minUI5Version</code></td>
+				<td colspan="1" rowspan="1">V64 (1.124)</td>
+				<td colspan="1" rowspan="1">The attribute <code>minUI5Version</code> can now be an array of
+					versions where each major version can only be included once. If you specify an
+					array that contains more than one version, and if version 1 is included, it must
+					be at least 1.120.x.</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.fiori/cloudDevAdaptationStatus</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V51 (1.110)</td>
+				<td colspan="1" rowspan="1">
+					<p>Release status for the developer adaptation in SAP S/4HANA Cloud Public Edition and
+							SAP BTP, ABAP environment (SAP-internal).</p>
+					<p>Supported types:</p><ul class="ul ">
+							<li class="li"><code>released</code></li>
+							<li class="li"><code>deprecated</code></li>
+							<li class="li"><code>obsolete</code></li>
+							<li class="li">No value means not released .</li>
+						</ul><p></p>
+					<p>For more information, see <a href="https://help.sap.com/docs/bas/developing-sap-fiori-app-in-sap-business-application-studio/releasing-sap-fiori-application-to-be-extensible-in-adaptation-projects-on-sap-s-4hana-cloud" title="https://help.sap.com/docs/bas/developing-sap-fiori-app-in-sap-business-application-studio/releasing-sap-fiori-application-to-be-extensible-in-adaptation-projects-on-sap-s-4hana-cloud" class="external-link" target="_blank" rel="noopener">Releasing an SAP Fiori Application to Be Extensible in
+							Adaptation Projects on SAP S/4HANA Cloud and SAP BTP, ABAP
+							Environment</a>.</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/resources/js</code></p>
+					<p>(deprecated)</p>
+				</td>
+				<td colspan="1" rowspan="1">V37 (1.94)</td>
+				<td colspan="1" rowspan="1">
+					<p>Since 1.94 the usage of <code>js</code> resources is deprecated. Please
+						use regular dependencies instead.</p>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.app/dataSources/&lt;sourceName&gt;/settings/objects</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V35 (1.92)</td>
+				<td colspan="1" rowspan="1">
+					<p>Dictionary of (catalog) objects offered by an INA datasource, consisting of:
+						</p><ul class="ul ">
+							<li class="li"><code>objectName</code>: Mandatory CDS view name / analytical query name</li>
+							<li class="li"><code>objectType</code> - mandatory type of object (<code>2C&lt;DDICNAME&gt;</code> or
+								<code>CDSViewName</code>); values: <code>query</code>, <code>cdsprojectionview</code>,
+								<code>view</code>, <code>inamodel</code></li>
+							<li class="li"><code>packageName</code>: Name of the package</li>
+							<li class="li"><code>schemaName</code>: Name of the schema</li>
+						</ul><p></p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+...
+        "dataSources": {
+            "cdsService": {
+                "uri": "/sap/bc/ina/ina1/sap/example_cds",
+                "type": "INA",
+                "settings": {
+                    "localUri": "localService/metadata.xml",
+                    "objects": {
+                        "assets": {
+                            "objectName": "SAPFinAssets",
+                            "objectType": "cdsprojectionview",
+                            "packageName": "package",
+                            "schemaName":  "schema"
+                        },
+                        "liabilities": {
+                            "objectName": "SAPFinLiabilities",
+                            "objectType": "cdsprojectionview"  
+                        }
+                    }
+                }
+            }
+        },
+...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.fiori/abstract</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V32 (1.87)</td>
+				<td colspan="1" rowspan="1">
+					<p>Indicates whether an app is an abstract (generic) app, which may not used directly, but needs to be specialized in the SAP Fiori launchpad content.</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+...
+    "sap.fiori": {
+        "registrationIds": [
+            "F1234"
+        ],
+        "archeType": "transactional",
+        "abstract": false
+    },
+...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/models/&lt;modelName&gt;/settings/supportedLocales</code></p>
+					<p><code>sap.ui5/models/&lt;modelName&gt;/settings/fallbackLocale</code></p>
+					<p><code>sap.ui5/models/&lt;modelName&gt;/settings/terminologies</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V22 (1.77)</td>
+				<td colspan="1" rowspan="1">
+					<p>The <code>supportedLocales</code> and <code>fallbackLocale</code>
+						settings can be specified with a list of supported locales and a fallback
+						locale to define a language fallback chain and optimize the loading
+						performance of resource bundles.</p>
+					<p>Additional resource bundles can be made available by defining
+							<code>terminologies</code>.</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   ...
+   "models": {
+      "i18n": {
+         "type": "sap.ui.model.resource.ResourceModel",
+         "settings": {
+            "bundleName": "myapp.i18n.i18n",
+            "supportedLocales": ["de", "en"],
+            "fallbackLocale": "de",
+            "terminologies": {
+               "sports": {
+                  "bundleUrl": "i18n/terminologies/sports/i18n.terminologies.sports.properties",
+                  "bundleUrlRelativeTo": "manifest",
+                  "supportedLocales": ["en", "de"]
+               },
+               "travel": {
+                  "bundleUrl": "i18n/terminologies/travel/i18n.terminologies.travel.properties",
+                  "bundleUrlRelativeTo": "manifest",
+                  "supportedLocales": ["en", "de"]
+               },
+               "services": {
+                  "bundleUrl": "i18n/terminologies/services/i18n.terminologies.services.properties",
+                  "bundleUrlRelativeTo": "manifest",
+                  "supportedLocales": ["en", "de"]
+               }
+            }
+         }
+      }
+   }
+   ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/routing/propagateTitle</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V20 (1.75)</td>
+				<td colspan="1" rowspan="1">
+					<p>The <code>propagateTitle</code> property can be set to forward title
+						information from a nested component to the router in the root component. </p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   ...
+   "componentUsages": {
+      "myreuse": {
+         "name": "reuse.component",
+         ...
+         }
+      },
+   "routing": {
+      "config": {
+      ...
+      },
+      "routes": [{
+         "name": "home",
+         "pattern": "",
+         "target": {
+            "name": "attachment",
+            "prefix": "atch",
+            "propagateTitle": true     
+         }
+      }],
+      "targets": {
+         "attachment": {
+            "type": "Component",
+            "usage": "myreuse",
+            "options": {
+               ...
+            },
+            ...
+         }
+      }
+   }
+   ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/commands</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V17 (1.70)</td>
+				<td colspan="1" rowspan="1">
+					<p>Specifies provided commands with a unique key/alias.</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   ...
+   "commands": {
+      "Save": {
+         "shortcut": "Ctrl+S"
+      }
+   },
+   ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/routing/routes/targets/<var class="varname">targetName</var>/usage</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V16 (1.66)</td>
+				<td colspan="1" rowspan="1">
+					<p>A component can be configured as a routing target by defining it in the
+							<code>componentUsages</code> section and providing its key to a
+						target via the <code>usage</code> property.</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   ...
+   "componentUsages": {
+      "myreuse": {
+         "name": "reuse.component",
+         "settings": {},
+         "componentData": {},
+         "lazy": false
+         }
+      },
+   "routing": {
+      "config": {
+      ...
+      },
+      "routes": [{
+         "name": "home",
+         "pattern": "",
+         "target": {
+            "name": "attachment",
+            "prefix": "atch"     
+         }
+      }],
+      "targets": {
+         "attachment": {
+            "type": "Component",
+            "usage": "myreuse",
+            "options": {
+               // optional
+               // define the additional parameter for
+               // instantiating the component instance
+            },
+            "containerOptions": {
+               // optional
+               // define the additional parameter for
+               // instantiating the component container
+               // which enables the component to be rendered
+               // in the parent control
+            },
+            "controlId": "page",
+            "controlAggregation": "content"
+         }
+      }
+   }
+   ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/routing/routes/targets/<var class="varname">targetName</var>/type</code></p>
+					<p><code>sap.ui5/routing/routes/targets/<var class="varname">targetName</var>/path</code></p>
+					<p><code>sap.ui5/routing/routes/targets/<var class="varname">targetName</var>/name</code></p>
+					<p><code>sap.ui5/routing/routes/targets/<var class="varname">targetName</var>/id</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V15 (1.62)</td>
+				<td colspan="1" rowspan="1">
+					<p>A routing target can load either a view or a component.</p>
+					<p>With the <code>type</code> option set to "Component", the
+							<code>Component.js</code> which is available under the namespace
+						generated by combining <code>path</code> and <code>name</code> is
+						loaded and instantiated.</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "routing": {
+        "config": {
+            ...
+        },
+        "routes": [
+            ...
+        ],
+        "targets": {
+            "/attachment/": {
+                "type": "Component",
+                "path": "reuse.component",
+                "name": "attachment",
+                "options": {
+                    ...
+                },
+                "containerOptions": {
+                    ...
+                },
+                "controlId": "page",
+                "controlAggregation": "content"
+            }
+        }
+    }
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/models/&lt;modelName&gt;/settings/enhanceWith</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V12 (1.56)</td>
+				<td colspan="1" rowspan="1">
+					<p>The attribute <code>enhanceWith</code> can be specified with
+							<code>bundleUrl</code>, <code>bundleUrlRelativeTo</code> (either
+						component (default) or manifest) or <code>bundleName</code> to provide a
+						list of additional resource bundle configurations to enhance the resource
+						model with.</p>
+					<p>Additional attributes can be found in <a href="topic/eba8d25a31ef416ead876e091e67824e" title="By defining terminologies together with additional resource bundles, an application can easily be switched from one scenario or industry to another." class="sap-doc">Terminologies</a>.</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   ...
+   "models": {
+      "i18n": {
+          "type": "sap.ui.model.resource.ResourceModel",
+          "uri": "i18n/i18n.properties",
+          "settings": {
+             "enhanceWith": [{
+                "bundleUrl": "i18n/i18n.properties",
+                "bundleUrlRelativeTo": "manifest"
+             }]
+          }
+      },
+      ...
+   },
+   ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/componentUsages/lazy</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V12 (1.56)</td>
+				<td colspan="1" rowspan="1">
+					<p>Indicates whether the component usage should be lazily loaded. Default value:
+							<code>true</code></p>
+					<p>For more information see:<a href="topic/346599f0890d4dfaaa11c6b4ffa96312" title="You can use a ComponentContainer to wrap a UIComponent and reuse it anywhere within the SAPUI5 control tree. With the ComponentContainer you can nest components inside other components." class="sap-doc">Using and Nesting Components</a></p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+     ...
+	"componentUsages": {
+		"myusage": {
+			"name": "my.used",
+			"settings": {},
+			"componentData": {},
+			"lazy": false
+		}
+	},
+     ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/library/i18n</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V10 (1.52)</td>
+				<td colspan="1" rowspan="1">
+					<p>Determines whether the library contains an i18n resource. The value can be
+						either a boolean, a string, or (since 1.78) an object.</p>
+					<p>A string value represents a bundle URL. Relative URLs are always resolved to
+						the library origin. If no value is set, the default
+							<code>messagebundle.properties</code> file is loaded.</p>
+					<p>An object can contain additional resource bundle configuration, e.g.
+						terminologies and supported locales. For the supported features and for
+						sample definitions, see the respective entries at <a href="topic/eba8d25a31ef416ead876e091e67824e" title="By defining terminologies together with additional resource bundles, an application can easily be switched from one scenario or industry to another." class="sap-doc">Terminologies</a> (without
+							<code>bundleUrlRelativeTo</code>) and <a href="topic/ec753bc539d748f689e3ac814e129563" title="You can configure a list of supported locales and a fallback locale in your app's manifest to control the loading of resource bundles and avoid '404 Not Found' network responses." class="sap-doc">Supported Locales and Fallback Chain</a> .</p>
+					<p>
+						</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>This attribute is beneficial if the name of the main resource bundle
+								(properties file) used by your UI5 library differs from the default
+								name <span class="parmname">messagebundle.properties</span></p>
+							
+						<p></p></div></div>
+					<p></p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   ...
+   "library": {
+      "i18n": true
+   },
+   ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/componentUsages</code></p>
+				</td>
+				<td colspan="1" rowspan="1">V8 (1.48)</td>
+				<td colspan="1" rowspan="1">
+					<p>Specifies the used components with the a unique key/alias. Contains the
+						following:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p><code>name</code>: Mandatory name of the reuse component</p>
+						</li>
+						<li class="li">
+							<p><code>settings</code>: Settings of the component</p>
+						</li>
+						<li class="li">
+							<p><code>componentData</code>: Component data of the component</p>
+						</li>
+					</ul>
+					<p>For more information see:<a href="topic/346599f0890d4dfaaa11c6b4ffa96312" title="You can use a ComponentContainer to wrap a UIComponent and reuse it anywhere within the SAPUI5 control tree. With the ComponentContainer you can nest components inside other components." class="sap-doc">Using and Nesting Components</a></p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+     ...
+	"componentUsages": {
+		"myusage": {
+			"name": "my.used",
+			"settings": {},
+			"componentData": {}
+		}
+	},
+     ...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/routing/routes/target</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V6 (1.42)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Allows to define titles declaratively in the configuration
+							(<code>title</code> under <code>targets/&lt;target&gt;</code>
+						and <code>titleTarget</code> under
+						<code>routes/&lt;route&gt;</code>), see <a href="topic/3d18f20bd2294228acb6910d8e8a5fb5" title="SAPUI5 offers hash-based navigation, which allows you to build single-page apps where the navigation is done by changing the hash. In this way the browser does not have to reload the page; instead there is a callback to which the app and especially the affected view can react. A hash string is parsed and matched against patterns which will then inform the handlers." class="sap-doc">Routing and Navigation</a></p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	...,
+	"routes": [{
+		"pattern": "product/{id}/parts",
+		"name": "ProductParts",
+			"target": ["product", "productParts"],
+		"titleTarget": "productParts"
+
+	}],
+	"targets": {
+		"product": {
+			"type": "View",
+			"path": "shop.products",
+			"name": "Product",
+			"title": "Product"
+		},
+		"productParts": {
+			"type": "View",
+			"path": "shop.products",
+			"name": "Product",
+			"title": "Product Parts"
+		}
+	},
+	...
+}</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/models/preload</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V5 (1.38)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Defines whether or not the model is initialized (preloaded) before the
+						component instance is created and while loading the component preload and
+						its dependencies</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"equipment": { 
+    "preload": true,
+    "dataSource": "equipment",
+     ...
+}
+</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/routing/config/async</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V4 (1.34)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>General setting for routing that indicates how the views are loaded; if set
+						to <code>true</code>, the views are loaded asynchronously (default is
+							<code>false</code>)</p>
+					<p>For performance reasons, we recommend to always use the
+							<code>async</code> setting. This recommendation implies that you
+						have followed the SAPUI5
+						programming model in general and do <span class="emphasis">not</span> rely on any
+						sync-execution depending event-orders.</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+   "_version": "1.2.0",
+   ...
+    "routing": {
+        "config": {
+            "viewType": "XML",
+            "async": true
+        ...
+        },
+        ...</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui5/dependencies/components/&lt;componentname&gt;/lazy</code>
+						and <code>dependencies/libs/&lt;libname&gt;/lazy</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V4 (1.34)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>If <code>dependencies/components/&lt;componentname&gt;/lazy</code> and
+							<code>dependencies/libs/&lt;libname&gt;/lazy</code> are set to
+							<code>true</code>, the attribute indicates in an SAP Fiori app that
+						a dependency shall be lazy loaded (default is <code>false</code>), see
+						the example for <code>manifest.json</code> for the SAP Fiori app.</p>
+					
+					<p>Example for <code>manifest.json</code> for the SAP Fiori app:</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+   "_version": "1.2.0",
+   ...
+   "dependencies": {
+        "minUI5Version": "1.34.0",
+        "libs": {
+            "sap.m": {
+                "minVersion": "1.34.0"
+            },
+            "sap.ui.commons": {
+                "minVersion": "1.34.0",
+                "lazy": true
+            }
+        },
+        "components": {
+            "sap.ui.app.other": {
+                "minVersion": "1.1.0"
+                "lazy": true
+            }
+        }
+    },</pre></div></div></section>
+					
+					
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.ui/fullWidth</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V4 (1.34)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Indicates whether an app shall run in full screen mode (<code>true</code>)</p>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui": {
+    "_version": "1.3.0",
+    "technology": "UI5",
+    ...
+    "fullWidth": true</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.app/crossNavigation/inbounds/&lt;inboundname&gt;/subTitle</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V4 (1.34)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Used to overwrite the <code>subTitle</code> attribute per inbound; use
+						the <code>{{...}}</code> syntax to add the attribute to the
+							<code>manifest.json</code> file</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>Text symbols must be part of the properties file which is defined in
+								<code>sap.app/i18n</code> (default
+								<code>"i18n/i18n.properties"</code>).</p>
+					<p></p></div></div>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.app": {
+    "_version": "1.3.0",
+    ...
+    "crossNavigation": {
+        "inbounds": {
+            "contactCreate":
+                {
+                    "semanticObject": "Contact",
+                    "action": "create",
+                    "icon": "sap-icon://add-contact",
+                    "title": "{{title}}",
+                    "subTitle": "{{subtitleOther}}",</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.app/subTitle</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V4 (1.34)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Added to the <code>manifest.json</code> file by using the
+							<code>{{...}}</code> syntax </p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>Text symbols must be part of the properties file which is defined in
+								<code>sap.app/i18n</code> (default
+								<code>"i18n/i18n.properties"</code>).</p>
+					<p></p></div></div>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.app": {
+    "_version": "1.3.0",
+    ...
+    "title": "{{title}}",
+    "subTitle": "{{subtitle}}",</pre></div></div></section>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>sap.app/crossNavigation</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V3 (1.32)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Contains navigation information and is a mandatory attribute in the
+							<code>manifest.json</code> file for SAP Fiori apps; the attribute
+						contains two sections:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p><code>sap.app/crossNavigation/inbounds</code> - Contains inbound
+								intents and signature information</p>
+						</li>
+						<li class="li">
+							<p><code>sap.app/crossNavigation/outbounds</code> - Contains
+								required intents that are called explicitely by the app, for
+								example, if a business process is split among different apps A and
+								B. If A calls B, A has outbound the intent to address B.</p>
+						</li>
+					</ul>
+				</td>
+			</tr><tr>
+				<td colspan="1" rowspan="1">
+					<p><code>_version</code></p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>V3 (1.32)</p>
+				</td>
+				<td colspan="1" rowspan="1">
+					<p>Needs to be updated in the <code>manifest.json</code> file when migrating to a new
+						manifest version:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p><code>_version</code> for V3 is 1.2.0</p>
+						</li>
+						<li class="li">
+							<p><code>_version</code> for V4 is 1.3.0</p>
+						</li>
+						<li class="li">
+							<p><code>_version</code> for V5 is 1.4.0 (see example)</p>
+						</li>
+					</ul>
+					<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "_version": "1.4.0",
+    "sap.app": {
+        ...</pre></div></div></section>
+				</td>
+			</tr></tbody></table></div></div><p>* Available as of manifest version (SAPUI5 version)</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

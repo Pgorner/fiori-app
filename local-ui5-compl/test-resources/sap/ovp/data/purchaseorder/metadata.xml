@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZME_OVERDUE_CDS_LOC" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="Zme_OverdueType" sap:label="ZME_OVERDUE" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PurchaseOrder"/>
+                    <PropertyRef Name="PurchaseOrderItem"/>
+                </Key>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Precision="0"/>
+                <Property Name="DeltaAmount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="MeasureUnit" sap:label="Delta Amount"/>
+                <Property Name="MaterialName" Type="Edm.String" MaxLength="40" sap:label="Material Description"/>
+                <Property Name="OrderedAmount" Type="Edm.Decimal" Precision="13" Scale="3"/>
+                <Property Name="OverdueTime" Type="Edm.Int32" Precision="14"/>
+                <Property Name="PurchaseOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Purchasing Document"/>
+                <Property Name="PurchaseOrderCurrency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:semantics="currency-code"/>
+                <Property Name="PurchaseOrderItem" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Item"/>
+                <Property Name="PurchaseOrderItemMaterial" Type="Edm.String" MaxLength="18" sap:label="Material"/>
+                <Property Name="PurchaseOrderItemNetAmount"  Type="Edm.Decimal" Scale="2" Precision="14" sap:unit="PurchaseOrderCurrency" sap:label="Net Order Value"/>
+                <Property Name="ReceivedAmount" Type="Edm.Decimal" Precision="13" Scale="3"/>
+                <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:label="Vendor"/>
+                <Property Name="SupplierName" Type="Edm.String" MaxLength="35" sap:label="Name"/>
+                <Property Name="MeasureUnit" Type="Edm.String" MaxLength="3" sap:label="Qty. Unit" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityContainer Name="ZME_OVERDUE_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Zme_Overdue" EntityType="ZME_OVERDUE_CDS_LOC.Zme_OverdueType" sap:content-version="1" sap:searchable="true"/>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

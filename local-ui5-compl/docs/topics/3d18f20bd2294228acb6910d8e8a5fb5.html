@@ -1,0 +1,123 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3d18f20bd2294228acb6910d8e8a5fb5" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/routing-and-navigation-3d18f20.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Routing and Navigation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Routing and Navigation</h2></div><div class="shortdesc">SAPUI5 offers hash-based
+        navigation, which allows you to build single-page apps where the navigation is done by
+        changing the hash. In this way the browser does not have to reload the page; instead there
+        is a callback to which the app and especially the affected view can react. A hash string is
+        parsed and matched against patterns which will then inform the handlers.</div><p>You use routing in the following cases:</p><ul class="ul ">
+                <li class="li">
+                    <p>Enable users to navigate back using the browser history, for example, the
+                            <span class="ph uicontrol">Back</span> button of the browser or a physical back
+                        button on mobile devices.</p>
+                </li>
+                <li class="li">
+                    <p>Enable bookmarks and deep links to pages inside an app; this means that you
+                        can start the app and resume the bookmarked state.</p>
+                </li>
+                <li class="li">
+                    <p>Pass on data via the hash to application logic. </p>
+                </li>
+            </ul><p></p><div><div class="fig"><img src="loio3b3a63b7581c4d36b9657f07d678f176_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Routing overview</h2></span></div><p>In SAPUI5, navigation and
+            routing is implemented using a "router" to forward the hash change and the data in the
+            hash to one or more views of the app. </p><p>You use <span class="emphasis">routes</span> to notify your application that the hash has changed
+            to a certain value. For each route, you define the pattern that can be used in the app
+            implementation.</p><p>With <span class="emphasis">targets</span>, you define where a view or a component is loaded and
+            where the view or component is shown on the UI. By referring to one or multiple targets
+            in a route's definition, you can load and show the views or components once the route's
+            pattern matches the current hash.</p><p>You configure routing in SAPUI5 in the descriptor
+            file (<code>manifest.json</code>) (see <a href="topic/be0cf40f61184b358b5faedaec98b2da" title="The manifest (also known as descriptor for applications, components, and libraries, in short: app descriptor) is inspired by the WebApplication Manifest concept introduced by the W3C. The manifest provides a central, machine-readable, and easy-to-access location for storing metadata associated with an application, an application component, or a library." class="sap-doc">Manifest (Descriptor for Applications, Components, and Libraries)</a>) or in the
+                <code>Component.js</code> file (see <a href="topic/958ead51e2e94ab8bcdc90fb7e9d53d0" title="Components are independent and reusable parts used in SAPUI5 applications." class="sap-doc">Components</a> ) to have it available globally
+            throughout your app, but you can also define routes and targets locally by calling the
+            constructors of the classes, for example under the <code>sap.ui.core.routing</code>
+            and <code>sap.m.routing</code> namespaces.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+            </p><p>You can also define only routes or only targets, but then just have to make sure that
+                you implement the counterpart elsewhere.</p>
+        <p></p></div></div><section>
+            <h2 class="title ">Routing Patterns</h2>
+            <p>Whenever a hash is added to a URL, the router checks whether there is a route with a
+                matching pattern. The first matching route is taken and the corresponding target
+                view is called. The data provided with the hash are passed on to the target.</p>
+            <p>You can use the following kinds of patterns:</p><ul class="ul ">
+                    <li class="li">
+                        <p><span class="emphasis">Hard-coded pattern</span>:</p>
+                        <p>The pattern matches the hash exactly. For example, when a pattern is
+                            defined as <code>product/settings</code>, this pattern matches only
+                            if the hash is <kbd class="ph userinput">product/settings</kbd> and no data is
+                            passed on to the events of the route.</p>
+                        <p>For more information, see the tutorial <a href="topic/782aac08f2de4003a2fcbdd39d27f374" title="In this step, we'll create a second button on the home page, with which we can navigate to a simple list of employees. This example illustrates how to navigate to a route that has a hard-coded pattern." class="sap-doc">Step 6: Navigate to Routes with Hard-Coded Patterns</a>.</p>
+                    </li>
+                    <li class="li">
+                        <p><span class="emphasis">Route with mandatory parameter</span>:</p>
+                        <p>You can define mandatory parameters for the pattern by placing the
+                            parameter in curly brackets (<code>{<i>parameter ID</i>}</code>). </p>
+                        <p>For example, if you define the pattern <code>product/{id}</code>, the
+                            hashes <kbd class="ph userinput">product/5</kbd> and
+                                <kbd class="ph userinput">product/3</kbd> (where 3 and 5 are product IDs)
+                            match the pattern. The matched event handler gets <code>5</code> or
+                                <code>3</code> passed on with the key <code>id</code> in its
+                            arguments. But hash <kbd class="ph userinput">product/</kbd> does not match the
+                            pattern because the mandatory parameter is missing.</p>
+                        <p>For more information, see the tutorial <a href="topic/f96d2522a5ca4382a274ae3c6d002ca0" title="In this step, we implement a feature that allows the user to click on an employee in the list to see additional details of the employee. A route pattern can have one or more mandatory parameters to identify objects in an app." class="sap-doc">Step 7: Navigate to Routes with Mandatory Parameters</a>.</p>
+                    </li>
+                    <li class="li">
+                        <p><span class="emphasis">Route with optional parameter</span>:</p>
+                        <p>You can define optional parameters for the pattern by placing the
+                            parameter between colons (<code>:<i>parameter ID</i>:</code>). </p>
+                        <p>For example, if you define a pattern
+                                <code>product/{id}/detail/:detailId:</code>, the
+                                <code>detailId</code> parameter is optional, whereas
+                                <code>id</code> is mandatory. Both hashes
+                                <code>product/5/detail</code> and
+                                <code>product/3/detail/2</code> match the pattern.</p>
+                    </li>
+                    <li class="li">
+                        <p><span class="emphasis">Route with query parameter</span>:</p>
+                        <p>The query parameter allows you to pass on queries with any parameter. A
+                            query parameter starts with <code>?</code>, and you can either
+                            define it as mandatory (<code>product/{?query}</code>) or optional
+                                (<code>product/:?query:</code>).</p>
+                        <p>The matched value will be converted into an object saved with the
+                            parameter name as the key when passed to the event handler.</p>
+                        <p>For more information, see the tutorial <a href="topic/b8561ff6f4c34c85a91ed06d20814cd3" title="The resume view contains four tabs as we have seen in the previous steps. However, when the user navigates to the resume page, only the first tab is displayed initially. Navigating directly to a specific tab or bookmarking a tab is not yet supported in our current app." class="sap-doc">Step 9: Allow Bookmarkable Tabs with Optional Query Parameters</a>.</p>
+                    </li>
+                    <li class="li">
+                        <p><span class="emphasis">"rest as string" parameter</span>:</p>
+                        <p>A parameter that ends with an asterisk (<code>*</code>) is called a
+                            "rest as string" parameter. Such a parameter matches as much as
+                            possible. It can be combined with the syntax of mandatory or optional
+                            parameters.</p>
+                        <p>For example, a pattern <code>product/{id}/:detail*:</code> defines a
+                            mandatory parameter with the name <code>id</code> and an optional
+                            "rest as string" parameter with the name <code>detail</code>. It
+                            matches <code>product/5/3</code> and
+                                <code>product/5/detail/3/foo</code>. The event handler gets
+                                <code>3</code> or <code>detail/3/foo</code> passed on with
+                            the key <code>detail</code> in its arguments.</p>
+                    </li>
+                </ul><p></p>
+            <div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+                </p><p>For a better understanding about how patterns work and what matched parameters
+                    look like, see the following page in the <span class="ph uicontrol">Samples</span> in the
+                    Demo Kit: <a href="entity/sap.ui.core.routing.Route/sample/sap.ui.core.sample.PatternMatching" title="entity/sap.ui.core.routing.Route/sample/sap.ui.core.sample.PatternMatching" class="sap-doc" alt="entity/sap.ui.core.routing.Route/sample/sap.ui.core.sample.PatternMatching">sap.ui.core.sample.PatternMatching/preview</a>.</p>
+            <p></p></div></div>
+        </section><section>
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>SAPUI5 uses
+                    Crossroads.js for parsing the hash and the Hasher framework for manipulating the
+                    hash.</p>
+            <p></p></div></div>
+        </section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/902313063d6f45aeaa3388cc4c13c34e">Routing Configuration</a></li><li><a href="topic/516e477e7e0b4e188b19a406e7528c1e">Methods and Events for Navigation</a></li><li><a href="topic/acdb6cd408ec4b9eb5e1fe45e607abdd">Initializing and Accessing a Routing Instance</a></li><li><a href="topic/2c5c84d207d246bc9f733f29df1ff892">Working with Multiple Targets</a></li><li><a href="topic/1238d706b130433c9bd6b85cfb77cece">Using the title Property in Targets</a></li><li><a href="topic/fb19f501b16e4e4991eb6a017770945b">Enabling Routing in Nested Components</a></li><li><a href="topic/8e9d6e4df5464eb5a6e40696c4d2ccd6">Navigate with Nested Components</a></li><li><a href="topic/856d6c6a408846b480ca177b9a1aab62">Navigate with Dynamic Targets</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d" title="SAPUI5 comes with a powerful routing API that helps you control the state of your application efficiently. This tutorial will illustrate all major features and APIs related to navigation and routing in SAPUI5 apps by creating a simple and easy to understand mobile app. It represents a set of best practices for applying the navigation and routing features of SAPUI5 to your applications." class="sap-doc">Tutorial: Navigation and Routing</a></li>
+        <li><a href="api/sap.ui.core.routing" title="api/sap.ui.core.routing" class="sap-doc" alt="api/sap.ui.core.routing">API Reference: sap.ui.core.routing</a></li>
+        <li><a href="api/sap.m.routing.Router" title="api/sap.m.routing.Router" class="sap-doc" alt="api/sap.m.routing.Router">API Reference: sap.m.routing.Router</a></li>
+        <li><a href="api/sap.ui.core.routing.Route/constructor" title="api/sap.ui.core.routing.Route/constructor" class="sap-doc" alt="api/sap.ui.core.routing.Route/constructor">API Reference: sap.ui.core.routing.Route: Constructor
+                Detail</a></li>
+        <li><a href="https://millermedeiros.github.io/crossroads.js/" title="https://millermedeiros.github.io/crossroads.js/" class="external-link" target="_blank" rel="noopener">Crossroads.js</a></li>
+        <li><a href="https://github.com/millermedeiros/hasher/" title="https://github.com/millermedeiros/hasher/" class="external-link" target="_blank" rel="noopener">Hasher framework on GitHub</a></li>
+    </ul></section></div></section></div></body></html>

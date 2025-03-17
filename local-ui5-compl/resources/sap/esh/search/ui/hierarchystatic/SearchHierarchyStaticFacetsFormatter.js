@@ -1,0 +1,8 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define(["./SearchHierarchyStaticFacet"],function(t){"use strict";function e(t){return t&&t.__esModule&&typeof t.default!=="undefined"?t.default:t}const a=e(t);class r{model;facetMap;constructor(t){this.model=t;this.facetMap={}}getFacetAttributes(t){const e=t.query.filter.dataSource.attributesMetadata;const a=[];for(let r=0;r<e.length;++r){const i=e[r];if(!i.isHierarchy){continue}if(i.hierarchyDisplayType!==t.sina.HierarchyDisplayType.StaticHierarchyFacet){continue}const c=t.sina.getHierarchyDataSource(i.hierarchyName);if(!c){continue}a.push({attributeId:i.id,dataSource:c})}return a}async getFacet(t,e,r){let i;try{i=this.facetMap[r.attributeId];if(!i){const c=t.query.filter.dataSource.getAttributeMetadata(r.attributeId);i=new a({model:e,attributeId:r.attributeId,dataSource:r.dataSource,filter:e.getProperty("/uiFilter"),title:c.label});this.facetMap[r.attributeId]=i;i.treeNodeFactory.cache.activate();await i.initAsync()}i.treeNodeFactory.cache.activate();i.filter=e.getProperty("/uiFilter");i.updateNodesFromHierarchyNodePaths(t.hierarchyNodePaths);await i.mixinFilterNodes();return i}finally{i.treeNodeFactory.cache.deActivate()}}getFacets(t){if(!this.model.config.FF_staticHierarchyFacets){return Promise.resolve([])}if(!this.model.getProperty("/facetVisibility")){return Promise.resolve([])}const e=this.getFacetAttributes(t);const a=[];for(let r=0;r<e.length;++r){const i=e[r];const c=this.getFacet(t,this.model,i);a.push(c)}return Promise.all(a)}destroy(){for(const t in this.facetMap){const e=this.facetMap[t];e.delete()}this.facetMap={}}handleDataSourceChanged(){this.destroy()}}return r})})();
+//# sourceMappingURL=SearchHierarchyStaticFacetsFormatter.js.map

@@ -1,0 +1,59 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio53cdd55a77ce4f33a14bd0767a293063" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/type-determination-53cdd55.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Type Determination</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Type Determination</h2></div><p>The property binding automatically determines the appropriate type depending on the
+			property's metadata, unless a type is specified explicitly. For example, the binding
+				<code>"{DeliveryDate}"</code> will determine the type
+				<code>sap.ui.model.odata.type.DateTimeOffset</code> (assuming the metadata
+			specifies "Edm.DateTimeOffset" for this property), but <code>"{path : 'DeliveryDate',
+				type : 'sap.ui.model.odata.type.String'}"</code> uses the hardcoded type
+				<code>sap.ui.model.odata.type.String</code> instead (and does not require
+			metadata). You cannot specify format options or constraints unless you also hardcode the
+			type. </p><p>Automatic type determination will take constraints from metadata into account, namely the
+				<a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html" title="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part3-csdl.html" class="external-link" target="_blank" rel="noopener">OData property facets</a> "MaxLength", "Nullable", "Precision"
+			and "Scale". In addition to the OData property facets, the following OData V4
+			annotations are considered to set type constraints on automatic type determination:</p><ul class="ul ">
+			<li class="li">
+				<p><code>Org.OData.Validation.V1.Validation.Minimum</code>,
+						<code>Org.OData.Validation.V1.Validation.Maximum</code> and
+						<code>Org.OData.Validation.V1.Validation.Exclusive</code> are used to
+					set the constraints <code>minimum</code>, <code>maximum</code>,
+						<code>minimumExclusive</code> and <code>maximumExlusive</code> for
+						<code>sap.ui.model.odata.type.Decimal</code>.</p>
+			</li>
+			<li class="li">
+				<p><code>com.sap.vocabularies.Common.v1.IsDigitSequence</code> is used to set
+					the constraint <code>isDigitSequence</code> for
+						<code>sap.ui.model.odata.type.String</code>.</p>
+			</li>
+		</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Only constant expressions are supported to determine the annotation value in this
+			case.</p></div></div><p>Currently, the types "Edm.Boolean", "Edm.Byte", "Edm.Date", "Edm.DateTimeOffset",
+			"Edm.Decimal", "Edm.Double", "Edm.Guid", "Edm.Int16", "Edm.Int32", "Edm.Int64",
+			"Edm.SByte", "Edm.Single", "Edm.String" and "Edm.TimeOfDay" are supported and mapped to
+			the corresponding type in the namespace <code>sap.ui.model.odata.type</code>. All
+			other types, including collections, are mapped to the generic type
+				<code>sap.ui.model.odata.type.Raw</code> which can only be used to access the
+			raw model value "as is", but not to convert it to a human readable representation. This
+			allows specialized controls to work with types that would otherwise not be
+			supported.</p><p>For more information, see the <a href="api/sap.ui.model.odata.type" title="api/sap.ui.model.odata.type" class="sap-doc" alt="api/sap.ui.model.odata.type">sap.ui.model.odata.type</a> and <a href="api/sap.ui.model.odata.type.Raw" title="api/sap.ui.model.odata.type.Raw" class="sap-doc" alt="api/sap.ui.model.odata.type.Raw">sap.ui.model.odata.type.Raw</a> API documentation in the Demo
+			Kit.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>By default, a property binding delivers a value formatted according to the target type of the
+				control property it applies to, for example, "boolean" in case of <code>&lt;Icon
+					src="sap-icon://message-warning" visible="{path : 'DeliveryDate', formatter :
+					'.isOverdue'}"&gt;</code>. This leads to errors because type determination adds
+				the correct type for the <code>DeliveryDate</code> property which is
+					<code>DateTimeOffset</code> and cannot format its value as a boolean value.
+				In such cases, use <code>targetType : 'any'</code> as follows:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Icon src="sap-icon://message-warning" visible="{path : 'DeliveryDate', targetType : 'any', formatter : '.isOverdue'}"&gt;</pre></div></div></section>
+			<p>In rare cases, you might also want to specify a different <code>targetType</code>, for
+				example <code>string</code>, <code>boolean</code>, <code>int</code>, or
+					<code>float</code>. For more information how these values relate to OData
+				types, see the <a href="api/sap.ui.model.odata.type" title="api/sap.ui.model.odata.type" class="sap-doc" alt="api/sap.ui.model.odata.type">sap.ui.model.odata.type</a> API documentation or explore
+				the <a href="entity/sap.ui.core.mvc.XMLView/sample/sap.ui.core.sample.ViewTemplate.types" title="entity/sap.ui.core.mvc.XMLView/sample/sap.ui.core.sample.ViewTemplate.types" class="sap-doc" alt="entity/sap.ui.core.mvc.XMLView/sample/sap.ui.core.sample.ViewTemplate.types">XML Templating: UI5 OData
+					Types</a> sample in the Demo Kit. For more information
+				about <code>targetType</code>, see the <a href="api/sap.ui.base.ManagedObject#methods/bindProperty" title="api/sap.ui.base.ManagedObject#methods/bindProperty" class="sap-doc" alt="api/sap.ui.base.ManagedObject#methods/bindProperty">sap.ui.base.ManagedObject#bindProperty</a> API
+				documentation in the Demo Kit.</p>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

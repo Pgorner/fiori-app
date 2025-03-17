@@ -1,0 +1,6 @@
+/*
+ * SAPUI5
+  (c) Copyright 2009-2021 SAP SE. All rights reserved
+ */
+sap.ui.define(["jquery.sap.global","sap/sac/df/thirdparty/lodash","sap/zen/dsh/utils/BaseHandler"],function(jQuery,_,BaseHandler){"use strict";BaseHandler.apply(this,arguments);var InputFieldHandler=function(){BaseHandler.apply(this,arguments);var that=this;this.init=function(e,t){e.setValue(t.value);e.setEnabled(t.enabled);e.setEditable(t.editable);e.setTooltip(t.tooltip)};this.create=function(oChainedControl,oControlProperties){var id=oControlProperties["id"];var oControl=this.createDefaultProxy(id);this.init(oControl,oControlProperties);if(oControlProperties.command){oControl.attachChange(function(event){var value=event.getParameter("newValue");var command=that.prepareCommand(oControlProperties.command,"__VALUE__",value);eval(command)})}return oControl};this.update=function(e,t){if(t){this.init(e,t)}return e};this.getDefaultProxyClass=function(){return["sap.m.Input","sap.ui.commons.TextField"]};this.getDecorator=function(){return"FixedHeightDecorator"};this.getType=function(){return"inputfield"}};var instance=new InputFieldHandler;BaseHandler.dispatcher.addHandlers(instance.getType(),instance);return instance});
+//# sourceMappingURL=inputfield_handler.js.map

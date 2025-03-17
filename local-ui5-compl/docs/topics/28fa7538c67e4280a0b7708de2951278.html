@@ -1,0 +1,106 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio28fa7538c67e4280a0b7708de2951278" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/create-a-neo-app-json-project-configuration-file-28fa753.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Create a neo-app.json Project Configuration File</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Create a neo-app.json Project Configuration File</h2></div><div class="shortdesc">The <code>neo-app.json</code> file contains all project settings for SAP Web IDE
+		and is created in the root folder of your project. It is a JSON format file consisting of multiple configuration keys. The most important
+		setting for you to configure is the path where the SAPUI5 runtime is located when
+		starting the app.</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>SAP Web IDE is no longer available
+                                via SAP Business Technology Platform trial accounts. Any references to SAP Web IDE in this documentation are only relevant for you if you
+                                have access to SAP Web IDE through a productive SAP BTP account. Please consider SAP Business Application Studio as an alternative. See <a href="topic/6bbad66475d040f39df6fbbaabe6f40f" title="Learn how you can use SAP Business Application Studio together with UI5 Tooling to develop state-of-the-art UI5 apps." class="sap-doc">App Development Using SAP Business Application Studio</a>.</p></div></div><section>
+			<p>You do this using the "routes" key and defining an array of resource objects. For running an
+					SAPUI5 tutorial,
+				you only need two entries - one that configures SAPUI5 to be available
+				with the path <code>/resources</code>, and another one that configures the
+				test resources needed for the SAP Fiori launchpad integration with the
+				path <code>/test-resources</code>.</p>
+			<p>Create two configuration objects that contain a <code>path</code>, a
+					<code>target</code>, and a <code>description</code> attribute with more
+				configuration settings. The <code>path</code> and the <code>entryPath</code>
+				values will point to the location on the server where the SAPUI5 resources will
+				be stored.</p>
+			<p>SAP Web IDE reads these settings
+				automatically when running the app. You can see the whole configuration file in the
+				code block below. Optionally, you can add the key <code>welcomeFile</code> to
+				configure the entry point to your app. In web applications, this is typically the
+					<code>index.html</code> file.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Depending on which SAP Web IDE version
+					you are using, you might have to configure the project to run against the
+					"snapshot" version of SAPUI5, otherwise
+					the application will be launched with the SAPUI5 release that
+					is delivered with SAP Web IDE. This is usually the latest version that is released publicly to
+					customers.</p>
+				<p>You can check which version of SAPUI5 is loaded by opening the SAPUI5 debugging tools with this <a href="topic/154844c3ac2a4675a37aeb6259a5e034" title="SAPUI5 provides tools for information, diagnostics and testing purposes that are accessible via keyboard shortcuts." class="sap-doc">shortcut</a>:</p>
+				<p>
+					<span class="keys">
+						<span class="keyWrap"><kbd class="key">Ctrl</kbd></span>
+						<span class="keyWrap"><kbd class="key">Shift</kbd></span>
+						<span class="keyWrap"><kbd class="key">Alt</kbd></span>
+					</span>/<span class="keys">
+						<span class="keyWrap"><kbd class="key">Option</kbd></span>
+						<span class="keyWrap"><kbd class="key">P</kbd></span>
+					</span></p>
+				<p> If the version is too old for certain features of the tutorial, you have to add the <code>version</code> attribute to the
+					target configuration entry and set the value to <code>snapshot</code>.</p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">Procedure</h2>
+			<p></p><ol>
+					<li class="li">Select the <span class="ph uicontrol">New File</span> icon and enter <kbd class="ph userinput">neo-app.json</kbd> as the file name.</li>
+					<li class="li">Open the newly created file from the tree structure on the left side of the screen.</li>
+					<li class="li">Paste the following code in the <code>neo-app.json</code> and select <span class="ph uicontrol">Save</span>:<p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "version": "snapshot",
+        "entryPath": "/resources"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources"
+      },
+      "description": "SAPUI5 Test Resources"
+    }
+  ]
+}</pre></div></div></section>
+						<p></p></li>
+				</ol>Here's what the settings for the two resources mean:<div class="tableWrapper "><div class="fig"><table border="1" id="table_lmn_2gx_vnb" class=" ">
+						
+						
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1"><span class="emphasis">Setting</span></td>
+								<td colspan="1" rowspan="1"><span class="emphasis">Explanation</span></td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>path</code></td>
+								<td colspan="1" rowspan="1">Application path to be mapped</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>type</code></td>
+								<td colspan="1" rowspan="1">Type of resource</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>name</code></td>
+								<td colspan="1" rowspan="1">Name of the resource</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1"><code>entyPath</code></td>
+								<td colspan="1" rowspan="1">Path prepended to the request path</td>
+							</tr>
+						</tbody>
+					</table></div></div>For more information, see <a href="https://help.sap.com/viewer/ea72206b834e4ace9cd834feed6c0e09/Cloud/en-US/d18a9b0739264a4dbd0acbbc0232d614.html" title="https://help.sap.com/viewer/ea72206b834e4ace9cd834feed6c0e09/Cloud/en-US/d18a9b0739264a4dbd0acbbc0232d614.html" class="external-link" target="_blank" rel="noopener">Accessing SAPUI5 Resources</a> in the SAP Business Technology Platform documentation.<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

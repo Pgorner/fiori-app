@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+	<edmx:DataServices m:DataServiceVersion="2.0">
+
+		<Schema Namespace="EmployeesNamespace" sap:schema-version="1"
+			xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+			<EntityType Name="Employee" sap:label="Employees" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id" />
+				</Key>
+				<Property Name="Id" Type="Edm.String" Nullable="false" sap:creatable="false" sap:label="Id"/>
+				<Property Name="Department" Type="Edm.String" sap:creatable="true" sap:label="Department"/>
+				<Property Name="Name" Type="Edm.String" sap:creatable="false" sap:label="Name"/>
+			</EntityType>
+
+			<EntityType Name="VL_NAMES" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ID" />
+				</Key>
+				<Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="ID" />
+				<Property Name="DESCR" Nullable="false" Type="Edm.String" sap:label="Description" />
+			</EntityType>
+
+			<EntityType Name="VL_DEPARTMENTS" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="ID" />
+				</Key>
+				<Property Name="ID" Type="Edm.String" Nullable="false" sap:label="Department ID" />
+			</EntityType>
+
+
+			<EntityContainer Name="EmployeesNamespace_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="Employees" EntityType="EmployeesNamespace.Employee" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:countable="true"
+				sap:content-version="1"/>
+				<EntitySet Name="VL_NAMES" EntityType="EmployeesNamespace.VL_NAMES" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="false"/>
+				<EntitySet Name="VL_DEPARTMENTS" EntityType="EmployeesNamespace.VL_NAMES" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" sap:countable="false"/>
+			</EntityContainer>
+
+			<Annotations Target="EmployeesNamespace.VL_NAMES/ID"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="DESCR">
+					<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextLast"/>
+				</Annotation>
+			</Annotations>
+
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="EmployeesNamespace.Employee/Name">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="dataNames" />
+						<PropertyValue Property="CollectionPath" String="VL_NAMES" />
+						<PropertyValue Property="SearchSupported" Bool="true" />
+						<PropertyValue Property="FetchValues" Int="2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Name" />
+									<PropertyValue Property="ValueListProperty" String="ID" />
+								</Record>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="DESCR" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="EmployeesNamespace.Employee/Department">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="dataNames" />
+						<PropertyValue Property="CollectionPath" String="VL_DEPARTMENTS" />
+						<PropertyValue Property="SearchSupported" Bool="false" />
+						<PropertyValue Property="FetchValues" Int="2" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Department" />
+									<PropertyValue Property="ValueListProperty" String="ID" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

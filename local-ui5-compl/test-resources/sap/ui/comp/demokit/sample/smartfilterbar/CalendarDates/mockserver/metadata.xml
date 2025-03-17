@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common/v1">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI/v1">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="Namespace"
+			sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="MainEntityType" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id" />
+				</Key>
+				<Property Name="Id"
+					Type="Edm.String"
+					Nullable="false"
+					sap:visible="false"
+					sap:label="Id Key Field"/>
+				<Property Name="CALENDAR_YEAR"
+					Type="Edm.String"
+					MaxLength="4"
+					sap:label="Calendar Year"/>
+				<Property Name="CALENDAR_MONTH"
+					Type="Edm.String"
+					MaxLength="2"
+					sap:label="Calendar Month"/>
+				<Property Name="CALENDAR_YEAR_MONTH"
+					Type="Edm.String"
+					MaxLength="6"
+					sap:label="Calendar Year Month"/>
+				<Property Name="CALENDAR_QUARTER"
+					Type="Edm.String"
+					MaxLength="1"
+					sap:label="Calendar Quarter"/>
+				<Property Name="CALENDAR_YEAR_QUARTER"
+					Type="Edm.String"
+					MaxLength="5"
+					sap:label="Calendar Year Quarter"/>
+				<Property Name="CALENDAR_WEEK"
+					Type="Edm.String"
+					MaxLength="2"
+					sap:label="Calendar Week"/>
+				<Property Name="CALENDAR_YEAR_WEEK"
+					Type="Edm.String"
+					MaxLength="6"
+					sap:label="Calendar Year Week"/>
+				<Property Name="CALENDAR_DATE"
+					Type="Edm.String"
+					sap:label="Calendar Date"/>
+			</EntityType>
+
+			<EntityContainer Name="Namespace_Entities"
+				m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="MainEntitySet" EntityType="Namespace.MainEntityType"/>
+			</EntityContainer>
+
+			<Annotations Target="Namespace.MainEntityType"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="UI.FieldGroup"
+					Qualifier="CalendarDate.Group">
+					<Record>
+						<PropertyValue Property="Label" String="Calendar Date Types" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_YEAR" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_MONTH" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_YEAR_MONTH" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_QUARTER" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_YEAR_QUARTER" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_WEEK" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_YEAR_WEEK" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="CALENDAR_DATE" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_YEAR" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_MONTH" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_YEAR_MONTH" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_QUARTER" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_YEAR_QUARTER" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_WEEK" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_YEAR_WEEK" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="CALENDAR_DATE" />
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_YEAR"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarYear" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_MONTH"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarMonth" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_YEAR_MONTH"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarYearMonth" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_QUARTER"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarQuarter" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_YEAR_QUARTER"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarYearQuarter" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_WEEK"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarWeek" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_YEAR_WEEK"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarYearWeek" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/CALENDAR_DATE"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsCalendarDate" Bool="true"/>
+			</Annotations>
+
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

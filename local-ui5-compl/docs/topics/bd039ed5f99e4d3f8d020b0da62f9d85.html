@@ -1,0 +1,94 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobd039ed5f99e4d3f8d020b0da62f9d85" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/the-library-js-file-bd039ed.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">The library.js File</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">The library.js File</h2></div><div class="shortdesc">The <code>library.js</code> file is a JavaScript file that contains the
+		JavaScript code for all enumeration types provided by the library as well as
+		library-specific initialization code that is independent from the controls in the
+		library.</div><p>The file calls the <code>sap/ui/core/Lib.init</code> method with an object that describes the content of the library (list of contained
+			controls, elements etc.). For more informarion about the object parameter, see
+				<a href="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.init" title="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.init" class="sap-doc" alt="api/sap.ui.core.Lib#methods/sap.ui.core.Lib.init"><code>sap/ui/core/Lib.init</code></a></p><p>The library style sheet file (<code>library.css</code>) contains all styles
+			relevant for this library. For libraries that have been developed with the SAPUI5 application development
+			tools, this file is also generated automatically during the build.</p><p>In a <code>library.js</code> file, the call to <code>sap/ui/core/Lib.init</code> takes care of creating the namespace object of the
+			library and returns a library object that you can use to write types or helpers:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+		'sap/ui/base/DataType',
+		'sap/ui/core/Lib'
+	], function(DataType, Library) {
+ 
+	"use strict";
+
+	// initialize the library with global name "my.lib"
+	var oThisLibrary = Library.init({
+		name: "my.lib",
+		apiVersion: 2
+		...
+	});	
+ 
+	/**
+	* The "my.lib" library
+	* @namespace
+	* @alias my.lib
+	*/
+ 
+	/**
+	* An addition to mylib. If you used the @alias tag above, JSDoc will recognize this as my.lib.ValueColor.
+	* @ui5-metamodel The UI5 metamodel restoration logic also can handle this kind of definition and will create an enumeration type
+	*         my/lib/ValueColor.type. The name of the variable (&lt;code&gt;oThisLibrary&lt;/code&gt;) is not mandatory, just an example.
+	*/
+	oThisLibrary.ValueColor = {
+		Color1: …
+	};
+ 
+	//  An enum type must be registered by calling the "DataType.registerEnum()" method
+	DataType.registerEnum("my.lib.ValueColor", oThisLibrary.ValueColor);
+
+	// don't forget to return the value
+	return oThisLibrary;
+ 
+});</pre></div></div></section><p></p><section id="section_cxp_t22_2z">
+			<h2 class="title ">Enumerations and RegEx Types</h2>
+		</section><section>
+			<p>We recommend to add all simple types of a library to the
+					<code>library.js</code> module. Other modules that need to work with
+				such types can simply include the respective library as a module
+				dependency:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// requiring a library
+sap.ui.require(["sap/ui/core/library"], function(library) {
+    var sAlign = library.HorizontalAlign.Begin;
+});
+ 
+// defining a module with a library dependency
+sap.ui.define(["sap/ui/core/library"], function(library) {
+    var sAlign = library.HorizontalAlign.Begin;
+});</pre></div></div></section><p></p>
+		</section><section id="section_tx3_y22_2z">
+			<h2 class="title ">ManagedObject Metadata</h2>
+			<p>In the metadata definition of <code>ManagedObject</code> subclasses, types for
+				properties, aggregations, associations and event parameters have to be specified
+				with global names as strings.</p>
+			<p>The default values, however, should be referenced via the correct type value from the
+					<code>library.js</code> module because it avoids the usage of
+				globals.</p>
+			<p>Define the <code>library.js</code> as static dependency and use it as a local
+				variable for convenience:
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/Control", "./library"], function(Control, library) {
+    // shortcut on Enum
+    var SizeMode = library.SizeMode;
+ 
+    var MyControl = Control.extend("my.lib.MyControl", {
+        metadata : {
+            library : "my.lib",
+            properties : {
+                sizeMode: {type : "my.lib.SizeMode", group : "Appearance", defaultValue : SizeMode.Auto}
+            }
+        }
+    });
+ 
+    MyControl.prototype.setSizeMode = function (sMode) {
+        switch(sMode) {
+            case SizeMode.Auto: ... break;
+            case SizeMode.Full: ... break;
+            ...
+        }
+    };
+ 
+    return MyControl;
+});</pre></div></div></section><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

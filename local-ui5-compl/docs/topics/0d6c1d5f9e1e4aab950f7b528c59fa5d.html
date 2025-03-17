@@ -1,0 +1,107 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0d6c1d5f9e1e4aab950f7b528c59fa5d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/setting-units-of-measure-0d6c1d5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Setting Units of Measure</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Setting Units of Measure</h2></div><div class="shortdesc">You can display the unit of measure next to numeric values by providing the
+			<code>sap:unit</code> attribute in the OData metadata file or by annotating the unit
+		in the annotation document.</div><section>
+            <p>In the following example of the <code>Product</code> entity type definition in
+                the OData metadata file, the <code>Price</code> property has the
+                    <code>CurrencyCode</code> property as its unit of measure;
+                    <code>Width</code>, <code>Depth</code>, and <code>Height</code> have
+                the <code>DimUnit</code> property as their unit of measure; and the
+                    <code>WeightMeasure</code> property has the <code>WeightUnit</code>
+                property as its unit of measure.</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+                </p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;EntityType Name="Product" sap:content-version="1"&gt;
+    &lt;Key&gt;
+        &lt;PropertyRef Name="ProductID"/&gt;
+    &lt;/Key&gt;
+    &lt;Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Product ID" sap:updatable="false"/&gt;
+    &lt;Property Name="TypeCode" Type="Edm.String" MaxLength="2" sap:label="Prod. Type Code"/&gt;
+    &lt;Property Name="Category" Type="Edm.String" MaxLength="40" sap:label="Prod. Cat."/&gt;
+    &lt;Property Name="Name" Type="Edm.String" MaxLength="255" sap:label="Product Name" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="NameLanguage" Type="Edm.String" MaxLength="1" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="Description" Type="Edm.String" MaxLength="255" sap:label="Prod.Descrip." sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="DescriptionLanguage" Type="Edm.String" MaxLength="1" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/&gt;
+    &lt;Property Name="SupplierID" Type="Edm.String" MaxLength="10" sap:label="Bus. Part. ID"/&gt;
+    &lt;Property Name="SupplierName" Type="Edm.String" MaxLength="80" sap:label="Company Name" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="TaxTarifCode" Type="Edm.Byte" sap:label="Prod. Tax Code"/&gt;
+    &lt;Property Name="MeasureUnit" Type="Edm.String" MaxLength="3" sap:label="Qty. Unit" sap:semantics="unit-of-measure"/&gt;
+    &lt;Property Name="WeightMeasure" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="WeightUnit" sap:label="Wt. Measure"/&gt;
+    &lt;Property Name="WeightUnit" Type="Edm.String" MaxLength="3" sap:label="Qty. Unit" sap:semantics="unit-of-measure"/&gt;
+    &lt;Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:semantics="currency-code"/&gt;
+    &lt;Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Unit Price"/&gt;
+    &lt;Property Name="Width" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Dimensions"/&gt;
+    &lt;Property Name="Depth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Dimensions"/&gt;
+    &lt;Property Name="Height" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Dimensions"/&gt;
+    &lt;Property Name="DimUnit" Type="Edm.String" MaxLength="3" sap:label="Dim. Unit" sap:semantics="unit-of-measure"/&gt;
+    &lt;Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false"/&gt;
+    &lt;NavigationProperty Name="ToSalesOrderLineItems" Relationship="GWSAMPLE_BASIC.Assoc_Product_SalesOrderLineItems" FromRole="FromRole_Assoc_Product_SalesOrderLineItems" ToRole="ToRole_Assoc_Product_SalesOrderLineItems"/&gt;
+    &lt;NavigationProperty Name="ToSupplier" Relationship="GWSAMPLE_BASIC.Assoc_BusinessPartner_Products" FromRole="ToRole_Assoc_BusinessPartner_Products" ToRole="FromRole_Assoc_BusinessPartner_Products"/&gt;
+&lt;/EntityType&gt;</pre></div></div></section>
+            <p></p></div></div>
+            <p>In the following example, the <code>Price</code> property is annotated in the
+                annotation document with <code>Org.OData.Measures.V1.ISOCurrency</code> to
+                indicate that the currency is displayed using the <code>CurrencyCode</code>
+                property; the <code>Width</code>, <code>Depth</code>, and
+                    <code>Height</code> properties are annotated with
+                    <code>Org.OData.Measures.V1.Unit</code> to indicate that the unit is
+                displayed using the <code>DimUnit</code> property; and
+                    <code>WeightMeasure</code> is annotated with
+                    <code>Org.OData.Measures.V1.Unit</code> to indicate that the unit is
+                displayed using the <code>WeightUnit</code> property.</p>
+            
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="GWSAMPLE_BASIC.Product/WeightMeasure"&gt;
+    &lt;Annotation Term="Org.OData.Measures.V1.Unit" Path="WeightUnit"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="GWSAMPLE_BASIC.Product/Width"&gt;
+    &lt;Annotation Term="Org.OData.Measures.V1.Unit" Path="DimUnit"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="GWSAMPLE_BASIC.Product/Depth"&gt;
+    &lt;Annotation Term="Org.OData.Measures.V1.Unit" Path="DimUnit"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="GWSAMPLE_BASIC.Product/Height"&gt;
+    &lt;Annotation Term="Org.OData.Measures.V1.Unit" Path="DimUnit"/&gt;
+&lt;/Annotations&gt;
+&lt;Annotations Target="GWSAMPLE_BASIC.Product/Price"&gt;
+    &lt;Annotation Term="Org.OData.Measures.V1.ISOCurrency" Path="CurrencyCode"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate GWSAMPLE_BASIC.Product with {
+  @Measures.Unit : WeightUnit
+  WeightMeasure
+};
+
+annotate GWSAMPLE_BASIC.Product with {
+  @Measures.Unit : DimUnit
+  Width
+};
+
+annotate GWSAMPLE_BASIC.Product with {
+  @Measures.Unit : DimUnit
+  Depth
+};
+
+annotate GWSAMPLE_BASIC.Product with {
+  @Measures.Unit : DimUnit
+  Height
+};
+
+annotate GWSAMPLE_BASIC.Product with {
+  @Measures.ISOCurrency : CurrencyCode
+  Price
+};
+</pre></div></div></section><p></p></div></div>
+            
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

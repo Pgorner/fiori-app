@@ -1,0 +1,2 @@
+sap.ui.define(["sap/rules/ui/parser/resources/vocabulary/lib/rtsVocaContextFactory","sap/rules/ui/parser/resources/vocabulary/lib/rtsVocaCoreFactory"],function(r,t){"use strict";var e=new r.rtsContextFactoryLib;var o=new t.rtsVocaCoreFactoryLib;function a(){}a.prototype.init=function(r){var t;t=e.getRTSContext(r);return o.getVocabularyRuntimeServices(t)};return{rtsVocaInitiatorLib:a}},true);
+//# sourceMappingURL=rtsVocaInitiator.js.map

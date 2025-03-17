@@ -1,0 +1,128 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob1d4d261524b4a3da78547ed4283a082" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-8-page-variant-management-b1d4d26.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 8: Page Variant Management </h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 8: Page Variant Management </h2></div><div class="shortdesc">In this step, we will look at the page variant of the
+                  <code>VariantManagement</code> control, an enhanced function of the
+                  <code>SmartVariantManagement</code> control that can handle multiple smart
+            controls.</div><p>Basically, the paged version of the <code>VariantManagement</code> control is the
+                  same as the (non-paged) <code>VariantManagement</code> control. The difference
+                  is that the page variant is initialized with the <code>persistencyKey</code>
+                  property and can handle the persistency of multiple smart controls. Each smart
+                  control that uses personalization via the page variant has to provide a
+                  persistency key. The persistency itself will be stored under the
+                        <code>persistencyKey</code> of the <code>VariantManagement</code>
+                  control, and the relevant content for each control will be distributed accordingly
+                  based on each individual persistency key.</p><p>
+                  <code>persistencyKey</code> - <code>VariantManagement</code> control </p><ul class="ul ">
+                  <li class="li">
+                        <p><code>persistencyKey</code> - <code>SmartFilterBar</code>
+                              control-relevant content</p>
+                  </li>
+                  <li class="li">
+                        <p><code>persistencyKey</code>
+                              <code>SmartTable</code> control-relevant content</p>
+                  </li>
+            </ul><p>Therefore, the persistent content of the page variant is the aggregated content of
+                  each registered smart control, and the individual persistency keys of the various
+                  smart controls are used to distinguish and distribute the relevant content.</p><section>
+                  <h2 class="title ">Preview</h2>
+                  <p>As a page variant, the view management is now no longer part of the
+                              <code>SmartFilterBar</code> and <code>SmartTable</code>
+                        controls, but displayed in a central location instead:</p>
+                  <div><div class="fig"><img src="loioac9637ac1f0d49eb8b0f8963dd20bda7_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Central View Management</h2></span></div><p>In addition, the <code>VariantManagement</code> control is no longer
+                        displayed in the <span class="ph uicontrol">Filters</span> dialog of the
+                              <code>SmartFilterBar</code> control:</p>
+                  <div><div class="fig"><img src="loio20ef10b4d92942d5b6ab4ddd25c32a8b_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Filter Dialog Without View Management</h2></span></div>
+                  <p>Other than that, the page variant is just the same as the
+                              <code>VariantManagement</code> control.</p>
+            </section><section>
+                  <h2 class="title ">Coding</h2>
+                  <p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in
+                        the Demo Kit at
+                                    <a href="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.08" title="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.08" class="sap-doc" alt="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.08">Smart Controls - Step 8 - Page
+                                    Variant Management</a>
+                        .</p>
+            </section><section>
+                  <h2 class="title ">VariantManagement.view.xml</h2>
+                  <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View 
+	       xmlns="sap.m"
+       xmlns:mvc="sap.ui.core.mvc"
+       controllerName="sap.ui.demo.smartControls.VariantManagement"
+       xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+       xmlns:smartTable="sap.ui.comp.smarttable"&gt;
+       &lt;smartFilterBar:SmartFilterBar 
+             id="smartFilterBar"
+             entitySet="Products"
+             persistencyKey="SmartFilterPKey"&gt;
+             &lt;smartFilterBar:controlConfiguration&gt;
+                    &lt;smartFilterBar:ControlConfiguration
+                           key="Category" 
+                           visibleInAdvancedArea="true"
+                           preventInitialDataFetchInValueHelpDialog="false"&gt;
+                    &lt;/smartFilterBar:ControlConfiguration&gt;
+             &lt;/smartFilterBar:controlConfiguration&gt;
+       &lt;/smartFilterBar:SmartFilterBar&gt;
+       &lt;smartTable:SmartTable 
+             id="smartTable_ResponsiveTable"
+             smartFilterId="smartFilterBar" 
+             tableType="ResponsiveTable" 
+             editable="false"
+             entitySet="Products" 
+             useVariantManagement="true"
+             useTablePersonalisation="true" 
+             header="Products" 
+             showRowCount="true"
+             enableExport="false" 
+             enableAutoBinding="true"
+             persistencyKey="SmartTablePKey"&gt;
+       &lt;/smartTable:SmartTable&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+                  <p>The example shows the view management <span class="emphasis">without</span> a page
+                        variant.</p>
+            </section><section>
+                  <h2 class="title ">VariantManagement.view.xml</h2>
+                  <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View 
+	       controllerName="sap.ui.demo.smartControls.VariantManagement"
+       xmlns="sap.m"
+       xmlns:mvc="sap.ui.core.mvc"
+       xmlns:html="http://www.w3.org/1999/xhtml"      
+       xmlns:smartVariantManagement="sap.ui.comp.smartvariants"    
+       xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"     
+       xmlns:smartTable="sap.ui.comp.smarttable"&gt;
+
+      <span class="emphasis"> &lt;HBox class="exPageVariantPadding"&gt;                                                
+       &lt;smartVariantManagement:SmartVariantManagement        
+             id="pageVariantId"
+             persistencyKey="PageVariantPKey" /&gt;     
+       &lt;/HBox&gt;</span>             
+       &lt;smartFilterBar:SmartFilterBar 
+             id="smartFilterBar"
+             entitySet="Products"
+             smartVariant="pageVariantId"
+             persistencyKey="SmartFilterPKey" assignedFiltersChanged="onFiltersChanged"&gt;
+             &lt;smartFilterBar:controlConfiguration&gt;
+                    &lt;smartFilterBar:ControlConfiguration
+                           key="Category" 
+                           visibleInAdvancedArea="true"
+                           preventInitialDataFetchInValueHelpDialog="false"&gt;
+                    &lt;/smartFilterBar:ControlConfiguration&gt;
+             &lt;/smartFilterBar:controlConfiguration&gt;
+       &lt;/smartFilterBar:SmartFilterBar&gt;
+       &lt;smartTable:SmartTable 
+             id="smartTable_ResponsiveTable"
+             smartFilterId="smartFilterBar" 
+             smartVariant="pageVariantId"            
+             tableType="ResponsiveTable" 
+             editable="false"
+             entitySet="Products" 
+             useVariantManagement="true"
+             useTablePersonalisation="true" 
+             header="Products" 
+             showRowCount="true"
+             enableExport="false" 
+             enableAutoBinding="true"
+             persistencyKey="SmartTablePKey"&gt;
+       &lt;/smartTable:SmartTable&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+                  <p>The example shows the view management <span class="emphasis">with</span> a page
+                        variant.</p>
+            </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/64bde9a8879d4f418e2849f7285dd757">Smart Controls Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/97fc0eaaf8b045779878ea829586da1a">Step 7: View Management</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/0219b115deda45a9ae46d11fdc7e69eb">Step 9: Smart Chart with Chart Personalization and View Management</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

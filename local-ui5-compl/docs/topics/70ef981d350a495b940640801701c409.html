@@ -1,0 +1,79 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio70ef981d350a495b940640801701c409" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-7-json-model-70ef981.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 7: JSON Model</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 7: JSON Model</h2></div><div class="shortdesc">Now that we have set up the view and controller, it's about time to think about the M
+		in MVC.</div><p>We will add an input field to our app, bind its value to the model, and bind the same
+			value to the description of the input field. The description will be directly updated as
+			the user types.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loioafc105517a644407bd90662e3d94ea01_LowRes.png" title="The graphic has an explanatory text" alt="The graphic has an explanatory text" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">An input field and a description displaying the value of the input
+					field</h2></span></div>
+		</section><section id="section_e2g_rvc_syb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.07" title="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.07" class="sap-doc" alt="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.07">Walkthrough - Step 7</a>.</p>
+		</section><section id="section_f2g_rvc_syb">
+			<h2 class="title ">webapp/controller/App.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+   "sap/ui/core/mvc/Controller",
+   "sap/m/MessageToast"<span class="emphasis">,
+   "sap/ui/model/json/JSONModel"</span>
+], (Controller, MessageToast, <span class="emphasis">JSONModel</span>) =&gt; {
+   "use strict";
+
+   return Controller.extend("ui5.walkthrough.controller.App", {
+<span class="emphasis">      onInit() {
+         // set data model on view
+         const oData = {
+            recipient : {
+               name : "World"
+            }
+         };
+         const oModel = new JSONModel(oData);
+         this.getView().setModel(oModel);
+      },</span>
+
+      onShowHello() {
+         MessageToast.show("Hello World");
+      }
+   });
+});</pre></div></div></section>
+			<p>We add an <code>onInit</code> function to the controller. This is one of SAPUI5's lifecycle methods that is invoked by the framework when the controller is created, similar to the constructor of a control.</p>
+			<p>Inside the function we instantiate a JSON model. The data for the model only contains a single property for the "recipient", and inside
+				this it also contains one additional property for the name.</p>
+			<p>To be able to use this model from within the XML view, we call the <code>setModel</code> function on the view and pass on our newly
+				created model. The model is now set on the view. </p>
+			<p>The message toast is just showing the static "Hello World" message. We will show how to load a translated text here in the next
+				step.</p>
+		</section><section>
+			<h2 class="title ">webapp/view/App.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+   controllerName="ui5.walkthrough.controller.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"&gt;
+   &lt;Button
+      text="Say Hello"
+      press=".onShowHello"/&gt;
+ <span class="emphasis">  &lt;Input
+      value="{/recipient/name}"
+      description="Hello {/recipient/name}"
+      valueLiveUpdate="true"
+      width="60%"/&gt;</span>
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add an <code>sap/m/Input</code> control to the view. With this, the user can enter a recipient for the greetings. We bind its value to a
+					SAPUI5 model by using the declarative binding syntax for XML views:
+					</p><ul class="ul ">
+					<li class="li">
+						<p>The curly brackets <code>{…}</code> indicate that data is taken from the value of the <code>recipient</code>'s
+							object name property. This is called "data binding".</p>
+					</li>
+					<li class="li">
+						<p>
+							<code>/recipient/name</code> declares the path in the model.</p>
+					</li>
+				</ul><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/f665d0de4dba405f9af4294de824b03b">Step 6: Modules</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/df86bfbeab0645e5b764ffa488ed57dc">Step 8: Translatable Texts</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f233476f4d1014b6dd926db0e91070" title="The Model View Controller (MVC) concept is used in SAPUI5 to separate the representation of information from the user interaction. This separation facilitates development and the changing of parts independently." class="sap-doc">Model View Controller (MVC)</a></li>
+		<li><a href="topic/68b9644a253741e8a4b9e4279a35c247" title="You use data binding to bind UI elements to data sources to keep the data in sync and allow data editing on the UI." class="sap-doc">Data Binding</a></li>
+		<li><a href="topic/96804e3315ff440aa0a50fd290805116.html#loio96804e3315ff440aa0a50fd290805116" title="The JSON model can be used to bind controls to JavaScript object data, which is usually serialized in the JSON format." class="sap-doc">JSON Model</a></li>
+		<li><a href="api/sap.ui#methods/sap.ui.define" title="api/sap.ui#methods/sap.ui.define" class="sap-doc" alt="api/sap.ui#methods/sap.ui.define">API Reference: sap.ui.define</a></li>
+
+	</ul></section></div></section></div></body></html>

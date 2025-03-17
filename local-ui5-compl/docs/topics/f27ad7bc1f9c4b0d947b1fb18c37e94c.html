@@ -1,0 +1,225 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof27ad7bc1f9c4b0d947b1fb18c37e94c" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/configuring-default-filter-values-f27ad7b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuring Default Filter Values</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuring Default Filter Values</h2></div><div class="shortdesc">You can set default filter values for filter bar fields, for example.</div><p>For the <span class="ph uicontrol">Standard Variant</span>, application developers can configure default filter field values by using the
+                <code>UI.SelectionVariant</code> annotation or the <code>Common.FilterDefaultValue</code> annotation.</p><section id="section_h5k_12n_dsb">
+            <h2 class="title ">Using the <code>SelectionVariant</code> Annotation</h2>
+            <p>You can either provide the <code>UI.SelectionVariant</code> annotation directly, or as part of the
+                    <code>UI.SelectionPresentationVariant</code>. See <a href="topic/49a6ba5b8d6946208322a9f7e16837c2" title="SAP Fiori elements allows you to specify a UI.SelectionPresentationVariant." class="sap-doc">Configuring Default Settings (Visualizations, Sort Order, Filter Values)</a> to know more on the
+                manifest configuration to specify the <code>SelectionVariant</code> to be used. Here's the sample
+                    <code>SelectionVariant</code> showing a default value for a parameter field (<code>P_CompanyCode</code>) and a filter
+                field (<code>Customer</code>):</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.SelectionVariant" Qualifier="Default"&gt;
+    &lt;Record&gt;
+        &lt;PropertyValue Property="Parameters"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="UI.Parameter"&gt;
+                    &lt;PropertyValue Property="PropertyName" PropertyPath="P_CompanyCode" /&gt;
+                    &lt;PropertyValue Property="PropertyValue" String="EASI" /&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+        &lt;PropertyValue Property="SelectOptions"&gt;
+            &lt;Collection&gt;
+                &lt;Record Type="UI.SelectOptionType"&gt;
+                    &lt;PropertyValue Property="PropertyName" PropertyPath="Customer"/&gt;
+                    &lt;PropertyValue Property="Ranges"&gt;
+                        &lt;Collection&gt; 
+                            &lt;Record Type="UI.SelectionRangeType"&gt;
+                                &lt;PropertyValue EnumMember="UI.SelectionRangeSignType/I" Property="Sign"/&gt;
+                                &lt;PropertyValue EnumMember="UI.SelectionRangeOptionType/EQ" Property="Option"/&gt;
+                                &lt;PropertyValue Property="Low" String="ABC"/&gt;
+                            &lt;/Record&gt;
+                        &lt;/Collection&gt;
+                    &lt;/PropertyValue&gt;
+                &lt;/Record&gt;
+            &lt;/Collection&gt;
+        &lt;/PropertyValue&gt;
+    &lt;/Record&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.selectionVariant: [
+  {
+    qualifier: 'SVForQuantity',
+	  parameters: [{name: 'PropertyName', value: 'P_CompanyCurrency' },{ name: 'PropertyValue', value: 'EASI'}]
+  }
+]</pre></div></div></section><p>
+                    </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                        </p><p><code>SelectionOption</code> is not supported in ABAP CDS annotation. Please use the local XML annotation.</p>
+                    <p></p></div></div>
+                <p></p><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">UI.SelectionVariant #Default : {
+    Parameters : [
+        {
+            $Type : 'UI.Parameter',
+            PropertyName : P_CompanyCode,
+            PropertyValue : 'EASI'
+        }
+    ],
+    SelectOptions : [
+        {
+            $Type : 'UI.SelectOptionType',
+            PropertyName : Customer,
+            Ranges : [
+                {
+                    $Type : 'UI.SelectionRangeType',
+                    Sign : #I,
+                    Option : #EQ,
+                    Low : 'ABC'
+                }
+            ]
+        }
+    ]
+}
+</pre></div></div></section><p></p></div></div>
+        </section><section id="section_dk1_x2n_dsb">
+            <h2 class="title ">Using the <code>Common.FilterDefaultValue</code> Annotation</h2>
+            <p>If only single values need to be applied for the filter fields, application developers can use the
+                    <code>Common.FilterDefaultValue</code> annotation. This doesn't allow complex values ('Supplier StartsWith "AB"') or multiple
+                values ('Status = "A" or Status = "B"').</p>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+                Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="STTA_PROD_MAN.STTA_C_MP_ProductType/Supplier"&gt;
+    &lt;Annotation Term="Common.FilterDefaultValue" String="100000047"/&gt;
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@Consumption.filter.defaultValue: '100000047'
+Supplier;</pre></div></div></section><p></p></div></div>
+            <div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate STTA_PROD_MAN.STTA_C_MP_ProductType with {
+    @Common.FilterDefaultValue : '100000047'
+    Supplier
+};</pre></div></div></section><p></p></div></div>
+            <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>
+                    </p><ul class="ul ">
+                        <li class="li">
+                            <p>If the <code>SelectionVariant</code> is provided, then this is used and the
+                                    <code>Common.FilterDefaultValue</code> is ignored for all other filters.</p>
+                        </li>
+                        <li class="li">
+                            <p>The default values coming from the annotation are considered only on application load and only when the application is
+                                launched with a standard variant.
+                                </p>
+                        </li>
+                        
+                        <li class="li">
+                            <p>The default values coming from the annotation don't affect the visibility of the filter field values.</p>
+                        </li>
+                        
+                        <li class="li">
+                            <p>The filter values applied via the above logic are always cleared completely and overwritten by the incoming navigation
+                                context.</p>
+                        </li>
+                        <li class="li">
+                            <p>When adding a date value, be sure to use the YYYY-MM-DD format.</p>
+                        </li>
+                        <li class="li">
+                            <p>Note the special handling for the <code>DisplayCurrency</code> field, for which default values can also come from
+                                    SAP Fiori launchpad (FLP). For more information, see the
+                                    <a href="topic/c337d8bde8c544598969c8e4edaab262.html#loioc337d8bde8c544598969c8e4edaab262/HandlingDefault" title="c337d8bde8c544598969c8e4edaab262.xml#loioc337d8bde8c544598969c8e4edaab262/HandlingDefault" class="sap-doc">Handling Default Values from SAP Fiori Launchpad
+                                    (FLP)</a>
+                                section
+                                in <a href="topic/c337d8bde8c544598969c8e4edaab262" title="This topic describes the key features when navigating into an SAP Fiori elements template, that is, inbound navigation." class="sap-doc">Navigation to an App (Inbound Navigation)</a>.</p>
+                        </li>
+                        <li class="li">
+                            <p>For the analytical list page in SAP Fiori elements for OData
+                            V2, you must set
+                                the manifest property <code>filterDefaultsFromSelectionVariant</code>: true to ensure the filter defaults from the
+                                SelectionVariant are considered.</p>
+                        </li>
+                    </ul>
+                <p></p>
+            <p></p></div></div>
+        </section><section id="section_jnl_whn_dsb">
+            <h2 class="title ">Combining Various Sources of Values for the Filter Field</h2>
+            <p>Apart from the default values via annotation as described above, a filter field could also have values coming via the variant or
+                navigation context or SAP Fiori launchpad. All these are considered based on
+                the following
+                priority:</p>
+            
+            <div class="tableWrapper "><div class="fig"><table border="1" id="simpletable_dyz_d3n_dsb" class=" "><thead>
+                    <tr><th colspan="1" rowspan="1">Parameters coming from ...</th>
+                    <th colspan="1" rowspan="1">Result</th>
+                </tr></thead><tbody><tr>
+                    <td colspan="1" rowspan="1">Navigation context</td>
+                    <td colspan="1" rowspan="1">Overrides user defined default variant and standard
+                        variant coming from the source app in
+                        the target app. The navigation context
+                        is applied.<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                            </p><p>Navigation context also means any context coming from the tile's SAP Fiori launchpad target mapping configuration (navigation source), or
+                                default values that are configured in the SAP Fiori launchpad target
+                                mapping of the SAP Fiori elements application (navigation
+                                target).</p>
+                        <p></p></div></div></td>
+                </tr><tr>
+                    <td colspan="1" rowspan="1">User-defined default variant (this variant is not equal to the standard variant and there is no navigation
+                        context)</td>
+                    <td colspan="1" rowspan="1">Overrides everything, including the user default values from SAP Fiori launchpad.</td>
+                </tr><tr>
+                    <td colspan="1" rowspan="1">Standard variant as default (there is no navigation context) combined with optional <code>UI.SelectionVariant</code>
+                        or <code>Common.FilterDefaultValue</code> annotations.</td>
+                    <td colspan="1" rowspan="1">
+                        <p>User-defined default values are applied and combined with the values from the standard variant. The user default values
+                            from SAP Fiori launchpad are merged with the default values coming from the
+                            annotation with the following logic:</p><ol>
+                                <li class="li">
+                                    <p>If the filter field has only values from SAP Fiori launchpad
+                                        user default values, but nothing from the annotation, the user default values are retained.</p>
+                                </li>
+                                <li class="li">
+                                    <p>If the filter field has only values coming from the annotation but nothing from the SAP Fiori launchpad user default values, then the default values
+                                        from the annotation are retained.</p>
+                                </li>
+                                <li class="li">
+                                    <p>If the filter field has values from both the SAP Fiori launchpad
+                                        user default values and the annotations, <span class="emphasis">only</span> the SAP Fiori launchpad user default values are considered.</p>
+                                </li>
+                            </ol><p></p>
+                    </td>
+                </tr></tbody></table></div></div>
+            <div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+                </p><p>Unlike the default values from annotations or the manifest, the user default values from SAP Fiori launchpad mark the standard variant dirty.</p>
+            <p></p></div></div>
+            
+            
+        </section><section id="section_o4y_t5m_rnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+                </p><p>You cannot define the default values for filter fields using <code>SelectionVariant</code> in analytical list page-based
+                    applications.</p>
+            <p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="topic/609c39a7498541559dbef503c1ffd194" title="You can adapt the filter bar using additional annotations or configuring the manifest.json file." class="sap-doc">Adapting the Filter Bar</a></li>
+        <li><a href="topic/33f3d807c10b47d9a8141692d2619dc2" title="The visual filter bar enables end users to select filter values based on measure values in addition to the filters and filter values already selected in the regular filter bar." class="sap-doc">Configuring the Visual Filter Bar</a></li>
+    </ul></section></div></section></div></body></html>

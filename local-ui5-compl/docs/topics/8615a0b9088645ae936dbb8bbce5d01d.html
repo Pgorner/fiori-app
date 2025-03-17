@@ -1,0 +1,281 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio8615a0b9088645ae936dbb8bbce5d01d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/simulating-user-interactions-on-controls-8615a0b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Simulating User Interactions on Controls</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Simulating User Interactions on Controls</h2></div><div class="shortdesc">OPA5 has a built-in actions parameter that can be used for simulating events. If you use
+        an action, OPA5 makes sure that the UI is in a state that allows the action to be
+        executed.</div><p>We recommend that you use actions and not success functions for user interactions as using
+            success functions doesn't execute the checks on the UI. You can use multiple actions on
+            one control and you can mix built-in actions with custom actions.</p><section>
+			<h2 class="title ">Simulating a <code>press</code> Event</h2>
+            <p>In this example, we trigger a <code>press</code> event on a button, using the
+                    <code>waitFor</code> function of OPA5, and the <code>Press</code>
+                action. Note that the action has access to the located button implicitly.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oOpa.waitFor({
+    id: "myButton",
+    actions: new Press()
+});</pre></div></div></section>
+            <p>As of version 1.97, you can add key modifiers, such as <span class="keyWrap"><kbd class="key">Control</kbd></span>,
+                    <span class="keyWrap"><kbd class="key">Alt</kbd></span>, and <span class="keyWrap"><kbd class="key">Shift</kbd></span>:</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oOpa.waitFor({
+    id: "myButton",
+    actions: new Press({
+        altKey: true,
+        shiftKey: true,
+        ctrlKey: true
+    }),
+});</pre></div></div></section>
+            <p>As of version 1.98, you can use coordinates for the X and Y axes by providing values
+                for the <code>xPercentage</code> and <code>yPercentage</code> properties.
+                The values provided should be percentages, for example in the range [0 - 100],
+                relative to the control, which is then converted to exact coordinates in pixels:</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oOpa.waitFor({
+    id: "myButton",
+    actions: new Press({
+        xPercentage: 80,
+        yPercentage: 20
+    }),
+});</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Choosing an Item from <code>sap.m.Select</code></h2>
+			<p>Here's an example showing how to choose an item from <code>sap.m.Select</code>, using the
+                    <code>waitFor</code> function of OPA5, and the <code>Press</code>
+                action:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require([
+    "sap/ui/test/opaQUnit",
+    "sap/ui/test/actions/Press",
+    "sap/ui/test/matchers/Properties",
+    "sap/ui/test/matchers/Ancestor"
+],  function (opaTest, Press, Properties, Ancestor) {
+
+    opaTest("Should trigger a press event", function (Given, When, Then) {
+        // Startup the application using Given
+
+        When.waitFor({
+            id: "mySelect",
+            actions: new Press(),
+            success: function(oSelect) {
+                this.waitFor({
+                    controlType: "sap.ui.core.Item",
+                    matchers: [
+                        new Ancestor(oSelect),
+                        new Properties({ key: "Germany"})
+                    ],
+                    actions: new Press(),
+                    errorMessage: "Cannot select Germany from mySelect"
+                });
+            },
+            errorMessage: "Could not find mySelect"
+        });
+
+        // Assert what happened after pressing using Then
+
+    });
+
+});</pre></div></div></section>
+            <p>For <code>sap.m.Combobox</code>, use <code>controlType:
+                    "sap.m.StandardListItem"</code>.</p>
+		</section><section>
+			<h2 class="title ">Entering Text into Input Fields</h2>
+            <p>Use the <code>EnterText</code> action when you want to enter text in a form
+                control.</p>
+            <p>In this example, the text of an <code>sap.m.Input</code> is changed twice. First,
+                "Hello " is entered as value. Then, with the second action, "World" is added. As a
+                result, the value of the input is "Hello World".</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oOpa.waitFor({
+    id: "myInput",
+    actions: [
+        new EnterText({ text: "Hello " }),
+        new EnterText({ text: "World" })
+    ]
+});</pre></div></div></section>
+            <p>There are a couple of modifiers to the <code>EnterText</code> action:</p>
+            <ul class="ul ">
+                <li class="li">
+                    <p>Use the <code>clearTextFirst</code> property to empty the existing value
+                        before entering new text. This example changes a control value to "Hello"
+                        and then to "World" with two consecutive actions:</p>
+                    <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">actions: [
+    new EnterText({ text: "Hello" }), // changes Input value to "Hello"
+    new EnterText({ text: "World", clearTextFirst: true }) // changes Input value to "World"
+]</pre></div></div></section>
+                </li>
+                <li class="li">
+                    <p>Use the <code>keepFocus</code> property to preserve the focus on the
+                        input after the action completes. This is useful if the control has enabled
+                        suggestions that have to remain open after the text is entered. After the
+                        text is entered, you can perform another OPA5 search for the suggestion
+                        control and select it using a <code>Press</code> action.</p>
+                    <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// Show the suggestion list with filter "Jo"
+oOpa.waitFor({
+    id: "formInput",
+    actions: new EnterText({
+        text: "Jo",
+        keepFocus: true
+    }),
+    success: function (oInput) {
+        // Select a suggestion by pressing an item with text "John".
+        // After the press action, the value of the input should be changed to "John".
+        // Note that the focus will remain in the input field.
+        this.waitFor({
+            controlType: "sap.m.StandardListItem",
+            matchers: [
+                new Ancestor(oInput),
+                new Properties({
+                    title: "John"
+                })
+            ],
+            actions: new Press()
+        });
+    }
+});</pre></div></div></section>
+                </li>
+                <li class="li">
+                    <p>Use the <code>pressEnterKey</code> property to add an
+                            <code>enter</code> key to the end of the input. This triggers the
+                            <code>change</code> event for the input and the input remains
+                        focused. If you use this when focusing out of the input results in unwanted
+                        results. For example, focusing out of inputs in a popup results in the popup
+                        closing only in some browsers, which leads to inconsistent test results.</p>
+                    <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oOpa.waitFor({
+    controlType: "sap.m.Input",
+    searchOpenDialogs: true,
+    actions: new EnterText({
+        text: "test",
+        pressEnterKey: true
+    })
+});
+oOpa.waitFor({
+    controlType: "sap.m.Popover",
+    searchOpenDialogs: true,
+    success: function (aPopover) {
+        Opa5.assert.ok(aPopover[0].isOpen(), "Popover should remain open on any browser");
+    }
+});</pre></div></div></section>
+                </li>
+            </ul>
+		</section><section id="section_tmf_bpm_2cb">
+			<h2 class="title ">Table Interaction</h2>
+			<p>A Table consists of columns (<code>sap.m.Column</code>) and rows. The rows, defined as
+                    <code>sap.m.ColumnListItems</code>, consist of cells. In order to use a
+                stable locator, which isn't expected to change frequently, you can use a field/value
+                combination to retrieve and interact with table items.</p>
+			<p>The following example simulates a click on an item in a table. The name of the field can be
+                found in the $metadata file of your OData service.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">iClickOnTableItemByFieldValue: function () {
+                    return this.waitFor({
+                        controlType: "sap.m.ColumnListItem",
+
+                        // Retrieve all list items in the table
+                        matchers: [function(oCandidateListItem) {
+                            var oTableLine = {};
+                            oTableLine = oCandidateListItem.getBindingContext().getObject();
+                            var sFound = false;
+
+                            // Iterate through the list items until the specified cell is found
+                            for (var sName in oTableLine) {
+                                if ((sName === "Field Name") && (oTableLine[sName].toString() === "Cell Value")) {
+                                     QUnit.ok(true, "Cell has been found");
+                                    sFound = true;
+                                    break;
+                                }
+                            }
+                            return sFound;
+                        }],
+
+                        // Click on the specified item
+                        actions: new Press(),
+                        errorMessage: "Cell could not be found in the table"
+                     });
+                }</pre></div></div></section>
+		</section><section id="section_qn2_rhr_vkb">
+            <h2 class="title ">Simulating Drag and Drop</h2>
+            <p>As of version 1.76, you can use the <code>sap.ui.test.actions.Drag</code> and
+                    <code>sap.ui.test.actions.Drop</code> actions.</p>
+            <p>First, locate a control to drag and use the <code>Drag</code> action with it.
+                Then, locate the control on which you wish to drop the first control, and use the
+                    <code>Drop</code> action with it. The <code>Drop</code> action accepts
+                several optional parameters to specify the drop target:</p>
+            <ul class="ul ">
+                <li class="li">
+                    <p>Use <code>idSuffix</code> to set an exact DOM element within the control
+                        tree</p>
+                </li>
+                <li class="li">
+                    <p>Use <code>aggregationName</code> to set the target to be the DOM element
+                        for this aggregation</p>
+                </li>
+                <li class="li">
+                    <p>Use <code>before</code> or <code>after</code> to choose whether the
+                        dragged control should be dropped before or after the drop target.</p>
+                </li>
+            </ul>
+            <p>The following example rearranges items in a list:</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// Find the item to drag
+oOpa.waitFor({
+    controlType: "sap.m.StandardListItem",
+    matchers: new BindingPath({
+        path: "/ProductCollection/1"
+    }),
+    // Start the dragging
+    actions: new Drag()
+});
+
+// Find another item on which to drop the dragged item
+oOpa.waitFor({
+    controlType: "sap.m.StandardListItem",
+    matchers: new BindingPath({
+        path: "/ProductCollection/5"
+    }),
+    // Finish dragging and drop the item right before this one.
+    // In the end, the item with binding context path "/ProductCollection/1" should appear right on top of the item with
+    // binding context path "/ProductCollection/5"
+    actions: new Drop({
+        before: true
+    })
+});</pre></div></div></section>
+        </section><section id="section_zr4_1xn_npb">
+            <h2 class="title ">Simulating Scroll</h2>
+            <p>As of version 1.90, you can scroll in controls that provide a scrollable area. The
+                following example scrolls <code>sap.uxap.ObjectPageLayout</code> vertically by
+                200px:</p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oOpa.waitFor({
+    controlType: "sap.uxap.ObjectPageLayout",
+    actions: new Scroll({
+        x: 0,
+        y: 200
+    })
+});</pre></div></div></section>
+            <p>For more
+                information, see <a href="api/sap.ui.core.delegate.ScrollEnablement" title="api/sap.ui.core.delegate.ScrollEnablement" class="sap-doc" alt="api/sap.ui.core.delegate.ScrollEnablement"><code>sap.ui.core.delegate.ScrollEnablement</code></a>.</p>
+        </section><section>
+			<h2 class="title ">Writing Your Own Action</h2>
+			<p>Since OPA5 uses JavaScript for its execution, you can't use native browser events to simulate
+                user events. Sometimes it's also hard to know the exact position where to click or
+                enter your keystrokes since SAPUI5 controls don't
+                have a common interface for that. If you find you're missing a certain built-in
+                action, you can create your own actions easily. Just provide an inline function as
+                shown here:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/test/opaQUnit", "sap/ui/test/matchers/Properties"], function (opaTest, Properties) {
+
+    opaTest("Should simulate press on the delete button", function (Given, When, Then) {
+        // Startup the application using Given
+
+        When.waitFor({
+            id : "entryList",
+            matchers : new Properties({ mode : "Delete"}),
+            actions: function (oList) {
+                oList.fireDelete({listItem : oList.getItems()[0]});
+            },
+            errorMessage : "The delete button could not be pressed"
+        });
+
+        // Assert what happened after selecting the item using Then
+
+    });
+
+});</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="api/sap.ui.test.actions" title="api/sap.ui.test.actions" class="sap-doc" alt="api/sap.ui.test.actions">API Reference: sap.ui.test.actions</a></li>
+        <li><a href="api/sap.ui.test.actions.EnterText" title="api/sap.ui.test.actions.EnterText" class="sap-doc" alt="api/sap.ui.test.actions.EnterText">API Reference: sap.ui.test.actions.EnterText</a></li>
+        <li><a href="api/sap.ui.test.actions.Press" title="api/sap.ui.test.actions.Press" class="sap-doc" alt="api/sap.ui.test.actions.Press">API Reference: sap.ui.test.actions.Press</a></li>
+        <li><a href="api/sap.ui.test.matchers.Interactable" title="api/sap.ui.test.matchers.Interactable" class="sap-doc" alt="api/sap.ui.test.matchers.Interactable">API Reference: sap.ui.test.matchers.Interactable</a></li>
+    </ul></section></div></section></div></body></html>

@@ -1,0 +1,73 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio819beea79ed34d4bb66d8a421820cbc3" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-10-line-micro-chart-819beea.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 10: Line Micro Chart</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 10: Line Micro Chart</h2></div><div class="shortdesc">In this step, we will create the <code>LineMicroChart</code> on the
+            <span class="emphasis">Production Process</span> page.</div><section id="section_z2r_dyl_l1b">
+            <h2 class="title ">Preview</h2>
+            <div><div class="fig"><img src="loioea29a781217c41d08cc37888c5c36bfb_LowRes.png" usemap="#"></div></div>
+        </section><section id="section_pyt_3yl_l1b">
+            <h2 class="title ">LineMicroChart</h2>
+            <p>With the <code>LineMicroChart</code>, we want to visualize how the fill level is
+                going to change during the course of the production process and we want to determine
+                the threshold values
+                that
+                fall below a specified level. </p>
+        </section><section><section>
+                <h3 class="title ">ProcessFlow.view.xml</h3>
+            </section><p>You can view and download this step in the Demo Kit at <a href="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.10" title="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.10" class="sap-doc" alt="entity/sap.suite.ui.commons.tutorial.icecream/sample/sap.suite.ui.commons.tutorial.icecream.10">Ice Cream Machine - Step 10 - Line Micro
+                    Chart</a>.</p><p>
+                </p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">mvc:View
+    ...
+        &lt;m:headerContainer&gt;
+            &lt;m:HeaderContainer
+                scrollStep="200"
+                scrollTime="500"
+                showDividers="true"
+                class="sapUiSmallMargin"&gt;
+                ...
+                <span class="emphasis">&lt;m:FlexBox
+                    width="12rem"
+                    height="10rem"
+                    alignItems="Center"
+                    justifyContent="Center"
+                    direction="Column"&gt;
+                    &lt;m:Title
+                        text="{
+                            parts: [
+                                'i18n&gt;processFlowChartsFillLevel',
+                                'business&gt;/fillLevel/measure'
+                            ],
+                            formatter: '.formatMessage'
+                        }"
+                        class="sapUiSmallMargin" /&gt;
+                    &lt;m:FlexBox width="12rem" height="6rem" renderType="Bare"&gt;
+                        &lt;mc:LineMicroChart
+                            size="Responsive"
+                            threshold="{business&gt;/fillLevel/threshold}"
+                            leftTopLabel="{business&gt;/fillLevel/valueBegin}"
+                            leftBottomLabel="{business&gt;/fillLevel/timeBegin}"
+                            rightTopLabel="{business&gt;/fillLevel/valueEnd}"
+                            rightBottomLabel="{business&gt;/fillLevel/timeEnd}"
+                            color="{business&gt;/fillLevel/color}"
+                            showPoints="true"
+                            points="{
+                                path: 'business&gt;/fillLevel/timeSeries',
+                                templateShareable: true
+                            }"&gt;
+                            &lt;mc:LineMicroChartPoint
+                                x="{business&gt;time}"
+                                y="{business&gt;level}" /&gt;
+                        &lt;/mc:LineMicroChart&gt;
+                    &lt;/m:FlexBox&gt;
+                &lt;/m:FlexBox&gt;</span>
+            &lt;/m:HeaderContainer&gt;
+        &lt;/m:headerContainer&gt;
+    ...
+&lt;/mvc:View&gt;</pre></div></div></section>
+            <p></p><p>You can find the information about the fill levels in the
+                    <span class="ph uicontrol">points</span> aggregation of the <code>LineMicroChart</code>
+                control. Property <span class="emphasis">x</span> of the <code>LineMicroChartPoint</code>
+                contains the dimension of the chart and the time. Property <span class="emphasis">y</span>
+                contains the fill level during the production process. The <span class="emphasis">threshold
+                </span> property separates the records by their fill level into an upper and a
+                lower layer. With the <span class="ph uicontrol">color</span> property, we can apply a
+                different color to each layer, depending on the specified threshold.</p></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/e5b7f8a93e4b432198869b3ae75981b0">Ice Cream Machine Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/39733723e42b4a43b040427caaa94a73">Step 9: Delta Micro Chart</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/452ff8c4f12f4f04b3855186c7fa1adc">Step 11: Process Flow</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

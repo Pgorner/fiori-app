@@ -1,0 +1,74 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4f1c1075d88c41a5904389fa12b28f6b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/url-helper-4f1c107.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">URL Helper</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">URL Helper</h2></div><div class="shortdesc">With <code>sap.m.URLHelper</code> you can easily trigger native mobile phone
+		applications such as e-mail, telephone, and text messages. </div><p>You can set predefined values for the application so that a user does not need to enter
+			this information themselves. When personal information is displayed, for example phone
+			numbers and e-mail addresses, you can initiate a phone call or e-mail with just one
+			tap.</p><p>The URLHelper API contains the following triggers for telephone, texts, and e-mail
+			applications: </p><ul class="ul ">
+			<li class="li">
+				<p>Trigger telephone application</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.m.URLHelper.triggerTel( [Telephone Number] ); //Telephone number is optional</pre></div></div></section>
+			</li>
+			<li class="li">
+				<p>Trigger text messaging application</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.m.URLHelper.triggerSms( [Telephone Number] ); //Telephone number is optional</pre></div></div></section>
+			</li>
+			<li class="li">
+				<p>Trigger e-mail application</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.m.URLHelper.triggerEmail( [Destination Email], [Subject], [Default Message Text], [CC], [BCC] ); 
+// All parameters are optional</pre></div></div></section>
+			</li>
+			<li class="li">
+				<p>Redirect To custom URL</p>
+				<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.m.URLHelper.redirect( URL ); 
+//URL is required and can be used for custom protocols (e.g http, ftp, ...)</pre></div></div></section>
+			</li>
+		</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><ul class="ul ">
+				<li class="li">
+					<p>iOS does <span class="emphasis">not</span> trigger a phone call if the phone number
+						contains "*" or "#".</p>
+				</li>
+				<li class="li">
+					<p>You can add multiple recipients for a text message in Android phones by
+						separating recipient numbers with ";".</p>
+				</li>
+				<li class="li">
+					<p>According to RFC 2368 you can set multiple subscribers for the e-mail
+						application by separating each with ","; however, this still depends on the
+						application. Outlook, for example, uses ";" as separator.</p>
+				</li>
+				<li class="li">
+					<p>You can use the <code>sap.m.URLHelper.redirect</code> method to use
+						custom URL schemes: </p>
+					<ul class="ul ">
+						<li class="li">
+							<p>For iOS: <a href="http://developer.apple.com/library/safari/#featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html" title="http://developer.apple.com/library/safari/#featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html" class="external-link" target="_blank" rel="noopener">&amp;nbsp;http://developer.apple.com/library/safari/#featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html</a></p>
+						</li>
+						<li class="li">
+							<p>For Android: <a href="http://developer.android.com/guide/appendix/g-app-intents.html" title="http://developer.android.com/guide/appendix/g-app-intents.html" class="external-link" target="_blank" rel="noopener">&amp;nbsp;http://developer.android.com/guide/appendix/g-app-intents.html</a>
+							</p>
+						</li>
+						<li class="li">
+							<p>URI schemes: <a href="http://en.wikipedia.org/wiki/URI_scheme" title="http://en.wikipedia.org/wiki/URI_scheme" class="external-link" target="_blank" rel="noopener">&amp;nbsp;http://en.wikipedia.org/wiki/URI_scheme</a></p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>If you just want to get a URI back without a redirect, you can use normalize
+						methods which have the same parameter as trigger methods, for example:</p>
+					<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">/*
+ * These methods do not redirect but return URI scheme back as string.
+ * All parameters are optional
+ */
+sap.m.URLHelper.normalizeTel( [Telephone Number] );
+sap.m.URLHelper.normalizeSms( [Telephone Number] );
+sap.m.URLHelper.normalizeEmail( [Destination Email], [Subject], [Default Message Text], [CC], [BCC] );  </pre></div></div></section>
+				</li>
+			</ul>
+		<p></p></div></div><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/021ac23c547c48f087adfef85aca8413">Examples for Triggering Telephone, Text and E-Mail Applications</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.m.URLHelper" title="api/sap.m.URLHelper" class="sap-doc" alt="api/sap.m.URLHelper">API Reference: sap.m.URLHelper</a></li>
+	</ul></section></div></section></div></body></html>

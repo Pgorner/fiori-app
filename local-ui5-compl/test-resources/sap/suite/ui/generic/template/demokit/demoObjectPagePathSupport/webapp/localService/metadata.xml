@@ -1,0 +1,65 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+	<edmx:DataServices>
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="DEMO">
+			<EntityType Name="RootEntityType">
+				<Key>
+					<PropertyRef Name="RootProperty1" />
+				</Key>
+				<Property Name="RootProperty1" Type="Edm.String"/>
+				<Property Name="RootProperty2" Type="Edm.String"/>
+				<Property Name="HideColumnProperty" Type="Edm.Boolean"/>
+				<NavigationProperty Name="to_SubEntity" Relationship="DEMO.assoc_1_ParentToChild" FromRole="Parent" ToRole="Child"/>
+			</EntityType>
+			<EntityType Name="SubEntityType">
+				<Key>
+					<PropertyRef Name="RootProperty1" />
+					<PropertyRef Name="SubProperty1" />
+				</Key>
+				<Property Name="RootProperty1" Type="Edm.String"/>
+				<Property Name="RootProperty1_assoc_2" Type="Edm.String"/>
+				<Property Name="SubProperty1" Type="Edm.String"/>
+				<Property Name="SubProperty2" Type="Edm.String"/>
+				<Property Name="BoolProperty" Type="Edm.Boolean"/>
+				<NavigationProperty Name="to_ParentEntity" Relationship="DEMO.assoc_1_ParentToChild" FromRole="Child" ToRole="Parent"/>
+				<NavigationProperty Name="to_ParentEntity_Assoc_2" Relationship="DEMO.assoc_2_ParentToChild" FromRole="Child_assoc_2" ToRole="Parent_assoc_2"/>
+			</EntityType>
+			<Association Name="assoc_1_ParentToChild">
+				<End Type="DEMO.RootEntityType" Multiplicity="1" Role="Parent"/>
+				<End Type="DEMO.SubEntityType" Multiplicity="*" Role="Child"/>
+				<ReferentialConstraint>
+					<Principal Role="Parent">
+						<PropertyRef Name="RootProperty1"/>
+					</Principal>
+					<Dependent Role="Child">
+						<PropertyRef Name="RootProperty1"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_2_ParentToChild">
+				<End Type="DEMO.RootEntityType" Multiplicity="1" Role="Parent_assoc_2"/>
+				<End Type="DEMO.SubEntityType" Multiplicity="*" Role="Child_assoc_2"/>
+				<ReferentialConstraint>
+					<Principal Role="Parent_assoc_2">
+						<PropertyRef Name="RootProperty1"/>
+					</Principal>
+					<Dependent Role="Child_assoc_2">
+						<PropertyRef Name="RootProperty1_assoc_2"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			
+			<EntityContainer>
+				<EntitySet Name="RootEntity" EntityType="DEMO.RootEntityType"/>
+				<EntitySet Name="SubEntity" EntityType="DEMO.SubEntityType"/>
+				<AssociationSet Name="assoc_1_ParentToChild" Association="DEMO.assoc_1_ParentToChild">
+					<End EntitySet="RootEntity" Role="Parent"/>
+					<End EntitySet="SubEntity" Role="Child"/>
+				</AssociationSet>
+				<AssociationSet Name="assoc_2_ParentToChild" Association="DEMO.assoc_2_ParentToChild">
+					<End EntitySet="RootEntity" Role="Parent_assoc_2"/>
+					<End EntitySet="SubEntity" Role="Child_assoc_2"/>
+				</AssociationSet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

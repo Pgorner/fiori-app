@@ -1,0 +1,77 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio19cc773a60d944c8bb588056f665de04" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-11-add-table-with-n-navigation-to-detail-area-19cc773.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 11: Add Table with :n Navigation to Detail Area</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 11: Add Table with :n Navigation to Detail Area</h2></div><div class="shortdesc">In this step we add a table with additional information to the detail area.</div><section id="section_bt4_fxc_z1b"><h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio45abd62d7de84704b6ff318cba56d62e_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">A table containing information about friends of the selected user is added</h2></span></div></section><section id="section_tsr_gxc_z1b"><h2 class="title ">Coding</h2><p>You can view and download all files at <a href="entity/sap.ui.core.tutorial.odatav4/sample/sap.ui.core.tutorial.odatav4.11/code" title="entity/sap.ui.core.tutorial.odatav4/sample/sap.ui.core.tutorial.odatav4.11/code" class="sap-doc" alt="entity/sap.ui.core.tutorial.odatav4/sample/sap.ui.core.tutorial.odatav4.11/code">OData V4 - Step 11</a>.</p></section><section id="section_pp2_mxc_z1b"><h2 class="title ">webapp/view/App.view.xml</h2><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+...
+											&lt;VBox&gt;
+												&lt;FlexBox wrap="Wrap"&gt;
+														...
+													&lt;f:Form	editable="false"&gt;
+														&lt;f:title&gt;
+															&lt;core:Title text="{i18n&gt;bestFriendTitleText}" /&gt;
+														&lt;/f:title&gt;
+														...
+														&lt;f:formContainers&gt;
+															&lt;f:FormContainer&gt;
+																&lt;f:formElements&gt;
+																	...
+																&lt;/f:formElements&gt;
+															&lt;/f:FormContainer&gt;
+														&lt;/f:formContainers&gt;
+													&lt;/f:Form&gt;
+												&lt;/FlexBox&gt;
+<span class="emphasis">												&lt;Table
+													id="friendsTable"
+													width="auto"
+													items="{path: 'Friends',
+															parameters: {
+																$$ownRequest: true
+															}}"
+													noDataText="No Data"
+													class="sapUiSmallMarginBottom"&gt;
+													&lt;headerToolbar&gt;
+														&lt;Toolbar&gt;
+															&lt;Title
+																text="Friends"
+																titleStyle="H3"
+																level="H3"/&gt;
+														&lt;/Toolbar&gt;
+													&lt;/headerToolbar&gt;
+													&lt;columns&gt;
+														&lt;Column&gt;
+															&lt;Text text="User Name"/&gt;
+														&lt;/Column&gt;
+														&lt;Column&gt;
+															&lt;Text text="First Name"/&gt;
+														&lt;/Column&gt;
+														&lt;Column&gt;
+															&lt;Text text="Last Name"/&gt;
+														&lt;/Column&gt;
+														&lt;Column&gt;
+															&lt;Text text="Age"/&gt;
+														&lt;/Column&gt;
+													&lt;/columns&gt;
+													&lt;items&gt;
+														&lt;ColumnListItem&gt;
+															&lt;cells&gt;
+																&lt;Text text="{UserName}"/&gt;
+															&lt;/cells&gt;
+															&lt;cells&gt;
+																&lt;Text text="{FirstName}"/&gt;
+															&lt;/cells&gt;
+															&lt;cells&gt;
+																&lt;Text text="{LastName}"/&gt;
+															&lt;/cells&gt;
+															&lt;cells&gt;
+																&lt;Text text="{Age}"/&gt;
+															&lt;/cells&gt;
+														&lt;/ColumnListItem&gt;
+													&lt;/items&gt;
+												&lt;/Table&gt;</span>
+											&lt;/VBox&gt;
+...
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We extend the detail area of the <code>appView</code> by adding a table after the <code>FlexBox</code>. To this table we add a data
+				binding for friends. It is important that we set the <code>$$ownRequest</code> binding parameter to <code>true</code>, so that
+				the table containing all friends of the selected user makes its own OData requests separate from the request for best friend and best
+				friend's address.</p></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/bcdbde6911bd4fc68fd435cf8e306ed0">OData V4 Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/e687dbdc4c064ba3a3ce3942288e8f74">Step 10: Enable Data Reuse</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

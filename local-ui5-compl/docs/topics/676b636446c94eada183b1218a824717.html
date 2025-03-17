@@ -1,0 +1,146 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio676b636446c94eada183b1218a824717" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/use-asynchronous-loading-676b636.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Use Asynchronous Loading</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Use Asynchronous Loading</h2></div><div class="shortdesc">Asynchronous loading is the way to go: It makes your applications a lot faster and, through that, better to use.</div><p>As SAPUI5 is evolving, the loading processes in the background were significantly
+			improved. To get the best out of these changes in the core and to speed up your app, we recommend that you switch on asynchronous loading.
+			With asynchronous loading, files are retrieved in parallel. This is much quicker than synchronous loading, where files are retrieved
+			sequentially. You have several options to do that:</p><section id="section_EALB">
+			<h2 class="title ">Enable Asynchronous Loading in the Bootstrap</h2>
+			<p>Add the bootstrapping tag <code>data-sap-ui-async="true"</code> to your <code>index.html</code> file. It enables the runtime to load all
+				the modules and preload files for declared libraries asynchronously if an asynchronous API is used.</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script 
+	id="sap-ui-bootstrap"
+	src="/resources/sap-ui-core.js"
+	data-sap-ui-compat-version="edge"
+	<span class="emphasis">data-sap-ui-async="true"</span>
+	data-sap-ui-on-init="module:my/app/main"
+	data-sap-ui-resource-roots='{"my.app": "./"}'
+&gt;</pre></div></div></section>
+			<p>Setting <code>async=true</code> leverages the browser's capabilities to execute multiple requests in parallel, without blocking the UI. The
+				attribute <code>data-sap-ui-on-init</code> defines the module <code>my.app.Main</code>, which will be loaded initially.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Configuration of the bootstrap can only be done for standalone applications and when the bootstrap is under control of the
+					developer. The bootstrap of applications from a Fiori launchpad is managed by the launchpad.</p>
+			<p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The <code>data-sap-ui-async="true"</code> configuration option requires extensive testing as well as cooperation on the application side
+				to ensure a stable and fully working application. It is, therefore, <span class="emphasis">not</span> activated automatically, but needs to be
+				configured accordingly. If you encounter issues or want to prepare your application for asynchronous loading, see <a href="topic/493a15aa978d4fe9a67ea9407166eb01" title="Find a collection of information that helps you to find out if your application is ready for asynchronous loading." class="sap-doc">Is Your Application Ready for Asynchronous Loading?</a> The bootstrap attribute <code>data-sap-ui-async="true"</code> affects both
+				modules <span class="emphasis">and</span> preload files.</p></div></div>
+			<p>If you listen to the <code>init</code> event as part of your <code>index.html</code> page, make sure that you implement the
+				asynchronous behavior also here, as shown in the following code snippet:</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;script&gt;
+    sap.ui.require([
+        "sap/ui/core/ComponentContainer",
+        "sap/ui/core/Core"
+    ], function(ComponentContainer, Core) {
+        Core.ready().then( () =&gt; {
+            new ComponentContainer({
+                name: "your.component",
+                async: true,
+                height: "100%",
+                manifest: true,
+                componentCreated: function(oParams) {
+                    var oComponent = oParams.getParameter("component");
+                    // do something with the component instance
+                }
+            }).placeAt("content");
+        });
+    });
+&lt;/script&gt;</pre></div></div></section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Please note that this variant with inline scripting is not CSP-compliant. It is better to create a module with <code>sap.ui.define</code>
+					which contains the startup code and load it via <code>data-sap-ui-on-init="module:my/app/main"</code> ( this usually also
+					requires a declaration of <code>data-sap-ui-resource-roots</code>, e.g.: <code>data-sap-ui-resource-roots='{"my.app":
+						"./"}</code> ).</p>
+			<p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>Applications without a descriptor file can declare additional dependencies explicitly via the bootstrap parameter
+					<code>data-sap-ui-libs</code>. If those dependencies are not listed, such as transitive dependencies that are inherited from a
+				listed library, SAPUI5 will load them automatically, but then has to
+				first read the configured libraries and find out about these dependencies. This can take time as the application might benefit less
+				from parallel loading.</p></div></div>
+			
+			<p><span class="emphasis">Additional Information:</span></p>
+			<ul class="ul ">
+				<li class="li">For more information about bootstrap attributes, see <a href="topic/a04b0d10fb494d1cb722b9e341b584ba" title="To use SAPUI5 features in your HTML page, you have to load and initialize the SAPUI5 library." class="sap-doc">Bootstrapping: Loading and Initializing</a></li>
+				<li class="li">Walkthrough tutorial, <a href="topic/fe12df2e338e43598977d09f3d191b7b" title="Before we can do something with SAPUI5, we need to load and initialize it. This process of loading and initializing SAPUI5 is called bootstrapping. Once this bootstrapping is finished, we simply display an alert." class="sap-doc">Step 2: Bootstrap</a></li>
+				<li class="li"><a href="topic/91f1f4536f4d1014b6dd926db0e91070" title="The standard variant for bootstrapping loads all JavaScript modules of a library in advance with one single request for performance reasons." class="sap-doc">Standard Variant for Bootstrapping</a></li>
+				<li class="li"><a href="https://blogs.sap.com/2018/12/18/ui5ers-buzz-41-best-practices-for-async-loading-in-ui5/" title="https://blogs.sap.com/2018/12/18/ui5ers-buzz-41-best-practices-for-async-loading-in-ui5/" class="external-link" target="_blank" rel="noopener">Best Practices for Asynchronous Loading in UI5</a></li>
+			</ul>
+		</section><section id="section_RootViewRoutingConfiguration">
+			<h2 class="title ">Ensure that Root View and Routing are Configured to Load Targets Asynchronously</h2>
+			<p>Please check the <code>rootView</code> of the application's <code>manifest.json</code> file for an <code>async=true</code>
+				parameter. This allows the root view to be loaded asynchronously.</p>
+			<p>To configure the targets for asynchronous loading, please also check the <a href="topic/902313063d6f45aeaa3388cc4c13c34e" title="Routing configuration consists of routes, targets, config, and owner." class="sap-doc">Routing Configuration</a> for the
+					<code>async=true</code> parameter.</p>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+	"rootView": {
+        "viewName": "my.app.view.App",
+        "type": "XML",
+        "id": "app",
+         <span class="emphasis">"async": true</span>
+    },
+    "routing": {
+        "config": {
+            "routerClass": "sap.m.routing.Router",
+            "viewType": "XML",
+            "path": "my.app.view",
+            "controlId": "app",
+            "controlAggregation": "pages",
+            <span class="emphasis">"async": true</span>
+        }
+    },
+...</pre></div></div></section>
+			<p><span class="emphasis">Additional Information:</span></p>
+			<ul class="ul ">
+				<li class="li">Set the rootView and routing to async via <a href="api/sap.ui.core.IAsyncContentCreation" title="api/sap.ui.core.IAsyncContentCreation" class="sap-doc" alt="api/sap.ui.core.IAsyncContentCreation"><code>sap.ui.core.IAsyncContentCreation</code></a></li>
+			</ul>
+		</section><section id="section_AsyncInterface">
+			<h2 class="title ">Make Use of the <code>sap.ui.core.IAsyncContentCreation</code> Interface</h2>
+			<p>The <a href="api/sap.ui.core.IAsyncContentCreation" title="api/sap.ui.core.IAsyncContentCreation" class="sap-doc" alt="api/sap.ui.core.IAsyncContentCreation"><code>sap.ui.core.IAsyncContentCreation</code></a> interface allows a subclass of
+					<code>sap.ui.core.UIComponent</code> to be created fully asynchronously. Implementing this interface sets the component's
+					<code>rootView</code> and router configuration implicitly to <code>async: true</code>. Nested views will then also be
+				handled asynchronously.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>For nested components (via <code>sap.ui.core.ComponentContainer</code>) the asynchronous behaviour will not be propagated per
+					default.</p>
+			<p></p></div></div>
+			<p>The following code shows a sample UIComponent implementing the interface:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
+	return UIComponent.extend("my.app.Component", {
+		metadata: {
+			<span class="emphasis">interfaces: ["sap.ui.core.IAsyncContentCreation"],</span>
+			manifest: "json"
+		}
+	});
+});</pre></div></div></section>
+			<p>For more information on how <code>sap.ui.core.IAsyncContentCreation</code> affects the component's content creation, see <a href="topic/b430345887f1419fba50320b57c1bdf9" title="SAPUI5 provides two methods for the initial instantiation of the component." class="sap-doc">Methods Controlling the Initial Instantiation</a>.</p>
+			<p><span class="emphasis">Additional Information:</span></p>
+			<ul class="ul ">
+				<li class="li">Walkthrough tutorial, <a href="topic/8f93bf2b2b13402e9f035128ce8b495f" title="All application-specific configuration settings will now further be put in a separate descriptor file called manifest.json. This clearly separates the application coding from the configuration settings and makes our app even more flexible. For example, all SAP Fiori applications are realized as components and come with a descriptor file in order to be hosted in the SAP Fiori launchpad." class="sap-doc">Step 10: Descriptor for Applications</a></li>
+			</ul>
+		</section><section id="section_AsyncModuleLoading">
+			<h2 class="title ">Make Use of Asynchronous Module Loading (AMD Style)</h2>
+			<p>If modules follow the Asynchronous Module Definition (AMD) standard and the bootstrap flag <code>data-sap-ui-async</code> is set to
+					<code>true</code>, custom scripts and other modules can also be loaded asynchronously when a preload is not available. It will
+				help you in the future to enable asynchronous loading of individual modules combined with the usage of HTTP/2 or AMD-based module
+				bundlers. It also ensures proper dependency tracking between modules.</p>
+			<p>But it isn't enough to write AMD modules. You also need to prevent access to SAPUI5 classes via global names. For instance, do not use global
+				namespaces like <code>new sap.m.Button()</code> but require the <code>Button</code> and call its constructor via the local AMD
+				reference instead. </p>
+			 For more information, see the <a href="api/sap.ui#methods/sap.ui.define" title="api/sap.ui#methods/sap.ui.define" class="sap-doc" alt="api/sap.ui#methods/sap.ui.define">API Reference:
+						<code>sap.ui.define</code></a>.
+			
+			<p>Always avoid usages of <code>jQuery.sap.require</code> ! In order to enable modules to load asynchronously, use
+					<code>sap.ui.define</code> to create modules (e.g. controllers or components) or <code>sap.ui.require</code> in other
+				cases.</p>
+			<p>Please follow the <a href="topic/00737d6c1b864dc3ab72ef56611491c4" title="This section provides best practices for SAPUI5 module loading patterns." class="sap-doc">Best Practices for Loading Modules</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,104 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiofaaff35246414793b061f0244fb67338" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/example-js-fragments-used-in-xml-views-faaff35.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Example: JS Fragments Used in XML Views</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Example: JS Fragments Used in XML Views</h2></div><div class="shortdesc">Example of JS fragments used in an XML view</div><p>The example uses different combinations. Make sure that the <code>sap-ui-core.js</code>
+			script location points to an existing SAPUI5 installation.</p><section id="section_gzk_nqs_mmb">
+			<h2 class="title ">webapp/Fragment.fragment.js</h2>
+			<p>Definition of a simple JS fragment containing two buttons:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// fragment is located in a file named: my/own/Fragment.fragment.js,
+sap.ui.define(["sap/m/Button"], function (Button) {
+    return {
+        createContent: function() {
+            // button text is bound to Model, "press" action is bound to Controller's event handler
+            return [
+                new Button({text:'my Fragment Button'}),
+                new Button(this.createId("btn2"), {text:'my second Fragment Button'})
+            ]
+        }
+    }
+});</pre></div></div></section>
+		</section><section id="section_d3y_4qs_mmb">
+			<h2 class="title ">webapp/View.view.xml</h2>
+			<p>Definition of a simple XML view:</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="my.own.Controller"&gt;
+    &lt;layout:VerticalLayout id="vl"&gt;
+        &lt;Button text="Find controls by ID" press="findControls"&gt;&lt;/Button&gt;
+        &lt;Text text="Fragment referenced inline, no Fragment ID:" /&gt;
+        &lt;core:Fragment fragmentName='my.own.Fragment' type='JS' /&gt;
+        &lt;Text text="Fragment referenced inline, with Fragment ID 'myFrag':" /&gt;
+        &lt;core:Fragment id="myFrag" fragmentName='my.own.Fragment' type='JS' /&gt;
+    &lt;/layout:VerticalLayout&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+		</section><section id="section_br1_pqs_mmb">
+			<h2 class="title ">webapp/Controller.controller.js</h2>
+			<p>Definition of a simple controller used with the XML view:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/core/Fragment'], function (Controller, Fragment) {
+    "use strict";
+    return Controller.extend("my.own.Controller", {
+        metadata: {
+            methods:{
+                findControls: {public: true }
+            }
+        },
+        findControls: function() {
+            // Fragment is instantiated within an XMLView =&gt; all GIVEN IDs are prefixed with the
+            // View ID and View.byId() needs to be used to find the controls
+            var b1 = null; // ID is generated: "__button1"
+            var b2 = this.byId("btn2"); // Button ID is given, Fragment has no ID: "myView--btn2"
+            var b3 = null // Fragment has an ID, but Control ID is generated and hence not prefixed: "__button2"
+            var b4 = this.byId(Fragment.createId("myFrag", "btn2")); // Button and Fragment ID are given, 
+                //let the Fragment construct the prefixed ID and then let the View search the again prefixed ID
+            alert("Controls in Fragment:\nButton 1: has no given ID, cannot be found\nButton 2: " + b2 + 
+               "\nButton 3: has no given ID, cannot be found\nButton 4: " + b4);
+        }
+    });
+});
+</pre></div></div></section>
+		</section><section id="section_f3f_s4s_mmb">
+			<h2 class="title ">webapp/index.html</h2>
+			<p>Instance creation of controller and XML view:</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta content="charset=utf-8"&gt;
+	
+	&lt;title&gt;JSFragment used in XmlView&lt;/title&gt;
+	
+	&lt;!-- Load UI5 and select the "sap.m", "sap.ui.layout" control libraries --&gt;
+	&lt;script id='sap-ui-bootstrap' type='text/javascript'
+			src='/sapui5/resources/sap-ui-core.js'
+			data-sap-ui-libs='sap.m,sap.ui.layout'
+			data-sap-ui-resource-roots='{"my.own": "."}'
+	&lt;/script&gt;
+
+	&lt;script&gt;
+		sap.ui.require([
+			'sap/ui/core/mvc/Controller',
+			'sap/ui/core/mvc/XMLView'
+		], function (Controller, XMLView) {
+			Controller.create({
+				name: "my.own.Controller"
+			}).then(function (oController) {
+				/*** THIS IS THE "APPLICATION" CODE ***/
+
+				// instantiate the View
+				XMLView.create({
+                        viewName:"my.own.View",
+                        controller: oController
+				}).then(function (oView) {
+					// put the View onto the screen
+					oView.placeAt('content');
+				});
+			});
+		});
+	&lt;/script&gt;
+	
+	&lt;/head&gt;
+	&lt;body class='sapUiBody'&gt;
+		&lt;div id='content'&gt;&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

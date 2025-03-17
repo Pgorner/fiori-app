@@ -1,0 +1,235 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod63a15e5eebb45cdada317bae5f45bc2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-35-device-adaptation-d63a15e.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 35: Device Adaptation</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 35: Device Adaptation</h2></div><div class="shortdesc">We now configure the visibility and properties of controls based on the device that
+		we run the application on. By making use of the <code>sap.ui.Device</code> API and
+		defining a device model we will make the app look great on many devices.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio0b0d57e04e574d7fbc4b10395e6cb260_LowRes.png" title="The graphic has an explanatory text." alt="The graphic has an explanatory text." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">On phone devices, the panel is collapsed to save screen space and a button is
+					hidden</h2></span></div>
+		</section><section id="section_qzn_hln_tyb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.35" title="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.35" class="sap-doc" alt="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.35">Walkthrough - Step 35</a>.</p>
+		</section><section id="section_rzn_hln_tyb">
+			<h2 class="title ">webapp/view/HelloPanel.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="ui5.walkthrough.controller.HelloPanel"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Panel
+		headerText="{i18n&gt;helloPanelTitle}"
+		class="sapUiResponsiveMargin"
+		width="auto"<span class="emphasis">
+		expandable="{device&gt;/system/phone}"
+		expanded="{= !${device&gt;/system/phone} }"</span>&gt;
+		&lt;content&gt;
+			&lt;Button
+				id="helloDialogButton"
+				icon="sap-icon://world"
+				text="{i18n&gt;openDialogButtonText}"
+				press=".onOpenDialog"
+				class="sapUiSmallMarginEnd <span class="emphasis">sapUiVisibleOnlyOnDesktop</span>"/&gt;
+			&lt;Button
+				text="{i18n&gt;showHelloButtonText}"
+				press=".onShowHello"
+				class="myCustomButton"/&gt;
+			&lt;Input
+				value="{/recipient/name}"
+				valueLiveUpdate="true"
+				width="60%"/&gt;
+			&lt;FormattedText
+				htmlText="Hello {/recipient/name}"
+				class="sapUiSmallMargin sapThemeHighlight-asColor myCustomText"/&gt;
+		&lt;/content&gt;
+	&lt;/Panel&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add two new properties <code>expandable</code> and <code>expanded</code> to the <code>HelloPanel</code>. The user can now close
+				and open the panel to have more space for the table below on devices with small screens. The property <code>expandable</code> is
+				bound to a model named <code>device</code> and the path <code>/system/phone</code>. So the panel can be expanded on phone
+				devices only. The device model is filled with the <span class="keynote apiname">sap.ui.Device</span> API of SAPUI5 as we see further down. The <code>expanded</code> property
+				controls the state of the panel and we use expression binding syntax to close it on phone devices and have the panel expanded on all
+				other devices. The device API of SAPUI5 offers more functionality to
+				detect various device-specific settings, please have a look at the <a href="api/sap.ui.Device" title="api/sap.ui.Device" class="sap-doc" alt="api/sap.ui.Device">documentation</a> for more
+				details.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The <span class="keynote apiname">sap.ui.Device</span> API detects the device type (Phone, Tablet, Desktop) based on the user agent and many other
+					properties of the device. Therefore simply reducing the screen size will not change the device type. To test this feature, you
+					will have to enable device emulation in your browser or open it on a real device.</p>
+			<p></p></div></div>
+			<p>We can also hide single controls by device type when we set a CSS class like <code>sapUiVisibleOnlyOnDesktop</code> or
+					<code>sapUiHideOnDesktop</code> . We only show the button that opens the dialog on desktop devices and hide it for other
+				devices. For more options, see the documentation linked below.</p>
+		</section><section>
+			<h2 class="title ">webapp/Component.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/UIComponent",
+	"sap/ui/model/json/JSONModel"<span class="emphasis">,
+	"sap/ui/Device"</span>
+], (UIComponent, JSONModel<span class="emphasis">, Device</span>) =&gt; {
+	"use strict";
+
+	return UIComponent.extend("ui5.walkthrough.Component", {
+		metadata: {
+			interfaces: ["sap.ui.core.IAsyncContentCreation"],
+			manifest: "json"
+		},
+
+		init() {
+			// call the init function of the parent
+			UIComponent.prototype.init.apply(this, arguments);
+
+			// set data model
+			const oData = {
+				recipient: {
+					name: "World"
+				}
+			};
+			const oModel = new JSONModel(oData);
+			this.setModel(oModel);
+
+			<span class="emphasis">// set device model
+			const oDeviceModel = new JSONModel(Device);
+			oDeviceModel.setDefaultBindingMode("OneWay");
+			this.setModel(oDeviceModel, "device");</span>
+
+			// create the views based on the url/hash
+			this.getRouter().initialize();
+		}
+	});
+});</pre></div></div></section>
+			<p>In the <code>app</code> component we add a dependency to
+					<code>sap.ui.Device</code> and initialize the device model in the
+					<code>init</code> method. We can simply pass the loaded dependency
+					<code>Device</code> to the constructor function of the JSONModel. This will
+				make most properties of the SAPUI5 device API
+				available as a JSON model. The model is then set on the component as a named model
+				so that we can reference it in data binding as we have seen in the view above.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>We have to set the binding mode to <code>OneWay</code> as the device model is
+					read-only and we want to avoid changing the model accidentally when we bind
+					properties of a control to it. By default, models in SAPUI5 are
+					bidirectional (<code>TwoWay</code>). When the property changes, the bound
+					model value is updated as well.</p>
+			<p></p></div></div>
+		</section><section>
+			<h2 class="title ">webapp/view/Detail.view.xml</h2>
+			<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+				</p><p>You can test the device specific features of your app with the developer tools of
+					your browser. For example in Google Chrome, you can emulate a tablet or a phone
+					easily and see the effects. Some responsive options of SAPUI5 are only set
+					initially when loading the app, so you might have to reload your page to see the
+					results.</p>
+			<p></p></div></div>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+    controllerName="ui5.walkthrough.controller.Detail"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:wt="ui5.walkthrough.control"&gt;
+    &lt;Page
+        title="{i18n&gt;detailPageTitle}"
+        showNavButton="true"
+        navButtonPress=".onNavBack"&gt;
+        &lt;ObjectHeader
+            <span class="emphasis">responsive="true"
+            fullScreenOptimized="true"
+            number="{
+                parts: [
+                    'invoice&gt;ExtendedPrice',
+                    'view&gt;/currency'
+                ],
+                type: 'sap.ui.model.type.Currency',
+                formatOptions: {
+                    showMeasure: false
+                }
+            }"
+            numberUnit="{view&gt;/currency}"</span>
+            intro="{invoice&gt;ShipperName}"
+            title="{invoice&gt;ProductName}"&gt;
+           <span class="emphasis"> &lt;attributes&gt;
+                &lt;ObjectAttribute
+                    title="{i18n&gt;quantityTitle}"
+                    text="{invoice&gt;Quantity}"/&gt;
+                &lt;ObjectAttribute
+                    title="{i18n&gt;dateTitle}"
+                    text="{
+                        path: 'invoice&gt;ShippedDate',
+                        type: 'sap.ui.model.type.Date',
+                        formatOptions: {
+                            style: 'long',
+                            source: {
+                            pattern: 'yyyy-MM-ddTHH:mm:ss'
+                            }
+                        }
+                    }"/&gt;
+            &lt;/attributes&gt;</span>
+        &lt;/ObjectHeader&gt;
+        &lt;wt:ProductRating
+            id="rating"
+            class="sapUiSmallMarginBeginEnd"
+            change=".onRatingChange"/&gt;
+    &lt;/Page&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>Some controls already have built-in responsive features that can be configured. The
+					<code>ObjectHeader</code> control can be put in a more flexible mode by
+				setting the attribute <code>responsive</code> to <code>true</code> and
+					<code>fullScreenOptimized</code> to true as well. This will show the data
+				that we add to the view now at different positions on the screen based on the device
+				size. </p>
+			<p>We add the <code>number</code> and <code>numberUnit</code> field from the
+				list of the previous steps also to the <code>ObjectHeader</code> and use the
+				same formatter with the <code>currency</code> type as in the previous steps. We
+				then define two attributes: The quantity of the invoice and the shipped date which
+				is part of the data model. We have not used this <code>shippedDate</code> field
+				from the invoices JSON file so far, it contains a date in typical string format.</p>
+			<p>We now use the <code>Date</code> type and provide the pattern of our date format
+				in the source section of the format options. It will display a more human-readable
+				formatted date text that also fits to small screen devices.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/Detail.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/routing/History",
+	"sap/m/MessageToast",
+<span class="emphasis">	"sap/ui/model/json/JSONModel"</span>
+], (Controller, History, MessageToast<span class="emphasis">, JSONModel</span>) =&gt; {
+	"use strict";
+
+	return Controller.extend("ui5.walkthrough.controller.Detail", {
+		onInit() {
+			<span class="emphasis">const oViewModel = new JSONModel({
+				currency: "EUR"
+			});
+			this.getView().setModel(oViewModel, "view");
+</span>
+			const oRouter = this.getOwnerComponent().getRouter();
+			oRouter.getRoute("detail").attachPatternMatched(this.onObjectMatched, this);
+		},
+		…
+	});
+});</pre></div></div></section>
+			<p>In the <code>Detail</code> controller we simply add the view model with our
+				currency definition to display the number properly. It is the same code as in the
+					<code>InvoiceList</code> controller file.</p>
+		</section><section>
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"># Detail Page
+detailPageTitle=Walkthrough - Details
+ratingConfirmation=You have rated this product with {0} stars
+<span class="emphasis">dateTitle=Order date
+quantityTitle=Quantity</span></pre></div></div></section>
+			<p>We add the column names and the attribute titles to our <code>i18n</code>
+				file.</p>
+			<p>We can see the results when we decrease the browser's screen size or open the app on
+				a small device.</p>
+		</section><section>
+			<h2 class="title ">Conventions</h2>
+			<p>Optimize your application for the different screen sizes of phone, tablet, and
+				desktop devices.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/a96e18b4cd924196b255eb9623431dbb">Step 34: Responsiveness</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/d935dbf196d34997bf1ac42ac3e81579">Step 36: Content Density</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.Device" title="api/sap.ui.Device" class="sap-doc" alt="api/sap.ui.Device">API Reference: sap.ui.Device</a></li>
+	</ul></section></div></section></div></body></html>

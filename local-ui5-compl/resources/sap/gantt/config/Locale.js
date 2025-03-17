@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/ui/core/Element","sap/gantt/utils/GanttChartConfigurationUtils","sap/base/i18n/Localization"],function(t,e,i){"use strict";var n=t.extend("sap.gantt.config.Locale",{metadata:{library:"sap.gantt",properties:{timeZone:{type:"string"},utcdiff:{type:"string",defaultValue:"000000"},utcsign:{type:"string",defaultValue:"+"},dstHorizons:{type:"object[]",defaultValue:[]}},designtime:"sap/ui/dt/designtime/notAdaptable.designtime"}});n.prototype.init=function(){this._onLocalizationChangedHandler=this._onLocalizationChanged.bind(this);i.attachChange(this._onLocalizationChangedHandler);t.prototype.init.apply(this,arguments);this._triggerTimezoneChange(this.getTimeZone())};n.prototype.getTimeZone=function(){var t=this.getProperty("timeZone");return t||e.getTimezone()};n.prototype.setTimeZone=function(t,e){var i=this.getProperty("timeZone");if(i!==t){this.setProperty("timeZone",t,e);this._triggerTimezoneChange(t)}return this};n.prototype.getFormattedDate=function(t,e){return t.format(e,this.getTimeZone())};n.prototype._onLocalizationChanged=function(t){var e=this.getProperty("timeZone");if(!e){var i=t.timezone;if(i&&i!==this._sCurrentLocalizationTimezone){this._sCurrentLocalizationTimezone=i;this._triggerTimezoneChange(i)}}};n.prototype._triggerTimezoneChange=function(){this._handleEvent(new jQuery.Event("TimezoneChanged"))};n.prototype.exit=function(){i.detachChange(this._onLocalizationChangedHandler);t.prototype.exit.apply(this,arguments)};n.prototype.clone=function(){i.detachChange(this._onLocalizationChangedHandler);return t.prototype.clone.apply(this,arguments)};return n},true);
+//# sourceMappingURL=Locale.js.map

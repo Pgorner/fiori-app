@@ -1,0 +1,182 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiod9efab307ecc42b180b12cc8956e22d7" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-5-display-a-target-without-changing-the-hash-d9efab3.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 5: Display a Target Without Changing the Hash</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 5: Display a Target Without Changing the Hash</h2></div><div class="shortdesc">In this step, you will learn more about targets and how to display a target from the
+		routing configuration manually. </div><p>We will display the <span class="ph uicontrol">Not Found</span> target from the previous step
+			without changing the hash to illustrate this navigation pattern. We will also consider a
+			side-effect that prevents us from navigating back in this case. </p><p>Fortunately, we can extend our app and offer an easy solution. There are some use cases
+			that should not be persisted in the URL but just be triggered by the application logic
+			if needed. A target is a navigation-related configuration for a view and we can display
+			targets manually without referencing them in a navigation route. Good examples for this
+			are temporary errors, switching to an edit page for a business object, or going to a
+				<span class="ph uicontrol">Settings</span> page. Sometimes you will also have to implement a
+			way back manually.</p><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio64fc7de39bed41d48d01e08244f201ab_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The new <span class="ph uicontrol">Home</span> page with a navigation button</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				-kit at
+						<a href="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.05" title="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.05" class="sap-doc" alt="entity/sap.ui.core.tutorial.navigation/sample/sap.ui.core.tutorial.navigation.05">Routing and Navigation - Step
+					5</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/view/Home.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.demo.nav.controller.Home"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Page title="{i18n&gt;homePageTitle}" class="sapUiResponsiveContentPadding"&gt;
+		&lt;content&gt;
+			&lt;Button <span class="emphasis">id="displayNotFoundBtn" text="{i18n&gt;DisplayNotFound}" press=".onDisplayNotFound" class="sapUiTinyMarginEnd"/&gt;
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+			<p>We start by changing the <code>Button</code> control from the home view. When the
+				button is pressed, the <code>onDisplayNotFound</code> handler is called. </p>
+		</section><section>
+			<h2 class="title ">webapp/controller/Home.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.Home", {
+<span class="emphasis">		onDisplayNotFound : function () {
+			//display the "notFound" target without changing the hash
+			this.getRouter().getTargets().display("notFound");
+		}</span>
+	});
+});</pre></div></div></section>
+			<p>Inside the <code>onDisplayNotFound</code> handler we get a reference to the
+					<code>Targets</code> helper object of the router and simply call
+					<code>display("notFound")</code>. The view associated to the target with the
+				name <code>notFound</code> from the routing configuration will be displayed by
+				the router without changing the hash.</p>
+			<p>The <code>sap.m.routing.Targets</code> object itself can be retrieved by calling
+					<code>getTargets()</code> on the router. It provides a convenient way for
+				placing views into the correct containers of your application. The main benefits of
+				targets are structuring and lazy loading: you just configure the views in the
+				routing configuration and you do not have to load the views until you really need
+				them.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>In the example code we get a reference to the
+						<code>sap.m.routing.Targets</code> object by calling
+						<code>getTargets()</code> on <code>this.getRouter()</code> from the
+					base controller. However, you could also get a reference to the
+						<code>sap.m.routing.Targets</code> object by calling
+						<code>this.getOwnerComponent().getRouter().getTargets()</code> or
+						<code>this.getOwnerComponent().getTargets()</code>.</p>
+			<p></p></div></div>
+			<p> If you now call the app and press the <span class="ph uicontrol">Display Not Found</span>
+				button you see that the <code>notFound</code> target is displayed without
+				changing the URL. That was easy, but suddenly our app's <span class="ph uicontrol">Back</span>
+				button does not work anymore. The bug we have just introduced illustrates an
+				interesting navigation trap. The application hash is still empty since we just
+				display the target and did not hit a route.</p>
+			<p>When pressing the app's <span class="ph uicontrol">Back</span> button, the
+					<code>onNavBack</code> from the previous step is called. It detects that
+				there is no previous hash and therefore tries to navigate to the
+					<code>appHome</code> route again. The router is smart enough to detect that
+				the current hash did not change and therefore skips the navigation to the route.
+				Fortunately, there is an easy workaround for us. However, we need to touch the
+					<code>Home</code> controller again.</p>
+		</section><section>
+			<h2 class="title ">webapp/controller/Home.controller.js (Changed Again)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+	return BaseController.extend("sap.ui.demo.nav.controller.Home", {
+		onDisplayNotFound : function () {
+			//display the "notFound" target without changing the hash
+			this.getRouter().getTargets().display("notFound"<span class="emphasis">, {
+				fromTarget : "home"
+			}</span>);
+		}
+	});
+});
+</pre></div></div></section>
+			<p>This time we pass on a data object as the second parameter for the display method
+				which contains the name of the current target; the one from which we navigate to the
+					<code>notFound</code> target. We decide to choose the key
+					<code>fromTarget</code> but since it is a custom configuration object any
+				other key would be fine as well. </p>
+		</section><section>
+			<h2 class="title "> webapp/controller/NotFound.controller.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/nav/controller/BaseController"
+], function (BaseController) {
+	"use strict";
+
+	return BaseController.extend("sap.ui.demo.nav.controller.NotFound", {
+
+		onInit: function () {
+			<span class="emphasis">var oRouter, oTarget;
+
+			oRouter = this.getRouter();
+			oTarget = oRouter.getTarget("notFound");
+			oTarget.attachDisplay(function (oEvent) {
+				this._oData = oEvent.getParameter("data");	// store the data
+			}, this);</span>
+		}<span class="emphasis">,
+
+		// override the parent's onNavBack (inherited from BaseController)
+		onNavBack : function () {
+			// in some cases we could display a certain target when the back button is pressed
+			if (this._oData && this._oData.fromTarget) {
+				this.getRouter().getTargets().display(this._oData.fromTarget);
+				delete this._oData.fromTarget;
+				return;
+			}
+
+			// call the parent's onNavBack
+			BaseController.prototype.onNavBack.apply(this, arguments);
+		}</span>
+	});
+});</pre></div></div></section>
+			<p>Next, we have to register an event listener to the <code>display</code> event of
+				the <code>notFound</code> target. The best place for us to register an event
+				listener for this is inside the <code>init</code> function of our
+					<code>NotFound</code> controller. There we can access and store the custom
+				data that we are passing on when displaying the target manually.</p>
+			<p>From the router reference we can fetch a reference to the <code>notFound</code>
+				target. Each target configuration will create a runtime object that can be accessed
+				through the router. </p>
+			<p>Similar to SAPUI5
+				controls, targets define API methods and events that can be attached. We attach a
+				display event handler and save the data that was received as the event parameter
+					<code>data</code> in an internal controller variable
+				<code>_oData</code>. This data also includes the <code>fromTarget</code>
+				information in case the caller passed it on. However, we now have to override the
+				base controller's <code>onNavBack</code> implementation to change the behavior a
+				bit. We add a special case for our target back functionality in case the
+					<code>fromTarget</code> property has been passed on. If specified, we simply
+				display the target defined as <code>fromTarget</code> manually the same way we
+				actually called the <code>notFound</code> target manually. Otherwise we just
+				call the base controller's <code>onNavBack</code> implementation.</p>
+		</section><section>
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+DisplayNotFound=Display Not Found</pre></div></div></section>
+			<p>Add the new property to the <code>i18n.properties</code> file.</p>
+			<p>When we now click the <span class="ph uicontrol">Back</span> button, it works as expected and
+				brings us back to the overview page, also when the <span class="ph uicontrol">Not Found</span>
+				view is displayed manually. </p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Display targets manually if you want to trigger a navigation without changing
+						the hash</p>
+				</li>
+				<li class="li">
+					<p>Think carefully about all navigation patterns in your application, otherwise
+						the user might get stuck</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/1b6dcd39a6a74f528b27ddb22f15af0d">Navigation and Routing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/66670b0aab3948469d5cc8276113e9ea">Step 4: Add a Back Button to Not Found Page</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/782aac08f2de4003a2fcbdd39d27f374">Step 6: Navigate to Routes with Hard-Coded Patterns</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.m.routing.Targets" title="api/sap.m.routing.Targets" class="sap-doc" alt="api/sap.m.routing.Targets">API Reference: sap.m.routing.Targets</a></li>
+		<li><a href="api/sap.ui.core.routing.Targets" title="api/sap.ui.core.routing.Targets" class="sap-doc" alt="api/sap.ui.core.routing.Targets">API Reference: sap.ui.core.routing.Targets</a></li>
+		<li><a href="api/sap.ui.core.routing.Target" title="api/sap.ui.core.routing.Target" class="sap-doc" alt="api/sap.ui.core.routing.Target">API Reference: sap.ui.core.routing.Target</a></li>
+
+	</ul></section></div></section></div></body></html>

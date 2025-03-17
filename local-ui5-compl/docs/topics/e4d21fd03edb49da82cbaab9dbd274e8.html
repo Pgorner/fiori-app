@@ -1,0 +1,198 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioe4d21fd03edb49da82cbaab9dbd274e8" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-9-adding-a-detail-detail-page-e4d21fd.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 9: Adding a Detail-Detail Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 9: Adding a Detail-Detail Page</h2></div><div class="shortdesc">In this step, we create a detail-detail page using <code>sap.f.DynamicPage</code>, which is opened by choosing a supplier from the
+		detail page.</div><section id="section_yfh_d31_12b" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Preview</h2></div><div class="fig"><div><div class="fig"><img src="loio30466794b2164305a9693ccd23af0380_LowRes.gif" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Detail-detail page displaying the name of the selected supplier</h2></span></div></div></section><section id="section_fd2_4dd_lbb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.f.tutorial.fcl.09/preview" title="sample/sap.f.tutorial.fcl.09/preview" class="sap-doc" alt="sample/sap.f.tutorial.fcl.09/preview">Flexible Column Layout
+						App - Step 9</a>.</p>
+		</section><section id="section_i1z_w4j_l4b">
+			<h2 class="title ">webapp/view/DetailDetail.view.xml [NEW]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	controllerName="sap.ui.demo.fcl.controller.DetailDetail"
+	xmlns="sap.f"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;DynamicPage toggleHeaderOnTitleClick="false"&gt;
+		&lt;title&gt;
+			&lt;DynamicPageTitle&gt;
+				&lt;heading&gt;
+					&lt;m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center"&gt;
+						&lt;m:Title text="{products&gt;text}" wrapping="true" class="sapUiTinyMarginEnd"/&gt;
+					&lt;/m:FlexBox&gt;
+				&lt;/heading&gt;
+			&lt;/DynamicPageTitle&gt;
+		&lt;/title&gt;
+	&lt;/DynamicPage&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+			<p>We create a detail-detail page view using <code>sap.f.DynamicPage</code> with only a title.</p>
+		</section><section id="section_ocd_w4j_l4b">
+			<h2 class="title ">webapp/controller/DetailDetail.controller.js [NEW]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function (Controller) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.fcl.controller.DetailDetail", {
+		onInit: function () {
+			var oOwnerComponent = this.getOwnerComponent();
+
+			this.oRouter = oOwnerComponent.getRouter();
+			this.oModel = oOwnerComponent.getModel();
+
+			this.oRouter.getRoute("detailDetail").attachPatternMatched(this._onPatternMatch, this);
+		},
+
+		_onPatternMatch: function (oEvent) {
+			this._supplier = oEvent.getParameter("arguments").supplier || this._supplier || "0";
+			this._product = oEvent.getParameter("arguments").product || this._product || "0";
+
+			this.getView().bindElement({
+				path: "/ProductCollectionStats/Filters/1/values/" + this._supplier,
+				model: "products"
+			});
+		},
+
+		onExit: function () {
+			this.oRouter.getRoute("detailDetail").detachPatternMatched(this._onPatternMatch, this);
+		}
+	});
+});
+</span></pre></div></div></section>
+			<p>We create the detail-detail page controller.</p>
+		</section><section id="section_ubh_v4j_l4b">
+			<h2 class="title ">webapp/manifest.json [MODIFY]</h2>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">			...
+			"routes": [
+				{
+					"pattern": ":layout:",
+					"name": "list",
+					"target": [
+						"list",
+						"detail"
+					]
+				},
+				{
+					"pattern": "detail/{product}/{layout}",
+					"name": "detail",
+					"target": [
+						"list",
+						"detail"
+					]
+				}<span class="emphasis">,
+				{
+					"pattern": "detail/{product}/detailDetail/{supplier}/{layout}",
+					"name": "detailDetail",
+					"target": [
+						"list",
+						"detail",
+						"detailDetail"
+					]
+				}</span>
+			],
+			"targets": {
+				"list": {
+					"name": "List",
+					"controlAggregation": "beginColumnPages"
+				},
+				"detail": {
+					"name": "Detail",
+					"controlAggregation": "midColumnPages"
+				}<span class="emphasis">,
+				"detailDetail": {
+					"name": "DetailDetail",
+					"controlAggregation": "endColumnPages"
+				}</span>
+			}
+		}
+	}
+}</pre></div></div></section>
+			<p>We add the detail-detail page to our existing routes in the <code>manifest.json</code>.</p>
+		</section><section id="section_k5k_54j_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">			...
+			&lt;ObjectPageSection title="Suppliers"&gt;
+				&lt;subSections&gt;
+					&lt;ObjectPageSubSection&gt;
+						&lt;blocks&gt;
+							&lt;m:Table
+								id="suppliersTable"
+								items="{path : 'products&gt;/ProductCollectionStats/Filters/1/values'}"&gt;
+								&lt;m:columns&gt;
+									&lt;m:Column/&gt;
+								&lt;/m:columns&gt;
+								&lt;m:items&gt;
+									&lt;m:ColumnListItem type="Navigation"<span class="emphasis"> press=".onSupplierPress"</span>&gt;
+										&lt;m:cells&gt;
+											&lt;m:ObjectIdentifier text="{products&gt;text}"/&gt;
+										&lt;/m:cells&gt;
+									&lt;/m:ColumnListItem&gt;
+								&lt;/m:items&gt;
+							&lt;/m:Table&gt;
+						&lt;/blocks&gt;
+					&lt;/ObjectPageSubSection&gt;
+				&lt;/subSections&gt;
+			&lt;/ObjectPageSection&gt;
+		&lt;/sections&gt;
+		...</pre></div></div></section>
+			<p>We add a <code>press</code> event handler for each item in the <span class="ph uicontrol">SUPPLIERS</span> table in the detail page.</p>
+		</section><section id="section_iyl_t4j_l4b">
+			<h2 class="title ">webapp/controller/Detail.controller.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller"<span class="emphasis">,
+	'sap/f/library'</span>
+], function (Controller<span class="emphasis">, fioriLibrary</span>) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.fcl.controller.Detail", {
+		onInit: function () {
+			var oOwnerComponent = this.getOwnerComponent();
+
+			this.oRouter = oOwnerComponent.getRouter();
+			this.oModel = oOwnerComponent.getModel();
+
+			this.oRouter.getRoute("list").attachPatternMatched(this._onProductMatched, this);
+			this.oRouter.getRoute("detail").attachPatternMatched(this._onProductMatched, this);
+<span class="emphasis">			this.oRouter.getRoute("detailDetail").attachPatternMatched(this._onProductMatched, this);</span>
+		},
+
+<span class="emphasis">		onSupplierPress: function (oEvent) {
+			var supplierPath = oEvent.getSource().getBindingContext("products").getPath(),
+				supplier = supplierPath.split("/").slice(-1).pop();
+
+			this.oRouter.navTo("detailDetail", {layout: fioriLibrary.LayoutType.ThreeColumnsMidExpanded, supplier: supplier, product: this._product});
+		},</span>
+
+		_onProductMatched: function (oEvent) {
+		...</pre></div></div></section>
+			<p>We add an <code>onSupplierPress</code> function in the detail page controller in order to pass the data for the selected supplier
+				and navigate to the detail-detail page.</p>
+		</section><section id="section_lnq_q4j_l4b">
+			<h2 class="title ">webapp/controller/App.controller.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		onRouteMatched: function (oEvent) {
+			var sRouteName = oEvent.getParameter("name"),
+				oArguments = oEvent.getParameter("arguments");
+
+			// Save the current route name
+			this.currentRouteName = sRouteName;
+			this.currentProduct = oArguments.product;
+<span class="emphasis">			this.currentSupplier = oArguments.supplier;</span>
+		},
+
+		onStateChanged: function (oEvent) {
+			var bIsNavigationArrow = oEvent.getParameter("isNavigationArrow"),
+				sLayout = oEvent.getParameter("layout");
+
+			// Replace the URL with the new layout if a navigation arrow was used
+			if (bIsNavigationArrow) {
+				this.oRouter.navTo(this.currentRouteName, {layout: sLayout, product: this.currentProduct<span class="emphasis">, supplier: this.currentSupplier</span>}, true);
+			}
+		},
+
+		onExit: function () {
+			this.oRouter.detachRouteMatched(this.onRouteMatched, this);
+		}
+	});
+});</pre></div></div></section>
+			<p>Finally, we pass data for the supplier in the detail-detail page.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/c4de2df385174e58a689d9847c7553bd">Flexible Column Layout App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/e5ee491f69224f038a0c147480dbd436">Step 8: Enhancing the Detail Page</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/a59b3de038874f879cf20bfc3287bd7c">Step 10: Adding More Pages</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

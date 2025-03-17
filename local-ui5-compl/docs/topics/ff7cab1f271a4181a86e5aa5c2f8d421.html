@@ -1,0 +1,127 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioff7cab1f271a4181a86e5aa5c2f8d421" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-37-accessibility-ff7cab1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 37: Accessibility</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 37: Accessibility</h2></div><div class="shortdesc">In this step we're going to improve the accessibility of our app.</div><p>To achieve this, we will add ARIA attributes. ARIA attributes are used by screen readers to recognize the application structure and to interpret
+			UI elements properly. That way, we can make our app more accessible for users who are limited in their use of computers, for example
+			visually impaired persons. The main goal here is to make our app usable for as many people as we can.</p><div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>ARIA is short for <span class="emphasis">Accessible Rich Internet Applications</span>. It is a set of attributes that enable us to make apps
+			more accessible by assigning semantic characteristics to certain elements. For more information, see <a href="https://blogs.sap.com/2015/06/01/accessible-rich-internet-applications-aria-part-1-introduction/" title="https://blogs.sap.com/2015/06/01/accessible-rich-internet-applications-aria-part-1-introduction/" class="external-link" target="_blank" rel="noopener">Accessible Rich Internet Applications (ARIA) – Part 1: Introduction</a>.</p></div></div><section id="section_xpr_2ls_gfb">
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loiob35deda1ebe1433fbf0ff066f6e3fc4b_LowRes.png" title="The graphic has an explanatory text." alt="The graphic has an explanatory text." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Landmarks in our app</h2></span></div>
+		</section><section id="section_mxx_3ls_gfb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.m.tutorial.walkthrough.37/preview" title="sample/sap.m.tutorial.walkthrough.37/preview" class="sap-doc" alt="sample/sap.m.tutorial.walkthrough.37/preview">Walkthrough - Step 37</a>.</p>
+			<p>One part of the ARIA attribute set are the so-called landmarks. You can compare landmarks to maps in that they help the user navigate through an
+				app. For this step, we will use Google Chrome with a free <a href="https://chrome.google.com/webstore/detail/landmark-navigation-via-k/ddpokpbjopmeeiiolheejjpkonlkklgp" title="https://chrome.google.com/webstore/detail/landmark-navigation-via-k/ddpokpbjopmeeiiolheejjpkonlkklgp" class="external-link" target="_blank" rel="noopener">landmark navigation extension</a> We will now add meaningful landmarks to our code.</p>
+		</section><section id="section_ygj_1b1_hfb">
+			<h2 class="title ">webapp/view/Overview.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="ui5.walkthrough.controller.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true"&gt;
+	&lt;Page title="{i18n&gt;homePageTitle}"&gt;
+<span class="emphasis">		&lt;landmarkInfo&gt;
+			&lt;PageAccessibleLandmarkInfo
+				rootRole="Region"
+				rootLabel="{i18n&gt;Overview_rootLabel}"
+				contentRole="Main"
+				contentLabel="{i18n&gt;Overview_contentLabel}"
+				headerRole="Banner"
+				headerLabel="{i18n&gt;Overview_headerLabel}"/&gt;
+		&lt;/landmarkInfo&gt;</span>
+		&lt;content&gt;
+			&lt;mvc:XMLView viewName="ui5.walkthrough.view.HelloPanel"/&gt;
+			&lt;mvc:XMLView viewName="ui5.walkthrough.view.InvoiceList"/&gt;
+		&lt;/content&gt;
+	&lt;/Page&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We use <code>sap.m.PageAccessibleLandmarkInfo</code> to define ARIA roles and labels for the overview page areas. For more information, see the <a href="api/sap.m.PageAccessibleLandmarkInfo" title="api/sap.m.PageAccessibleLandmarkInfo" class="sap-doc" alt="api/sap.m.PageAccessibleLandmarkInfo">API Reference:
+							<code>sap.m.PageAccessibleLandmarkInfo</code></a>.
+				</p>
+		</section><section id="section_uw5_zns_gfb"><h2 class="title ">webapp/view/InvoiceList.view.xml</h2><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="ui5.walkthrough.controller.InvoiceList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+<span class="emphasis">	&lt;Panel accessibleRole="Region"&gt;
+		&lt;headerToolbar&gt;
+			&lt;Toolbar&gt;
+				&lt;Title text="{i18n&gt;invoiceListTitle}"/&gt;
+				&lt;ToolbarSpacer/&gt;
+				&lt;SearchField
+					width="50%"
+					search=".onFilterInvoices"/&gt;
+			&lt;/Toolbar&gt;
+		&lt;/headerToolbar&gt;</span>
+		&lt;Table
+			id="invoiceList"
+			class="sapUiResponsiveMargin"
+			width="auto"
+			items="{
+				path : 'invoice&gt;/Invoices',
+				sorter : {
+					path : 'ShipperName',
+					group : true
+				}
+			}"&gt;
+			&lt;columns&gt;
+				&lt;Column
+					hAlign="End"
+					...
+			&lt;/columns&gt;
+			...
+		&lt;/Table&gt;
+	<span class="emphasis">&lt;/Panel&gt;</span>
+&lt;/mvc:View&gt;</pre></div></div></section>We add an <code>sap.m.Panel</code> around the invoice list and move the toolbar from the table into the panel, so
+			that the region can take the title of the toolbar as its own. This has the effect that it will now be a region in our landmarks.</section><section id="section_qdh_k4s_gfb"><h2 class="title ">webapp/view/HelloPanel.view.xml</h2><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="ui5.walkthrough.controller.HelloPanel"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Panel
+		headerText="{i18n&gt;helloPanelTitle}"
+		class="sapUiResponsiveMargin"
+		width="auto"
+		expandable="{device&gt;/system/phone}"
+		expanded="{= !${device&gt;/system/phone} }"
+		<span class="emphasis">accessibleRole="Region"</span>&gt;	
+		…
+	&lt;/Panel&gt;
+&lt;/mvc:View&gt;
+</pre></div></div></section>In this view, we already have a panel, so we just add the <code>accessibleRole</code> attribute.</section><section id="section_azh_fps_gfb"><h2 class="title ">webapp/i18n/i18n.properties</h2><section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+<span class="emphasis">#Overview Page
+Overview_rootLabel=Overview Page
+Overview_headerLabel=Header
+Overview_contentLabel=Page Content
+ratingTitle=Rate the Product</span>
+...</pre></div></div></section>Here,
+			we add the text for the rating panel title and the labels for the ARIA regions to the text bundle.</section><section id="section_yxf_3qs_gfb">
+			<h2 class="title ">Result</h2>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_ewm_n4g_hfb" class=" ">
+					
+					
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1"><img src="loio54e9bca5a5844c14b45b5405496166b1_HiRes.png" title="Landmarks before" alt="Landmarks before" usemap="#"></td>
+							<td colspan="1" rowspan="1"><img src="loiof38dee2624c2437d8977de70575b3eae_HiRes.png" title="Landmarks after" alt="Landmarks after" usemap="#"></td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1"><span class="emphasis">Landmarks on the overview page - before</span></td>
+							<td colspan="1" rowspan="1"><span class="emphasis">Landmarks on the overview page - after</span></td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>As you can see, we now have four landmarks on our page. The top three landmarks structure our page:</p><ul class="ul ">
+					<li class="li">
+						<p><span class="ph uicontrol">Overview Page</span> marks the complete page.</p>
+					</li>
+					<li class="li">
+						<p><span class="ph uicontrol">Header</span> marks the page title.</p>
+					</li>
+					<li class="li">
+						<p><span class="ph uicontrol">Page Content</span> marks the content of our page. This landmark already has two children.</p>
+					</li>
+				</ul><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/d935dbf196d34997bf1ac42ac3e81579">Step 36: Content Density</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/ae1be8cc26064274bbc5925a9cd59640">Step 38: Build Your Application</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/03b914b46e624b138a6fb1b7cf2049ae" title="In this guide we cover the most important accessibility aspects for application development, based on SAPUI5." class="sap-doc">Accessibility</a></li>
+		<li><a href="topic/656e825c5f1548e6b1d0acb5586f2a2a" title="SAPUI5 offers screen reader support in order to aid people with visual impairments. The implementation is based on the ARIA and HTML standards." class="sap-doc">Screen Reader Support for SAPUI5 Controls</a></li>
+	</ul></section></div></section></div></body></html>

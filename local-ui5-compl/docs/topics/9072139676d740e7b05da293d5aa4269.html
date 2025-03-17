@@ -1,0 +1,54 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9072139676d740e7b05da293d5aa4269" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/07_APF/working-with-multiple-back-end-systems-9072139.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Working with Multiple Back-End Systems</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Working with Multiple Back-End Systems</h2></div><p>If you work with multiple back-end systems because, for example, you have a system landscape
+			with regional back-end systems, you can use the
+				<span class="ph sap-technical-name">sap-system</span> parameter to ensure that SAP
+			Gateway directs the OData service requests to the correct back-end system. For each
+			back-end system, you can configure a SAP Fiori tile with the corresponding
+				<span class="ph sap-technical-name">sap-system</span> parameter, so you can have
+			several tiles for the same APF-based app accessing data from different systems.</p><p>APF uses the general concept for SAP Fiori applications on multiple back-end systems. For more
+			information, search for "Configuring Multiple Back-End Systems Using the sap-system
+			Parameter" in the documentation of your SAP NetWeaver version on the SAP Help Portal at <a href="https://help.sap.com/viewer/p/SAP_NETWEAVER" title="https://help.sap.com/viewer/p/SAP_NETWEAVER" class="external-link" target="_blank" rel="noopener">https://help.sap.com/viewer/p/SAP_NETWEAVER</a>.</p><p>In particular, you must do the following:</p><ul class="ul ">
+			<li class="li">
+				<p>Assign all required back-end systems to your analytical OData services.</p>
+			</li>
+			<li class="li">
+				<p>If you want to save your analysis paths on multiple back-end systems, you must also assign
+					those back-end systems to the service
+						<span class="ph sap-technical-name">BSANLY_APF_RUNTIME_SRV</span>, which is
+					used for path persistence.</p>
+			</li>
+			<li class="li">
+				<p>If you use static app launcher tiles to launch an APF-based app, go to the tile
+					configuration and add the parameter
+						<span class="ph sap-technical-name">sap-system=&lt;SYSTEM_ALIAS&gt;</span>.
+					Create one tile for each back-end system you want to connect the app to. For
+					each tile, enter the system alias of one back-end system as the
+						<span class="ph sap-technical-name">sap-system</span> parameter.</p>
+			</li>
+			<li class="li">
+				<p>If you navigate to an APF-based app from somewhere else, for example, from a SAP
+					Smart Business generic drill-down app that also uses the
+						<span class="ph sap-technical-name">sap-system</span> parameter, the
+						<span class="ph sap-technical-name">sap-system</span> parameter is handed over
+					to APF via intent-based navigation.</p>
+			</li>
+		</ul><p>As a result, APF interprets the <span class="ph sap-technical-name">sap-system</span>
+			parameter and reacts as follows:</p><ul class="ul ">
+			<li class="li">
+				<p>All OData requests that are used when running an APF-based app are sent with an
+					origin segment parameter <span class="ph sap-technical-name">o</span> that
+					corresponds to the specified <span class="ph sap-technical-name">sap-system</span>
+					parameter.</p>
+			</li>
+			<li class="li">
+				<p>When navigating away from the APF-based app, the
+						<span class="ph sap-technical-name">sap-system</span> parameter is added to
+					the URL of the navigation target.</p>
+			</li>
+			<li class="li">
+				<p>When executing a configuration from the APF Configuration Modeler, the
+						<span class="ph sap-technical-name">sap-system</span> parameter is added to
+					the URL of the generic runtime application.</p>
+			</li>
+		</ul><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,353 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio8dcfe2e4555f49db8859cb6eb838692e" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-the-related-apps-button-8dcfe2e.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling the Related Apps Button</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling the Related Apps Button</h2></div><div class="shortdesc">By default, the <span class="ph uicontrol">Related Apps</span> button is disabled on object pages created with the object page template. If you
+		want, you can enable this button, which allows you to provide a link to any of the semantic object's navigation targets.</div><div><div class="fig"><img src="loio35f231c10706418c996e4ad20cde2ba4_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title "><span class="ph uicontrol">Related Apps</span> Button</h2></span></div><p>The <span class="ph uicontrol">Related Apps</span> button is displayed on the object page if you set the <code>showRelatedApps</code> parameter to
+				<code>true</code> in the <code>manifest.json</code>.</p><p>If a user chooses this button, the navigation targets of the given semantic object are displayed. The semantic object is taken from the app
+			that's currently open (see the hash in the app's URL). Apps with the same semantic object but different actions are shown in the
+			popover.</p><section id="section_kd5_msk_dkb">
+			<h2 class="title ">Hiding Actions for a Semantic Object</h2>
+			<p>You can hide actions of a semantic object in the specific context of an SAP Fiori elements app. To do so, you can use the
+					<code>SemanticObjectUnavailableActions</code> annotation to define a list of actions that can be excluded in the context of a
+				specific app. </p>
+			<p>For example, you can hide the <code>displayFactSheet</code> action associated with related app as shown here: </p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="SalesOrderService.SalesOrderManage"&gt; 
+     …
+     &lt;Annotation Term="Common.SemanticObjectUnavailableActions"&gt; 
+          &lt;Collection&gt; 
+               &lt;String&gt;displayFactSheet&lt;/String&gt; 
+          &lt;/Collection&gt; 
+     &lt;/Annotation&gt;
+     &lt;Annotation Term="Common.SemanticObject" String="SalesOrder"/&gt;
+     …
+&lt;/Annotations&gt;</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotations</p><p>No ABAP CDS annotation sample is available. Please use the local XML
+				annotation.</p><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Common.SemanticObjectUnavailableActions : ['displayFactSheet']
+
+</pre></div></div></section><p></p></div></div>
+		</section><section id="section_ysw_m3l_h4b">
+			<h2 class="title ">Adding Additional Links to Related Apps</h2>
+			<p>Application developers can add additional links under the "Related Apps" button of the object page header. The links originate from the
+				additional semantic objects defined in the <code>manifest.json</code> file.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>Links from additional semantic object are only considered if you have set the <code>showRelatedApps</code> parameter to
+						<code>true</code> in the <code>manifest.json</code>.</p>
+			<p></p></div></div>
+		</section><section id="section_app_rdd_dmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>The <span class="ph uicontrol">Related Apps</span> button is displayed on the object page if you set the <code>showRelatedApps</code>
+				parameter to <code>true</code> in the <code>manifest.json</code> as shown here:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+		"pages": [
+			{
+				"entitySet": "SEPMRA_C_PD_Product",
+				"component": {
+					"name": "sap.suite.ui.generic.template.ListReport",
+					"list": true
+				},
+				"pages": [
+					{
+						"entitySet": "SEPMRA_C_PD_Product",
+						"component": {
+							"name": "sap.suite.ui.generic.template.ObjectPage",
+							"settings": {
+								"showRelatedApps": true
+							}
+						},
+						"pages": [
+							{
+								"navigationProperty": "to_ProductText",
+								"entitySet": "SEPMRA_C_PD_ProductText",
+								"component": {
+									"name": "sap.suite.ui.generic.template.ObjectPage"
+								}
+							}
+						]
+					}
+				]
+			}
+		]
+	},	</pre></div></div></section><section>
+				<h3 class="title ">Adding Semantic Objects as Related Apps</h3>
+				<p>You can display multiple semantic objects under the <span class="ph uicontrol">Related Apps</span> button in the
+						<code>manifest.json</code> file.</p>
+				<p>You can configure the <code>relatedAppsSettings</code> parameter in the <code>manifiest.json</code> file as shown in the
+					example below:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+	"pages": [
+		{
+			"entitySet": "SEPMRA_C_PD_Product",
+			"component": {
+				"name": "sap.suite.ui.generic.template.ListReport",
+				"list": true
+			},
+			"pages": [
+				{
+					"entitySet": "SEPMRA_C_PD_Product",
+					"component": {
+						"name": "sap.suite.ui.generic.template.ObjectPage",
+						"settings": {
+							"showRelatedApps": true,
+							"relatedAppsSettings": {
+								"0": {
+									"semanticObject": "EPMProduct"
+								}
+							}
+						}
+					},
+					"pages": [
+						{
+							"navigationProperty": "to_ProductText",
+							"entitySet": "SEPMRA_C_PD_ProductText",
+							"component": {
+								"name": "sap.suite.ui.generic.template.ObjectPage"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}</pre></div></div></section>
+					<p></p></div></div><p></p>
+				<p>With this setting, all related apps from the app's URL and from the <code>manifest.json</code> file are displayed on the UI
+					under the <span class="ph uicontrol">Related Apps</span> button.</p>
+			</section><section>
+				<h3 class="title ">Adding Semantic Objects with Required Action on Related App Settings</h3>
+				<p>You can display multiple semantic objects under the <span class="ph uicontrol">Related Apps</span> button in the
+						<code>manifest.json</code> file.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+    "pages": [
+        {
+            "entitySet": "SEPMRA_C_PD_Product",
+            "component": {
+                "name": "sap.suite.ui.generic.template.ListReport",
+            },
+            "pages": [
+                {
+                    "entitySet": "SEPMRA_C_PD_Product",
+                    "component": {
+                        "name": "sap.suite.ui.generic.template.ObjectPage",
+                        "relatedAppsSettings": {
+                            "": {
+                                "semanticObject": "",
+                                "semanticObjectAction": {}
+						   }
+                            },
+                            "EPMProduct": {
+                                "semanticObject": "EPMProduct"
+                            },
+                            "STTA_WD20": {
+                                "semanticObject": "STTA_WD20",
+                                "semanticObjectAction": {
+                                    "0": {
+                                        "action": "Multi_View"
+                                    },
+                                    "1": {
+                                        "action": "Tree_Table"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
+</pre></div></div></section>
+				<p></p></div></div>
+				<p>You must ensure that you define the same semantic object list object-key and there corresponding <code>semanticObject</code>
+					value.</p>
+				<p>In the code sample for <code>"semanticObject" : "EPMProduct"</code>, <code>semanticObjectAction</code> is not defined. In
+					this case, all the <code>semanticObjectAction</code> excluding the ones with <code>SemanticObjectUnavailableActions</code>
+					annotation are displayed in the related apps list.</p>
+				<p>If <code>semanticObjectAction</code> list is defined in the manifest as shown for <code>"semanticObject":
+						"STTA_WD20"</code>, then only the ones defined in the list are shown in the related apps. In this case,
+						<code>SemanticObjectUnavailableActions</code> annotation is not considered.</p>
+				<p>If the <code>semanticObjectAction</code> list is defined in the manifest as an empty object such as
+						<code>"semanticObjectAction":{}</code> provided in the sample code, then no action from the semantic object of the current
+					application is considered.</p>
+			</section></div></section><section id="section_lnm_5bx_4lb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>You can enable this feature through the following settings in the <code>manifest.json</code> file.</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage":{
+   "type": "Component",
+   "id": "SalesOrderManageObjectPage",
+   "name": "sap.fe.templates.ObjectPage",
+   "options":{
+      "settings":{
+         ...
+         ...
+         "showRelatedApps": true,
+         ...
+         ...
+      }
+   }
+}</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>When making a call to the SAP Fiori launchpad to determine the related apps via the <code>GetLinks</code> API, SAP Fiori elements passes all the semantic keys - provided they are
+					available. If not all semantic keys are available, then SAP Fiori elements passes all the technical keys.</p>
+			<p></p></div></div><section>
+				<h3 class="title ">Supporting the Mapping of Default Links in Related Apps</h3>
+				<p>When working with default links, if the technical field name of the field on the object page and the corresponding field in the
+					target app differ, application developers can define a mapping between these fields. This mapping enables passing the context
+					between these fields even though their technical field names are different.</p>
+				<p>To create this mapping, you can use <code>Common.SemanticObject</code> and <code> Common.SemanticObjectMapping</code>
+					annotation as shown in the following sample codes:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="com.c_salesordermanage_sd.SalesOrderManage"&gt;
+    &lt;Annotation Term="Common.SemanticObject" String="SalesOrder"/&gt;
+    &lt;Annotation Term="Common.SemanticObjectMapping"&gt;
+        &lt;Collection&gt;
+            &lt;Record Type="Common.SemanticObjectMappingType"&gt;
+                &lt;PropertyValue Property="LocalProperty" PropertyPath="SoldToParty"/&gt;
+                &lt;PropertyValue Property="SemanticObjectProperty" String="Customer"/&gt;
+            &lt;/Record&gt;
+        &lt;/Collection&gt;
+    &lt;/Annotation&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate view SalesOrderManage with {
+   @Consumption.semanticObject: 'SalesOrder'
+   @Consumption.semanticObjectMapping.additionalBinding: [{element: 'Customer', localElement: 'SoldToParty'}]
+   Customer
+}</pre></div></div></section><p></p></div></div>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+					Annotation</p><section class="collapsible lang-xml"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">entity SalesOrderManage                                                       @(
+    Common       : {
+        SemanticObject                   : 'SalesOrder',
+        SemanticObjectMapping            : [{
+            LocalProperty          : SoldToParty,
+            SemanticObjectProperty : 'Customer'
+        }
+        ]
+    }
+)</pre></div></div></section><p></p></div></div>
+			</section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p> You mustn't define a mapping between the fields on the object page and the additional links added through the manifest property
+						<code>additionalSemanticObjects</code>. </p>
+				<p>To map to these additional links, use the manifest settings as provided in the following section.</p>
+			<p></p></div></div><section>
+				<h3 class="title ">Adding Additional Links to Related Apps</h3>
+				<p>Application developers can add additional links under the <span class="ph uicontrol">Related Apps</span> button of the object page header. The
+					links originate from the additional semantic objects defined in the <code>manifest.json</code> file, as shown
+					in
+					the following example:</p>
+				<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage": {
+    "type": "Component",
+    "id": "SalesOrderManageObjectPage",
+    "name": "sap.fe.templates.ObjectPage",
+    "options": {
+        "settings": {
+            "contextPath": "/SalesOrderManage",
+            "showRelatedApps": true,
+            "additionalSemanticObjects": {
+                "ProductCollection": {
+                    unavailableActions: ["displayFactSheet", "reorderProduct"],
+                    mapping: {
+                        "SoldToParty": "Client",
+                         .
+                         .
+                    }
+                },
+                "Customer": {
+                    "unavailableActions": ["manage"],
+                    "mapping": {
+                        "SoldToParty": "Customer"
+                    }
+                }
+            },
+            ....
+            ....
+        }
+    }
+}</pre></div></div></section>
+				<p>In the previous example
+					, <code>additionalSemanticObjects</code> is
+					the manifest setting that you need to add under the object page section of the <code>manifest.json</code> file.
+						<code>ProductCollection</code> and <code>Customer</code> refer to the additional semantic objects from which we get
+					additional links that are displayed under the <span class="ph uicontrol">Related Apps</span> button.</p>
+				<p>The array of unavailable actions defined in the
+					preceding
+					settings denote those navigation actions of the semantic object which should not be displayed under the <span class="ph uicontrol">Related
+						Apps</span> button. <code>displayFactSheet</code> and <code>reorderProduct</code> will not appear in the
+						<span class="ph uicontrol">Related Apps</span> menu (unless they happen to be actions defined for other additional semantic objects and
+					are not part of the unavailable actions there).</p>
+				<p><code>Mapping</code>, defined for a semantic object, consists of key value pairs. The key defines the way in which the source
+					application (object page) passes the context. The value represents the term used for the same entity in the target app. In the
+					example above, an object page context for <code>SoldToParty</code> like "SoldToParty"="001" is passed using the specified
+					target name (<code>Customer</code>) instead of <code>SoldToParty</code>. So the target will receive "Customer"="001" in
+					the app context.</p>
+				<p>You can also use the <code>allowedActions</code> key in the <code>manifest.json</code> file to define the exact list of
+					semantic object links to be displayed under the <span class="ph uicontrol">Related Apps</span> button:</p>
+				<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage": {
+    "type": "Component",
+    "id": "SalesOrderManageObjectPage",
+    "name": "sap.fe.templates.ObjectPage",
+    "options": {
+        "settings": {
+            "contextPath": "/SalesOrderManage",
+            "showRelatedApps": true,
+            "additionalSemanticObjects": {
+                "SalesOrder": {
+                    allowedActions: ["create", "managev2"],
+                "ProductCollection": {
+                    allowedActions: ["displayFactSheet"],
+                    mapping: {
+                        "SoldToParty": "Client",
+                         .
+                         .
+                    }
+                },
+            },
+            ....
+        }
+    }
+}</pre></div></div></section>
+				<p>In this example, three application links will appear in the <span class="ph uicontrol">Related Apps</span> menu.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>
+						</p><ul class="ul ">
+							<li class="li">
+								<p>When you enable the <code>allowedActions</code> key, the <code>unavailableActions</code> key is
+									disabled.</p>
+							</li>
+							<li class="li">
+								<p>If you do not list any links under <code>allowedActions</code>, no applications for the semantic objects will
+									be shown under the <span class="ph uicontrol">Related Apps</span> button.</p>
+							</li>
+						</ul>
+					<p></p>
+				<p></p></div></div>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

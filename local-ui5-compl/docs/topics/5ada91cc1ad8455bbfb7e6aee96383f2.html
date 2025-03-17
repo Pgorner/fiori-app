@@ -1,0 +1,65 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5ada91cc1ad8455bbfb7e6aee96383f2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/prefilling-fields-using-the-defaultvaluesfunction-5ada91c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Prefilling Fields Using the <code>DefaultValuesFunction</code></h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Prefilling Fields Using the <code>DefaultValuesFunction</code></h2></div><div class="shortdesc">When creating a new
+		entity
+		or when prefilling
+		action parameters, you can provide default values
+		using a
+		<code>DefaultValuesFunction</code>.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is
+				only
+				applicable to
+				the following cases:
+				</p><ul class="ul ">
+					<li class="li">
+						<p>SAP Fiori elements for OData
+                            V2
+							non-draft applications.</p>
+					</li>
+					<li class="li">
+						<p>SAP Fiori elements for OData
+                            V2
+							and
+							
+							SAP Fiori elements for OData
+                            V4
+							draft applications in the 
+							empty
+							row
+							mode.
+							For more information, see <a href="topic/cfb04f0c58e7409992feb4c91aa9410b" title="In apps that use draft handling, you can enable the inline creation mode or empty row mode for table entries." class="sap-doc">Enabling Inline Creation Mode or Empty Row Mode for Table Entries</a>.</p>
+					</li>
+				</ul><p></p>
+		<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>In case of multiselect only the <code>DefaultValuesFunction</code> without any
+				input parameters is called.</p>
+		<p></p></div></div><p>If you want to set default values for the newly created entity, use a
+				<code>DefaultValuesFunction</code>.</p><p>
+			</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>DefaultValuesFunction</code> for create
+				entity</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;FunctionImport Name="GetDefaultsForRoot" ReturnType="cds_zrc_dv_defaultvalues.ZRC_DV_A_Create" m:HttpMethod="GET"/&gt; 
+ 
+&lt;Annotations xmlns=http://docs.oasis-open.org/odata/ns/edm Target="cds_zrc_dv_defaultvalues.cds_zrc_dv_defaultvalues_Entities/Root"&gt;
+&lt;Annotation Term="com.sap.vocabularies.Common.v1.DefaultValuesFunction" String="GetDefaultsForRoot"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div>
+		<p></p><p>For more information, see <a href="topic/11ff444f82e14eb3a2e8eca0065a5055" title="When a user creates a new entity, it is possible to prefill fields with specific values." class="sap-doc">Prefilling
+				Fields When Creating a New Entity</a> and <a href="topic/189e2d8a59f04a2693a4fde7f4a91a65" title="End users can create a new entity and prefill fields with specific values." class="sap-doc">Prefilling Fields When Creating a New
+				Entity Using an Extension Point</a>.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>DefaultValuesFunction</code> for navigation property/item
+			create</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;FunctionImport Name="GetDefaultsForItem" ReturnType="cds_zrc_dv_defaultvalues.ZRC_DV_A_Create" m:HttpMethod="GET" sap:action-for="cds_zrc_dv_defaultvalues.RootType"&gt;
+&lt;Parameter Name="UUID" Type="Edm.Guid" Mode="In"/&gt;
+&lt;/FunctionImport&gt;
+ 
+&lt;Annotations xmlns=http://docs.oasis-open.org/odata/ns/edm Target="cds_zrc_dv_defaultvalues.RootType/to_Item"&gt;
+&lt;Annotation Term="com.sap.vocabularies.Common.v1.DefaultValuesFunction" String="GetDefaultsForItem"/&gt;
+&lt;/Annotations&gt;
+</pre></div></div></section><p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/cbf16c599f2d4b8796e3702f7d4aae6c" title="You can use generic actions provided by SAP Fiori elements and implement application-specific actions using annotations or extension points." class="sap-doc">Actions</a></li>
+	</ul></section></div></section></div></body></html>

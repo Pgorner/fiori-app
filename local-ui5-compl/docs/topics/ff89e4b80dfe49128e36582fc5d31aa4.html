@@ -1,0 +1,177 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioff89e4b80dfe49128e36582fc5d31aa4" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/the-share-microsoft-teams-functionality-ff89e4b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">The <span class="ph uicontrol">Share: Microsoft Teams</span> Functionality</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">The <span class="ph uicontrol">Share: Microsoft Teams</span> Functionality</h2></div><div class="shortdesc">The Share functionality is enhanced with the integration of Microsoft Teams.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><ul class="ul ">
+				<li class="li">
+					<p>System administrators for SAP S/4HANA Cloud Public Edition can find the required
+						information at <a href="https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/257ec7408db6420682462cd1d000e744.html" title="https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/257ec7408db6420682462cd1d000e744.html" class="external-link" target="_blank" rel="noopener">Integrating Microsoft Teams</a>.</p>
+				</li>
+				<li class="li">
+					<p>System administrators for SAP S/4HANA can find the required
+						information at <a href="https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/8308e6d301d54584a33cd04a9861bc52/849465e69b7a490a88049fe0b24fb01e.html?version=2023.000" title="https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/8308e6d301d54584a33cd04a9861bc52/849465e69b7a490a88049fe0b24fb01e.html?version=2023.000" class="external-link" target="_blank" rel="noopener">Integration with Microsoft Teams</a>.</p>
+				</li>
+			</ul>
+		<p></p></div></div><p>
+			</p><div><div class="fig"><img src="loiof6ca832150544a8c8453cb950d676766_LowRes.png" usemap="#"></div></div>
+			<div><div class="fig"></div>
+		<p></p><section id="section_xfv_jqh_fcc">
+			<h2 class="title "><span class="ph uicontrol">As Chat</span></h2>
+			<p>End users can collaborate and quickly resolve issues, if necessary, simply by using Microsoft Teams chat to share a direct link with
+				co-workers. They can provide access to a specific state of an SAP Fiori application, for example, so the co-workers can easily process
+				any requests that end users have or tasks that come up.</p>
+		</section><section id="section_ryb_nqh_fcc">
+			<h2 class="title "><span class="ph uicontrol">As Tab</span></h2>
+			<p>End users can work efficiently with a group of co-workers on specific content that they share in the form of a Microsoft Teams tab.
+				They can use the Microsoft Teams environment to work on the same context of an SAP Fiori application, and use the tab conversation option in parallel to share
+				ideas, discuss, and collaborate.</p>
+		</section><section id="section_pfq_nqh_fcc">
+			<h2 class="title "><span class="ph uicontrol">As Card</span></h2>
+			<p>End users can communicate better with their co-workers using Microsoft Teams by providing a collaborative view that shows application
+				content in a new window and enables them to have a meaningful conversation. This option is only available as part of the
+					<span class="ph uicontrol">Share</span> button in the object page.</p>
+			<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+				</p><p>If your application contains sensitive and personal data, enabling the <span class="ph uicontrol">Share: Microsoft Teams</span> ›
+						<span class="ph uicontrol">As Card</span> option results in the transfer of this information outside the SAP S/4HANA environment. Application teams need to carefully consider
+					whether such data should be excluded by providing the corresponding annotation. For sensitive personal data, you can use
+						<code>com.sap.vocabularies.PersonalData.v1.IsPotentiallySensitive</code>, and for personal data you can use
+						<code>com.sap.vocabularies.PersonalData.v1.IsPotentiallyPersonal</code>. If you enable this feature for your business
+					users, use the applicable information channels to inform them accordingly.</p>
+			<p></p></div></div>
+			
+			
+			<section>
+				<h3 class="title ">Sharing Header Facets as a Card</h3>
+				<p>End users can share the header facets of an object page using the <span class="ph uicontrol">Share: Microsoft Teams</span> › <span class="ph uicontrol">As
+						Card</span> option. The visibility of the header facets on the shared card depends on the visibility of these facets to
+					the recipient.</p>
+				<div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>The following header facets aren't supported while sharing as a card: </p>
+							<ul class="ul ">
+								<li class="li">
+									<p>Header facets that contain a micro chart, rating indicator, or progress indicator.</p>
+								</li>
+								<li class="li">
+									<p>Custom facets</p>
+								</li>
+								<li class="li">
+									<p>Icon-based images</p>
+								</li>
+							</ul>
+						</li>
+						<li class="li">
+							<p>If the target application has modified these properties using the <code>manifest.json</code> file or custom coding,
+								the cards don't display the same visibility, position, title, and subtitle of the header facets as displayed on the
+								object page of the source SAP Fiori elements app.</p>
+						</li>
+						<li class="li">
+							<p>Application developers must note that the formatting of data points changes when the custom OData V4 formatters are
+								applied, or when precision is controlled using the <code>DataPoint.NumberOfFractionalDigits</code> annotation.
+								Additionally, the currency format within cards also differs from the format used within the object page.</p>
+						</li>
+					</ul>
+				<p></p></div></div>
+			</section>
+			<section>
+				<h3 class="title ">Sharing Header Actions as a Card</h3>
+				<p>End users can share the header actions of an object page using the <span class="ph uicontrol">Share: Microsoft Teams</span> › <span class="ph uicontrol">As
+						Card</span> option. The card only supports annotation-based actions that aren't overridden by manifest settings. It
+					displays only the first two supported actions, which the recipient can initiate within the Microsoft Teams card. If the shared
+					actions are bound actions, then the page context is passed to the action.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>Application developers must note the following:</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>SAP Fiori Elements doesn't support the sharing of
+										buttons based on the <code>DataFieldForIntentBasedNavigation</code> annotation.</p>
+								</li>
+								<li class="li">
+									<p>SAP Fiori Elements supports confirmation-based actions
+										that use the <code>Common.IsActionCritical </code> annotation. However, when this action is triggered
+										within the Microsoft Teams card, the action displays only the default text from the <code>i18n</code> key,
+											<code>"C_OPERATIONS_ACTION_CONFIRM_MESSAGE"</code>, and not the text overridden by the application for
+										this key. </p>
+								</li>
+							</ul>
+						</li>
+						<li class="li">
+							<p>SAP Fiori Elements doesn't support the sharing of buttons based
+								on <code>DataFieldForIntentBasedNavigation</code> annotation.</p>
+						</li>
+						<li class="li">
+							<p>Action parameters are shown as dropdown fields in the Microsoft Teams card.</p>
+						</li>
+						<li class="li">
+							<p>The visibility of actions displayed on the shared card depends on the visibility of the actions to the recipient.</p>
+						</li>
+						<li class="li">
+							<p>The order of the actions listed on the card follows the order specified in the annotation.</p>
+						</li>
+					</ul>
+				<p></p></div></div>
+				<div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>The following header actions aren't supported while sharing as a card:</p>
+							<ul class="ul ">
+								<li class="li">
+									<p>Manifest-based actions.</p>
+								</li>
+								<li class="li">
+									<p>Annotation-based actions that are overridden by manifest settings using binding expressions or functions.</p>
+								</li>
+							</ul>
+						</li>
+						<li class="li">
+							<p>Action parameter fields within Microsoft Teams cards do not support the following: </p>
+							<ul class="ul ">
+								<li class="li">
+									<p>Field help such as value help, dropdown lists, date pickers, or date time pickers.</p>
+								</li>
+								<li class="li">
+									<p>Default values.</p>
+								</li>
+								<li class="li">
+									<p>The <code>IN</code> /<code>OUT</code> parameter mapping. Changing a value in one field does not affect
+										the values available in the other field (<code>IN</code> mapping), and it does not result in other fields
+										getting a value (<code>OUT</code> mapping).</p>
+								</li>
+							</ul>
+						</li>
+						<li class="li">
+							<p>Application developers must note that for semantic actions, SAP Fiori Elements supports only the static values of the
+									<code>Criticality</code> property for <code>DataFieldForAction</code> buttons in the card shared using
+								Microsoft Teams.</p>
+						</li>
+					</ul>
+				<p></p></div></div>
+			</section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p>The <span class="ph uicontrol">Share: Microsoft Teams</span> functionality uses application states to shorten long URLs. These
+							application state records are cleaned up if they aren't accessed for a long time. For more information, see <a href="https://help.sap.com/docs/ABAP_PLATFORM_NEW/a7b390faab1140c087b8926571e942b7/6107ee41f89a43c9af0aa279fe039cca.html" title="https://help.sap.com/docs/ABAP_PLATFORM_NEW/a7b390faab1140c087b8926571e942b7/6107ee41f89a43c9af0aa279fe039cca.html" class="external-link" target="_blank" rel="noopener">Cleanup of Expired Application State</a>.</p>
+					</li>
+					<li class="li">
+						<p>End users who want to use the <span class="ph uicontrol">Share: Microsoft Teams</span> feature in incognito mode will receive an error
+							of type <samp class="ph systemoutput">Authentication Information HTTP Status 401- Unauthorized</samp>. To resolve this,
+							application developers must inform end users that they must allow third-party cookies for the incognito session.</p>
+					</li>
+				</ul>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></div></section></div></body></html>

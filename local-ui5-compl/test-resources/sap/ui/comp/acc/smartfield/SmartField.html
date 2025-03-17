@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sap.ui.comp.SmartField Accessibility Test Page</title>
+
+	<script src="../shared-config.js"></script>
+	<script id="sap-ui-bootstrap"
+			type="text/javascript"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-resource-roots='{
+				"qunit.internal.acc": "../../../../../../test-resources/sap/ui/core/qunit/internal/acc"
+			}'
+			src="../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="sapui5/xmlview">
+		<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="mainView.controller"
+			xmlns="sap.m" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+				xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield"
+				xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+				xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" 	xmlns:semantic="sap.m.semantic" height="100%">
+				<App>
+				<Page id="page" titleLevel="H1" title="SmartField Accessibility Page">
+						<smartForm:SmartForm id="form" editable="true" validationMode="Async" editTogglable="true">
+							<smartForm:customToolbar>
+								<Toolbar id="form-toolbar">
+									<Title text="Product 2212121828" level="H2"/>
+								</Toolbar>
+							</smartForm:customToolbar>
+							<smartForm:Group>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="ProductID" value="{ProductID}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="CreationDate" value="{CreationDate}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="CreationTime" value="{CreationTime}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="SaledDateTime" value="{SaledDateTime}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="Name" value="{Name}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="Description" value="{Description}"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="URL" value="{URL}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="Phone" value="{Phone}"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="Email" value="{Email}"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="Password" value="{Password}"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="Price" value="{Price}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="SupplierID" value="{SupplierID}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="SupplierName" value="{SupplierName}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="BOOL" value="{BOOL}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="objectStatus" value="{ObjectStatus}"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="CurrencyMandatory" value="{CurrencyMandatory}"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+								<smartField:SmartField id="CurrencyCodeFixedValues" value="{CurrencyCodeFixedValues}">
+									<smartField:configuration>
+												<smartField:Configuration controlType="selection"/>
+									</smartField:configuration>
+								</smartField:SmartField>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="CurrencyCode" value="{CurrencyCode}" />
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="CurrencyCodeComboBox" value="{CurrencyCodeComboBox}"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+						</smartForm:SmartForm>
+
+						<smartForm:SmartForm id="form1" editable="true" validationMode="Async" editTogglable="true">
+							<smartForm:customToolbar>
+								<Toolbar id="form1-toolbar">
+									<Title text="Supplier with different ValueState" level="H2"/>
+								</Toolbar>
+							</smartForm:customToolbar>
+							<smartForm:Group>
+								<smartForm:GroupElement>
+									<smartField:SmartField id="STRING_Error" value="{ErrorSupplier}" />
+								</smartForm:GroupElement>
+									<smartForm:GroupElement>
+									<smartField:SmartField id="STRING_Warning" value="{WarningDescription}" />
+								</smartForm:GroupElement>
+							</smartForm:Group>
+						</smartForm:SmartForm>
+				</Page>
+				</App>
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xmldata"><?xml version="1.0" encoding="utf-8"?>
+	<edmx:Edmx Version="1.0"
+			xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+			xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+			xmlns:sap="http://www.sap.com/Protocols/SAPData">
+		<edmx:DataServices m:DataServiceVersion="2.0">
+			<Schema Namespace="AccessibilityNamespace"
+					sap:schema-version="1"
+					xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+				<EntityType Name="Types"
+				sap:label="TypesSet"
+				sap:content-version="1">
+					<Key>
+						<PropertyRef Name="ProductID"/>
+					</Key>
+					<Property Name="ProductID" Type="Edm.String"
+							MaxLength="4"
+							sap:creatable="false"
+							sap:label="Product ID"/>
+					<Property Name="CreationDate" Type="Edm.DateTime" sap:display-format="Date" sap:label="Creation date"/>
+					<Property Name="SaledDateTime" Type="Edm.DateTime"  sap:label="Saled Date and time"/>
+					<Property Name="CreationTime" Type="Edm.Time" sap:label="Creation time"/>
+					<Property Name="Name" Type="Edm.String" sap:label="Name" MaxLength="2"/>
+					<Property Name="Description" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Description" sap:creatable="false" sap:updatable="true" sap:sortable="false" />
+					<Property Name="Email" Type="Edm.String" sap:label="Email" sap:creatable="false" sap:quickinfo="Property annotation IsEmailAddress" sap:updatable="true" sap:sortable="false" />
+					<Property Name="Phone" Type="Edm.String" Nullable="true" sap:label="Phone" sap:creatable="false" sap:quickinfo="Property contains a phone number" sap:updatable="true" sap:sortable="false" />
+					<Property Name="URL" Type="Edm.String" Nullable="true" sap:label="URL" sap:creatable="false" sap:quickinfo="Property contains a URL" sap:updatable="true" sap:sortable="false" />
+					<Property Name="Password" Type="Edm.String" MaxLength="30" sap:label="Password" sap:creatable="true" sap:quickinfo="Property annotation Masked" sap:updatable="true" sap:sortable="false" />
+					<Property Name="Price" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Price"/>
+					<Property Name="SupplierID" Type="Edm.Int16" sap:label="Supplier ID"/>
+					<Property Name="SupplierName" Type="Edm.String" sap:label="Supplier Name"/>
+					<Property Name="BOOL" Type="Edm.Boolean" sap:label="Wifi"/>
+					<Property Name="ObjectStatus" Type="Edm.String" Nullable="true"
+					MaxLength="20" sap:label="Status of Product" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+					<Property Name="CurrencyCodeFixedValues" Type="Edm.String" sap:label="Main Currency Code" sap:updatable="true"/>
+					<Property Name="CurrencyCodeComboBox" Type="Edm.String" sap:label="Second option of Currency Code" sap:updatable="true" sap:value-list="fixed-values"/>
+					<Property Name="CurrencyMandatory" Type="Edm.String" sap:label="Third option of  Currency"
+						  sap:creatable="false" sap:updatable="true" sap:sortable="false"/>
+					<Property Name="CurrencyCode" Type="Edm.String" sap:label="Currency Code"/>
+					<Property Name="ErrorSupplier" Type="Edm.String" sap:label="Error Supplier" MaxLength="2"/>
+					<Property Name="WarningDescription" Type="Edm.String" Nullable="true" MaxLength="256" sap:label="Warning Description" sap:creatable="false" sap:updatable="true" sap:sortable="false" />
+				</EntityType>
+
+				<EntityType Name="CurrencyType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="CURR" />
+						</Key>
+						<Property Name="CURR" Type="Edm.String" sap:text="DESCR" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="DESCR" Type="Edm.String" sap:label="Description"/>
+					</EntityType>
+				<EntityContainer Name="AccessibilityNamespace_Entities"
+								m:IsDefaultEntityContainer="true"
+								sap:supported-formats="atom json xlsx">
+					<EntitySet Name="CurrencySet"
+								   EntityType="AccessibilityNamespace.CurrencyType"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+					<EntitySet Name="TypesSet" EntityType="AccessibilityNamespace.Types" sap:creatable="false" sap:updatable="true" sap:deletable="false" sap:addressable="false" sap:content-version="1" />
+
+				</EntityContainer>
+				<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="AccessibilityNamespace.Types/CurrencyMandatory">
+					<Annotation Term="com.sap.vocabularies.Common.v1.FieldControl" EnumMember="com.sap.vocabularies.Common.v1.FieldControlType/Mandatory"/>
+				</Annotations>
+				<Annotations Target="AccessibilityNamespace.Types/CurrencyCodeFixedValues"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueListWithFixedValues" Bool="true"/>
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="CurrencySet"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="CurrencyCodeFixedValues"/>
+											<PropertyValue Property="ValueListProperty" String="CURR"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="DESCR"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="AccessibilityNamespace.Types/CurrencyCodeComboBox"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="CurrencySet"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="CurrencyCodeComboBox"/>
+											<PropertyValue Property="ValueListProperty" String="CURR"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="DESCR"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="AccessibilityNamespace.Types/CurrencyCode"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="CurrencySet"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="CurrencyCode"/>
+											<PropertyValue Property="ValueListProperty" String="CURR"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="DESCR"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="AccessibilityNamespace.Types/URL" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="Org.OData.Core.V1.IsUrl" Bool="true" />
+					</Annotations>
+					<Annotations Target="AccessibilityNamespace.Types/Password" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.Masked" />
+					</Annotations>
+					<Annotations Target="AccessibilityNamespace.Types/Phone" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Communication.v1.IsPhoneNumber" Bool="true" />
+					</Annotations>
+					<Annotations Target="AccessibilityNamespace.Types/Email" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Communication.v1.IsEmailAddress" Bool="true" />
+					</Annotations>
+
+			</Schema>
+		</edmx:DataServices>
+	</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+	{"d": {
+		"__count": "1",
+		"results": [
+				{
+					"__metadata": { "uri": "testService.TypesSet/TypesSet('0001')", "type": "AccessibilityNamespace.Types" },
+					"ProductID": "2212121828",
+					"Name": "Gladiator MX",
+					"Description": "Gladiator MX: DDR2 RoHS 128MB Supporting 512MB Clock rate: 350 MHz Memory Clock: 533 MHz, Bus Type: PCI-Express, Memory Type: DDR2 Memory Bus: 32-bit Highlighted Features: DVI Out, TV Out , HDTV",
+					"CreationDate": "/Date(1215349600000)/",
+					"SaledDateTime": "/Date(1215349600000)/",
+					"CreationTime": "PT20H35M25S",
+					"Price": "45301.236",
+					"SupplierID": 35,
+					"SupplierName": "",
+					"BOOL": true,
+					"ObjectStatus": "Avaliable",
+					"CurrencyCodeFixedValues": "EUR",
+					"CurrencyCodeComboBox": "USD",
+					"CurrencyMandatory": "EUR",
+					"CurrencyCode": "EUR",
+					"Email": "gladiator@sap.com",
+					"Phone": "+496227747474",
+					"URL": "https://www.sap.com",
+					"Password": "123",
+					"ErrorSupplier": "Cherry Supplier",
+					"WarningDescription": "Cherry Supplier is imaginary"
+				}
+			]
+	}}</script>
+	<script id="dataSectionCurrency" type="text/json">
+	{"d": {
+		"__count": "4",
+		"results": [
+			{
+				"__metadata": {
+					"uri": "testService.CurrencySet/CurrencySet('0001')",
+					"type": "AccessibilityNamespace.CurrencySet"
+				},
+				"CURR": "EUR",
+				"DESCR": "European Euro"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencySet/CurrencySet('0002')",
+					"type": "AccessibilityNamespace.CurrencySet"
+				},
+				"CURR": "USD",
+				"DESCR": "United States Dollar"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencySet/CurrencySet('0003')",
+					"type": "AccessibilityNamespace.CurrencySet"
+				},
+				"CURR": "GBP",
+				"DESCR": "British Pound"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencySet/CurrencySet('0004')",
+					"type": "AccessibilityNamespace.CurrencySet"
+				},
+				"CURR": "DKK",
+				"DESCR": "Danish Krone"
+			}
+		]
+	}}
+	</script>
+
+	<script>
+		sap.ui.getCore().attachInit(function () {
+			"use strict";
+
+			sap.ui.require([
+				"sap/ui/core/mvc/XMLView",
+				"sap/ui/core/mvc/Controller",
+				"sap/ui/model/odata/v2/ODataModel",
+				"sap/ui/core/util/MockServer"
+			], function (
+					XMLView,
+					Controller,
+					ODataModel,
+					MockServer
+			) {
+				var MyController = Controller.extend("mainView.controller", {
+					onInit : function() {
+						var oModel,
+							sServiceName = "testService",
+							oView = this.getView();
+
+						this.setupMockServer(sServiceName);
+
+						oModel = new ODataModel(sServiceName + "/", {
+							useBatch: false,
+							defaultBindingMode: "TwoWay"
+						});
+						oView.setModel(oModel);
+
+						oView.bindElement("/TypesSet('0001')");
+						this.byId("STRING_Error").attachEventOnce("innerControlsCreated", function(oEvent) {
+							var oSmartField = oEvent.oSource;
+							var oInnerControl = oSmartField.getFirstInnerControl();
+							oInnerControl.setValueState("Error");
+							oInnerControl.setValueStateText(oSmartField.getValue() + " is not available Supplier!");
+						});
+						this.byId("STRING_Warning").attachEventOnce("innerControlsCreated", function(oEvent) {
+							var oSmartField = oEvent.oSource;
+							var oInnerControl = oSmartField.getFirstInnerControl();
+							oInnerControl.setValueState("Warning");
+							oInnerControl.setValueStateText("The supplier was not available!");
+						});
+					},
+					onExit: function() {
+						this._oMockServer.stop();
+					},
+					setupMockServer: function (service) {
+						var basePath = service,
+								mockServer = new MockServer({
+									rootUri: basePath
+								}),
+								aReqList = mockServer.getRequests();
+
+						// configure mock server with a delay
+						MockServer.config({
+							autoRespond: true,
+							autoRespondAfter: 500
+						});
+
+						// $metadata
+						aReqList.push({
+							method: 'GET',
+							path: '/\\$metadata(.*)',
+							response: function (req, resp) {
+								var data = jQuery("#metadata").html();
+								req.respondXML(200, {}, data);
+							}
+						});
+
+						// Data
+						aReqList.push({
+							method: 'GET',
+							path: '/\\TypesSet(.*)',
+							response: function (req, resp) {
+								var data = jQuery("#dataSection").html();
+								req.respondJSON(200, {}, data);
+							}
+						});
+
+						// Data
+						aReqList.push({
+							method: 'GET',
+							path: '/\\CurrencySet[\/?](.*)',
+							response: function (req, resp) {
+								req.respondJSON(200, {}, jQuery("#dataSectionCurrency").html());
+							}
+						});
+
+						mockServer.setRequests(aReqList);
+						mockServer.simulate(basePath + '/$metadata',
+								{
+									sMockdataBaseUrl: basePath + '/Employees',
+									bGenerateMissingMockData: true
+								});
+						mockServer.start();
+					}
+				});
+
+				XMLView.create({
+					id: "idView",
+					definition: document.getElementById("mainView").textContent,
+					controller: new MyController()
+				}).then(function (oView) {
+					oView.placeAt("content");
+				});
+
+			});
+
+		});
+
+	</script>
+</head>
+
+<body class='sapUiBody'>
+	<div id='content'></div>
+</body>
+
+</html>

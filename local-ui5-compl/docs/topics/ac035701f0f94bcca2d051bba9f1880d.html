@@ -1,0 +1,161 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioac035701f0f94bcca2d051bba9f1880d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/defining-the-loading-behavior-of-object-page-headers-ac03570.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Defining the Loading Behavior of Object Page Headers</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Defining the Loading Behavior of Object Page Headers</h2></div><div class="shortdesc">Object pages can make use of request groups and lazy loading.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V4.</p>
+		<p></p></div></div><section id="section_fcv_5l5_nnb">
+			<h2 class="title ">Grouping of Headers</h2>
+			<p>You can bundle requests so they are sent out as batch requests. SAP Fiori elements supports four request groups, as shown in the following
+				table:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_hfp_tq5_nnb" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Name</th>
+							<th colspan="1" rowspan="1">Used for...</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">Heroes</td>
+							<td colspan="1" rowspan="1">
+								<ol>
+									<li class="li">
+										<p>Requests for all fields coming directly from the main entity set</p>
+									</li>
+									<li class="li">
+										<p>All 1:1 (multiplicity) fields from all header forms or KPIs (data points and micro charts) and visible
+											sections forms</p>
+									</li>
+								</ol>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">Workers</td>
+							<td colspan="1" rowspan="1">All tables</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">Decoration</td>
+							<td colspan="1" rowspan="1">All 1-n (multiplicity) micro charts in the header</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">LongRunners</td>
+							<td colspan="1" rowspan="1">
+								<p>Specific KPIs that are considered to be 'slower', like those from a complex analytical service.</p>
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>This request group is not used by SAP Fiori elements.
+										However, applications can use it to bundle requests into a batch group that is fired separately from the three
+										request groups listed above, so that the performance of the UI is not impacted.</p>
+								<p></p></div></div>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Application developers can use the above-mentioned group names to group their <code>DataPoint</code> and
+					<code>MicroChart</code> requests from the header of the object page. To do so, set control configurations in the manifest for
+				the corresponding header elements, using the annotation path as the key.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p>SAP Fiori elements fires these batch groups in parallel, but
+							cannot control whether the model also allows this. In practice, the requests are fired with a slight delay.</p>
+					</li>
+					<li class="li">
+						<p>With the <code>groupID</code> property, SAP Fiori elements
+							recommends bundling all requests marked with a particular manifest request group ('Heroes', for example) in one batch
+							request. However, since SAP Fiori elements cannot control the
+							model, it may happen that the batch request is fired while other requests from the same group are still being
+							prepared.</p>
+						<p>Example: An application adds a <code>DataPoint</code> request from the object page header to the request group
+							'Workers'. The <code>DataPoint</code> request is fired before the table request, even though they are both part of the
+							same batch group.</p>
+					</li>
+				</ul>
+			<p></p></div></div>
+			<div class="note other recommendation "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Recommendation
+				</strong></div></div><div class="fig"><p>
+				</p><p>Push all KPIs from the 'LongRunners' request group to the right-most end of their header, so that the information that is visible
+					first in the left part of the header is always loaded via the faster standard request groups supported by SAP Fiori elements.</p>
+			<p></p></div></div>
+			<p>The following sample code is for an object page with configured header elements:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage": {                  
+    "type": "Component",                 
+    "id": "SalesOrderManageObjectPage",                  
+    "name": "sap.fe.templates.ObjectPage",                  
+    "options":{               
+       "settings": {                         
+            "contextPath": "/SalesOrderManage",                         
+            …                          
+            "controlConfiguration": {                                
+                …                             
+                "@com.sap.vocabularies.UI.v1.DataPoint#NetValue": {                                  
+                    "requestGroupId": "Workers"                   
+               },                              
+                "_CreditLimitDetails/@com.sap.vocabularies.UI.v1.Chart#CreditLimitChart": {                                  
+                    "requestGroupId": "LongRunners"                              
+               }                                
+                …</pre></div></div></section>
+			<p></p></div></div>
+		</section><section id="section_unx_xl5_nnb">
+			<h2 class="title ">Lazy Loading</h2>
+			<p>Data calls for object page sections that are not yet in the visible area are delayed. This behavior is referred to as lazy loading.</p>
+			<p>The data calls are made only when a user scrolls through the page and brings the sections into the viewable area. Lazy loading is
+				enabled by default in the object page for SAP Fiori elements for OData
+                            V4 and applications
+				currently cannot disable it.</p>
+			<p>The behavior is as follows:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Simple scenario (applies to a header with no micro charts AND where none of the form sections have a table) with two batch
+						requests</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>Header request</p>
+						</li>
+						<li class="li">
+							<p>Section data request</p>
+							<p>The first three subsections for desktops, and only the visible subsections for touch-enabled devices (including
+								tablets/mobile devices)</p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>Complex scenario (applies to a header with one or more micro charts OR where one of the form sections has a table) with two
+						additional calls</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>Table request goes in a separate batch request, but in parallel to the other calls</p>
+						</li>
+						<li class="li">
+							<p>All micro charts in a separate batch, but in parallel to the other calls</p>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>On scrolling to the remaining subsections, separate batch request are sent for the scrolled-to subsection</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>In case there are error messages from the back end for fields that are not visible in the current section, lazy loading is
+							switched off and one or more of the other sections are loaded. This is done to identify the field related to the back-end
+							message and to enable the user to navigate there directly by clicking on the message.</p>
+					<p></p></div></div>
+				</li>
+				<li class="li">
+					<p>On the subsequent load of the object page, for example going back to the list report and then coming again to a different
+						object page instance, the header and visible subsection requests go in a single batch with a single <code>GET</code>
+						request</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

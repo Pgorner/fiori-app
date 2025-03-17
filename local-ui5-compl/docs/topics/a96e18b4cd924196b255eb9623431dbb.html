@@ -1,0 +1,202 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa96e18b4cd924196b255eb9623431dbb" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-34-responsiveness-a96e18b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 34: Responsiveness</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 34: Responsiveness</h2></div><div class="shortdesc">In this step, we improve the responsiveness of our app. SAPUI5 applications can be run
+		on phone, tablet, and desktop devices and we can configure the application to make best use
+		of the screen estate for each scenario. Fortunately, SAPUI5 controls like the
+			<code>sap.m.Table</code> already deliver a lot of features that we can
+		use.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loiocc3f2e0d8ac6471288af6495836c2f07_LowRes.png" title="The application contains a Hello World header with buttons and a text
+						input. The lower part displays invoices with some details." alt="The application contains a Hello World header with buttons and a text
+						input. The lower part displays invoices with some details." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">A responsive table is hiding some of the columns on small devices</h2></span></div>
+		</section><section id="section_jd5_1fn_tyb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.34" title="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.34" class="sap-doc" alt="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.34">Walkthrough - Step 34</a>.</p>
+		</section><section id="section_kd5_1fn_tyb">
+			<h2 class="title ">webapp/view/InvoiceList.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="ui5.walkthrough.controller.InvoiceList"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	<span class="emphasis">&lt;Table</span>
+		id="invoiceList"
+		class="sapUiResponsiveMargin"
+		width="auto"
+		items="{
+				path : 'invoice&gt;/Invoices',
+				sorter : {
+					path : 'ShipperName',
+					group : true
+				}
+			}"&gt;
+		&lt;headerToolbar&gt;
+			&lt;Toolbar&gt;
+				&lt;Title text="{i18n&gt;invoiceListTitle}" /&gt;
+				&lt;ToolbarSpacer /&gt;
+				&lt;SearchField
+					width="50%"
+					search=".onFilterInvoices"/&gt;
+			&lt;/Toolbar&gt;
+		&lt;/headerToolbar&gt;
+		<span class="emphasis">&lt;columns&gt;
+			&lt;Column
+				hAlign="End"
+				minScreenWidth="Small"
+				demandPopin="true"
+				width="5em"&gt;
+				&lt;Text text="{i18n&gt;columnQuantity}" /&gt;
+			&lt;/Column&gt;
+			&lt;Column&gt;
+				&lt;Text text="{i18n&gt;columnName}" /&gt;
+			&lt;/Column&gt;
+			&lt;Column
+				minScreenWidth="Small"
+				demandPopin="true"&gt;
+				&lt;Text text="{i18n&gt;columnStatus}" /&gt;
+			&lt;/Column&gt;
+			&lt;Column
+				minScreenWidth="Tablet"
+				demandPopin="false"&gt;
+				&lt;Text text="{i18n&gt;columnSupplier}" /&gt;
+			&lt;/Column&gt;
+			&lt;Column hAlign="End"&gt;
+				&lt;Text text="{i18n&gt;columnPrice}" /&gt;
+			&lt;/Column&gt;
+		&lt;/columns&gt;
+		&lt;items&gt;
+			&lt;ColumnListItem
+				type="Navigation"
+				press=".onPress"&gt;
+				&lt;cells&gt;
+					&lt;ObjectNumber
+						number="{invoice&gt;Quantity}"
+						emphasized="false"/&gt;
+					&lt;ObjectIdentifier title="{invoice&gt;ProductName}" /&gt;
+					&lt;Text
+						core:require="{
+								Formatter: 'ui5/walkthrough/model/formatter'
+						}"
+						text="{
+								parts: [
+									'invoice&gt;Status',
+									'i18n&gt;invoiceStatusA',
+									'i18n&gt;invoiceStatusB',
+									'i18n&gt;invoiceStatusC'
+								],
+								formatter: 'Formatter.statusText.bind($controller)'
+						}"/&gt;
+					&lt;Text text="{invoice&gt;ShipperName}" /&gt;
+					&lt;ObjectNumber
+						number="{
+								parts: [
+									'invoice&gt;ExtendedPrice',
+									'view&gt;/currency'
+								],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {
+									showMeasure: false
+								}
+							}"
+						unit="{view&gt;/currency}"
+						state="{= ${invoice&gt;ExtendedPrice} &gt; 50 ? 'Error' : 'Success' }"/&gt;
+				&lt;/cells&gt;
+			&lt;/ColumnListItem&gt;
+		&lt;/items&gt;
+	&lt;/Table&gt;</span>
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We exchange the list with a table simply by replacing the tag <code>&lt;List&gt;</code> with <code>&lt;Table&gt;</code>. The
+				table has a built-in responsiveness feature that allows us to make the app more flexible. The table and the list share the same set of
+				properties so we can simply reuse these and also the sorter.</p>
+			<p>Since a table has multiple cells in each row, we have to define columns for our table and name these according to the data. We add five
+					<code>sap.m.Column</code> controls to the column aggregation and configure each one a bit differently:</p><ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">Quantity</span></p>
+						<p>This column will contain a short number, so we set the alignment to <code>End</code> (which means "right" in LTR
+							languages) and the width to <code>4em</code> which is long enough for the column description. As a description text we
+							use a <code>sap.m.Text</code> control that references a property of the resource bundle. We set the property
+								<code>minScreenWidth</code> to <code>Small</code> to indicate that this column is not so important on phones.
+							We will tell the table to display this column below the main column by setting the property <code>demandPopin</code>
+							to <code>true</code>.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Name</span></p>
+						<p>Our main column that has a pretty large <span class="emphasis">width</span> to show all the details. It will always be
+							displayed.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Status</span></p>
+						<p>The status is not so important, so we also display it below the <code>name</code> field on small screens by setting
+								<code>minScreenWidth</code> to <code>small</code> and <code>demandPopin</code> to
+							<code>true</code></p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Supplier</span></p>
+						<p>We completely hide the <code>Supplier</code> column on phone devices by setting <code>minScreenWidth</code> to
+								<code>Tablet</code> and <code>demandPopin</code> to <code>false</code>.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Price</span></p>
+						<p>This column is always visible as it contains our invoice price.</p>
+					</li>
+				</ul><p></p>
+			<p>Instead of the <code>ObjectListItem</code> that we had before, we will now split the information onto the cells that match the
+				columns defined above. Therefore we change it to a <code>ColumnListItem</code> control with the same attributes, but now with
+				cells aggregation. Here we create five controls to display our data:</p><ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">Quantity</span></p>
+						<p>A simple <code>sap.m.ObjectNumber</code> control that is bound to our data field.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Name</span></p>
+						<p>A <code>sap.m.ObjectIdentifier</code> control that specifies the name.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Status</span></p>
+						<p>A <code>sap.m.Text control</code> with the same formatter as before.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Supplier</span></p>
+						<p>A simple <code>sap.m.Text</code> control.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Price</span></p>
+						<p>An <code>ObjectNumber</code> control with the same formatter as the attributes number and <code>numberUnit</code>
+							from the previous steps.</p>
+					</li>
+				</ul><p></p>
+			<p>Now we have defined our table responsively and can see the results when we decrease the browsers screen size. The
+					<span class="ph uicontrol">Supplier</span> column is not shown on phone sizes and the two columns <span class="ph uicontrol">Quantity</span> and
+					<span class="ph uicontrol">Status</span> will be shown below the name.</p>
+		</section><section>
+			<h2 class="title ">webapp/i18n/i18n.properties</h2>
+			<section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+# Invoice List
+invoiceListTitle=Invoices
+invoiceStatusA=New
+invoiceStatusB=In Progress
+invoiceStatusC=Done
+<span class="emphasis">columnQuantity=Quantity
+columnName=Name
+columnSupplier=Supplier
+columnStatus=Status
+columnPrice=Price</span>
+
+# Detail Page
+...</pre></div></div></section>
+			<p>We add the column names and the attribute titles to our <code>i18n</code>
+				file.</p>
+			<p>We can see the results when we decrease the browser's screen size or open the app on
+				a small device.</p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Optimize your application for the different screen sizes of phone, tablet,
+						and desktop devices.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/d12d2ee6a5454d799358d425f9e7c4db">Step 33: Custom Controls</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/d63a15e5eebb45cdada317bae5f45bc2">Step 35: Device Adaptation</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+
+		<li><a href="topic/38855e06486f4910bfa6f4485f7c2bac" title="SAPUI5 supports column-based and row-based solutions to support flexible and clearly arranged tables." class="sap-doc">Configuring Responsive Behavior of a Table</a></li>
+	</ul></section></div></section></div></body></html>

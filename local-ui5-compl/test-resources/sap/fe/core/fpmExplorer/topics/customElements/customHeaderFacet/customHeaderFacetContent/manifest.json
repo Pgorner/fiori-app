@@ -1,0 +1,149 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.customHeaderFacetContent",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/customHeaderFacetContent/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleUrl": "i18n/i18n.properties"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleUrl": "i18n/i18n.properties"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": "/RootEntity({key}):?query:",
+					"name": "default",
+					"target": "sample"
+				}
+			],
+			"targets": {
+				"sample": {
+					"type": "Component",
+					"id": "Default",
+					"name": "sap.fe.templates.ObjectPage",
+					"viewLevel": 1,
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"content": {
+								"header": {
+									"facets": {
+										"CustomHeaderFacetContentBased1": {
+											"template": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetColumnChart",
+											"requestGroupId": "Heroes",
+											"stashed": false,
+											"visible": "{= ${BooleanProperty}}",
+											"position": {
+												"placement": "After",
+												"anchor": "HeaderFacetIdentifier1"
+											},
+											"flexSettings": {
+												"designtime": "not-adaptable-visibility"
+											}
+										},
+										"CustomHeaderFacetContentBased2": {
+											"template": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetDataPoint",
+											"title": "Custom Data Point",
+											"subTitle": "Car Rental",
+											"requestGroupId": "LongRunners",
+											"position": {
+												"placement": "After",
+												"anchor": "CustomHeaderFacetContentBased1"
+											},
+											"templateEdit": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetDataPointEdit"
+										}
+									}
+								}
+							},
+							"editableHeaderContent": true,
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.HeaderFacets": {
+									"facets": {
+										"CustomHeaderFacetAnnotationBased1": {
+											"template": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetMicroChart",
+											"title": "Custom Micro Chart",
+											"requestGroupId": "Workers",
+											"position": {
+												"placement": "After",
+												"anchor": "CustomHeaderFacetContentBased2"
+											},
+											"templateEdit": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetMicroChartEdit"
+										},
+										"CustomHeaderFacetAnnotationBased2": {
+											"template": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetBuildingBlockMicroChart",
+											"title": "Custom Building Block Micro Chart",
+											"requestGroupId": "Workers",
+											"position": {
+												"placement": "After",
+												"anchor": "CustomHeaderFacetAnnotationBased1"
+											},
+											"templateEdit": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetBuildingBlockMicroChartEdit"
+										},
+										"CustomHeaderFacetAnnotationBased3": {
+											"template": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetBuildingBlockFormElement",
+											"title": "Custom Building Block Form Element",
+											"requestGroupId": "Workers",
+											"position": {
+												"placement": "After",
+												"anchor": "CustomHeaderFacetAnnotationBased2"
+											},
+											"templateEdit": "sap.fe.core.fpmExplorer.customHeaderFacetContent.CustomHeaderFacetBuildingBlockFormElementEdit"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,100 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio5b0775397e394b1fb973fa207554003e" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/field-groups-5b07753.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Field Groups</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Field Groups</h2></div><div class="shortdesc">Group of controls that belong together semantically. This group can be used, for
+		example, for validating the data consistency for the field group.</div><p>Field groups are built by means of a common <code>fieldGroupIds</code> array for a
+			group that can be set for each control. When the user changes the focus to a control
+			with a different <code>fieldGroupIds</code> array, the
+				<code>validateFieldGroup</code> event is raised and bubbled in the control
+			hierarchy, that is, the event is propagated to the parent control until it reaches the
+			top most control, or the event is handled and <code>oEvent.bCancelBubble</code> is
+			set to <code>true</code>. The application developer can now validate the fields
+			within the group. The <code>validateFieldGroup</code> event is also raised if the
+			user presses Enter in a field without any modifier keys. </p><section><div class="collapsible-icon sap-icon title"><h2>
+					Example
+				</h2></div><div class="fig">
+			<h2 class="title ">Validation of Credit Card Information</h2>
+			<p>Depending on the credit card vendor, different validation rules can be implemented
+				for a field group, for example:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Vendor 1: First digit must be a 3 and second digit must be a 4 or 7, the
+						valid length is 15 digits</p>
+				</li>
+				<li class="li">
+					<p>Vendor 2: First digit must be a 5 and second digit must be in the range from
+						1 to 5 inclusive, the valid length is 16 digits</p>
+				</li>
+			</ul>
+			<p>Plenty of other validation rules for vendors exist. In addition to this, the expiry
+				date must not be in the past and, in case of Vendor 1, is only allowed to be 4 years
+				in the future.</p>
+		</div></section><section>
+			<h2 class="title ">Defining a Field Group ID</h2>
+			<p><code>fieldGroupIds</code> is a property of all
+					<code>sap.ui.core.Control</code> instances and can be set there as an array
+				of strings. The developer has to make sure that the ID is unique. Field group IDs
+				can be added as a comma-separated string as it is usually done in an xml view
+				declaration.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var myInput1 = new sap.m.Input({fieldGroupIds:["MyGroup","MyGroup2"]}),
+
+myInput2 = new sap.m.Input({fieldGroupIds:["MyGroup","MyGroup2"]);</pre></div></div></section>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">//XMLView declaration of multiple groups
+&lt;input fieldGroupIds="MyGroup,MyGroup2" /&gt; </pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Validating Field Groups</h2>
+			<p>The <code>validateFieldGroup</code> event is raised on the control that lost the
+				focus and at least one field group was left. The event bubbles up the control
+				hierarchy. In the example below, the surrounding <code>VerticalLayout</code> is
+				handling the event for its fields.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var myVerticalLayout = new sap.ui.layout.VerticalLayout({content:[myInput1, myInput2], validateFieldGroup: function(oEvent) {
+    var aFieldGroup = oEvent.getParameters().fieldGroupIds;
+    if (aFieldGroup.indexOf("MyGroup") &gt; -1) {
+        //do validation
+        oEvent.bCancelBubble = true; //stop bubbling to the parent control
+    }
+}});</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Accessing Controls in a Field Group</h2>
+			<p>In some scenarios, it is required to find all controls that belong to a specific
+				field group, or to all controls with a <code>fieldGroupId</code>. For this, the
+				control implements the public <code>getControlsByFieldGroupId</code> method that
+				gets a list of child controls in the application code. </p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var aAllControlsWithFieldGroupId = myVerticalLayout.getControlsByFieldGroupId();              //all where fieldGroupId is not empty 
+var aMyGroupControls             = myVerticalLayout.getControlsByFieldGroupId("myGroup");     //exact matches to myGroup</pre></div></div></section>
+			<p>Similar to the above, you can use the <code>getControlsByFieldGroupId</code> method of <code>sap/ui/Core/Control</code> to find/retrieve
+				all controls with certain field group IDs.</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Control" required from module "sap/ui/core/Control"
+var aAllControlsWithFieldGroupId = Control.getControlsByFieldGroupId();              //all where fieldGroupId is not empty 
+var aMyGroupControls             = Control.getControlsByFieldGroupId("MyGroup");     //exact matches to myGroup 
+</pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Using the <code>fieldGroupId</code> With Composite Controls</h2>
+			<p>Composite controls that derive from control base class automatically support setting
+				a <code>FieldGroupId</code>. Nevertheless, the <code>FieldGroupId</code> is
+				not propagated to inner controls of the composite control as they are unknown to the
+				SAPUI5 framework. Therefore, a composite control needs to propagate the
+					<code>FieldGroupId</code> on its own. For all internally aggregated
+				controls, the <code>FieldGroupId</code> should be propagated as follows:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">MyCompositeControl.prototype.setFieldGroupIds = function(vValue, bSuppressInvalidate) {
+    this._myAggregatedInnerControl.setFieldGroupIds(vValue, bSuppressInvalidate);
+    this.setProperty("fieldGroupIds",vValue, bSuppressInvalidate);
+} </pre></div></div></section>
+		</section><section>
+			<h2 class="title ">Note</h2>
+			<p>For a control with a <code>fieldGroupId</code> that currently has the focus, the
+				following applies:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>If the control is destroyed before the focus is moved to another control, the
+							<code>validateFieldGroup</code> event is not fired.</p>
+				</li>
+				<li class="li">
+					<p>If the control changes its <code>fieldGroupIds</code>, the
+							<code>validateFieldGroup</code> event is fired for the new
+							<code>fieldGroupIds</code> and <span class="emphasis">not</span> for the
+						old.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="entity/sap.ui.core.Control/sample/sap.ui.core.sample.FieldGroup" title="entity/sap.ui.core.Control/sample/sap.ui.core.sample.FieldGroup" class="sap-doc" alt="entity/sap.ui.core.Control/sample/sap.ui.core.sample.FieldGroup">Sample: Field Groups</a></li>
+	</ul></section></div></section></div></body></html>

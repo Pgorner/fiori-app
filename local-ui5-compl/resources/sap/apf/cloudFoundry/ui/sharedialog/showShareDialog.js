@@ -1,0 +1,2 @@
+sap.ui.define(["sap/apf/cloudFoundry/ui/utils/ComponentCorrector","sap/ui/core/library"],function(e,o){"use strict";var r="sap.apf.cloudFoundry.ui.sharedialog";var i=o.mvc.ViewType;function a(o,a){e.createView(o.getComponent(),{viewName:r+".view.ShareDialog",type:i.XML,viewData:{oCoreApi:o,oController:a}})}return{show:a}});
+//# sourceMappingURL=showShareDialog.js.map

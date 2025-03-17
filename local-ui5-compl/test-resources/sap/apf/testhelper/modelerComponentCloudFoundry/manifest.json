@@ -1,0 +1,128 @@
+{
+	"_version": "1.11.0",
+	"sap.app": {
+		"id": "test.sap.apf.testhelper.modelerComponentCloudFoundry",
+		"type": "application",
+		"i18n": "../../../../../resources/sap/apf/resources/i18n/apfUi.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"ach": "CA-EPT-ANL-APF",
+		"dataSources": {
+			"apf.designTime.customer.applications": {
+				"uri": "/sap/apf/design-time/customer-content/v1/Applications",
+				"type": "JSON"
+			},
+			"apf.designTime.customer.analyticalConfigurations": {
+				"uri": "/sap/apf/design-time/customer-content/v1/AnalyticalConfigurations",
+				"type": "JSON"
+			},
+			"apf.designTime.customer.applicationAndAnalyticalConfiguration": {
+				"uri": "/sap/apf/design-time/customer-content/v1/ApplicationAndAnalyticalConfiguration",
+				"type": "JSON"
+			},
+			"apf.designTime.textFileAndAnalyticalConfigurations": {
+				"uri": "/sap/apf/design-time/customer-content/v1/TextFileAndAnalyticalConfigurations",
+				"type": "JSON"
+			},
+			"apf.designTime.textFiles": {
+				"uri": "/sap/apf/design-time/customer-content/v1/TextFiles",
+				"type": "JSON"
+			},
+			"apf.designTime.vendor.importToCustomerLayer": {
+				"uri": "/sap/apf/design-time/vendor-content/v1/ImportToCustomerLayer",
+				"type": "JSON"
+			},
+			"apf.designTime.vendor.analyticalConfigurations": {
+				"uri": "/sap/apf/design-time/vendor-content/v1/AnalyticalConfigurations",
+				"type": "JSON"
+			},
+			"apf.destinationCatalog.destinations": {
+				"uri": "/sap/apf/destination-catalog/v1/Destinations",
+				"type": "JSON"
+			}
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"APFEditConfiguration": {
+					"semanticObject": "FioriApplication",
+					"action": "editAPFConfiguration",
+					"deviceTypes": {
+						"desktop": true,
+						"tablet": false,
+						"phone": false
+					},
+					"icon": "sap-icon://wrench",
+					"size": "1x1",
+					"signature": {
+						"parameters": {
+
+						},
+						"additionalParameters": "allowed"
+					},
+					"title": "{{appTitle}}",
+					"subTitle": "{{appSubTitle}}"
+				}
+			}
+		},
+		"resources": "resources.json",
+		"offline": false
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": false
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"dependencies": {
+			"minUI5Version": "1.54",
+			"libs": {
+				"sap.ui.core": {
+
+				},
+				"sap.m": {
+
+				}
+			}
+		},
+		"extends": {
+			"component": "sap.apf.modeler"
+		},
+		"config": {
+			"sapFiori2Adaptation": {
+				"style": true,
+				"collapse": true,
+				"title": true,
+				"back": true,
+				"hierarchy": true,
+				"lateAdaptation": true
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/texts.properties"
+			}
+		}
+	},
+	"sap.platform.cf": {
+		"oAuthScopes": [ 
+			"$XSAPPNAME.UseDesignTime"
+		]
+	}
+}

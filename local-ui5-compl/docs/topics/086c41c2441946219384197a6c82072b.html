@@ -1,0 +1,120 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio086c41c2441946219384197a6c82072b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/colors-and-theming-086c41c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Colors and Theming</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Colors and Theming</h2></div><div class="shortdesc">Theming is an important aspect for an SAPUI5 application. The different colors shown
+		on the UI need to have a good contrast to each other in order to be easily
+		distinguishable.</div><section>
+			<h2 class="title ">General Recommendations</h2>
+			<p>Different people perceive and interpret colors in different ways, which is something you must
+				take into account when developing your applications. High-contrast themes are
+				already available for all SAPUI5 controls. </p><ul class="ul ">
+					<li class="li">
+						<p>Applications need to provide the user with an option to switch
+							themes.</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>If the application runs in the SAP Fiori launchpad,
+									this is covered automatically.</p>
+							</li>
+						</ul>
+					</li>
+					<li class="li">
+						<p>There are two possible ways to change the theme:</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>With the URL parameter <code>sap-ui-theme</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap-ui-theme=sap_horizon_hcb</pre></div></div></section> and
+									<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap-ui-theme=sap_horizon_hcw</pre></div></div></section><p></p>
+							</li>
+							<li class="li">
+								<p>From the API using the <code>Theming.setTheme</code> method, with <code>Theming</code> required from the
+										<code>sap/ui/core/Theming</code> module</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Theming" required from module "sap/ui/core/Theming"
+Theming.setTheme("sap_horizon_hcb");</pre></div></div></section> or
+									<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Theming" required from module "sap/ui/core/Theming"
+Theming.setTheme("sap_horizon_hcw");</pre></div></div></section><p></p>
+							</li>
+						</ul>
+					</li>
+					<li class="li">
+						<p>You should avoid writing custom CSS. If you do need custom CSS for some
+							reason, check to make sure everything is working fine on all available
+							themes. </p>
+					</li>
+					<li class="li">
+						<p>If a new theme is created, the color contrast between the elements should be checked.
+							People with visual impairments and people using the application under
+							less than ideal circumstances (bad monitor, sunlight hitting the screen,
+							window reflections) may not be able to read the text easily if the
+							contrast levels are insufficient. Specialized tools can help you to
+							measure the color contrast. The different colors shown on the UI need to
+							have a good contrast to each other in order to be easily
+							distinguishable. Test results are best when the color values are known
+							already and entered as hex in the color contrast testing tool. Picking
+							results are best when picked from the original application, so use
+							screenshots only if this cannot be avoided. </p>
+					</li>
+				</ul><p></p>
+		</section><section><h2 class="title ">DOs and DON'Ts</h2><section>
+				<h3 class="title ">DOs</h3>
+				<ul class="ul ">
+					<li class="li">
+						<p>Use predefined CSS parameters in your CSS. You can find them in the
+							following files within the SAPUI5 library: </p><ul class="ul ">
+								<li class="li">
+									<p><code>resources/sap/m/themes/base/library-parameters.json</code></p>
+								</li>
+								<li class="li">
+									<p><code>resources/sap/m/themes/sap_horizon_hcb/library-parameters.json</code></p>
+								</li>
+							</ul><p></p>
+					</li>
+					<li class="li">
+						<p>Use <code>REM</code>/<code>EM</code> instead of
+								<code>PX</code> as a unit.</p>
+					</li>
+					<li class="li">
+						<p>Use the flexible layout concept in CSS.</p>
+					</li>
+					<li class="li">
+						<p>Use media-queries when flexible layouts do not meet UX expectations.</p>
+					</li>
+					<li class="li">
+						<p>Don't forget the Retina display. You need to provide 2 versions for an
+							icon (<code>icon.png</code> and <code>icon@2x.png</code>).</p>
+					</li>
+				</ul>
+			</section><section>
+				<h3 class="title ">DON'Ts</h3>
+				<ul class="ul ">
+					<li class="li">
+						<p>Define a custom color.</p>
+					</li>
+					<li class="li">
+						<p>Define a custom font family.</p>
+					</li>
+					<li class="li">
+						<p>Set fixed width/height (except for some exceptions like images).</p>
+					</li>
+					<li class="li">
+						<p>Define writing-modes (left-to-right or right-to-left), as this is handled
+							by the SAPUI5 control itself.</p>
+					</li>
+				</ul>
+			</section></section><section>
+			<h2 class="title ">Tips for Testing</h2>
+			<p>Check the color contrasts.</p><ul class="ul ">
+					<li class="li">
+						<p>Take a screenshot, put it into an image tool and convert it to black and white:</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>Are there screen elements,
+									lines or texts that are disappearing?</p>
+							</li>
+							<li class="li">
+								<p>Check the color contrast for elements that disappear.</p>
+							</li>
+						</ul>
+					</li>
+					<li class="li">
+						<p>If time allows, check all contrasts of all elements.</p>
+					</li>
+				</ul><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

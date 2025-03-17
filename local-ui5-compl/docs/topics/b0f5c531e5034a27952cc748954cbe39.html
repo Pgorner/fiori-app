@@ -1,0 +1,79 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob0f5c531e5034a27952cc748954cbe39" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/suspend-and-resume-b0f5c53.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Suspend and Resume</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Suspend and Resume</h2></div><div class="shortdesc"> A suspended binding does not send data service requests nor does it fire change events. You can resume a suspended list or context
+		binding with its <code>resume</code> method.</div><p>You can suspend a <a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/suspend" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/suspend" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/suspend"><code>list
+				binding</code></a> or <a href="api/sap.ui.model.odata.v4.ODataContextBinding#methods/suspend" title="api/sap.ui.model.odata.v4.ODataContextBinding#methods/suspend" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding#methods/suspend"><code>context
+				binding</code></a> with its suspend method.
+			You can only suspend absolute bindings or bindings which are quasi-absolute. A quasi-absolute binding is a relative binding with a context
+			which is not a <a href="api/sap.ui.model.odata.v4.Context" title="api/sap.ui.model.odata.v4.Context" class="sap-doc" alt="api/sap.ui.model.odata.v4.Context"><code>sap.ui.model.odata.v4.Context</code></a>. You can only suspend a binding which is not yet suspended. For a relative binding having a V4
+			context, you may suspend the <span class="emphasis">root binding</span> of its binding hierarchy which is the (quasi-) absolute ancestor binding of
+			this binding. The binding's method <code>getRootBinding</code> provides the root binding; for (quasi-) absolute bindings it returns
+			the binding itself.</p><p>Typical use cases for suspend and resume are:</p><ol>
+			<li class="li">
+				<p><span class="emphasis">Initiate read requests for controls in the view later; not when the view is initialized:</span></p>
+				<p>In some situations you may want to suppress OData requests and change events initiated by an OData V4 binding for a certain period of time.
+					This is useful for value help dialogs, such as the value help for the <span class="parmname">/BusinessPartnerList</span> when creating a
+					sales order in the <a href="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.SalesOrders" title="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.SalesOrders" class="sap-doc" alt="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.SalesOrders"><code>SalesOrders
+								OData V4 sample</code></a>.</p>
+			</li>
+			<li class="li">
+				<p><span class="emphasis">Avoid intermediate request when modifying the binding multiple
+						times</span></p>
+				<p>You want to add a filter and change the sorting of a list binding. If the binding is not suspended, it will initiate a request after calling
+					the <code>filter</code> method, and a second request after calling the <code>sort</code> method. If it is suspended, only
+					one request with the updated filter and sort criteria is sent on <code>resume</code>.</p>
+			</li>
+		</ol><p>The code below shows a snippet from the <a href="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.SalesOrders" title="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.SalesOrders" class="sap-doc" alt="entity/sap.ui.model.odata.v4.ODataModel/sample/sap.ui.core.sample.odata.v4.SalesOrders"><code>SalesOrders OData V4
+						sample</code></a> which delays the request to <span class="parmname">/BusinessPartnerList</span> until the <span class="ph uicontrol">Create Sales Order</span>
+			dialog is displayed.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The <code>suspended</code> flag in the binding info initiates a call to the suspend method of the corresponding binding once it is
+					created.</p>
+			<p></p></div></div><p></p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>View</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Dialog id="CreateSalesOrderDialog" title="Create New Sales Order"&gt;
+...
+    &lt;Input id="NewBuyerID" suggestionItems="{path : '/BusinessPartnerList', suspended : true}"&gt;
+        &lt;suggestionItems&gt;
+            &lt;core:ListItem key="{BusinessPartnerID}" additionalText="{CompanyName}"  text="{BusinessPartnerID}"/&gt;
+        &lt;/suggestionItems&gt;
+    &lt;/Input&gt;
+...
+&lt;/Dialog&gt;</pre></div></div></section><p></p></div></div><p>The controller code to open the dialog resumes the list binding on <span class="parmname">/BusinessPartnerList</span> and thus initiates the request.</p><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>Controller</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oBPListBinding = this.byId("NewBuyerID").getBinding("suggestionItems");
+ 
+if (oBPListBinding.isSuspended()) {
+    oBPListBinding.resume();
+}</pre></div></div></section><p></p></div></div><p>When a binding is suspended, all methods which may initiate CRUD requests for this binding, for example <code>ODataListBinding.create</code>,
+			throw an error. This is also true for dependent bindings of a suspended binding. However methods that cause the binding to be refreshed
+			completely are allowed. These methods are:</p><ul class="ul ">
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataContextBinding#methods/changeParameters" title="api/sap.ui.model.odata.v4.ODataContextBinding#methods/changeParameters" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding#methods/changeParameters"><code>ODataContextBinding.changeParameters</code></a>
+					</p>
+			</li>
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataContextBinding#methods/refresh" title="api/sap.ui.model.odata.v4.ODataContextBinding#methods/refresh" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataContextBinding#methods/refresh"><code>ODataContextBinding.refresh</code></a></p>
+			</li>
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/changeParameters" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/changeParameters" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/changeParameters"><code>ODataListBinding.changeParameters</code></a></p>
+			</li>
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/refresh" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/refresh" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/refresh"><code>ODataListBinding.refresh</code></a></p>
+			</li>
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/filter" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/filter" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/filter"><code>ODataListBinding.filter</code></a></p>
+			</li>
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/sort" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/sort" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/sort"><code>ODataListBinding.sort</code></a></p>
+			</li>
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/setAggregation" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/setAggregation" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/setAggregation"><code>ODataListBinding.setAggregation</code></a></p>
+			</li>
+			<li class="li">
+				<p><a href="api/sap.ui.model.odata.v4.ODataListBinding#methods/updateAnalyticalInfo" title="api/sap.ui.model.odata.v4.ODataListBinding#methods/updateAnalyticalInfo" class="sap-doc" alt="api/sap.ui.model.odata.v4.ODataListBinding#methods/updateAnalyticalInfo"><code>ODataListBinding.updateAnalyticalInfo</code></a></p>
+			</li>
+		</ul><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p> It is not allowed to suspend operation bindings. </p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

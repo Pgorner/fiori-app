@@ -1,0 +1,6 @@
+/*
+ * SAPUI5
+  (c) Copyright 2009-2021 SAP SE. All rights reserved
+ */
+sap.ui.define(["jquery.sap.global","sap/sac/df/thirdparty/lodash","sap/zen/dsh/utils/BaseHandler"],function(jQuery,a){"use strict";function e(){this._bundles={};this._callbacks=null}e.prototype.onLoad=function(e){var s=sap.ui.getCore().getConfiguration().getFormatLocale();var t=this;var i=sap.viz.api.env.Locale.get();sap.viz.api.env.Format.useDefaultFormatter(true);if(s!==i){var l=[];l.push(jQuery.sap.getModulePath("sap.viz.resources.chart.langs","/"));l.push(jQuery.sap.getModulePath("sap.viz.resources.framework.langs","/"));sap.viz.api.env.Resource.path("sap.viz.api.env.Language.loadPaths",l);if(!this._callbacks){this._callbacks=[];this._callbacks.push(e);sap.viz.api.env.Locale.set(s,function(){t._currentLocale=s;a.forEach(t._callbacks,function(a){a()});t._callbacks=null})}else{this._callbacks.push(e)}}else{e()}};e.prototype.getBundle=function(a){if(!this._bundles[a]){this._bundles[a]=jQuery.sap.resources({url:a,locale:s()})}return this._bundles[a]};function s(){var a=sap.ui.getCore().getConfiguration().getLanguage();if(a.indexOf("-")>-1){a=a.split("-");a=a[0]}if(a.indexOf("_")>-1){a=a.split("_");a=a[0]}return a}return e});
+//# sourceMappingURL=info_chart_locale.js.map

@@ -1,0 +1,49 @@
+<mvc:View
+	xmlns="sap.ui.comp.smartfilterbar"
+	xmlns:f="sap.f"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:st="sap.ui.comp.smarttable"
+	controllerName="sap.ui.comp.sample.smartfilterbar.FiscalDates.SmartFilterBar"
+	height="100%">
+
+	<f:DynamicPage id="dynamicPage" fitContent="true">
+		<f:header>
+			<f:DynamicPageHeader>
+				<SmartFilterBar
+					id="smartFilterBar"
+					entitySet="MainEntitySet">
+					<controlConfiguration>
+						<ControlConfiguration key="FISCAL_YEAR" visibleInAdvancedArea="true"/>
+						<ControlConfiguration key="FISCAL_PERIOD" visibleInAdvancedArea="true"/>
+						<ControlConfiguration key="FISCAL_YEAR_PERIOD" visibleInAdvancedArea="true"/>
+						<ControlConfiguration key="FISCAL_QUARTER" visibleInAdvancedArea="true"/>
+						<ControlConfiguration key="FISCAL_YEAR_QUARTER" visibleInAdvancedArea="true"/>
+						<ControlConfiguration key="FISCAL_WEEK" visibleInAdvancedArea="true"/>
+						<ControlConfiguration key="FISCAL_YEAR_WEEK" visibleInAdvancedArea="true"/>
+						<ControlConfiguration key="FISCAL_DAY_OF_YEAR" visibleInAdvancedArea="true"/>
+					</controlConfiguration>
+					<layoutData>
+						<m:FlexItemData shrinkFactor="0"/>
+					</layoutData>
+				</SmartFilterBar>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<st:SmartTable
+				id="smartTable"
+				entitySet="MainEntitySet"
+				smartFilterId="smartFilterBar"
+				tableType="Table"
+				beforeExport=".onBeforeExport"
+				enableAutoColumnWidth="true"
+				useTablePersonalisation="true"
+				header="Fiscal Information"
+				showRowCount="true">
+				<st:layoutData>
+					<m:FlexItemData growFactor="1" baseSize="0%"/>
+				</st:layoutData>
+			</st:SmartTable>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

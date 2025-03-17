@@ -1,0 +1,5 @@
+/*!
+ * Copyright (c) 2009-2014 SAP SE, All Rights Reserved
+ */
+sap.ui.define(["sap/fe/navigation/SelectionVariant","sap/base/util/isEmptyObject"],function(t,e){"use strict";var a="sap.ovp.app.customData",i="sap.ovp.app.extensionData";return{getFilterBarConfiguration:function(r,n){var o=n.getGlobalFilter();if(!o){return}var s={};var l=n._getCustomAppState();var u={_CUSTOM:l[a],_EXTENSION:l[i]};if(!r){if(u._CUSTOM){n._CustomFilterField(u._CUSTOM,s)}if(u._EXTENSION){var S=Object.keys(u._EXTENSION);if(S){n._CustomFilterField(u._EXTENSION[S],s)}}if(!e(s)){var f=o.getFilterData();f._CUSTOM=s;o.setFilterData(f,true)}}var p=o.getUiState({allFilters:false});var g=p&&p.getSelectionVariant();if(o.getSmartVariant().currentVariantGetModified()){g.SelectionVariantID=""}var v=g&&JSON.stringify(g);var c=new t(v);return Promise.resolve({selectionVariant:c.toJSONString(),semanticDates:p.getSemanticDates(),customData:u})},getEntityType:function(t){if(t){var e=t.getModel("ui");return e&&e.getProperty("/globalFilterEntityType")}}}});
+//# sourceMappingURL=SmartFilterbarHandler.js.map

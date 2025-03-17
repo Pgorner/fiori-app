@@ -1,0 +1,123 @@
+<mvc:View xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:sf="sap.ui.comp.smartfield"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.comp.smartform"
+	xmlns:m="sap.m" height="100%" controllerName="sap.ui.comp.sample.smartfield.SmartFieldWithValueHelp.Main">
+	<m:ScrollContainer id="SC1" height="100%" horizontal="false" vertical="true">
+		<form:SmartForm id="SF1" class="editableForm" editTogglable="true" editable="true" title="{Name}" binding="{/Products('1239102')}">
+			<form:layout>
+				<form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4"/>
+			</form:layout>
+			<form:Group id="G1" title="Smart Field with Value Help">
+
+				<!-- ****************************************************** -->
+				<!-- com.sap.vocabularies.Common.v1.ValueList				-->
+				<!-- default example"										-->
+				<!-- ****************************************************** -->
+				<form:GroupElement id="GE-DeliveryTransport">
+
+					<sf:SmartField id="idDeliveryTransport" value="{DeliveryTransport}" textInEditModeSource="ValueListNoValidation">
+						<sf:configuration>
+							<sf:Configuration displayBehaviour="idAndDescription" />
+						</sf:configuration>
+					</sf:SmartField>
+
+				</form:GroupElement>
+
+				<!-- ****************************************************** -->
+				<!-- com.sap.vocabularies.Common.v1.ValueList				-->
+				<!-- and sap:value-list="fixed-values"						-->
+				<!-- ****************************************************** -->
+				<form:GroupElement id="GE-Category">
+
+					<sf:SmartField id="idCategory" value="{Category}"/>
+
+				</form:GroupElement>
+
+				<!-- ************************************************ -->
+				<!-- Date (Edm.DateTime and sap:display-format="Date" -->
+				<!-- ************************************************ -->
+				<form:GroupElement id="GE-CreationDate">
+
+					<sf:SmartField id="idCreationDate" value="{CreationDate}"/>
+
+				</form:GroupElement>
+
+				<!-- ************************************** -->
+				<!-- Date with dateFormatSettings for style -->
+				<!-- see sap.ui.core.format.DateFormat		-->
+				<!-- oFormatOptions.style					-->
+				<!-- ************************************** -->
+				<form:GroupElement id="GE-CreationDateLong">
+
+					<sf:SmartField id="idCreationDateLong" value="{CreationDate}" textLabel="Creation Date with long date format">
+						<sf:customData>
+							<core:CustomData key="dateFormatSettings" value='\{"style":"long"\}'/>
+						</sf:customData>
+					</sf:SmartField>
+
+				</form:GroupElement>
+
+				<!-- ****************************************** -->
+				<!-- Date with dateFormatSettings for pattern	-->
+				<!-- see sap.ui.core.format.DateFormat			-->
+				<!-- oFormatOptions.pattern						-->
+				<!-- ****************************************** -->
+				<form:GroupElement id="GE-CreationDateCustomPattern">
+
+					<sf:SmartField id="idCreationDateCustomPattern" value="{CreationDate}" textLabel="Creation Date with format pattern 'yyyy-MM-dd'">
+						<sf:customData>
+							<core:CustomData key="dateFormatSettings" value='\{"pattern":"yyyy-MM-dd"\}'/>
+						</sf:customData>
+					</sf:SmartField>
+
+				</form:GroupElement>
+
+				<!-- ************ -->
+				<!-- Edm.DateTime -->
+				<!-- ************ -->
+				<form:GroupElement id="GE-LastChanged">
+
+					<sf:SmartField id="idLastChanged" value="{LastChanged}"/>
+
+				</form:GroupElement>
+
+				<!-- ****************** -->
+				<!-- Edm.DateTimeOffset -->
+				<!-- ****************** -->
+				<form:GroupElement id="GE-AvailableSince">
+
+					<sf:SmartField id="idAvailableSince" value="{AvailableSince}"/>
+
+				</form:GroupElement>
+
+				<!-- ****************************************************** -->
+				<!-- sap:unit and sap:semantics="currency-code" 			-->
+				<!-- ****************************************************** -->
+				<form:GroupElement id="GE-Price">
+
+					<sf:SmartField id="idPrice" value="{Price}">
+						<sf:customData>
+							<core:CustomData key="defaultFilterBarExpanded" value='true'/>
+						</sf:customData>
+					</sf:SmartField>
+
+				</form:GroupElement>
+
+				<!-- ****************************************************** -->
+				<!-- sap:semantics="unit-of-measure"						-->
+				<!-- ****************************************************** -->
+				<form:GroupElement id="GE-Quantity">
+
+					<sf:SmartField id="idQuantity" value="{Quantity}">
+						<sf:customData>
+							<core:CustomData key="defaultFilterBarExpanded" value='true'/>
+						</sf:customData>
+					</sf:SmartField>
+
+				</form:GroupElement>
+			</form:Group>
+		</form:SmartForm>
+	</m:ScrollContainer>
+</mvc:View>

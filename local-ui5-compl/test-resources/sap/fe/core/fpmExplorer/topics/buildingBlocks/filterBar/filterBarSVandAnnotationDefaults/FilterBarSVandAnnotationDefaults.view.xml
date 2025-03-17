@@ -1,0 +1,42 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:l="sap.ui.layout"
+	controllerName="sap.fe.core.fpmExplorer.filterBarSVandAnnotationDefaults.FilterBarSVandAnnotationDefaults"
+>
+	<FlexBox direction="Column" fitContainer="true" justifyContent="Start">
+		<Panel headerText="Filter Bar" class="sapUiContentPadding">
+			<Text text="{fbConditions>/filtersTextInfo}" />
+			<macros:FilterBar
+				metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.SelectionFields#SF1"
+				id="FilterBar"
+				search=".handlers.onFiltersChanged"
+				filterChanged=".handlers.onFiltersChanged"
+			/>
+			<layoutData>
+				<FlexItemData growFactor="0" shrinkFactor="1" />
+			</layoutData>
+		</Panel>
+		<Panel expanded="{fbConditions>/expanded}" height="100%" headerText="Conditions from Filter Bar" expandable="true">
+			<FlexBox direction="Column" fitContainer="true" justifyContent="Start">
+				<ce:CodeEditor
+					height="100%"
+					id="filtersDisplay"
+					type="json"
+					lineNumbers="false"
+					value="{fbConditions>/allFilters}"
+					editable="false"
+				>
+					<ce:layoutData>
+						<FlexItemData growFactor="1" shrinkFactor="1" />
+					</ce:layoutData>
+				</ce:CodeEditor>
+			</FlexBox>
+			<layoutData>
+				<FlexItemData growFactor="1" shrinkFactor="1" />
+			</layoutData>
+		</Panel>
+	</FlexBox>
+</mvc:View>

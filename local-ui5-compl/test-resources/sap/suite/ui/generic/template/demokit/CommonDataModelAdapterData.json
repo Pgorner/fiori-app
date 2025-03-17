@@ -1,0 +1,447 @@
+{
+    "_version": "3.0.0",
+    "site": {
+        "identification": {
+            "version": "3.1",
+            "id": "c9dcc1f3-dec0-4db4-91d3-639bf38d91ce",
+            "title": "Home",
+            "description": "FLP Home Page"
+        },
+        "payload": {
+            "homeApp": {
+                "semanticObject": "Shell",
+                "action": "home"
+            },
+            "config": {
+                "ushellConfig": {
+                    "renderers": {
+                        "fiori2": {
+                            "componentData": {
+                                "config": {
+                                    "enableSearch": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "groupsOrder": [
+                "MyAppsGroup"
+            ]
+        }
+    },
+    "catalogs": {
+        "DemoKitApps": {
+            "identification": {
+                "id": "DemokitApps",
+                "title": "Demokit Applications"
+            },
+            "payload": {
+                "viz": [
+                    "STTA_SO_ND",
+                    "SOMULTIENTITY",
+                    "STTA_MP",
+                    "STTA_SO_WD",
+                    "analytics2"
+                ]
+            }
+        }
+    },
+    "vizTypes": {},
+    "visualizations": {
+        "STTA_SO_ND": {
+            "vizType": "sap.ushell.StaticAppLauncher",
+            "businessApp": "STTA_SO_ND",
+            "vizConfig": {
+                "sap.flp": {
+                    "target": {
+                        "appId": "STTA_SO_ND",
+                        "inboundId": "SalesOrderND-manage",
+                        "parameters": {}
+                    }
+                }
+            }
+        },
+        "SOMULTIENTITY": {
+            "vizType": "sap.ushell.StaticAppLauncher",
+            "businessApp": "SOMULTIENTITY",
+            "vizConfig": {
+                "sap.flp": {
+                    "target": {
+                        "appId": "SOMULTIENTITY",
+                        "inboundId": "SalesOrderNDME-manage",
+                        "parameters": {}
+                    }
+                }
+            }
+        },
+        "STTA_MP": {
+            "vizType": "sap.ushell.StaticAppLauncher",
+            "businessApp": "STTA_MP",
+            "vizConfig": {
+                "sap.flp": {
+                    "target": {
+                        "appId": "STTA_MP",
+                        "inboundId": "EPMProductSTTA",
+                        "parameters": {}
+                    }
+                }
+            }
+        },
+        "STTA_SO_WD": {
+            "vizType": "sap.ushell.StaticAppLauncher",
+            "businessApp": "STTA_SO_WD",
+            "vizConfig": {
+                "sap.flp": {
+                    "target": {
+                        "appId": "STTA_SO_WD",
+                        "inboundId": "SalesOrderWD-manage",
+                        "parameters": {}
+                    }
+                }
+            }
+        },
+        "analytics2": {
+            "vizType": "sap.ushell.StaticAppLauncher",
+            "businessApp": "analytics2",
+            "vizConfig": {
+                "sap.flp": {
+                    "target": {
+                        "appId": "analytics2",
+                        "inboundId": "analytics2-manage",
+                        "parameters": {}
+                    }
+                }
+            }
+        }
+    },
+    "applications": {
+        "STTA_SO_ND": {
+            "sap.app": {
+                "id": "STTA_SO_ND",
+                "applicationVersion": {
+                    "version": "1.2.0"
+                },
+                "title": "Sales Order ND",
+                "subTitle": "Sales Order Non-Draft App",
+                "info": "",
+                "ach": "ca-ui5-st",
+                "crossNavigation": {
+                    "inbounds": {
+                        "SalesOrderND-manage": {
+                            "semanticObject": "SalesOrderND",
+                            "action": "manage"
+                        }
+                    },
+                    "outbounds": {
+                        "EPMProductManageSt":
+                        {
+                            "semanticObject": "EPMProduct",
+                            "action": "manage_st"
+                        }
+                    }
+                }
+            },
+            "sap.ui5": {
+                "models": {},
+                "componentName": "STTA_SO_ND"
+            },
+            "sap.flp": {
+                "type": "application"
+            },
+            "sap.ui": {
+                "technology": "UI5",
+                "icons": {
+                    "icon": ""
+                },
+                "deviceTypes": {
+                    "desktop": true,
+                    "tablet": true,
+                    "phone": true
+                }
+            },
+            "sap.platform.runtime": {
+                "componentProperties": {
+                    "url": "./sample.stta.sales.order.nd/webapp"
+                }
+            }
+        },
+        "SOMULTIENTITY": {
+            "sap.app": {
+                "id": "SOMULTIENTITY",
+                "applicationVersion": {
+                    "version": "1.7.0"
+                },
+                "title": "Sales Order ND Multi Entityset",
+                "subTitle": "Sales Order Non-Draft Multi Entityset",
+                "info": "",
+                "ach": "ca-ui5-st",
+                "crossNavigation": {
+                    "inbounds": {
+                        "SalesOrderNDME-manage": {
+                            "semanticObject": "SalesOrderND",
+                            "action": "manage"
+                        }
+                    },
+                    "outbounds": {
+                        "EPMProductManage": {
+                            "semanticObject": "EPMProduct",
+                            "action": "manage",
+                            "parameters": {
+                                "mode": {
+                                    "value": {
+                                        "value": "display",
+                                        "format": "plain"
+                                    },
+                                    "required": false
+                                }
+                            }
+                        },
+                        "EPMSalesOrderDisplayBuPa": {
+                            "semanticObject": "EPMSalesOrder",
+                            "action": "display_sttabupa",
+                            "parameters": {
+                                "preferredMode": {
+                                    "value": {
+                                        "value": "display",
+                                        "format": "plain"
+                                    },
+                                    "required": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "sap.ui5": {
+                "models": {},
+                "componentName": "SOMULTIENTITY"
+            },
+            "sap.flp": {
+                "type": "application"
+            },
+            "sap.ui": {
+                "technology": "UI5",
+                "icons": {
+                    "icon": ""
+                },
+                "deviceTypes": {
+                    "desktop": true,
+                    "tablet": true,
+                    "phone": true
+                }
+            },
+            "sap.platform.runtime": {
+                "componentProperties": {
+                    "url": "./sample.stta.sales.order.multi.entitysets/webapp"
+                }
+            }
+        },
+        "STTA_MP": {
+            "sap.app": {
+                "id": "STTA_MP",
+                "applicationVersion": {
+                    "version": "1.2.0"
+                },
+                "title": "Manage Product",
+                "subTitle": "Manage Product",
+                "info": "",
+                "ach": "BC-SRV-NWD-ST",
+                "crossNavigation": {
+                    "inbounds": {
+                        "EPMProductSTTA": {
+                            "semanticObject": "EPMProduct",
+                            "action": "manage_st"
+                        }
+                    },
+                    "outbounds": {
+                        "EPMProductManage": {
+                            "semanticObject": "EPMProduct",
+                            "action": "manage",
+                            "parameters": {
+                                "preferredMode": {
+                                    "value": {
+                                        "value": "display",
+                                        "format": "plain"
+                                    },
+                                    "required": false
+                                }
+                            }
+                        },
+                        "EPMSalesOrderDisplayBuPa": {
+                            "semanticObject": "EPMSalesOrder",
+                            "action": "display_sttabupa",
+                            "parameters": {
+                                "preferredMode": {
+                                    "value": {
+                                        "value": "display",
+                                        "format": "plain"
+                                    },
+                                    "required": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "sap.ui5": {
+                "models": {},
+                "componentName": "STTA_MP"
+            },
+            "sap.flp": {
+                "type": "application"
+            },
+            "sap.ui": {
+                "technology": "UI5",
+                "icons": {
+                    "icon": ""
+                },
+                "deviceTypes": {
+                    "desktop": true,
+                    "tablet": true,
+                    "phone": true
+                }
+            },
+            "sap.platform.runtime": {
+                "componentProperties": {
+                    "url": "./sample.stta.manage.products/webapp"
+                }
+            }
+        },
+        "STTA_SO_WD": {
+            "sap.app": {
+                "id": "SOwoExt",
+                "applicationVersion": {
+                    "version": "1.2.0"
+                },
+                "title": "Sales Order With Draft",
+                "subTitle": "Sales Order With Draft",
+                "info": "",
+                "ach": "CA-UI5-ST",
+                "crossNavigation": {
+                    "inbounds": {
+                        "SalesOrderWD-manage": {
+                            "semanticObject": "SalesOrderWD",
+                            "action": "manage"
+                        }
+                    },
+                    "outbounds": {
+                        "EPMProductManageSt":
+                        {
+                            "semanticObject": "EPMProduct",
+                            "action": "manage_st"
+                        }
+                    }
+                }
+            },
+            "sap.ui5": {
+                "models": {},
+                "componentName": "SOwoExt"
+            },
+            "sap.flp": {
+                "type": "application"
+            },
+            "sap.ui": {
+                "technology": "UI5",
+                "icons": {
+                    "icon": ""
+                },
+                "deviceTypes": {
+                    "desktop": true,
+                    "tablet": true,
+                    "phone": true
+                }
+            },
+            "sap.platform.runtime": {
+                "componentProperties": {
+                    "url": "./sample.stta.sales.order.no.extensions/webapp"
+                }
+            }
+        },
+        "analytics2": {
+            "sap.app": {
+                "id": "analytics2",
+                "applicationVersion": {
+                    "version": "1.2.0"
+                },
+                "title": "Analytical",
+                "subTitle": "Analytical",
+                "info": "",
+                "ach": "xx",
+                "crossNavigation": {
+                    "inbounds": {
+                        "analytics2-manage": {
+                            "semanticObject": "analytic",
+                            "action": "manage"
+                        }
+                    },
+                    "outbounds": {
+                        "EPMProductManageSt":
+                        {
+                            "semanticObject": "EPMProduct",
+                            "action": "manage_st"
+                        }
+                    }
+                }
+            },
+            "sap.ui5": {
+                "models": {},
+                "componentName": "analytics2"
+            },
+            "sap.flp": {
+                "type": "application"
+            },
+            "sap.ui": {
+                "technology": "UI5",
+                "icons": {
+                    "icon": ""
+                },
+                "deviceTypes": {
+                    "desktop": true,
+                    "tablet": true,
+                    "phone": true
+                }
+            },
+            "sap.platform.runtime": {
+                "componentProperties": {
+                    "url": "./sample.analytical.list.page/webapp"
+                }
+            }
+        }
+    },
+    "groups": {
+        "MyAppsGroup": {
+            "identification": {
+                "id": "MyAppsGroup",
+                "title": "Demokit Applications"
+            },
+            "payload": {
+                "tiles": [
+                    {
+                        "id": "00000",
+                        "vizId": "STTA_SO_ND"
+                    },
+                    {
+                        "id": "00001",
+                        "vizId": "SOMULTIENTITY"
+                    },
+                    {
+                        "id": "00002",
+                        "vizId": "STTA_MP"
+                    },
+                    {
+                        "id": "00003",
+                        "vizId": "STTA_SO_WD"
+                    },
+                    {
+                        "id": "00004",
+                        "vizId": "analytics2"
+                    }
+                ],
+                "links": [],
+                "groups": []
+            }
+        }
+    },
+    "systemAliases": {}
+}

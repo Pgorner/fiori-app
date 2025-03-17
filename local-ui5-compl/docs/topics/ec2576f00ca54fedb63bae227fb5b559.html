@@ -1,0 +1,42 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioec2576f00ca54fedb63bae227fb5b559" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/implement-and-register-an-addviadelegate-change-handler-with-baseaddviadelegate-utility-ec2576f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Implement and Register an <cite>AddViaDelegate</cite> Change Handler WITH <cite>BaseAddViaDelegate</cite> Utility</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Implement and Register an <cite>AddViaDelegate</cite> Change Handler WITH <cite>BaseAddViaDelegate</cite> Utility</h2></div><div class="shortdesc">Implement and register an <cite>addViaDelegate</cite> change type with its change handler to a control with the
+			<cite>BaseAddViaDelegate</cite> utility.</div><p>With this utility you can use write-delegate functionality for creating new controls using the <cite>addViaDelegate</cite> action.
+				<cite>BaseAddViaDelegate</cite> is a generic change handler generator utility. The
+				<code>BaseAddViaDelegate.createAddViaDelegateChangeHandler</code> function creates a complete change handler with all the relevant
+			change handler functionality. You just need to pass some callback functionality. </p><p>The change handler generated in this way uses the control-specific write delegate to create the controls to be added. This delegate needs to be
+			registered in the <code>&lt;Control&gt;.flexibility.js</code> file (see the example below). You can use existing write delegates
+			or define a delegate yourself. The <code>controlType</code> property should reference the control type that defines the
+				<cite>addViaDelegate</cite> action in the design time or the <code>relevantContainer</code> defined in the action declaration.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Control-specific <span class="emphasis">write delegate</span> definition (part of
+			<code>&lt;Control&gt;.flexibility.js</code>)</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">```
+    DelegateMediatorAPI.registerWriteDelegate({
+        controlType: "sap.ui.layout.form.SimpleForm",
+        delegate: "sap/ui/comp/smartfield/flexibility/SmartFieldWriteDelegate",
+        requiredLibraries: {
+            "sap.ui.comp": {
+                minVersion: "1.81",
+                lazy: false
+            }
+        }
+    });
+```</pre></div></div></section><p></p></div></div><section id="section_vq5_fwm_2bc">
+			<h2 class="title ">Quick Summary</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Select or create existing write delegate. Example:
+						<code>sap.ui.comp.smartfield.flexibility.SmartFieldWriteDelegate</code></p>
+				</li>
+				<li class="li">
+					<p>Register the write delegate into your <code>&lt;Control&gt;.flexibility.js</code> file (see above). If the flexibility file is newly
+						created, you need to reference it in the <code>library.js</code> file.</p>
+				</li>
+				<li class="li">
+					<p>Create your own change handler using the <code>BaseAddViaDelegate</code> utility.</p>
+				</li>
+				<li class="li">
+					<p>Register your change handler in the <code>&lt;Control.flexibility.js</code> file. See <a href="topic/d5f4de8c177448e7aeb8e560e6061776" title="d5f4de8c177448e7aeb8e560e6061776.xml" class="sap-doc">Registering Change Handlers for UI Changes</a>.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/7d41cd2069ba426b8f7e116f91a5067b">Enabling the AddViaDelegate Action</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/e7796ab7ae2846e78b78e49f56c4e837">Implement and Register an AddViaDelegate Change Handler WITHOUT BaseAddViaDelegate Utility</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/6a5ee386912c49b5ae7ad2ffc7130871">Provide the Design-Time Metadata for the AddViaDelegate Action</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

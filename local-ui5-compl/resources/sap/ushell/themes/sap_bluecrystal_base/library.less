@@ -1,0 +1,6248 @@
+/* NOTE: This file was generated as an optimized version of "library.source.less" for the Theme Designer. */
+
+/*!
+ * Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+ */
+@import "../../../../../Base/baseLib/baseTheme/base.less"; /* ORIGINAL IMPORT PATH: "../../../../sap/ui/core/themes/base/base.less" */
+
+@import "../../../../sap/ui/core/themes/base/global.less";
+/* START "shared.less" */
+/* =============================================== */
+/* Shared styles for all other CSS of this library */
+/* =============================================== */
+
+/* In order to override any unwanted scrolling, overflow should be hidden */
+html {
+  overflow: hidden;
+}
+
+/* Shared between ShellLayout and ShellHeader */
+@_sap_ushell_ShellHeader_BarHeight: 2.75rem;
+@_sap_ushell_CoPilot_DockingWidth: 26rem;
+
+/* For cross-browser compatible animations */
+.opacity(@opacity: 0.5) {
+  opacity: @opacity;
+}
+
+.transition(...) {
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  transition: @arguments;
+}
+
+.sapUshellIframeDialog .sapMDialogScrollCont {
+  height: 100%;
+}
+
+.sapUShellFullHeight {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.sapUshellFullWidth {
+  width: 100%
+}
+
+.sapUshellZeroOpacity {
+  opacity: 0;
+}
+
+/* END "shared.less" */
+
+
+/* START "ActionMode.less" */
+/* ========================================================== */
+/* CSS for "sap.ushell.components.homepage.ActionMode" (base) */
+/* ========================================================== */
+
+.sapUshellTileActionLayerDiv {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  z-index: 2;
+  border-radius: 0.25rem;
+}
+
+.sapUshellTileActionLayerDivSelected {
+  opacity: 1;
+  border-radius: 0;
+}
+
+.sapUshellTileActionIconDivBottom {
+  position: absolute;
+  left: 2px;
+  right: 0.25rem;
+  bottom: 0.125rem;
+  font-size: 1.5rem;
+  text-align: right;
+  background: transparent;
+  border-radius: @sapUiTileBorderCornerRadius;
+  height: 2rem;
+
+  .sapUshellTileActionIconDivBottomInnerDiv {
+    height: 100%;
+    position: relative;
+  }
+}
+
+html[dir=rtl] .sapUshellTileActionIconDivBottom {
+  text-align: left;
+}
+
+.sapUshellTileDeleteClickArea {
+  text-align: right;
+  vertical-align: middle;
+  height : 2rem;
+  width : 2rem;
+  margin-right: 1px;
+  position: absolute;
+  top: -0.375rem;
+  right: -0.375rem;
+  z-index: 1;
+}
+
+html[dir=rtl] .sapUshellTileDeleteClickArea {
+  text-align: left;
+}
+
+.sapUshellTileDeleteIconOuterClass {
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 50%;
+  border : 2px solid white;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 1;
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.sapUshellTileActionDivCenter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.7;
+  border-bottom-left-radius: @sapUiTileBorderCornerRadius;
+  border-bottom-right-radius: @sapUiTileBorderCornerRadius;
+}
+
+.sapUshellTileDeleteIconInnerClass {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sapUshellVizInstanceEdit {
+  /* Hide more icon for GenericTile in Action mode - The vizInstance renders its own icon */
+  .sapMGTMoreIcon {
+    display: none !important;
+  }
+}
+
+html[dir=rtl] .sapUshellTileActionDivCenter {
+  text-align: left;
+}
+
+.sapUshellTileActionIconDivBottomInner {
+  margin-right: 1.2rem;
+  font-size: 1rem;
+  z-index: 1;
+  position: relative;
+  color: @sapUiButtonIconColor;
+}
+
+/* END "ActionMode.less" */
+
+/* START "AddBookmarkButton.less" */
+
+/* ============================================= */
+/* CSS for control sap.ushell/AddBookmarkButton.control theme base */
+/* ============================================= */
+
+.sapUshellAddBookmarkForm{
+    padding: 0.5rem;
+    #saveAsTileHBox, .sapUshellSaveAsTileHBox {
+        position: relative;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        &:after {
+            content: " ";
+            position: absolute;
+            top:0;
+            left:0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+    label ~ label {
+        padding-top: 0.5rem;
+    }
+
+    .sapMInputBase, .sapMSlt{
+        margin: 0;
+    }
+
+    .sapUshellTileBase {
+        position: relative;
+    }
+
+    .sapUshellTile {
+        float: none;
+        list-style-type: none;
+    }
+}
+
+/* END "AddBookmarkButton.less" */
+
+/* START "AnchorItem.less" */
+/* ============================================= */
+/* CSS for control sap.ushell/AnchorItem.control */
+/* ============================================= */
+
+.sapUshellAnchorItem {
+  display: inline-block;
+  padding-right: 2rem;
+  padding-left: 0.25rem;
+  box-sizing: border-box;
+  min-width: 5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: top;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  &.sapUshellShellHidden { display: none; }
+}
+
+.sapUshellAnchorItem:hover {
+  cursor: pointer;
+}
+
+.sapUshellAnchorItemSelected .sapUshellAnchorItemInner:not(.sapUshellAnchorInnerMarker) {
+  border-bottom: 2px solid @sapUiShellTextColor;
+}
+
+.sapUshellAnchorItemDropCollision {
+  border-bottom: 1px solid @sapUiShellTextColor;
+  border-top: 1px solid @sapUiShellTextColor;
+  border-left: 1px solid @sapUiShellTextColor;
+  border-right: 1px solid @sapUiShellTextColor;
+}
+
+.sapUshellAnchorItemInner {
+  font-size: 1.125rem;
+  line-height: 2.875rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.sapUshellAnchorItemDisabled {
+  opacity: 0.5;
+  text-shadow: none;
+}
+
+
+.sap-tablet, .sap-desktop {
+  .sapUshellAnchorPopoverContainer {
+    max-height: 20rem;
+  }
+
+  .sapUshellAnchorItemsPopover {
+    .sapMList {
+      overflow: auto;
+      min-width: 10rem;
+      max-width: 40rem;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.sap-phone {
+  .sapUshellAnchorItemsPopover {
+    .sapMBarMiddle .sapMBarPH {
+      position: absolute;
+      left: 1rem;
+    }
+  }
+
+  .sapMDialogSection {
+    overflow-y: auto;
+  }
+}
+
+@-webkit-keyframes slidetounlock {
+  0% { background-position: -7rem 0; }
+  100% { background-position: 1rem 0; }
+}
+
+/* END "AnchorItem.less" */
+
+/* START "AnchorNavigationBar.less" */
+/* ==================================================================== */
+/* CSS for control "sap.ushell.ui.launchpad.AnchorNavigationBar" (base) */
+/* ==================================================================== */
+
+.sapUshellAnchorNavigationBar {
+  height: 3rem;
+  box-sizing: border-box;
+
+  &.sapMPageHeader::before {
+    border-top: none;
+  }
+}
+
+.sapUiMedia-StdExt-Phone .sapUshellAnchorNavigationBar { padding: 0 1rem; }
+.sapUiMedia-StdExt-Tablet .sapUshellAnchorNavigationBar,
+.sapUiMedia-StdExt-Desktop .sapUshellAnchorNavigationBar { padding: 0 2rem; }
+.sapUiMedia-StdExt-LargeDesktop .sapUshellAnchorNavigationBar { padding: 0 3rem; }
+
+.sapUshellAnchorNavigationBarInner {
+  position: relative;
+  display: flex;
+  height: 100%;
+  color: @sapUiShellTextColor;
+}
+
+.sapUshellAnchorNavigationBarItems {
+  display: inline-block;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.sap-tablet .sapUshellAnchorNavigationBarItemsScroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 1.5rem;
+}
+
+.sapUshellAnchorNavigationBarItemsScroll {
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sapUshellAnchorNavigationBarItemsScroll {
+  outline: none;
+  padding: 0;
+}
+
+.sapUshellAnchorNavigationBar .sapUshellAnchorNavigationBarInner .sapMBtn {
+  height: 100%; // fixed height for all form factors
+}
+
+.sapUshellTabBarOverflowButton {
+  visibility: visible !important;
+}
+
+.sap-desktop {
+  .sapUshellAnchorRightOverFlowButton {
+    visibility: visible;
+  }
+  .sapUshellAnchorLeftOverFlowButton {
+    visibility: visible;
+  }
+}
+
+.sap-tablet {
+  .sapUshellAnchorRightOverFlowButton, .sapUshellAnchorLeftOverFlowButton {
+    visibility: visible;
+  }
+}
+
+.sapUshellAnchorNavigationBarInvisible {
+  display: none;
+}
+
+// TODO: refactor and remove !important
+#sapUshellAnchorBarOverflowPopover{
+  top: 5.85rem !important;
+}
+#sapUshellAnchorBarOverflowPopover-cont{
+  height: 100% !important;
+}
+
+/* END "AnchorNavigationBar.less" */
+
+/* START "ApplicationContainer.less" */
+/* ============================================= */
+/* CSS for control sap.ushell/ApplicationContainer.control theme base */
+/* ============================================= */
+@media (min-width: 80rem) {
+  .sapUiMedia-Std-Desktop .sapUShellApplicationContainer.sapUShellApplicationContainerLimitedWidth {
+    width: 80rem !important;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 106.4rem) {
+  .sapUiMedia-Std-Desktop .sapUShellApplicationContainer.sapUShellDockingContainer {
+    width: 80rem !important;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 100%;
+  }
+}
+
+.sapUShellApplicationContainer {
+  border: none;
+  display: block;
+  white-space: normal;
+}
+
+.sapUShellApplicationContainerShiftedIframe {
+}
+
+.sapUShellApplicationContainerIframeHidden {
+  position: absolute;
+  top: -99999px;
+  left: -99999px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* END "ApplicationContainer.less" */
+
+/* START "Catalog.less" */
+/* ================================================================ */
+/* CSS for control "sap.ushell.components.appfinder.Catalog" (base) */
+/* ================================================================ */
+
+.sapUiMedia-StdExt-Phone .sapUshellCatalogsContainer { margin: 0 0.45rem; }
+.sapUiMedia-StdExt-Tablet .sapUshellCatalogsContainer,
+.sapUiMedia-StdExt-Desktop .sapUshellCatalogsContainer,
+.sapUiMedia-StdExt-LargeDesktop .sapUshellCatalogsContainer { margin: 0 2rem 0 1rem; }
+
+.sap-phone { /* on phones the menu is always toggleable, so "sapUshellCatalogsContainer" can use normal margins (same as header) */
+  &.sapUiMedia-StdExt-Phone .sapUshellCatalogsContainer { margin: 0 0.45rem; }
+  &.sapUiMedia-StdExt-Tablet .sapUshellCatalogsContainer,
+  &.sapUiMedia-StdExt-Desktop .sapUshellCatalogsContainer { margin: 0 2rem; }
+  &.sapUiMedia-StdExt-LargeDesktop .sapUshellCatalogsContainer { margin: 0 3rem; }
+}
+
+.sapUshellCatalogNewGroupBackButton {
+  height: 3rem;
+  margin: 0;
+  padding: 0.25rem 0;
+  vertical-align: top;
+}
+
+#popoverContainer .sapMList {
+  padding: 1px;
+}
+
+#appFinderPage {
+  .forwardToViewAnimation { animation: forwardToViewAnimation 0.3s linear; }
+  .forwardOutOfViewAnimation { animation: forwardOutOfViewAnimation 0.3s linear; }
+  .backToViewAnimation { animation: forwardOutOfViewAnimation 0.3s linear reverse; }
+  .backOutOfViewAnimation { animation: forwardToViewAnimation 0.3s linear reverse; }
+
+  @keyframes forwardToViewAnimation {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0%); }
+  }
+
+  @keyframes forwardOutOfViewAnimation {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+}
+
+.sapUshellAppsView {
+  .sapMBreadcrumbs {
+    margin-top: -0.2rem;
+    margin-bottom: 0.8rem;
+
+    & + .sapMMessagePage {
+      height: calc(~"100% - 3rem");
+    }
+  }
+}
+
+.sap-phone .sapUshellCatalogsContainer .sapUshellInner {
+  margin-bottom: 0.5rem; /* flex is used on phones */
+
+  > br {
+    display: none; /* flex is used on phones */
+  }
+}
+
+.sapUshellAppBox,
+.sapUshellCatalogsContainer .sapUshellTile {
+  box-sizing: border-box;
+  float: revert;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: @sapUiTileBorderCornerRadius;
+  list-style-type: none;
+  cursor: pointer;
+  margin: 0 0.5rem 0.5rem 0;
+
+  .sap-phone & {
+    margin: 0; /* flex is used on phones */
+  }
+
+  .sapMGT,
+  .sapUshellGT {
+    box-shadow: revert; /* prevents duplicated "box-shadow" (AppFinder Tiles already have their own) */
+  }
+}
+
+.sapUshellAppBox {
+  width: 19rem;
+  height: 8rem;
+  font-size: 1rem;
+
+  .sapUshellAppBoxInner {
+    height: calc(~"100% - 4.25rem");
+    position: relative;
+    padding-top: 1rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+  }
+
+  .sapUshellPinButton {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    padding: 0;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    float: right;
+    flex: 0 0 auto;
+  }
+
+  .sapUshellAppBoxIcon {
+    float: left;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+  }
+
+  .sapUshellAppBoxTitle {
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1.25rem;
+    overflow: hidden;
+  }
+
+  .sapUshellAppBoxSubtitle {
+    font-size: 0.875rem;
+    padding-top: 0.25rem;
+    line-height: 1rem;
+    overflow: hidden;
+    margin-right: 3rem;
+  }
+
+  .sapUshellAppBoxContentProviderLabel {
+    max-width: 100%;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sapUshellAppBoxContentProviderLabelInner {
+    padding: 0.125rem 0.25rem 0.125rem 0.25rem;
+    text-transform: uppercase;
+    border-radius: 0.125rem 0 0 0.125rem;
+    background-color: @sapTile_Active_Background;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    word-wrap: normal;
+  }
+
+  .sapUshellAppBoxHeaderElementOneLine {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .sapUshellAppBoxHeaderElementTwoLines {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    &.sapUshellAppBoxTitle { height: 2.5rem; }
+    &.sapUshellAppBoxSubtitle { height: 2rem; }
+  }
+
+  .sapUshellAppBoxHeader {
+    overflow: hidden;
+  }
+}
+
+.sapUshellAppBox {
+  .sapUshellPinButton,
+  .sapUshellPinButton > div {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .sapUshellAppBoxSubtitle {
+    margin-right: 2.5rem;
+  }
+}
+
+body:not(.sapUiSizeCozy) {
+  .sapUshellAppBox .sapUshellPinButton .sapMBtnInner {
+    height: 1.625rem;
+    min-width: 2rem;
+  }
+
+  .sapUshellAppBox .sapUshellPinButton .sapMBtnInner .sapMBtnIcon {
+    width: 1rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    max-height: 1.5rem;
+  }
+}
+
+.sapUiSizeCozy .sapUshellAppBox {
+  .sapUshellPinButton,
+  .sapUshellPinButton > div {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  .sapUshellAppBoxInner {
+    height: calc(~"100% - 4.75rem");
+  }
+}
+
+.sapUshellAppBoxHeaderArea {
+  height: 61px;
+}
+
+.sapUshellAppBoxActionsArea {
+  border-top: 1px solid @sapUiGroupTitleBorderColor;
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sapUshellAppBox .sapUshellPinButton span {
+  margin: 0;
+}
+
+#catalogSelect {
+  overflow-y: auto;
+}
+
+#catalogTiles,
+#catalogTilesSearchPage {
+  .sapUshellTilePinButtonOverlay {
+    border-top: 1px solid @sapUiGroupTitleBorderColor;
+    border-bottom-right-radius: @sapUiTileBorderCornerRadius;
+    border-bottom-left-radius: @sapUiTileBorderCornerRadius;
+    text-align: right;
+    z-index: 1;
+    position: relative;
+    background-color: @sapUiTileBackground;
+    padding-top: 0;
+    padding-bottom: 0;
+    cursor: auto;
+
+    @media (min-width: 375px) {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+  }
+}
+
+#catalogTiles .sapUshellTile:focus .sapUshellTilePinButtonOverlay {
+  background-color: transparent;
+}
+
+.sapUshellActionButton {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+#catalogSelectBusyIndicator {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  height: auto;
+}
+
+#appFinderSubHeader {
+  height: 2.8rem;
+  align-content: center;
+
+  &,
+  #appFinderSearchContainer {
+    flex-wrap: wrap;
+  }
+
+  > * {
+    margin: 0;
+  }
+}
+
+#appFinderPage-cont {
+  top: 2.8rem;
+  height: auto !important; /* fix sapui5 bug when you use sap.m.SplitApp inside sap.m.Page */
+}
+
+.sapUshellHierarchyFolders {
+  .sapMPageHeader .sapMBarRight .sapMBarLeft {
+    padding-left: 0.5rem;
+  }
+
+  .sapMBarRight {
+    min-width: 5rem;
+  }
+}
+
+.sapUiMedia-StdExt-Phone #appFinderSubHeader { padding: 0 1rem; }
+.sapUiMedia-StdExt-Tablet #appFinderSubHeader,
+.sapUiMedia-StdExt-Desktop #appFinderSubHeader { padding: 0 2rem; }
+.sapUiMedia-StdExt-LargeDesktop #appFinderSubHeader { padding: 0 3rem; }
+
+@media (max-width: 799px) {
+  .sapUshellAppFinderWithEasyAccess.sapUshellAppFinderTags,
+  .sapUshellAppFinderWithEasyAccess.sapUshellAppFinderSearch,
+  .sapUshellAppFinderTags.sapUshellAppFinderSearch {
+    .sapUiSizeCompact & {
+      #appFinderSubHeader { height: 4.4rem; }
+      #appFinderPage-cont { top: 4.4rem; }
+    }
+
+    .sapUiSizeCozy & {
+      #appFinderSubHeader { height: 5.6rem; }
+      #appFinderPage-cont { top: 5.6rem; }
+    }
+  }
+
+  .sapUshellAppFinderWithEasyAccess.sapUshellAppFinderTags.sapUshellAppFinderSearch {
+    .sapUiSizeCompact & {
+      #appFinderSubHeader { height: 6.4rem; }
+      #appFinderPage-cont { top: 6.4rem; }
+    }
+
+    .sapUiSizeCozy & {
+      #appFinderSubHeader { height: 8.3rem; }
+      #appFinderPage-cont { top: 8.3rem; }
+    }
+  }
+
+  #appFinderSubHeader {
+    justify-content: flex-start;
+
+    #openCloseButtonAppFinderSubheader {
+      position: absolute;
+      z-index: 1;
+    }
+
+    #appFinderSegmentedButtons {
+      /* as the width is set an an inline style by the control itself, there is no other option than using !important */
+      width: 100% !important;
+    }
+
+    #appFinderSearchContainer {
+      &,
+      #appFinderTagFilter,
+      #appFinderSearch,
+      .sapMFlexItem {
+        /* as the width is set an an inline style by the control itself, there is no other option than using !important */
+        width: 100% !important;
+      }
+    }
+  }
+
+  .sapUshellAppFinderToggleButton #appFinderSubHeader {
+    #appFinderSegmentedButtons,
+    #appFinderSearchContainer {
+      padding-left: 2.5rem;
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  #appFinderSubHeader {
+    justify-content: space-between;
+
+    .sapUshellAppFinderTags:not(.sapUshellAppFinderToggleButton):not(.sapUshellAppFinderWithEasyAccess) &,
+    .sapUshellAppFinderSearch:not(.sapUshellAppFinderToggleButton):not(.sapUshellAppFinderWithEasyAccess) & {
+      justify-content: flex-end;
+    }
+
+    .sapUshellAppFinderTags & #appFinderSearchContainer #appFinderSearch {
+      padding-left: 0.5rem;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .sapUshellAppFinderWithEasyAccess #appFinderSubHeader {
+    justify-content: center;
+
+    #appFinderSearchContainer {
+      position: absolute;
+      right: 3rem;
+    }
+  }
+}
+
+/* END "Catalog.less" */
+
+/* START "ContentFinder.less" */
+.contentFinderToolbar {
+  background-color: transparent;
+}
+
+.contentFinderAppBox {
+  padding: 1rem;
+  align-items: flex-start;
+  line-height: 1.2rem;
+
+  .contentFinderAppBoxTitle {
+    font-weight: bold;
+  }
+
+  .contentFinderAppBoxSubtitle {
+    color: @sapUiTileTextColor;
+  }
+}
+
+
+.contentFinderAppBox {
+
+  .contentFinderAppBoxLabel,
+  .contentFinderAppBoxValue {
+    line-height: normal;
+  }
+}
+
+/* END "ContentFinder.less" */
+
+/* START "ContactSupport.less" */
+/* ================================================================*/
+/* CSS for control sap.ushell/ContactSupportButton.control  BASE theme       */
+/* =============================================================== */
+
+/*Styles*/
+
+.sapUshellTechnicalInfoBox {
+  max-height: 9.38rem;
+  overflow-y: auto;
+  margin: 0.94rem 0;
+  width: auto;
+  }
+
+/* END "ContactSupport.less" */
+
+/* START "CustomGroupHeaderListItem.less" */
+.sapUshellCGHLIContent {
+  height: auto !important;
+  min-height: 2.75rem;
+  line-height: 0 !important;
+  padding-bottom: 0.5rem;
+}
+
+.sapUshellCGHLIDescription {
+  font-weight: @sapUiFontHeaderWeight;
+}
+
+/* END "CustomGroupHeaderListItem.less" */
+
+/* START "Dashboard.less" */
+/* ======================== */
+/* CSS for Dashboard (base) */
+/* ======================== */
+
+.sapUshellDashboardView {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y; /* Fix for Windows 8.1 IE11 touch devices */
+  -ms-touch-action: pan-y; /* Fix for Windows 8 IE10 touch devices */
+
+  a img {
+    border: none;
+  }
+}
+
+.sapUshellSectionNoTop {
+  top: 0rem !important;
+}
+
+/* move dashboard section down a bit, to make room for Anchor Navigation */
+#sapUshellDashboardPage-cont {
+  padding-top: 1rem;
+}
+
+.sapUiMedia-Std-Phone .sapUshellDashboardView{
+  min-width: 2 * @_sap_ushell_Tile_WidthPhone + 3 * @_sap_ushell_Tile_Spacing;
+}
+
+.sapUiMedia-Std-Tablet .sapUshellDashboardView,
+.sapUiMedia-Std-Desktop .sapUshellDashboardView {
+  min-width: 2 * @_sap_ushell_Tile_WidthDesktop + 3 * @_sap_ushell_Tile_Spacing;
+}
+
+.sapUiMedia-StdExt-Phone .sapUshellDashboardGroupsContainer { padding: 0 0.45rem; }
+.sapUiMedia-StdExt-Tablet .sapUshellDashboardGroupsContainer,
+.sapUiMedia-StdExt-Desktop .sapUshellDashboardGroupsContainer { padding: 0 2rem; }
+.sapUiMedia-StdExt-LargeDesktop .sapUshellDashboardGroupsContainer { padding: 0 3rem; }
+
+html[dir="rtl"] .sapUshellDashboardGroupsContainer {
+  text-align: right;
+}
+
+.sap-desktop #sapUshellDashboardFooter {
+  margin: 0 1rem 1rem 1rem;
+  width: auto;
+  z-index: 4;
+}
+
+.sapUshellTabBarHoverOn {
+  background-color: @sapUiDragAndDropActiveBackground;
+  font-weight: bold;
+}
+
+.sapUshellTileDragOpacity {
+  opacity: 0.42;
+}
+
+.sapUshellInDragMode {
+  .sapUshellInner { position: relative; }
+  .sapUshellLineModeContainer { position: relative; }
+  .sapUshellLinksInnerContainer { position: relative; }
+  .sapUshellTile { position: relative; }
+  .sapUshellLinkTile { position: relative; }
+}
+
+/* END "Dashboard.less" */
+
+/* START "DynamicTile.less" */
+/* ============================================= */
+/* CSS for control sap.ushell/DynamicTile.control */
+/* ============================================= */
+
+/* LESS Variables */
+/* ============================================= */
+/* Dynamic Tile*/
+@_sap_ushell_DynamicTile_NumberFontSizeDesktop:        3rem;
+@_sap_ushell_DynamicTile_NumberFontSizePhone:          2rem;
+
+@_sap_ushell_DynamicTile_NumberMarginDesktop:          0.5rem;
+@_sap_ushell_DynamicTile_NumberMarginPhone:            0.19rem;
+
+@_sap_ushell_DynamicTile_NumberFactorFontSizeDesktop:  0.88rem;
+@_sap_ushell_DynamicTile_NumberFactorFontSizePhone:    0.88rem;
+
+@_sap_ushell_DynamicTile_BottomDesktop:    1.875rem;
+@_sap_ushell_DynamicTile_BottomPhone:      1.750rem;
+
+
+.sapUshellDynamicTileIndication {
+  height: inherit;
+  float: right;
+  text-align: center;
+}
+
+/* if available, a state arrow in front of the number */
+.sapUshellDynamicTileStateArrow {
+  /* standard: don't display */
+  display: none;
+}
+
+.sapUiMedia-Std-Desktop, .sapUiMedia-Std-Tablet {
+  .sapUshellDynamicTile{
+    .sapUshellDynamicTileData{
+      position:absolute;
+      bottom: @_sap_ushell_DynamicTile_BottomDesktop;
+      right: @_sap_ushell_TileBase_PaddingDesktopHorizontal;
+      width: @_sap_ushell_Tile_WidthDesktop - @_sap_ushell_TileBase_PaddingDesktopVertical;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    /* the number */
+    .sapUshellDynamicTileNumber {
+      float: right;
+      margin-left: @_sap_ushell_DynamicTile_NumberMarginDesktop;
+    }
+    /* the scaling factor for the number */
+    .sapUshellDynamicTileNumberFactor {
+      display: inline-block;
+    }
+  }
+
+  .sapUshellDynamicTileIndication{
+    line-height: 1.65rem;
+  }
+
+  .sapUshellDynamicTileStateArrow {
+    /* Desktop */
+    &.sapUshellDynamicTileDataUp, &.sapUshellDynamicTileDataDown {
+      display:   inline-block;
+      margin:    0.69rem 1px 0 2px;
+      border-left: 0.6rem solid transparent;
+      border-right: 0.6rem solid transparent;
+    }
+
+    &.sapUshellDynamicTileDataUp {
+      border-bottom: 0.65rem solid;
+    }
+
+    &.sapUshellDynamicTileDataDown {
+      border-top: 0.65rem solid;
+    }
+  }
+}
+
+.sapUiMedia-Std-Phone {
+  .sapUshellDynamicTile {
+    /* Phone */
+    .sapUshellDynamicTileData{
+      position:absolute;
+      bottom: @_sap_ushell_DynamicTile_BottomPhone;
+      right: @_sap_ushell_TileBase_PaddingPhoneHorizontal;
+      width: @_sap_ushell_Tile_WidthPhone - @_sap_ushell_TileBase_PaddingPhoneVertical;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    /* the number */
+    .sapUshellDynamicTileNumber {
+      float: right;
+      margin-left: @_sap_ushell_DynamicTile_NumberMarginPhone;
+    }
+    /* the scaling factor for the number */
+    .sapUshellDynamicTileNumberFactor {
+      display: inline-block;
+    }
+  }
+
+  .sapUshellDynamicTileIndication {
+    line-height: @_sap_ushell_DynamicTile_NumberFontSizeDesktop/2;
+
+  }
+
+  .sapUshellDynamicTileStateArrow {
+    /* Phone */
+    &.sapUshellDynamicTileDataUp, &.sapUshellDynamicTileDataDown {
+      display:       inline-block;
+      margin-top:    0.4rem;
+      border-left:   0.375rem solid transparent;
+      border-right:  0.375rem solid transparent;
+      border-bottom: 0.4375rem solid;
+    }
+  }
+}
+
+/* END "DynamicTile.less" */
+
+/* START "Factsheet.less" */
+
+.ThingViewer {
+    /*  min-height:800px; */
+    position: relative;
+}
+
+.ThingInspector {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.sapFactsheetUtiTilePadding td {
+    padding: 0.2rem 0.3rem 0.3rem 0.3rem;
+}
+
+.sapFactsheetUtiTableNoTopBorder th {
+    border: 0;
+}
+
+.sapFactsheetUtiPanel .sapMList,.sapFactsheetUtiPanel.sapMList {
+    padding: 1rem 0;
+}
+
+.sapFactsheetUtiPaddingTop {
+    padding-top: 0.5rem;
+}
+
+.sapFactsheetUtiSeparatorPadding.sapMText {
+    padding: 0 0.35rem;
+    top: -0.15rem;
+    position: relative;
+}
+
+.sapFactsheetUtiSeparatorPaddingForDecimal.sapMText {
+    padding: 0 0.35rem 0 0;
+}
+
+html[dir="rtl"] .sapFactsheetUtiSeparatorPaddingForDecimal.sapMText {
+    padding: 0 0 0 0.35rem;
+}
+
+.sapFactsheetUtiLabelMargin {
+    margin-right: 1rem;
+}
+
+.sapFactsheetUtiHLayoutLabelValue {
+    margin-bottom: 10px;
+}
+
+.sapFactsheetUtiHLayoutLabelValue .sapMText {
+    position: relative;
+    top: -2px;
+}
+
+.sapFactsheetUtiHLayoutPadding {
+    margin-bottom: 0.65rem;
+    padding-top: 0.15rem;
+}
+
+.sapFactsheetUtiHLayoutPadding .sapMLnk.sapMLnkWrapping {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sapFactsheetUtiVLayoutPadding {
+    padding-top: 0.1rem;
+}
+
+.sapFactsheetUtiAnnotationFormLayout .sapMListTblCell {
+    padding: .5rem .5rem;
+}
+
+.sapFactsheetUtiGeneralInformationOverviewFacet .sapFactsheetUtiDataField.sapMText,.sapFactsheetUtiGeneralInformationOverviewFacet .sapMLnk.sapMLnkWrapping
+    {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+html[data-sap-ui-browser^=ie] .sapFactsheetUtiGeneralInformationOverviewFacet .sapFactsheetUtiDataField.sapMText,html[data-sap-ui-browser^=ie] .sapFactsheetUtiGeneralInformationOverviewFacet .sapMLnk.sapMLnkWrapping
+    {
+    word-wrap: normal;
+}
+
+.sapFactsheetUtiGeneralInformationUtg .sapSuiteUtgContent {
+    padding-top: 1rem;
+}
+
+.sapFactsheetUtiGeneralInformationUtgContent .sapSuiteUtgContent {
+    background: none;
+    padding: 0.5rem 0 0 0;
+}
+
+.sapFactsheetUtiGeneralInformationUtgContent.sapSuiteUtg {
+    padding: 5px;
+}
+
+.sapFactsheetUtiGeneralInformationUtgContent .sapSuiteUtgHeader {
+    border: 0;
+}
+
+.sapFactsheetUtiGeneralInformationUtgContent .sapSuiteUtgTitle {
+    margin-bottom: 0;
+    font-size: 1.125rem;
+    line-height: 1em;
+}
+
+.sapFactsheetUtiGeneralInformationUtgContent .sapFactsheetUtiPanel,.sapFactsheetUtiGeneralInformationUtgContent .sapFactsheetUtiPanel .sapMList
+    {
+    background: none;
+    padding: 0;
+}
+
+.sapFactsheetUtiGeoPopup .sapUiForm .sapMLabel, .sapFactsheetUtiGeoPopup .sapUiForm .sapMText, .sapFactsheetUtiGeoPopup .sapUiForm .sapMLnk {
+    font-size: 0.72rem;
+    text-align: left;
+}
+
+.sapFactsheetUtiGeoPopup .sapUiFormResLayout>div {
+    padding: 0;
+}
+
+.sapFactsheetUtiGeoPopupHead {
+    padding-bottom: 0.1rem;
+    font-size: 1rem;
+    align: left;
+    text-align: left;
+}
+
+.sapFactsheetUtiGeoPopupHeadFontPhone {
+    font-size: 0.85rem;
+}
+
+.sapFactsheetUtiGeoPopupDescr {
+    padding-top: 0rem;
+    font-size: 0.9rem;
+    align: left;
+    text-align: left;
+}
+
+.sapFactsheetUtiGeoPopupDescrFontPhone {
+    font-size: 0.8rem;
+}
+
+.sapFactsheetUtiGeoPopupText {
+    padding-top: 0.4rem;
+}
+
+.sapFactsheetUtiGeoPopupText .sapMListTbl .sapMText,.sapFactsheetUtiGeoPopupText .sapMListTbl .sapMLabel,.sapFactsheetUtiGeoPopupText .sapMListTbl .sapMLnk
+    {
+    font-size: 0.725rem;
+}
+
+.sapFactsheetUtiGeoPopupText .sapMListTblCell:first-child,.sapFactsheetUtiGeoPopupText .sapMListTblNone:first-child+.sapMListTblCell
+    {
+    padding-left: 0.3rem;
+}
+
+.sapFactsheetUtiGeoPopupText .sapUiFormResLayout label, .sapFactsheetUtiGeoPopupText .sapFactsheetUtiFormPadding {
+    padding-bottom: 0;
+} 
+
+.sapFactsheetUtiFilterInput {
+    padding: 10px;
+}
+
+.sapFactsheetUtiPictureViewerOverview .sapUiHLayoutChildWrapper {
+    margin-right: 20px;
+    max-width: 85px;
+    overflow: hidden;
+}
+
+.sapFactsheetUtiCarouselMaxImageHeightPhone {
+    max-height: 300px;
+}
+
+.sapFactsheetUtiCarouselMaxImageHeight {
+    max-height: 500px;
+}
+
+.sapFactsheetUtiHorizontalLayout {
+    width: 100%;
+    overflow: hidden;
+}
+
+.sapFactsheetUtiContactsGrid.sapUiRespGrid {
+    margin: 0;
+    padding: 0;
+}
+
+.sapFactsheetUtiContactsBox {
+    height: 5rem;
+    margin-top: 0.5rem;
+}
+
+.sapMText.sapFactsheetUtiContactsName {
+    font-weight: bold;
+}
+
+.sapFactsheetUtiContactsImage {
+    width: 60px;
+    text-align: left;
+}
+
+.sapFactsheetUtiTextName {
+    margin-bottom: 8px;
+}
+
+.sapFactsheetUtiFormPadding {
+    padding-bottom: 0.5rem;
+}
+
+html[data-sap-ui-browser^=ie] .sapFactsheetUtiFormPadding {
+    padding-bottom: 0.25rem;
+}
+
+.sapFactsheetUtiGeneralInformationUtgContent .sapFactsheetUtiFormLayout .sapUiFormResLayout>div,
+.sapFactsheetUtiGeneralInformationOverviewFacet .sapFactsheetUtiFormLayout .sapUiFormResLayout>div {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* END "Factsheet.less" */
+
+/* START "FloatingContainer.less" */
+/* ============================================================== */
+/* CSS for control "sap.ushell.ui.shell.FloatingContainer" (base) */
+/* ============================================================== */
+
+.sapUshellFloatingContainer {
+  position: absolute;
+  width: @_sap_ushell_CoPilot_DockingWidth;
+  max-height: 46rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#shell-floatingContainer:focus {
+  outline: 0.1px dotted @sapUiContentFocusColor;
+}
+
+@media (max-width: 417px) {
+    .sapUshellFloatingContainerWrapper:has(.sapUshellFloatingContainer:not(.sapUshellShellHidden)) {
+        position: absolute;
+        top: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        bottom: 0;
+    }
+
+  .sapUshellFloatingContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    top: 0;
+  }
+
+}
+
+.sapUshellFloatingContainer-clone {
+  position: absolute !important;
+  z-index: 9;
+}
+
+.sapUshellFloatingContainerWrapper {
+  z-index: 9;
+}
+
+.sapUshellFloatingContainerSelector {
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.sapUshellFloatingContainerSelector {
+    cursor: pointer;
+}
+
+.sapUshellFloatingContainerWrapper  .sapUshellShellFloatingContainerFullHeight {
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden;
+}
+
+// ==================================================== Animations ==================================================================
+
+@keyframes sapUshellMinimizeOverlayAnimation {
+    0%  {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+}
+
+@keyframes sapUshellMaxgOverlayAnimation {
+    0%  {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.sapUshellContainerDockedMinimizeCoPilot{
+    animation: sapUshellMinimizeOverlayAnimation ease-in-out 150ms 0ms 1 alternate forwards;
+    -webkit-animation: sapUshellMinimizeOverlayAnimation ease-in-out 150ms 0ms 1 alternate forwards;
+    -moz-animation : sapUshellMinimizeOverlayAnimation ease-in-out 150ms 0ms 1 alternate forwards;
+    -ms-animation : sapUshellMinimizeOverlayAnimation ease-in-out 150ms 0ms 1 alternate forwards;
+}
+
+.sapUshellContainerDockedExtendCoPilot{
+    animation: sapUshellMaxgOverlayAnimation ease-in-out 300ms 50ms 1 alternate forwards;
+    -webkit-animation :sapUshellMaxgOverlayAnimation ease-in-out 300ms 50ms 1 alternate forwards;
+    -moz-animation : sapUshellMaxgOverlayAnimation ease-in-out 300ms 50ms 1 alternate forwards;
+    -ms-animation : sapUshellMaxgOverlayAnimation ease-in-out 300ms 500ms 1 alternate forwards;
+}
+
+// ==================================================== Docking Area ==================================================================
+
+.sapUshellShellDisplayDockingAreaLeft{
+    width: @_sap_ushell_CoPilot_DockingWidth;
+    height: 100%;
+    background: fade(@sapUiDragAndDropBackground, 80);
+    opacity: 0.25;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    border:0.125rem solid @sapUiDragAndDropActiveBorderColor;
+}
+
+.sapUshellShellDisplayDockingAreaRight{
+    right: 0;
+    height: 100%;
+    width: @_sap_ushell_CoPilot_DockingWidth;
+    background: fade(@sapUiDragAndDropBackground, 80);
+    opacity: 0.25;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    border:0.125rem solid @sapUiDragAndDropActiveBorderColor;
+}
+
+/* END "FloatingContainer.less" */
+
+/* START "FlpSettings.less" */
+/* ====================================================== */
+/* CSS for sap.ushell.components.flp.settings.FlpSettings */
+/* ====================================================== */
+
+.sapUshellFlpSettingsLabel {
+  width: 12rem;
+  line-height: 3rem;
+  margin-right: 0.25rem;
+  white-space: pre-line;
+}
+
+.sapUiSizeCompact .sapUshellFlpSettingsLabel {
+  line-height: 2rem;
+}
+
+.sapUshellFlpSettingsDescription {
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontSmallSize;
+  line-height: 1rem;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  max-width: 14.375rem;
+}
+
+.sapUshellFlpSettingsDescription.sapUshellFlpSettingsWide {
+  max-width: 100%;
+}
+
+.sapUshellFlpSettingsWarning {
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontSmallSize;
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
+  max-width: 14.375rem;
+
+  .sapMText {
+    font-size: @sapMFontSmallSize;
+  }
+}
+
+
+
+
+.sapUshellFlpSettingsWideDescription {
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontSmallSize;
+  line-height: 1rem;
+  font-style: italic;
+  color: @sapUiFieldPlaceholderTextColor;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  border-top: solid 0.125rem @sapUiGroupContentBorderColor;
+  padding-top : 0.5rem;
+}
+
+.sapUshellFlpSettingsHint {
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontSmallSize;
+  line-height: 1rem;
+  font-style: italic;
+  color: @sapUiFieldPlaceholderTextColor;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  padding-top : 0.5rem;
+}
+
+.sapUshellFlpSettingsLanguageRegionHourFormatFBox{
+  margin-top: 3px;
+}
+.sapUshellFlpSettingsDescriptionBorder {
+  border-top: solid 0.125rem @sapUiGroupContentBorderColor;
+  padding-top: 10px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  }
+
+.sapUshellCleanActivityLabel {
+  line-height: 2;
+  margin-right: 0.5rem;
+  white-space: normal;
+
+}
+
+/* END "FlpSettings.less" */
+
+/* START "GroupList.less" */
+/* ============================================= */
+/* CSS for the group list (sidebar / sidepanel) */
+/* ============================================= */
+
+/*
+The footer of the Panel allows only height of one row(button)
+In group list we want to add at least two buttons to the actions area,
+therefore we reset the height to the initial value.
+
+ Which problem was solved:
+ When group list has many items and vertical scroll appears, the bottom part of the content area
+ overlaps upper action button.
+
+ Refer to: "#GroupListFooter" and "#GroupListFooter .sapMBarMiddle"
+*/
+
+.sap-tablet, .sapUiMedia-Std-Phone {
+  .sapUshellGroupList {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+.sapUshellGroupList {
+  height: 100%;
+
+  #groupListFooter .sapMBarMiddle {
+    height: initial;
+
+    & > .sapMBarPH {
+      padding-left: 0;
+      padding-right: 0;
+      }
+
+    .sapMALIText {
+      margin: 0;
+      }
+    }
+
+  #groupListPage.sapUshellPersonalizationOn >section{
+    bottom: 3em;
+    }
+
+  #groupListFooter.sapUshellPersonalizationOn{
+    height: 3em;
+    }
+
+  .sapUshellGroupLI-placeholder {
+    height: 3rem;
+    }
+
+  #groupListItems {
+    touch-action: pan-y; /* Fix for Windows 8.1 IE11 touch devices */
+    -ms-touch-action: pan-y; /* Fix for Windows 8 IE10 touch devices */
+    }
+}
+
+/* ============================Compact Mode=================================== */
+
+.sapUiSizeCompact {
+  #groupListFooter .sapMBarMiddle > .sapMBarPH {
+    padding: 0;
+  }
+
+  #groupListFooter.sapUshellPersonalizationOn{
+    height: 2em;
+  }
+}
+
+/* END "GroupList.less" */
+
+/* START "GroupListItem.less" */
+	/* ============================================= */
+	/* CSS for control sap.ushell/GroupListItem.control */
+	/* ============================================= */
+	/* List Item */
+	.sapUshellGroupLI {
+		padding : 0;
+		cursor: pointer;
+		outline: none;
+		width: 100%;
+		height: 3rem;
+		list-style: none;
+		table-layout: fixed; /*Use to fix the size of input-fields and ellipsis (necessary for ie).*/
+
+		.sapMLIBContentNF {
+			left: 0;
+			table-layout: fixed; /*Use to fix the size of input-fields and ellipsis (necessary for ie).*/
+		}
+
+		.sapMLIBContent {
+			width: 100%;
+		}
+
+		.sapMLIBContent.sapMLIBContentMargin {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+
+		.sapMSLIDiv {
+			& > .sapMInput {
+				margin-left: 0.25rem;
+				margin-right: 0.25rem;
+			}
+
+			.sapMSLITitleOnly {
+				width: 100%;
+				margin-left: 0;
+				padding-left: 1.25rem;
+				padding-right: 1.25rem;
+				display: -moz-inline-box;
+				box-sizing: border-box;
+			}
+		}
+
+		.sapMSLIDiv.sapMSLITitleDiv {
+			min-width: 0;
+			padding-left: 0;
+		}
+	}
+
+    /* ============================Compact Mode=================================== */
+
+	.sapUiSizeCompact .sapUshellGroupLI {
+		height: 2rem;
+    }
+
+/* END "GroupListItem.less" */
+
+/* START "IconFonts.less" */
+@font-face {
+  font-family: "Fiori2";
+  src:
+    url("../base/fonts/sap-launch-icons.woff2") format("woff2"),
+    url("../base/fonts/sap-launch-icons.woff") format("woff"),
+    local("sap-launch-icons");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FioriInAppIcons";
+  src:
+    url("../base/fonts/sap-fiori-inapp-icons.woff2") format("woff2"),
+    url("../base/fonts/sap-fiori-inapp-icons.woff") format("woff"),
+    local("sap-fiori-inapp-icons");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BusinessSuiteInAppSymbols";
+  src:
+    url("../base/fonts/BusinessSuiteInAppSymbols.woff2") format("woff2"),
+    url("../base/fonts/BusinessSuiteInAppSymbols.woff") format("woff"),
+    local("BusinessSuiteInAppSymbols");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* END "IconFonts.less" */
+
+/* START "ImageTile.less" */
+
+/* ============================================= */
+/* CSS for control sap.ushell/ImageTile.control */
+/* ============================================= */
+
+img.sapUshellImageTile {
+	position: absolute;
+}
+
+.sapUiMedia-Std-Desktop img.sapUshellImageTile,
+.sapUiMedia-Std-Tablet img.sapUshellImageTile {
+    /* Desktop */
+        bottom: 2.13rem;
+        width: @_sap_ushell_Tile_WidthDesktop - (2 * @_sap_ushell_TileBase_PaddingDesktopVertical);
+        height: 4.63rem;
+}
+
+.sapUiMedia-Std-Phone img.sapUshellImageTile {
+    /* Phone */
+        bottom: 1.5rem;
+        width: @_sap_ushell_Tile_WidthPhone - (2 * @_sap_ushell_TileBase_PaddingPhoneVertical);
+        height: 3.13rem;
+}
+
+/* END "ImageTile.less" */
+
+/* START "LoadingDialog.less" */
+/* ============================================================== */
+/* CSS for control "sap.ushell.ui.launchpad.LoadingDialog" (base) */
+/* ============================================================== */
+
+/* "sapUshellLoadingDialog"       : block layer
+   "sapUshellLoadingDialogControl": popup */
+
+.sapUshellLoadingDialogControl {
+  outline: none;
+  width: 20rem;
+
+  .sapUshellAccessibilityHelper {
+    visibility: hidden;
+  }
+
+  &.sapUshellVisibilityHidden {
+    visibility: hidden;
+
+    .sapUshellAccessibilityHelper {
+      display: none;
+    }
+  }
+
+  .sapUshellLoadingDialogAppData {
+    position: absolute;
+    width: 20rem;
+    bottom: 1.57rem;
+  }
+
+  .sapUiIcon {
+    margin-bottom: 0.5em;
+    width: 100%;
+  }
+
+  .sapUshellLoadingDialogLabel {
+    position: relative;
+    width: 20rem;
+    bottom: 1em;
+    display: block;
+    white-space: normal;
+    text-align: center !important;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+}
+
+/* END "LoadingDialog.less" */
+
+/* START "MenuBar.less" */
+/* ============================================================== */
+/* CSS for "sap.ushell.components.shell.MenuBar.Component" (base) */
+/* ============================================================== */
+
+.sapUshellMenuBarHeight {
+	min-height: 2.75rem;
+	background-color: @sapUiShellColor;
+}
+
+// align the outline of the nav bar personalization button
+// with the outline of the home button
+.sapUshellShellToolHeader.sapTntToolHeader.sapMTB {
+    padding-left: 1.75rem
+}
+
+.sapUiMedia-StdExt-LargeDesktop .sapUshellShellToolHeader.sapTntToolHeader.sapMTB {
+    padding-left: 2.75rem
+}
+
+.sapUiMedia-Std-Phone .sapUshellShellToolHeader.sapTntToolHeader.sapMTB {
+    padding-left: 0.75rem
+}
+
+
+/* END "MenuBar.less" */
+
+/* START "Notifications.less" */
+/* ================================================================================ */
+/* CSS for control "sap.ushell.components.shell.Notifications.Notifications" (base) */
+/* ================================================================================ */
+
+.sapUshellNotificationsList {
+  height: 100%;
+  margin-top: 0;
+}
+
+.sapMLIB.sapMNLI.sapUshellNotificationsListItem {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.sapUshellNotificationsView {
+  box-sizing: border-box;
+  height: 100%;
+  padding-left: 1rem;
+
+  @media (min-width: 600px) {
+    padding-left: 6rem;
+  }
+
+  @media (min-width: 1440px) {
+    padding-left: 9rem;
+  }
+}
+
+.sapUshellNonAnimatedNotificationListItem {
+  max-height: 31.2rem;
+  transform: translateX(0rem) translateZ(0);
+  width: 20rem;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: transform 0ms cubic-bezier(.78, -0.35, .46, .95);
+}
+
+.sapUshellNotificationsMoreCircle {
+  text-align: center;
+  min-width: 4.5rem;
+  height: 4.5rem;
+  padding-top: 0.938rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 100%;
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontMediumSize;
+}
+
+.sapUshellNotificationsMoreCircleCount {
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontHeader2Size;
+  font-weight: @sapUiFontHeaderWeight;
+}
+
+.sapUshellNotificationsMoreHelpingText {
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontMediumSize;
+}
+
+.sapUshellNotificationsMoreVBox {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  /* to support proper appearance on safari browser */
+  text-align: center;
+  align-items: center;
+
+  .sapMFlexItem {
+    margin: auto;
+  }
+
+  .sapUshellNotificationsMoreCircle.sapMFlexItem {
+    margin-bottom: 1rem;
+  }
+}
+
+.sapUshellNotificationsPopup {
+  .sapMPopoverCont {
+    margin: 0.5rem 0;
+    padding: 0;
+  }
+
+  .sapUshellNotificationsView {
+    padding: 0;
+  }
+
+  .sapMITBHead {
+    margin: 0;
+  }
+
+  .sapMITBContainerContent {
+    border: 0; /* removes duplicate border on HC themes */
+  }
+
+  .sapMITBContent {
+    border-bottom: none;
+  }
+
+  #shellNotificationsPopover-scroll {
+    overflow: hidden;
+  }
+
+  #notificationsView--notificationIconTabBar .sapMITBNotScrollable {
+    margin: 0;
+  }
+
+  #notificationsView--notificationIconTabBar-content {
+    margin: 0;
+  }
+
+  /* popover width is fixed in fiori3 */
+  @media (min-width: 600px) {
+    #notificationsView--notificationIconTabBar-content {
+      width: 28.5rem;
+    }
+  }
+}
+
+/* override IconTabBar according to the Notifications specification */
+#notificationsView {
+  .sapMITH {
+    padding: 0 1rem;
+  }
+
+  .sapMITBContent {
+    padding: 0;
+  }
+}
+
+/* workaround for the un-rendered content after scroll in iOS */
+.sap-ios #shellNotificationsPopover-scroll {
+  transform: translate3d(0, 0, 0);
+}
+
+/* END "Notifications.less" */
+
+/* START "Page.less" */
+/* ===================================================== */
+/* CSS for control "sap.ushell.ui.launchpad.Page" (base) */
+/* ======================================================*/
+
+.sapUshellPage {
+  @margin-between-sections: 1.5rem;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+  @media (min-width: 600px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  @media (min-width: 1440px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .sapUshellPageTitle {
+    padding-bottom: 0.5rem;
+    font-size: @sapMFontHeader3Size;
+  }
+
+  .sapUshellPageAddSectionButton {
+    align-self: center;
+    margin-top: @margin-between-sections;
+  }
+
+  .sapUshellPageSection {
+    margin-bottom: @margin-between-sections;
+    display: flex;
+    flex-direction: column;
+
+    &:first-of-type .sapUshellSectionTitle {
+      padding-top: 0.5rem
+    }
+  }
+
+  &.sapUshellPageComposing {
+    background-color: @sapUiBaseColor;
+  }
+}
+
+/* END "Page.less" */
+
+/* START "PictureTile.less" */
+/* ============================================================================= */
+/* CSS for control "sap.ushell.components.factsheet.controls.PictureTile" (base) */
+/* ============================================================================= */
+
+.sapCaUiPictureTileContent {
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.sapCaUiPTWrapper {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.sapCaUiPictureTileContent .sapMImg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media (orientation: portrait) {
+  .sap-phone .sapCaUiPictureTileContent .sapMImg,
+  .sap-tablet .sapCaUiPictureTileContent .sapMImg {
+    max-width: 100%;
+    max-height: none;
+  }
+}
+
+@media (orientation: landscape) {
+  .sap-phone .sapCaUiPictureTileContent .sapMImg,
+  .sap-tablet .sapCaUiPictureTileContent .sapMImg {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.sapMTC .sapCaUiPictureTile {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sapCaUiPictureTile {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 13em;
+  height: 10em;
+  margin: 0;
+}
+
+.sapCaUiPictureTile .sapMBtn {
+  position: absolute;
+  z-index: 2;
+  top: 0.32rem;
+  left: 0.63rem;
+}
+
+.sap-desktop .sapCaUiPictureTile .sapCaUiPTDeleteButton {
+  opacity: 0;
+}
+
+.sap-desktop .sapCaUiPictureTile:hover .sapCaUiPTDeleteButton {
+  opacity: 0.1;
+}
+
+.sap-desktop .sapCaUiPictureTile:hover .sapCaUiPTDeleteButton:hover {
+  opacity: 1;
+}
+
+.sap-desktop[data-sap-ui-browser^="ff"] .sapCaUiPictureTile {
+  padding: 2rem;
+}
+
+.sap-phone .sapCaUiPictureTileContent,
+.sap-tablet .sapCaUiPictureTileContent,
+.sap-desktop:not([data-sap-ui-browser^="ff"]) .sapCaUiPictureTileContent {
+  padding: 2rem;
+}
+
+.sap-phone .sapCaUiPictureTile .sapCaUiPTDeleteButton.hide,
+.sap-tablet .sapCaUiPictureTile .sapCaUiPTDeleteButton.hide {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.sap-phone .sapCaUiPictureTile .sapCaUiPTDeleteButton,
+.sap-tablet .sapCaUiPictureTile .sapCaUiPTDeleteButton {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sap-desktop[data-sap-ui-browser^="ie"] {
+  .sapCaUiPictureTile .sapCaUiPTDeleteButton.sapMFocusable:focus {
+    position: absolute;
+  }
+
+  .sapCaUiPTWrapper {
+    max-width: 100%;
+  }
+}
+
+.sapCaUiPTDeleteButton .sapUiIcon:before {
+  border-radius: 2rem;
+}
+
+.sapMBtn.sapCaUiPTDeleteButton.sapMBtnActive {
+  border: none;
+}
+
+.sapCaUiPTDeleteButton .sapUiIcon {
+  outline: none;
+}
+
+/* END "PictureTile.less" */
+
+/* START "PictureViewer.less" */
+/* ============================================= */
+/* CSS for control sap.ca.ui/PictureViewer.control */
+/* ============================================= */
+
+.sapCaPW {
+    position: relative;
+}
+
+.sapCaPWRendering {
+    opacity: 0;
+}
+
+.sapCaPW .sapCaUiPTDeleteButton{
+    display: none;
+}
+
+.sapCaPW.sapCaPWEditable  .sapCaUiPTDeleteButton{
+    display: block;
+}
+
+.sapCaPVBly{
+    opacity: 1;
+    background-color: @sapUiWhiteBG;
+    overflow: hidden;
+}
+
+/* END "PictureViewer.less" */
+
+/* START "PlusTile.less" */
+/* ========================================================= */
+/* CSS for control "sap.ushell.ui.launchpad.PlusTile" (base) */
+/* ========================================================= */
+
+.sapUshellPlusTile {
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  box-shadow: none;
+  width: @_sap_ushell_Tile_WidthPhone;
+  @media (min-width: 375px) { width: @_sap_ushell_Tile_WidthDesktop; }
+
+  .sapUiIcon {
+    line-height: @_sap_ushell_Tile_HeightPhone;
+    @media (min-width: 375px) { line-height: @_sap_ushell_Tile_HeightDesktop; }
+  }
+
+  &.sapUshellSmall {
+    width: @_sap_ushell_Tile_WidthPhone;
+
+    .sapUiIcon {
+      line-height: @_sap_ushell_Tile_HeightPhone;
+    }
+  }
+
+  .sapUiIcon {
+    position: static;
+    outline: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+  }
+}
+
+.sapUshellHidePlusTile {
+  visibility: hidden;
+}
+
+/* END "PlusTile.less" */
+
+/* START "QuickAccess.less" */
+/* ================================================ */
+/* CSS for sap.ushell QuickAccess Dialog base theme */
+/* ================================================ */
+
+/* General QuickAccess Dialog */
+
+.sapUshellQuickAccessListIcon .sapUiIcon {
+  height: 2rem;
+  width: 2rem;
+  line-height: 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1.25rem; // The same as in the recent/frequent cards
+}
+
+#quickAccess .sapMITBContent {
+  padding: 0;
+}
+
+/* END "QuickAccess.less" */
+
+/* START "RightFloatingContainerItem.less" */
+/* =================================================================== */
+/* CSS for control "sap.ushell.ui.shell.RightFloatingContainer" (base) */
+/* =================================================================== */
+
+.sapUshellRightFloatingContainer {
+  position: absolute;
+  z-index: 3;
+  margin-top: 0;
+  overflow: visible;
+  transition: transform 500ms ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  .sapUshellNotificationsListItem {
+    transition: transform 500ms cubic-bezier(.78, -0.35, .46, .95);
+    margin-bottom: 0.5rem;
+    border-radius: @sapUiPopoverBorderCornerRadius;
+    box-shadow: @sapUiContentShadow2;
+  }
+
+  &.sapUshellRightFloatingContainerTextHidden {
+    width: 3.0625rem;
+
+    .sapUshellRightFloatingContainerItemText {
+      display: none;
+    }
+  }
+
+  &.sapUshellRightFloatingContainerAnimate {
+    right: 300px;
+  }
+
+  .sapUshellRightFloatingContainerItemIcon {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 1.25rem;
+  }
+}
+
+.sapUshellRightFloatingContainerItemHidden {
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-height: 0;
+  width: 22rem;
+  right: -25rem;
+  position: relative;
+  transition: max-height 500ms ease, right 500ms ease, padding 300ms ease, margin-bottom 300ms ease;
+
+  &:not(.sapUshellRightFloatingContainerItmHeightVisible) {
+    padding: 0rem;
+    margin-bottom: 0;
+  }
+
+  &.sapUshellRightFloatingContainerItmHeightVisible {
+    max-height: 31.2rem;
+  }
+
+  &.sapUshellRightFloatingContainerItemBackToViewport,
+  &.sapUshellRightFloatingContainerItemBounceIn {
+    transform: translateX(-27.5rem) translateZ(0);
+  }
+
+  &.sapUshellRightFloatingContainerItemBounceOut {
+    transform: translateX(0rem) translateZ(0);
+  }
+}
+
+html[dir=rtl] .sapUshellRightFloatingContainerItemHidden.sapUshellRightFloatingContainerItemBackToViewport,
+html[dir=rtl] .sapUshellRightFloatingContainerItemBounceIn {
+  transform: translateX(27.5rem) translateZ(0);
+}
+
+html[dir=rtl] .sapUshellRightFloatingContainerItemBounceOut {
+  transform: translateX(0rem) translateZ(0);
+}
+
+.sapUshellNotificationListContainer {
+  margin: 0;
+}
+
+/* END "RightFloatingContainerItem.less" */
+
+/* START "SearchFLP.less" */
+/******** fiori search related css styles ********/
+
+.hidden {
+    display: none !important;
+}
+
+/* reset line height because we don't want the line height modified by .sapUshellShellHeader */
+#searchFieldInShell {
+    line-height: normal;
+}
+/* END "SearchFLP.less" */
+
+/* START "SearchCEP.less" */
+/* ======================================= */
+/* CSS for control sap.ushell/SearchCEP*/
+/* Base theme                           */
+/* ======================================= */
+#PlaceHolderSearchField>.sapMSFF {
+  height: 1.8rem !important;
+}
+
+#CEPSearchField>.sapMSFF {
+  height: 2.25rem !important;
+}
+
+#CEPSearchField-reset,
+#PlaceHolderSearchField-reset {
+  line-height: 1.87;
+}
+
+#searchFieldPopover #Lists {
+  padding-bottom: 0.42rem;
+  max-height: 65vh;
+  overflow: hidden auto;
+}
+
+.sapUiTheme-sap_fiori_3 .searchCEPlistItemIcon {
+  color: #6a6d70 !important;
+}
+
+.sapUiTheme-sap_belize .searchCEPlistItemIcon {
+  color: #878787 !important;
+}
+
+.sapUshellCEPSearchCenter {
+  margin: auto;
+}
+
+.searchCEPList.sapUshellCEPListDivider:not(.topCEPlist):before {
+  content : "";
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  height: 1px;
+  width: 94%;
+  border-bottom: 1px solid @sapUiListBorderColor;
+}
+
+.sapUshellCEPListCenter {
+  top: 0.1rem !important;
+  padding: 0.3rem 0 0 0 !important;
+  margin: auto auto 0.75rem;
+}
+
+.sapUshellCEPSearchFieldPopover {
+  top: 0.1rem !important;
+  box-shadow: 0 0 0 0.0625rem @sapContent_Shadow1 !important;
+}
+
+//to fix the margin in the list of CEP results
+.searchCEPList .sapMSLIDiv:not(.sapMGrowingListTriggerText) {
+  width: 38vw;
+}
+
+.sapUshellCEPSearchFieldMargin {
+  margin-top: 0.15rem;
+  margin-right: 0.425rem !important;
+  margin-left: 0.46rem !important;
+}
+
+.sapCEPSearchListItemMobileHeight {
+  height: 4rem !important;
+}
+
+.searchCEPList div[id$="-trigger"] {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.searchCEPList div[id$="-trigger"]:focus {
+  outline: @sapUiContentFocusWidth @sapUiContentFocusStyle @sapUiContentFocusColor;
+  outline-offset: calc(-0.125rem - 0.0625rem);
+}
+
+.searchCEPList div[id$="-trigger-content"]>.sapMGrowingListTrigger {
+  border-color: transparent;
+}
+
+.searchCEPList>.sapMGrowingList {
+  border-bottom: none;
+}
+
+.searchCEPList span[id$="-triggerText"] {
+  font-weight: normal;
+  text-align: left;
+  font-size: .9rem;
+  color: @sapLinkColor;
+  margin: 0.3rem 0 0.6rem 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.searchCEPList div[id$="-trigger-content"]>.sapMGrowingListTrigger>.sapMGrowingListDescription {
+  display: none !important;
+}
+
+.searchCEPList>.sapMListHdrText {
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  height: 1rem;
+  line-height: 0.6rem;
+  padding: 1rem;
+  border-color: transparent;
+  color: @sapContent_LabelColor;
+  background-color: transparent !important;
+}
+
+#CEPSearchField-search,
+#PlaceHolderSearchField-search {
+  line-height: 1.87;
+}
+
+
+/* END "SearchCEP.less" */
+
+/* START "Section.less" */
+/* ======================================================== */
+/* CSS for control "sap.ushell.ui.launchpad.Section" (base) */
+/* ======================================================== */
+
+.sapUshellSection {
+  &:focus,
+  .sapUshellSectionCompactArea:focus {
+    outline: @sapUiContentFocusWidth @sapUiContentFocusStyle @sapUiContentFocusColor;
+    outline-offset: 0.0625rem;
+  }
+
+  .sapUshellSectionNoVisualizationsText {
+    padding: 1rem;
+    cursor: inherit;
+    display: none;
+  }
+
+  .sapUshellSectionTitle {
+    padding: 1rem 0;
+    font-family: @sapUiFontFamily;
+    font-size: @sapMFontHeader4Size;
+    color: @sapUiShellGroupTitleTextColor;
+  }
+
+  .sapUshellSectionHeader {
+    background-color: @sapUiGroupTitleBackground;
+    margin-bottom: 0.5rem;
+
+    @media (min-width: 600px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .sapUshellSectionDefaultArea,
+  .sapUshellSectionFlatArea {
+    padding-bottom: 0.5rem;
+
+    @media (min-width: 600px) {
+      padding-bottom: 1rem;
+    }
+  }
+
+  &.sapUshellSectionEdit {
+    background-color: fade(@sapUiGroupContentBackground, 50);
+
+    &.sapUshellSectionHidden {
+      background-color: darken(@sapUiGroupContentBackground, 5);
+    }
+  }
+
+  &.sapUshellSectionNoVisualizations {
+    .sapUshellSectionNoVisualizationsText {
+      display: block;
+    }
+
+    .sapUshellSectionCompactArea {
+      display: none;
+    }
+  }
+}
+
+/* END "Section.less" */
+
+/* START "ShellFloatingAction.less" */
+/* ============================================= */
+/* CSS for control sap.ushell/ui/Shell/ShellFloatingAction base theme*/
+/* ============================================= */
+
+.sapUshellShellFloatingActionTransition, .sapUshellShellFloatingActionTransition span {
+    -webkit-transition: transform .15s linear; /* For Safari 3.1 to 6.0 */
+    transition: transform .15s linear;
+}
+
+.sapUshellShellFloatingActionRotate span {
+  transform: rotate(45deg);
+}
+
+.sapUshellShellFloatingAction {
+  position: absolute;
+  height: 2.750rem;
+  bottom: 0;
+  right: 0;
+}
+
+.sapUshellShellFloatingAction div {
+    border-radius: 1.25rem;
+
+    .sapUiIcon {
+        border-radius: 1.25rem;
+        font-size: 1.25rem;
+    }
+}
+
+.sapUshellShellFloatingAction:focus>.sapMBtnInner.sapMFocusable{
+    outline: 0;
+}
+
+/* ============================Compact Mode=================================== */
+
+.sapUiSizeCompact {
+    .sapUshellShellFloatingAction {
+        width: 2.50rem;
+        right: 0rem;
+        padding-bottom: 0.25rem;
+        padding-left: 0rem;
+        padding-right: 0rem;
+        padding-top: 0.25rem;
+        height: 2.75rem;
+
+        .sapMBtnInner {
+            height: 2.5rem;
+            min-width: 2.50rem;
+            padding-left: 0px;
+            padding-right: 0px;
+
+            .sapMBtnIcon {
+                width: 2.38rem;
+                max-height: 2.38rem;
+                line-height: 2.38rem;
+                height: 2.38rem;
+                margin: 0;
+            }
+        }
+    }
+}
+
+/* END "ShellFloatingAction.less" */
+
+/* START "ShellFloatingActions.less" */
+/* Shell Floating Actions Buttons */
+
+
+ .sapUshellShellFloatingActions {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    z-index: 1;
+}
+.sapUiMedia-Std-Phone, .sapUiMedia-Std-Tablet  {
+  .sapUshellShellFloatingActions{
+    right: 1rem;
+  }
+}
+
+/* END "ShellFloatingActions.less" */
+
+/* START "ShellHeader.less" */
+/* ================================================== */
+/* CSS for control "sap.ushell.ui.ShellHeader" (base) */
+/* ================================================== */
+
+& { /* define local scope for "@item-height" */
+  @item-height: 2.25rem; /* all items in the header have the same height: 36px */
+
+  .sapUshellShellHeader {
+    display: flex;
+    overflow: hidden;
+    isolation: isolate; /* Fix for issue with stacking context in FF 47 used in Selenium tests */
+    z-index: 3;
+    opacity: 1;
+    padding: 0 1.75rem; /* 28px + 4px of the headbegin/headend === 32px according to the specification */
+    height: @item-height + 0.5rem;
+    line-height: @item-height;
+    box-sizing: border-box;
+    /* better font rendering in Mac OS: */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .sapUshellHeaderPlaceHolder {
+    height: 2.75rem;
+  }
+
+  /* --- Top level containers: Begin, Center, End, Search --- */
+
+  .sapUshellShellHeadBegin {
+    padding: 0.25rem;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-shrink: 1;
+  }
+
+  /* If the CoPilot icon is shown in the center, limit the width of the begin area */
+  .sapUshellShellHeadBegin.sapUshellHeadWithCenter {
+    flex-basis: ~"calc(50% - 1.5rem)";
+  }
+
+  .sapUshellShellHeadCenter {
+    overflow: hidden;
+    flex-basis: 3rem;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-right: 5rem;
+  }
+
+  .sapUshellShellHeadEnd {
+    padding: 0.25rem;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    max-width: 29.5rem;
+    white-space: nowrap;
+    z-index: 1;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .sapUshellShellHeadSearchContainer {
+    box-sizing: border-box;
+    display: block;
+    flex-shrink: 10;
+    text-align: right;
+    overflow: hidden;
+    flex-grow: 1;
+    padding: 0.25rem 0;
+  }
+
+  .sapUshellShellSearch {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    overflow: hidden;
+    transition: max-width 0.2s linear;
+    z-index: 3;
+    &:empty {
+      display: none;
+    }
+  }
+
+  .sapUshellShellSearchHidden {
+    display: none;
+  }
+
+  .sapUshellShellHeader.sapUshellShellShowSearchOverlay::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: @sapUiBlockLayerBackground;
+    opacity: 0.4;
+    z-index: 2;
+  }
+
+  .sapUshellShellBlocked {
+    background: @sapUiBlockLayerBackground;
+    opacity: 0.6;
+    z-index: 3;
+  }
+
+  .sapUshellMenuBarBlocked {
+    background: @sapUiBlockLayerBackground;
+    opacity: 0.6;
+    z-index: 4;
+  }
+
+  /* --- Title and Subtitle --- */
+
+  .sapUshellHeadTitle {
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .sapUshellShellHeadTitle {
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    padding: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .sapUiMedia-Std-Phone {
+      @media (orientation: portrait) {
+        display: none;
+      }
+    }
+  }
+
+  div.sapUshellHeadTitle {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  h2.sapUshellHeadTitle {
+    display: inline;
+    overflow: auto;
+  }
+
+  .sapUshellShellHeadSubtitle {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-basis: 3rem; /* min-width: 3rem; */
+    flex-grow: 1;
+    margin-left: 0.5rem; /* space between title and subtitle */
+
+    .sapUiMedia-Std-Phone {
+      @media (orientation: portrait) {
+        display: none;
+      }
+    }
+  }
+
+  /* --- Logo (Home Button) --- */
+
+  .sapUshellShellIco {
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 0.25rem; /* 4px for the focus outline */
+    border-radius: 0.25rem;
+  }
+
+  .sapUshellShellIco:focus {
+    outline-width: 1px;
+    outline-style: dotted;
+  }
+
+  .sapUshellShellHeadBegin .sapUshellShellIco.sapUshellLean:hover {
+    background: transparent; /* Lean Logo is not hoverable */
+  }
+
+  #shell-header-icon {
+    max-height: @item-height;
+    max-width: 6rem;
+    vertical-align: middle;
+  }
+
+  /* --- Head items (buttons) --- */
+
+  .sapUshellShellHeadItm {
+    position: relative;
+    cursor: pointer;
+    -webkit-touch-callout: default;
+  }
+
+  .sapUshellShellHeadItm:not(:first-child),
+  #userActionsMenuHeaderButton:not(:first-child),
+  #shell-header-logo:not(:first-child),
+  #shellAppTitle:not(:first-child) {
+    margin-left: 0.5rem; /* global specification v.4.2 */
+  }
+
+  .sapUshellShellHeadItmDisabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .sapUshellShellHeadItm > span > img {
+    width: 100%;
+    height: 100%;
+    border-width: 0;
+    border-radius: 50%;
+  }
+
+  .sapUshellShellHidden {
+    &.sapUshellShellIco,
+    &.sapUshellShellSearch {
+      display: none;
+    }
+  }
+
+  .sapUshellShellHeadItmCntnt {
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    width: @item-height;
+    height: @item-height;
+    font-size: 1rem;
+    vertical-align: top;
+  }
+
+  .sapUshellShellHeadAction:focus {
+    outline: none;
+  }
+
+  .sapUshellShellHeadItm:focus {
+    outline-width: 1px;
+    outline-style: dotted;
+  }
+} /* end of local scope */
+
+html[dir=ltr] .sapUiSizeCompact .sapUshellPopupContainer .sapMSLI {
+  padding-left: 0px;
+}
+
+html[dir=rtl] .sapUiSizeCompact .sapUshellPopupContainer .sapMSLI {
+  padding-right: 0px;
+}
+
+.sapUshellPopoverList {
+  padding: 0.5rem; /* add padding to keep rounded corners on popover */
+}
+
+.sapUshellPopupContainer {
+  background: @sapUiGroupContentBackground;
+  border: none;
+  box-shadow: @sapUiShadowLevel2;
+  border-radius: 0.25rem;
+
+  .sapUiVltCell { /* Me Area Actions as Popover */
+    padding: 0 0.25rem;
+    margin: 0.25rem 0;
+  }
+}
+
+.sapUshellAppTitleText {
+  display: inline-block;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sapUshellShellHeadAction {
+  height: 2.25rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1rem;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.sapUshellAppTitleText + .sapUshellShellHeadAction {
+  margin-left: 0.5rem;
+}
+
+.sapUshellShellHeadItmCounter:after {
+  font-family: @sapUiFontFamily;
+  font-size: 0.625rem;
+  content: attr(data-counter-content);
+  position: absolute;
+  right: 0;
+  border-radius: 0.5rem;
+  height: 1rem;
+  line-height: 1rem;
+  /* helps to to stop the badge being squashed */
+  padding: 0 0.3125rem;
+  background-color: @sapUiContentBadgeBackground;
+  border-color: @sapUiContentBadgeBackground;
+  border: 0.0625rem solid @sapUiContentBadgeBackground;
+  color: @sapUiContentBadgeTextColor;
+}
+
+// For the subtitle that can be added to the header via API next to the ShellAppTitle
+.sapUshellShellHeadSubtitle > .sapUshellHeadTitle {
+  font-size: 0.75rem;
+}
+
+/* for size factors the OpenUI5 phone, tablet, and desktop and LargeDesktop form factors and additionally
+  a shell specific form factor ExtraLargeDesktop are used;
+  see "sap.ui.Device.initRangeSet" for the breakpoint definitions for OpenUi5 and
+  see "sap.ushell.ui.ShellHeader.FLPRangeSet" for the shell specific breakpoint.
+*/
+
+.sapUiMedia-Ushell-ExtraLargeDesktop {
+
+  .sapUshellShellHeadBegin,
+  .sapUshellShellHeadEnd {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: ~'calc(50% - 17.5rem)'; /* 35/2, the width of the search container is 35rem */
+  }
+
+  .sapUshellShellHeadEnd {
+    max-width: none;
+  }
+
+  .sapUshellShellHeadSearchContainer {
+    justify-content: center;
+    flex-grow: 0;
+    flex-basis: 35rem;
+  }
+}
+
+.sapUiMedia-StdExt-LargeDesktop {
+  .sapUshellShellHeader {
+    padding: 0 2.75rem; /* 2.75 + 0.25 of the headbegin/headend === 48px according to the specification */
+  }
+}
+
+.sapUiMedia-Std-Tablet {
+  .sapUshellShellHeader {
+    .sapUshellShellHeadTitle {
+      flex-shrink: 1;
+    }
+  }
+}
+
+.sapUiMedia-Std-Phone {
+  .sapUshellShellHeader {
+    padding: 0 0.75rem; /* 12px + 4px of the headbegin/headend === 16px according to the specification */
+
+    .sapUshellShellHeadTitle {
+      flex-shrink: 1;
+    }
+
+    .sapUshellShellHeadSearchContainer {
+      flex-shrink: 1;
+    }
+
+    .sapUshellShellHeadCenter {
+      margin-right: 0;
+    }
+  }
+}
+
+.sapUshellShellHeader .sapUshellShellNewExperienceSwitch {
+  margin-left: 48px;
+  margin-right: 32px;
+}
+
+/* END "ShellHeader.less" */
+
+/* START "ShellAppTitle.less" */
+/* ================================================== */
+/* CSS for "sap.ushell.ui.shell.ShellAppTitle" (base) */
+/* ================================================== */
+
+/*************** AllMyApps View ***************/
+
+#allMyAppsView--sapUshellAllMyAppsDetailsPage {
+  overflow-x: hidden;
+}
+
+.sapUshellAllMyAppsBusyIndicator {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  height: auto;
+}
+
+.sapUshellAllMyAppsEmptyDetailsPageText {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  height: auto;
+}
+
+/*************** AllMyApps Details Grid ***************/
+
+#allMyAppsView--sapUshellDetailsPageHeaderBar {
+  text-align: left;
+  height: 2rem;
+  background: @sapUiGlobalBackgroundColor;
+}
+
+.sapUiSizeCozy #allMyAppsView--sapUshellDetailsPageHeaderBar {
+  height: 3rem;
+}
+
+#allMyAppsView--sapUshellAllMyAppsDetailsHeaderLabel {
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  max-width: ~'calc(100% - 1.5rem)';
+  display: block;
+}
+
+/* AllMyApp: For avoiding the 0.5rem padding left and right for grid element (by UI5) */
+#allMyAppsView--sapUshellAllMyAppsMasterDetail .sapUiRespGrid.sapUiRespGridHSpace1 {
+  padding: 0;
+}
+
+.sapUshellAllMyAppsListItem {
+  display: inline-block;
+  width: 100%;
+
+  /* TODO: there is no Horizon (updated) specification about this responsiveness; it should probably be removed in favor of a normal list */
+  @media (min-width: 375px) {
+    width: 50%;
+  }
+  @media (min-width: 600px) {
+    width: 100%;
+  }
+  @media (min-width: 700px) {
+    width: 50%;
+  }
+  .sap-phone & {
+    width: 100%;
+  }
+}
+
+.sapUshellAllMyAppsDetailHeaderBar {
+  padding-left: 0.75rem;
+}
+
+.sapUshellAllMyAppsCustomPanel {
+  margin: 0.5rem 1rem;
+}
+
+/** Hierarchy Items - (List Items) Icon Styles **/
+.sapUshellNavigationMenuListItems,
+.sapUshellNavigationMenuTitleItem {
+  position: relative;
+  border-bottom: none;
+  height: 3rem;
+}
+
+// show longer line for the higher items with description
+.sapUshellNavigationMenuListItems.sapMSLIWithDescription:not(:last-child) .sapMLIBContent:after {
+  content: "";
+  position: absolute;
+  left: 1.563rem; // 25px
+  bottom: 0;
+  width: 1px;
+  height: 1.75rem;
+}
+
+.sapUshellNavigationMenuListItems:not(:first-child) .sapMLIBContent:before {
+  content: "";
+  position: absolute;
+  left: 1.563rem; // 25px
+  top: 0;
+  width: 1px;
+  height: 0.75rem;
+}
+
+.sapUshellNavigationMenuListItems .sapMSLIImgIcon,
+.sapUshellNavigationMenuTitleItem .sapMSLIImgIcon {
+  font-size: 1rem;
+}
+
+/** Hierarchy Items - (List Items) - Text **/
+.sapUshellNavigationMenuListItems .sapMSLITitleOnly,
+.sapUshellNavigationMenuTitleItem .sapMSLITitleOnly {
+  font-size: 0.875rem;
+}
+
+.sapUshellNavigationMenuListItems .sapMSLITitle {
+  font-size: 0.875rem;
+}
+.sapUshellNavigationMenuListItems .sapMSLIDescription {
+  font-size: 0.75rem;
+}
+
+/** Shell Application Title control **/
+.sapUshellAppTitle {
+  height: 100%;
+  /* required for ellipses */
+  max-width: 100%;
+
+  box-sizing: border-box;
+  padding: 0 0.625rem; // 10px left/right
+  line-height: 2.25rem;
+  border-radius: 0.25rem;
+  display: flex;
+}
+
+.sapUshellAppTitleMenuIcon {
+  line-height: inherit;
+}
+
+.sapUshellAppTitleClickable,
+.sapUshellAppTitleClickable .sapUiIcon {
+  cursor: pointer;
+}
+
+#shellAppTitle:focus-within {
+  border: none;
+  outline-style: dotted;
+  outline-width: 1px;
+  outline-offset: 0;
+}
+
+.sapUshellAppTitle:focus {
+  outline: none;
+}
+
+/** Shell Navigation Menu - Popover**/
+.sapUshellAppTitleNavigationMenuPopover {
+  border-radius: 0.125rem;
+}
+
+#sapUshellNavRelatedAppsFlexBox {
+  flex-wrap: wrap;
+}
+
+/** Shell Navigation Menu - Mini Tiles (of relatedApps)**/
+.sapUshellNavMiniTile {
+  border-radius: 0.125rem;
+  height: 5rem;
+  width: 5rem;
+  padding: 0.5rem;
+  position: relative;
+  margin-left: 0.375rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+/** Shell Navigation Menu - Mini Tiles - Title **/
+.sapUshellNavMiniTileTitle {
+  font-size: 0.875rem;
+}
+
+/** Shell Navigation Menu - Mini Tiles - Subtitle **/
+.sapUshellNavMiniTileSubtitle {
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+}
+
+/** Shell Navigation Menu - Mini Tiles - Icon **/
+.sapUshellNavMiniTileIcon {
+  bottom: 0.5rem;
+  right: 0.5rem;
+  position: absolute;
+}
+
+#sapUshellRelatedAppsItems label {
+  padding: 0.75rem 0.625rem 0.5rem;
+  font-size: 1rem;
+}
+
+.sapUiSizeCompact .sapUshellNavigationMenuListItems {
+  height: 3rem;
+}
+
+/** Title of the navigation menu **/
+.sapUshellNavTitleBox {
+  padding: 1rem 1rem 0.5rem 0;
+}
+
+/* END "ShellAppTitle.less" */
+
+/* START "ShellLayout.less" */
+/* =================================== */
+/* CSS for the layout of the ShellView */
+/* =================================== */
+
+// ==================================================== Generic Styles ==================================================================
+
+.sapUshellFlexGrowShrink {
+    flex: 1 1;
+    min-width: 0;
+    min-height: 0;
+}
+
+.sapUshellFlexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.sapUshellFlexRow > * {
+    height: 100%;
+}
+
+.sapUshellFlexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.sapUshellFlexColumn > * {
+    width: 100%;
+}
+
+.sapUshellPositionRelative {
+    position: relative;
+}
+
+.sapUshellPositionStatic {
+    position: static;
+}
+
+.sapUshellOverflowHidden {
+    overflow: hidden;
+}
+
+.sapUshellShellHidden {
+    display: none !important;
+}
+
+// ==================================================== UI Areas ==================================================================
+
+body {
+    // todo legacy overwrite check if still necessary (I776cdd3db089739d6b8aa7f8f775c7fbd2053efe)
+    .sapMBar.sapMPageHeader:before, .sapMShellBrandingBar {
+        display: none;
+    }
+}
+
+#shellLayout {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.sapUshellRenderer {
+    display: flex;
+    flex-direction: column;
+}
+
+.sapUshellShellBG {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#header-shellArea {
+    position: relative;
+}
+
+#shapes-shellArea, #backgroundImage-shellArea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#rightFloatingContainer-shellArea {
+    position: absolute;
+    height: unset;
+    top: 0;
+    right: 0;
+}
+
+#floatingActions-shellArea {
+    position: absolute;
+    height: unset;
+    bottom: 0;
+    right: 0;
+}
+
+.sapUshellFloatingContainerDock {
+    flex: 0 0;
+    z-index: 2; // border of left dock has to be on top of center elements and helpContent
+}
+
+.sapUshellFloatingContainerDock > .sapUshellFloatingContainerWrapper {
+    position: static !important; // overwrite element styles
+    .sapUshellFloatingContainer  {
+    position: relative;
+    }
+}
+
+#helpContent-shellArea {
+    flex: 0 0;
+    position: relative;
+    z-index: 1; // border of left dock has to be on top of center elements, but below the FloatingContainer
+}
+
+// ==================================================== Search Overlay ==================================================================
+
+.sapUshellShellShowSearchOverlay #header-shellArea {
+    z-index: 10;
+}
+
+body.sapUshellShellShowSearchOverlay:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: fade(@sapUiBlockLayerBackground, 40);
+    opacity: 0.4;
+    z-index: 9;
+}
+
+// ==================================================== LogonFrameProvider ==================================================================
+
+.sapUshellSamlDialogHidden {
+    visibility: hidden !important;
+}
+
+#SAMLDialog #SAMLDialog-scrollCont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#SAMLDialogFrame {
+    min-height:100%;
+    width:100%;
+    position: absolute;
+}
+
+// ==================================================== Unused Styles ? ==================================================================
+
+#ContentPage{
+    background: white;
+}
+
+/* END "ShellLayout.less" */
+
+/* START "SidePane.less" */
+/* ============================================== */
+/* CSS for control "sap.ushell.ui.shell.SidePane" */
+/* ============================================== */
+
+.sapUshellSidePane {
+    height: 100%;
+    border-right: 1px solid @sapUiMediumBorder;
+}
+
+/* END "SidePane.less" */
+
+/* START "StaticTile.less" */
+
+/* ============================================= */
+/* CSS for control sap.ushell/StaticTile.control */
+/* ============================================= */
+
+
+.sapUshellStaticTile~span.sapUshellTileBaseIcon {
+	left: auto;
+}
+
+/* END "StaticTile.less" */
+
+/* START "SubHeader.less" */
+/* ======================================================== */
+/* CSS for control "sap.ushell.ui.shell.SubHeader" (base) */
+/* ======================================================== */
+
+/* END "SubHeader.less" */
+
+/* START "SysInfoBar.less" */
+/* ===================================================== */
+/* CSS for control "sap.ushell.ui.shell.SysInfoBar" (base) */
+/* ======================================================*/
+
+.sapUiSizeCompact .sapUshellSysInfoBar {
+  height: 1.625rem;
+
+  .sapMBar {
+    box-shadow: none;
+  }
+
+  .sapMBarLeft, .sapMBarRight, .sapMBarPH {
+    height: 1.625rem;
+  }
+}
+
+.sapUshellSysInfoBar {
+  height: 2.25rem;
+
+  .sapMBar {
+    box-shadow: none;
+  }
+
+  .sapMBar:not(.sapUshellSysInfoBarOrange, .sapUshellSysInfoBarRed, .sapUshellSysInfoBarPink, .sapUshellSysInfoBarPink, .sapUshellSysInfoBarViolet, .sapUshellSysInfoBarViolet, .sapUshellSysInfoBarBlue, .sapUshellSysInfoBarGreen, .sapUshellSysInfoBarGrey) {
+    background-color: transparent;
+  }
+
+  .sapUshellSysInfoBarText:not(.sapUshellSysInfoBarOrange, .sapUshellSysInfoBarRed, .sapUshellSysInfoBarPink, .sapUshellSysInfoBarPink, .sapUshellSysInfoBarViolet, .sapUshellSysInfoBarViolet, .sapUshellSysInfoBarBlue, .sapUshellSysInfoBarGreen, .sapUshellSysInfoBarGrey), .sapMLabelTextWrapper {
+    text-shadow: none;
+  }
+
+  .sapMBarLeft, .sapMBarRight, .sapMBarPH {
+    height: 2.25rem;
+  }
+}
+
+/*
+  If a custom color is used, the labels should have the same color as the icon.
+ */
+.sapUshellSysInfoBarCustom {
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiContentIconColor;
+  }
+}
+
+.sapUshellSysInfoBarOrange {
+  background-color: @sapUiShellCategory31Background;
+  border-color: @sapUiShellCategory3BorderColor;
+
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiShellCategory3TextColor;
+    text-shadow: @sapUiShellCategory3TextShadow;
+  }
+}
+
+.sapUshellSysInfoBarRed {
+  background-color: @sapUiShellCategory11Background;
+  border-color: @sapUiShellCategory11BorderColor;
+
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiShellCategory11TextColor;
+    text-shadow: @sapUiShellCategory11TextShadow;
+  }
+}
+
+.sapUshellSysInfoBarPink {
+  background-color: @sapUiShellCategory13Background;
+  border-color: @sapUiShellCategory13BorderColor;
+
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiShellCategory13TextColor;
+    text-shadow: @sapUiShellCategory13TextShadow;
+  }
+}
+
+.sapUshellSysInfoBarViolet {
+  background-color: @sapUiShellCategory12Background;
+  border-color: @sapUiShellCategory12BorderColor;
+
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiShellCategory12TextColor;
+    text-shadow: @sapUiShellCategory12TextShadow;
+  }
+}
+
+.sapUshellSysInfoBarBlue {
+  background-color: @sapUiShellCategory9Background;
+  border-color: @sapUiShellCategory9BorderColor;
+
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiShellCategory9TextColor;
+    text-shadow: @sapUiShellCategory9TextShadow;
+  }
+}
+
+.sapUshellSysInfoBarGreen {
+  background-color: @sapUiShellCategory16Background;
+  border-color: @sapUiShellCategory16BorderColor;
+
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiShellCategory16TextColor;
+    text-shadow: @sapUiShellCategory16TextShadow;
+  }
+}
+
+.sapUshellSysInfoBarGrey {
+  background-color: @sapUiShellCategory15Background;
+  border-color: @sapUiShellCategory15BorderColor;
+
+  .sapUshellSysInfoBarText, .sapMLabelTextWrapper {
+    color: @sapUiShellCategory15TextColor;
+    text-shadow: @sapUiShellCategory15TextShadow;
+  }
+}
+
+/* END "SysInfoBar.less" */
+
+/* START "TargetMappingConfiguration.less" */
+/* ============================================= */
+/* CSS for Target Mapping                        */
+/* ushell/components/tiles/action/Configuration  */
+/* ============================================= */
+
+.sapUshellTargetMappingToUpperCase > .sapMInputBaseInner {
+    text-transform: uppercase;
+}
+
+/* END "TargetMappingConfiguration.less" */
+
+/* START "Tile.less" */
+/* ===================================================== */
+/* CSS for control "sap.ushell.ui.launchpad.Tile" (base) */
+/* ===================================================== */
+
+@_sap_ushell_Tile_WidthDesktop: 11rem;
+@_sap_ushell_Tile_HeightDesktop: 11rem;
+@_sap_ushell_Tile_LongWidthDesktop: (2 * @_sap_ushell_Tile_WidthDesktop) + @_sap_ushell_Tile_Spacing;
+
+@_sap_ushell_Tile_WidthPhone: 9.25rem;
+@_sap_ushell_Tile_HeightPhone: 9.25rem;
+@_sap_ushell_Tile_LongWidthPhone: (2 * @_sap_ushell_Tile_WidthPhone) + @_sap_ushell_Tile_Spacing;
+
+@_sap_ushell_Tile_ShadowWidth: 0.25rem;
+
+/* BCP 1870411969: keep in mind two standard Tiles should fit in the same row on 320px width; see also "(min-width: 375px)" */
+@_sap_ushell_Tile_SpacingXS: 0.475rem;
+@_sap_ushell_Tile_SpacingS: 0.475rem;
+@_sap_ushell_Tile_Spacing: 0.5rem;
+@_sap_ushell_Tile_WidthXS: 4.375rem;
+@_sap_ushell_Tile_WidthS: 5.25rem;
+@_sap_ushell_Tile_Width: 5.25rem;
+
+/* Tile footer (plus button in tile catalog) */
+@_sap_ushell_Tile_FooterCornerRadius: 0.25rem;
+@_sap_ushell_Tile_FooterPosition: relative;
+@_sap_ushell_Tile_FooterPositionTop: 0.44rem;
+@_sap_ushell_Tile_FooterTextAlignment: center;
+@_sap_ushell_Tile_FooterLineHeight: inherit;
+
+.sapUshellTile:hover .sapUshellTileFooterElement {
+  z-index: auto;
+}
+
+#catalogTiles .sapUshellTile {
+  overflow: visible;
+}
+
+#catalogTiles.sapUshellTileContainer .sapUshellTileInner {
+  position: relative;
+}
+
+.sapUshellTileEntrance {
+  -webkit-animation: sapUshellTileEntranceAnimation 0.3s;
+  animation: sapUshellTileEntranceAnimation 0.3s;
+}
+
+.sapUshellTileActionDivCenter {
+  border-radius: @sapUiTileBorderCornerRadius;
+}
+
+@-webkit-keyframes sapUshellTileEntranceAnimation {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes sapUshellTileEntranceAnimation {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.sapUshellTile,
+.sapUshellTileInner {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.sapUshellTile {
+  float: left;
+  cursor: pointer;
+  position: relative;
+  margin: 0 @_sap_ushell_Tile_Spacing @_sap_ushell_Tile_Spacing 0;
+
+  .sap-phone & {
+    margin: 0; /* flex is used on phones, see "TileContainer.less" (base) */
+  }
+
+  &.sapUshellHidden,
+  .sapUshellTileActionsIconClass {
+    display: none;
+  }
+
+  .sapUshellTileInner {
+    display: block;
+  }
+
+  /* no link decorations for inner controls */
+  a.sapUshellTileInner {
+    text-decoration: none;
+  }
+}
+
+.sapUshellCatalogsContainer .sapUshellTile:not(.sapUshellTileWrapper) {
+  /* allows real custom Tiles (i.e. not "sapUshellAppBox") to be taller in the AppFinder (i.e. due to "sapUshellTilePinButtonOverlay") */
+  height: revert;
+}
+
+/* DOM hierarchy: .sapUshellTile[ > ].sapUshellTileWrapper > sapUshellTileInner > sapUshellTileBase */
+.sapUshellTile,
+.sapUshellTileWrapper,
+.sapUshellTileInner,
+.sapUshellTileBase,
+.sapUshellInner .sapUshellTile-placeholder,
+.sapUshellInner .sapUshellLinkTile-placeholder {
+  outline: none;
+  box-sizing: border-box;
+  border-radius: @sapUiTileBorderCornerRadius;
+  width: @_sap_ushell_Tile_WidthPhone;
+  height: @_sap_ushell_Tile_HeightPhone;
+
+  &.sapUshellLong,
+  .sapUshellLong & {
+    width: @_sap_ushell_Tile_LongWidthPhone;
+    height: @_sap_ushell_Tile_HeightPhone;
+  }
+
+  @media (min-width: 375px) {
+    width: @_sap_ushell_Tile_WidthDesktop;
+    height: @_sap_ushell_Tile_HeightDesktop;
+
+    &.sapUshellSmall,
+    .sapUshellSmall & {
+      width: @_sap_ushell_Tile_WidthPhone;
+      height: @_sap_ushell_Tile_HeightPhone;
+    }
+
+    &.sapUshellLong,
+    .sapUshellLong & {
+      width: @_sap_ushell_Tile_LongWidthDesktop;
+      height: @_sap_ushell_Tile_HeightDesktop;
+
+      &.sapUshellSmall,
+      .sapUshellSmall & {
+        width: @_sap_ushell_Tile_LongWidthPhone;
+        height: @_sap_ushell_Tile_HeightPhone;
+      }
+    }
+  }
+}
+
+#shellPage .sapUshellLinkTile-clone {
+  vertical-align: middle;
+  line-height: normal !important;
+  background-color: lighten(@sapBrandColor, 48) !important;
+  height: initial;
+  padding: 0;
+
+  br,
+  .sapMGTLineStyleHelper,
+  .sapMGTActionsContainer {
+    display: none;
+  }
+}
+
+#shellPage .sapUshellTile-clone {
+  box-shadow: @sapUiShadowLevel2;
+
+  .sapUshellTileActionIconDivBottom,
+  .sapUshellTileDeleteClickArea {
+    display: none;
+  }
+}
+
+.sap-desktop {
+  .sapUshellTileContainerLocked,
+  .sapUshellTileContainerEditMode {
+    .sapUshellTile .sapUshellTileActionsIconClass {
+      display: none;
+    }
+  }
+
+  .sapUshellTile {
+    &.showTileActionsIcon,
+    &:hover {
+      .sapUshellTileActionsIconClass.sapUiIcon {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+
+    .sapUshellTileActionsIconClass.sapUiIcon {
+      position: relative;
+      float: right;
+      display: block;
+      cursor: pointer;
+      height: 2rem;
+      width: 2rem;
+      border-bottom-right-radius: 0.25rem;
+      z-index: 1;
+      transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+      transition: opacity 0.3s ease-in-out;
+      opacity: 0;
+      margin-top: -@_sap_ushell_Tile_HeightDesktop;
+    }
+  }
+}
+
+.sapUshellTile:focus::after {
+  content: "";
+  position: absolute;
+  top: 0.1875rem;
+  bottom: 0.1875rem;
+  left: 0.1875rem;
+  right: 0.1875rem;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: @sapUiTileBorderCornerRadius;
+}
+
+.sapUshellTile .sapUiIcon {
+  cursor: pointer;
+}
+
+#catalogTiles .sapUshellTile:focus .sapMGT {
+  border-color: transparent;
+}
+
+/* END "Tile.less" */
+
+/* START "TileBase.less" */
+/* ==================================================== */
+/* CSS for control "sap.ushell.ui.tile.TileBase" (base) */
+/* ==================================================== */
+
+@_sap_ushell_TileBase_TextHighlightBgColor: @sapUiWarningBG; /* highlights for found search terms */
+
+@_sap_ushell_TileBase_TitleFontFamily: @sapUiFontFamily;
+@_sap_ushell_TileBase_FontWeight: normal;
+
+@_sap_ushell_TileBase_SubtitleFontFamily: @sapUiFontFamily;
+@_sap_ushell_TileBase_SubtitleFontWeight: normal;
+
+@_sap_ushell_TileBase_TitleFontSizeDesktop: 1rem;
+@_sap_ushell_TileBase_TitleLineHeightDesktop: 1.25rem;
+@_sap_ushell_TileBase_TitleMaxHeightDesktop: 2.4rem; /* fix ie bug - cut line */
+
+@_sap_ushell_TileBase_TitleFontSizePhone: 0.875rem;
+@_sap_ushell_TileBase_TitleLineHeightPhone: 1.25rem;
+
+@_sap_ushell_TileBase_SubtitleFontSizeDesktop: 0.875rem;
+@_sap_ushell_TileBase_SubtitleLineHeightDesktop: 1.375rem;
+
+@_sap_ushell_TileBase_SubtitleFontSizePhone: 0.75rem;
+@_sap_ushell_TileBase_SubtitleLineHeightPhone: 1.125rem;
+
+@_sap_ushell_TileBase_BottomLineFontFamily: @sapUiFontFamily;
+@_sap_ushell_TileBase_BottomLineFontWeight: normal;
+
+@_sap_ushell_TileBase_BottomLineFontSizeDesktop: 0.875rem;
+@_sap_ushell_TileBase_BottomLineLineHeightDesktop: 1.38rem;
+@_sap_ushell_TileBase_BottomLineBottomDesktop: 0.125rem;
+
+@_sap_ushell_TileBase_BottomLineFontSizePhone: 0.75rem;
+@_sap_ushell_TileBase_BottomLineLineHeightPhone: 1.13rem;
+@_sap_ushell_TileBase_BottomLineBottomPhone: 0.31rem;
+
+@_sap_ushell_TileBase_IconBottomDesktop: 2rem;
+@_sap_ushell_TileBase_IconFontSizeDesktop: 2.25rem;
+
+@_sap_ushell_TileBase_IconBottomPhone: 1.81rem;
+@_sap_ushell_TileBase_IconFontSizePhone: 1.5rem;
+
+@_sap_ushell_TileBase_PaddingDesktopHorizontal: 0.5rem;
+@_sap_ushell_TileBase_PaddingDesktopVertical: 0.5rem;
+
+@_sap_ushell_TileBase_PaddingPhoneHorizontal: 0.375rem;
+@_sap_ushell_TileBase_PaddingPhoneVertical: 0.625rem;
+
+.sapUshellTileBase {
+  border: 1px solid @sapUiTileBorderColor;
+  background: @sapUiTileBackground;
+  box-shadow: @sapUiShadowLevel0;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+
+  .sapUshellTileBaseHeader {
+    pointer-events: none;
+  }
+
+  .sapUshellTileBaseTitle,
+  .sapUshellTileBaseSubtitle {
+    padding: 0;
+    margin: 0;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .sapUshellTileBaseTitle {
+    word-wrap: break-word;
+  }
+
+  .sapUshellTileBaseSubtitle {
+    white-space: nowrap;
+    word-wrap: normal;
+  }
+
+  .sapUshellTileBaseIcon {
+    pointer-events: none;
+    position: absolute;
+    left: auto !important;
+    cursor: pointer;
+  }
+
+  .sapUshellTileBaseInfo {
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    bottom: 0.25rem;
+    width: 94%;
+    position: absolute;
+    pointer-events: none;
+  }
+}
+
+.sapUiMedia-Std-Phone .sapUshellTileBase {
+  margin: 0;
+  padding: @_sap_ushell_TileBase_PaddingPhoneHorizontal @_sap_ushell_TileBase_PaddingPhoneVertical;
+
+  .sapUshellTileBaseTitle {
+    line-height: @_sap_ushell_TileBase_TitleLineHeightPhone;
+    max-height: @_sap_ushell_TileBase_TitleLineHeightPhone * 2;
+  }
+
+  .sapUshellTileBaseSubtitle {
+    line-height: @_sap_ushell_TileBase_SubtitleLineHeightPhone;
+  }
+
+  .sapUshellTileBaseIcon {
+    bottom: @_sap_ushell_TileBase_IconBottomPhone;
+  }
+
+  .sapUshellTileBaseInfo {
+    bottom: @_sap_ushell_TileBase_BottomLineBottomPhone;
+    line-height: @_sap_ushell_TileBase_BottomLineLineHeightPhone;
+    text-align: right;
+    right: @_sap_ushell_TileBase_PaddingPhoneHorizontal;
+  }
+}
+
+.sapUiMedia-Std-Tablet,
+.sapUiMedia-Std-Desktop {
+  .sapUshellTileBase {
+    margin: 0;
+    padding: @_sap_ushell_TileBase_PaddingDesktopHorizontal @_sap_ushell_TileBase_PaddingDesktopVertical;
+
+    .sapUshellTileBaseTitle {
+      line-height: 1.15;
+      max-height: @_sap_ushell_TileBase_TitleMaxHeightDesktop;
+      padding-bottom: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .sapUshellTileBaseIcon {
+      bottom: @_sap_ushell_TileBase_IconBottomDesktop;
+    }
+
+    .sapUshellTileBaseInfo {
+      bottom: @_sap_ushell_TileBase_BottomLineBottomDesktop;
+      line-height: @_sap_ushell_TileBase_BottomLineLineHeightDesktop;
+      text-align: right;
+      right: @_sap_ushell_TileBase_PaddingDesktopHorizontal
+    }
+  }
+}
+
+/* END "TileBase.less" */
+
+/* START "TileContainer.less" */
+/* ============================================================== */
+/* CSS for control "sap.ushell.ui.launchpad.TileContainer" (base) */
+/* ============================================================== */
+
+/* Circles for dragging indicator */
+.sapUshellCircleBase {
+  height: 0.5rem;
+  width: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sapUshellCircle {
+  width: 0.25rem;
+  height: 0.25rem;
+  display: inline-block;
+  margin-left: 0.125rem;
+  vertical-align: top;
+}
+
+/* all TileContainers */
+.sapUshellDisableLockedGroupDuringDrag .sapUshellInner,
+.sapUshellDisableLockedGroupDuringDrag .sapUshellLineModeContainer {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: 0.5;
+  position: relative; /* needed because of bug in IE */
+}
+
+.sapUshellInner {
+  display: block;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  .sap-phone & {
+    display: flex;
+    flex-wrap: wrap;
+    gap: @_sap_ushell_Tile_Spacing;
+  }
+}
+
+.sapUshellTileContainerContent .sapUshellTileContainerHeader.sapUshellGroupHeaderHidden {
+  height: 0;
+  display: none;
+}
+
+.sapUshellTileContainerContent .sapUshellTileContainerHeader.sapUshellFirstGroupHeaderHidden {
+  height: 0;
+}
+
+.sapUshellTileContainer {
+  .sapFCard {
+    margin: 0 @_sap_ushell_Tile_Spacing @_sap_ushell_Tile_Spacing 0;
+
+    .sap-phone & {
+      margin: 0; /* flex is used on phones */
+    }
+
+    &:focus::after {
+      content: "";
+      position: absolute;
+      top: 0.1875rem;
+      bottom: 0.1875rem;
+      left: 0.1875rem;
+      right: 0.1875rem;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: 0.25rem;
+    }
+  }
+
+  &.sapUshellHidden {
+    display: none;
+  }
+
+  .sapUshellTileContainerBeforeContent,
+  .sapUshellTileContainerAfterContent {
+    max-width: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+    /* in order to add 0.5 rem to each inner side of the Add Button */
+    .sapUshellAddGroupButton {
+      position: relative;
+      height: 2.5rem;
+      padding: 0;
+
+      /* move the text to the right */
+      .sapMBtnContentRight {
+        padding-left: 2.875rem;
+      }
+
+      .sapMBtnPaddingRight {
+        padding-right: 1.25rem;
+      }
+    }
+  }
+}
+
+.sapUshellContainerIcon {
+  font-size: 1rem;
+}
+
+.sapUshellTileContainerContent {
+  .sapUshellNoFilteredItems {
+    text-align: center;
+  }
+
+  .sapUshellInner:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sapUshellContainerTitleFlex {
+    display: flex;
+    height: 3.2rem;
+    margin-right: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sapUshellContainerTitle {
+    cursor: default;
+    display: inline;
+    flex-shrink: 1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+  }
+
+  /* Tile Container Header - Input and buttons */
+
+  .sapUshellTileContainerHeader {
+    .sapUshellHeaderActionButton {
+      position: static;
+      padding: 0;
+    }
+
+    .sapUshellTileContainerHeader:focus {
+      outline: 0.063rem dotted;
+    }
+  }
+
+  .sapUshellCatalogTileContainerHeader {
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .sapUshellCatalogTileContainerHeaderInner {
+    padding-top: 0.5rem;
+  }
+
+  .sapUshellTileContainerTitleInput {
+    .sapMInputDivWrapper {
+      height: 2.5rem;
+    }
+
+    input {
+      border: none;
+      padding: 0 0.5rem;
+    }
+  }
+
+  .sapUshellContainerHeaderActions {
+    margin-left: 1rem;
+  }
+
+  .sapUshellOverlayGroupActionPanel {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.sapUiMedia-StdExt-Phone {
+  .sapUshellTileContainerContent .sapUshellTileContainerTitleInput {
+    width: 16rem !important;
+  }
+}
+
+.sapUiMedia-Std-Tablet,
+.sapUiMedia-Std-Desktop {
+  .sapUshellTileContainerContent .sapUshellTileContainerTitleInput {
+    width: 60% !important;
+  }
+}
+
+.sapUshellDashboardGroupsContainerItem {
+  margin-top: 1rem;
+}
+
+.sapUshellDashboardGroupsContainerItem,
+.sapUshellDashboardGroupsContainerItem .sapUshellTileContainer,
+.sapUshellDashboardGroupsContainerItem .sapUshellTileContainer .sapUshellTileContainerContent {
+  &:focus {
+    outline: none;
+  }
+}
+
+.sapUshellDashboardGroupsContainerItem-clone .sapUshellLineModeContainer {
+  display: none;
+}
+
+.sap-phone .sapUshellDashboardGroupsContainerItem-clone .sapUshellTileContainerContent .sapUshellContainerTitle {
+  display: block;
+}
+
+.sapUiMedia-Std-Phone .sapUshellDashboardGroupsContainer .sapUshellTileContainerEditMode .sapUshellContainerTitle {
+  height: auto;
+  line-height: 2rem;
+  padding: 0;
+}
+
+html[dir=rtl] .sapUshellDashboardGroupsContainer .sapUshellTileContainerContent {
+  direction: rtl;
+}
+
+/* Only TileContainers located on the dashboard */
+.sapUshellDashboardGroupsContainer .sapUshellContainerTitle {
+  /* truncate group titles */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* only TileContainers located on the dashboard */
+.sap-phone .sapUshellDashboardGroupsContainer {
+  .sapUshellTileContainerContent.sapUshellTileContainerEditMode {
+    padding: 0;
+  }
+
+  .sapUshellContainerTitle {
+    /* truncate group titles */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.sapUshellTileContainerContent {
+  margin-right: auto;
+}
+
+/* group focus is relevant for keyboard navigation, not relevant for mobile */
+.sap-phone .sapUshellDashboardGroupsContainer .sapUshellTileContainerContent:focus,
+.sap-tablet .sapUshellDashboardGroupsContainer .sapUshellTileContainerContent:focus {
+  outline: 0;
+}
+
+#dashboardGroups .sapUshellDashboardGroupsContainerItem-placeholder {
+  height: 2.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+}
+
+.sap-phone #dashboardGroups .sapUshellDashboardGroupsContainerItem-placeholder {
+  margin-bottom: 4rem;
+}
+
+html[dir=rtl] .sapUshellDashboardGroupsContainerItem.sapUshellDashboardGroupsContainerItem-clone {
+  direction: ltr;
+}
+
+.sapUshellDashboardGroupsContainerItem.sapUshellDashboardGroupsContainerItem-clone {
+  align-items: center;
+  padding-bottom: 6.25rem; /* for smooth scrolling */
+
+  .sapUshellTileContainerEditMode {
+    border: none;
+    background-color: transparent;
+  }
+
+  .sapUshellCircleBase {
+    visibility: hidden;
+  }
+
+  .sapUshellContainerTitle {
+    padding: 0.5rem 1rem;
+    border: 0.0625rem solid;
+    border-radius: 0.375rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    cursor: -webkit-grabbing;
+  }
+
+  .sapUshellTilesContainer-sortable,
+  .sapUshellTileContainerBeforeContent,
+  .sapUshellTileContainerAfterContent,
+  .sapUshellContainerHeaderActions {
+    display: none;
+  }
+}
+
+#dashboardGroups .sapUshellDashboardGroupsContainerItem-placeholder .sapUshellTileContainer {
+  display: none;
+}
+
+/* input field and Container title */
+.sapUshellTileContainer&:not(.sapUshellEditing) .sapMInput,
+.sapUshellTileContainer.sapUshellEditing .sapUshellContainerTitle {
+  display: none;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  background-color: red;
+}
+
+.sapUshellTileContainerBeforeContent {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sapUshellTileContainerAfterContent {
+  button {
+    margin-top: 0.5rem;
+  }
+
+  &.sapUshellHidden {
+    display: none;
+  }
+}
+
+.sapUshellContainerIcon.sapUshellContainerIconHidden {
+  display: none;
+}
+
+.sapUshellDashboardGroupsContainerItem-placeholder + .sapUshellDashboardGroupsContainerItem {
+  margin-top: -3.5rem;
+}
+
+.sapUshellTileContainerHidden {
+  visibility: hidden;
+}
+
+.sapUshellTileContainerRemoveContent {
+  display: none;
+}
+
+.sapUiSizeCompact {
+  .sapUshellTileContainerBeforeContent {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .sapUshellTileContainer {
+    .sapUshellTileContainerBeforeContent,
+    .sapUshellTileContainerAfterContent {
+      .sapUshellAddGroupButton {
+        height: 2rem;
+
+        div {
+          position: static;
+        }
+      }
+    }
+  }
+}
+
+.sap-desktop {
+  .sapUshellTileContainerContent .sapMBtn:focus > .sapUshellPinSelected {
+    outline: .0625rem dotted @sapUiContentContrastFocusColor;
+  }
+}
+
+.sapUshellTileContainerEditMode .sapUshellLineModeContainer.sapUshellNoLinksAreaPresent {
+  visibility: visible;
+  height: 3rem;
+  margin-top: 0.6rem; /* allows drag-and-drop placeholder to disappear when no longer hovering */
+  background-color: transparent;
+
+  &.sapUshellEmptyLinkAreaHover {
+    border: solid;
+    border-width: 0.125rem;
+    border-color: @sapUiDragAndDropActiveBorderColor;
+    background-color: @sapUiDragAndDropActiveBackground;
+  }
+}
+
+.sapUshellTileContainerEditMode .sapUshellLineModeContainer.sapUshellNoLinksAreaPresent.sapUshellNoLinksAreaPresentError {
+  border: none;
+}
+
+.sapUshellLineModeContainer {
+  box-sizing: border-box;
+  position: relative;
+  margin-top: @_sap_ushell_Tile_Spacing;
+
+  .sapUshellLinksInnerContainer:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .sapUshellLinksInnerContainer {
+    .sapUshellLinkTile {
+      display: inline-block;
+      margin-right: @_sap_ushell_Tile_Spacing;
+      margin-bottom: @_sap_ushell_Tile_Spacing;
+    }
+  }
+
+
+}
+
+.sapUshellLinksAreaHidden .sapUshellLineModeContainer {
+  visibility: hidden;
+
+  &.sapUshellNoLinksAreaPresent,
+  .sapUshellNoLinksAreaPresentText,
+  .sapUshellNoLinksAreaPresentText .sapUshellNoLinksAreaPresentTextInner {
+    display: none;
+  }
+}
+
+.sapUshellEmptyLinksAreaPlaceHolder .sapUshellNoLinksAreaPresent {
+  visibility: hidden;
+}
+
+.sapUshellGroupBackgroundContainer {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  position: absolute;
+  margin-right: 0;
+  border-radius: 2px;
+}
+
+.sapUshellDashboardGroupsContainer .sapUshellTileContainerEditMode {
+  padding: 0;
+}
+
+.sapUshellTileContainerBeforeContent {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sapUshellTileContainerTabsModeEmptyLinksArea.sapUshellTileContainerEditMode {
+  .sapUshellInner {
+    padding-left: 0;
+  }
+
+  .sapUshellLineModeContainer,
+  .sapUshellLineModeContainer.sapUshellNoLinksArePresent {
+    margin-left: 0;
+  }
+}
+
+.sapUshellNoLinksAreaPresentText {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sapUshellNoLinksAreaPresentTextInner {
+  align-self: center;
+}
+
+.sapUshellTransformationError {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+}
+
+.sapUshellTransformationErrorInnerWrapper {
+  align-self: center;
+  display: inherit;
+}
+
+.sapUshellTransformationErrorIcon {
+  padding-right: 0.5rem;
+}
+
+.sapUiSizeCozy .sapUshellTileContainer .sapUshellContainerHeaderActions .sapUshellHeaderActionButton {
+  margin-top: -0.5rem;
+}
+
+/* END "TileContainer.less" */
+
+/* START "TilePlaceholder.less" */
+/* ===================================================== */
+/* CSS for control "sap.ushell.ui.launchpad.Tile" (base) */
+/* ===================================================== */
+
+.sapUshellLineModeContainer .sapUshellLinkTile-placeholder::after {
+  content: " ";
+  background-color: fade(@sapUiShellHoverBackground, 12);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 3px;
+  border-radius: 3.2px
+}
+
+.sapUshellLineModeContainer {
+	.sapMGTLineMode {
+	  margin-right: @_sap_ushell_Tile_Spacing ;
+	}
+}
+
+.sapUshellSectionCompactArea {
+	.sapMGTLineMode {
+	  margin-right: @_sap_ushell_Tile_Spacing ;
+    margin-bottom: @_sap_ushell_Tile_Spacing ;
+	}
+}
+
+#sapUshellLinkDropMarkerDot::before {
+  position: absolute;
+  top: 0px;
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  background-color: @sapUiDragAndDropActiveBorderColor;
+  content: "";
+}
+
+#sapUshellLinkDropMarkerDot::after {
+  position: absolute;
+  margin-left: 2px;
+  height: 4px;
+  width: 4px;
+  border-radius: 2px;
+  top: 2px;
+  background-color: @sapUiDragAndDropBackground;
+  content: "";
+}
+
+#sapUshellLinkDropMarkerLine {
+  background-color: @sapUiDragAndDropActiveBorderColor;
+  height: 1.5rem;
+  width: 2px;
+  margin-left: 3px
+}
+
+#sapUshellLinkDropMarker {
+  position: absolute;
+}
+
+.sapUshellInner {
+  .sapUshellTile-placeholder,
+  .sapUshellLinkTile-placeholder {
+    float: left !important;
+    margin: 0 @_sap_ushell_Tile_Spacing @_sap_ushell_Tile_Spacing 0 !important;
+    border: 2px dashed fade(@sapUiShellTextColor, 50%) !important;
+    background-color: transparent !important;
+    box-shadow: @sapUiShadowLevel0;
+
+    > * {
+      display: none !important;
+    }
+  }
+}
+
+/* END "TilePlaceholder.less" */
+
+/* START "TileState.less" */
+
+/* ============================================= */
+/* CSS for control sap.ushell.ui.launchpad/TileState.control */
+/* ============================================= */
+
+.sapUshellGT {
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 0.25rem;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    border: 1px solid @sapUiTileBorderColor;
+    box-shadow: @sapUiShadowLevel0;
+    box-sizing: border-box;
+}
+
+.sapUshellOverlay {
+    height: 100%;
+    width: 100%;
+}
+
+.sapUshellTileStateLoading {
+    margin-top: 50%;
+}
+
+.sapUshellLong .sapUshellTileStateLoading {
+    margin-top: 25%; // % is calcuated from container widths, 25% is in the middle vertically
+}
+
+.sapUshellTileStateFtrFld {
+    left: 0.5rem;
+    bottom: 0.5rem;
+    display: table;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.sapUshellTileStateFtrFldTxt {
+    display:table-cell;
+    padding-left: 0.5rem;
+    vertical-align: bottom;
+}
+
+.sapUiMedia-Std-Phone .sapUshellTileStateFtrFldTxt {
+    padding-left: 0;
+}
+
+.sapUshellSmall .sapUshellTileStateFtrFldTxt {
+    padding-left: 0;
+}
+
+.sapUshellTileStateFtrFldIcn {
+    margin-right: 0.5rem;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.sapUshellTileStateFtrFldIcn>.sapUshellGTFtrFldIcnMrk {
+    vertical-align: bottom;
+}
+
+/* END "TileState.less" */
+
+/* START "ToolAreaItem.less" */
+/* ========================================================= */
+/* CSS for control "sap.ushell.ui.shell.ToolAreaItem" (base) */
+/* ========================================================= */
+
+.sapUiMedia-Std-Phone .sapUshellToolArea {
+  width: 13rem;
+}
+
+.sapUshellToolArea {
+  height: 100%;
+  width: 15rem;
+  z-index: 1;
+  overflow: hidden;
+  transition: left 500ms ease;
+
+  &.sapUshellToolAreaTextHidden {
+    width: 3.0625rem;
+
+    .sapUshellToolAreaItemText {
+      display: none;
+    }
+  }
+
+  .sapUshellToolAreaItemIcon {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 1.25rem;
+  }
+}
+
+.sapUshellToolAreaFooterContent {
+  padding-left: 0.7rem;
+  height: 3.0625rem;
+  position: fixed;
+  bottom: 0;
+}
+
+.sapUshellToolAreaFooterContentSeparator {
+  position: fixed;
+  bottom: 3.0625rem;
+}
+
+.sapUshellToolAreaItemText {
+  margin-left: 0.8rem;
+}
+
+.sapUshellToolAreaTextContainer {
+  width: 11.9375rem;
+  height: 3.0625rem
+}
+
+.sapUshellToolAreaItemExpandable:after {
+  content: "\e1f8";
+  position: relative;
+  top: 0.48rem;
+  left: 0.2rem;
+  font-family: "SAP-icons";
+  font-size: 1.5rem;
+}
+
+.sapUshellToolAreaContent {
+  padding-left: 0.7rem;
+  height: 3.0625rem;
+  cursor: pointer;
+}
+
+.sapUshellToolAreaItm,
+.sapUshellToolAreaItmTextOnly {
+  height: 3.0625rem;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sapUshellToolAreaItmTextOnly {
+  width: 15rem;
+  padding-top: 1rem;
+}
+
+.sapUshellToolArea.sapUshellShellHidden {
+  display: block;
+  left: -16rem;
+}
+
+/* END "ToolAreaItem.less" */
+
+/* START "UserActionsMenu.less" */
+/* BASE */
+
+/* =============================================================== */
+/* Styles for the "ME area" theme base                             */
+/* =============================================================== */
+
+/* Styles */
+/* ============================================= */
+
+
+.sap-tablet #userActionsMenu  {
+    width: 36rem;
+}
+
+
+.sapUshellUserArea {
+  padding: 0.5rem 1.5rem;
+}
+
+
+.sapUshellUserSetting .sapMITBContent {
+  border-bottom: none;
+}
+
+/* END "UserActionsMenu.less" */
+
+/* START "UserConsentDialog.less" */
+/* BASE */
+
+/* ============================================= */
+/* CSS for User Image Consent Dialog */
+/* ============================================= */
+
+/* LESS Variables */
+/* ============================================= */
+
+
+
+/* Styles */
+/* ============================================= */
+
+.sapUshellUserConsentDialogText {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.sapUshellUserConsentDialogLink {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+}
+
+.sapUshellUserConsentDialogTerms {
+  padding-bottom: 1rem;
+  padding-top: 0.625rem;
+  border-top : @sapUiGroupContentBorderColor 2px solid;
+  font-style :italic;
+  font-family: @sapUiFontFamily;
+  font-size: @sapMFontSmallSize;
+  line-height: 1.2rem;
+  color: @sapUiContentLabelColor;
+  text-align: left;
+}
+
+.sapUshellUserConsentDialog {
+  margin: 1rem;
+  width:  25rem;
+}
+
+#userConsentDialogLayout {
+  width: 100%;
+}
+
+.ushellUserImgConsentTermsOfUseFlexBox{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* END "UserConsentDialog.less" */
+
+/* START "UserSettings.less" */
+/* ========================================================================== */
+/* CSS for control "sap.ushell.components.shell.Settings.UserSettings" (base) */
+/* ========================================================================== */
+
+.sapMBar .sapMText {
+  font-size: 1rem;
+}
+
+.sapUshellUserSettingMaster {
+  width: 100%;
+  overflow-y: auto;
+}
+
+.sapUshellUserSettingMaster .sapMLIBContent .sapMSLIImg {
+  border-radius: 100%;
+}
+
+.sapUshellUserSettingMaster .sapMSF {
+  padding: 0.25rem;
+}
+
+.sapUiSizeCompact .sapUshellUserSettingMaster .sapMSF {
+  padding: 0.1875rem;
+}
+
+.sapUshellUserSettingDetailHeader .sapMImg {
+  border-radius: 100%
+}
+
+.sapUshellUserSettingDetailContent {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+
+  @media (min-width: 600px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+#defaultParametersSelector .sapUiRGLContainerCont {
+  padding-bottom: 2rem;
+}
+
+#defaultParametersSelector .sapUiRespGridBreak {
+  display: none;
+}
+
+#defaultParametersSelector {
+  overflow-y: auto;
+
+  .sapUiFormResGrid.sapUiFormBackgrTranslucent > div {
+    background: none;
+  }
+
+  .sapUshellDefaultValuesDirtyState {
+    font-style: italic;
+  }
+
+  .sapUshellSystemContextsSelection,
+  .sapUshellSmartVariantManagement,
+  .sapUshellDefaultValuesDirtyState {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @media (min-width: 600px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+#detailuserPrefThemeSelector .sapUshellUserSettingDetailHeader {
+  border-bottom: none !important;
+}
+
+.sapUshellUserSettingDetailHeader .sapMOHIcon {
+  margin-top: 0rem;
+}
+
+.sapUshellSettingsPage section {
+  background-color: lighten(@sapUiListBackground, 2);
+  box-sizing: border-box;
+}
+
+.sapUshellSettingsPage > section {
+  padding-bottom: 2.5rem;
+}
+
+.sapUshellUserAccountLabel {
+  padding-top: 0.25rem;
+  margin-right: 0.25rem;
+}
+.sapUshellCalendarWeek > .sapMRb {
+  overflow: inherit;
+}
+
+/* END "UserSettings.less" */
+
+/* START "ViewPortContainer.less" */
+#viewPortContainer {
+  width: 100%;
+  overflow: hidden;
+  display: block;
+  /* flex-grow does not work here (iOS Safari) */
+  /* force container to fill all available space */
+  flex-basis: 100%;
+  flex-shrink: 1;
+  max-height: 100%;
+
+  & > .sapUiComponentContainer {
+    overflow-y: clip;
+  }
+}
+
+@media print {
+  #shell-shapes {
+    display: none;
+  }
+
+  .sapUShellApplicationContainer {
+    display: block;
+
+    .sapUiView {
+      display: block;
+    }
+  }
+}
+
+/* END "ViewPortContainer.less" */
+
+/* START "WorkPage.less" */
+.workPage {
+  width: 100%;
+  padding-bottom: 2rem;
+
+  &.workPageEditMode {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+
+    .workPageTitle {
+      padding-top: 0;
+    }
+  }
+
+  .workPageTitle {
+    padding-top: 1rem;
+    box-sizing: border-box;
+  }
+}
+
+[data-wp-breakpoint="lt-lp-4"],
+[data-wp-breakpoint="lt-sp-4"],
+[data-wp-breakpoint="st-lp-4"],
+[data-wp-breakpoint="st-sp-4"] {
+  .workPageTitle {
+    margin-left: 2.375rem;
+    margin-right: 2.375rem;
+  }
+}
+[data-wp-breakpoint="lt-lp-3"],
+[data-wp-breakpoint="lt-sp-3"],
+[data-wp-breakpoint="st-lp-3"],
+[data-wp-breakpoint="st-sp-3"],
+[data-wp-breakpoint="lt-lp-2"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="st-sp-2"] {
+  .workPageTitle {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+[data-wp-breakpoint="lt-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="st-sp-1"] {
+  .workPageTitle {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+}
+
+[data-wp-breakpoint="st-sp-0"] {
+  .workPageTitle {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+/* END "WorkPage.less" */
+
+/* START "WorkPageButton.less" */
+.workPageButton {
+  border: none;
+  background: transparent;
+  outline: none;
+  border-radius: 100%;
+  padding: 0.1875rem 0;
+  color: @sapUiButtonIconColor;
+  max-height: 2.25rem;
+  max-width: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    .workPageButtonInner {
+      background: @sapUiButtonNeutralHoverBackground;
+      outline-color: @sapUiButtonNeutralHoverBorderColor;
+    }
+
+    .workPageButtonIcon {
+      color: @sapUiButtonNeutralHoverTextColor;
+    }
+  }
+
+  &:focus {
+    .workPageButtonInner {
+      background: @sapUiButtonNeutralActiveBackground;
+      outline: 0.125rem solid @sapUiButtonNeutralActiveBorderColor;
+    }
+
+    .workPageButtonIcon {
+      color: @sapUiButtonNeutralActiveTextColor;
+    }
+  }
+
+  .workPageButtonInner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: @sapUiButtonNeutralBackground;
+    border-radius: 100%;
+    border: 1px solid @sapUiButtonNeutralBorderColor;
+    width: 1.625rem;
+    height: 1.625rem;
+    cursor: pointer;
+  }
+
+  .workPageButtonIcon {
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 1.5rem;
+    position: relative;
+    font-size: 1rem;
+    max-height: 1.5rem;
+    width: 1rem;
+    color: @sapUiButtonNeutralTextColor;
+  }
+}
+
+/* END "WorkPageButton.less" */
+
+/* START "WorkPageRow.less" */
+[data-wp-breakpoint="st-sp-0"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="lt-lp-1"] {
+  .workPageRow {
+    & + .workPageRow {
+      .workPageRowSectionTitle {
+        padding-top: 0.5rem;
+      }
+    }
+  }
+}
+
+.workPage.workPageHasTitle {
+  .workPageRow.workPageRowFirst {
+    padding-top: 0;
+  }
+}
+
+.workPageRow {
+  position: relative;
+  margin-top: -2px;
+  border: 2px solid transparent;
+  border-radius: 0.75rem;
+  box-sizing: content-box;
+  background-clip: padding-box;
+  padding-top: 1rem;
+  margin-left: 1.75rem;
+  margin-right: 1.75rem;
+
+  .workPageRowMessageStrip {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  .workPageRowToolbar {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: @sapUiShellBackgroundPatternColor;
+    border-bottom: none;
+  }
+
+  .workPageRowSectionTitle {
+    font-weight: bold;
+    font-family: @sapUiFontFamily;
+    font-size: @sapMFontHeader4Size;
+    color: @sapUiShellGroupTitleTextColor;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  & + .workPageRow {
+    padding-top: 0;
+
+    .workPageRowSectionTitle {
+      padding-top: 2rem;
+    }
+  }
+
+  .workPageRowLimiter {
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .workPageRowInner {
+    position: static;
+    display: grid;
+  }
+
+  .workPageRowButton {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .workPageRowButtonBottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: translateY(~'calc(50% + 1px)');
+  }
+
+  .workPageRowButtonTop {
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: translateY(~'calc(-50% - 1px)');
+  }
+
+  .workPageRowButtonLeft {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    transform: translateX(-50%);
+  }
+
+  .workPageRowButtonRight {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    transform: translateX(50%);
+  }
+
+  .workPageRowControlButtons {
+    /* use opacity here to focus the button when the control is shown by tabbing into the WorkPageRow via keyboard navigation */
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    transform: translateY(-2.5rem);
+    padding-right: 2rem;
+  }
+}
+
+.sapUiSizeCompact .workPageRow .workPageRowControlButtons {
+  transform: translateY(-2rem);
+}
+
+.workPageRowToolbar > .sapMLabel .sapMLabelColonAndRequired::before {
+  content: attr(data-colon);
+  white-space: pre;
+}
+
+
+[data-wp-breakpoint="lt-lp-4"],
+[data-wp-breakpoint="lt-sp-4"],
+[data-wp-breakpoint="st-lp-4"],
+[data-wp-breakpoint="st-sp-4"] {
+  .workPageRow {
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+}
+[data-wp-breakpoint="lt-lp-3"],
+[data-wp-breakpoint="lt-sp-3"],
+[data-wp-breakpoint="st-lp-3"],
+[data-wp-breakpoint="st-sp-3"],
+[data-wp-breakpoint="lt-lp-2"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="st-sp-2"] {
+  .workPageRow {
+    margin-left: 1.375rem;
+    margin-right: 1.375rem;
+  }
+}
+
+[data-wp-breakpoint="lt-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="st-sp-1"] {
+  .workPageRow {
+    margin-left: 1.625rem;
+    margin-right: 1.625rem;
+  }
+}
+
+[data-wp-breakpoint="st-sp-0"] {
+  .workPageRow {
+    border: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+
+/* EDIT MODE */
+.workPageEditMode {
+  &.workPage {
+    .workPageRow,
+    .workPageRow.workPageRowFirst {
+      padding-top: 1rem;
+    }
+  }
+  .workPageRow {
+
+    &:hover,
+    &.workPageRowFocused {
+      border-color: @sapUiNeutralBorder;
+
+      .workPageRowControlButtons {
+        opacity: 1;
+      }
+    }
+
+    .workPageRowInner {
+      user-select: none;
+    }
+
+    &:hover + .workPageRow {
+      border-top: none;
+      margin-top: 0;
+    }
+
+    &:last-of-type:hover {
+      border-bottom: 2px solid @sapUiNeutralBorder;
+    }
+  }
+}
+
+/* 1 Column */
+[data-wp-cols="1"] {
+  grid-template-columns: 1fr;
+}
+
+
+/* 2 Columns */
+[data-wp-cols="2"] {
+  grid-template-columns: 1fr 1fr;
+}
+
+[data-wp-breakpoint="st-sp-0"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="lt-lp-1"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="2"] {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+[data-wp-cols="2"] {
+  &[data-wp-col-min-flex="1"],
+  &[data-wp-col-min-flex="2"] {
+    &[data-wp-grid-layout="2-22"] { grid-template-columns: 2fr 22fr; }
+    &[data-wp-grid-layout="4-20"] { grid-template-columns: 4fr 20fr; }
+    &[data-wp-grid-layout="6-18"] { grid-template-columns: 6fr 18fr; }
+    &[data-wp-grid-layout="8-16"] { grid-template-columns: 8fr 16fr; }
+    &[data-wp-grid-layout="10-14"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="12-12"] { grid-template-columns: 12fr 12fr; }
+    &[data-wp-grid-layout="14-10"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="16-8"] { grid-template-columns: 16fr 8fr; }
+    &[data-wp-grid-layout="18-6"] { grid-template-columns: 18fr 6fr; }
+    &[data-wp-grid-layout="20-4"] { grid-template-columns: 20fr 4fr; }
+    &[data-wp-grid-layout="22-2"] { grid-template-columns: 22fr 2fr; }
+  }
+
+  &[data-wp-col-min-flex="3"],
+  &[data-wp-col-min-flex="4"] {
+    &[data-wp-grid-layout="2-22"] { grid-template-columns: 4fr 20fr; }
+    &[data-wp-grid-layout="4-20"] { grid-template-columns: 4fr 20fr; }
+    &[data-wp-grid-layout="6-18"] { grid-template-columns: 6fr 18fr; }
+    &[data-wp-grid-layout="8-16"] { grid-template-columns: 8fr 16fr; }
+    &[data-wp-grid-layout="10-14"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="12-12"] { grid-template-columns: 12fr 12fr; }
+    &[data-wp-grid-layout="14-10"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="16-8"] { grid-template-columns: 16fr 8fr; }
+    &[data-wp-grid-layout="18-6"] { grid-template-columns: 18fr 6fr; }
+    &[data-wp-grid-layout="20-4"] { grid-template-columns: 20fr 4fr; }
+    &[data-wp-grid-layout="22-2"] { grid-template-columns: 20fr 4fr; }
+  }
+
+  &[data-wp-col-min-flex="5"],
+  &[data-wp-col-min-flex="6"] {
+    &[data-wp-grid-layout="2-22"] { grid-template-columns: 6fr 18fr; }
+    &[data-wp-grid-layout="4-20"] { grid-template-columns: 6fr 18fr; }
+    &[data-wp-grid-layout="6-18"] { grid-template-columns: 6fr 18fr; }
+    &[data-wp-grid-layout="8-16"] { grid-template-columns: 8fr 16fr; }
+    &[data-wp-grid-layout="10-14"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="12-12"] { grid-template-columns: 12fr 12fr; }
+    &[data-wp-grid-layout="14-10"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="16-8"] { grid-template-columns: 16fr 8fr; }
+    &[data-wp-grid-layout="18-6"] { grid-template-columns: 18fr 6fr; }
+    &[data-wp-grid-layout="20-4"] { grid-template-columns: 18fr 6fr; }
+    &[data-wp-grid-layout="22-2"] { grid-template-columns: 18fr 6fr; }
+  }
+
+  &[data-wp-col-min-flex="7"],
+  &[data-wp-col-min-flex="8"] {
+    &[data-wp-grid-layout="2-22"] { grid-template-columns: 8fr 16fr; }
+    &[data-wp-grid-layout="4-20"] { grid-template-columns: 8fr 16fr; }
+    &[data-wp-grid-layout="6-18"] { grid-template-columns: 8fr 16fr; }
+    &[data-wp-grid-layout="8-16"] { grid-template-columns: 8fr 16fr; }
+    &[data-wp-grid-layout="10-14"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="12-12"] { grid-template-columns: 12fr 12fr; }
+    &[data-wp-grid-layout="14-10"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="16-8"] { grid-template-columns: 16fr 8fr; }
+    &[data-wp-grid-layout="18-6"] { grid-template-columns: 16fr 8fr; }
+    &[data-wp-grid-layout="20-4"] { grid-template-columns: 16fr 8fr; }
+    &[data-wp-grid-layout="22-2"] { grid-template-columns: 16fr 8fr; }
+  }
+
+  &[data-wp-col-min-flex="9"],
+  &[data-wp-col-min-flex="10"] {
+    &[data-wp-grid-layout="2-22"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="4-20"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="6-18"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="8-16"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="10-14"] { grid-template-columns: 10fr 14fr; }
+    &[data-wp-grid-layout="12-12"] { grid-template-columns: 12fr 12fr; }
+    &[data-wp-grid-layout="14-10"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="16-8"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="18-6"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="20-4"] { grid-template-columns: 14fr 10fr; }
+    &[data-wp-grid-layout="22-2"] { grid-template-columns: 14fr 10fr; }
+  }
+}
+
+
+/* 3 Columns */
+[data-wp-cols="3"] {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+[data-wp-breakpoint="st-sp-0"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="lt-lp-1"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="3"] {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+[data-wp-breakpoint="st-sp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="lt-lp-2"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="3"] {
+      grid-template-columns: 1fr 1fr;
+
+      .workPageColumnLast {
+        grid-column: ~"1 / -1";
+      }
+    }
+  }
+}
+
+
+[data-wp-cols="3"] {
+  &[data-wp-col-min-flex="1"],
+  &[data-wp-col-min-flex="2"] {
+    &[data-wp-grid-layout="2-2-20"] { grid-template-columns: 2fr 2fr 20fr; }
+    &[data-wp-grid-layout="2-4-18"] { grid-template-columns: 2fr 4fr 18fr; }
+    &[data-wp-grid-layout="2-6-16"] { grid-template-columns: 2fr 6fr 16fr; }
+    &[data-wp-grid-layout="2-8-14"] { grid-template-columns: 2fr 8fr 14fr; }
+    &[data-wp-grid-layout="2-10-12"] { grid-template-columns: 2fr 10fr 12fr; }
+    &[data-wp-grid-layout="2-12-10"] { grid-template-columns: 2fr 12fr 10fr; }
+    &[data-wp-grid-layout="2-14-8"] { grid-template-columns: 2fr 14fr 8fr; }
+    &[data-wp-grid-layout="2-16-6"] { grid-template-columns: 2fr 16fr 6fr; }
+    &[data-wp-grid-layout="2-18-4"] { grid-template-columns: 2fr 18fr 4fr; }
+    &[data-wp-grid-layout="2-20-2"] { grid-template-columns: 2fr 20fr 2fr; }
+    &[data-wp-grid-layout="4-2-18"] { grid-template-columns: 4fr 2fr 18fr; }
+    &[data-wp-grid-layout="4-4-16"] { grid-template-columns: 4fr 4fr 16fr; }
+    &[data-wp-grid-layout="4-6-14"] { grid-template-columns: 4fr 6fr 14fr; }
+    &[data-wp-grid-layout="4-8-12"] { grid-template-columns: 4fr 8fr 12fr; }
+    &[data-wp-grid-layout="4-10-10"] { grid-template-columns: 4fr 10fr 10fr; }
+    &[data-wp-grid-layout="4-12-8"] { grid-template-columns: 4fr 12fr 8fr; }
+    &[data-wp-grid-layout="4-14-6"] { grid-template-columns: 4fr 14fr 6fr; }
+    &[data-wp-grid-layout="4-16-4"] { grid-template-columns: 4fr 16fr 4fr; }
+    &[data-wp-grid-layout="4-18-2"] { grid-template-columns: 4fr 18fr 2fr; }
+    &[data-wp-grid-layout="6-2-16"] { grid-template-columns: 6fr 2fr 16fr; }
+    &[data-wp-grid-layout="6-4-14"] { grid-template-columns: 6fr 4fr 14fr; }
+    &[data-wp-grid-layout="6-6-12"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="6-8-10"] { grid-template-columns: 6fr 8fr 10fr; }
+    &[data-wp-grid-layout="6-10-8"] { grid-template-columns: 6fr 10fr 8fr; }
+    &[data-wp-grid-layout="6-12-6"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="6-14-4"] { grid-template-columns: 6fr 14fr 4fr; }
+    &[data-wp-grid-layout="6-16-2"] { grid-template-columns: 6fr 16fr 2fr; }
+    &[data-wp-grid-layout="8-2-14"] { grid-template-columns: 8fr 2fr 14fr; }
+    &[data-wp-grid-layout="8-4-12"] { grid-template-columns: 8fr 4fr 12fr; }
+    &[data-wp-grid-layout="8-6-10"] { grid-template-columns: 8fr 6fr 10fr; }
+    &[data-wp-grid-layout="8-8-8"] { grid-template-columns: 8fr 8fr 8fr; }
+    &[data-wp-grid-layout="8-10-6"] { grid-template-columns: 8fr 10fr 6fr; }
+    &[data-wp-grid-layout="8-12-4"] { grid-template-columns: 8fr 12fr 4fr; }
+    &[data-wp-grid-layout="8-14-2"] { grid-template-columns: 8fr 14fr 2fr; }
+    &[data-wp-grid-layout="10-2-12"] { grid-template-columns: 10fr 2fr 12fr; }
+    &[data-wp-grid-layout="10-4-10"] { grid-template-columns: 10fr 4fr 10fr; }
+    &[data-wp-grid-layout="10-6-8"] { grid-template-columns: 10fr 6fr 8fr; }
+    &[data-wp-grid-layout="10-8-6"] { grid-template-columns: 10fr 8fr 6fr; }
+    &[data-wp-grid-layout="10-10-4"] { grid-template-columns: 10fr 10fr 4fr; }
+    &[data-wp-grid-layout="10-12-2"] { grid-template-columns: 10fr 12fr 2fr; }
+    &[data-wp-grid-layout="12-2-10"] { grid-template-columns: 12fr 2fr 10fr; }
+    &[data-wp-grid-layout="12-4-8"] { grid-template-columns: 12fr 4fr 8fr; }
+    &[data-wp-grid-layout="12-6-6"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="12-8-4"] { grid-template-columns: 12fr 8fr 4fr; }
+    &[data-wp-grid-layout="12-10-2"] { grid-template-columns: 12fr 10fr 2fr; }
+    &[data-wp-grid-layout="14-2-8"] { grid-template-columns: 14fr 2fr 8fr; }
+    &[data-wp-grid-layout="14-4-6"] { grid-template-columns: 14fr 4fr 6fr; }
+    &[data-wp-grid-layout="14-6-4"] { grid-template-columns: 14fr 6fr 4fr; }
+    &[data-wp-grid-layout="14-8-2"] { grid-template-columns: 14fr 8fr 2fr; }
+    &[data-wp-grid-layout="16-2-6"] { grid-template-columns: 16fr 2fr 6fr; }
+    &[data-wp-grid-layout="16-4-4"] { grid-template-columns: 16fr 4fr 4fr; }
+    &[data-wp-grid-layout="16-6-2"] { grid-template-columns: 16fr 6fr 2fr; }
+    &[data-wp-grid-layout="18-2-4"] { grid-template-columns: 18fr 2fr 4fr; }
+    &[data-wp-grid-layout="18-4-2"] { grid-template-columns: 18fr 4fr 2fr; }
+    &[data-wp-grid-layout="20-2-2"] { grid-template-columns: 20fr 2fr 2fr; }
+  }
+
+  &[data-wp-col-min-flex="3"],
+  &[data-wp-col-min-flex="4"] {
+    &[data-wp-grid-layout="2-2-20"] { grid-template-columns: 4fr 4fr 16fr; }
+    &[data-wp-grid-layout="2-4-18"] { grid-template-columns: 4fr 4fr 16fr; }
+    &[data-wp-grid-layout="2-6-16"] { grid-template-columns: 4fr 6fr 14fr; }
+    &[data-wp-grid-layout="2-8-14"] { grid-template-columns: 4fr 8fr 12fr; }
+    &[data-wp-grid-layout="2-10-12"] { grid-template-columns: 4fr 10fr 10fr; }
+    &[data-wp-grid-layout="2-12-10"] { grid-template-columns: 4fr 10fr 10fr; }
+    &[data-wp-grid-layout="2-14-8"] { grid-template-columns: 4fr 12fr 8fr; }
+    &[data-wp-grid-layout="2-16-6"] { grid-template-columns: 4fr 14fr 6fr; }
+    &[data-wp-grid-layout="2-18-4"] { grid-template-columns: 4fr 16fr 4fr; }
+    &[data-wp-grid-layout="2-20-2"] { grid-template-columns: 4fr 16fr 4fr; }
+    &[data-wp-grid-layout="4-2-18"] { grid-template-columns: 4fr 4fr 16fr; }
+    &[data-wp-grid-layout="4-4-16"] { grid-template-columns: 4fr 4fr 16fr; }
+    &[data-wp-grid-layout="4-6-14"] { grid-template-columns: 4fr 6fr 14fr; }
+    &[data-wp-grid-layout="4-8-12"] { grid-template-columns: 4fr 8fr 12fr; }
+    &[data-wp-grid-layout="4-10-10"] { grid-template-columns: 4fr 10fr 10fr; }
+    &[data-wp-grid-layout="4-12-8"] { grid-template-columns: 4fr 12fr 8fr; }
+    &[data-wp-grid-layout="4-14-6"] { grid-template-columns: 4fr 14fr 6fr; }
+    &[data-wp-grid-layout="4-16-4"] { grid-template-columns: 4fr 16fr 4fr; }
+    &[data-wp-grid-layout="4-18-2"] { grid-template-columns: 4fr 16fr 4fr; }
+    &[data-wp-grid-layout="6-2-16"] { grid-template-columns: 6fr 4fr 14fr; }
+    &[data-wp-grid-layout="6-4-14"] { grid-template-columns: 6fr 4fr 14fr; }
+    &[data-wp-grid-layout="6-6-12"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="6-8-10"] { grid-template-columns: 6fr 8fr 10fr; }
+    &[data-wp-grid-layout="6-10-8"] { grid-template-columns: 6fr 10fr 8fr; }
+    &[data-wp-grid-layout="6-12-6"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="6-14-4"] { grid-template-columns: 6fr 14fr 4fr; }
+    &[data-wp-grid-layout="6-16-2"] { grid-template-columns: 6fr 14fr 4fr; }
+    &[data-wp-grid-layout="8-2-14"] { grid-template-columns: 8fr 4fr 12fr; }
+    &[data-wp-grid-layout="8-4-12"] { grid-template-columns: 8fr 4fr 12fr; }
+    &[data-wp-grid-layout="8-6-10"] { grid-template-columns: 8fr 6fr 10fr; }
+    &[data-wp-grid-layout="8-8-8"] { grid-template-columns: 8fr 8fr 8fr; }
+    &[data-wp-grid-layout="8-10-6"] { grid-template-columns: 8fr 10fr 6fr; }
+    &[data-wp-grid-layout="8-12-4"] { grid-template-columns: 8fr 12fr 4fr; }
+    &[data-wp-grid-layout="8-14-2"] { grid-template-columns: 8fr 12fr 4fr; }
+    &[data-wp-grid-layout="10-2-12"] { grid-template-columns: 10fr 4fr 10fr; }
+    &[data-wp-grid-layout="10-4-10"] { grid-template-columns: 10fr 4fr 10fr; }
+    &[data-wp-grid-layout="10-6-8"] { grid-template-columns: 10fr 6fr 8fr; }
+    &[data-wp-grid-layout="10-8-6"] { grid-template-columns: 10fr 8fr 6fr; }
+    &[data-wp-grid-layout="10-10-4"] { grid-template-columns: 10fr 10fr 4fr; }
+    &[data-wp-grid-layout="10-12-2"] { grid-template-columns: 10fr 10fr 4fr; }
+    &[data-wp-grid-layout="12-2-10"] { grid-template-columns: 10fr 4fr 10fr; }
+    &[data-wp-grid-layout="12-4-8"] { grid-template-columns: 12fr 4fr 8fr; }
+    &[data-wp-grid-layout="12-6-6"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="12-8-4"] { grid-template-columns: 12fr 8fr 4fr; }
+    &[data-wp-grid-layout="12-10-2"] { grid-template-columns: 10fr 10fr 4fr; }
+    &[data-wp-grid-layout="14-2-8"] { grid-template-columns: 12fr 4fr 8fr; }
+    &[data-wp-grid-layout="14-4-6"] { grid-template-columns: 14fr 4fr 6fr; }
+    &[data-wp-grid-layout="14-6-4"] { grid-template-columns: 14fr 6fr 4fr; }
+    &[data-wp-grid-layout="14-8-2"] { grid-template-columns: 12fr 8fr 4fr; }
+    &[data-wp-grid-layout="16-2-6"] { grid-template-columns: 14fr 4fr 6fr; }
+    &[data-wp-grid-layout="16-4-4"] { grid-template-columns: 16fr 4fr 4fr; }
+    &[data-wp-grid-layout="16-6-2"] { grid-template-columns: 14fr 6fr 4fr; }
+    &[data-wp-grid-layout="18-2-4"] { grid-template-columns: 16fr 4fr 4fr; }
+    &[data-wp-grid-layout="18-4-2"] { grid-template-columns: 16fr 4fr 4fr; }
+    &[data-wp-grid-layout="20-2-2"] { grid-template-columns: 16fr 4fr 4fr; }
+  }
+
+  &[data-wp-col-min-flex="5"],
+  &[data-wp-col-min-flex="6"] {
+    &[data-wp-grid-layout="2-2-20"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="2-4-18"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="2-6-16"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="2-8-14"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="2-10-12"] { grid-template-columns: 6fr 8fr 10fr; }
+    &[data-wp-grid-layout="2-12-10"] { grid-template-columns: 6fr 10fr 8fr; }
+    &[data-wp-grid-layout="2-14-8"] { grid-template-columns: 6fr 10fr 8fr; }
+    &[data-wp-grid-layout="2-16-6"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="2-18-4"] { grid-template-columns: 6fr 12fr 4fr; }
+    &[data-wp-grid-layout="2-20-2"] { grid-template-columns: 6fr 10fr 6fr; }
+    &[data-wp-grid-layout="4-2-18"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="4-4-16"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="4-6-14"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="4-8-12"] { grid-template-columns: 6fr 8fr 10fr; }
+    &[data-wp-grid-layout="4-10-10"] { grid-template-columns: 6fr 8fr 10fr; }
+    &[data-wp-grid-layout="4-12-8"] { grid-template-columns: 6fr 10fr 8fr; }
+    &[data-wp-grid-layout="4-14-6"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="4-16-4"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="4-18-2"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="6-2-16"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="6-4-14"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="6-6-12"] { grid-template-columns: 6fr 6fr 12fr; }
+    &[data-wp-grid-layout="6-8-10"] { grid-template-columns: 6fr 8fr 10fr; }
+    &[data-wp-grid-layout="6-10-8"] { grid-template-columns: 6fr 10fr 8fr; }
+    &[data-wp-grid-layout="6-12-6"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="6-14-4"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="6-16-2"] { grid-template-columns: 6fr 12fr 6fr; }
+    &[data-wp-grid-layout="8-2-14"] { grid-template-columns: 8fr 6fr 10fr; }
+    &[data-wp-grid-layout="8-4-12"] { grid-template-columns: 8fr 6fr 10fr; }
+    &[data-wp-grid-layout="8-6-10"] { grid-template-columns: 8fr 6fr 10fr; }
+    &[data-wp-grid-layout="8-8-8"] { grid-template-columns: 8fr 8fr 8fr; }
+    &[data-wp-grid-layout="8-10-6"] { grid-template-columns: 8fr 10fr 6fr; }
+    &[data-wp-grid-layout="8-12-4"] { grid-template-columns: 8fr 10fr 6fr; }
+    &[data-wp-grid-layout="8-14-2"] { grid-template-columns: 8fr 10fr 6fr; }
+    &[data-wp-grid-layout="10-2-12"] { grid-template-columns: 8fr 6fr 10fr; }
+    &[data-wp-grid-layout="10-4-10"] { grid-template-columns: 10fr 6fr 8fr; }
+    &[data-wp-grid-layout="10-6-8"] { grid-template-columns: 10fr 6fr 8fr; }
+    &[data-wp-grid-layout="10-8-6"] { grid-template-columns: 10fr 8fr 6fr; }
+    &[data-wp-grid-layout="10-10-4"] { grid-template-columns: 10fr 8fr 6fr; }
+    &[data-wp-grid-layout="10-12-2"] { grid-template-columns: 8fr 10fr 6fr; }
+    &[data-wp-grid-layout="12-2-10"] { grid-template-columns: 10fr 6fr 8fr; }
+    &[data-wp-grid-layout="12-4-8"] { grid-template-columns: 10fr 6fr 8fr; }
+    &[data-wp-grid-layout="12-6-6"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="12-8-4"] { grid-template-columns: 10fr 8fr 6fr; }
+    &[data-wp-grid-layout="12-10-2"] { grid-template-columns: 10fr 8fr 6fr; }
+    &[data-wp-grid-layout="14-2-8"] { grid-template-columns: 10fr 6fr 8fr; }
+    &[data-wp-grid-layout="14-4-6"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="14-6-4"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="14-8-2"] { grid-template-columns: 10fr 8fr 6fr; }
+    &[data-wp-grid-layout="16-2-6"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="16-4-4"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="16-6-2"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="18-2-4"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="18-4-2"] { grid-template-columns: 12fr 6fr 6fr; }
+    &[data-wp-grid-layout="20-2-2"] { grid-template-columns: 12fr 6fr 6fr; }
+  }
+}
+
+
+/* 4 Columns */
+[data-wp-cols="4"] {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+[data-wp-breakpoint="st-sp-0"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="lt-lp-1"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="4"] {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+[data-wp-breakpoint="st-sp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="lt-lp-2"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="4"] {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+[data-wp-breakpoint="st-sp-3"],
+[data-wp-breakpoint="st-lp-3"],
+[data-wp-breakpoint="lt-sp-3"],
+[data-wp-breakpoint="lt-lp-3"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="4"] {
+      grid-template-columns: 1fr 1fr 1fr;
+
+      .workPageColumnLast {
+        grid-column: ~"1 / -1";
+      }
+    }
+  }
+}
+
+[data-wp-cols="4"] {
+  &[data-wp-col-min-flex="1"],
+  &[data-wp-col-min-flex="2"] {
+    &[data-wp-grid-layout="2-2-2-18"] { grid-template-columns: 2fr 2fr 2fr 18fr; }
+    &[data-wp-grid-layout="2-2-4-16"] { grid-template-columns: 2fr 2fr 4fr 16fr; }
+    &[data-wp-grid-layout="2-2-6-14"] { grid-template-columns: 2fr 2fr 6fr 14fr; }
+    &[data-wp-grid-layout="2-2-8-12"] { grid-template-columns: 2fr 2fr 8fr 12fr; }
+    &[data-wp-grid-layout="2-2-10-10"] { grid-template-columns: 2fr 2fr 10fr 10fr; }
+    &[data-wp-grid-layout="2-2-12-8"] { grid-template-columns: 2fr 2fr 12fr 8fr; }
+    &[data-wp-grid-layout="2-2-14-6"] { grid-template-columns: 2fr 2fr 14fr 6fr; }
+    &[data-wp-grid-layout="2-2-16-4"] { grid-template-columns: 2fr 2fr 16fr 4fr; }
+    &[data-wp-grid-layout="2-2-18-2"] { grid-template-columns: 2fr 2fr 18fr 2fr; }
+    &[data-wp-grid-layout="2-4-2-16"] { grid-template-columns: 2fr 4fr 2fr 16fr; }
+    &[data-wp-grid-layout="2-4-4-14"] { grid-template-columns: 2fr 4fr 4fr 14fr; }
+    &[data-wp-grid-layout="2-4-6-12"] { grid-template-columns: 2fr 4fr 6fr 12fr; }
+    &[data-wp-grid-layout="2-4-8-10"] { grid-template-columns: 2fr 4fr 8fr 10fr; }
+    &[data-wp-grid-layout="2-4-10-8"] { grid-template-columns: 2fr 4fr 10fr 8fr; }
+    &[data-wp-grid-layout="2-4-12-6"] { grid-template-columns: 2fr 4fr 12fr 6fr; }
+    &[data-wp-grid-layout="2-4-14-4"] { grid-template-columns: 2fr 4fr 14fr 4fr; }
+    &[data-wp-grid-layout="2-4-16-2"] { grid-template-columns: 2fr 4fr 16fr 2fr; }
+    &[data-wp-grid-layout="2-6-2-14"] { grid-template-columns: 2fr 6fr 2fr 14fr; }
+    &[data-wp-grid-layout="2-6-4-12"] { grid-template-columns: 2fr 6fr 4fr 12fr; }
+    &[data-wp-grid-layout="2-6-6-10"] { grid-template-columns: 2fr 6fr 6fr 10fr; }
+    &[data-wp-grid-layout="2-6-8-8"] { grid-template-columns: 2fr 6fr 8fr 8fr; }
+    &[data-wp-grid-layout="2-6-10-6"] { grid-template-columns: 2fr 6fr 10fr 6fr; }
+    &[data-wp-grid-layout="2-6-12-4"] { grid-template-columns: 2fr 6fr 12fr 4fr; }
+    &[data-wp-grid-layout="2-6-14-2"] { grid-template-columns: 2fr 6fr 14fr 2fr; }
+    &[data-wp-grid-layout="2-8-2-12"] { grid-template-columns: 2fr 8fr 2fr 12fr; }
+    &[data-wp-grid-layout="2-8-4-10"] { grid-template-columns: 2fr 8fr 4fr 10fr; }
+    &[data-wp-grid-layout="2-8-6-8"] { grid-template-columns: 2fr 8fr 6fr 8fr; }
+    &[data-wp-grid-layout="2-8-8-6"] { grid-template-columns: 2fr 8fr 8fr 6fr; }
+    &[data-wp-grid-layout="2-8-10-4"] { grid-template-columns: 2fr 8fr 10fr 4fr; }
+    &[data-wp-grid-layout="2-8-12-2"] { grid-template-columns: 2fr 8fr 12fr 2fr; }
+    &[data-wp-grid-layout="2-10-2-10"] { grid-template-columns: 2fr 10fr 2fr 10fr; }
+    &[data-wp-grid-layout="2-10-4-8"] { grid-template-columns: 2fr 10fr 4fr 8fr; }
+    &[data-wp-grid-layout="2-10-6-6"] { grid-template-columns: 2fr 10fr 6fr 6fr; }
+    &[data-wp-grid-layout="2-10-8-4"] { grid-template-columns: 2fr 10fr 8fr 4fr; }
+    &[data-wp-grid-layout="2-10-10-2"] { grid-template-columns: 2fr 10fr 10fr 2fr; }
+    &[data-wp-grid-layout="2-12-2-8"] { grid-template-columns: 2fr 12fr 2fr 8fr; }
+    &[data-wp-grid-layout="2-12-4-6"] { grid-template-columns: 2fr 12fr 4fr 6fr; }
+    &[data-wp-grid-layout="2-12-6-4"] { grid-template-columns: 2fr 12fr 6fr 4fr; }
+    &[data-wp-grid-layout="2-12-8-2"] { grid-template-columns: 2fr 12fr 8fr 2fr; }
+    &[data-wp-grid-layout="2-14-2-6"] { grid-template-columns: 2fr 14fr 2fr 6fr; }
+    &[data-wp-grid-layout="2-14-4-4"] { grid-template-columns: 2fr 14fr 4fr 4fr; }
+    &[data-wp-grid-layout="2-14-6-2"] { grid-template-columns: 2fr 14fr 6fr 2fr; }
+    &[data-wp-grid-layout="2-16-2-4"] { grid-template-columns: 2fr 16fr 2fr 4fr; }
+    &[data-wp-grid-layout="2-16-4-2"] { grid-template-columns: 2fr 16fr 4fr 2fr; }
+    &[data-wp-grid-layout="2-18-2-2"] { grid-template-columns: 2fr 18fr 2fr 2fr; }
+    &[data-wp-grid-layout="4-2-2-16"] { grid-template-columns: 4fr 2fr 2fr 16fr; }
+    &[data-wp-grid-layout="4-2-4-14"] { grid-template-columns: 4fr 2fr 4fr 14fr; }
+    &[data-wp-grid-layout="4-2-6-12"] { grid-template-columns: 4fr 2fr 6fr 12fr; }
+    &[data-wp-grid-layout="4-2-8-10"] { grid-template-columns: 4fr 2fr 8fr 10fr; }
+    &[data-wp-grid-layout="4-2-10-8"] { grid-template-columns: 4fr 2fr 10fr 8fr; }
+    &[data-wp-grid-layout="4-2-12-6"] { grid-template-columns: 4fr 2fr 12fr 6fr; }
+    &[data-wp-grid-layout="4-2-14-4"] { grid-template-columns: 4fr 2fr 14fr 4fr; }
+    &[data-wp-grid-layout="4-2-16-2"] { grid-template-columns: 4fr 2fr 16fr 2fr; }
+    &[data-wp-grid-layout="4-4-2-14"] { grid-template-columns: 4fr 4fr 2fr 14fr; }
+    &[data-wp-grid-layout="4-4-4-12"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="4-4-6-10"] { grid-template-columns: 4fr 4fr 6fr 10fr; }
+    &[data-wp-grid-layout="4-4-8-8"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="4-4-10-6"] { grid-template-columns: 4fr 4fr 10fr 6fr; }
+    &[data-wp-grid-layout="4-4-12-4"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="4-4-14-2"] { grid-template-columns: 4fr 4fr 14fr 2fr; }
+    &[data-wp-grid-layout="4-6-2-12"] { grid-template-columns: 4fr 6fr 2fr 12fr; }
+    &[data-wp-grid-layout="4-6-4-10"] { grid-template-columns: 4fr 6fr 4fr 10fr; }
+    &[data-wp-grid-layout="4-6-6-8"] { grid-template-columns: 4fr 6fr 6fr 8fr; }
+    &[data-wp-grid-layout="4-6-8-6"] { grid-template-columns: 4fr 6fr 8fr 6fr; }
+    &[data-wp-grid-layout="4-6-10-4"] { grid-template-columns: 4fr 6fr 10fr 4fr; }
+    &[data-wp-grid-layout="4-6-12-2"] { grid-template-columns: 4fr 6fr 12fr 2fr; }
+    &[data-wp-grid-layout="4-8-2-10"] { grid-template-columns: 4fr 8fr 2fr 10fr; }
+    &[data-wp-grid-layout="4-8-4-8"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="4-8-6-6"] { grid-template-columns: 4fr 8fr 6fr 6fr; }
+    &[data-wp-grid-layout="4-8-8-4"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="4-8-10-2"] { grid-template-columns: 4fr 8fr 10fr 2fr; }
+    &[data-wp-grid-layout="4-10-2-8"] { grid-template-columns: 4fr 10fr 2fr 8fr; }
+    &[data-wp-grid-layout="4-10-4-6"] { grid-template-columns: 4fr 10fr 4fr 6fr; }
+    &[data-wp-grid-layout="4-10-6-4"] { grid-template-columns: 4fr 10fr 6fr 4fr; }
+    &[data-wp-grid-layout="4-10-8-2"] { grid-template-columns: 4fr 10fr 8fr 2fr; }
+    &[data-wp-grid-layout="4-12-2-6"] { grid-template-columns: 4fr 12fr 2fr 6fr; }
+    &[data-wp-grid-layout="4-12-4-4"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="4-12-6-2"] { grid-template-columns: 4fr 12fr 6fr 2fr; }
+    &[data-wp-grid-layout="4-14-2-4"] { grid-template-columns: 4fr 14fr 2fr 4fr; }
+    &[data-wp-grid-layout="4-14-4-2"] { grid-template-columns: 4fr 14fr 4fr 2fr; }
+    &[data-wp-grid-layout="4-16-2-2"] { grid-template-columns: 4fr 16fr 2fr 2fr; }
+    &[data-wp-grid-layout="6-2-2-14"] { grid-template-columns: 6fr 2fr 2fr 14fr; }
+    &[data-wp-grid-layout="6-2-4-12"] { grid-template-columns: 6fr 2fr 4fr 12fr; }
+    &[data-wp-grid-layout="6-2-6-10"] { grid-template-columns: 6fr 2fr 6fr 10fr; }
+    &[data-wp-grid-layout="6-2-8-8"] { grid-template-columns: 6fr 2fr 8fr 8fr; }
+    &[data-wp-grid-layout="6-2-10-6"] { grid-template-columns: 6fr 2fr 10fr 6fr; }
+    &[data-wp-grid-layout="6-2-12-4"] { grid-template-columns: 6fr 2fr 12fr 4fr; }
+    &[data-wp-grid-layout="6-2-14-2"] { grid-template-columns: 6fr 2fr 14fr 2fr; }
+    &[data-wp-grid-layout="6-4-2-12"] { grid-template-columns: 6fr 4fr 2fr 12fr; }
+    &[data-wp-grid-layout="6-4-4-10"] { grid-template-columns: 6fr 4fr 4fr 10fr; }
+    &[data-wp-grid-layout="6-4-6-8"] { grid-template-columns: 6fr 4fr 6fr 8fr; }
+    &[data-wp-grid-layout="6-4-8-6"] { grid-template-columns: 6fr 4fr 8fr 6fr; }
+    &[data-wp-grid-layout="6-4-10-4"] { grid-template-columns: 6fr 4fr 10fr 4fr; }
+    &[data-wp-grid-layout="6-4-12-2"] { grid-template-columns: 6fr 4fr 12fr 2fr; }
+    &[data-wp-grid-layout="6-6-2-10"] { grid-template-columns: 6fr 6fr 2fr 10fr; }
+    &[data-wp-grid-layout="6-6-4-8"] { grid-template-columns: 6fr 6fr 4fr 8fr; }
+    &[data-wp-grid-layout="6-6-6-6"] { grid-template-columns: 6fr 6fr 6fr 6fr; }
+    &[data-wp-grid-layout="6-6-8-4"] { grid-template-columns: 6fr 6fr 8fr 4fr; }
+    &[data-wp-grid-layout="6-6-10-2"] { grid-template-columns: 6fr 6fr 10fr 2fr; }
+    &[data-wp-grid-layout="6-8-2-8"] { grid-template-columns: 6fr 8fr 2fr 8fr; }
+    &[data-wp-grid-layout="6-8-4-6"] { grid-template-columns: 6fr 8fr 4fr 6fr; }
+    &[data-wp-grid-layout="6-8-6-4"] { grid-template-columns: 6fr 8fr 6fr 4fr; }
+    &[data-wp-grid-layout="6-8-8-2"] { grid-template-columns: 6fr 8fr 8fr 2fr; }
+    &[data-wp-grid-layout="6-10-2-6"] { grid-template-columns: 6fr 10fr 2fr 6fr; }
+    &[data-wp-grid-layout="6-10-4-4"] { grid-template-columns: 6fr 10fr 4fr 4fr; }
+    &[data-wp-grid-layout="6-10-6-2"] { grid-template-columns: 6fr 10fr 6fr 2fr; }
+    &[data-wp-grid-layout="6-12-2-4"] { grid-template-columns: 6fr 12fr 2fr 4fr; }
+    &[data-wp-grid-layout="6-12-4-2"] { grid-template-columns: 6fr 12fr 4fr 2fr; }
+    &[data-wp-grid-layout="6-14-2-2"] { grid-template-columns: 6fr 14fr 2fr 2fr; }
+    &[data-wp-grid-layout="8-2-2-12"] { grid-template-columns: 8fr 2fr 2fr 12fr; }
+    &[data-wp-grid-layout="8-2-4-10"] { grid-template-columns: 8fr 2fr 4fr 10fr; }
+    &[data-wp-grid-layout="8-2-6-8"] { grid-template-columns: 8fr 2fr 6fr 8fr; }
+    &[data-wp-grid-layout="8-2-8-6"] { grid-template-columns: 8fr 2fr 8fr 6fr; }
+    &[data-wp-grid-layout="8-2-10-4"] { grid-template-columns: 8fr 2fr 10fr 4fr; }
+    &[data-wp-grid-layout="8-2-12-2"] { grid-template-columns: 8fr 2fr 12fr 2fr; }
+    &[data-wp-grid-layout="8-4-2-10"] { grid-template-columns: 8fr 4fr 2fr 10fr; }
+    &[data-wp-grid-layout="8-4-4-8"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="8-4-6-6"] { grid-template-columns: 8fr 4fr 6fr 6fr; }
+    &[data-wp-grid-layout="8-4-8-4"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="8-4-10-2"] { grid-template-columns: 8fr 4fr 10fr 2fr; }
+    &[data-wp-grid-layout="8-6-2-8"] { grid-template-columns: 8fr 6fr 2fr 8fr; }
+    &[data-wp-grid-layout="8-6-4-6"] { grid-template-columns: 8fr 6fr 4fr 6fr; }
+    &[data-wp-grid-layout="8-6-6-4"] { grid-template-columns: 8fr 6fr 6fr 4fr; }
+    &[data-wp-grid-layout="8-6-8-2"] { grid-template-columns: 8fr 6fr 8fr 2fr; }
+    &[data-wp-grid-layout="8-8-2-6"] { grid-template-columns: 8fr 8fr 2fr 6fr; }
+    &[data-wp-grid-layout="8-8-4-4"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="8-8-6-2"] { grid-template-columns: 8fr 8fr 6fr 2fr; }
+    &[data-wp-grid-layout="8-10-2-4"] { grid-template-columns: 8fr 10fr 2fr 4fr; }
+    &[data-wp-grid-layout="8-10-4-2"] { grid-template-columns: 8fr 10fr 4fr 2fr; }
+    &[data-wp-grid-layout="8-12-2-2"] { grid-template-columns: 8fr 12fr 2fr 2fr; }
+    &[data-wp-grid-layout="10-2-2-10"] { grid-template-columns: 10fr 2fr 2fr 10fr; }
+    &[data-wp-grid-layout="10-2-4-8"] { grid-template-columns: 10fr 2fr 4fr 8fr; }
+    &[data-wp-grid-layout="10-2-6-6"] { grid-template-columns: 10fr 2fr 6fr 6fr; }
+    &[data-wp-grid-layout="10-2-8-4"] { grid-template-columns: 10fr 2fr 8fr 4fr; }
+    &[data-wp-grid-layout="10-2-10-2"] { grid-template-columns: 10fr 2fr 10fr 2fr; }
+    &[data-wp-grid-layout="10-4-2-8"] { grid-template-columns: 10fr 4fr 2fr 8fr; }
+    &[data-wp-grid-layout="10-4-4-6"] { grid-template-columns: 10fr 4fr 4fr 6fr; }
+    &[data-wp-grid-layout="10-4-6-4"] { grid-template-columns: 10fr 4fr 6fr 4fr; }
+    &[data-wp-grid-layout="10-4-8-2"] { grid-template-columns: 10fr 4fr 8fr 2fr; }
+    &[data-wp-grid-layout="10-6-2-6"] { grid-template-columns: 10fr 6fr 2fr 6fr; }
+    &[data-wp-grid-layout="10-6-4-4"] { grid-template-columns: 10fr 6fr 4fr 4fr; }
+    &[data-wp-grid-layout="10-6-6-2"] { grid-template-columns: 10fr 6fr 6fr 2fr; }
+    &[data-wp-grid-layout="10-8-2-4"] { grid-template-columns: 10fr 8fr 2fr 4fr; }
+    &[data-wp-grid-layout="10-8-4-2"] { grid-template-columns: 10fr 8fr 4fr 2fr; }
+    &[data-wp-grid-layout="10-10-2-2"] { grid-template-columns: 10fr 10fr 2fr 2fr; }
+    &[data-wp-grid-layout="12-2-2-8"] { grid-template-columns: 12fr 2fr 2fr 8fr; }
+    &[data-wp-grid-layout="12-2-4-6"] { grid-template-columns: 12fr 2fr 4fr 6fr; }
+    &[data-wp-grid-layout="12-2-6-4"] { grid-template-columns: 12fr 2fr 6fr 4fr; }
+    &[data-wp-grid-layout="12-2-8-2"] { grid-template-columns: 12fr 2fr 8fr 2fr; }
+    &[data-wp-grid-layout="12-4-2-6"] { grid-template-columns: 12fr 4fr 2fr 6fr; }
+    &[data-wp-grid-layout="12-4-4-4"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="12-4-6-2"] { grid-template-columns: 12fr 4fr 6fr 2fr; }
+    &[data-wp-grid-layout="12-6-2-4"] { grid-template-columns: 12fr 6fr 2fr 4fr; }
+    &[data-wp-grid-layout="12-6-4-2"] { grid-template-columns: 12fr 6fr 4fr 2fr; }
+    &[data-wp-grid-layout="12-8-2-2"] { grid-template-columns: 12fr 8fr 2fr 2fr; }
+    &[data-wp-grid-layout="14-2-2-6"] { grid-template-columns: 14fr 2fr 2fr 6fr; }
+    &[data-wp-grid-layout="14-2-4-4"] { grid-template-columns: 14fr 2fr 4fr 4fr; }
+    &[data-wp-grid-layout="14-2-6-2"] { grid-template-columns: 14fr 2fr 6fr 2fr; }
+    &[data-wp-grid-layout="14-4-2-4"] { grid-template-columns: 14fr 4fr 2fr 4fr; }
+    &[data-wp-grid-layout="14-4-4-2"] { grid-template-columns: 14fr 4fr 4fr 2fr; }
+    &[data-wp-grid-layout="14-6-2-2"] { grid-template-columns: 14fr 6fr 2fr 2fr; }
+    &[data-wp-grid-layout="16-2-2-4"] { grid-template-columns: 16fr 2fr 2fr 4fr; }
+    &[data-wp-grid-layout="16-2-4-2"] { grid-template-columns: 16fr 2fr 4fr 2fr; }
+    &[data-wp-grid-layout="16-4-2-2"] { grid-template-columns: 16fr 4fr 2fr 2fr; }
+    &[data-wp-grid-layout="18-2-2-2"] { grid-template-columns: 18fr 2fr 2fr 2fr; }
+  }
+
+
+  /* 4 Columns - min size 3fr */
+  &[data-wp-col-min-flex="3"],
+  &[data-wp-col-min-flex="4"] {
+    &[data-wp-grid-layout="2-2-2-18"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="2-2-4-16"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="2-2-6-14"] { grid-template-columns: 4fr 4fr 6fr 10fr; }
+    &[data-wp-grid-layout="2-2-8-12"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="2-2-10-10"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="2-2-12-8"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="2-2-14-6"] { grid-template-columns: 4fr 4fr 10fr 6fr; }
+    &[data-wp-grid-layout="2-2-16-4"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="2-2-18-2"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="2-4-2-16"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="2-4-4-14"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="2-4-6-12"] { grid-template-columns: 4fr 4fr 6fr 10fr; }
+    &[data-wp-grid-layout="2-4-8-10"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="2-4-10-8"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="2-4-12-6"] { grid-template-columns: 4fr 4fr 10fr 6fr; }
+    &[data-wp-grid-layout="2-4-14-4"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="2-4-16-2"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="2-6-2-14"] { grid-template-columns: 4fr 6fr 4fr 10fr; }
+    &[data-wp-grid-layout="2-6-4-12"] { grid-template-columns: 4fr 6fr 4fr 10fr; }
+    &[data-wp-grid-layout="2-6-6-10"] { grid-template-columns: 4fr 6fr 6fr 8fr; }
+    &[data-wp-grid-layout="2-6-8-8"] { grid-template-columns: 4fr 6fr 6fr 8fr; }
+    &[data-wp-grid-layout="2-6-10-6"] { grid-template-columns: 4fr 6fr 8fr 6fr; }
+    &[data-wp-grid-layout="2-6-12-4"] { grid-template-columns: 4fr 6fr 10fr 4fr; }
+    &[data-wp-grid-layout="2-6-14-2"] { grid-template-columns: 4fr 6fr 10fr 4fr; }
+    &[data-wp-grid-layout="2-8-2-12"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="2-8-4-10"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="2-8-6-8"] { grid-template-columns: 4fr 6fr 6fr 8fr; }
+    &[data-wp-grid-layout="2-8-8-6"] { grid-template-columns: 4fr 8fr 6fr 6fr; }
+    &[data-wp-grid-layout="2-8-10-4"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="2-8-12-2"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="2-10-2-10"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="2-10-4-8"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="2-10-6-6"] { grid-template-columns: 4fr 8fr 6fr 6fr; }
+    &[data-wp-grid-layout="2-10-8-4"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="2-10-10-2"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="2-12-2-8"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="2-12-4-6"] { grid-template-columns: 4fr 10fr 4fr 6fr; }
+    &[data-wp-grid-layout="2-12-6-4"] { grid-template-columns: 4fr 10fr 6fr 4fr; }
+    &[data-wp-grid-layout="2-12-8-2"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="2-14-2-6"] { grid-template-columns: 4fr 10fr 4fr 6fr; }
+    &[data-wp-grid-layout="2-14-4-4"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="2-14-6-2"] { grid-template-columns: 4fr 10fr 6fr 4fr; }
+    &[data-wp-grid-layout="2-16-2-4"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="2-16-4-2"] { grid-template-columns: 4fr 10fr 4fr 4fr; }
+    &[data-wp-grid-layout="2-18-2-2"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="4-2-2-16"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="4-2-4-14"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="4-2-6-12"] { grid-template-columns: 4fr 4fr 6fr 10fr; }
+    &[data-wp-grid-layout="4-2-8-10"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="4-2-10-8"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="4-2-12-6"] { grid-template-columns: 4fr 4fr 10fr 6fr; }
+    &[data-wp-grid-layout="4-2-14-4"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="4-2-16-2"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="4-4-2-14"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="4-4-4-12"] { grid-template-columns: 4fr 4fr 4fr 12fr; }
+    &[data-wp-grid-layout="4-4-6-10"] { grid-template-columns: 4fr 4fr 6fr 10fr; }
+    &[data-wp-grid-layout="4-4-8-8"] { grid-template-columns: 4fr 4fr 8fr 8fr; }
+    &[data-wp-grid-layout="4-4-10-6"] { grid-template-columns: 4fr 4fr 10fr 6fr; }
+    &[data-wp-grid-layout="4-4-12-4"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="4-4-14-2"] { grid-template-columns: 4fr 4fr 12fr 4fr; }
+    &[data-wp-grid-layout="4-6-2-12"] { grid-template-columns: 4fr 6fr 4fr 10fr; }
+    &[data-wp-grid-layout="4-6-4-10"] { grid-template-columns: 4fr 6fr 4fr 10fr; }
+    &[data-wp-grid-layout="4-6-6-8"] { grid-template-columns: 4fr 6fr 6fr 8fr; }
+    &[data-wp-grid-layout="4-6-8-6"] { grid-template-columns: 4fr 6fr 8fr 6fr; }
+    &[data-wp-grid-layout="4-6-10-4"] { grid-template-columns: 4fr 6fr 10fr 4fr; }
+    &[data-wp-grid-layout="4-6-12-2"] { grid-template-columns: 4fr 6fr 10fr 4fr; }
+    &[data-wp-grid-layout="4-8-2-10"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="4-8-4-8"] { grid-template-columns: 4fr 8fr 4fr 8fr; }
+    &[data-wp-grid-layout="4-8-6-6"] { grid-template-columns: 4fr 8fr 6fr 6fr; }
+    &[data-wp-grid-layout="4-8-8-4"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="4-8-10-2"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="4-10-2-8"] { grid-template-columns: 4fr 10fr 4fr 8fr; }
+    &[data-wp-grid-layout="4-10-4-6"] { grid-template-columns: 4fr 10fr 4fr 6fr; }
+    &[data-wp-grid-layout="4-10-6-4"] { grid-template-columns: 4fr 10fr 6fr 4fr; }
+    &[data-wp-grid-layout="4-10-8-2"] { grid-template-columns: 4fr 8fr 8fr 4fr; }
+    &[data-wp-grid-layout="4-12-2-6"] { grid-template-columns: 4fr 10fr 4fr 6fr; }
+    &[data-wp-grid-layout="4-12-4-4"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="4-12-6-2"] { grid-template-columns: 4fr 10fr 6fr 4fr; }
+    &[data-wp-grid-layout="4-14-2-4"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="4-14-4-2"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="4-16-2-2"] { grid-template-columns: 4fr 12fr 4fr 4fr; }
+    &[data-wp-grid-layout="6-2-2-14"] { grid-template-columns: 6fr 4fr 4fr 10fr; }
+    &[data-wp-grid-layout="6-2-4-12"] { grid-template-columns: 6fr 4fr 4fr 10fr; }
+    &[data-wp-grid-layout="6-2-6-10"] { grid-template-columns: 6fr 4fr 6fr 8fr; }
+    &[data-wp-grid-layout="6-2-8-8"] { grid-template-columns: 6fr 4fr 8fr 6fr; }
+    &[data-wp-grid-layout="6-2-10-6"] { grid-template-columns: 6fr 4fr 8fr 6fr; }
+    &[data-wp-grid-layout="6-2-12-4"] { grid-template-columns: 6fr 4fr 10fr 4fr; }
+    &[data-wp-grid-layout="6-2-14-2"] { grid-template-columns: 6fr 4fr 10fr 4fr; }
+    &[data-wp-grid-layout="6-4-2-12"] { grid-template-columns: 6fr 4fr 4fr 10fr; }
+    &[data-wp-grid-layout="6-4-4-10"] { grid-template-columns: 6fr 4fr 4fr 10fr; }
+    &[data-wp-grid-layout="6-4-6-8"] { grid-template-columns: 6fr 4fr 6fr 8fr; }
+    &[data-wp-grid-layout="6-4-8-6"] { grid-template-columns: 6fr 4fr 8fr 6fr; }
+    &[data-wp-grid-layout="6-4-10-4"] { grid-template-columns: 6fr 4fr 10fr 4fr; }
+    &[data-wp-grid-layout="6-4-12-2"] { grid-template-columns: 6fr 4fr 10fr 4fr; }
+    &[data-wp-grid-layout="6-6-2-10"] { grid-template-columns: 6fr 6fr 4fr 8fr; }
+    &[data-wp-grid-layout="6-6-4-8"] { grid-template-columns: 6fr 6fr 4fr 8fr; }
+    &[data-wp-grid-layout="6-6-6-6"] { grid-template-columns: 6fr 6fr 6fr 6fr; }
+    &[data-wp-grid-layout="6-6-8-4"] { grid-template-columns: 6fr 6fr 8fr 4fr; }
+    &[data-wp-grid-layout="6-6-10-2"] { grid-template-columns: 6fr 6fr 8fr 4fr; }
+    &[data-wp-grid-layout="6-8-2-8"] { grid-template-columns: 6fr 8fr 4fr 6fr; }
+    &[data-wp-grid-layout="6-8-4-6"] { grid-template-columns: 6fr 8fr 4fr 6fr; }
+    &[data-wp-grid-layout="6-8-6-4"] { grid-template-columns: 6fr 8fr 6fr 4fr; }
+    &[data-wp-grid-layout="6-8-8-2"] { grid-template-columns: 6fr 8fr 6fr 4fr; }
+    &[data-wp-grid-layout="6-10-2-6"] { grid-template-columns: 6fr 8fr 4fr 6fr; }
+    &[data-wp-grid-layout="6-10-4-4"] { grid-template-columns: 6fr 10fr 4fr 4fr; }
+    &[data-wp-grid-layout="6-10-6-2"] { grid-template-columns: 6fr 8fr 6fr 4fr; }
+    &[data-wp-grid-layout="6-12-2-4"] { grid-template-columns: 6fr 10fr 4fr 4fr; }
+    &[data-wp-grid-layout="6-12-4-2"] { grid-template-columns: 6fr 10fr 4fr 4fr; }
+    &[data-wp-grid-layout="6-14-2-2"] { grid-template-columns: 6fr 10fr 4fr 4fr; }
+    &[data-wp-grid-layout="8-2-2-12"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="8-2-4-10"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="8-2-6-8"] { grid-template-columns: 8fr 4fr 6fr 6fr; }
+    &[data-wp-grid-layout="8-2-8-6"] { grid-template-columns: 8fr 4fr 6fr 6fr; }
+    &[data-wp-grid-layout="8-2-10-4"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="8-2-12-2"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="8-4-2-10"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="8-4-4-8"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="8-4-6-6"] { grid-template-columns: 8fr 4fr 6fr 6fr; }
+    &[data-wp-grid-layout="8-4-8-4"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="8-4-10-2"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="8-6-2-8"] { grid-template-columns: 8fr 6fr 4fr 6fr; }
+    &[data-wp-grid-layout="8-6-4-6"] { grid-template-columns: 8fr 6fr 4fr 6fr; }
+    &[data-wp-grid-layout="8-6-6-4"] { grid-template-columns: 8fr 6fr 6fr 4fr; }
+    &[data-wp-grid-layout="8-6-8-2"] { grid-template-columns: 8fr 6fr 6fr 4fr; }
+    &[data-wp-grid-layout="8-8-2-6"] { grid-template-columns: 8fr 6fr 4fr 6fr; }
+    &[data-wp-grid-layout="8-8-2-6"] { grid-template-columns: 8fr 8fr 2fr 6fr; }
+    &[data-wp-grid-layout="8-8-4-4"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="8-8-6-2"] { grid-template-columns: 8fr 6fr 6fr 4fr; }
+    &[data-wp-grid-layout="8-10-2-4"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="8-10-4-2"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="8-12-2-2"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="10-2-2-10"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="10-2-4-8"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="10-2-6-6"] { grid-template-columns: 8fr 4fr 6fr 6fr; }
+    &[data-wp-grid-layout="10-2-8-4"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="10-2-10-2"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="10-4-2-8"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="10-4-4-6"] { grid-template-columns: 10fr 4fr 4fr 6fr; }
+    &[data-wp-grid-layout="10-4-6-4"] { grid-template-columns: 10fr 4fr 6fr 4fr; }
+    &[data-wp-grid-layout="10-4-8-2"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="10-6-2-6"] { grid-template-columns: 8fr 6fr 4fr 6fr; }
+    &[data-wp-grid-layout="10-6-4-4"] { grid-template-columns: 10fr 6fr 4fr 4fr; }
+    &[data-wp-grid-layout="10-6-6-2"] { grid-template-columns: 8fr 6fr 6fr 4fr; }
+    &[data-wp-grid-layout="10-8-2-4"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="10-8-4-2"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="10-10-2-2"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="12-2-2-8"] { grid-template-columns: 8fr 4fr 4fr 8fr; }
+    &[data-wp-grid-layout="12-2-4-6"] { grid-template-columns: 10fr 4fr 4fr 6fr; }
+    &[data-wp-grid-layout="12-2-6-4"] { grid-template-columns: 10fr 4fr 6fr 4fr; }
+    &[data-wp-grid-layout="12-2-8-2"] { grid-template-columns: 8fr 4fr 8fr 4fr; }
+    &[data-wp-grid-layout="12-4-2-6"] { grid-template-columns: 10fr 4fr 4fr 6fr; }
+    &[data-wp-grid-layout="12-4-4-4"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="12-4-6-2"] { grid-template-columns: 10fr 4fr 6fr 4fr; }
+    &[data-wp-grid-layout="12-6-2-4"] { grid-template-columns: 10fr 6fr 4fr 4fr; }
+    &[data-wp-grid-layout="12-6-4-2"] { grid-template-columns: 10fr 6fr 4fr 4fr; }
+    &[data-wp-grid-layout="12-8-2-2"] { grid-template-columns: 8fr 8fr 4fr 4fr; }
+    &[data-wp-grid-layout="14-2-2-6"] { grid-template-columns: 10fr 4fr 4fr 6fr; }
+    &[data-wp-grid-layout="14-2-4-4"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="14-2-6-2"] { grid-template-columns: 10fr 4fr 6fr 4fr; }
+    &[data-wp-grid-layout="14-4-2-4"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="14-4-4-2"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="14-6-2-2"] { grid-template-columns: 10fr 6fr 4fr 4fr; }
+    &[data-wp-grid-layout="16-2-2-4"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="16-2-4-2"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="16-4-2-2"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+    &[data-wp-grid-layout="18-2-2-2"] { grid-template-columns: 12fr 4fr 4fr 4fr; }
+  }
+}
+
+
+[data-wp-cols="5"] {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+[data-wp-breakpoint="st-sp-0"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="lt-lp-1"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="5"] {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+[data-wp-breakpoint="st-sp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="lt-lp-2"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="5"] {
+      grid-template-columns: 1fr 1fr;
+
+      .workPageColumnLast {
+        grid-column: ~"1 / -1";
+      }
+    }
+  }
+}
+
+[data-wp-breakpoint="st-sp-3"],
+[data-wp-breakpoint="st-lp-3"],
+[data-wp-breakpoint="lt-sp-3"],
+[data-wp-breakpoint="lt-lp-3"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="5"] {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+[data-wp-cols="6"] {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+[data-wp-breakpoint="st-sp-0"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="lt-lp-1"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="6"] {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+[data-wp-breakpoint="st-sp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="lt-lp-2"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="6"] {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+[data-wp-breakpoint="st-sp-3"],
+[data-wp-breakpoint="st-lp-3"],
+[data-wp-breakpoint="lt-sp-3"],
+[data-wp-breakpoint="lt-lp-3"] {
+  .workPageRow {
+    .workPageRowInner[data-wp-cols="6"] {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+/* END "WorkPageRow.less" */
+
+/* START "WorkPageColumn.less" */
+.workPageColumn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-width: 0;
+
+  [data-wp-breakpoint="st-sp-1"] &,
+  [data-wp-breakpoint="st-sp-0"] & {
+    min-width: 100%;
+  }
+
+  .workPageColumnDeleteButton {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.25rem;
+  }
+
+  .workPageColumnToolbar {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0 0.5rem;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &.workPageColumnEmpty .workPageAddWidgetButton {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+}
+
+/* END "WorkPageColumn.less" */
+
+/* START "WorkPageCell.less" */
+.workPageCell {
+  flex: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: @sapUiElementBorderCornerRadius;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+
+  [data-wp-breakpoint="st-sp-0"] &,
+  [data-wp-breakpoint="st-sp-1"] &,
+  [data-wp-breakpoint="st-lp-1"] &,
+  [data-wp-breakpoint="lt-sp-1"] & {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &.workPageCellEmpty {
+    background-color: transparent;
+    flex: 1;
+  }
+
+  &+.workPageCell {
+    margin-top: 1rem;
+  }
+
+  .workPageEditMode .workpageCellWidget {
+    pointer-events: none;
+  }
+
+  .workpageCellWidget {
+    flex: 1 1 auto;
+  }
+
+  .workpageCellWidgetToolbar {
+    position: relative;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    border-radius: 1rem;
+    z-index: 1;
+  }
+
+  .workPageGridContainer {
+    z-index: 0;
+  }
+
+  .sapUshellVizInstance {
+    position: relative;
+
+    .sapMGT {
+      max-width: 100%;
+    }
+  }
+
+  .workPageCellControlButtons {
+    opacity: 0;
+  }
+
+  .workPageCellOverflowToolbar {
+    border-radius: 1rem 1rem 0 0;
+    padding-right: 1rem;
+  }
+
+  &.workPageCellCardMode {
+    .workPageCellOverflowToolbar {
+      background: transparent;
+      border-bottom: none;
+    }
+  }
+}
+
+.workPageCell.workPageCellTileMode {
+  box-shadow: @sapUiContentShadow0;
+
+  .workPageGridContainer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+.workPageCell.workPageCellTileMode {
+  .workPageGridContainer {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+}
+
+[data-wp-breakpoint="lt-lp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-lp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="lt-lp-3"],
+[data-wp-breakpoint="st-lp-3"],
+[data-wp-breakpoint="lt-lp-4"],
+[data-wp-breakpoint="st-lp-4"] {
+  .workPageCell.workPageCellTileMode {
+    .workPageGridContainer {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+}
+
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-sp-0"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="st-sp-2"],
+[data-wp-breakpoint="lt-sp-3"],
+[data-wp-breakpoint="st-sp-3"],
+[data-wp-breakpoint="lt-sp-4"],
+[data-wp-breakpoint="st-sp-4"] {
+  .workPageCell.workPageCellTileMode {
+    .workPageGridContainer {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  }
+}
+
+/* EDIT MODE */
+.workPageEditMode {
+
+  .workPageCell {
+    &.workPageCellEmpty {
+      background-color: @sapUiShellContainerBackground;
+      min-height: 14rem;
+    }
+
+    &.workPageCellTileMode {
+
+      &:hover,
+      &.workPageCellFocused {
+        box-shadow: @sapUiContentShadow2;
+      }
+    }
+
+    &:hover,
+    &.workPageCellFocused {
+      .workPageCellControlButtons {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* END "WorkPageCell.less" */
+
+/* START "WorkPageColumnResizer.less" */
+.workPageDivider {
+  position: absolute;
+  transform: translateX(-50%);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  left: 0;
+  padding: 4px;
+
+  &:hover {
+    cursor: col-resize;
+  }
+
+  .workPageDividerInner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    border-right: 2px dashed @sapUiNeutralBorder;
+    transform: translateX(-2px);
+  }
+}
+
+html[dir=rtl] .workPageDivider {
+  transform: translateX(50%);
+
+  .workPageDividerInner {
+    transform: translateX(2px);
+  }
+}
+
+.workPageDividerButton {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  &.workPageColumnButtonRight {
+    left: auto;
+    right: 0;
+    transform: translateX(calc(~"0.5rem + 6.5px"));
+  }
+
+  &.workPageColumnButtonLeft {
+    transform: translateX(calc(~"-0.5rem - 6.5px"));
+  }
+}
+
+
+html[dir=rtl] .workPageDividerButton {
+  &.workPageColumnButtonRight {
+    left: auto;
+    right: 0;
+    transform: translateX(calc(~"-0.5rem - 6.5px"));
+  }
+
+  &.workPageColumnButtonLeft {
+    transform: translateX(calc(~"0.5rem + 6.5px"));
+  }
+}
+
+[data-wp-breakpoint="lt-lp-1"],
+[data-wp-breakpoint="st-lp-1"],
+[data-wp-breakpoint="lt-sp-1"],
+[data-wp-breakpoint="st-sp-1"],
+[data-wp-breakpoint="st-sp-0"] {
+
+  // max. 1 column -> no divider
+  .workPageDivider {
+    display: none;
+  }
+}
+
+[data-wp-breakpoint="lt-lp-2"],
+[data-wp-breakpoint="st-lp-2"],
+[data-wp-breakpoint="lt-sp-2"],
+[data-wp-breakpoint="st-sp-2"] {
+
+  // max. 2 columns -> no resizing possible for >= 3 columns
+  .workPageColumn[data-count="4"] .workPageDivider,
+  .workPageColumn[data-count="5"] .workPageDivider,
+  .workPageColumn[data-count="6"] .workPageDivider {
+    pointer-events: none;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  // max. 2 columns -> no divider for 3rd columns
+  .workPageColumn[data-index="3"][data-count="3"] .workPageDivider,
+  .workPageColumn[data-index="3"][data-count="4"] .workPageDivider,
+  .workPageColumn[data-index="3"][data-count="5"] .workPageDivider,
+  .workPageColumn[data-index="3"][data-count="6"] .workPageDivider,
+  .workPageColumn[data-index="5"][data-count="5"] .workPageDivider,
+  .workPageColumn[data-index="5"][data-count="6"] .workPageDivider {
+    display: none;
+  }
+}
+
+
+[data-wp-breakpoint="lt-lp-3"],
+[data-wp-breakpoint="st-lp-3"],
+[data-wp-breakpoint="lt-sp-3"],
+[data-wp-breakpoint="st-sp-3"] {
+
+  // max. 3 columns -> no resizing possible for >= 4 columns
+  .workPageColumn[data-count="4"] .workPageDivider,
+  .workPageColumn[data-count="5"] .workPageDivider,
+  .workPageColumn[data-count="6"] .workPageDivider {
+    pointer-events: none;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  // max. 3 columns -> no divider for 4th column
+  .workPageColumn[data-index="4"][data-count="4"] .workPageDivider,
+  .workPageColumn[data-index="4"][data-count="5"] .workPageDivider,
+  .workPageColumn[data-index="4"][data-count="6"] .workPageDivider {
+    display: none;
+  }
+}
+
+/* END "WorkPageColumnResizer.less" */
+

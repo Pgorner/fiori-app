@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/base/Log","sap/ui/core/Element"],function(e,i){"use strict";class n{add(n,t){if(!i.getElementById(t)){e.warning(`Failed to find control with id '${t}'`);return}if(n.includes(t)){this.#e(n,t)}this.#i(n,t)}#e(e,i){const n=e.indexOf(i);if(n===-1){return}e.splice(n,1)}#i(e,i){e.push(i)}}return new n});
+//# sourceMappingURL=SidePaneStrategy.js.map

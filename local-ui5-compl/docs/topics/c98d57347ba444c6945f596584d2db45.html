@@ -1,0 +1,58 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioc98d57347ba444c6945f596584d2db45" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-21-expression-binding-c98d573.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 21: Expression Binding</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 21: Expression Binding</h2></div><div class="shortdesc">Sometimes the predefined types of SAPUI5 are not flexible enough
+		and you want to do a simple calculation or formatting in the view - that is where
+		expressions are really helpful. We use them to format our price according to the current
+		number in the data model.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio636b7008113442c8a4765bb710dd8ea9_LowRes.png" title="A list of invoices is displayed below the panel." alt="A list of invoices is displayed below the panel." usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">The price is now formatted according to its number</h2></span></div>
+		</section><section id="section_uzp_rmk_syb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.21" title="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.21" class="sap-doc" alt="entity/sap.m.tutorial.walkthrough/sample/sap.m.tutorial.walkthrough.21">Walkthrough - Step 21</a>.</p>
+		</section><section id="section_vzp_rmk_syb">
+			<h2 class="title ">webapp/view/InvoiceList.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+    controllerName="ui5.walkthrough.controller.InvoiceList"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"&gt;
+    &lt;List
+        headerText="{i18n&gt;invoiceListTitle}"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        items="{invoice&gt;/Invoices}"&gt;
+        &lt;items&gt;
+            &lt;ObjectListItem
+                title="{invoice&gt;Quantity} x {invoice&gt;ProductName}"
+                number="{
+                    parts: [
+                        'invoice&gt;ExtendedPrice',
+                        'view&gt;/currency'
+                    ],
+                    type: 'sap.ui.model.type.Currency',
+                    formatOptions: {
+                        showMeasure: false
+                    }
+                }"
+                numberUnit="{view&gt;/currency}"
+                <span class="emphasis">numberState="{= ${invoice&gt;ExtendedPrice} &gt; 50 ? 'Error' : 'Success' }</span>"/&gt;
+        &lt;/items&gt;
+    &lt;/List&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add the property <code>numberState</code> in our declarative view and introduce a new binding syntax that starts with
+					<code>=</code> inside the brackets. This symbol is used to initiate a new binding syntax, it's called an expression and can do
+				simple calculation logic like the ternary operator shown here. </p>
+			<p>The condition of the operator is a value from our data model. A model binding inside an expression binding has to be escaped with the
+					<code>$</code> sign as you can see in the code. We set the state to "Error" (the number will appear in red) if the price is
+				higher than 50 and to "Success" (the number will appear in green) otherwise.</p>
+			<p>Expressions are limited to a particular set of operations that help formatting the data such as Math expression, comparisons, and such. You can
+				look up the possible operations in the <a href="topic/daf6852a04b44d118963968a1239d2c0" title="Expression binding is an enhancement of the SAPUI5 binding syntax, which allows for providing expressions instead of custom formatter functions." class="sap-doc">documentation</a>.</p>
+		</section><section>
+			<h2 class="title "> Conventions</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Only use expression binding for trivial calculations.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/3da5f4be63264db99f2e5b04c5e853db">Walkthrough Tutorial (JavaScript)</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/dfe04650afc046e0802abb1a1a90d2d9">Step 20: Data Types</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/0f8626ed7b7542ffaa44601828db20de">Step 22: Custom Formatters</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/daf6852a04b44d118963968a1239d2c0" title="Expression binding is an enhancement of the SAPUI5 binding syntax, which allows for providing expressions instead of custom formatter functions." class="sap-doc">Expression Binding</a></li>
+	</ul></section></div></section></div></body></html>

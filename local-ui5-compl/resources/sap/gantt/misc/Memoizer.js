@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define([],function(){"use strict";function t(t,e){return t===e||t!==t&&e!==e}function e(t){this.keyStore=[];this.values=[];this.cacheSize=t?t:100}e.prototype.getFirstIndex=function(e){var r=this.keyStore;if(!r.length){return-1}var i=r[0];var n=i.length;if(e.length!==n){return-1}if(n>1){for(var a=0;a<n;a++){if(!t(i[a],e[a])){return-1}}return 0}return t(i[0],e[0])?0:-1};e.prototype.getIndex=function(e){var r=this.keyStore;var i=r.length;if(!i){return-1}if(i===1){return this.getFirstIndex(e)}var n=e.length;var a;var h;if(n>1){for(var o=0;o<i;o++){a=r[o];if(a.length===n){h=0;for(;h<n;h++){if(!t(a[h],e[h])){break}}if(h===n){return o}}}}else{for(var s=0;s<i;s++){a=r[s];if(a.length===n&&t(a[0],e[0])){return s}}}return-1};e.prototype.getValue=function(){var t=this.keyStore;var e=this.values;var r=arguments.length?this.getIndex(arguments):-1;if(r!==-1){if(r){this._add(t[r],e[r],r)}return e[0]}};e.prototype._add=function(t,e,r){var i=this.keyStore;var n=this.values;var a=i.length;var h=r;while(h--){i[h+1]=i[h];n[h+1]=n[h]}i[0]=t;n[0]=e;var o=this.cacheSize;if(a===o&&r===a){i.pop();n.pop()}else if(r>=o){i.length=n.length=o}};e.prototype.add=function(t,e){var r=this.keyStore;var i=this.values;var n=t.length?this.getIndex(t):-1;if(n!==-1){if(n){this._add(r[n],i[n],n)}}else{this._add(t,e,r.length)}};e.prototype.clearCache=function(){this.keyStore=[];this.values=[]};function r(t){return new e(t)}return{createCache:r}});
+//# sourceMappingURL=Memoizer.js.map

@@ -1,0 +1,285 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7f651316d396400d88835adb0d021532" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-7-routing-7f65131.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 7: Routing</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 7: Routing</h2></div><div class="shortdesc">In this step, we utilize the <code>sap.f.routing.Router</code>.</div><section id="section_rdb_5d1_12b" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Preview</h2></div><div class="fig"><div><div class="fig"><img src="loio24122e039ed14a7a874ec26d0cf51614_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Changing layouts based on the <code>sap.f.routing.Router</code> (no visual changes to last step)</h2></span></div></div></section><section id="section_fd2_4dd_lbb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.f.tutorial.fcl.07/preview" title="sample/sap.f.tutorial.fcl.07/preview" class="sap-doc" alt="sample/sap.f.tutorial.fcl.07/preview">Flexible Column Layout
+						App - Step 7</a>.</p>
+		</section><section id="section_jqg_b4j_l4b">
+			<h2 class="title ">webapp/views/App.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+<span class="emphasis">	controllerName="sap.ui.demo.fcl.controller.App"</span>
+	displayBlock="true"
+	height="100%"
+	xmlns="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+<span class="emphasis">	&lt;FlexibleColumnLayout
+		id="flexibleColumnLayout"
+		stateChange=".onStateChanged"
+		backgroundDesign="Solid"
+		layout="{/layout}"/&gt;</span>
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We remove the hard-coded <code>beginColumnPages</code> and <code>endColumnPages</code> aggregations (since the router will add
+				them automatically from now on), and we bind the <code>layout</code> property so that it can be changed easily from the
+				controller.</p>
+		</section><section id="section_xmq_znj_l4b">
+			<h2 class="title ">webapp/controller/App.controller.js [NEW]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+							   
+	"sap/ui/core/mvc/Controller"
+], function (Controller) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.fcl.controller.App", {
+		onInit: function () {
+			this.oOwnerComponent = this.getOwnerComponent();
+			this.oRouter = this.oOwnerComponent.getRouter();
+			this.oRouter.attachRouteMatched(this.onRouteMatched, this);
+		},
+
+		onRouteMatched: function (oEvent) {
+			var sRouteName = oEvent.getParameter("name"),
+				oArguments = oEvent.getParameter("arguments");
+
+			// Save the current route name
+			this.currentRouteName = sRouteName;
+			this.currentProduct = oArguments.product;
+		},
+
+		onStateChanged: function (oEvent) {
+			var bIsNavigationArrow = oEvent.getParameter("isNavigationArrow"),
+				sLayout = oEvent.getParameter("layout");
+
+			// Replace the URL with the new layout if a navigation arrow was used
+			if (bIsNavigationArrow) {
+				this.oRouter.navTo(this.currentRouteName, {layout: sLayout, product: this.currentProduct}, true);
+			}
+		},
+
+		onExit: function () {
+			this.oRouter.detachRouteMatched(this.onRouteMatched, this);
+		}
+	});
+});
+</span></pre></div></div></section>
+			<p>We access the router and bind to its <code>routeMatched</code> event. For more information, see <a href="topic/c6da1a56c2a14742b785c7bd5ca4205b" title="The sap.f.routing.Router has built-in support for routing-capable controls in the sap.f library." class="sap-doc">Router</a>.</p>
+		</section><section id="section_agl_ynj_l4b">
+			<h2 class="title ">webapp/controller/List.controller.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/Sorter",
+	"sap/m/MessageBox",
+	"sap/f/library"
+], function (Controller, Filter, FilterOperator, Sorter, MessageBox, fioriLibrary) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.fcl.controller.List", {
+		onInit: function () {
+			this.oView = this.getView();
+			this._bDescendingSort = false;
+			this.oProductsTable = this.oView.byId("productsTable");
+<span class="emphasis">			this.oRouter = this.getOwnerComponent().getRouter();</span>
+		},
+
+		onSearch: function (oEvent) {
+			var oTableSearchState = [],
+				sQuery = oEvent.getParameter("query");
+
+			if (sQuery && sQuery.length &gt; 0) {
+				oTableSearchState = [new Filter("Name", FilterOperator.Contains, sQuery)];
+			}
+
+			this.oProductsTable.getBinding("items").filter(oTableSearchState, "Application");
+		},
+
+		onAdd: function () {
+			MessageBox.information("This functionality is not ready yet.", {title: "Aw, Snap!"});
+		},
+
+		onSort: function () {
+			this._bDescendingSort = !this._bDescendingSort;
+			var oBinding = this.oProductsTable.getBinding("items"),
+				oSorter = new Sorter("Name", this._bDescendingSort);
+
+			oBinding.sort(oSorter);
+		},
+
+		onListItemPress: function (<span class="emphasis">oEvent</span>) {
+<span class="emphasis">			var productPath = oEvent.getSource().getBindingContext("products").getPath(),
+				product = productPath.split("/").slice(-1).pop();
+
+			this.oRouter.navTo("detail", {layout: fioriLibrary.LayoutType.TwoColumnsMidExpanded, product: product});</span>
+		}
+	});
+});
+</pre></div></div></section>
+			<p>We change the event handler for pressing an item from the list view to use the router instead of manually manipulating the
+					<code>FlexibleColumnLayout</code> instance. When we call the router's <code>navTo</code> method, the router itself will
+				change the <code>layout</code> property of the <code>FlexibleColumnLayout</code>.</p>
+		</section><section id="section_m24_xnj_l4b">
+			<h2 class="title ">webapp/controller/Detail.controller.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller"
+], function (Controller) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.fcl.controller.Detail", {
+<span class="emphasis">		onInit: function () {
+			var oOwnerComponent = this.getOwnerComponent();
+
+			this.oRouter = oOwnerComponent.getRouter();
+			this.oModel = oOwnerComponent.getModel();
+
+			this.oRouter.getRoute("list").attachPatternMatched(this._onProductMatched, this);
+			this.oRouter.getRoute("detail").attachPatternMatched(this._onProductMatched, this);
+		},
+
+		_onProductMatched: function (oEvent) {
+			this._product = oEvent.getParameter("arguments").product || this._product || "0";
+			this.getView().bindElement({
+				path: "/ProductCollection/" + this._product,
+				model: "products"
+			});
+		},
+</span>
+		onEditToggleButtonPress: function() {
+			var oObjectPage = this.getView().byId("ObjectPageLayout"),
+				bCurrentShowFooterState = oObjectPage.getShowFooter();
+
+			oObjectPage.setShowFooter(!bCurrentShowFooterState);
+<span class="emphasis">		},
+
+		onExit: function () {
+			this.oRouter.getRoute("list").detachPatternMatched(this._onProductMatched, this);
+			this.oRouter.getRoute("detail").detachPatternMatched(this._onProductMatched, this);</span>
+		}
+	});
+});
+</pre></div></div></section>
+			<p>We bind the table in the detail view to reflect the currently selected product from the list view.</p>
+		</section><section id="section_tmp_wnj_l4b">
+			<h2 class="title ">webapp/Component.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	'sap/ui/core/UIComponent',
+	'sap/ui/model/json/JSONModel'<span class="emphasis">,
+	'sap/f/library'</span>
+], function(UIComponent, JSONModel<span class="emphasis">, fioriLibrary</span>) {
+	'use strict';
+
+	return UIComponent.extend('sap.ui.demo.fcl.Component', {
+
+		metadata: {
+			manifest: 'json'
+		},
+
+		init: function () {
+<span class="emphasis">			var oModel,
+				oProductsModel,
+				oRouter;</span>
+
+			UIComponent.prototype.init.apply(this, arguments);
+
+<span class="emphasis">			oModel = new JSONModel();
+			this.setModel(oModel);</span>
+
+			// set products demo model on this sample
+			oProductsModel = new JSONModel(sap.ui.require.toUrl('sap/ui/demo/mock/products.json'));
+			oProductsModel.setSizeLimit(1000);
+			this.setModel(oProductsModel, 'products');
+
+<span class="emphasis">			oRouter = this.getRouter();
+			oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);
+			oRouter.initialize();
+		},
+
+		_onBeforeRouteMatched: function(oEvent) {
+			var oModel = this.getModel(),
+				sLayout = oEvent.getParameters().arguments.layout;
+
+			// If there is no layout parameter, set a default layout (normally OneColumn)
+			if (!sLayout) {
+				sLayout = fioriLibrary.LayoutType.OneColumn;
+			}
+
+			oModel.setProperty("/layout", sLayout);</span>
+		}
+	});
+});</pre></div></div></section>
+			<p>We initialize the router and bind to its <code>onBeforeRouteMatched</code> event, and we introduce a model, which will be used for
+				the layout.</p>
+		</section><section id="section_xr1_snj_l4b">
+			<h2 class="title ">webapp/manifest.json [MODIFY]</h2>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+	"_version": "1.38.0",
+	"sap.app": {
+		"id": "sap.ui.demo.fcl",
+		"type": "application",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "sap.ui.demo.fcl.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "fcl"
+		},
+		"dependencies": {
+			"minUI5Version": "1.98.0",
+			"libs": {
+				"sap.f": {},
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.uxap": {}
+				}
+		},
+		"config": {
+			"fullWidth": true
+		}<span class="emphasis">,
+		"routing": {
+			"config": {
+				"routerClass": "sap.f.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "sap.ui.demo.fcl.view",
+				"controlId": "flexibleColumnLayout",
+				"transition": "slide",
+				"bypassed": {
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": ":layout:",
+					"name": "list",
+					"target": [
+						"list",
+						"detail"
+					]
+				},
+				{
+					"pattern": "detail/{product}/{layout}",
+					"name": "detail",
+					"target": [
+						"list",
+						"detail"
+					]
+				}
+			],
+			"targets": {
+				"list": {
+					"name": "List",
+					"controlAggregation": "beginColumnPages"
+				},
+				"detail": {
+					"name": "Detail",
+					"controlAggregation": "midColumnPages"
+				}
+			}</span>
+		}
+	}
+}</pre></div></div></section>
+			<p>Finally, we add the routing configuration in the <code>manifest.json</code>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/c4de2df385174e58a689d9847c7553bd">Flexible Column Layout App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/555ed73903b34c70a23ba13af1a5d71e">Step 6: Adding a Floating Footer</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/e5ee491f69224f038a0c147480dbd436">Step 8: Enhancing the Detail Page</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,8 @@
+/*!
+ * 
+		SAP UI development toolkit for HTML5 (SAPUI5)
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["./AppConstants"],function(e){"use strict";const t={};t._fetchCSRFToken=function(){return this._executeRequest(e.REPO_BASE_URL,e.HEAD,{})};t.delete=function(t){return this._executeRequest(t,e.DELETE,{})};t.get=function(t){return this._executeRequest(t,e.GET,{})};t.put=function(t,n){return this._executeRequest(t,e.PUT,{},n)};t.post=function(t,n){return this._executeRequest(t,e.POST,{},n)};t._executeRequest=async function(n,s,r,u){let o;if(s!==e.GET&&s!==e.HEAD){o=await t._fetchCSRFToken()}return new Promise((t,i)=>{const a=new XMLHttpRequest;const c={...r};if(s===e.HEAD){c["X-CSRF-Token"]="Fetch"}if(s!==e.GET&&s!==e.HEAD){c["X-CSRF-Token"]=o}if(s===e.POST||s===e.PUT){c["content-type"]="application/json;odata.metadata=minimal;charset=utf-8"}a.open(s,n,true);Object.keys(c).forEach(e=>{a.setRequestHeader(e,c[e])});a.onreadystatechange=this._onReadyStateChange.bind(this,a,s,t,i);if(u){a.send(u)}else{a.send()}})};t._onReadyStateChange=(t,n,s,r)=>{if(t.readyState===4){if(t.status>=200&&t.status<300){if(n===e.HEAD){const e=t.getResponseHeader("x-csrf-token");if(e){s(e)}else{r("No CSRF token found in response header")}}else if(n===e.DELETE){s()}s(JSON.parse(t.responseText))}else{r({error:t?.error||true,message:"unexpected error"})}}};return t},true);
+//# sourceMappingURL=HttpClient.js.map

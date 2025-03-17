@@ -1,0 +1,63 @@
+<mvc:View
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.uxap"
+		xmlns:m="sap.m"
+		xmlns:core="sap.ui.core"
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		height="100%"
+		core:require="{formatMessage:'sap/base/strings/formatMessage'}"  
+		>
+
+	<ObjectPageLayout id="ObjectPageLayout">
+		<headerTitle>
+			<ObjectPageHeader id="headerExpandedGrid" objectTitle="toto">
+			</ObjectPageHeader>
+		</headerTitle>
+
+		<sections>
+			<!-- simple binding -->
+			<ObjectPageSection id="section1" title="{/sections/0/title}">
+				<ObjectPageSubSection title="first subsection">
+					<core:HTML content="&lt;div class=&quot;dummyBlockContent7&quot; /&gt;" />
+				</ObjectPageSubSection>
+				<ObjectPageSubSection title="second subsection">
+					<core:HTML content="&lt;div class=&quot;dummyBlockContent7&quot; /&gt;" />
+				</ObjectPageSubSection>
+			</ObjectPageSection>
+
+			<!-- parts binding -->
+			<ObjectPageSection id="section2" title="{
+				parts:[ {path:'/compositeTitle'}, {path:'/objectCount'}],
+				formatter : 'formatMessage'
+			}">
+				<ObjectPageSubSection title="second section first">
+					<core:HTML content="&lt;div class=&quot;dummyBlockContentA&quot; /&gt;" />
+				</ObjectPageSubSection>
+				<ObjectPageSubSection title="second section second">
+					<core:HTML content="&lt;div class=&quot;dummyBlockContentA&quot; /&gt;" />
+				</ObjectPageSubSection>
+			</ObjectPageSection>
+
+			<!-- no binding -->
+			<ObjectPageSection id="section3" title="Fixed">
+				<customAnchorBarButton>
+					<m:Button text="my third section"/>
+				</customAnchorBarButton>
+				<ObjectPageSubSection>
+					<core:HTML content="&lt;div class=&quot;dummyBlockContentC&quot; /&gt;" />
+				</ObjectPageSubSection>
+			</ObjectPageSection>
+
+			<!-- no title -->
+			<ObjectPageSection id="section4">
+				<ObjectPageSubSection>
+					<core:HTML content="&lt;div class=&quot;dummyBlockContentF&quot; /&gt;" />
+				</ObjectPageSubSection>
+				<ObjectPageSubSection>
+					<core:HTML content="&lt;div class=&quot;dummyBlockContentF&quot; /&gt;" />
+				</ObjectPageSubSection>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+
+</mvc:View>

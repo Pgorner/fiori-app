@@ -1,0 +1,67 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio37dbf1f30127420d9c585bc1ad80086b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/enabling-the-history-of-recently-entered-values-37dbf1f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Enabling the History of Recently Entered Values</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Enabling the History of Recently Entered Values</h2></div><div class="shortdesc">You can enable the history of the most recently
+		entered values for any
+		field,
+		when you move the cursor back to that
+		field. It is enabled by default for some of the controls that
+		are used as a filter, such as
+		for
+		multi-input fields. However, it may not be enabled for
+		 controls such as
+		drop-down
+		list.</div><p>If you have fields that contain personal sensitive data, you can use the
+				<code>com.sap.vocabularies.PersonalData.v1.IsPotentiallySensitive</code> annotation to disable the storing of data in the
+			history.</p><p>End users can delete the history of the recently entered values. For more information, see <a href="topic/152f84f322f34d6f91917f8f1a35833c" title="SAP Fiori applications using SAPUI5 can store recent history." class="sap-doc">Input History</a>.</p><section id="section_ic3_jhs_yqb">
+			<h2 class="title ">Prerequisites</h2>
+			<p>To enable the history of recently entered values, you must enable the <code>INPUTFIELD_HISTORY</code>
+				SAP Fiori launchpad parameter. For more information, see
+					<a href="https://help.sap.com/docs/SAP_S4HANA_CLOUD/4fc8d03390c342da8a60f8ee387bca1a/22d573aead754b80abca18ec71872fb7.html" title="https://help.sap.com/docs/SAP_S4HANA_CLOUD/4fc8d03390c342da8a60f8ee387bca1a/22d573aead754b80abca18ec71872fb7.html" class="sap-doc">Manage Launchpad Settings</a>.</p>
+		</section><section id="section_ztn_mph_tzb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>In the manifest, per field, you can specify whether or not the history should be enabled:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+	"pages": {
+		"ListReport|RootEntity": {
+			"component": {
+				"settings": {
+					"filterSettings": {
+						"historySettings": {
+							"fields": {
+								&lt;fieldname&gt;: {
+									"historyEnabled": ("enabled"|"disabled"|"auto")
+</pre></div></div></section>
+				<p></p></div></div><p></p><p>Here, <code>&lt;fieldname&gt;</code> refers to the property name of the field in the OData service.</p><p>You can also specify the same behavior for all the fields, or as a default for the fields that are not explicitly mentioned:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+	"pages": {
+		"ListReport|RootEntity": {
+			"component": {
+				"settings": {
+					"filterSettings": {
+						"historySettings": {
+							"historyEnabled": ("enabled"|"disabled"|"auto")
+</pre></div></div></section>
+				<p></p></div></div><p></p><p>Possible values for <code>historyEnabled</code> are
+					<span class="ph uicontrol">enabled</span>,
+					<span class="ph uicontrol">disabled</span>, or <span class="ph uicontrol">auto</span>.
+				<span class="ph uicontrol">Auto</span> is the default setting, which means that the behavior
+				depends on the used control type.
+				</p></div></section><section id="section_ypz_j2y_51c" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>The history of recently entered values is enabled for SAP Fiori elements for OData
+                            V4 by
+				default. However, you can disable this setting for each field by using the manifest settings.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.fe": {
+    "historySettings": {
+             "fields": {
+                 &lt;propertyPath&gt;: {
+                         "historyEnabled": false
+                        }
+                    }
+                }
+            }</pre></div></div></section>
+			<p></p></div></div><p>Here, <code>&lt;propertyPath&gt;</code> refers to the property path in the OData service.</p></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/4bd7590569c74c61a0124c6e370030f6" title="You can configure filter bars in both list report applications and analytical list pages." class="sap-doc">Configuring Filter Bars</a></li>
+	</ul></section></div></section></div></body></html>

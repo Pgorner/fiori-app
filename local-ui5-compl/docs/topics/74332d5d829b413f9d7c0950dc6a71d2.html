@@ -1,0 +1,155 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio74332d5d829b413f9d7c0950dc6a71d2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/overview-page-card-74332d5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Overview Page Card</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Overview Page Card</h2></div><div class="shortdesc">A card is a smart component that uses UI annotation to render its content. It contains a
+		header area and  a footer area. </div><section>
+			<p>Each card is bound to a single entity set in a data source, and its configuration is provided in the
+					<code>"sap.ovp"..."cards"</code> object. The cards object contains the list of cards to display in the application.</p>
+			<p>The card ID is the property name, and the card configuration is provided as a value in the object. At runtime, the cards are displayed
+				in the order that they appear in the application descriptor.</p>
+			<p>For more information on cards and its areas, see <a href="https://experience.sap.com/fiori-design-web/cards/" title="https://experience.sap.com/fiori-design-web/cards/" class="external-link" target="_blank" rel="noopener">Card</a>.</p>
+		</section><section id="section_nsk_34p_31b">
+			<h2 class="title ">Card Header</h2>
+			<p>All cards have a static header section that can be configured in the descriptor configuration file. The card header includes the
+				following properties: <code>category</code>, <code>title</code>, <code>subTitle</code> and card actions. </p>
+			<p>The <code>title</code> property is mandatory. The <code>subTitle</code> is only mandatory if the card contains data point
+				annotations (such as a KPI header). The title and subtitle can contain a maximum of two lines. The header also contains a counter
+				showing how many records are presented in the card out of the total existing records, according to the current filter.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The
+					counter is only displayed on table and list cards. For more information, see <a href="topic/167bf7ccbb084afab7d846e1fa30b49c" title="A table card displays a list of records in a 3-column table layout." class="sap-doc">Table Cards</a>
+					and <a href="topic/56f39e077efb477d9e851cd082b7760c" title="List cards display lists of records according to the configuration in the com.sap.vocabularies.UI.v1.LineItem term. List cards display up to six fields of data in each list item." class="sap-doc">List Cards</a>.</p></div></div><p></p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ovp": {
+    "_version": "1.1.0",
+    "globalFilterModel": "ZCD204_EPM_DEMO_SRV",
+    "globalFilterEntityType": "SalesOrder",
+    "cards": {
+        "card00": {
+            "model": "ZCD204_EPM_DEMO_SRV",
+            "template": "sap.ovp.cards.stack",
+            "settings": {
+                ...
+                "category": "{{card00_category}}",
+                "title": "{{card00_title}}",
+                "subTitle ": "{{card00_subTitle}}",
+                ...
+            }
+        },
+        "card01": {
+            "model": "ZCD204_EPM_DEMO_SRV",
+            "template": "sap.ovp.cards.table",
+            "settings": {
+                "title": "{{card01_category}}",
+                ...
+            }
+        },
+        ...
+    }
+}</pre></div></div></section>
+			<p></p></div></div>
+			<section>
+				<h3 class="title "><span class="emphasis">KPI Headers</span></h3>
+				<p>The generic card provides a dynamic section that can display a key performance indicator (KPI) and related information in the
+					header. The KPI is an aggregated value, as defined in the annotation file. To display a KPI header in a card, make sure that your
+					OData service supports aggregation of values and the data is coming from the backend only. The KPI header can contain a KPI value,
+					including its unit of measure, its trend, percentage of change, and KPI header description.</p>
+				<p>The KPI extension uses the following annotation terms: </p><ul class="ul ">
+						<li class="li"><code>com.sap.vocabularies.UI.v1.DataPoint</code>: Used to retrieve information about the title and the value of the
+							KPI.</li>
+						<li class="li"><code>com.sap.vocabularies.UI.v1.PresentationVariant</code>: Used to retrieve information about the fields which are
+							used for grouping and sorting information.</li>
+						<li class="li"><code>com.sap.vocabularies.UI.v1.SelectionVariant</code>: Used to retrieve information about the filters.</li>
+					</ul><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>For more information about these annotations, see <a href="topic/65731e6b823240398e33133908efdaa1" title="This topic provides a list of the annotations used in overview pages. They are as follows:" class="sap-doc">Annotations Used in Overview Pages</a>. </p></div></div><p></p>
+				<p> These annotation terms can be configured in the application manifest file, as shown in the following example: </p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ovp": {
+    ...
+    "cards": {
+        ...
+        "card02": {
+            "model": "ZCD204_EPM_DEMO_SRV",
+            "template": "sap.ovp.cards.charts.bubble",
+            "settings": {
+                "entitySet": "SalesOrders",
+                "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#bubble",
+                "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#bubble",
+                "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#bubble",
+                "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#bubble",
+                "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#bubble"
+            }
+        },
+        ...
+    }
+}
+</pre></div></div></section>
+					<p></p></div></div><p></p>
+			</section>
+		</section><section id="section_bd1_gyx_5wb">
+			<h2 class="title ">Card Actions</h2>
+			<p>Card actions are available as of SAPUI5 1.110. You can access and perform the
+				card actions from the card header. The following card actions are available:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><span class="ph uicontrol">Refresh</span>: this action retrieves the entity bound to the card and reloads the card, displaying the latest
+						data.</p>
+				</li>
+				<li class="li">
+					<p><span class="ph uicontrol">Add Card to Insights</span>: this action shows a preview of the card so that it can be added to the
+							<span class="ph uicontrol">Insights</span> section directly from the overview. Note that this action is only available if the
+							<span class="ph uicontrol">Insights</span> service is enabled. </p>
+				</li>
+				<li class="li">
+					<p><span class="ph uicontrol">Manage Cards</span>: this action opens the <span class="ph uicontrol">Manage Cards</span> dialog where you can hide or
+						show the available cards.</p>
+				</li>
+			</ul>
+		</section><section id="section_qhh_dkw_z5b">
+			<h2 class="title ">Cards in <span class="ph uicontrol">Insights</span></h2>
+			<p>You can add and use the analytical, list and table cards within the <span class="ph uicontrol">Insights</span> section of <span class="emphasis">My
+					Home</span> in SAP S/4HANA Cloud Public Edition. The objective of displaying cards on
+				the entry page is to visualize charts, KPI´s and counters in the form of interest cards.</p>
+			<p>To add a card to the <span class="ph uicontrol">Insights</span> section, select the <span class="ph uicontrol">More</span> option from the card and choose
+					<span class="ph uicontrol">Add Card to Insights</span>. In the subsequent dialog box, you can update the card's <span class="ph uicontrol">Title</span>
+				and the <span class="ph uicontrol">Subtitle</span>. Click <span class="ph uicontrol">Add</span> to display the card in the <span class="ph uicontrol">Insights</span>
+				section.</p>
+			<p>Note that only eight cards at a time can be displayed in the <span class="ph uicontrol">Insights</span> section. If the maximum number of cards is
+				already displayed on the entry page, the selected card is added to the <span class="ph uicontrol">Edit Insights</span> dialog box. You can choose
+				to select or deselect cards by editing the <span class="ph uicontrol">Insights</span> section. For more information, see <a href="https://help.sap.com/docs/SAP_S4HANA_CLOUD/4fc8d03390c342da8a60f8ee387bca1a/8a60279e8d2041b5ad8d3455fab0f3ef.html" title="https://help.sap.com/docs/SAP_S4HANA_CLOUD/4fc8d03390c342da8a60f8ee387bca1a/8a60279e8d2041b5ad8d3455fab0f3ef.html" class="external-link" target="_blank" rel="noopener"><span class="emphasis">My Home</span> in SAP S/4HANA Cloud Public Edition</a>.</p>
+			<section>
+				<h3 class="title ">Disabling Card Generation</h3>
+				<p>An application can also restrict the generation of individual analytical, list, and table cards. To do this, you can configure the
+					card manifest setting by turning <code>enableAddToInsights</code> to <code>false</code>. This removes the option to add
+					cards to the <span class="ph uicontrol">Insights</span> section.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"card01": {
+        "model": "MODEL",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "{{card01_title}}",
+          "subTitle": "{{card01_subTitle}}",
+          "entitySet": "C_EntitySet",
+          "enableAddToInsights": false,
+          "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#SV",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Chart",
+          "presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#PV",
+          "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#DP",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification"
+        }
+      },</pre></div></div></section>
+				<p></p></div></div>
+			</section>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If custom navigation is enabled for a card, navigation from the <span class="ph uicontrol">Insights</span> section of <span class="emphasis">My
+						Home</span> for that card leads to the parent overview page application instead of the target maintained in the overview
+					page card.</p>
+			<p></p></div></div>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

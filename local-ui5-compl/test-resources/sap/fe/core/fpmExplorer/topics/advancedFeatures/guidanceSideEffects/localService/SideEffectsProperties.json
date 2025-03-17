@@ -1,0 +1,27 @@
+[
+	{
+		"Property": "SourceProperties",
+		"PropertyType": "Collection of Property Paths",
+		"Description": "Changes to the values of one or more of these structural properties may affect the targets."
+	},
+	{
+		"Property": "SourceEntitites",
+		"PropertyType": "[Navigation Property Path]",
+		"Description": "Changes to one or more of these entities may affect the targets. An empty path is resolved to the annotated entity as the side effect source."
+	},
+	{
+		"Property": "TargetProperties",
+		"PropertyType": "[String]",
+		"Description": "These structural properties may be affected if the value of one of the sources changes.\nThe usage of * as the last path segment targets all structural properties that can be directly reached via the preceding path.\nNavigation properties are excluded, unless you list them explicitly."
+	},
+	{
+		"Property": "TargetEntities",
+		"PropertyType": "[Navigation Property Path]",
+		"Description": "These entities (including their navigation properties) are affected if the value of one of the sources changes. All affected entities need to be explicitly listed. An empty path implies the annotated entity itself."
+	},
+	{
+		"Property": "TriggerAction",
+		"PropertyType": "Qualified Action Name (String)",
+		"Description": "The bound action is triggered as a result of a side effect.\nThe corresponding POST request is always issued before the GET request for the 'TargetProperties' and/or the 'TargetEntities'."
+	}
+]

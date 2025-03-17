@@ -1,0 +1,7 @@
+/*!
+ * SAP APF Analysis Path Framework
+ *
+ * (c) Copyright 2012-2015 SAP SE. All rights reserved
+ */
+sap.ui.define(["sap/ui/core/UIComponent","sap/apf/api","sap/apf/cloudFoundry/uiHandler","sap/base/util/deepExtend"],function(t,e,i,n){"use strict";var s=t.extend("sap.apf.base.Component",{metadata:{manifest:"json",library:"sap.apf",publicMethods:["getApi"]},oApi:null,init:function(){var o;var a;var p;if(!this.oApi){o=s.prototype.getMetadata()._getManifest();a=n({},this.getManifest());if(this.getMetadata().getAllProperties().injectedApfApi){p=this.getMetadata().getAllProperties().injectedApfApi.appData.Constructor}else{p=e}this.oApi=new p(this,undefined,{manifest:a,baseManifest:o});if(this.oApi.startupSucceeded()){t.prototype.init.apply(this,arguments)}}else{return}if(this.getInjections()&&this.getInjections().functions&&this.getInjections().functions.isUsingCloudFoundryProxy&&typeof this.getInjections().functions.isUsingCloudFoundryProxy==="function"&&this.getInjections().functions.isUsingCloudFoundryProxy()===true){i.initRuntime(this)}},createContent:function(){t.prototype.createContent.apply(this,arguments);return this.oApi.startApf()},exit:function(){this.oApi.destroy()},getApi:function(){return this.oApi},getInjections:function(){return{exits:{},instances:{},functions:{},constructors:{},probe:function(){}}}});return s},true);
+//# sourceMappingURL=Component.js.map

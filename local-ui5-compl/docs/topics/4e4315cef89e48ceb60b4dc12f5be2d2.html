@@ -1,0 +1,111 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4e4315cef89e48ceb60b4dc12f5be2d2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-4-adding-a-detail-page-4e4315c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 4: Adding a Detail Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 4: Adding a Detail Page</h2></div><div class="shortdesc">In this step, we add an empty detail page.</div><section id="section_ed2_4dd_lbb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Preview</h2></div><div class="fig"><div><div class="fig"><img src="loio10dec0cd47ca4a6fb9ce1caf2ba768e3_LowRes.gif" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">List Page with Empty Detail Page</h2></span></div></div></section><section id="section_fd2_4dd_lbb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.f.tutorial.fcl.04/preview" title="sample/sap.f.tutorial.fcl.04/preview" class="sap-doc" alt="sample/sap.f.tutorial.fcl.04/preview">Flexible Column Layout
+						App - Step 4</a>.</p>
+		</section><section id="section_a5b_clj_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [NEW]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section>
+			<p>First, we create a blank detail page.</p>
+		</section><section id="section_t3z_1lj_l4b">
+			<h2 class="title ">webapp/view/App.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	displayBlock="true"
+	height="100%"
+	xmlns="sap.f"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;FlexibleColumnLayout id="flexibleColumnLayout" backgroundDesign="Solid"&gt;
+		&lt;beginColumnPages&gt;
+			&lt;mvc:XMLView id="beginView" viewName="sap.ui.demo.fcl.view.List"/&gt;
+		&lt;/beginColumnPages&gt;
+<span class="emphasis">		&lt;midColumnPages&gt;
+			&lt;mvc:XMLView id="detailView" viewName="sap.ui.demo.fcl.view.Detail"/&gt;
+		&lt;/midColumnPages&gt;</span>
+	&lt;/FlexibleColumnLayout&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+			<p>We add the detail page in <code>FlexibleColumnLayout's</code>
+				<code>midColumnPages</code> aggregation in the <code>App.view.xml</code> file. This way the detail page will be displayed
+				in the middle column.</p>
+		</section><section id="section_xw1_1lj_l4b">
+			<h2 class="title ">webapp/view/List.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		&lt;!-- DynamicPage Content --&gt;
+					...
+
+					...
+					&lt;items&gt;
+						&lt;ColumnListItem type="Navigation"<span class="emphasis"> press=".onListItemPress"</span>&gt;
+							&lt;cells&gt;
+								&lt;ObjectIdentifier title="{products&gt;Name}" text="{products&gt;ProductId}"/&gt;
+								&lt;ObjectNumber
+									number="{
+										parts:[
+											{path:'products&gt;Price'},
+											{path:'products&gt;CurrencyCode'}
+										],
+										type: 'sap.ui.model.type.Currency',
+										formatOptions: {showMeasure: false}
+									}"
+									unit="{products&gt;CurrencyCode}"/&gt;
+							&lt;/cells&gt;
+						&lt;/ColumnListItem&gt;
+					&lt;/items&gt;
+					...</pre></div></div></section>
+			<p>We add a <code>press</code> handler to each <code>ColumnListItem</code> in the <code>List.view.xml</code>.</p>
+		</section><section id="section_nxz_ykj_l4b">
+			<h2 class="title ">webapp/controller/List.controller.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/Sorter",
+	"sap/m/MessageBox"<span class="emphasis">,
+	"sap/f/library"</span>
+], function (Controller, Filter, FilterOperator, Sorter, MessageBox<span class="emphasis">, fioriLibrary</span>) {
+	"use strict";
+
+	return Controller.extend("sap.ui.demo.fcl.controller.List", {
+		onInit: function () {
+			this.oView = this.getView();
+			this._bDescendingSort = false;
+			this.oProductsTable = this.oView.byId("productsTable");
+		},
+
+		onSearch: function (oEvent) {
+			var oTableSearchState = [],
+				sQuery = oEvent.getParameter("query");
+
+			if (sQuery && sQuery.length &gt; 0) {
+				oTableSearchState = [new Filter("Name", FilterOperator.Contains, sQuery)];
+			}
+
+			this.oProductsTable.getBinding("items").filter(oTableSearchState, "Application");
+		},
+
+		onAdd: function () {
+			MessageBox.information("This functionality is not ready yet.", {title: "Aw, Snap!"});
+		},
+
+		onSort: function () {
+			this._bDescendingSort = !this._bDescendingSort;
+			var oBinding = this.oProductsTable.getBinding("items"),
+				oSorter = new Sorter("Name", this._bDescendingSort);
+
+			oBinding.sort(oSorter);
+<span class="emphasis">		},
+
+		onListItemPress: function () {
+			var oFCL = this.oView.getParent().getParent();
+
+			oFCL.setLayout(fioriLibrary.LayoutType.TwoColumnsMidExpanded);</span>
+		}
+	});
+});
+</pre></div></div></section>
+			<p>In the <code>List.controller.js</code>, we attach a <code>onListItemPress</code> function to the <code>press</code> handler,
+				which changes the <code>layout</code> to <code>TwoColumnsBeginExpanded</code>. This means that there are going to be two
+				columns, where the first one is larger than the second. For more information on the available layout types, see <a href="topic/3b9f760da5b64adf8db7f95247879086" title="Overview of the possible layouts for an sap.f.FlexibleColumnLayout, as defined in the sap.f.LayoutType enumeration." class="sap-doc">Types of Layout</a>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/c4de2df385174e58a689d9847c7553bd">Flexible Column Layout App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/0830bce271bf42d98c2740bed43d435d">Step 3: Using Dynamic Page for the List View</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/d1ffe611194b4c7891772b0cce84648e">Step 5: Using Object Page Layout as a Detail Page</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

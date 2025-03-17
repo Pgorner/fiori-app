@@ -1,0 +1,32 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio1a08f70951a744b1a7962b09665cc92f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/setting-the-default-binding-mode-1a08f70.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Setting the Default Binding Mode</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Setting the Default Binding Mode</h2></div><div class="shortdesc">The default binding mode applies when a model instance is created. You can overwrite the
+		default binding mode after model creation.</div><p>Here's what you need to know:</p><ul class="ul ">
+			<li class="li">
+				<p>To change the default binding mode, call the <code>setDefaultBindingMode</code> method
+					on the model as follows: </p>
+				<p>
+					</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oModel = new sap.ui.model.json.JSONModel();
+oModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);</pre></div></div></section>
+				<p></p>
+				
+					<p>In this example, all new bindings for the model will have the one-way binding
+						mode by default. </p>
+							</li>
+			<li class="li">
+				<p>You can, however, only set supported binding modes as default binding mode. You
+					can check if a binding mode is supported as follows:</p>
+				<p>
+					</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var oModel = new sap.ui.model.json.JSONModel();
+if (oModel.isBindingModeSupported(sap.ui.model.BindingMode.OneTime)) { // true
+    oModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneTime); 
+}</pre></div></div></section>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>When you change the binding mode of an existing model instance, the
+							existing bindings are not updated with the newly set binding mode.</p>
+					<p></p></div></div>
+				<p></p>
+			</li>
+		</ul><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

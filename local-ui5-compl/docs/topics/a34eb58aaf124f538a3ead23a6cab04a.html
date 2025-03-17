@@ -1,0 +1,206 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioa34eb58aaf124f538a3ead23a6cab04a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/support-assistant-api-a34eb58.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Support Assistant API</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Support Assistant API</h2></div><div class="shortdesc">The Support Assistant can also run in silent mode and accept calls through its API. This
+		way it can be integrated in more complex automated scenarios.</div><section id="section_fzf_d3y_zy" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">General Information</h2></div><div class="fig"><p>The Support Assistant is currently separated into two main parts:</p><ul class="ul ">
+					<li class="li">
+						<p>Core plug-in in SAPUI5</p>
+					</li>
+					<li class="li">
+						<p>UI client running in an iFrame or separate window, or programmable
+							clients via an API</p>
+					</li>
+				</ul><p></p><p>In the following diagram you can see how the Support Assistant is connected to the
+				individual application layers. </p><p>
+				</p><div><div class="fig"><img src="loiofad73ed570df460bbbc5b828c3fe4e15_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Support Assistant Architecture</h2></span></div>
+			<p></p><p>There are two different use cases for its integration: </p><ul class="ul ">
+					<li class="li">
+						<p>Using browser window messaging protocol for agents in other window
+							frames;</p>
+					</li>
+					<li class="li">
+						<p>Using the <code>sap.ui.support.RuleAnalyzer</code> module (for example, from the
+							console or as part of OPA tests).</p>
+					</li>
+				</ul>We will take a closer look into these use cases in the following sections.<p></p></div></section><section id="section_n33_bky_zy" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Window Messaging API</h2></div><div class="fig"><p>The window messaging API is an asynchronous API based on the browser low-level
+					<code>postMessage</code>/<code>onMessage</code> APIs. It is enabled by
+				using a custom generic communication bus component -
+					<code>WindowCommunicationBus</code>, delivered with the Support Assistant.
+				The <code>WindowCommunicationBus</code> is used for implementing the remote UI
+				interaction between the Support Assistant and the application
+					<code>iFrame</code>. </p></div></section><section id="section_cgr_r3y_zy" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Programming
+				API</h2></div><div class="fig"><p>This section illustrates how to use the Support Assistant programming
+				API through specific <span class="emphasis"><code>sap.ui.support.RuleAnalyzer</code> API
+					examples</span>.</p><section class="collapsible expanded"><div class="collapsible-icon sap-icon"><h3 class="title collapsible expanded">Add a Temporary Rule</h3></div><div class="fig"><p>After the Support Assistant has been started, if in silent mode, you can add a
+					new temporary rule by using the <code>addRule</code> method. Then you can
+					run an analysis with this rule.</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+         var oRule = {
+            id: "Temp rule id",
+            title: "Temp rule title",
+            ...
+         };
+         RuleAnalyzer.addRule(oRule);
+});</pre></div></div></section><p>For more information about rule properties, see <a href="topic/eaeea19a991d46f29e6d8d8827317d0e" title="There are some general guidelines for writing succinct and meaningful rules to ensure high quality, consistency and better usability of the reported issues." class="sap-doc">Guidelines and Best Practices</a>.</p></div></section><section class="collapsible expanded"><div class="collapsible-icon sap-icon"><h3 class="title collapsible expanded">Run the Analysis</h3></div><div class="fig"><p>The Support Assistant API allows you to:</p><ul class="ul ">
+					<li class="li">
+						<p>Run a complete analysis on all components and rules. This analysis
+							returns all issues.</p>
+						<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+
+   RuleAnalyzer.analyze().then(function() {
+      var oHistory = RuleAnalyzer.getLastAnalysisHistory();
+      ...
+   });
+});</pre></div></div></section>
+					</li>
+					<li class="li">
+						<p>Run a complete analysis, using custom metadata. The analysis history will contain this metadata.</p>
+						<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+	
+var oMetadata = {
+	…
+};
+	
+   RuleAnalyzer.analyze(null, null, oMetadata).then(function() {
+      var oHistory = RuleAnalyzer.getLastAnalysisHistory();
+      ...
+   });
+});</pre></div></div></section>
+					</li>
+					<li class="li">
+						<p>Narrow down the analysis to a specific part of the app, for example only
+							a sub-tree.</p>
+						<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+
+         var oExecutionScope = {
+            type: "subtree",
+            parentId: "panelId"
+         };
+
+         RuleAnalyzer.analyze(oExecutionScope).then(function() {
+            var oHistory = RuleAnalyzer.getLastAnalysisHistory();
+         ...
+         });
+});</pre></div></div></section>
+						<p> For more information, see <a href="topic/e15067d976f24b11907f4c262bd749a0" title="SAPUI5 apps consist of multiple views, components and fragments. If you run the rules on the complete app with all loaded elements and components, you may not get the desired results. Therefore, the Support Assistant allows you to change the scope of an analysis run and thus narrow down your result set. This helps you focus on specific issues, components or controls within your app." class="sap-doc">Execution Scope</a>.</p>
+					</li>
+					<li class="li">
+						<p>Check for issues using specific
+							rules.</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+
+         var oExecutionScope = {
+            type: "subtree",
+            parentId: "panelId"
+         };
+
+         var aRules = [{
+            ruleId: "inputNeedsLabel",
+            libName: "sap.m"
+         }];
+
+         RuleAnalyzer.analyze(oExecutionScope, aRules).then(function() {
+            var oHistory = RuleAnalyzer.getLastAnalysisHistory();
+         ...
+         });
+      });</pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Check for specific rules using rule presets.</p>
+						<p>The rule presets are semantically grouped rules which can be custom or system defined. They
+							can be imported and exported as <code>JSON</code> files. For
+							more information, see <a href="topic/3fc864acf926406194744375aa464fe7" title="The user interface of the Support Assistant lets you choose which rules you can load for a library. It also allows you to organize your Rules view according to your preference and to import and export predefined rule selections." class="sap-doc">Rules Management</a>.</p>
+						<ul class="ul ">
+							<li class="li">
+								<p>Here is an example of running an analysis by using a
+										<span class="emphasis">custom preset</span>:</p>
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+
+         var oExecutionScope = {
+            type: "subtree",
+            parentId: "panelId"
+         };
+
+         var oCustomPreset = {
+            id: "CustomPreset",
+            title: "Custom",
+            description: "Custom rules",
+            selections: [{
+               ruleId: "inputNeedsLabel",
+               libName: "sap.m"
+            }]
+         };
+
+         RuleAnalyzer.analyze(oExecutionScope, oCustomPreset).then(function() {
+            var oHistory = RuleAnalyzer.getLastAnalysisHistory();
+         ...
+         });
+      });</pre></div></div></section>
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>You can get the preset definition from an available <code>JSON</code> file and
+										pass it as a second parameter of the
+											<code>analyze</code> function instead of defining it
+										in your code.</p>
+								<p></p></div></div>
+							</li>
+							<li class="li">
+								<p>Here is an example of running an analysis by using a
+										<span class="emphasis">system preset</span>:</p>
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+
+         var oExecutionScope = {
+            type: "subtree",
+            parentId: "panelId"
+         };
+
+
+         RuleAnalyzer.analyze(oExecutionScope, "Accessibility").then(function() {
+            var oHistory = RuleAnalyzer.getLastAnalysisHistory();
+         ...
+         });
+      });</pre></div></div></section>
+							</li>
+							<li class="li">
+								<p>Here is an example of running an analysis with system preset by accessing it through the
+											<span class="emphasis"><code>sap.ui.support.SystemPresets</code></span>
+									enumeration:</p>
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require(["sap/ui/support/RuleAnalyzer"],
+      function (RuleAnalyzer) {
+
+         var oExecutionScope = {
+            type: "global"
+         };
+
+         RuleAnalyzer.analyze(oExecutionScope, sap.ui.support.SystemPresets.Accessibility).then(function() {
+            var oHistory = RuleAnalyzer.getLastAnalysisHistory();
+         ...
+         });
+      });</pre></div></div></section>
+							</li>
+						</ul>
+					</li>
+				</ul></div></section><section class="collapsible expanded"><div class="collapsible-icon sap-icon"><h3 class="title collapsible expanded">View the Results</h3></div><div class="fig"><ul class="ul ">
+					<li class="li">
+						<p><code>RuleAnalyzer.getAnalysisHistory()</code> - Returns all the
+							analysis history objects.</p>
+					</li>
+					<li class="li">
+						<p><code>RuleAnalyzer.getLastAnalysisHistory()</code> - Returns the last
+							analysis history.</p>
+					</li>
+					<li class="li">
+						<p><code>RuleAnalyzer.getFormattedAnalysisHistory(sap.ui.support.HistoryFormats)</code>
+							- Returns the history in the format that has been passed. The default
+							format is string.</p>
+					</li>
+				</ul></div></section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/cfabbd4dfc054936997d9d00916e1668" title="The Support Assistant can be used as part of an existing OPA test to cover more test aspects of the application." class="sap-doc">Integrating the Rules in OPA Tests</a></li>
+		<li><a href="api/sap.ui.support" title="api/sap.ui.support" class="sap-doc" alt="api/sap.ui.support">API Reference: sap.ui.support</a></li>
+		<li><a href="api/sap.ui.support.RuleAnalyzer" title="api/sap.ui.support.RuleAnalyzer" class="sap-doc" alt="api/sap.ui.support.RuleAnalyzer">API Reference: sap.ui.support.RuleAnalyzer</a></li>
+	</ul></section></div></section></div></body></html>

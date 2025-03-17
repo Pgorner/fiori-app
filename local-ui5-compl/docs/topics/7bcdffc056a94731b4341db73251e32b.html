@@ -1,0 +1,185 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio7bcdffc056a94731b4341db73251e32b" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/smart-filter-bar-7bcdffc.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Smart Filter Bar</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Smart Filter Bar</h2></div><div class="shortdesc">The <code>sap.ui.comp.smartfilterbar.SmartFilterBar</code> control analyzes the
+			<code>$metadata</code> document of an OData service and renders a
+			<code>FilterBar</code> control that can be used to filter, for example, a table or a
+		chart.</div><p>The frequently asked questions section aims at answering some basic
+				questions that you might have when using this control. For more
+				information, see the FAQ in the <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar#faq" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar#faq" class="sap-doc" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar#faq">API Reference</a>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The code samples in this section reflect examples of possible use
+				cases and might not always be suitable for your purposes. Therefore, we recommend
+				that you do not copy and use them directly.</p></div></div><p>For more
+				information about this control, see the <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar" class="sap-doc" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar">API Reference</a> and the <a href="entity/sap.ui.comp.smartfilterbar.SmartFilterBar" title="entity/sap.ui.comp.smartfilterbar.SmartFilterBar" class="sap-doc" alt="entity/sap.ui.comp.smartfilterbar.SmartFilterBar">samples</a>.</p><p>For more
+				information about annotations for this control, see the <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar/annotations/Summary" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar/annotations/Summary" class="sap-doc" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar/annotations/Summary">API Reference</a>.
+			</p><section>
+			<h2 class="title ">Overview</h2>
+			<p>The <code>SmartFilterBar</code> control is a wrapper control that analyzes the
+				metadata
+				and annotations of an OData service. It renders a
+					<code>FilterBar</code> control and provides integration with the
+					<code>VariantManagement</code> control that is easy to configure.</p>
+			<p>OData annotations are used to:</p>
+			<ul class="ul ">
+				<li class="li"> Determine the type of control (for example, whether a field is shown as
+						<code>MultiInput</code> control or as <code>DatePicker</code>)</li>
+				<li class="li"> Enable the <code>Suggest</code> feature</li>
+				<li class="li"> Enable value help for filters</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">Details</h2>
+			<p>In addition to the <code>$metadata</code> document, you can also have an
+				additional configuration for <code>SmartFilterBar</code> in the XML view. This
+				additional configuration can be either
+					<code>sap.ui.comp.smartfilterbar.ControlConfiguration</code> or
+					<code>sap.ui.comp.smartfilterbar.GroupConfiguration</code>. Using this
+				additional configuration, you can override certain settings from the OData metadata,
+				such as labels, indexes, or the type of control. You can also add custom fields or
+				custom groups to the filter bar that are not part of the OData
+					<code>$metadata</code> document at all.</p>
+			<p>The <code>FieldGroup</code> annotation is used by the
+					<code>SmartFilterBar</code> control to create a grouping of the fields. The
+				grouping is shown in the filter dialog. Any label specified in this dialog is used
+				to override the default label of the property. Only <code>sap:filterable</code>
+				fields are enabled in the <code>SmartFilterBar</code> control by default
+				(default is <code>true</code> when <code>null</code>). </p>
+			<p>The <code>SmartFilterBar</code> control creates filters lazily. This is done
+				because applications often define a large number of filters, but then only use a
+				subset of filters in the <code>SmartFilterBar</code> control. This way, only
+					<span class="emphasis">visible</span> filters are created initially (the property
+				relevant for <code>FilterGroupItem</code> in the <code>FilterBar</code>
+				control is <code>visibleInFilterBar</code> and a value). All other filters will
+				be created at a later point in time, once they have been made visible or requested
+				via the APIs.</p>
+			<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>Calling <code>getFilterGroupItems</code> of the
+					<code>FilterBar</code> control always leads to an instantiation of
+					<span class="emphasis">all</span> filters that have been defined. If the application
+				needs to react to specific filters only, it is recommended to use
+					<code>determineFilterItemByName</code> to obtain a specific filter item
+				instead of calling <code>getFilterGroupItems</code> and iterating through the
+				filters.</p></div></div>
+			<p>Multi-value and unrestricted <code>Date</code> fields are supported if the
+				annotation <code>sap:filter-restriction="multi-value"</code> is set for date
+				properties. </p>
+			<p>For <code>MultiInput</code> filter fields, the <code>MultiLine</code> mode is
+				active.</p>
+			<p>The <code>SmartFilterBar</code> control supports the <code>Edm.Time</code>
+				OData type. The fields bound to OData properties of this type are represented by the
+					<code>sap.m.TimePicker</code> control. The filter panel of the
+					<code>SmartFilterBar</code> control containing the conditions allows
+				filtering for time types using the <code>TimePicker</code> control.</p>
+		</section><section id="section_lpn_j11_ybc">
+			<h2 class="title ">Configuration</h2>
+			<section>
+				<h3 class="title ">Text</h3>
+				<p>The <code>Text</code> annotation defines the field description and where it is taken
+					from. It can be configured with V2 or V4 annotations. For more
+						information, see the <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar#annotations/Text" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar#annotations/Text" class="sap-doc" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar#annotations/Text">API Reference:
+							<code>Text</code></a>.</p>
+				<p>The configuration takes place as follows:</p><ul class="ul ">
+						<li class="li">For the local text annotation – it's set at a property level. The
+							description is derived from the local text or navigational
+							property.</li>
+						<li class="li">For the <code>ValueList</code> text annotation (with applied
+								<code>ValueList</code> annotation) – it's set at the
+								<code>ValueList</code>
+							<code>Collection</code> level. The text is derived from the
+								<code>ValueList</code>
+							<code>Collection</code> text configuration. If a local text
+							annotation is applied, it will be taken into consideration at the start
+							as initial text value. This prevents the initial call for description
+							from taking place. If the value is changed, the description is taken
+							accordingly from the <code>ValueList</code>
+							<code>Collection</code> item.</li>
+					</ul><p></p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The local text annotation won't be considered in scenarios with a dropdown list (where the
+							<code>SmartFilterBar</code> filter is configured with fixed
+						values).</p>
+				<p></p></div></div>
+			</section>
+			<section>
+				<h3 class="title ">TextArrangement</h3>
+				<p>The <code>TextArrangement</code> annotation describes the arrangement of an ID value and
+					its description. For more
+						information, see the <a href="api/sap.ui.comp.smartfilterbar.SmartFilterBar#annotations/TextArrangement" title="api/sap.ui.comp.smartfilterbar.SmartFilterBar#annotations/TextArrangement" class="sap-doc" alt="api/sap.ui.comp.smartfilterbar.SmartFilterBar#annotations/TextArrangement">API Reference:
+								<code>TextArrangement</code></a>.</p>
+			</section>
+		</section><section id="section_cd5_r3j_dcc">
+			<h2 class="title ">Integration with SAP Companion</h2>
+			<p>SAP Companion is an SAP tool
+				providing end-users access to context sensitive field help in browser based UIs. The
+				tool provides additional information directly on top of the application screen. For
+				more information about SAP Companion, see <a href="https://help.sap.com/viewer/product/SAP_ENABLE_NOW/latest/en-US?task=use_task" title="https://help.sap.com/viewer/product/SAP_ENABLE_NOW/latest/en-US?task=use_task" class="external-link" target="_blank" rel="noopener">SAP Enable Now</a>.</p>
+			<p>To enable SAP Companion on a
+					<code>SmartFilterBar</code> control, you need to set custom data on the
+				control with the <code>sap-ui-DocumentationRef</code> key. To do this, you can
+				use the <code>com.sap.vocabularies.Common.v1.DocumentationRef</code> annotation
+				with your <code>SmartFilterBar</code> control on each property for which you
+				want to provide SAP Companion support. A
+				metadata annotation should be associated with the property related to the filter.
+				Here is an example of an annotation for a <code>ContactID</code>
+				<code>string-type</code> property: </p>
+			<section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotations Target="ContactID"&gt;
+&lt;Annotation Term="com.sap.vocabularies.Common.v1.DocumentationRef" String="VALUE"/&gt;
+&lt;Annotations&gt;</pre></div></div></section>
+		</section><section id="section_ojy_pnc_wz">
+			<h2 class="title ">Integration with Other Controls</h2>
+			<section>
+				
+				<h3 class="title ">Support of
+					Selection
+					Variants with
+					<code>SmartVariantManagement</code></h3>
+				<p>You can use the <code>com.sap.vocabularies.UI.v1.SelectionVariant</code>
+					annotation with your <code>SmartFilterBar</code> control in combination with the
+							<code>considerSelectionVariants</code> property.
+						<code>SelectionVariant</code> is based on OData and metadata-driven. </p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>You can only use this annotation if you use the
+						<code>SmartVariantManagement</code> control <span class="emphasis">without</span>
+					page variants.</p></div></div>
+				<p><code>considerSelectionVariants</code> is set to
+						<code>false</code> by default. It is only taken into account during the
+					initialization of the <code>SmartFilterBar</code> control. </p>
+				<p>If the function is active, the provided metadata and annotations are checked for
+						<code>SelectionVariant</code> annotations. Each one of these annotations
+					is then added as a single variant
+					item
+					to the <code>SmartVariantManagement</code> control. The
+					qualifier
+					property determines the internal variant key.
+					The
+					variant items are added once the initialization of
+						<code>SmartVariantManagement</code> has been completed.</p>
+				<p><span class="emphasis">Use of Standard Views</span></p>
+				<p>If a
+						<code>SelectionVariant</code>
+					annotation entry is provided without a qualifier, it will be treated as the new
+					standard view entry if there is no application-delivered standard view.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If
+						an application-delivered standard view exists, the default
+							<code>SelectionVariant</code> annotation will be completely
+						ignored.</p></div></div>
+				<p></p>
+				<p>The new standard view has filter values based on the information provided in
+						<code>SelectionVariant</code> and is enhanced by the _CUSTOM part of the
+					existing
+					standard view.</p>
+				<div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>Replacing the standard view greatly influences all other views,
+					since views always show a delta of visible filters in comparison to the standard
+					view.</p></div></div>
+			</section>
+		</section><section>
+			<h2 class="title ">Related Information</h2>
+			<p><a href="topic/2ae520a67c44495ab5dbc69668c47a7f" title="The sap.ui.comp.filterbar.FilterBar control is used to provide a user-friendly interface for queries." class="sap-doc">Filter Bar</a></p>
+			<p><a href="topic/06a4c3ac1cf545a7b51864e7f3aa02da" title="The sap.ui.comp.smartvariants.SmartVariantManagement control provides access to the SAPUI5 flexibility back end for easy communication." class="sap-doc">Smart Variant Management</a></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

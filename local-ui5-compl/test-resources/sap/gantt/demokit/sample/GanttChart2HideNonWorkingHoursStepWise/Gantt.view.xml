@@ -1,0 +1,162 @@
+<mvc:View height="100%"
+	controllerName="sap.gantt.sample.GanttChart2HideNonWorkingHoursStepWise.Gantt"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:gnt="sap.gantt"
+	xmlns:gnt-def="sap.gantt.def"
+	xmlns:gnt-pattern="sap.gantt.def.pattern"
+	xmlns:gnt-cal="sap.gantt.def.cal"
+	xmlns:axistime="sap.gantt.axistime"
+	xmlns:config="sap.gantt.config"
+	xmlns:gnt2="sap.gantt.simple"
+	xmlns:rm="sap.ui.table.rowmodes"
+	xmlns:skipTime="sap.gantt.skipTime">
+
+	<gnt2:GanttChartContainer id="container" enableStatusBar="true">
+		<gnt2:toolbar>
+			<gnt2:ContainerToolbar stepCountOfSlider="5" id="containerToolbar" showSearchButton="false">
+				<m:Label text="Hide Non Working Time:" />
+				<m:Switch state="{UI>/enableHideNonWorkingTime}"/>
+			</gnt2:ContainerToolbar>
+		</gnt2:toolbar>
+
+		<gnt2:ganttCharts>
+			<gnt2:GanttChartWithTable id="gantt" ghostAlignment="Start" enableSelectAndDrag="false"
+				shapeResize="onShapeResize"
+				shapeDrop="onShapeDrop"
+				shapeConnect="onShapeConnect"
+				shapeContextMenu="onShapeContextMenu"
+				shapeOverRelationship="false"
+				shapePress="onShapePress"
+				shapeSelectionMode="MultiWithKeyboardAndLasso"
+				isConnectorDetailsVisible="true"
+				shapeConnectorList="onShapeConnectorList">
+					<gnt2:table>
+						<TreeTable
+							selectionMode="Single"
+							selectionBehavior="RowSelector"
+							rows="{
+								path: 'data>/ProjectElems',
+								parameters: {
+									operationMode: 'Server',
+									numberOfExpandedLevels: 2,
+									treeAnnotationProperties: {
+										hierarchyNodeFor: 'ObjectID',
+										hierarchyParentNodeFor: 'ParentObjectID',
+										hierarchyLevelFor: 'HierarchyNodeLevel',
+										hierarchyDrillStateFor: 'DrillDownState',
+										hierarchyNodeDescendantCountFor: 'Magnitude'
+									},
+									expand: 'Relationships'
+								}
+							}">
+							<rowSettingsTemplate>
+								<gnt2:GanttRowSettings rowId="{data>ObjectID}"
+										relationships="{path:'data>Relationships', templateShareable: 'true'}">
+										<gnt2:shapes1>
+										<gnt2:BaseRectangle title="{data>ObjectName}"
+															shapeId="{data>ObjectID}"
+															time="{data>StartDate}" endTime="{data>EndDate}"
+															tooltip="{data>ObjectName}"
+															fill="#0092D1"
+															selectedFill="#0955d9"
+															selectedTitleColor="#F7ADCD"
+															resizable="true"
+															draggable="false"
+															horizontalTextAlignment="Start"
+															selectable="true"
+															hoverable="true"
+															connectable="true"
+															height="19"
+															verticalTextAlignment="Center"/>
+								</gnt2:shapes1>
+
+									<gnt2:relationships>
+										<gnt2:Relationship shapeId="{data>RelationID}"
+										predecessor="{data>PredecTaskID}" successor="{data>SuccTaskID}" type="{data>RelationType}" tooltip="{data>RelationType}"
+										selectable="true" hoverable="true"/>
+									</gnt2:relationships>
+
+								</gnt2:GanttRowSettings>
+							</rowSettingsTemplate>
+							<rowMode>
+								<rm:Auto minRowCount="12"/>
+							</rowMode>
+							<columns>
+								<Column id="ObjectName" >
+									<customData>
+										<core:CustomData key="exportTableColumnConfig"
+											value='{"columnKey": "ObjectName",
+											"leadingProperty":"ObjectName",
+											"dataType": "string",
+											"hierarchyNodeLevel": "HierarchyNodeLevel",
+											"wrap": true}' />
+									</customData>
+									<m:Text text="Object Name"/>
+									<template>
+										<m:Label text="{data>ObjectName}"/>
+									</template>
+								</Column>
+							</columns>
+						</TreeTable>
+					</gnt2:table>
+					<gnt2:simpleAdhocLines>
+						<gnt2:AdhocLine markerType="Diamond" stroke="@sapUiLegend7" strokeDasharray="5, 2" timeStamp="20160904120000"/>
+					</gnt2:simpleAdhocLines>
+					<gnt2:deltaLines>
+						<gnt2:DeltaLine resizable="true" deltalineResize="onDeltaResize" stroke="@sapUiLegend13" strokeDasharray="5, 2" timeStamp="20160912000000" endTimeStamp="20160918000000" visible="true"/>
+					</gnt2:deltaLines>
+					<gnt2:axisTimeStrategy>
+						<axistime:StepwiseZoomStrategy id="zoomStrategy" zoomLevels="5">
+							<axistime:skipTimePattern>
+								<skipTime:WeekPattern enabled="{UI>/enableHideNonWorkingTime}">
+									<skipTime:dailyIntervals>
+										<skipTime:DayInterval day="Monday">
+											<skipTime:SkipInterval startTime="000000" endTime="090000" />
+											<skipTime:SkipInterval startTime="173000" endTime="235959" />
+										</skipTime:DayInterval>
+										<skipTime:DayInterval day="Tuesday">
+											<skipTime:SkipInterval startTime="000000" endTime="090000" />
+											<skipTime:SkipInterval startTime="173000" endTime="235959" />
+										</skipTime:DayInterval>
+										<skipTime:DayInterval day="Wednesday">
+											<skipTime:SkipInterval startTime="000000" endTime="080000" />
+											<skipTime:SkipInterval startTime="130000" endTime="140000" />
+											<skipTime:SkipInterval startTime="173000" endTime="235959" />
+										</skipTime:DayInterval>
+										<skipTime:DayInterval day="Thursday">
+											<skipTime:SkipInterval startTime="000000" endTime="090000" />
+											<skipTime:SkipInterval startTime="173000" endTime="235959" />
+										</skipTime:DayInterval>
+										<skipTime:DayInterval day="Saturday">
+											<skipTime:SkipInterval startTime="000000" endTime="235959" />
+										</skipTime:DayInterval>
+										<skipTime:DayInterval day="Sunday">
+											<skipTime:SkipInterval startTime="000000" endTime="235959" />
+										</skipTime:DayInterval>
+									</skipTime:dailyIntervals>
+									<skipTime:weeklyIntervals>
+										<skipTime:SkipInterval startTime="000000" endTime="100000" />
+										<skipTime:SkipInterval startTime="160000" endTime="235959" />
+									</skipTime:weeklyIntervals>
+								</skipTime:WeekPattern>
+							</axistime:skipTimePattern>
+							<axistime:totalHorizon>
+								<config:TimeHorizon
+									startTime="20160501000000"
+									endTime="20170901000000"/>
+							</axistime:totalHorizon>
+							<axistime:visibleHorizon>
+								<config:TimeHorizon
+									startTime="20160901000000"
+									endTime="20170601000000"/>
+							</axistime:visibleHorizon>
+						</axistime:StepwiseZoomStrategy>
+					</gnt2:axisTimeStrategy>
+
+			</gnt2:GanttChartWithTable>
+		</gnt2:ganttCharts>
+	</gnt2:GanttChartContainer>
+</mvc:View>

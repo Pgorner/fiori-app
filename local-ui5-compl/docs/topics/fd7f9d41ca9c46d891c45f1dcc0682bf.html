@@ -1,0 +1,74 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiofd7f9d41ca9c46d891c45f1dcc0682bf" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/landmark-api-fd7f9d4.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Landmark API</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Landmark API</h2></div><div class="shortdesc">The landmark API allows app developers to set different roles and labels that allow
+		users to access the sections of the page using the screen reader
+		functions/shortcuts.</div><p>Landmark roles (or "landmarks") identify sections of a page. Landmarks help assistive
+			technology users to orient themselves in a page and help them navigate easily to various
+			sections within a page. Landmarks also provide an easy way for assistive technology
+			users to skip over blocks of content that are repeated on multiple pages and inform them
+			of the structure of a page. For instance, if there is a common navigation menu found on
+			every page, landmarks can be used to skip over it and navigate from one section to
+			another.</p><section id="section_vft_ghf_fqb">
+			<h2 class="title ">Landmark APIs in SAPUI5</h2>
+			<p>Support for landmark roles is provided for:</p><ul class="ul ">
+					<li class="li">
+						<p><code>sap.f.DynamicPage</code></p>
+					</li>
+					<li class="li"><code>sap.m.Page</code></li>
+					<li class="li"><code>sap.m.Panel</code></li>
+					<li class="li"><code>sap.uxap.ObjectPage</code></li>
+					<li class="li"><code>sap.f.FlexibleColumnLayout</code></li>
+				</ul><p></p>
+			<p>Before seeing how a landmark is set for these controls, you must understand which landmark
+				roles we can use. </p>
+			<p>The picture below is an example of different landmarks with assigned labels in a
+					<code>sap.uxap.ObjectPageLayout</code>. <img src="loio77cb16f93da74644abdf68296651f7bf_Source1.png" usemap="#"></p>
+			<p>Supported landmark roles in SAPUI5 are stored in the <code>sap.ui.core.AccessibleLandmarkRole</code> enum. For more
+					information, see the <a href="api/sap.ui.core.AccessibleLandmarkRole" title="api/sap.ui.core.AccessibleLandmarkRole" class="sap-doc" alt="api/sap.ui.core.AccessibleLandmarkRole">API Reference:
+							<code>sap.ui.core.AccessibleLandmarkRole</code></a>.
+				</p>
+		</section><section id="section_jx5_b5b_jqb">
+			<h2 class="title ">sap.ui.core.AccessibleLandmarkRole</h2>
+			<p>Here is a list of all of the values of the enum showing the part of the web page for which
+				each of them is appropriate:</p>
+			<p><code>sap.ui.core.AccessibleLandmarkRole:</code></p><ul class="ul ">
+					<li class="li">
+						<p><code>sap.ui.core.AccessibleLandmarkRole.Banner</code>: Represents
+							the ARIA <a href="https://www.w3.org/TR/wai-aria/#banner" title="https://www.w3.org/TR/wai-aria/#banner" class="external-link" target="_blank" rel="noopener"><code>banner</code></a> role.</p>
+						<p>A region that contains the prime heading or internal title of a page.</p>
+					</li>
+					<li class="li">
+						<p><code>sap.ui.core.AccessibleLandmarkRole.Complementary</code>:
+							Represents the ARIA <a href="https://www.w3.org/TR/wai-aria/#complementary" title="https://www.w3.org/TR/wai-aria/#complementary" class="external-link" target="_blank" rel="noopener"><code>complementary</code></a> role.</p>
+						<p>Any section of the document that supports the main content, yet is
+							separate and meaningful on its own.</p>
+					</li>
+					<li class="li"><code>sap.ui.core.AccessibleLandmarkRole.ContentInfo</code>: Represents
+						the ARIA <a href="https://www.w3.org/TR/wai-aria/#complementary" title="https://www.w3.org/TR/wai-aria/#complementary" class="external-link" target="_blank" rel="noopener"><code>complementary</code></a> role.<p>A region that
+							contains information about the parent document such as copyrights and
+							links to privacy statements.</p></li>
+					<li class="li"><code>sap.ui.core.AccessibleLandmarkRole.Form</code>: Represents the
+						ARIA <a href="https://www.w3.org/TR/wai-aria/#form" title="https://www.w3.org/TR/wai-aria/#form" class="external-link" target="_blank" rel="noopener"><code>form</code> role.</a><p>A region of the
+							document that represents a collection of form-associated elements, some
+							of which can represent editable values that can be submitted to a server
+							for processing.</p></li>
+					<li class="li"><code>sap.ui.core.AccessibleLandmarkRole.Main</code>: Represents the ARIA <a href="https://www.w3.org/TR/wai-aria/#main" title="https://www.w3.org/TR/wai-aria/#main" class="external-link" target="_blank" rel="noopener"><code>main</code> role.</a><p>The main content
+							in a document. In almost all cases, a page will have only one
+								<code>role="main"</code>.</p></li>
+					<li class="li"><code>sap.ui.core.AccessibleLandmarkRole.Navigation</code>: Represents
+						the ARIA <a href="https://www.w3.org/TR/wai-aria/#navigation" title="https://www.w3.org/TR/wai-aria/#navigation" class="external-link" target="_blank" rel="noopener"><code>navigation</code> role.</a><p>A collection of links
+							suitable for use when navigating the document or related
+						documents.</p></li>
+					<li class="li"><code>sap.ui.core.AccessibleLandmarkRole.Region</code>: Represents the
+						ARIA <a href="https://www.w3.org/TR/wai-aria/#region" title="https://www.w3.org/TR/wai-aria/#region" class="external-link" target="_blank" rel="noopener"><code>region</code> role.</a><p>A collection of
+							links suitable for use when navigating the document or related
+							documents.</p></li>
+					<li class="li"><code>sap.ui.core.AccessibleLandmarkRole.Search</code>: Represents the
+						ARIA <a href="https://www.w3.org/TR/wai-aria/#search" title="https://www.w3.org/TR/wai-aria/#search" class="external-link" target="_blank" rel="noopener"><code>search</code> role.</a><p>The search tool
+							of a web document.</p></li>
+					<li class="li"><code>sap.ui.core.AccessibleLandmarkRole.None</code>: No explicit role is
+							applicable.<p>The interpretation of this value depends on the
+							control/element that defines a property with this type. Normally this
+							value means that no accessible landmark should be written.</p></li>
+				</ul><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

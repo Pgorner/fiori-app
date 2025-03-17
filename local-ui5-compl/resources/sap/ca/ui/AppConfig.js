@@ -1,0 +1,5 @@
+/*
+ * Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+ */
+jQuery.sap.declare("sap.ca.ui.AppConfig");sap.ca.ui.AppConfig=function(i){this.config=i;this._fnValidate()};sap.ca.ui.AppConfig.prototype.getStringValue=function(i,n){var t=this.config[i];if(jQuery.isFunction(t)){t=t.apply(null,n)}if(typeof t=="string"||t instanceof String){return t}jQuery.sap.log.error("The app config is not correct, the function "+i+" has to return a string")};sap.ca.ui.AppConfig.prototype.getBoolValue=function(i,n){var t=this.config[i];if(jQuery.isFunction(t)){t=t.apply(null,n)}return!!t};sap.ca.ui.AppConfig.prototype._fnValidate=function(){this._isStringOfFunction("defaultPageId");this._isStringOfFunction("isMaster");this._isStringOfFunction("viewName");this._isStringOfFunction("viewType");this._isStringOfFunction("transition")};sap.ca.ui.AppConfig.prototype._isStringOfFunction=function(i){var n=this.config[i];if(!(typeof n=="string"||n instanceof String||jQuery.isFunction(n))){jQuery.sap.log.error("The app config is not correct, this property "+i+"has to be a string or a function")}};
+//# sourceMappingURL=AppConfig.js.map

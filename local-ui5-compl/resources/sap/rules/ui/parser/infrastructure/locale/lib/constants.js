@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";var s={propertiesEnum:{MESSAGES:"sap.rules.ui.parser.res.properties.messages_descriptions",OP_MESSAGES:"sap.rules.ui.parser.res.properties.op_messages_descriptions"}};return s},true);
+//# sourceMappingURL=constants.js.map

@@ -1,0 +1,26 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiocb3863746ea14d3698a8b6cc2c62832d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-13-setting-the-list-detail-pattern-cb38637.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 13: Setting the List-Detail Pattern</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 13: Setting the List-Detail Pattern</h2></div><div class="shortdesc">In this step, we set up the app to follow the list-detail pattern.</div><p>Apps using the list-detail pattern operate with a layout divided into two separate areas - a list area and a details area. The list area
+			displays the items available to the user and the details area displays the details for an item that is selected in the list. If your use
+			case requires it, you can set the <code>FlexibleColumnLayout</code> to use a maximum of two columns. For more information, see the
+				<a href="https://experience.sap.com/fiori-design-web/flexible-column-layout/#two-columns-masterdetail-mode" title="https://experience.sap.com/fiori-design-web/flexible-column-layout/#two-columns-masterdetail-mode" class="external-link" target="_blank" rel="noopener">SAP Fiori Design Guidelines</a>.</p><section id="section_yfh_d31_12b" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Preview</h2></div><div class="fig"><div><div class="fig"><img src="loio267d05fd0b294310b7bebdeda5f70e3b_LowRes.gif" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">list-detail pattern with <code>FlexibleColumnLayout</code></h2></span></div></div></section><section id="section_fd2_4dd_lbb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.f.tutorial.fcl.13/preview" title="sample/sap.f.tutorial.fcl.13/preview" class="sap-doc" alt="sample/sap.f.tutorial.fcl.13/preview">Flexible Column Layout
+						App - Step 13</a>.</p>
+		</section><section id="section_b2w_gqj_l4b">
+			<h2 class="title ">webapp/Component.js [MODIFY]</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		getHelper: function () {
+			return this._getFcl().then(function(oFCL) {
+				var oSettings = {
+					defaultTwoColumnLayoutType: fioriLibrary.LayoutType.TwoColumnsMidExpanded,
+					defaultThreeColumnLayoutType: fioriLibrary.LayoutType.ThreeColumnsMidExpanded,
+					initialColumnsCount: 2<span class="emphasis">,
+					maxColumnsCount: 2</span>
+				};
+				return (FlexibleColumnLayoutSemanticHelper.getInstanceFor(oFCL, oSettings));
+			 });
+		},
+		...</pre></div></div></section>
+			<p>We set <code>maxColumnsCount</code> parameter of the <code>getHelper</code> method to <code>2</code>.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/c4de2df385174e58a689d9847c7553bd">Flexible Column Layout App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/a96fbe44ae6544589a096041f99d38c2">Step 12: Starting with Two Columns</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

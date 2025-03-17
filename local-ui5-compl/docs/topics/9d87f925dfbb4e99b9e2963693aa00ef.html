@@ -1,0 +1,179 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio9d87f925dfbb4e99b9e2963693aa00ef" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/css-styling-issues-9d87f92.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">CSS Styling Issues</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">CSS Styling Issues</h2></div><div class="shortdesc">This section lists some of the most important rules relating to CSS styling in SAPUI5.</div><p>SAPUI5 controls are styled
+			with CSS, and as applications can provide their own CSS, they can adapt the styling.
+			However, the deeper such adaptations are, the more likely is it that they break with
+			future SAPUI5 updates or
+			with other libraries and apps getting involved. If you follow the rules listed below,
+			you will reduce the risk of this happening.</p><section id="1" class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Don't override control class styling directly</h2></div><div class="fig"><p>SAPUI5 does not
+				guarantee the stability of style class names across versions. If the naming of style
+				classes is changed in future versions, styling rules will no longer be applied to
+				targeted elements. In addition, overriding control class styles directly might lead
+				to style clashes when applications are run in shared runtime environments (like SAP
+				Fiori launchpad).</p><p>Add your own namespaced classes instead.</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_ehh_rkk_jq" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Bad Example</th>
+							<th colspan="1" rowspan="1">Good Example</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">.sapMInputBaseError {
+	font-weight: bold;
+}</pre></div></div></section>
+							</td>
+							<td colspan="1" rowspan="1"><p>Add a custom CSS class to the control in those situations
+									where you want additional styling:</p>
+								<code>oButton.addStyleClass("poaAppError");</code><p>Then
+									provide the style for this
+								class:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">.poaAppError {
+	font-weight: bold;
+}
+</pre></div></div></section></td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="2" class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Don't style DOM element names directly</h2></div><div class="fig"><p>Styling DOM elements directly will lead to unpredictable results, as SAPUI5 does not
+				guarantee the stability of the inner-control DOM-tree over time. In addition, this
+				might lead to styling clashes when applications run in shared runtime environments
+				(like SAP Fiori launchpad) or when
+				custom HTML is added. It is better to limit styling changes to specifically used CSS
+				classes.</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_mdl_qcq_jq" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Bad Example</th>
+							<th colspan="1" rowspan="1">Good Example</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">div {
+	width: 120px;
+}</pre></div></div></section>
+							</td>
+							<td colspan="1" rowspan="1">
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">.myStyleClass {
+	width: 120px;
+}</pre></div></div></section>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="3" class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Don't use generated IDs in CSS selectors</h2></div><div class="fig"><p>SAPUI5 applications can
+				create dynamic IDs for elements. Do not use these IDs as selectors in custom CSS as
+				they can change over time. It is better to add and use CSS classes instead.</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_lzk_5dq_jq" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Bad Example</th>
+							<th colspan="1" rowspan="1">Good Example</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">#__view1__button0 {
+	font-weight: bold;
+}</pre></div></div></section>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Add a style class as described above and then define the
+									following:</p>
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">.myEmphasizedButton {
+	font-weight: bold;
+}</pre></div></div></section>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="4" class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Don't create selectors that are not namespaced</h2></div><div class="fig"><p>Custom selectors and CSS classes that are not namespaced might lead to style clashes
+				in shared runtime environments like SAP Fiori launchpad, or when other
+				JavaScript libraries are included that might use the same CSS class names.</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_j2n_l2q_jq" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Bad Example</th>
+							<th colspan="1" rowspan="1">Good Example</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">.title {
+	font-weight: bold;
+}</pre></div></div></section>
+							</td>
+							<td colspan="1" rowspan="1">
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">.poaAppTitle {
+	font-weight: bold;
+}</pre></div></div></section>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div></div></section><section id="5" class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Don't use hard-coded colors, font sizes and images if the app should be
+				themable</h2></div><div class="fig"><p>Themability of applications relies on LESS calculations within the SAPUI5 theme CSS.
+				Hard-coding colors, fonts and images in applications and custom controls means that
+				these colors are not modified by theming, which leads to design issues or
+				accessibility issues (for example, in the High Contrast Black (HCB) theme). You can
+				use special CSS classes instead that are supplied by these LESS calculations.</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_twd_s2q_jq" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Bad Example</th>
+							<th colspan="1" rowspan="1">Good Example</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">.myCustomHTML {
+	color: #FFF;
+	background-color: blue;
+}</pre></div></div></section>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Add the CSS classes <code>sapThemeTextInverted</code> and
+										<code>sapThemeHighlight-asBackgroundColor</code> to your
+									custom HTML element.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><p>See also: <a href="topic/ea08f53503da42c19afd342f4b0c9ec7" title="SAPUI5 provides a set of essential adjustable colors behind the generic predefined CSS rules that enable custom content to use the respective CSS classes for the required colors." class="sap-doc">CSS Classes for Theme
+					Parameters</a>.</p></div></section><section id="6" class="collapsible"><div class="collapsible-icon sap-icon"><h2 class="title collapsible">Don't use theming parameters for attributes they were not intended for</h2></div><div class="fig"><p>SAPUI5 applications come
+				with a built-in set of parameters which are used for theme-dependent styling, mainly
+				for colors. They are accessible using the
+					<code>sap.ui.core.theming.Parameters.get()</code> API (and for library
+				builds using the OpenUI5 build mechanism, also in the *.less files in control
+				libraries). These theme parameters have descriptive names, meaning that by looking
+				at a parameter name, you can see the usage it has been defined for.</p><p>To ensure that you do not use combinations of theme colors which may clash after
+				future theme changes, do not use background colors for fonts or vice versa, for
+				example, and do not use border colors for anything else but borders.</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_qsf_kfq_jq" class="tableFullWidth ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">Bad Example</th>
+							<th colspan="1" rowspan="1">Good Example</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var sColor = sap.ui.core.theming.Parameters.get("sapUiButtonBorderColor");
+$(oSomeDomElement).css("background-color", sColor);</pre></div></div></section>
+							</td>
+							<td colspan="1" rowspan="1">
+								<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var sColor = sap.ui.core.theming.Parameters.get("sapUiButtonBorderColor");
+$(oSomeDomElement).css("border-color", sColor);</pre></div></div></section>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><p>See also: <a href="api/sap.ui.core.theming.Parameters" title="api/sap.ui.core.theming.Parameters" class="sap-doc" alt="api/sap.ui.core.theming.Parameters">Namespace
+				sap.ui.core.theming.Parameters</a>.</p></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,7 @@
+/*!
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define(["sap/ui/mdc/ValueHelp","sap/ui/mdc/valuehelp/content/FixedList","sap/ui/mdc/valuehelp/content/FixedListItem","sap/ui/mdc/valuehelp/Popover","sap/sac/df/model/MemberFilter","sap/ui/core/library"],(e,t,s,a,n,i)=>{"use strict";const l=i.ValueState;const o=e.extend("sap.sac.df.filter.ValueHelp",{metadata:{library:"sap.sac.df"},init:function(){e.prototype.init.apply(this,arguments);this.setDelegate({name:"sap/sac/df/filter/delegate/ValueHelpDelegate",payload:{isDefaultHelp:true}});this.setTypeahead(new a(this.getId()+"--TypeAheadPopover",{content:[new t(this.getId()+"--FixedList",{filterList:false,useFirstMatch:false})]}));this.attachSelect(null,this._onSelectSuggestedItem.bind(this))},_onSelectSuggestedItem:function(e){const t=this;const s=e.getParameter("conditions");if(s.length===1){const a=s[0].values[0];const i=s[0].values[1];const o=this.getControl();const c=o._getMetaObject();o.setValueState(l.None);o.setValueStateText();const u=new n([a],[a],[i]);return Promise.resolve().then(function(){o.getMaxConditions()===1?c.setMemberFilter(u,!o._getLiveMode()):c.addMemberFilter(u,!o._getLiveMode());e.getSource().setFilterValue(null);const s=t.getTypeahead();s.close();const a=s.getContent()[0];a.destroyItems();o.destroyAggregation("valueHelp")}).catch(function(){t.getControl()._setBusy(false)})}},getIcon:function(){return"sap-icon://value-help"}});return o});
+//# sourceMappingURL=ValueHelp.js.map

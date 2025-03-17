@@ -1,0 +1,109 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio17dbd5b7a61e4cdcb079062e976cd63f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/header-facets-17dbd5b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Header Facets</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Header Facets</h2></div><div class="shortdesc">You can include various types of header facets in your object page header, for example to display contact data or a rating
+        indicator.</div><p>You can use the annotation term <code>UI.HeaderFacets</code> to define which information is displayed in the header. The <code>UI.HeaderFacets</code> annotation
+            contains a collection of <code>UI.ReferenceFacet</code>, with each reference facet, corresponding to a header element displayed on the UI. The following sample code
+            shows such a structure:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML Annotation</p><section class="lang-xml collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.HeaderFacets"&gt;
+    &lt;Collection&gt;
+        ...
+        &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#Price" /&gt;
+        &lt;/Record&gt;
+        ...
+        &lt;Record Type="UI.ReferenceFacet"&gt;
+            &lt;PropertyValue Property="Target" AnnotationPath="to_StockAvailability/@UI.DataPoint#StockAvailability" /&gt;
+        &lt;/Record&gt;
+        ...
+    &lt;/Collection&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.Facet: [
+  {
+    targetQualifier: 'Price',
+    type: #DATAPOINT_REFERENCE,
+    purpose: #HEADER
+  },
+  {
+    targetQualifier: 'StockAvailability',
+    targetElement: 'TO_STOCKAVAILABILITY',
+    type: #DATAPOINT_REFERENCE,
+    purpose: #HEADER
+  }
+]
+Test;
+</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+                Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">annotate c_salesordermanage_sd.SalesOrderManage with @(UI : {
+            HeaderFacets                                    : [
+                            {
+                                           $Type             : 'UI.ReferenceFacet',
+                                           Label             : 'Price',
+                                           ID                : 'Price',
+                                           Target            : '@UI.DataPoint#Price'
+                            },
+                            {
+                                           $Type             : 'UI.ReferenceFacet',
+                                           Label             : 'Stock Availability',
+                                           ID                : 'StockAvailability',
+                                           Target            : 'to_StockAvailability@UI.DataPoint#StockAvailability'
+                            }
+            ]
+})
+</pre></div></div></section><p></p></div></div>
+        <p></p><p>On desktops, the dynamic or static header is used with the responsive layout.</p><div><div class="fig"><img src="loiob1c531e46231403bb1ec67f86bee8d9d_LowRes.png" usemap="#"></div></div><p>On mobile devices, a header container is used with the horizontal layout, providing scrolling for header facets.</p><div><div class="fig"><img src="loio8abec0d531114f87846a56972e371f2c_LowRes.png" usemap="#"></div></div><p>You can see the object page header facets within a horizontal scroll container.</p><section id="section_dn1_5zh_nlb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>The horizontal scroll container is the default on mobile devices, while the dynamic or static header is the default on desktops.</p><div><div class="fig"><img src="loio6113e92f094b49808f5d651176773676_LowRes.jpg" usemap="#"></div></div><p>To enable the carousel header on desktops, set <code>"showHeaderAsCarouselOnDesktop": true</code> in the <code>manifest.json</code> file, as shown in the
+                following sample code:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>manifest.json</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui.generic.app": {
+       ………
+                "pages": [
+                    {
+                        "entitySet": "STTA_C_MP_Product",
+                        "component": {
+                            "name": "sap.suite.ui.generic.template.ObjectPage",
+                            "settings": {
+                                "showHeaderAsCarouselOnDesktop": true,
+                               …….
+                            }
+                        },
+                        "pages": [
+                            {
+                                "navigationProperty": "to_ProductText",
+                                "entitySet": "STTA_C_MP_ProductText",
+                                "component": {
+                                    "name": "sap.suite.ui.generic.template.ObjectPage",
+                                    "settings": {
+                                        "showHeaderAsCarouselOnDesktop": true,
+		    ……………
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
+</pre></div></div></section><p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                </p><p>This setting must be specified at each component level in the <code>manifest.json</code> file.</p>
+            <p></p></div></div></div></section><section id="section_mjc_ccs_hnb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><section>
+                <h3 class="title ">Stashing</h3>
+            </section><p>If an application developer has defined header facets as
+                    <code>stashed</code> in the
+                    <code>manifest.json</code>
+                file, they are initially not visible on the UI. Such header facets are not loaded when the
+                application is started. Key users can add these stashed header facets
+                using
+                the key user adaptation at runtime and make them visible for end users on the object page header.</p><p>For more information, see to <a href="topic/59bfd317ed5d4af3b490abbe7a9731d8" title="Both application developers and key users can extend and customize SAP Fiori applications by adapting the UI." class="sap-doc">Adapting the UI</a>.</p></div></section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/9422074471ef4db9a7ee6b519102f0d1">Enabling Simple Header Facets</a></li><li><a href="topic/1da0926a5d404c5586cd8b4f73d1cf4a">Plain Text Facet</a></li><li><a href="topic/214dc25fb47f42c6a0091dfe71e87950">Contact Facet</a></li><li><a href="topic/e219fd0c85b842c69ac3a514e712ece5">Micro Chart Facet</a></li><li><a href="topic/ff0ae0b200e0488d928f87a043c4c747">Form Facet</a></li><li><a href="topic/c2a389a11a704b00886440031a3d43f9">Data Points</a></li><li><a href="topic/0b73cbbeda344d88b5d0f8bea4d4498e">Address Facet in the Object Page Header</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

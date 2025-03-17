@@ -1,0 +1,32 @@
+<core:FragmentDefinition
+    xmlns="sap.ui.unified"
+    xmlns:core="sap.ui.core">
+    <Menu
+        id="ContextMenu">
+        <items>
+            <MenuItemGroup
+                itemSelectionMode="SingleSelect">
+                <items>
+                    <MenuItem
+                        id="MoveUp"
+                        enabled="{viewConfiguration>/contextMenu/enableMoveUp}"
+                        selected="false"
+                        text="{i18n>NavigationBarMenu.ContextMenu.MoveUp}"
+                        select="_moveSpaceUp" />
+                    <MenuItem
+                        id="MoveDown"
+                        enabled="{viewConfiguration>/contextMenu/enableMoveDown}"
+                        selected="false"
+                        text="{i18n>NavigationBarMenu.ContextMenu.MoveDown}"
+                        select="_moveSpaceDown" />
+                    <MenuItem
+                        id="PinUnpin"
+                        enabled="{viewConfiguration>/contextMenu/enablePin}"
+                        selected="{= ${spaces>pinned} ? true : false }"
+                        text="{= ${spaces>pinned} ? ${i18n>NavigationBarMenu.ContextMenu.UnpinSpace} : ${i18n>NavigationBarMenu.ContextMenu.PinSpace} }"
+                        select="handlePinButtonPress"/>
+                </items>
+            </MenuItemGroup>
+        </items>
+    </Menu>
+</core:FragmentDefinition>

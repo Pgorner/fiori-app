@@ -1,0 +1,234 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio0187ea5e2eff4166b0453b9dcc8fc64f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/component-metadata-0187ea5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Component Metadata</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Component Metadata</h2></div><div class="shortdesc">The component class provides specific metadata for components by extending the
+			<code>ManagedObject</code> class. The <code>UIComponent</code> class provides
+		additional metadata for the configuration of user interfaces or the navigation between
+		views.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>With the introduction of the descriptor for applications, components, and libraries, we
+				recommend to migrate the component metadata to the descriptor. The descriptor is
+				inspired by W3C's Web Application Manifest and provides comprehensive information
+				for applications, components and libraries. For more information, see <a href="topic/be0cf40f61184b358b5faedaec98b2da" title="The manifest (also known as descriptor for applications, components, and libraries, in short: app descriptor) is inspired by the WebApplication Manifest concept introduced by the W3C. The manifest provides a central, machine-readable, and easy-to-access location for storing metadata associated with an application, an application component, or a library." class="sap-doc">Manifest (Descriptor for Applications, Components, and Libraries)</a>. The metadata property
+					<code>manifest</code> must be set to <code>json</code> to indicate that
+				the <code>manifest.json</code> file should be loaded and used:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Component" required from module "sap/ui/core/Component"
+Component.extend("some.sample.Component", {
+    "metadata": {
+        "manifest": "json"
+    }
+});</pre></div></div></section>
+			<p>You can also define the descriptor inline by just providing an object. However, we do
+					<span class="emphasis">not</span> recommend this because this would prevent that the
+				descriptor can be analyzed by tools.</p>
+		<p></p></div></div><p>The metadata defined in <code>Component.js</code> is common for components. The following parameters are available:</p><ul class="ul ">
+			<li class="li">
+				<p><code>manifest</code>: Specifies if your component uses the descriptor</p>
+			</li>
+			<li class="li">
+				<p><code>abstract</code>: Specifies if your component class is an abstract class that serves
+					as a base for other components</p>
+			</li>
+			<li class="li">
+				<p><code>version</code>: Version of your component; this parameter belongs to the design time metadata and is currently not used; it may be used in the
+					future in the design time repository</p>
+			</li>
+			<li class="li">
+				<p><code>properties</code>, <code>aggregations</code>, <code>associations</code>, and <code>events</code>: Define these for your component
+					in the same way as for a control. For more information, see <a href="topic/7b52540d9d8c4e00b9723151622bbb64" title="Control metadata consists of properties, events, as well as aggregations and associations." class="sap-doc">Defining the Control Metadata</a>.</p>
+			</li>
+			<li class="li">
+				<p><code>library</code>: Specifies the library to which your component belongs
+					to</p>
+			</li>
+		</ul><p>The following properties are deprecated and no longer needed if you use the
+			descriptor:</p><ul class="ul ">
+			<li class="li">
+				<p><code>includes</code>: Array of strings containing the paths to CSS and
+					JavaScript resources for your component; will be added to the header of the HTML
+					page and loaded by the browser. The resources will be resolved relative to the
+					location of <code>Component.js</code>.</p>
+			</li>
+			<li class="li">
+				<p><code>dependencies</code>: Used to specify all external dependencies, such as
+					libraries or components. Like the includes for resources that are added to the
+					application's HTML, the dependencies are loaded by SAPUI5 core before
+					the component is initialized. Everything that is referenced here can be used in
+					your component code right from the start. Specify here external dependences such
+					as libraries or components, that will be loaded by SAPUI5 core in the
+					initialization phase of your Component and can be used after it.</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>libs</code>: Path to the libraries that should be loaded by SAPUI5 core
+							to be used in your component</p>
+					</li>
+					<li class="li">
+						<p><code>components</code>: Full path to the components that should be
+							loaded by SAPUI5 core
+							to be used in your component </p>
+					</li>
+					<li class="li">
+						<p><code>ui5version</code>: Minimum version of SAPUI5 that
+							the component requires; it helps to be ensure that the features of SAPUI5
+							runtime used in this component are available. As SAPUI5
+							currently does not enforce the use of the correct version, it is only
+							used for information purposes.</p>
+					</li>
+				</ul>
+			</li>
+			<li class="li">
+				<p><code>config</code>: Static configuration; specify the name-value pairs that
+					you need in the component</p>
+			</li>
+			<li class="li">
+				<p><code>customizing</code>: Extensions for components and views, see <a href="topic/a264a9abf98d4caabbf9b027bc1005d8" title="You can adapt an SAPUI5 app to your specific requirements. For example, you can adapt or replace views, extend or replace controllers, or change language-specific texts." class="sap-doc">Extending Apps</a></p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>sap.ui.viewExtensions</code>: Used for providing custom view
+							content in a specified extension point in the standard application</p>
+					</li>
+					<li class="li">
+						<p><code>sap.ui.viewModifications</code>: Used for overriding control
+							properties in the standard application</p>
+					</li>
+					<li class="li">
+						<p><code>sap.ui.viewReplacements</code>: Used for replacing a standard
+							view with a custom view</p>
+					</li>
+					<li class="li">
+						<p><code>sap.ui.controllerExtensions</code>: Used for extending a controller in a
+							delivered standard application with a custom controller</p>
+					</li>
+					<li class="li">
+						<p><code>sap.ui.controllerReplacements</code>: Used for replacing a
+							controller in a delivered standard application with a custom
+							controller</p>
+					</li>
+				</ul>
+			</li>
+		</ul><p>Example for metadata in <code>Component.js</code>:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "Component" required from module "sap/ui/core/Component"
+Component.extend("some.sample.Component", {
+    "metadata": {
+        "manifest": "json", // Specifies that your Component class uses the descriptor via the manifest.json file
+        "abstract": true, // Specifies if your Component class is an abstract one that serves as a base for your other components 
+        "library": "sap.ui.core", // Specifies the library the component belongs to
+        "version": "1.0", // Version of your Component
+        "properties": { // Defined for components in the same way as for a control or view
+            "config": "any"
+        }
+    }
+});</pre></div></div></section><p>In addition to the common metadata for components, the <code>UIComponent</code> class provides the following metadata for UI components:</p><ul class="ul ">
+			<li class="li">
+				<p><code>publicMethods</code>: Definition of public methods for your component</p>
+			</li>
+			<li class="li">
+				<p><code>aggregations</code>: Defines aggregations for your component</p>
+			</li>
+			<li class="li">
+				<p><code>interfaces</code>: Defines the interfaces implemented by your component.</p>
+				<p>We recommend to add the <code>sap.ui.core.IAsyncContentCreation</code> marker interface when defining a new component. Using
+					this interface allows the component to be created fully asynchronously. This interface will implicitly set the component's
+						<code>rootView</code> and router configuration to <code>async</code>. Nested views will also be handled
+					asynchronously. Additionally, the error handling during the processing of views is stricter and will fail if a view definition
+					contains errors, e.g. broken binding strings.</p>
+			</li>
+		</ul><p>The following properties are deprecated and no longer needed if you use the
+			descriptor:</p><ul class="ul ">
+			<li class="li">
+				<p><code>rootView</code>: Can be the view name as string or the view
+					configuration object</p>
+			</li>
+			<li class="li">
+				<p><code>routing</code>: Provides the default values for all views</p>
+				<ul class="ul ">
+					<li class="li">
+						<p><code>config</code>: Default values for routing that are applied, if
+							no setting is specified by a route</p>
+						<ul class="ul ">
+							<li class="li">
+								<p><code>viewType</code>: View type of the view that is created,
+									for example XML, JS or HTML</p>
+							</li>
+							<li class="li">
+								<p><code>viewPath</code>: Prefix that is preceding the view</p>
+							</li>
+							<li class="li">
+								<p><code>targetParent</code>: ID of the view in which the
+										<code>targetControl</code> is searched</p>
+							</li>
+							<li class="li">
+								<p><code>targetControl</code>: ID of the control that contains
+									the views</p>
+							</li>
+							<li class="li">
+								<p><code>targetAggregation</code>: Name of the aggregation of
+									the <code>targetControl</code> that contains views</p>
+							</li>
+							<li class="li">
+								<p><code>clearTarget</code>: Boolean; if set to
+										<code>true</code>, the aggregation should be cleared
+									before adding the View to it</p>
+							</li>
+						</ul>
+					</li>
+					<li class="li">
+						<p><code>routes</code>: Contains the configuration objects</p>
+						<ul class="ul ">
+							<li class="li">
+								<p><code>name</code>: Mandatory parameter used for listening or
+									navigating to the route</p>
+							</li>
+							<li class="li">
+								<p><code>pattern</code>: String that is matched against the
+									hash. The {} means this segment of the URL is passed to a
+									handler with the value it contains</p>
+							</li>
+							<li class="li">
+								<p><code>view</code>: Name of the view that is created</p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul><p>Example for UI component metadata:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "UIComponent" required from module "sap/ui/core/UIComponent"
+UIComponent.extend("some.sample.UIComponent", {
+    "metadata": {
+        "publicMethods": [ "render" ],
+        "aggregations": {
+            "rootControl": {
+                "type": "sap.ui.core.Control", multiple: false, visibility: "hidden"
+            }
+        }
+    }
+}),</pre></div></div></section><section>
+			<h2 class="title ">Properties Section in Component Metadata</h2>
+			<p>You can add a properties section to the metadata for all properties that can adopt
+				different values during runtime. The getters and setters for these properties are
+				generated automatically, but you can overwrite them if you require additional
+				functionality. The following example contains two properties at the end of the
+				metadata section.</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "UIComponent" required from module "sap/ui/core/UIComponent"
+UIComponent.extend("samples.components.shell.Component", {
+    "metadata": {
+        "abstract": true,
+        "version": "1.0",
+...
+        "properties": {
+            "appTitle": {
+                "name":"appTitle",
+                "type":"string",
+                "defaultValue":"Default Value that will be replaced with something meaningful through the setter for this property"
+            },
+            "someOtherProp": {
+                "name":"myProperty",
+                "type":"string",
+                "defaultValue":"Some text"
+            }
+        }
+    }
+});</pre></div></div></section>
+			<p>The getters and setters for these properties are generated automatically and can be
+				overwritten if additional functionality is required.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.core.Component.MetadataOptions" title="api/sap.ui.core.Component.MetadataOptions" class="sap-doc" alt="api/sap.ui.core.Component.MetadataOptions">API Reference: sap.ui.core.Component.MetadataOptions</a></li>
+	</ul></section></div></section></div></body></html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html style="overflow:auto">
+
+<head>
+  <meta charset="utf-8">
+  <title>SearchResultWidget Standalone Test</title>
+  <script src="../../../../../../../../../resources/sap-ui-integration.js" id="sap-ui-bootstrap"
+    data-sap-ui-resourceroots='{
+      "sap.ushell": "../../../../../../../../../resources/sap/ushell",
+      "sap.ushell.test": "../../../../../"
+    }' data-sap-ui-async="true" data-sap-ui-compatVersion="edge" data-sap-ui-theme="sap_horizon"
+    data-sap-ui-oninit="module:sap/ushell/test/components/cepsearchresult/TestSupport">
+    </script>
+  <script>
+
+    window["sap-ushell-config"] = window["sap-ushell-config"] || {};
+    window["sap-ushell-config"].ushell = window["sap-ushell-config"].ushell || {};
+    window["sap-ushell-config"].ushell.cepSearchConfig = "advanced";
+
+    function configure(sCardId) {
+
+      var oCard = document.getElementById(sCardId)._oControlInstance;
+
+      sap.ui.require(["sap-ui-integration-card-editor"], function () {
+        sap.ui.require(["sap/m/Button", "sap/m/Dialog", "sap/ui/integration/designtime/editor/CardEditor"], function (Button, Dialog, CardEditor) {
+          var oEditor = new CardEditor({
+            card: oCard,
+            mode: "content"
+          });
+          oEditor.attachReady(function () {
+            oEditor.invalidate();
+          })
+          var oDialog = new Dialog({
+            title: "Configure Search Result Card",
+            horizontalScrolling: false,
+            content: oEditor,
+            beginButton: new Button({
+              type: "Emphasized",
+              text: "OK",
+              press: function () {
+                sap.m.MessageToast.show("Apply settings");
+                oCard.setManifestChanges([oEditor.getCurrentSettings()]);
+                oDialog.close();
+              }
+            }),
+            endButton: new Button({
+              text: "Close",
+              press: function () {
+                oDialog.close();
+              }
+            }),
+            contentWidth: "45rem",
+            contentHeight: "25rem"
+          });
+          oDialog.open();
+        });
+      });
+    }
+
+
+  </script>
+</head>
+
+<body class="sapUiBody sapUiSizeCompact">
+  <ui-integration-card id="card1" style="width:calc(40% - 6rem);padding:3rem"
+    manifest="../../../../../../../../../resources/sap/ushell/components/cepsearchresult/app/cards/searchresultwidget/manifest.json"
+    manifest-changes='[
+        {
+          "/sap.card/configuration/parameters/view/value": "tile",
+          "/sap.card/configuration/parameters/category/value": "app",
+          ":layer": 5
+        }
+      ]'>
+  </ui-integration-card>
+  <button onclick="configure('card1')">Configure</button>
+
+  <ui-integration-card id="card2" style="width:calc(40% - 6rem);padding:3rem"
+    manifest="../../../../../../../../../resources/sap/ushell/components/cepsearchresult/app/cards/searchresultwidget/manifest.json"
+    manifest-changes='[
+        {
+          "/sap.card/configuration/parameters/searchTerm/value": "1",
+          "/sap.card/configuration/parameters/category/value": "people",
+          "/sap.card/configuration/parameters/pageSize/value": 3,
+          ":layer": 5
+        }
+      ]'>
+  </ui-integration-card>
+  <button onclick="configure('card2')">Configure</button>
+
+  <ui-integration-card style="width:calc(50% - 6rem);padding:3rem"
+    manifest="../../../../../../../../../resources/sap/ushell/components/cepsearchresult/app/cards/searchresultwidget/manifest.json"
+    manifest-changes='[
+        {
+          "/sap.card/configuration/parameters/searchTerm/value": "",
+          "/sap.card/configuration/parameters/category/value": "event",
+          "/sap.card/configuration/parameters/pageSize/value": 4,
+          "/sap.card/configuration/parameters/view/value": "card",
+          ":layer": 5
+        }
+      ]'>
+  </ui-integration-card>
+
+  <ui-integration-card style="width:calc(40% - 6rem);padding:3rem"
+    manifest="../../../../../../../../../resources/sap/ushell/components/cepsearchresult/app/cards/searchresultwidget/manifest.json"
+    manifest-changes='[
+        {
+          "/sap.card/configuration/parameters/searchTerm/value": "a",
+          "/sap.card/configuration/parameters/category/value": "app",
+          ":layer": 5
+        }
+      ]'>
+
+  </ui-integration-card>
+</body>
+
+</html

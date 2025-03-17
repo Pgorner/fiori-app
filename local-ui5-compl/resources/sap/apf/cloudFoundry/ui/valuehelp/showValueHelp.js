@@ -1,0 +1,2 @@
+sap.ui.define(["sap/apf/cloudFoundry/ui/utils/ComponentCorrector","sap/ui/core/library"],function(e,a){"use strict";var o="sap.apf.cloudFoundry.ui.valuehelp";var r=a.mvc.ViewType;function i(a,i){e.createView(i.getComponent(),{viewName:o+".view.CatalogBrowser",type:r.XML,viewData:a})}return{show:i}});
+//# sourceMappingURL=showValueHelp.js.map

@@ -1,0 +1,8 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define(["../../sina/AttributeGroupMetadata","../../sina/AttributeMetadata"],function(t,e){"use strict";const a=t["AttributeGroupMetadata"];const i=e["AttributeMetadata"];class r{sina;constructor(t){this.sina=t}parse(t,e){const r=[];if(!t){return r}const o=e.filter.dataSource._getStaticHierarchyAttributeForDisplay();for(const n of t){const t=n.scope;let s="";let c="";const l=e.filter.dataSource.attributeMetadataMap[t];if(o instanceof a){const t=o._private?.childAttribute;if(t instanceof i){s=t.id}const e=o._private?.parentAttribute;if(e instanceof i){c=e.iconUrlAttributeName}}else if(o instanceof i){s=l.id;c=l.iconUrlAttributeName}if(!s){s="node_value"}const u=n.hierarchy.length;const f=[];n.hierarchy.forEach((a,i)=>{let r=false;let o=false;let n=a[c]||a["icon"]||"sap-icon://folder";let l=a[s]||a["node_value"]||a[t]||a["node_id"];if(i===0){r=true;if(a[t]==="$$ROOT$$"){n=e.filter.dataSource.icon||"sap-icon://home";l=e.filter.dataSource.labelPlural||e.filter.dataSource.label||l}}else if(i===u-1){o=true;n=a[c]||a["icon"]||"sap-icon://open-folder"}f.push(this.sina.createHierarchyNode({id:a[t]||a["node_id"],label:l,isFirst:r,isLast:o,icon:n}))});r.push(this.sina.createHierarchyNodePath({name:n.scope,path:f}))}return r}}var o={__esModule:true};o.HierarchyNodePathParser=r;return o})})();
+//# sourceMappingURL=HierarchyNodePathParser.js.map

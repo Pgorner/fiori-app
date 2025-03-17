@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>SmartField Currency With Custom List</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-language="EN"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-log-level="0"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainViewCurrency" type="text/xml">
+		<mvc:View
+				xmlns:mvc="sap.ui.core.mvc"
+				viewName="mainView"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				height="100%">
+
+			<App>
+				<Page id="page" title="Smart Field Currency">
+					<smartForm:SmartForm id="smartForm" title="Currency with custom list" editable="true" editTogglable="true" expanded="true">
+						<smartForm:Group>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="Currency" value="{Currency}"/>
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+				</Page>
+			</App>
+		</mvc:View>
+	</script>
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+						<Property Name="Id"
+								  Type="Edm.String"
+								  MaxLength="4"
+								  Nullable="false"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+						<Property Name="Currency"
+								  Type="Edm.Decimal"
+								  sap:unit="CurrencyCode"
+								  sap:label="Currency"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:sortable="false"
+								  Precision="13"
+								  Scale="6"
+						/>
+						<Property Name="CurrencyCode"
+								  Type="Edm.String"
+								  MaxLength="3"
+								  sap:label="CurrencyCode"
+								  sap:updatable="false"
+								  sap:creatable="false"
+								  sap:semantics="currency-code"
+						/>
+						<Property Name="CurrencyText"
+								  Type="Edm.String"/>
+					</EntityType>
+
+					<EntityType Name="CurrencyCodeVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="CURR" />
+						</Key>
+						<Property Name="CURR" Type="Edm.String" sap:text="Key" Nullable="false" MaxLength="20" sap:label="ISO Currecy"/>
+						<Property Name="DESCR" Type="Edm.String" sap:label="Currency"/>
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="true"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="CurrencyCodeVH"
+								   EntityType="EmployeesNamespace.CurrencyCodeVHType"
+								   sap:creatable="true"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+					</EntityContainer>
+
+					<Annotations Target="EmployeesNamespace.Employee/CurrencyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="CurrencyText">
+							<Annotation Term="com.sap.vocabularies.UI.v1.TextArrangement" EnumMember="com.sap.vocabularies.UI.v1.TextArrangementType/TextFirst"/>
+						</Annotation>
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Currency"/>
+								<PropertyValue Property="CollectionPath" String="CurrencyCodeVH"/>
+								<PropertyValue Property="SearchSupported" Bool="false"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="CurrencyCode"/>
+											<PropertyValue Property="ValueListProperty" String="CURR"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="DESCR"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+	<script id="dataSection" type="text/json">
+	{"d": {
+		"__count": "1",
+		"results": [
+				{
+					"__metadata": { "uri": "testService.Employees/Employees('0001')","id": "testService.Employees/Employees('1001')", "type": "EmployeesNamespace.Employee" },
+					"Currency": null ,
+					"CurrencyCode": "EUR",
+					"CurrencyText": "Euro",
+					"Id": "0001"
+				}
+			]
+	}}
+	</script>
+	<script id="dataSectionVH" type="text/json">
+	{"d": {
+		"__count": "9",
+		"results": [
+			{
+				"__metadata": {
+					"uri": "testService.CurrencyCodeVH/StringVH('EUR')",
+					"type": "MyNameSpace.CurrencyCodeVH"
+				},
+					"CURR": "EUR",
+					"DESCR": "European Euro"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencyCodeVH/StringVH('USD')",
+					"type": "MyNameSpace.CurrencyCodeVH"
+				},
+					"CURR": "USD",
+					"DESCR": "United States Dollar"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencyCodeVH/StringVH('GBP')",
+					"type": "MyNameSpace.CurrencyCodeVH"
+				},
+					"CURR": "GBP",
+					"DESCR": "British Pound"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencyCodeVH/StringVH('SEK')",
+					"type": "MyNameSpace.CurrencyCodeVH"
+				},
+					"CURR": "SEK",
+					"DESCR": "Swedish Krona"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencyCodeVH/StringVH('CHF')",
+					"type": "MyNameSpace.CurrencyCodeVH"
+				},
+					"CURR": "CHF",
+					"DESCR": "Swiss Franc"
+			},
+			{
+				"__metadata": {
+					"uri": "testService.CurrencyCodeVH/StringVH('HUF')",
+					"type": "MyNameSpace.CurrencyCodeVH"
+				},
+					"CURR": "HUF",
+					"DESCR": "Hungarian Forint"
+	}
+		]
+	}}
+	</script>
+
+	<script src="./CurrencyWithCustomList.js"></script>
+
+</head>
+
+<body class="sapUiBody" id="content">
+<div data-sap-ui-component data-name="CurrencyWithCustomList"></div>
+</body>
+</html>

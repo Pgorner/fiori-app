@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/shape/Rectangle"],function(t){"use strict";var e=t.extend("sap.gantt.shape.cal.Calendar",{metadata:{properties:{isBulk:{type:"boolean",defaultValue:true},enableSelection:{type:"boolean",defaultValue:false},calendarName:{type:"string",defaultValue:"nwt"}}}});e.prototype.init=function(){t.prototype.init.apply(this,arguments);var e=sap.ui.getCore().getLibraryResourceBundle("sap.gantt");this.setProperty("ariaLabel",e.getText("ARIA_CALENDAR"))};e.prototype.getCalendarName=function(t){return this._configFirst("calendarName",t)};e.prototype.getIsBulk=function(t){if(this.mShapeConfig.isBulk){return this._configFirst("isBulk",t)}return true};e.prototype.getEnableSelection=function(t){if(this.mShapeConfig.enableSelection){return this._configFirst("enableSelection",t)}return false};e.prototype.getX=function(t){if(this.mShapeConfig.x){return this._configFirst("x",t)}return this.mChartInstance._oStatusSet.aViewBoundary[0]};e.prototype.getY=function(t,e){if(this.mShapeConfig.y){return this._configFirst("y",t)}return e.y};e.prototype.getWidth=function(t){if(this.mShapeConfig.width){return this._configFirst("width",t)}var e=this.mChartInstance._oStatusSet;if(e){return e.aViewBoundary[1]-e.aViewBoundary[0]}else{return 0}};e.prototype.getHeight=function(t,e){if(this.mShapeConfig.height){return this._configFirst("height",t)}return e.rowHeight};e.prototype.getFill=function(t,e){if(this.mShapeConfig.hasShapeProperty("fill")){return this._configFirst("fill",t)}var i=this.getCalendarName(t,e);var n=this.mChartInstance.getCalendarDef();if(n){return n.getRefString(i)}};return e},true);
+//# sourceMappingURL=Calendar.js.map

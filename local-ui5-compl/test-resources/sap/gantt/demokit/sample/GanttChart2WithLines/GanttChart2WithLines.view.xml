@@ -1,0 +1,136 @@
+<mvc:View height="100%" controllerName="sap.gantt.sample.GanttChart2WithLines.GanttChart2WithLines" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:gnt="sap.gantt" xmlns:gnt-def="sap.gantt.def" xmlns:gnt-pattern="sap.gantt.def.pattern" xmlns:gnt-cal="sap.gantt.def.cal" xmlns:axistime="sap.gantt.axistime" xmlns:config="sap.gantt.config" xmlns:gnt2="sap.gantt.simple" xmlns:rm="sap.ui.table.rowmodes">
+	<gnt2:GanttChartContainer id="container">
+		<gnt2:toolbar>
+			<gnt2:ContainerToolbar showDisplayTypeButton="true" id="containerToolbar" showSearchButton="false"/>
+		</gnt2:toolbar>
+
+		<gnt2:ganttCharts>
+			<gnt2:GanttChartWithTable id="gantt1" ghostAlignment="Start" adhocLineLayer="Bottom" shapeResize="onShapeResize" shapeDrop="onShapeDrop" shapeConnect="onShapeConnect" shapeContextMenu="onShapeContextMenu" shapeOverRelationship="false" showExportTableToExcel="true" enableChartOverflowToolbar="true" enableChartDeltaAreaHighlight="true" deltaLineLayer="Bottom" deltaAreaHighlightColor="">
+				<gnt2:table>
+					<TreeTable selectionMode="Single" selectionBehavior="RowSelector" enableColumnReordering="true" rows="{
+								path: &apos;data&gt;/ProjectElems&apos;,
+								parameters: {
+									operationMode: &apos;Server&apos;,
+									numberOfExpandedLevels: 2,
+									treeAnnotationProperties: {
+										hierarchyNodeFor: &apos;ObjectID&apos;,
+										hierarchyParentNodeFor: &apos;ParentObjectID&apos;,
+										hierarchyLevelFor: &apos;HierarchyNodeLevel&apos;,
+										hierarchyDrillStateFor: &apos;DrillDownState&apos;,
+										hierarchyNodeDescendantCountFor: &apos;Magnitude&apos;
+									},
+									expand: &apos;Relationships, WorkingTimes&apos;
+								}
+							}">
+						<rowSettingsTemplate>
+							<gnt2:GanttRowSettings rowId="{data&gt;ObjectID}" calendars="{path:&apos;data&gt;WorkingTimes&apos;, templateShareable: &apos;true&apos;}" relationships="{path:&apos;data&gt;Relationships&apos;, templateShareable: &apos;true&apos;}">
+								<gnt2:calendars>
+									<gnt2:BaseCalendar shapeId="{data&gt;WorkingTimeID}" calendarName="{data&gt;CalendarName}"/>
+								</gnt2:calendars>
+								<gnt2:shapes1>
+									<gnt2:BaseRectangle shapeId="{data&gt;ObjectID}" 
+									time="{data&gt;StartDate}" endTime="{data&gt;EndDate}"
+									tooltip="{data&gt;ObjectName}"
+									fill="@sapUiChartSequence1" resizable="true"
+									draggable="true" selectable="true" hoverable="true" 
+									connectable="true" height="19" title="{data&gt;ObjectName}"
+									titleColor="@sapUiChartDataLabelFontColor"
+									animationSettings="{values:'#800;#f00;#800;#800', duration:'1s'}" 
+									showAnimation="{=${oViewModel>/alert} ? ${data>Alert} : false}"/>
+								</gnt2:shapes1>
+								<gnt2:relationships>
+									<gnt2:Relationship shapeId="{data&gt;RelationID}" predecessor="{data&gt;PredecTaskID}" successor="{data&gt;SuccTaskID}" type="{data&gt;RelationType}" tooltip="{data&gt;RelationType}" selectable="true"/>
+								</gnt2:relationships>
+							</gnt2:GanttRowSettings>
+						</rowSettingsTemplate>
+						<rowMode>
+							<rm:Auto minRowCount="12"/>
+						</rowMode>
+						<columns>
+							<Column sortProperty="ObjectName" filterProperty="ObjectName">
+								<customData>
+									<core:CustomData key="exportTableColumnConfig" value="{&quot;columnKey&quot;: &quot;ObjectName&quot;,
+											&quot;leadingProperty&quot;:&quot;ObjectName&quot;,
+											&quot;dataType&quot;: &quot;string&quot;,
+											&quot;hierarchyNodeLevel&quot;: &quot;HierarchyNodeLevel&quot;,
+											&quot;wrap&quot;: true}"/>
+								</customData>
+								<m:Text text="Object Name"/>
+								<template>
+									<m:Label text="{data&gt;ObjectName}"/>
+								</template>
+							</Column>
+							<Column sortProperty="StartDate" filterProperty="StartDate">
+								<customData>
+									<core:CustomData key="exportTableColumnConfig" value="{&quot;columnKey&quot;: &quot;StartDate&quot;,
+											&quot;leadingProperty&quot;:&quot;StartDate&quot;,
+											&quot;displayFormat&quot;: &quot;mmm-dd, yyyy&quot;,
+											&quot;dataType&quot;: &quot;stringDate&quot;}"/>
+								</customData>
+								<m:Text text="Start Date"/>
+								<template>
+									<m:DatePicker dateValue="{data&gt;StartDate}"/>
+								</template>
+							</Column>
+							<Column sortProperty="EndDate" filterProperty="EndDate">
+								<customData>
+									<core:CustomData key="exportTableColumnConfig" value="{&quot;columnKey&quot;: &quot;EndDate&quot;,
+											&quot;leadingProperty&quot;:&quot;EndDate&quot;,
+											&quot;displayFormat&quot;: &quot;mmm-dd, yyyy&quot;,
+											&quot;dataType&quot;: &quot;dateTime&quot;}"/>
+								</customData>
+								<m:Text text="End Date"/>
+								<template>
+									<m:DatePicker dateValue="{data&gt;EndDate}"/>
+								</template>
+							</Column>
+						</columns>
+						<extension>
+							<m:OverflowToolbar>
+								<m:content>
+									<m:Button icon="sap-icon://expand-all" type="Transparent" press="handleExpandShape"/>
+									<m:Button icon="sap-icon://collapse-all" type="Transparent" press="handleCollapseShape"/>
+									<m:DatePicker id="adhocLine" width="200px" displayFormat="yyyy-MM-dd" valueFormat="yyyyMMddHHmmss" change="handleAdhocLineTimeChange"/>
+								</m:content>
+							</m:OverflowToolbar>
+						</extension>
+					</TreeTable>
+				</gnt2:table>
+				<gnt2:simpleAdhocLines>
+					<gnt2:AdhocLine markerType="None" stroke="@sapUiAccent1" strokeDasharray="5, 2" timeStamp="20160828000000"/>
+					<gnt2:AdhocLine draggable="true" adhoclineDrop="onAdhoclineDrop" markerType="Diamond" markerPopoverDelay="500" stroke="@sapUiLegend13" strokeDasharray="5, 1" timeStamp="20170128000000" markerPress="fnHandleMarker1Press" markerMouseEnter="fnHandleMarkerMouseEnter"/>
+					<gnt2:AdhocLine draggable="true" adhoclineDrop="onAdhoclineDrop" markerType="Diamond" description="Recipe Registration Phase" stroke="@sapUiPositiveText" strokeDasharray="5, 2" timeStamp="20160818000000" markerMouseEnter="fnHandleMarker2MouseEnter" markerMouseLeave="fnHandleMarkerMouseLeave" markerPress= "fnHandleMarker3Press"/>
+					<gnt2:AdhocLine draggable="true" adhoclineDrop="onAdhoclineDrop" description="Recipe Registration Phase" markerType="Diamond" stroke="@sapUiAccent2" strokeDasharray="5, 2" timeStamp="20161225000000" markerPress="fnHandleMarker2Press"/>
+					<gnt2:AdhocLine markerType="Diamond" visible="true" stroke="@sapUiLegend7" strokeDasharray="5, 2" timeStamp="20161223000000"/>
+				</gnt2:simpleAdhocLines>
+				<gnt2:deltaLines>
+					<gnt2:DeltaLine resizable="true" deltalineResize="onDeltaResize" draggable="true" deltalineDrop="onDeltalineDrop" mouseEnter="onHandleMouseEnter" press="onHandlePress" stroke="@sapUiLegend13" strokeDasharray="5, 2" timeStamp="20160925000000" endTimeStamp="20160927000000" visible="false"/>
+					<gnt2:DeltaLine resizable="true" deltalineResize="onDeltaResize" draggable="true" deltalineDrop="onDeltalineDrop" description="Kitchen Phase" stroke="@sapUiNegativeText" strokeDasharray="5, 2" timeStamp="20160810000000" endTimeStamp="20160811000000"/>
+					<gnt2:DeltaLine mouseEnter="onHandleMouseEnter" stroke="@sapUiLegend7" strokeDasharray="5, 2" timeStamp="20160910000000" endTimeStamp="20161130000000"/>
+					<gnt2:DeltaLine resizable="true" deltalineResize="onDeltaResize" stroke="@sapUiNegativeText" strokeDasharray="5, 2" timeStamp="20160920000000" endTimeStamp="20161119000000"/>
+					<gnt2:DeltaLine draggable="true" deltalineDrop="onDeltalineDrop" mouseLeave="onHandleMouseLeave" stroke="@sapUiNegativeText" strokeDasharray="5, 2" timeStamp="20161220000000" endTimeStamp="20170115000000"/>
+					<gnt2:DeltaLine draggable="true" deltalineDrop="onDeltalineDrop" press="onHandlePress" stroke="@sapUiLegend20" strokeDasharray="5, 2" timeStamp="2016100400000" endTimeStamp="20161109000000"/>
+				</gnt2:deltaLines>
+				<gnt2:axisTimeStrategy>
+					<axistime:ProportionZoomStrategy>
+						<axistime:totalHorizon>
+							<config:TimeHorizon startTime="20160501000000" endTime="20170901000000"/>
+						</axistime:totalHorizon>
+						<axistime:visibleHorizon>
+							<config:TimeHorizon startTime="20160501000000" endTime="20170601000000"/>
+						</axistime:visibleHorizon>
+					</axistime:ProportionZoomStrategy>
+				</gnt2:axisTimeStrategy>
+				<gnt2:calendarDef>
+					<gnt-cal:CalendarDefs defs="{ path:&apos;data&gt;/Calendars&apos;, parameters: {expand: &apos;CalendarInterval&apos;} }">
+						<gnt-cal:Calendar key="{data&gt;CalendarName}" 
+							timeIntervals="{path:&apos;data&gt;CalendarInterval&apos;, templateShareable: &apos;true&apos;}"
+							backgroundColor="{path: 'data&gt;CalendarName', formatter: '.fnLessValueConvert'}">
+							<gnt-cal:TimeInterval startTime="{data&gt;StartDate}" endTime="{data&gt;EndDate}"/>
+						</gnt-cal:Calendar>
+					</gnt-cal:CalendarDefs>
+				</gnt2:calendarDef>
+			</gnt2:GanttChartWithTable>
+		</gnt2:ganttCharts>
+	</gnt2:GanttChartContainer>
+</mvc:View>

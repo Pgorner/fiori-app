@@ -1,0 +1,5 @@
+/*
+ * Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+ */
+jQuery.sap.declare("sap.ca.ui.PictureTileRenderer");jQuery.sap.require("sap.m.CustomTileRenderer");sap.ca.ui.PictureTileRenderer=sap.ui.core.Renderer.extend(sap.m.CustomTileRenderer);sap.ca.ui.PictureTileRenderer.render=function(e,r){jQuery.sap.log.debug("PictureTileRenderer :: begin rendering");e.write("<div ");e.writeControlData(r);e.addClass("sapCaUiPictureTile");e.writeClasses();e.write(">");e.write("<div");e.addClass("sapCaUiPictureTileContent");e.writeClasses();e.write(">");e.write("<div tabindex='0' id='"+r.getId()+"-wrapper'>");e.renderControl(r._oDeletePictureButton);this._renderContent(e,r);e.write("</div>");e.write("</div></div>")};sap.ca.ui.PictureTileRenderer._renderContent=function(e,r){e.renderControl(r.getContent())};
+//# sourceMappingURL=PictureTileRenderer.js.map

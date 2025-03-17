@@ -1,0 +1,161 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4549da61e2d949d6a3d20ad8a9d17a6f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/sapui5-control-development-guidelines-4549da6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">SAPUI5 Control Development Guidelines</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">SAPUI5 Control Development Guidelines</h2></div><div class="shortdesc">Content developers developing SAPUI5 controls should follow the guidelines outlined
+		below with regard to APIs, behavior, and themes/CSS.</div><section>
+			<h2 class="title ">General Remarks</h2>
+			<ul class="ul ">
+				<li class="li">
+					<p>Keep things simple! Keep the number of entities created for a new control minimal.</p>
+				</li>
+				<li class="li">
+					<p>Reuse is good, but  carefully compare how many features of the reused control are needed, and how big the impact on performance would be. For example,
+						if a control needs a clickable area, you can simply implement <code>onclick</code> and check where the click came from - this has
+						zero impact on performance. Only if you need more features should you think about instantiating and aggregating. For example, you could
+						use a <code>Button</code> control and use its <code>press</code> event, but this would cost performance.</p>
+				</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">API</h2>
+			<p>For APIs, the following guidelines apply:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Get the API right the first time, you will not be able to change it later (compatibility).</p>
+				</li>
+				<li class="li">
+					<p>Control names start with an uppercase letter and use CamelCase for concatenated words.</p>
+				</li>
+				<li class="li">
+					<p>Property, event, aggregation, association, method, and parameter names start with a lowercase letter and also use camelCase.</p>
+				</li>
+				<li class="li">
+					<p>Do <b>not</b> use Hungarian notation for API parameters, as their type is documented in JSDoc.</p>
+				</li>
+				<li class="li">
+					<p>Provide a reasonable default value for properties. Consider the most frequent use case.</p>
+				</li>
+				<li class="li">
+					<p>Let block elements autofill the available width instead of explicitly setting "100%" as the default width.</p>
+				</li>
+				<li class="li">
+					<p><code>editable</code> and <code>enabled</code> are two different properties. "Not enabled" controls are <b>not</b> in the focus
+						tab chain.</p>
+				</li>
+				<li class="li">
+					<p>Check similar controls for consistent naming and modeling of public APIs.</p>
+					<p>Controls for text input have a <code>value</code> property. Container controls with one generic area for child controls have a 1..n
+							<code>content</code> aggregation. When the child controls are not generic, but have specific semantics, arrangement, or type,
+						the name should be chosen accordingly ("items", "buttons",…).</p>
+				</li>
+				<li class="li">
+					<p>When there is one most important aggregation, it should be marked as the default aggregation; this facilitates the use in XMLViews.</p>
+				</li>
+				<li class="li">
+					<p>Properties, associations, and aggregations should be preferred over API methods due to data binding support and easier usage in
+						XMLViews.</p>
+				</li>
+				<li class="li">
+					<p>Make sure not to break use in XMLViews; for example, types like <code>object</code> and
+							<code>any</code> may not be used for mandatory properties.</p>
+				</li>
+				<li class="li">
+					<p>Be careful about initial dependencies. The <code>Input</code> control, for example, should not always load the table library just
+						because some inputs may show a value help table after certain user interaction </p>
+				</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">Behavior</h2>
+			<p>For behavior-related development, the following guidelines apply:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Do <b>not</b> use hardcoded IDs. When creating internal subcontrols, their ID should be
+						prefixed with <code>this.getId() + "-"</code>.</p>
+				</li>
+				<li class="li">
+					<p>Make sure not to break data binding.</p>
+				</li>
+				<li class="li">
+					<p>Do <b>not</b> make assumptions about how your control is used. </p>
+				</li>
+				<li class="li">
+					<p>Do <b>not</b> use <code>oEvent.preventDefault()</code> or <code>oEvent.stopPropagation()</code> without a good reason and clear documentation
+						why it is required.</p>
+				</li>
+				<li class="li">
+					<p>Use the SAPUI5 event handling methods when available instead of
+							<code>jQuery.on()</code>. When you use <code>jQuery.on()</code>, always register them in
+							<code>onAfterRendering()</code> and deregister them by using <code>jQuery.off()</code> in
+							<code>onBeforeRendering()</code> and in <code>exit()</code>.</p>
+				</li>
+				<li class="li">
+					<p>Use CSS3 for animations and fall back to no animation for legacy browsers; there are only a few exceptions where the animation is important.</p>
+				</li>
+				<li class="li">
+					<p>Keep in mind that a control can be used multiple times in a page.</p>
+				</li>
+				<li class="li">
+					<p>Provide immediate feedback for user interaction.</p>
+				</li>
+				<li class="li">
+					<p>If an action takes a longer period of time, visualize this, for example by using a
+							<code>BusyIndicator</code>.</p>
+				</li>
+				<li class="li">
+					<p>When you create HTML markup for a control outside a renderer, for example, by writing to the
+							<code>innerHTML</code> property of a DOM element, or by calling
+							<code>jQuery.html()</code> or similar helpers, make sure to escape
+						any unchecked data first with the function provided by
+							<code>sap/base/security/encodeXML</code>. This is mandatory to
+						prevent cross-site scripting issues. For more information, see <a href="topic/91f0bd316f4d1014b6dd926db0e91070" title="Cross-site scripting (XSS) is a widely known vulnerability most web sites have. This page does not provide general information about cross-site scripting but focuses on what you as an application developer using SAPUI5 can do to avoid these security issues." class="sap-doc">Cross-Site Scripting</a>.</p>
+				</li>
+			</ul>
+		</section><section>
+			<h2 class="title ">Renderer</h2>
+			<p>With regard to the renderer, the following guidelines apply:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Produce clean, semantic HTML5, as compact as reasonably possible.</p>
+				</li>
+				<li class="li">
+					<p>Each control instance must have exactly one root HTML element and can have any HTML element
+						structure below that.</p>
+				</li>
+				<li class="li">
+					<p>Unknown strings, such as values coming from string properties, need to be escaped before writing to HTML; this avoids security risks via XSS
+						attacks.</p>
+				</li>
+				<li class="li">
+					<p>Use <code>RenderManager.writeEscaped(…)</code>, or the function provided by module <code>sap/base/security/encodeXML</code>.</p>
+				</li>
+				<li class="li">
+					<p>Container controls such as <code>Panel</code> or <code>Page</code>, as opposed to layout controls with a generic "content" aggregation, should
+						render the children directly next to each other with no additional HTML or layout applied.</p>
+				</li>
+				<li class="li">
+					<p>Use the Icon pool for images.</p>
+				</li>
+				<li class="li">
+					<p>Provide a sufficiently large touch area for interaction on touch devices (usually
+						3rem/48px).</p>
+				</li>
+				<li class="li">
+					<p>When internal HTML elements of the control below the root element need an ID, construct the
+						ID as follows: <code>&lt;control ID&gt; + "-" +
+							&lt;someSuffix&gt;</code>.</p>
+				</li>
+				<li class="li">
+					<p>The HTML should adhere to the basic XHTML rules; close all tags, enclose attribute values in
+						quotes and do <b>not</b> use empty attributes without value.</p>
+				</li>
+				<li class="li">
+					<p>Avoid &lt;table&gt;-based layouts when there is no logical table. If a table is used for
+						layout, try to use "display:table" or even "table-layout:fixed" tables.</p>
+				</li>
+				<li class="li">
+					<p><code>RenderManager.writeControlData()</code> must be called in the root HTML element of the control to make events work.</p>
+				</li>
+				<li class="li">
+					<p><code>RenderManager.writeClasses()</code> must be called in the root HTML element of a control; otherwise <code>addStyleClass</code> does not
+						work. this does not need to be used in subelements.</p>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

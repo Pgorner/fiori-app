@@ -1,0 +1,58 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio1559b2bb30134d8c9240bdd378d6543e" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/navigation-to-the-next-level-1559b2b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Navigation to the Next Level</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Navigation to the Next Level</h2></div><div class="shortdesc">Use the table chevron navigation to navigate from the table that lists the entries from
+      an associated entity set. The required annotations for enabling this navigation to object
+      pages and subobject pages are provided in the separate sections below.</div><section id="section_xtf_jdd_hmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+            Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>For details on navigation from a list report to an object page, see <a href="topic/2c65f07f44094012a511d6bd83f50f2d" title="SAP Fiori elements control the navigation within an app (internal navigation). This section describes the configuration options that you have." class="sap-doc">Configuring Internal Navigation</a>.</p></div></section><section id="section_wp1_4dd_hmb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional
+            Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>The following manifest snippet shows how an object page and subobject page can be
+            configured to enable the normal navigation from a list report to an object page, and
+            from an object page to a subobject page.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+            </p><section class="collapsible lang-json"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   "targets":{
+      "SalesOrderManageList":{
+         "type":"Component",
+         "id":"SalesOrderManageList",
+         "name":"sap.fe.templates.ListReport",
+         "options":{
+            "settings":{
+               "contextPath":"/SalesOrderManage",
+               "variantManagement":"Page",
+               ...
+               ...
+            },
+            "navigation":{
+               "SalesOrderManage":{
+                  "detail":{
+                     "route":"SalesOrderManageObjectPage"
+                  }
+               }
+            }
+         }
+      },
+      "SalesOrderManageObjectPage":{
+         "type":"Component",
+         "id":"SalesOrderManageObjectPage",
+         "name":"sap.fe.templates.ObjectPage",
+         "options":{
+            "settings":{
+               "contextPath":"/SalesOrderManage",
+               "navigation":{
+                  "_Item":{
+                     "detail":{
+                        "route":"SalesOrderItemObjectPage" // For sub object page navigation
+                     }
+                  }
+               },
+               "variantManagement":"Control",
+               ...
+               ...
+            }
+         }
+      }
+   }
+}</pre></div></div></section>
+         <p></p></div></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

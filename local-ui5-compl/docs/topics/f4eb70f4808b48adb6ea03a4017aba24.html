@@ -1,0 +1,80 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof4eb70f4808b48adb6ea03a4017aba24" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/configuring-tables-f4eb70f.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Configuring Tables</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Configuring Tables</h2></div><div class="shortdesc">You can use the annotations and entries in the <code>manifest.json</code> to control various aspects of tables.</div><section id="section_yxw_dfl_blb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>For information on smart tables, see
+          <a href="api/sap.ui.comp.smarttable.SmartTable" title="api/sap.ui.comp.smarttable.SmartTable" class="sap-doc" alt="api/sap.ui.comp.smarttable.SmartTable"><code>sap.ui.comp.smarttable.SmartTable</code></a> and
+        <a href="topic/148892ff9aea4a18b912829791e38f3e" title="The libraries provided by SAPUI5 contain various different table controls that are suitable for different use cases. The table below outlines which table controls are available, and what features are supported by each one." class="sap-doc">Tables: Which One Should I Choose?</a>.</p></div></section><section id="section_iqh_kgv_mtb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>You use the <code>UI.LineItem</code> annotation to configure a table. It can also be packaged within the
+          <code>UI.PresentationVariant</code> annotation to control other aspects, such as sorting. For more information about which
+          <code>UI.PresentationVariant</code> is picked, see <a href="topic/49a6ba5b8d6946208322a9f7e16837c2" title="SAP Fiori elements allows you to specify a UI.SelectionPresentationVariant." class="sap-doc">Configuring Default Settings (Visualizations, Sort Order, Filter Values)</a>.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>PresentationVariant</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.PresentationVariant"&gt;
+  &lt;Record&gt;
+    &lt;PropertyValue Property="Text" String="Default"/&gt;
+    &lt;PropertyValue Property="SortOrder"&gt;
+      &lt;Collection&gt;
+        &lt;Record Type="Common.SortOrderType"&gt;
+          &lt;PropertyValue Property="Property" PropertyPath="NetAmount"/&gt;
+          &lt;PropertyValue Property="Descending" Bool="true"/&gt;
+        &lt;/Record&gt;
+      &lt;/Collection&gt;
+    &lt;/PropertyValue&gt;
+    &lt;PropertyValue Property="Visualizations"&gt;
+      &lt;Collection&gt;
+         &lt;AnnotationPath&gt;@UI.LineItem#Default&lt;/AnnotationPath&gt;
+      &lt;/Collection&gt;
+   &lt;/PropertyValue&gt;
+  &lt;/Record&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>LineItem</code></p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.LineItem" Qualifier="Default"&gt;
+  &lt;Collection&gt;
+    &lt;Record Type="UI.DataField"&gt;
+      &lt;PropertyValue Property="Value" Path="DeliveryCalendarYear"/&gt;
+        &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+    &lt;/Record&gt;
+    &lt;Record Type="UI.DataField"&gt;
+      &lt;PropertyValue Property="Value" Path="DeliveryCalendarMonth"/&gt;
+        &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+    &lt;/Record&gt;
+    &lt;Record Type="UI.DataField"&gt;
+      &lt;PropertyValue Property="Value" Path="SalesOrder"/&gt;
+        &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+    &lt;/Record&gt;
+    &lt;Record Type="UI.DataFieldForIntentBasedNavigation"&gt;
+      &lt;PropertyValue Property="Label" String="Manage Sales Order"/&gt;
+      &lt;PropertyValue Property="SemanticObject" String="EPMSalesOrder"/&gt;
+      &lt;PropertyValue Property="Action" String="manage_st"/&gt;
+      &lt;PropertyValue Property="RequiresContext" Bool="false"/&gt;
+        &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+    &lt;/Record&gt;
+    &lt;Record Type="UI.DataField"&gt;
+      &lt;PropertyValue Property="Label" String="Item"/&gt;
+      &lt;PropertyValue Property="Value" Path="SalesOrderItem"/&gt;
+      &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+    &lt;/Record&gt;
+    &lt;Record Type="UI.DataField"&gt;
+      &lt;PropertyValue Property="Value" Path="Product"/&gt;
+      &lt;Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/&gt;
+    &lt;/Record&gt;
+    &lt;Record Type="UI.DataFieldForAction"&gt;
+         &lt;PropertyValue Property="Label" String="Copy"/&gt;
+         &lt;PropertyValue Property="Action" String="CZ_EASILINEITEMS_SADL_CDS.CZ_EASILINEITEMS_SADLType/Copy"/&gt;
+         &lt;PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/&gt;
+         &lt;PropertyValue Property="Determining" Bool="true"/&gt;
+    &lt;/Record&gt;
+    &lt;Record Type="UI.DataFieldForIntentBasedNavigation"&gt;
+         &lt;PropertyValue Property="Label" String="Manage Products (STTA)"/&gt;
+         &lt;PropertyValue Property="SemanticObject" String="EPMProduct"/&gt;
+         &lt;PropertyValue Property="Action" String="manage_st"/&gt;
+         &lt;PropertyValue Property="Determining" Bool="true"/&gt;
+     &lt;/Record&gt;  
+&lt;/Collection&gt;
+&lt;/Annotation&gt;</pre></div></div></section><p></p></div></div></div></section><section class="contentInSection"><h2>In this section:</h2><ul><li><a href="topic/f0e1e1743bef4f519c34025ad4351f77">Defining Line Items</a></li><li><a href="topic/c0f6592a592e47f9bb6d09900de47412">Tables</a></li><li><a href="topic/7f844f1021cd4791b8f7408eac7c1cec">Setting the Table Type</a></li><li><a href="topic/f9962074132a43db9e1381291f8f3af8">Setting the Table Header</a></li><li><a href="topic/d344c5aa5c81483482dbbed5b3abb142">Table Groupings</a></li><li><a href="topic/3e2b4d212b66481a829ccef1dc0ca16b">Enabling Table Personalization</a></li><li><a href="topic/116b5d82e8c545e2a56e1b51b8b0a9bd">Enabling Multiple Selection in Tables</a></li><li><a href="topic/b623e0bbbb2b4147b2d0516c463921a0">Adding Actions to Tables</a></li><li><a href="topic/0d501b16e43d45d0a19ae54a3be883d3">Highlighting Line Items Based on Criticality</a></li><li><a href="topic/a797173b84724ef1bc54d59dc575e52f">Adding a Rating Indicator to a Table</a></li><li><a href="topic/43f6f0faa1b64c5aa92bcde379be9054">Adding a Progress Indicator to a Table</a></li><li><a href="topic/b8312a4adde54f33a89480dbe12d8632">Adding a Micro Chart to a Table</a></li><li><a href="topic/677fbde43a324f36aa9398b7f04e9896">Adding a Contact Quick View to a Table</a></li><li><a href="topic/f3cc057e405c4fd58ee2ed42c557797c">Using the Condensed Table Layout</a></li><li><a href="topic/965ef5b2895641bc9b6cd44f1bd0eb4d">Enabling Editing Using a Dialog (Mass Edit)</a></li><li><a href="topic/1d3c2ff9fb1e4807ad2cc28f8c65e56b">Enabling the Full-Screen Mode for Tables</a></li><li><a href="topic/fb93920a2ee145c5bf2b5d1bacb79ab3">Overriding the Horizontal Alignment of Annotation-Based Table Columns</a></li><li><a href="topic/aa2793cd877a4ecebc35d335920ee145">Handling Semantic Key Fields</a></li><li><a href="topic/492bc791a7bd41cd9932fdf5d3aa2656">Displaying Images in Tables</a></li><li><a href="topic/4bab6f2043814257974b52d4dafe1dcd">Using the Export Button</a></li><li><a href="topic/2cc6c03336954133beea3bd3dcac60db">Influencing the Request Dynamically</a></li><li><a href="topic/7cf7a31fd1ee490ab816ecd941bd2f1f">Tree Tables</a></li><li><a href="topic/d59dbec411f04a64bd6d6dda898fdc84">Enabling the Upload Functionality</a></li><li><a href="topic/f9925b63da5443afb7d3b50abb932cf2">Illustrated Message When No Data Is Found</a></li></ul></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+    <li><a href="topic/aacfac5e29904f26a04fc846545eea46" title="You can use the i18n file of your app to adapt the standard UI texts that are displayed in a table for the use cases explained in this topic." class="sap-doc">Maintaining Standard Texts for Tables</a></li>
+    <li><a href="topic/37cd601a771f4c21a7d4a5087a607b7d" title="For charts in analytical list pages, list reports, and object pages, if the system does not find any entries when using the filters, standard UI texts are displayed, which you can adapt in the i18n file of your app." class="sap-doc">Maintaining Standard Texts for Charts</a></li>
+    <li><a href="topic/a76525362b754354a85981a7389ca7af" title="You can customize the width of a column defined in a line item using the com.sap.vocabularies.HTML5.v1.CssDefaults UI annotation." class="sap-doc">Setting the Default Column Width</a></li>
+    <li><a href="topic/d525522c1bf54672ae4e02d66b38e60c" title="You can use extension points to enhance tables in SAP Fiori elements apps." class="sap-doc">Extension Points for Tables</a></li>
+  </ul></section></div></section></div></body></html>

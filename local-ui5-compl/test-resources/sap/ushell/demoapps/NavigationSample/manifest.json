@@ -1,0 +1,148 @@
+{
+    "_version": "1.55.0",
+    "sap.fiori": {
+        "registrationIds": [
+            "F9999"
+        ],
+        "archeType": "analytical"
+    },
+    "sap.app": {
+        "id": "sap.ushell.demo.NavigationSample",
+	    "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.1.0"
+        },
+        "title": "{{title}}",
+        "subTitle": "{{subtitle}}",
+        "description": "{{description}}",
+        "ach": "CA-FLP-FE-UI",
+        "crossNavigation": {
+            "inbounds": {
+                "inb": {
+                    "semanticObject": "Action",
+                    "action": "toNavigation",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_horizon",
+            "sap_belieze"
+        ],
+        "fullWidth": true
+    },
+    "sap.ui5": {
+        "resources": {},
+        "dependencies": {
+            "minUI5Version": "1.38.1",
+            "libs": {
+                "sap.m": {
+                    "minVersion": "1.38.1"
+                }
+            }
+        },
+        "contentDensities": {
+            "compact": false,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "rootView": {
+            "viewName": "sap.ushell.demo.NavigationSample.view.Main",
+            "type": "XML",
+            "async": true
+        },
+        "handleValidation": false,
+        "config": {},
+        "routing": {
+            "config": {
+                "async": true,
+                "routerClass": "sap.m.routing.Router",
+                "type": "View",
+                "viewType": "XML",
+                "path": "sap.ushell.demo.NavigationSample.view",
+                "controlId": "app",
+                "controlAggregation": "detailPages"
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "toDetail",
+                    "target": "home"
+                },
+                {
+                    "pattern": "IntentSubpages",
+                    "name": "toIntentSubpages",
+                    "target": "intentSubpages"
+                },
+                {
+                    "pattern": "GetLinks",
+                    "name": "toGetLinks",
+                    "target": "getLinks"
+                },
+                {
+                    "pattern": "SapTag",
+                    "name": "toSapTag",
+                    "target": "sapTag"
+                },
+                {
+                    "pattern": "ShowError",
+                    "name": "toError",
+                    "target": "notFound"
+                },
+                {
+                    "pattern": ":all*:",
+                    "name": "catchall",
+                    "target": "notFound"
+                }
+            ],
+            "targets": {
+                "home": {
+                    "type": "View",
+                    "name": "Detail",
+                    "controlAggregation": "detailPages"
+                },
+                "intentSubpages": {
+                    "type": "View",
+                    "name": "IntentSubpages",
+                    "controlAggregation": "detailPages"
+                },
+                "getLinks": {
+                    "type": "View",
+                    "name": "GetLinks",
+                    "controlAggregation": "detailPages"
+                },
+                "sapTag": {
+                    "type": "View",
+                    "name": "SapTag",
+                    "controlAggregation": "detailPages"
+                },
+                "notFound": {
+                    "type": "View",
+                    "name": "Error",
+                    "controlAggregation": "detailPages"
+                }
+            },
+            "contentDensities": {
+                "compact": true,
+                "cozy": true
+            }
+        }
+    }
+}

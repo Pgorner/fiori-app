@@ -1,0 +1,116 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.customViewInLRContent",
+		"type": "application",
+		"i18n": {
+			"bundleName": "sap.fe.core.fpmExplorer.customViewInLRContent.i18n.i18n",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/customViewInLRContent/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.fe.core.fpmExplorer.customViewInLRContent.i18n.i18n"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.fe.core.fpmExplorer.customViewInLRContent.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+		"extends": {
+			"extensions": {
+				"sap.ui.controllerExtensions": {
+					"sap.fe.templates.ListReport.ListReportController": {
+						"controllerName": "sap.fe.core.fpmExplorer.customViewInLRContent.LRExtend"
+					}
+				}
+			}
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "sample",
+					"target": "sample"
+				}
+			],
+			"targets": {
+				"sample": {
+					"type": "Component",
+					"id": "Default",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/RootEntity",
+							"variantManagement": "None",
+							"initialLoad": true,
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.SelectionFields": {
+									"showClearButton": true
+								}
+							},
+							"views": {
+								"paths": [
+									{
+										"key": "tab1",
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#All"
+									},
+									{
+										"key": "tab2",
+										"label": "Custom View with Table",
+										"template": "sap.fe.core.fpmExplorer.customViewInLRContent.CustomViewWithTable"
+									},
+									{
+										"key": "tab3",
+										"label": "{i18n>LRCustomViewWithButton}",
+										"template": "sap.fe.core.fpmExplorer.customViewInLRContent.CustomViewWithButton"
+									}
+								],
+								"showCounts": true
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

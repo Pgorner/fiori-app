@@ -1,0 +1,81 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer.guidanceValueHelp",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/fe/core/mock/guidanceValueHelp/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.111.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.fe.core.fpmExplorer.filterBarCustoms.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			}
+		},
+
+		"routing": {
+			"routes": [
+				{
+					"pattern": "/RootEntity({key}):?query:",
+					"name": "entryPage",
+					"target": "entryPage"
+				}
+			],
+			"targets": {
+				"entryPage": {
+					"type": "Component",
+					"id": "entryPage",
+					"name": "sap.fe.core.fpm",
+					"options": {
+						"settings": {
+							"viewName": "sap.fe.core.fpmExplorer.guidanceValueHelp.EntryPage",
+							"contextPath": "/RootEntity"
+						}
+					}
+				}
+			}
+		}
+	}
+}

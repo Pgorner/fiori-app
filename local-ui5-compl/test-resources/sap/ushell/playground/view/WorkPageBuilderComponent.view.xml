@@ -1,0 +1,33 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="sap.ushell.playground.controller.WorkPageBuilderComponent"
+    height="100%">
+
+        <Page
+            id="workpagesBuilder"
+            enableScrolling="false"
+            showHeader="true">
+            <headerContent>
+                <OverflowToolbar>
+                    <Label text="Edit Mode"/>
+                    <Switch change=".toggleEditMode" state="false"/>
+                    <Label text="Preview Mode"/>
+                    <Switch change=".togglePreviewMode" state="false"/>
+                    <Label text="Show Page Title" />
+                    <Switch change=".togglePageTitle" state="true"/>
+                    <Label text="Toggle Footer"/>
+                    <Switch change=".toggleFooter" state="false" id="toggleFooter" enabled="false"/>
+                </OverflowToolbar>
+            </headerContent>
+
+            <core:ComponentContainer
+                height="100%"
+                usage="workpageBuilderComponent"
+                manifest="true"
+                componentCreated=".workPageBuilderComponentCreated"
+                async="true"/>
+        </Page>
+
+</mvc:View>

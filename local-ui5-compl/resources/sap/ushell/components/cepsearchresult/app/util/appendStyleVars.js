@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ui/core/theming/Parameters","sap/ui/core/Theming"],function(e,t){"use strict";var r=[];function i(t,i){var n=e.get({name:t});if(typeof n==="string"){var o=n;n={};n[t[0]]=o}if(i){r=[]}for(var a in n){if(r.indexOf(a)===-1){r.push(a);document.body.style.setProperty("--"+a,n[a])}}}t.attachApplied(function(){for(var e=0;e<r.length;e++){document.body.style.removeProperty("--"+r[e])}i(r,true)});return i});
+//# sourceMappingURL=appendStyleVars.js.map

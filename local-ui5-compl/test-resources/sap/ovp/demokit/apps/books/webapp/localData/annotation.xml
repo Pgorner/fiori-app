@@ -1,0 +1,85 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/catalog/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="EntityContainer"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="my.bookshop.EntityContainer">
+            <Annotations Target="CatalogService.Books/WeightMeasure">
+				<Annotation Term="Org.OData.Measures.V1.Unit" Path="WeightUnit"/>
+			</Annotations>
+            <Annotations Target="CatalogService.Books/WeightUnit">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="WeightUnitText"/>
+			</Annotations>
+            <Annotations Target="CatalogService.Books/amount">
+				<Annotation Term="Org.OData.Measures.V1.ISOCurrency" Path="code"/>
+			</Annotations>
+            <Annotations Target="CatalogService.Books/code">
+				<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="CurrencyCodeText"/>
+			</Annotations>
+             <Annotations Target="CatalogService.Books/title">
+                	<Annotation Term="com.sap.vocabularies.Common.v1.Text" Path="title"/>
+            </Annotations> 
+			<Annotations Target="CatalogService.Books" >
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                            <PropertyPath>ID</PropertyPath>
+                            <PropertyPath>title</PropertyPath>
+                            <PropertyPath>code</PropertyPath>
+                            <PropertyPath>amount</PropertyPath>
+                    </Collection>
+                </Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.LineItem" Qualifier="View4">
+                    <Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="procurement"/>
+							<PropertyValue Property="Action" String="overview"/>
+						</Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="amount"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Customer"/>
+                            <PropertyValue Property="Value" Path="title"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="IconUrl" Path="web_address"/>
+                            <PropertyValue Property="Label" String="Weight"/>
+                            <PropertyValue Property="Value" Path="WeightMeasure"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Label" String="Order ID"/>
+                            <PropertyValue Property="Value" Path="ID"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataFieldForAnnotation">
+                            <PropertyValue Property="Label" String="TaxAmount"/>
+                            <PropertyValue Property="Target" AnnotationPath="@com.sap.vocabularies.UI.v1.DataPoint#TaxAmount"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+				<Annotation Term="com.sap.vocabularies.UI.v1.DataPoint" Qualifier="TaxAmount">
+                    <Record Type="com.sap.vocabularies.UI.v1.DataPointType">
+                        <PropertyValue Property="Title" String="TaxAmount"/>
+                        <PropertyValue Property="Value" Path="amount"/>
+                        <PropertyValue Property="ValueFormat">
+                            <Record Type="com.sap.vocabularies.UI.v1.NumberFormat">
+                                <PropertyValue Property="ScaleFactor" Decimal="1000"/>
+                                <PropertyValue Property="NumberOfFractionalDigits" Int="0"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="CriticalityCalculation">
+                            <Record Type="com.sap.vocabularies.UI.v1.CriticalityCalculationType">
+                                <PropertyValue Property="ImprovementDirection" EnumMember="com.sap.vocabularies.UI.v1.CriticalityCalculationType/Minimize"/>
+                                <PropertyValue Property="ToleranceRangeHighValue" Int="500"/>
+                                <PropertyValue Property="DeviationRangeHighValue" Int="2000"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

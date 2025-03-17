@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/base/Log","sap/gantt/shape/Shape","sap/gantt/misc/Utility"],function(t,e,i){"use strict";var a=e.extend("sap.gantt.shape.Path",{metadata:{properties:{tag:{type:"string",defaultValue:"path"},isClosed:{type:"boolean",defaultValue:false},fill:{type:"string",defaultValue:"none"},d:{type:"string"}}}});a.prototype.init=function(){e.prototype.init.apply(this,arguments);var t=sap.ui.getCore().getLibraryResourceBundle("sap.gantt");this.setProperty("ariaLabel",t.getText("ARIA_PATH"))};a.prototype.getD=function(e,a){var r;if(this.mShapeConfig.hasShapeProperty("d")){r=this._configFirst("d",e)}else{var s=this._getCenter(e,a),n=this.getIsDuration(e,a),o=this.mChartInstance.getSapUiSizeClass();var p=i.scaleBySapUiSize(o,7.5);if(n){var l=this._getCenter(e,a,true);p=(l[0]-s[0])/2}r="M "+s[0]+" "+s[1]+" c 0,"+-p+" "+p+","+-p+" "+p+",0 c 0,"+p+" "+p+","+p+" "+p+",0"}if(this.isValid(r)){return r}else{t.warning("Path shape generated invalid d: "+r+" from the given data: "+e);return null}};a.prototype.getIsClosed=function(t){return this._configFirst("isClosed",t)};a.prototype.getStyle=function(t,i){var a=e.prototype.getStyle.apply(this,arguments);var r={fill:this.determineValueColor(this.getFill(t,i)),"stroke-dasharray":this.getStrokeDasharray(t,i)};if(this.getIsClosed(t,i)){r["fill-opacity"]=this.getFillOpacity(t,i);r["stroke-opacity"]=this.getStrokeOpacity(t,i)}var s=Object.assign(a,r);return s};a.prototype.isValid=function(t){return!!t&&t.indexOf("NaN")===-1&&t.indexOf("undefined")===-1&&t.indexOf("null")===-1};return a},true);
+//# sourceMappingURL=Path.js.map

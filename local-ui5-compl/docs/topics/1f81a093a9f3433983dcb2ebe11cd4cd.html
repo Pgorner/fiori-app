@@ -1,0 +1,54 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio1f81a093a9f3433983dcb2ebe11cd4cd" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/make-your-app-csp-compliant-1f81a09.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Make Your App CSP Compliant</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Make Your App CSP Compliant</h2></div><div class="shortdesc">CSP stands for Content Security Policy and is a security standard to prevent cross-site scripting or other code injection
+		attacks.</div><p>It's strongly recommended that you make your SAPUI5 applications CSP compliant -
+			after all, you want your apps to be secure. The main thing you have to do is to remove all scripts that directly execute code from your
+			HTML pages. </p><section id="section_wkh_b2v_zfb">
+			<h2 class="title ">Define Initial Components in a Declarative Way</h2>
+			<p>Don't use directly executable code in your HTML files, because this makes them vulnerable. Instead, enable the <code>ComponentSupport</code>
+				module in the bootstrapping script. Then, declare your desired component in the body via a <code>div</code> tag. This will
+				instantiate the component when the <code>onInit</code> is executed.</p>
+			<section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+&lt;script id="sap-ui-bootstrap"
+	src="resources/sap-ui-core.js"
+	data-sap-ui-async="true"
+	data-sap-ui-on-init="module:sap/ui/core/ComponentSupport"&gt;
+&lt;/script&gt;
+&lt;body class="sapUiBody" id="content"&gt;
+	&lt;div data-sap-ui-component data-name="sap.ui.demo.walkthrough" data-id="container" data-settings='{"id" : "walkthrough"}'&gt;&lt;/div&gt;
+&lt;/body&gt;</pre></div></div></section>
+			<ul class="ul ">
+				<li class="li">Learn how: Walkthrough Tutorial <a href="topic/4cfa60872dca462cb87148ccd0d948ee" title="After we have introduced all three parts of the Model-View-Controller (MVC) concept, we now come to another important structural aspect of SAPUI5." class="sap-doc">Step 9: Component Configuration</a></li>
+				<li class="li">Find our more: <a href="topic/82a0fcecc3cb427c91469bc537ebdddf" title="The declarative API enables you to define the initially started component directly in the HTML markup." class="sap-doc">Declarative API for Initial Components</a></li>
+			</ul>
+		</section><section id="section_kgn_521_1gb">
+			<h2 class="title ">Separate Scripts From HTML Files in Your Test Folder</h2>
+			<p>Because the HTML files in your test folder do not directly open your application, you can't use the new <code>ComponentSupport</code>
+				feature here. To make them CSP compliant, you need to put the executable script code in a separate file on the same level as the HTML
+				file. You can then refer to this file in your HTML file inside a <code>script</code> tag in the head:</p>
+			<p>New script
+				file:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">window.suite = function() {
+	"use strict";
+
+	var oSuite = new parent.jsUnitTestSuite(),
+		sContextPath = location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1);
+
+	oSuite.addTestPage(sContextPath + "unit/unitTests.qunit.html");
+	oSuite.addTestPage(sContextPath + "integration/opaTests.qunit.html");
+
+	return oSuite;
+};
+</pre></div></div></section><p></p>
+			<p>HTML
+				file:</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;head&gt;
+	...
+	&lt;script src="testsuite.qunit.js" data-sap-ui-testsuite&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;/html&gt;
+</pre></div></div></section><p></p>
+			<ul class="ul ">
+				<li class="li">Learn how: Testing Tutorial <a href="topic/07c97a2e497d443eb6fa74bb9445ab9c" title="In this step, we will step back from our tests and application features that we have implemented so far and take a closer look at another important piece of the test setup - the test automation. We will learn how to set up a basic test automation, which might be used in a continuous integration system or locally to run tests via shell." class="sap-doc">Step 10: Automated Testing</a></li>
+				<li class="li">Find out more: <a href="topic/fe1a6dba940e479fb7c3bc753f92b28c" title="Content Security Policy (CSP) adds an additional layer of security that can detect and mitigate certain types of attacks, such as cross-site scripting and data injection." class="sap-doc">Content Security Policy</a></li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

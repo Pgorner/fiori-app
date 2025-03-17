@@ -1,0 +1,145 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio00737d6c1b864dc3ab72ef56611491c4" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/best-practices-for-loading-modules-00737d6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Best Practices for Loading Modules</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Best Practices for Loading Modules</h2></div><div class="shortdesc">This section provides best practices for SAPUI5 module loading
+        patterns.</div><p>These best practices are especially important when you switch from the synchronous variant of the SAPUI5 module loader to the asynchronous variant. Patterns that may have
+            worked in synchronous module loading may lead to applications that can't start in asynchronous module loading.</p><div class="note note  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+            </p><p>Use the <code>async</code> configuration parameter to enable asynchronous module loading via the bootstrap. For more information,
+                see <a href="topic/91f1f4536f4d1014b6dd926db0e91070" title="The standard variant for bootstrapping loads all JavaScript modules of a library in advance with one single request for performance reasons." class="sap-doc">Standard Variant for Bootstrapping</a>.</p>
+        <p></p></div></div><section id="section_DefineModules">
+            <h2 class="title ">How to Define Modules</h2>
+            <p>Every SAPUI5 module file
+                must contain exactly one unnamed module definition on the top level: the
+                    <code>sap.ui.define</code> call. Also, to avoid side-effects, all
+                module-related functions must be defined within the callback function.</p>
+            <p><span class="emphasis">Example</span>: The following two modules are unnamed. They only
+                contain one top-level <code>sap.ui.define</code> and can be addressed with the
+                respective unique module name:</p>
+            <p><code>myLib/MyModuleA.js</code></p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(function(){
+    ...
+});
+...</pre></div></div></section>
+            <p>For troubleshooting information with regard to loading your module, see <a href="topic/4363b3fe3561414ca1b030afc8cd30ce.html#loio4363b3fe3561414ca1b030afc8cd30ce/section_moduleloading" title="4363b3fe3561414ca1b030afc8cd30ce.xml#loio4363b3fe3561414ca1b030afc8cd30ce/section_moduleloading" class="sap-doc">Why is my
+                    Module Not Loading?</a>.</p>
+        </section><section id="section_AddressModules">
+            <h2 class="title ">How to Address Modules</h2>
+            <p>A module must always be addressed with the unique module name. The module name is
+                case-sensitive.</p>
+            <p><code>myLib/MyModuleB.js</code></p>
+            <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define(["myLib/MyModuleA"], function(MyModuleA){
+    ...
+});</pre></div></div></section>
+            <p>For troubleshooting information with regard to addressing modules, see <a href="topic/4363b3fe3561414ca1b030afc8cd30ce.html#loio4363b3fe3561414ca1b030afc8cd30ce/section_moduleaddressing" title="4363b3fe3561414ca1b030afc8cd30ce.xml#loio4363b3fe3561414ca1b030afc8cd30ce/section_moduleaddressing" class="sap-doc">What is
+                    wrong with the way I am addressing the modules?</a>.</p>
+            <section>
+                <h3 class="title ">Migrating Access to Pseudo Modules</h3>
+                <p>Historically, types that are defined within a <code>library.js</code> could be required as if they were modules of their own
+                    (i.e. as "pseudo modules"). This behavior is deprecated, and the corresponding <code>library</code> module should be required
+                    instead. The example below showcases three scenarios how types might be used. You can find the corresponding module for each API,
+                    enum, and control in the API Reference, e.g. <a href="api/sap.m.ButtonType" title="api/sap.m.ButtonType" class="sap-doc" alt="api/sap.m.ButtonType"><code>sap.m.ButtonType</code></a> and <a href="api/sap.ui.model.FilterType" title="api/sap.ui.model.FilterType" class="sap-doc" alt="api/sap.ui.model.FilterType"><code>sap.ui.model.FilterType</code></a>.</p>
+                <p>
+                    </p><ul class="ul ">
+                        <li class="li">
+                            <p>enum types included in a <code>library.js</code></p>
+                            <p>e.g. you can use <code>sap.m.ButtonType</code> by requiring the <code>sap/m/library</code> module since it's
+                                documented as "Module: sap/m/library" in the API Reference. The type can then be accessed via the library's module
+                                export.</p>
+                        </li>
+                        <li class="li">
+                            <p>enum types provided as a standalone module</p>
+                            <p>e.g. you should require <code>sap/ui/model/FilterType</code> directly since it's documented as "Module:
+                                sap/ui/model/FilterType"</p>
+                        </li>
+                        <li class="li">
+                            <p>Instances of DataType included in a <code>library.js</code></p>
+                            <p>e.g. you can use <code>sap.ui.core.CSSSize</code> by first requiring the <code>sap/ui/core/library</code>
+                                module as documented in the API Reference. The DataType itself can then be accessed via the static <a href="api/sap.ui.base.DataType#methods/sap.ui.base.DataType.getType" title="api/sap.ui.base.DataType#methods/sap.ui.base.DataType.getType" class="sap-doc" alt="api/sap.ui.base.DataType#methods/sap.ui.base.DataType.getType"><code>DataType.getType(...)</code></a>
+                                 API as shown below.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                                    </p><p>Accessing the DataType instance via the library's module export is also deprecated.</p>
+                                <p></p></div></div><p></p>
+                        </li>
+                    </ul>
+                <p></p>
+                <p><span class="emphasis">Example:</span></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.require([
+    "sap/m/library", // enum sap.m.ButtonType (Module: sap/m/library)
+    "sap/ui/model/FilterType", // enum sap.ui.model.FilterType (Module: sap/ui/model/FilterType)
+    "sap/ui/base/DataType", // DataType facade (Module: sap/ui/base/DataType)
+    "sap/ui/core/library" // includes the DataType "sap.ui.core.CSSSize" (Module: sap/ui/core/library)
+], (sapMLib, FilterType, DataType /*, sapUiCoreLib*/) =&gt; {
+    const { ButtonType } = sapMLib;
+
+    mySapMButton.setType(ButtonType.Emphasized);
+
+    myListBinding.filter(myFilter, FilterType.Application);
+
+    const oCSSSize = DataType.getType("sap.ui.core.CSSSize");
+    oCSSSize.isValid("20px") // true
+});</pre></div></div></section><p></p>
+                <p><span class="emphasis">Example for migrating several legacy aspects:</span></p>
+                <p>
+                    </p><div class="tableWrapper "><div class="fig"><table border="1" id="table_zjl_4fd_p1b" class=" ">
+                            
+                            
+                            <thead>
+                                <tr>
+                                    <th colspan="1" rowspan="1">Legacy Code</th>
+                                    <th colspan="1" rowspan="1">Best Practice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="1" rowspan="1" align="left" valign="top">
+                                        <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+  "sap/m/SortOrder", // Outdated pseudo module
+  "sap/ui/model/FilterType", // standalone module
+  "sap/ui/layout" // target use: SimpleForm
+], (SortOrder, FilterType, sapUiLayoutLib) =&gt; {
+  "use strict"
+  var SimpleForm = sapUiLayoutLib.form.SimpleForm; // access to Control via globals
+
+    // ...
+
+      // access to Control via globals
+      sap.m.MessageBox.show(/*...*/);
+
+    // ...
+
+});</pre></div></div></section>
+                                    </td>
+                                    <td colspan="1" rowspan="1" align="left" valign="top">
+                                        <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+  "sap/m/library", // "SortOrder" is contained in the sap/m/library.js module
+  "sap/ui/model/FilterType", // remains the same
+  "sap/ui/layout/form/SimpleForm" // imported as a module, no access to globals needed
+], (sapMLib, FilterType, SimpleForm) =&gt; {
+  "use strict";
+  const { SortOrder } = sapMLib;
+
+    // ...
+
+      // lazily require the sap/m/MessageBox on demand
+      sap.ui.require([
+        "sap/m/MessageBox"
+      ], (MessageBox) =&gt; {
+        MessageBox.show(/*...*/);
+      });
+
+    // ...
+
+});</pre></div></div></section>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table></div></div>
+                <p></p>
+            </section>
+        </section><section id="section_StructureProject"><h2 class="title ">How to Structure a Project</h2><p>The entry point of an SAPUI5 application is often a module that is used to instantiate a SAPUI5 component. This central module is considered as single node of a
+                graph and all dependent modules as well as their dependencies are nodes that must be connected by directed edges: the graph must
+                fulfill the requirements of a directed acyclic graph (DAG). </p><p><span class="emphasis">Example</span>: All modules are evaluated in a
+                clearly defined order. The evaluation starts with module D, then module C and module B, and ends with module A.</p><img src="loioc8a64ac29d0d44598b89d224ff14e9f3_LowRes.png" usemap="#"><p>For troubleshooting information with regard to the project
+                structure, see <a href="topic/4363b3fe3561414ca1b030afc8cd30ce.html#loio4363b3fe3561414ca1b030afc8cd30ce/section_cyclicdependencies" title="4363b3fe3561414ca1b030afc8cd30ce.xml#loio4363b3fe3561414ca1b030afc8cd30ce/section_cyclicdependencies" class="sap-doc">How can I remove project structures with
+                    cyclic dependencies?</a>.</p></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

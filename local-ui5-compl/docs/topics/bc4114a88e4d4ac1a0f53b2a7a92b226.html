@@ -1,0 +1,433 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobc4114a88e4d4ac1a0f53b2a7a92b226" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-15-writing-a-short-date-formatter-using-tdd-bc4114a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 15: Writing a Short Date Formatter Using TDD</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 15: Writing a Short Date Formatter Using TDD</h2></div><div class="shortdesc">It's now time to improve the content of the <span class="ph uicontrol">Info</span> tab. We want
+		to see the <span class="ph uicontrol">Posted At</span> date in a formatted way. Based on the age of the
+		post, we either display the time, a textural representation of the day, or the date only. </div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio8ab2798015ec431ab2125632cc37bcc3_HiRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Unit tests of the formatter</h2></span></div>
+			<p>Depending on the current date, we distinguish four different formatting categories,
+				as shown in the table below:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_hdp_fdd_jt" class=" ">
+						
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">
+									<p>Category</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Sample Input</p>
+								</th>
+								<th colspan="1" rowspan="1">
+									<p>Expected Output (for <code>en-US</code>)</p>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Today</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><kbd class="ph userinput">2013/02/13 12:05:20</kbd></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><samp class="ph systemoutput">12:05 PM</samp></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Yesterday</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><kbd class="ph userinput">2013/02/12 12:05:20</kbd></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><samp class="ph systemoutput">Yesterday</samp></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Last 7 days</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><kbd class="ph userinput">2013/02/08 12:05:20</kbd></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><samp class="ph systemoutput">Friday</samp></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p>Others</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><kbd class="ph userinput">2011/02/05 12:05:20</kbd></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><samp class="ph systemoutput">Dec 5, 2011</samp></p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div> As you can see, we have many different cases, and our formatter contains
+				real logic. <p></p>
+			<p>We test this in a unit test. In this step we will follow an iterative approach. We
+				first write a failing test and immediately fix it by adding the production code to
+				make the test pass. Then the next iteration starts. We do not write more than one
+				failing unit test at once.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>There are many benefits of consequently applying the test-driven development
+						(TDD) methodology, for example, very fast feedback, you can execute your
+						tests after each change and get immediate feedback if the tests run green.
+						You also spend less time debugging and for analysis. We recommend that you
+						get familiar with TDD and clean code practices. In this step you get a first
+						impression how TDD results in better separation of concerns, APIs, handling
+						of dependencies, code reuse, and a test suite growing together with the
+						code.</p>
+				<p></p></div></div>
+			<p></p>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.15" title="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.15" class="sap-doc" alt="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.15">Testing - Step 15</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/test/unit/unitTests.qunit.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"./model/models",
+	"./model/formatter",
+	"./model/FlaggedType",
+	<span class="emphasis">"./model/DateFormatter"</span>
+});</pre></div></div></section>
+			<p>First, we add the new test file we are about to create to the
+					<code>unitTests.qunit.js</code> file.</p>
+		</section><section>
+			<h2 class="title ">webapp/model/DateFormatter.js (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/base/Object"
+], function(Object) {
+	   return Object.extend("sap.ui.demo.bulletinboard.model.DateFormatter", {
+	   });
+});</span></pre></div></div></section>
+			<p>We create an empty hull for our formatter implementation first so that we can include
+				it in our test. It does not contain any logic yet but simply extends an SAPUI5 base object.</p>
+		</section><section>
+			<h2 class="title ">webapp/test/unit/model/DateFormatter.js (New)</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/demo/bulletinboard/model/DateFormatter"
+], function(DateFormatter) {
+	QUnit.module("DateFormatter");
+
+	QUnit.test("initial", function(assert) {
+		assert.ok(new DateFormatter());
+	});
+});</span></pre></div></div></section>
+			<p>And we create our test that checks if there is a <code>DateFormatter</code>
+				object. Now we can execute our unit tests. We see that this test is failing as the
+				object does not exist in our code yet.</p>
+		</section><section>
+			<h2 class="title ">webapp/test/unit/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/bulletinboard/model/DateFormatter"
+], function(DateFormatter) {
+	QUnit.module("DateFormatter");
+	<span class="emphasis">QUnit.test("Should return empty string if no date is given", function(assert) {
+		var oFormatter = new DateFormatter();
+		var sFormattedDate = oFormatter.format(null);
+		assert.strictEqual(sFormattedDate, "");
+	});</span>
+});</pre></div></div></section>
+			<p>Now we implement a test for the API of the format function. We assume it will have a
+					<code>Date</code> object as input parameter. In the first step, the test
+				verifies that the format function returns an empty string if we pass
+					<code>null</code>.</p>
+		</section><section>
+			<h2 class="title ">webapp/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/base/Object"
+], function(Object) {
+	   return Object.extend("sap.ui.demo.bulletinboard.model.DateFormatter", {
+  	<span class="emphasis">format: function() {
+				    return "";
+			 }</span>
+	   });
+});</pre></div></div></section>
+			<p>Now we fix our test again by returning the expected string.</p>
+		</section><section id="section_bng_kpv_cdc">
+			<h2 class="title ">Dependency Injection:</h2>
+		</section><section id="section_cng_kpv_cdc">
+			<h2 class="title ">webapp/test/unit/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/bulletinboard/model/DateFormatter"<span class="emphasis">,
+	"sap/ui/core/Locale",
+	"sap/ui/core/date/UI5Date"</span>
+], function(DateFormatter, <span class="emphasis">Locale, UI5Date</span>) {
+	QUnit.module("DateFormatter");
+	QUnit.test("Should return empty string if no date is given", function(assert) {
+		var oFormatter = new DateFormatter({
+			locale : new Locale("en-US")
+		});
+		var sFormattedDate = oFormatter.format(null);
+		assert.strictEqual(sFormattedDate, "");
+	});
+	<span class="emphasis">QUnit.test("Should return time if date from today", function(assert) {
+		var oFormatter = new DateFormatter({
+			locale : new Locale("en-US")
+		});
+		var oDate = UI5Date.getInstance(2015, 2, 14, 12, 5, 0, 0);
+		var sFormattedDate = oFormatter.format(oDate);
+		assert.strictEqual(sFormattedDate, "12:05 PM");
+	});</span>
+});</pre></div></div></section>
+			<p>Here our test expects that the date is displayed as time when the post is from today.
+				If we rely on the browser language the test would be fragile. It will fail in some
+				languages. To avoid this, we pass the locale settings to the formatter's
+				constructor. The test will use a fixed locale <code>en-US</code> in order to
+				remain stable. This mechanism is called <span class="emphasis">Dependency
+				Injection</span>.</p>
+		</section><section>
+			<h2 class="title ">webapp/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/base/Object"<span class="emphasis">,
+	"sap/ui/core/format/DateFormat"</span>
+], function(Object<span class="emphasis">, DateFormat</span>) {
+	return Object.extend("sap.ui.demo.bulletinboard.model.DateFormatter", {
+		<span class="emphasis">constructor: function(oProperties) {
+			this.timeFormat = DateFormat.getTimeInstance({
+				style: "short"
+			}, oProperties.locale);
+		},</span>
+		format: function(<span class="emphasis">oDate</span>) {
+			<span class="emphasis">if (!oDate) {</span>
+				return "";
+			<span class="emphasis">}
+			return this.timeFormat.format(oDate);</span>
+		}
+	});
+});</pre></div></div></section>
+			<p>In the implementation we use the <code>DateFormat</code> of SAPUI5 to create a
+				short date. The locale is passed on to the <code>getTimeInstance</code>
+				function.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The implementation should not do more than the current tests covers. This makes
+					sure you cover all the code paths. You can enable the code coverage by selecting
+					the <span class="ph uicontrol">Enable coverage</span> checkbox.</p>
+				<div><div class="fig"><img src="loioa700487ab86444eb8643924d0dccf942_HiRes.png" usemap="#"></div></div>
+				<p>It will show the lines covered by your tests (white) and the ones that were not
+					covered (red). For the single test above the coverage looks like this. The red
+					line is already covered by the previous test so in total we have a test coverage
+					of 100%.</p>
+			<p></p></div></div>
+		</section><section id="section_kmk_m4v_cdc">
+			<h2 class="title ">Refactoring:</h2>
+		</section><section id="section_lmk_m4v_cdc">
+			<h2 class="title ">webapp/test/unit/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/bulletinboard/model/DateFormatter",
+	"sap/ui/core/Locale",
+	"sap/ui/core/date/UI5Date"
+], function(DateFormatter, Locale, UI5Date) {
+	<span class="emphasis">var oFormatter = null;</span>
+	QUnit.module("DateFormatter"<span class="emphasis">, {
+		beforeEach: function() {
+			oFormatter = new DateFormatter({
+				locale: new Locale("en-US")
+			});
+		}
+	}</span>);
+
+	QUnit.test("Should return empty string if no date is given", function(assert) {
+		<span class="emphasis">// Delete in your code: var oFormatter = new DateFormatter();</span>
+			    // ...
+	});
+	QUnit.test("Should return time if date from today", function(assert) {
+		<span class="emphasis">// Delete in your code: var oFormatter = new DateFormatter({
+		// Delete in your code: 	locale: new Locale("en-US")
+		// Delete in your code: })</span>;
+		// ...
+	});
+});</pre></div></div></section>
+			<p>Our tests are running so we can start refactoring our code. Since we need the
+					<code>DateFormatter</code> object in every test case we will move it to the
+				QUnit module's <code>beforeEach</code> function. As the name suggests, the
+				function is invoked before each test so we may use it to save some code we need in
+				every test.</p>
+		</section><section id="section_k31_c4v_cdc">
+			<h2 class="title ">Dependency Injection to Get Independent from System Time:</h2>
+		</section><section id="section_l31_c4v_cdc">
+			<h2 class="title ">webapp/test/unit/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/bulletinboard/model/DateFormatter",
+	"sap/ui/core/Locale",
+	"sap/ui/core/date/UI5Date"
+], function(DateFormatter, Locale, UI5Date) {
+	var oFormatter = null;
+	QUnit.module("DateFormatter", {
+		beforeEach: function() {
+			oFormatter = new DateFormatter({
+				<span class="emphasis">now : function() {
+					return UI5Date.getInstance(2015, 2, 14, 14, 0, 0, 0).getTime();
+				},</span>
+				locale : new Locale("en-US")
+			});
+		}
+	});
+	// ...
+	<span class="emphasis">QUnit.test("Should return 'Yesterday' if date from yesterday", function(assert) {
+		var oDate = UI5Date.getInstance(2015, 2, 13);
+		var sFormattedDate = oFormatter.format(oDate);
+		assert.strictEqual(sFormattedDate, "Yesterday");
+	});</span>
+});</pre></div></div></section>
+			<p>The next test verifies that <samp class="ph systemoutput">Yesterday</samp> is returned for
+				yesterday's date. To keep the test independent of the system time, we pass on a
+				stable date to the formatter.</p>
+		</section><section>
+			<h2 class="title ">webapp/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/base/Object",
+	"sap/ui/core/format/DateFormat"
+], function(Object, DateFormat) {
+	return Object.extend("sap.ui.demo.bulletinboard.model.DateFormatter", {
+		constructor : function(oProperties) {
+			this.timeFormat = DateFormat.getTimeInstance({
+				style : "short"
+			}, oProperties.locale);
+			<span class="emphasis">this.now = oProperties.now;</span>
+		},
+		format : function(oDate) {
+			if (!oDate) {
+				return "";
+			}
+			<span class="emphasis">var iElapsedDays = this._getElapsedDays(oDate);
+			if (iElapsedDays === 0) {</span>
+			return this.timeFormat.format(oDate);
+			<span class="emphasis">} else if (iElapsedDays === 1) {
+				return "Yesterday";
+			}</span>
+		}<span class="emphasis">,
+		_getElapsedDays : function(oDate) {
+			var iElapsedMilliseconds = this.now() - oDate.getTime();
+			var fElapsedDays = iElapsedMilliseconds / 1000 / 60 / 60 / 24;
+			return Math.floor(fElapsedDays);
+		}</span>
+	});
+});</pre></div></div></section>
+			<p>In the implementation we add a calculation for determining how many days passed. If
+				zero days passed, the format function is called, and if one day passed
+					<samp class="ph systemoutput">Yesterday</samp> is returned. Currently we skip reading
+				"Yesterday" from the i18n model to keep the example simple.</p>
+		</section><section id="section_cw1_q4v_cdc">
+			<h2 class="title ">Boundary Testing:</h2>
+		</section><section id="section_dw1_q4v_cdc">
+			<h2 class="title ">webapp/test/unit/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/bulletinboard/model/DateFormatter",
+	"sap/ui/core/Locale",
+	"sap/ui/core/date/UI5Date"
+], function(DateFormatter, Locale, UI5Date) {
+	var oFormatter = null;
+	// ...
+	<span class="emphasis">QUnit.test("Should return day of the week if date &lt; 7 days ago", function(assert) {
+		var oDate = UI5Date.getInstance(2015, 2, 8);
+		var sFormattedDate = oFormatter.format(oDate);
+		assert.strictEqual(sFormattedDate, "Sunday");
+	});</span>
+});</pre></div></div></section>
+			<p>The next test verifies that the day of the week is returned. As test input we take a
+				value at the boundary: Sunday is one day before a different formatting pattern
+				should be applied.</p>
+		</section><section>
+			<h2 class="title ">webapp/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/base/Object",
+	"sap/ui/core/format/DateFormat"
+], function(Object, DateFormat) {
+	return Object.extend("sap.ui.demo.bulletinboard.model.DateFormatter", {
+		constructor: function(oProperties) {
+			this.timeFormat = DateFormat.getTimeInstance({
+				style: "short"
+			}, oProperties.locale);
+			<span class="emphasis">this.weekdayFormat = DateFormat.getDateInstance({
+				pattern: "EEEE"
+			}, oProperties.locale);</span>
+			this.now = oProperties.now;
+		},
+		format: function(oDate) {
+			if (!oDate) {
+				return "";
+			}
+			var iElapsedDays = this._getElapsedDays(oDate);
+			if (iElapsedDays === 0) {
+				return this.timeFormat.format(oDate);
+			} else if (iElapsedDays === 1) {
+				return "Yesterday";
+			}<span class="emphasis"> else if (iElapsedDays &lt; 7) {
+				return this.weekdayFormat.format(oDate);
+			}</span>
+		}
+</pre></div></div></section>
+			<p>Now we define a new format in our constructor, the <code>weekdayFormat</code>. In
+				the format function we apply the format if the elapsed days are smaller than 7.</p>
+		</section><section>
+			<h2 class="title ">webapp/test/unit/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+	"sap/ui/demo/bulletinboard/model/DateFormatter",
+	"sap/ui/core/Locale",
+	"sap/ui/core/date/UI5Date"
+], function(DateFormatter, Locale, UI5Date) {
+	var oFormatter = null;
+	// ...
+	<span class="emphasis">QUnit.test("Should return date w/o time if date &gt; 7 days ago", function(assert) {
+		var oDate = UI5Date.getInstance(2015, 2, 7);
+		var sFormattedDate = oFormatter.format(oDate);
+		assert.strictEqual(sFormattedDate, "Mar 7, 2015");
+	});</span>
+});</pre></div></div></section>
+			<p>In the next test we verify that the date is formatted as date without time. Again, we
+				take a value at the boundary.</p>
+		</section><section>
+			<h2 class="title ">webapp/model/DateFormatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+		constructor: function(oProperties) {
+			this.timeFormat = DateFormat.getTimeInstance({
+				style : "short"
+			}, oProperties.locale);
+			this.weekdayFormat = DateFormat.getDateInstance({
+				pattern : "EEEE"
+			}, oProperties.locale);
+			<span class="emphasis">this.dateFormat = DateFormat.getDateInstance({
+				style : "medium"
+			}, oProperties.locale);</span>
+			this.now = oProperties.now;
+		},
+		format: function(oDate) {
+			if (!oDate) {
+				return "";
+			}
+			var iElapsedDays = this._getElapsedDays(oDate);
+			if (iElapsedDays === 0) {
+				return this.timeFormat.format(oDate);
+			} else if (iElapsedDays === 1) {
+				return "Yesterday";
+			} else if (iElapsedDays &lt; 7) {
+				return this.weekdayFormat.format(oDate);
+			} <span class="emphasis">else {
+				return this.dateFormat.format(oDate);
+			}
+</span>
+		},
+</pre></div></div></section>
+			<p> In the implementation, we use a different <code>style</code> property for
+				instantiating the <code>dateFormat</code> property. We call the format of this
+				instance for dates that are more than 6 days in the past.</p>
+			<p>Although our formatter depends on system time and locale settings, our tests are very
+				easy to read and maintain. We wrote blackbox tests, providing only the input and
+				expecting a certain output without knowing the implementation details. The
+					<code>DateFormatter</code> does not actively resolve the dependencies to the
+				system time and locale settings. Instead, it asks its creator to pass the
+				dependencies along in the constructor. In the next step, we have to bring the pieces
+				together.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/291c9121e6044ab381e0b51716f97f52">Testing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/6e9c6bd2054c4425b7f15cac31aa675c">Step 14: Adding Tabs</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/2ca583d6b9c24e4d8f189eada7c4b668">Step 16: Adding the Date Formatter</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

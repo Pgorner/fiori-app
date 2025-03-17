@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+		   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+		   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+		   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="MyNamespace" sap:schema-version="1">
+
+			<EntityType Name="MyEntityType">
+				<Key>
+					<PropertyRef Name="ID" />
+				</Key>
+				<Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Product ID" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+				<Property Name="VH_many_filters" Type="Edm.String" sap:label="VH with many filters"/>
+				<Property Name="VH_visible_hidden_filters" Type="Edm.String" sap:label="VH with visible and hidden filters"/>
+			</EntityType>
+
+			<EntityType Name="ManyFiltersVHType" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="VH_many_filters" />
+				</Key>
+				<Property Name="VH_many_filters"
+					Type="Edm.String"
+					sap:label="VH Filter1" />
+				<Property Name="VH_many_filters2"
+					Type="Edm.String"
+					sap:label="VH Filter2" />
+				<Property Name="VH_many_filters3"
+					Type="Edm.String"
+					sap:label="VH Filter3" />
+				<Property Name="VH_many_filters4"
+					Type="Edm.String"
+					sap:label="VH Filter4" />
+				<Property Name="VH_many_filters5"
+					Type="Edm.String"
+					sap:label="VH Filter5" />
+				<Property Name="VH_many_filters6"
+					Type="Edm.String"
+					sap:label="VH Filter6" />
+				<Property Name="VH_many_filters7"
+					Type="Edm.String"
+					sap:label="VH Filter7" />
+				<Property Name="VH_many_filters8"
+					Type="Edm.String"
+					sap:label="VH Filter8" />
+				<Property Name="VH_many_filters9"
+					Type="Edm.String"
+					sap:label="VH Filter9" />
+				<Property Name="VH_many_filters10"
+					Type="Edm.String"
+					sap:label="VH Filter10" />
+			</EntityType>
+
+			<EntityType Name="VisibleHiddenFiltersVHType" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="VH_visible_filter1" />
+				</Key>
+				<Property Name="VH_visible_filter1"
+					Type="Edm.String"
+					sap:label="VH Filter1" />
+				<Property Name="VH_visible_filter2"
+					Type="Edm.String"
+					sap:label="VH Filter2" />
+				<Property Name="VH_visible_filter3"
+					Type="Edm.String"
+					sap:label="VH Filter3" />
+				<Property Name="VH_visible_filter4"
+					Type="Edm.String"
+					sap:label="VH Filter4" />
+				<Property Name="VH_visible_filter5"
+					Type="Edm.String"
+					sap:label="VH Filter5" />
+				<Property Name="VH_visible_filter6"
+					Type="Edm.String"
+					sap:label="VH Filter6" />
+				<Property Name="VH_visible_filter7"
+					Type="Edm.String"
+					sap:label="VH Filter7" />
+				<Property Name="VH_hidden_filter1"
+					Type="Edm.String"
+					sap:label="VH Hidden Filter1" />
+				<Property Name="VH_hidden_filter2"
+					Type="Edm.String"
+					sap:label="VH Hidden Filter2" />
+				<Property Name="VH_hidden_filter3"
+					Type="Edm.String"
+					sap:label="VH Hidden Filter3" />
+			</EntityType>
+
+			<EntityContainer m:IsDefaultEntityContainer="true"
+							 sap:supported-formats="atom json">
+				<EntitySet Name="ManyFilters" EntityType="MyNamespace.MyEntityType" sap:creatable="true" sap:updatable="true" sap:deletable="false" sap:addressable="false" sap:content-version="1" />
+				<EntitySet Name="ManyFiltersVH" EntityType="MyNamespace.ManyFiltersVHType" sap:content-version="1"/>
+				<EntitySet Name="VisibleHiddenFiltersVH" EntityType="MyNamespace.VisibleHiddenFiltersVHType" sap:content-version="1"/>
+			</EntityContainer>
+
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.MyEntityType/VH_many_filters">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Value HelpDialog with many filters" />
+						<PropertyValue Property="CollectionPath" String="ManyFiltersVH" />
+						<PropertyValue Property="SearchSupported" Bool="true" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="VH_many_filters" />
+									<PropertyValue Property="ValueListProperty" String="VH_many_filters" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.MyEntityType/VH_visible_hidden_filters">
+				<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+					<Record>
+						<PropertyValue Property="Label" String="Value HelpDialog with visible and hidden filters" />
+						<PropertyValue Property="CollectionPath" String="VisibleHiddenFiltersVH" />
+						<PropertyValue Property="SearchSupported" Bool="true" />
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="VH_visible_hidden_filters" />
+									<PropertyValue Property="ValueListProperty" String="VH_visible_filter1" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.VisibleHiddenFiltersVHType/VH_hidden_filter1">
+				<Annotation Term="com.sap.vocabularies.UI.v1.HiddenFilter"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.VisibleHiddenFiltersVHType/VH_hidden_filter2">
+				<Annotation Term="com.sap.vocabularies.UI.v1.HiddenFilter"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="MyNamespace.VisibleHiddenFiltersVHType/VH_hidden_filter3">
+				<Annotation Term="com.sap.vocabularies.UI.v1.HiddenFilter"/>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

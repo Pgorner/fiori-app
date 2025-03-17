@@ -1,0 +1,141 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio4cde849dc18949b69bbe152a0aaa19c6" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-1-no-data-binding-4cde849.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 1: No Data Binding</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 1: No Data Binding</h2></div><div class="shortdesc">In this step, we create a basic application and simply place some text on the screen using a standard <code>sap.m.Text</code> control.
+		The text in this control is a hard-coded part of the control's definition; therefore, this is not an example of data binding!</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio6d391d527601499fbeb3734246b2c067_LowRes.png" title="The browser shows the text &quot;Hi, my name is Harry Hawk&quot;" alt="The browser shows the text &quot;Hi, my name is Harry Hawk&quot;" usemap="#"></div></div>
+		</section><section id="section_lv5_lvy_zbc">
+			<h2 class="title ">Setup</h2>
+			<p>Open a terminal and install UI5 Tooling globally on your machine by executing the following command:</p>
+			<p><code>npm install --global @ui5/cli</code></p>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the Demo Kit at <a href="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.01" title="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.01" class="sap-doc" alt="entity/sap.ui.core.tutorial.databinding/sample/sap.ui.core.tutorial.databinding.01">Data Binding - Step 1</a>.</p>
+			<p>
+				</p><ol>
+					<li class="li">Create a folder on your local machine which will contain all the sources of the app we're going to build. We'll refer to this
+						folder as the "app root folder".</li>
+					<li class="li">
+						<p>Create a new file called <code>package.json</code> which will enable you to execute commands and consume packages from
+								the<a href="https://www.npmjs.com/" title="https://www.npmjs.com/" class="external-link" target="_blank" rel="noopener"> npm registry</a> via the npm command line
+							interface. Enter the following content:</p>
+						<p><span class="emphasis">package.json (New)</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">{
+  "name": "data-binding-tutorial",
+  "private": true,
+  "version": "1.0.0",
+  "author": "SAP SE",
+  "description": "UI5 Demo App - Data Binding Tutorial",
+  "devDependencies": {
+    "@ui5/cli": "^3"
+  },
+  "scripts": {
+    "start": "ui5 serve -o index.html"
+  }
+}</span></pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Create a new folder named <code>webapp</code> in the app root folder. It will contain all the sources that become
+							available in the browser later. We'll refer to this folder as the "webapp folder".</p>
+					</li>
+					<li class="li">
+						<p>Create a new HTML file named <code>index.html</code> in your webapp folder and enter the following content:</p>
+						<p><span class="emphasis">webapp/index.html (New)</span></p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;title&gt;Data Binding Tutorial&lt;/title&gt;
+	&lt;script id="sap-ui-bootstrap"
+		src="resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-on-init="module:sap/ui/core/ComponentSupport"
+		data-sap-ui-resource-roots='{"ui5.databinding": "./"}'&gt;
+	&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="sapUiBody" id="content"&gt;
+	&lt;div data-sap-ui-component data-name="ui5.databinding" data-id="container" data-settings='{"id" : "databinding"}'&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</span></pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Create a new file named <code>manifest.json</code> in the webapp folder; it's also known as the "app descriptor". All
+							application-specific configuration options which we'll introduce in this tutorial will be added to this file. Enter the
+							following content:</p>
+						<p><span class="emphasis">webapp/manifest.json (New)</span></p><section class="language-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">{
+	"_version": "1.60.0",
+	"sap.app": {
+		"id": "ui5.databinding",
+		"type": "application",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.120.0",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {}
+			}
+		},
+		"rootView": {
+			"viewName": "ui5.databinding.view.App",
+			"type": "XML",
+			"id": "app"
+		}
+	}
+}</span></pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Create a new file named <code>Component.js</code> in the webapp folder. Enter the following content:</p>
+						<p><span class="emphasis">webapp/Component.js (New)</span></p><section class="language-javascript"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">sap.ui.define([
+	"sap/ui/core/UIComponent"
+], (UIComponent) =&gt; {
+	"use strict";
+	return UIComponent.extend("ui5.databinding.Component", {
+		metadata: {
+			interfaces: ["sap.ui.core.IAsyncContentCreation"],
+			manifest: "json"
+		}
+	});
+});</span></pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Create a new folder named <code>view</code> in the webapp folder. Then, create a new file <code>App.view.xml</code> within the
+								<code>view</code> folder. We start by placing the <code>sap.m.Text</code> control into the XML view. Since the
+							value of the control's text property is hard-coded, it doesn't relate to any data that might exist within a model object.
+							Therefore, data binding is <span class="emphasis">not</span> used here.</p>
+						<p><span class="emphasis">webapp/view/App.view.xml (New)</span></p><section class="language-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"><span class="emphasis">&lt;mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;Text text="Hi, my name is Harry Hawk"/&gt;
+&lt;/mvc:View&gt;</span></pre></div></div></section><p></p>
+					</li>
+					<li class="li">
+						<p>Open a terminal in the app root folder and execute <code>npm i -D @ui5/cli</code> to install UI5 Tooling in the app root folder.</p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 init</code> in the app root folder.</p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 use OpenUI5</code></p>
+					</li>
+					<li class="li">
+						<p>Execute <code>ui5 add sap.m sap.ui.core sap.ui.layout themelib_sap_horizon</code></p>
+					</li>
+					<li class="li">
+						<p>Execute <code>npm start</code> to start the web server and to open a new browser window hosting your newly created
+								<code>index.html</code>.</p>
+					</li>
+				</ol>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/e5310932a71f42daa41f3a6143efca9c">Data Binding Tutorial</a></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/5278bfd38f3940b192df0e39f2fb33b3">Step 2: Creating a Model</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

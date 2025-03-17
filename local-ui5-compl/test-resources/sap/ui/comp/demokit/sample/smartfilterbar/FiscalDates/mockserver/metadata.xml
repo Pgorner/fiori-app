@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+	xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common/v1">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI/v1">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="Namespace"
+			sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="MainEntityType" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="Id" />
+				</Key>
+				<Property Name="Id"
+					Type="Edm.String"
+					Nullable="false"
+					sap:visible="false"
+					sap:label="Id Key Field"/>
+				<Property Name="FISCAL_YEAR"
+					Type="Edm.String"
+					MaxLength="4"
+					sap:label="Fiscal Year"/>
+				<Property Name="FISCAL_PERIOD"
+					Type="Edm.String"
+					MaxLength="3"
+					sap:label="Fiscal Period"/>
+				<Property Name="FISCAL_YEAR_PERIOD"
+					Type="Edm.String"
+					MaxLength="7"
+					sap:label="Fiscal Year Period"/>
+				<Property Name="FISCAL_QUARTER"
+					Type="Edm.String"
+					MaxLength="1"
+					sap:label="Fiscal Quarter"/>
+				<Property Name="FISCAL_YEAR_QUARTER"
+					Type="Edm.String"
+					MaxLength="5"
+					sap:label="Fiscal Year Quarter"/>
+				<Property Name="FISCAL_WEEK"
+					Type="Edm.String"
+					MaxLength="2"
+					sap:label="Fiscal Week"/>
+				<Property Name="FISCAL_YEAR_WEEK"
+					Type="Edm.String"
+					MaxLength="6"
+					sap:label="Fiscal Year Week"/>
+				<Property Name="FISCAL_DAY_OF_YEAR"
+					MaxLength="3"
+					Type="Edm.String"
+					sap:label="Fiscal Day Of Year"/>
+			</EntityType>
+
+			<EntityContainer Name="Namespace_Entities"
+				m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+				<EntitySet Name="MainEntitySet" EntityType="Namespace.MainEntityType"/>
+			</EntityContainer>
+
+			<Annotations Target="Namespace.MainEntityType"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="UI.FieldGroup"
+					Qualifier="FiscalDate.Group">
+					<Record>
+						<PropertyValue Property="Label" String="Fiscal Date Types" />
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_YEAR" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_PERIOD" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_YEAR_PERIOD" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_QUARTER" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_YEAR_QUARTER" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_WEEK" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_YEAR_WEEK" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="FISCAL_DAY_OF_YEAR" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Bukrs" />
+							<Annotation Term="UI.Importance"
+								EnumMember="UI.ImportanceType/High" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_YEAR" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_PERIOD" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_YEAR_PERIOD" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_QUARTER" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_YEAR_QUARTER" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_WEEK" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_YEAR_WEEK" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="FISCAL_DAY_OF_YEAR" />
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_YEAR"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsFiscalYear" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_PERIOD"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsFiscalPeriod" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_YEAR_PERIOD"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsFiscalYearPeriod" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_QUARTER"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsFiscalQuarter" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_YEAR_QUARTER"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsFiscalYearQuarter" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_WEEK"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsFiscalWeek" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_YEAR_WEEK"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsFiscalYearWeek" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_DAY_OF_YEAR"
+				xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.IsDayOfFiscalYear" Bool="true"/>
+			</Annotations>
+
+			<Annotations Target="Namespace.MainEntityType/FISCAL_QUARTER" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+				<Annotation Term="Common.FilterDefaultValue" String="1" />
+			</Annotations>
+
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

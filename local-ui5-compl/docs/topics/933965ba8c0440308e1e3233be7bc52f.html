@@ -1,0 +1,61 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio933965ba8c0440308e1e3233be7bc52f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/main-methods-933965b.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Main Methods</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Main Methods</h2></div><div class="shortdesc">Overview of the two main methods used in the
+			<code>sap.f.FlexibleColumnLayoutSemanticHelper</code> class.</div><p><span class="emphasis"><code>getCurrentUIState()</code></span></p><p>This method returns an object, providing the following detailed information about the
+			current state of the <code>FlexibleColumnLayout</code>:</p><ul class="ul ">
+				<li class="li">
+					<p>The current layout of the control</p>
+				</li>
+				<li class="li">
+					<p>The relative sizes and visibility of the control's columns</p>
+				</li>
+				<li class="li">
+					<p>Whether the control currently displays a page in fullscreen (and is
+						fullscreen explicitly set, or is this due to device size constraints?)</p>
+				</li>
+				<li class="li">
+					<p>What action buttons the app should display, in which column, and what control
+						layout appears when these buttons are chosen</p>
+				</li>
+			</ul><p></p><p>The example below shows a sample value of the <code>actionButtonsInfo</code> field of
+			this object:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"actionButtonsInfo":{
+       "midColumn":{
+         "fullScreen":null,
+         "exitFullScreen":null,
+         "closeColumn":null
+       },
+       "endColumn":{
+         "fullScreen":"EndColumnFullScreen",
+         "exitFullScreen":null,
+         "closeColumn":"TwoColumnsBeginExpanded"
+       }
+   }
+</pre></div></div></section><p>This means that currently the app should not display any action buttons in the
+				<code>Mid</code> column. In the <code>End</code> column however, there
+			should be two action buttons – <span class="ph uicontrol">Fullscreen</span> and
+				<span class="ph uicontrol">Close</span>. If the user chooses the
+				<span class="ph uicontrol">Fullscreen</span> button, the layout should change to
+				<code>EndColumnFullScreen</code>, and if the user chooses the
+				<span class="ph uicontrol">Close</span> button, the layout should change to
+				<code>TwoColumnsBeginExpanded</code>.</p><p><span class="emphasis"><code>getNextUIState(iNextLevel)</code></span></p><p>This method tells you to what layout the control should transition, and what kinds of action
+			buttons would be displayed to represent a different logical level. The argument
+				<code>iNextLevel</code> is a zero-based int. 0 stands for the initial logical
+			level, 1 - for list and detail, 2 - for list, detail, and detail-detail, 3 and above –
+			for the subsequent logical levels.</p><p>If the current layout is <code>OneColumn</code> (only the <code>Begin</code> column is
+			displayed), and the user selects an item from it, both list and detail should be
+			displayed. To determine the recommended layout to display them, call
+				<code>getNextUIState(1)</code>. It will return an object with a layout field
+			with value <code>TwoColumnsBeginExpanded</code>. Later, if the user selects an item
+			from the <code>Mid</code> column, call <code>getNextUIState(2)</code> to
+			determine the layout to use for the detail-detail level. Alternatively, if the user
+			choses an item in the <code>Begin</code> column, call again
+				<code>getNextUIState(1)</code> to determine the proper two-column layout to
+			switch to.</p><p>Note that the <code>getNextUIState</code> method is not static – its return value
+			depends on the current state of the control. For example, calling
+				<code>getNextUIState(2)</code> will return
+				<code>ThreeColumnsMidExpanded</code> if currently a two-column layout is
+			displayed, but <code>EndColumnFullScreen</code> - if a fullscreen layout is
+			displayed, etc.</p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.f.FlexibleColumnLayoutSemanticHelper" title="api/sap.f.FlexibleColumnLayoutSemanticHelper" class="sap-doc" alt="api/sap.f.FlexibleColumnLayoutSemanticHelper">API Reference:
+				sap.f.FlexibleColumnLayoutSemanticHelper</a></li>
+	</ul></section></div></section></div></body></html>

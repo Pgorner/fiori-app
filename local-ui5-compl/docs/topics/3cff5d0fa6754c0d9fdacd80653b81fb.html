@@ -1,0 +1,52 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3cff5d0fa6754c0d9fdacd80653b81fb" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/programmatically-instantiating-js-fragments-3cff5d0.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Programmatically Instantiating JS Fragments</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Programmatically Instantiating JS Fragments</h2></div><div class="shortdesc">For each fragment type, SAPUI5 provides a method that
+		can be used to programmatically instantiate a fragment.</div><section class="section context  "><div class="collapsible-icon sap-icon"><h2 class="sectiontitle tasklabel">Context</h2></div><div class="fig">
+			<p>To give an example of a programmatic instantiation of a JS fragment, you first have to define one. The following code presents an
+				example definition:</p>
+			
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// fragment is located in a file named: "my/useful/UiPartX.fragment.js"
+sap.ui.define(["sap/m/Button"], function(Button) {
+	return {
+		createContent: function(oController) {
+			var oButton  = new Button({
+				text: "Hello World" ,
+				press: oController.doSomething
+			});
+			return oButton;
+		}
+	};
+});</pre></div></div></section>
+			<p> This fragment can be instantiated from a controller as follows:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">const oMyButton = await this.loadFragment({
+	name: "my.useful.UiPartX",
+	type: "JS"
+});
+// oMyButton is now usable</pre></div></div></section>
+			<p>This button can now be used as if it had been created in a standard way. </p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The <code>await</code> operator can only be used inside an <code>async</code> function. Please be aware that there are
+					certain limitations in SAPUI5 when using <code>async</code>
+					functions as event handlers. For more information, see <a href="topic/0cb44d7a147640a0890cefa5fd7c7f8e" title="Since SAPUI5 1.125, the framework leverages features of modern ECMAScript, up to and including ES2023. You have to consider certain restrictions when using modern ECMAScript with your SAPUI5 project." class="sap-doc">ECMAScript Support</a>.</p>
+			<p></p></div></div>
+			<p>For fragments that are used several times, an ID for the fragment can be given optionally, see <a href="topic/5da591c5a5a54740948acfe56b22fbc3" title="You can use a unique ID for a fragment that will be used as a prefix for all controls in a fragment instance." class="sap-doc">Unique IDs</a>:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">const oMyButton = await this.loadFragment({
+	name: "my.useful.UiPartX",
+	id: "someId",
+	type: "JS"
+});
+// oMyButton is now usable</pre></div></div></section>
+			<p>JS Fragments are capable of asynchronously creating their content. To do so, the <code>createContent()</code> function must return
+				a Promise instead of just regular controls. This Promise then must resolve with the actual content controls.</p>
+			
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// fragment is located in a file named: "reuse/SampleFragment.fragment.js"
+sap.ui.define(["sap/ui/core/Fragment", "sap/m/Button", "heavy/work/SomeModule"], function(Fragment, Button, SomeModule) {
+	return {
+		createContent: async() =&gt; {
+			return await SomeModule.doStuffAsync();
+		}
+	};
+});</pre></div></div></section>
+		</div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

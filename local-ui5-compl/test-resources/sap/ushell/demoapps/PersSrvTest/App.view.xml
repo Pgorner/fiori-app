@@ -1,0 +1,80 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="sap.ushell.demo.PersSrvTest.App"
+    height="100%">
+    <Page title="Manual test page for the personalization service" class="marginBoxContent" showNavButton="false">
+        <content>
+            <VBox>
+                <Panel headerText="Container life cycle test">
+                    <VBox>
+                        <Toolbar>
+                            <Input id="inputContainerName" value="{/ContainerName}" type="Text" placeholder="Enter container name" />
+                            <Input
+                                id="inputContainerValidity"
+                                value="{/ContainerValidity}"
+                                type="Number"
+                                placeholder="Enter validity"
+                                width="10em" />
+                            <ToolbarSpacer />
+                            <Button id="newEmptyContainer" text="New" tooltip="Create a new empty container" press="onNewEmptyContainer" />
+                            <Button id="loadContainer" text="Load" tooltip="Load the container" press="onLoadContainer" />
+                            <Button
+                                id="saveContainer"
+                                text="Save"
+                                tooltip="Save the container"
+                                enabled="{/ContainerLoaded}"
+                                press="onSaveContainer" />
+                            <Button id="deleteContainer" text="Delete" tooltip="Delete the container" press="onDeleteContainer" />
+                            <Button
+                                id="largerPayLoad"
+                                text="create large Payload"
+                                tooltip=" on click verify that 'size' and 'value'.length indicated in member 'verify',  create a large payload according to key 'size'"
+                                press="onLargePayload" />
+                        </Toolbar>
+                        <Table id="itemTable" inset="false" items="{/ContainerItems}">
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Label text="Container Items" />
+                                    <ToolbarSpacer />
+                                    <Button
+                                        icon="sap-icon://add"
+                                        tooltip="Add item"
+                                        press="onOpenAddItemDialog"
+                                        enabled="{/ContainerLoaded}" />
+                                    <Button
+                                        icon="sap-icon://delete"
+                                        tooltip="Remove all items"
+                                        press="onRemoveAllItems"
+                                        enabled="{/ContainerLoaded}" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column>
+                                    <Text text="Key" />
+                                </Column>
+                                <Column>
+                                    <Text text="Value" />
+                                </Column>
+                                <Column width="6em" hAlign="Right">
+                                    <Text text="JSON" />
+                                </Column>
+                                <Column width="6em" hAlign="Center" />
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{Key}" />
+                                        <Input value="{Value}" />
+                                        <CheckBox tooltip="Save as object in JSON format" selected="{JSON}" />
+                                        <Button icon="sap-icon://delete" tooltip="Remove item" press="onRemoveSingleItem" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </VBox>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

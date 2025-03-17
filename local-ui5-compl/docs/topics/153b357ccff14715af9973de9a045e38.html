@@ -1,0 +1,65 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio153b357ccff14715af9973de9a045e38" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/debugging-153b357.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Debugging</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Debugging</h2></div><div class="shortdesc">For the debug levels <code>DEBUG</code> and <code>ALL</code>, the XML
+		preprocessor writes a trace for what it exactly does.</div><p>The following events are traced (the numbers represent the line numbers in the example
+			below):</p><ul class="ul ">
+			<li class="li">
+				<p>The start including the view being processed (1)</p>
+			</li>
+			<li class="li">
+				<p>A list of all binding contexts with the path they are pointing to (2)</p>
+			</li>
+			<li class="li">
+				<p>Start of processing of a <code>&lt;with&gt;</code> statement including the new variable
+					assignment (3,6)</p>
+			</li>
+			<li class="li">
+				<p>Evaluation of an <code>&lt;if&gt;</code> or <code>&lt;elseif&gt;</code> statement including
+					the test result (4,10)</p>
+			</li>
+			<li class="li">
+				<p>Start of processing of a <code>&lt;repeat&gt;</code> statement (8)</p>
+			</li>
+			<li class="li">
+				<p>Each iteration of the <code>&lt;repeat&gt;</code> statement including the current variable
+					assignment (9)</p>
+			</li>
+			<li class="li">
+				<p>Start of processing of a <code>&lt;Fragment&gt;</code> statement including the resulting
+					fragment name (7)</p>
+			</li>
+			<li class="li">
+				<p>Finished processing of any of the following statements: <code>&lt;with&gt;</code>,
+						<code>&lt;if&gt;</code>, <code>&lt;repeat&gt;</code>,
+						<code>&lt;Fragment&gt;</code> (12-17)</p>
+			</li>
+			<li class="li">
+				<p>If any attribute of any other node has been resolved (5,11)</p>
+			</li>
+			<li class="li">
+				<p>The finish (18)</p>
+			</li>
+		</ul><p>Each debug line looks as follows:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">[level] message - &lt;node&gt; sap.ui.core.util.XMLPreprocessor</pre></div></div></section><p><code>[level]</code> is the number of currently active preprocessor statements. It is
+			incremented each time when the processing of an <code>&lt;if&gt;</code>,
+				<code>&lt;with&gt;</code>, <code>&lt;repeat&gt;</code> or
+				<code>&lt;Fragment&gt;</code> starts. It is decremented when the node is completely
+			processed. <code>&lt;node&gt;</code> is the node being processed with all its
+			attributes.</p><p>Example:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">			
+1  [ 0] Start processing Element sap.ui.core.mvc.XMLView#__xmlview5 (sap.ui.core.sample.ViewTemplate.scenario.Detail) -  sap.ui.core.util.XMLPreprocessor
+2  [ 0] meta = /dataServices/schema/0/entityContainer/0/entitySet/0 -  sap.ui.core.util.XMLPreprocessor
+3  [ 1] entityType = /dataServices/schema/0/entityType/0 - &lt;template:with path="meta&gt;entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="entityType"&gt; sap.ui.core.util.XMLPreprocessor
+4  [ 2] test == [object Array] --&gt; true - &lt;template:if test="{entityType&gt;com.sap.vocabularies.UI.v1.LineItem}"&gt; sap.ui.core.util.XMLPreprocessor
+5  [ 2] items = {path:'/BusinessPartnerSet', length: 5} - &lt;Table includeItemInSelection="true" mode="SingleSelect" selectionChange="onSelectionChange" items="{= '{path:\'/' + ${meta&gt;name} + '\', length: 5}' }"&gt; sap.ui.core.util.XMLPreprocessor
+6  [ 3] target = /dataServices/schema/0/entityType/0/com.sap.vocabularies.UI.v1.LineItem - &lt;template:with path="entityType&gt;com.sap.vocabularies.UI.v1.LineItem" var="target"&gt; sap.ui.core.util.XMLPreprocessor
+7  [ 4] fragmentName = sap.ui.core.sample.ViewTemplate.scenario.Table - &lt;core:Fragment fragmentName="sap.ui.core.sample.ViewTemplate.scenario.Table" type="XML"/&gt; sap.ui.core.util.XMLPreprocessor
+8  [ 5] Starting - &lt;template:repeat list="{target&gt;}" var="field"&gt; sap.ui.core.util.XMLPreprocessor
+9  [ 5] field = /dataServices/schema/0/entityType/0/com.sap.vocabularies.UI.v1.LineItem/0 - &lt;template:repeat list="{target&gt;}" var="field"&gt; sap.ui.core.util.XMLPreprocessor
+10 [ 6] test == [object Object] --&gt; true - &lt;template:if test="{field&gt;Value}"&gt; sap.ui.core.util.XMLPreprocessor
+11 [ 6] text = ID - &lt;Text text="{path: 'field&gt;Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/&gt; sap.ui.core.util.XMLPreprocessor
+12 [ 6] Finished - &lt;/template:if&gt; sap.ui.core.util.XMLPreprocessor
+13 [ 5] Finished - &lt;/template:repeat&gt; sap.ui.core.util.XMLPreprocessor
+14 [ 4] Finished - &lt;/core:Fragment&gt; sap.ui.core.util.XMLPreprocessor
+15 [ 3] Finished - &lt;/template:with&gt; sap.ui.core.util.XMLPreprocessor
+16 [ 2] Finished - &lt;/template:if&gt; sap.ui.core.util.XMLPreprocessor
+17 [ 1] Finished - &lt;/template:with&gt; sap.ui.core.util.XMLPreprocessor
+18 [ 0] Finished processing Element sap.ui.core.mvc.XMLView#__xmlview5 (sap.ui.core.sample.ViewTemplate.scenario.Detail) -  sap.ui.core.util.XMLPreprocessor</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

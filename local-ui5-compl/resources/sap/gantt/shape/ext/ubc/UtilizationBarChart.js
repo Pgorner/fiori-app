@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["sap/gantt/shape/Group","sap/gantt/misc/Format"],function(e,t){"use strict";var r=e.extend("sap.gantt.shape.ext.ubc.UtilizationBarChart",{});r.prototype.getEnableSelection=function(e,t){if(this.mShapeConfig.hasShapeProperty("enableSelection")){return this._configFirst("enableSelection",e)}return false};r.prototype.filterValidData=function(e){if(!e){return[]}var t=[];for(var r=0;r<e.length;r++){var a=this.getIsBulk(e[r]);var i=this.getArrayAttribute(e[r]);var n=this.getTimeFilterAttribute(e[r]);var l=this.getEndTimeFilterAttribute(e[r]);var s=this.mChartInstance._oStatusSet.aTimeBoundary;var h=jQuery.extend(true,{},e[r]);if(a&&i&&n&&l){var u=null;var o=null;var f=this.getShapes();var p=[];for(var v=0;v<f.length;v++){var g=f[v].mShapeConfig.getShapeDataName();if(g&&jQuery.inArray(g,p)==-1){p.push(g)}}for(var c in h){if(jQuery.type(h[c])=="object"&&h[c][i]&&h[c][i].length>0){u=this._binarySearchElement(s[0],h[c][i],n,l);o=this._binarySearchElement(s[1],h[c][i],n,l,u);if(u!==null&&o!==null&&u<=o){u=u>=1?u-1:u;h[c].drawData=h[c][i].slice(u,o+2);for(var y=0;y<p.length;y++){if(c!==p[y]&&jQuery.type(h[p[y]])=="array"&&h[p[y]].length>0){h[p[y]]=h[p[y]].slice(u,o+1)}}}break}}}t.push(h)}return t};r.prototype._binarySearchElement=function(e,r,a,i,n){var l=0;var s=r.length-1;if(n&&n<s){l=n}var h;while(l<=s){h=Math.floor((l+s)/2);var u=t.abapTimestampToDate(r[h][a]);var o=t.abapTimestampToDate(r[h][i]);if(!o){o=u}if(u<=e&&e<=o){return h}else if(o<e){l=h+1}else if(u>e){s=h-1}}return h};return r},true);
+//# sourceMappingURL=UtilizationBarChart.js.map

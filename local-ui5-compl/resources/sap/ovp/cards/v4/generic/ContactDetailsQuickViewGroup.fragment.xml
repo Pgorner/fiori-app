@@ -1,0 +1,50 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:build="sap.build"
+    xmlns:ovp="sap.ovp.ui"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    template:require="{
+        CardAnnotationhelperV4: 'sap/ovp/cards/v4/V4AnnotationHelper',
+        ModelAnnotationhelperV4: 'sap/ui/model/odata/v4/AnnotationHelper'
+	}"
+>
+    <QuickViewPage 
+        header="{ovplibResourceBundle>CONTACT_INFO}"
+        icon="{= ${contact>photo} ? ${contact>photo@@ModelAnnotationhelperV4.format} : 'sap-icon://person-placeholder'}"
+        title="{contact>fn@@ModelAnnotationhelperV4.format}"
+        description="{contact>role@@ModelAnnotationhelperV4.format}">
+        <QuickViewGroup>
+            <QuickViewGroupElement 
+                label="{ovplibResourceBundle>CONTACT_JOB_TITLE}" 
+                type="text"
+                value="{contact>title@@ModelAnnotationhelperV4.format}"
+                visible="{= !!${contact>title}}"/>
+            <QuickViewGroupElement 
+                label="{ovplibResourceBundle>CONTACT_DEPARTMENT}" 
+                type="text"
+                value="{contact>org@@ModelAnnotationhelperV4.format}"
+                visible="{= !!${contact>org}}"/>
+            <QuickViewGroupElement 
+                label="{ovplibResourceBundle>CONTACT_EMAIL}" 
+                type="email"
+                value="{path: 'contact>email', formatter: 'CardAnnotationhelperV4.getEmail'}"
+                visible="{path: 'contact>email', formatter: 'CardAnnotationhelperV4.getEmail'}"/>
+            <QuickViewGroupElement 
+                label="{ovplibResourceBundle>CONTACT_PHONE}" 
+                type="phone"
+                value="{path: 'contact>tel', formatter: 'CardAnnotationhelperV4.getPhone'}"
+                visible="{path: 'contact>tel', formatter: 'CardAnnotationhelperV4.getPhone'}"/>
+            <QuickViewGroupElement 
+                label="{ovplibResourceBundle>CONTACT_MOBILE}" 
+                type="{= (${device>/system/phone} || ${device>/system/tablet})  ? 'mobile'  : 'phone' }"
+                value="{path: 'contact>tel', formatter: 'CardAnnotationhelperV4.getDevice'}"
+                visible="{path: 'contact>tel', formatter: 'CardAnnotationhelperV4.getDevice'}"/>
+            <QuickViewGroupElement 
+                label="{ovplibResourceBundle>CONTACT_FAX}" 
+                type="text"
+                value="{path: 'contact>tel', formatter: 'CardAnnotationhelperV4.getPhoneType'}"
+                visible="{path: 'contact>tel', formatter: 'CardAnnotationhelperV4.getPhoneType'}"/>
+        </QuickViewGroup>
+    </QuickViewPage>
+</core:FragmentDefinition>

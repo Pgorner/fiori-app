@@ -1,0 +1,41 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiobcd64a15ac544b6cb01d7003be0c301f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/09_Developing_Controls/example-enable-verticallayout-bcd64a1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Example: Enable <code>VerticalLayout</code></h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Example: Enable <code>VerticalLayout</code></h2></div><div class="shortdesc">Here's how you enable the <code>VerticalLayout</code> control.</div><p>To enable the control <code>sap.ui.layout.VerticalLayout</code> for design time, create the design-time metadata file
+                <code>VerticalLayout.designtime.js</code> and define the <code>domRef</code> property of the <code>content</code>
+            aggregation.</p><p>You also have to add the <code>designtime</code> property to the metadata of the <code>sap.ui.layout.VerticalLayout</code> control.</p><p>You can then create the <code>VerticalLayout.designtime.js</code> file next to the location of the <code>VerticalLayout.js</code>
+            control.</p><p><code>VerticalLayout.designtime.js</code> is an SAPUI5 module that returns the
+            design-time metadata.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var VerticalLayout = Control.extend("sap.ui.layout.VerticalLayout", /** @lends sap.ui.layout.VerticalLayout.prototype */ {
+    metadata: {
+        library: "sap.ui.layout",
+        properties: {
+            ...
+        },
+        defaultAggregation: "content",
+        aggregations: {
+            ...
+        },
+        designtime: sap/ui/layout/designtime/VerticalLayout.designtime.js
+    }
+});</pre></div></div></section>
+		<p></p></div></div><p>The <code>":sap-domref"</code> value of the content aggregation's <code>domRef</code> property points to the DOM reference of the
+				<code>VerticalLayout</code> control. This DOM reference is used to calculate the dimensions of the
+				<code>AggregationOverlay</code> that represents the content aggregation at design time.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+			</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// Provides the design-time metadata for the sap.ui.layout.VerticalLayout control
+sap.ui.define([], function() {
+    "use strict";
+
+    return {
+        aggregations: {
+            content: {
+                domRef: ":sap-domref"
+            }
+        }
+    };
+
+});</pre></div></div></section>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

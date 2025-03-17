@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/sap/bc/ui5_ui5/ui2/ushell/resources/sap/ushell/components/factsheet/vocabularies/UI.xml">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="/sap/opu/odata/sap/STTA_SALES_ORDER_WD_20_SRV/$metadata">
+		<edmx:Include Alias="STTA_SALES_ORDER_WD_20_SRV" Namespace="STTA_SALES_ORDER_WD_20_SRV"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SalesOrderSmartList.STTA_SALES_ORDER_WD_20_SRV">
+			<!--===============================================================================
+                Entity Type from chosen collection
+                ================================================================================-->
+			<Annotations Target="STTA_SALES_ORDER_WD_20_SRV.C_STTA_SalesOrder_WD_20Type">
+				<Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="SalesOrder" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CreationUserName" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+						<Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BusinessPartnerID" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+						<Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CurrencyCode" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+						<Record Type="UI.DataFieldForAnnotation">
+ 							<PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#GrossAmount" />
+ 						</Record>
+                    </Collection>
+                </Annotation>
+				<Annotation Term="UI.DataPoint" Qualifier="GrossAmount">
+					<Record>
+						<PropertyValue Property="Value" Path="GrossAmount" />
+						<PropertyValue Property="Title" String="GrossAmount" />
+						<PropertyValue Property="Criticality" Path="criticalityValue" />
+					</Record>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

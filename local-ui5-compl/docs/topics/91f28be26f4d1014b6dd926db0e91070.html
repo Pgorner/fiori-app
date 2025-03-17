@@ -1,0 +1,29 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f28be26f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/support-for-unique-ids-91f28be.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Support for Unique IDs</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Support for Unique IDs</h2></div><div class="shortdesc">Stable IDs are used to identify and modify the controls within the controller during
+		runtime. However, if you reuse or nest these views, these stable IDs are no longer unique.
+		To avoid ambiguity, each view adds its own ID as prefix to all its child
+		controls.</div><p>If the ID is created during instantiation of the control, it is unique by default. If you
+			create further controls during runtime, the controller creates a unique ID by calling
+			the <code>oController.createId("ID")</code> method. These methods add the necessary
+			prefix to the ID. </p><p>If you want to modify the control with the ID <code>&lt;ID&gt;</code>, you can call
+			the <code>byId(&lt;ID&gt;)</code> method on your view to get the correct control
+			directly. You do not have to handle all the prefix stuff on your own.</p><p>The following view defines a button with the stable ID <code>aButton</code> (in the
+				<code>ButtonView</code>): </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View viewName="sap.hcm.ButtonView" controllerName="sap.hcm.myController" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"&gt;
+      &lt;Button id="aButton" text="Click me"/&gt;&lt;mvc:View&gt;</pre></div></div></section><p>The following view defines a view embedding the same view several times
+				(<code>ContainerView</code>): </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View viewName="sap.hcm.ContainerView" controllerName="sap.hcm.Address" xmlns="sap.ui.commons" xmlns:core="sap.ui.core"
+           xmlns:html="http://www.w3.org/1999/xhtml"&gt;
+      &lt;mvc:View id="ButtonView1" viewName="sap.hcm.ButtonView"/&gt;
+      &lt;mvc:View id="ButtonView2" viewName="sap.hcm.ButtonView"/&gt;
+&lt;mvc:View&gt;</pre></div></div></section><p>The view is created as follows: </p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+   // "View" required from module "sap/ui/core/mvc/View"
+   View.create().then(function(oView) {/* code */});
+...</pre></div></div></section><p>The container view has the following IDs: </p><p>Both child view IDs have the prefix <code>myContainerView--</code>: </p><p><code>myContainerView--ButtonView1</code>
+		</p><p><code>myContainerView--ButtonView2</code>
+		</p><p>To get one of the child views, use the following code: <a href="topic/ec699e0817fb46a0817b0fa276a249f8" title="This chapter and its sections describe the development concepts of SAPUI5, such as the Model View Controller, data binding, and components. Use this section as a reference." class="sap-doc">Essentials</a></p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+var oButtonView1 = oView.byId("ButtonView1");
+...</pre></div></div></section><p>The button view has the following IDs: </p><p><code>ButtonView1--aButton</code>
+		</p><p><code>ButtonView2--aButton</code>
+		</p><p>To get the button control, use the following code: </p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+   var oButton = oButtonView1.byId("aButton");
+...</pre></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

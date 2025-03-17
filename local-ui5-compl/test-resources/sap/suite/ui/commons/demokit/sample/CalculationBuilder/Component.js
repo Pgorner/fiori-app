@@ -1,0 +1,28 @@
+sap.ui.define(["sap/ui/core/UIComponent"], function(UIComponent) {
+	"use strict";
+
+	return UIComponent.extend("sap.suite.ui.commons.sample.CalculationBuilder.Component", {
+		metadata: {
+			rootView: {
+				"viewName": "sap.suite.ui.commons.sample.CalculationBuilder.CalculationBuilder",
+				"type": "XML",
+				"async": true
+			},
+			dependencies: {
+				libs: [
+					"sap.m",
+					"sap.suite.ui.commons"
+				]
+			},
+			config: {
+				sample: {
+					files: [
+						"CalculationBuilder.view.xml",
+						"CalculationBuilder.controller.js",
+						"data.json"
+					]
+				}
+			}
+		}
+	});
+});

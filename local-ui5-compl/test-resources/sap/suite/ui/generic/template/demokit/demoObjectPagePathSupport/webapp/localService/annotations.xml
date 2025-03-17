@@ -1,0 +1,127 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+	<edmx:Reference>
+		<edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm">
+			<Annotations Target="DEMO.RootEntityType">
+				<Annotation Term="UI.HeaderInfo">
+					<Record>
+						<PropertyValue Property="TypeName" String="RootEntity"/>
+						<PropertyValue Property="TypeNamePlural" String="RootEntity"/>
+						<PropertyValue Property="Title">
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="RootProperty1"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="RootProperty1" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="RootProperty2" />
+							<Annotation Term="UI.Hidden" Path="HideColumnProperty" />
+						</Record>
+						<Record Type="UI.DataFieldWithIntentBasedNavigation">
+							<PropertyValue Property="Label" String="DataField with IBN Column 1" />
+							<PropertyValue Property="Value" Path="RootProperty1" />
+							<PropertyValue Property="SemanticObject" String="STTASOWD20" />
+							<PropertyValue Property="Action" String="STTASOWD20" />
+							<Annotation Term="UI.Hidden" Path="HideColumnProperty" />
+						</Record>
+						<Record Type="UI.DataFieldWithIntentBasedNavigation">
+							<PropertyValue Property="Label" String="DataField with IBN Column 2" />
+							<PropertyValue Property="Value" Path="RootProperty2" />
+							<PropertyValue Property="SemanticObject" String="STTASOWD20" />
+							<PropertyValue Property="Action" String="STTASOWD20" />
+							<Annotation Term="UI.Hidden" Bool="true" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="HideColumnProperty" />
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup">
+					<Record>
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Label" String="Field label 1" />
+									<PropertyValue Property="Value" Path="RootProperty1" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Label" String="Field label 2" />
+									<PropertyValue Property="Value" Path="RootProperty2" />
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Label" String="Hide subProperty column" />
+									<PropertyValue Property="Value" Path="HideColumnProperty" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Label" String="FieldGroup for RootEntity" />
+					</Record>
+				</Annotation>
+			
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="ReferenceFacet 1 (FieldGroup)" />
+							<PropertyValue Property="ID" String="ReferenceFacet_1" />
+							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup" />
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Label" String="ReferenceFacet 2 (LineItem)" />
+							<PropertyValue Property="ID" String="ReferenceFacet_2" />
+							<PropertyValue Property="Target" AnnotationPath="to_SubEntity/@UI.LineItem" />
+						</Record>
+										
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="DEMO.SubEntityType">
+				<Annotation Term="UI.HeaderInfo">
+					<Record>
+						<PropertyValue Property="TypeName" String="SubEntity"/>
+						<PropertyValue Property="TypeNamePlural" String="SubEntity"/>
+						<PropertyValue Property="Title">
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="SubProperty1"/>
+							</Record>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="SubProperty1" />
+							<Annotation Term="UI.Hidden" Path="to_ParentEntity/HideColumnProperty" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="SubProperty2" />
+							<Annotation Term="UI.Hidden" Path="to_ParentEntity_Assoc_2/HideColumnProperty" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Label" String="HideColumnProp Assoc 1" />
+							<PropertyValue Property="Value" Path="to_ParentEntity/HideColumnProperty" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Label" String="HideColumnProp Assoc 2" />
+							<PropertyValue Property="Value" Path="to_ParentEntity_Assoc_2/HideColumnProperty" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="BoolProperty" />
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="RootProperty1" />
+							<Annotation Term="UI.Hidden" Path="BoolProperty" />
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

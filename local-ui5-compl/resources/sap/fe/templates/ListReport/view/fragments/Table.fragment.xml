@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:macro="sap.fe.macros.internal" xmlns:core="sap.ui.core">
+	<macro:Table
+		metaPath="{presentationContext>annotationPath}"
+		inMultiView="{presentationContext>inMultiView}"
+		contextPath="{fullContextPath>}"
+		associatedSelectionVariantPath="{presentationContext>associatedSelectionVariantPath}"
+		filterBar="{= ${converterContext>filterBarId} ? ${converterContext>filterBarId} : undefined}"
+		busy="{ui>/busy}"
+		variantSelected=".handlers.onVariantSelected"
+		variantSaved=".handlers.onVariantSaved"
+		isAlp="{converterContext>hasMultiVisualizations}"
+		onSegmentedButtonPressed="{= ${converterContext>hasMultiVisualizations} ? '.handlers.onSegmentedButtonPressed' : undefined }"
+		widthIncludingColumnHeader="{visualizationDefinition>control/widthIncludingColumnHeader}"
+		visible="{= ${converterContext>hasMultiVisualizations} ? '{= ${pageInternal>alpContentView} !== \'Chart\'}' : 'true' }"
+		tabTitle="{view>title}"
+		headerLevel="H3"
+		fieldMode="nowrapper"
+		header="{visualizationDefinition>header}"
+		headerVisible="{visualizationDefinition>headerVisible}"
+		annotationId="{= ${visualizationDefinition>annotation}.id }"
+	/>
+</core:FragmentDefinition>

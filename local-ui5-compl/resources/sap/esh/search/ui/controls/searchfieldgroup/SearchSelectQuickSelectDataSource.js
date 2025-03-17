@@ -1,0 +1,8 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define(["sap/m/Select","sap/ui/core/Item","sap/ui/core/Element"],function(e,t,a){"use strict";const c=e.extend("sap.esh.search.ui.controls.SearchSelectQuickSelectDataSource",{renderer:{apiVersion:2},constructor:function a(c,r){e.prototype.constructor.call(this,c,r);this.attachChange(e=>{const t=e.getParameter("selectedItem");const a=t.getBindingContext().getObject();this.handleSelectDataSource(a)});this.bindItems({path:"/config/quickSelectDataSources",template:new t("",{key:"{id}",text:"{labelPlural}"})});this.bindProperty("maxWidth",{parts:[{path:"/config/optimizeForValueHelp"}],formatter:e=>{if(e){this.addStyleClass("sapElisaSearchSelectQuickSelectDataSourceValueHelp")}return"100%"}});this.bindProperty("visible",{parts:[{path:"/config/optimizeForValueHelp"},{path:"/config/quickSelectDataSources"},{path:"/config/quickSelectDataSources/length"},{path:"/count"}],formatter:(e,t,a,c)=>{if(e){this.addStyleClass("sapElisaSearchSelectQuickSelectDataSourceValueHelp")}return t?.length>0}})},handleSelectDataSource:function e(t){const c=this.getModel();if(c.config.bResetSearchTermOnQuickSelectDataSourceItemPress){c.setSearchBoxTerm("",false)}if(typeof c.config.cleanUpSpaceFilters==="function"){c.config.cleanUpSpaceFilters(c)}c.setDataSource(t,false);const r=window.document.querySelectorAll('[id$="-searchInputHelpPageSearchFieldGroup-button"]');r.forEach(e=>{if(e.id===this.getId().replace("-searchInputHelpPageSearchFieldGroup-selectQsDs","-searchInputHelpPageSearchFieldGroup-button")){const t=a.getElementById(e.id);t["firePress"]()}})}});return c})})();
+//# sourceMappingURL=SearchSelectQuickSelectDataSource.js.map

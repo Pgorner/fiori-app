@@ -1,0 +1,1062 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio283217d8f187401c8045723abc27e5e0" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/data-types-for-spreadsheet-export-283217d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Data Types for Spreadsheet Export</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Data Types for Spreadsheet Export</h2></div><div class="shortdesc">Provides details about the data types supported by the spreadsheet export.</div><p>All data types supported by the spreadsheet export are listed in the
+				<code>sap.ui.export.EdmType</code> enumeration. During the export, the values
+			are converted to a value that is in compliance with the Office Open XML
+			specification.</p><section id="section_sg5_2z1_j3b">
+			<h2 class="title "><code>String</code></h2>
+			<p>The type <code>String</code>
+				handles
+				textual values within cells. Strings are usually not formatted. The
+				internal
+				type text is the default type that gets applied if no other type
+				is configured for a column.</p>
+			<p>It is possible to aggregate several property values into one column, for example,
+					<code>firstname</code> and <code>lastname</code> are combined to
+					<code>fullname</code>. This can be achieved by providing an array of
+				property names within the <code>property</code> property of the column
+				definition. In addition to that, the <code>template</code> property must be made
+				available. This additional property has to be a non-empty string and can contain
+				placeholders. A placeholder is a numerical index enclosed by curly brackets. The
+				index must be greater than or equal zero and less than the length of the array that
+				is assigned to the <code>property</code> property.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_erc_scb_j3b" class=" ">
+					
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Additional Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Sample</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Optional</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>inputFormat</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>"([0-9]{3})([0-9]{4})"</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+								
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Used as a regular expression that determines specific parts of the original value. This
+									makes it possible to apply the template to a single property
+									instead of multiple properties.</p>
+								<p>
+									<code>inputFormat</code> is ignored if no
+										<code>template</code> is provided.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>template</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>"{0} (Company code {1})"</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+								
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A textual template that can be filled with multiple values from
+									various business objects. Each placeholder is a number within
+									curly brackets that represents an index of a property array.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>wrap</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>boolean</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>
+							</p></td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>A Boolean value that indicates if the text column supports
+									wrapping of the cell content. Apart from automatic text wrapping
+									depending on the cell width, it automatically converts all \n to
+									\r\n line breaks. These manual line breaks are then visible in
+									the generated xlsx file.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Here is an example for a <code>String</code> column: </p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+                property: ["Firstname", "Lastname"],
+                label: "Full name",
+                width: 25,
+                template: "{1}, {0}"
+            }
+        ]
+    }
+}
+ 
+ 
+// This will result in "Doe, John" if the line item is {Firstname: "John", Lastname: "Doe"}</pre></div></div></section>
+		</section><section id="section_qwh_fmb_j3b">
+			<h2 class="title "><code>Boolean</code></h2>
+			<p>The type <code>Boolean</code> handles all variations of Boolean values. It allows for
+				displaying these Boolean values in a pre-defined format. There are additional
+				properties that are handled by this type to format their respective values. Since a
+					<code>Boolean</code> type can be either <code>true</code> or
+					<code>false</code>,
+				the
+				additional properties must be maintained for both cases for the type to take
+				effect.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_hrd_dnb_j3b" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Additional Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>trueValue</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Defines the textual representation of a Boolean type that has the
+									value <code>true</code>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>falseValue</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Defines the textual representation of a Boolean type that has the
+									value <code>false</code>.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Here is an example for a <code>Boolean</code> column: </p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+                property: "Onstock",
+                label: "Availability",
+                type: sap.ui.export.EdmType.Boolean,
+                trueValue: "On stock",
+                falseValue: "Out of stock"
+            }
+        ]
+    }
+}</pre></div></div></section>
+		</section><section id="section_dnx_c3n_n3b">
+			<h2 class="title "><code>Number</code></h2>
+			<p>The type <code>Number</code> represents a simple numeric value without any specific
+				formatting. The value is displayed
+				the
+				way it is. For further adjustment use the additional properties
+					<code>scale</code>, <code>delimiter</code>, <code>unit</code>, and
+					<code>unitProperty</code>.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_ibn_v3n_n3b" class=" ">
+					
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Additional Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Output Sample</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">Optional</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>scale</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1234</p>
+								<p>1234.5</p>
+								<p>1234.56</p>
+								<p>1234.567</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>number</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Sets a fixed number of decimals. The scale is applied to the whole column and displays
+									exactly the number of decimals that is configured. If the actual
+									value has fewer or more decimal places, it is filled with
+									additional zeros or gets cut off to match the configured number
+									of decimals. This property accepts a positive integer value.
+									Negative values are treated like zero.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>autoScale</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>17.493 kg</p>
+								<p>60 mp/h</p>
+							</td>
+							<td colspan="1" rowspan="1"><code>boolean</code></td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Allows you to automatically apply a specific scale for the given
+									unit of measure. This functionality requires a particular unit
+									of measure that is set via the <code>unit</code> property or
+									a <code>unitProperty</code> property that can be used to
+									resolve the specific unit during runtime. In addition to that, a
+									code list is required to evaluate the corresponding scale. These
+									code lists are available when using
+										<code>ODataListBinding</code> as
+										<code>dataSource</code> during initialization of the
+										<code>Spreadsheet</code> class.</p>
+								<p>If no code list is available or the code list does not contain a
+									particular unit of measure, the <code>scale</code> property
+									is taken into account. If the <code>scale</code> property is
+									not provided, the number is displayed in raw format.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>delimiter</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1,234</p>
+								<p>1,234,567</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>boolean</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies if the numeric value is shown in groups of thousands.
+									If set to <code>true</code>, the thousands delimiter is
+									shown. The delimiter is embedded in the number format and
+									therefore requires a particular scale. If the
+										<code>scale</code> property is not defined,  this is
+									treated like a scale of zero, and float values might get rounded
+									down . Default value is <code>false</code>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>unit</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>623 kg</p>
+								<p>89 %</p>
+								<p>120 km/h</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies the unit of measurement (UoM). The UoM is shown next to
+									the numeric value.</p>
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>The UoM is treated as a string and therefore has no influence
+										on the value itself. For <span class="ph uicontrol">%</span>,
+											<span class="ph uicontrol">mio</span>,
+										or similar UoMs this can make a difference if the values are
+										used in forms because multiplying by 150 % would mean x *
+										150 instead of x * 1.5.</p>
+								<p></p></div></div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>unitProperty</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>623 kg</p>
+								<p>89 %</p>
+								<p>120 km/h</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>References a business object property that contains the UoM for
+									this particular numeric type.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Here is an example for a <code>Number</code> column:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+                property: "Weight",
+                label: "Net weight (kg)",
+                type: sap.ui.export.EdmType.Number,
+                unit: "kg",
+                scale: 3
+            },
+            {
+                property: "Weight",
+                label: "Net weight (g)",
+                type: sap.ui.export.EdmType.Number,
+                unit: "g",
+                scale: 0,
+                delimiter: true
+            }
+        ]
+    }
+}</pre></div></div></section>
+		</section><section id="section_tg5_hyv_43b">
+			<h2 class="title "><code>Date</code>, <code>Time</code>, and
+				<code>DateTime</code></h2>
+			<p>The types <code>Date</code>, <code>DateTime</code>, and <code>Time</code> handle
+				the date and time information. The application can pass additional parameters to
+				adjust the visible representation of these types.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_xpl_1fw_43b" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Output Sample</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>Date</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>03/24/2017</p>
+								<p>24.03.2017</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Represents a date without time-related information. Due to the use of built-in formats,
+										<code>Date</code> is displayed based on the user's
+									locale in the operating system. This can lead to different
+									representations for different users.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DateTime</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>08/31/2016 23:01</p>
+								<p>31.08.2016 23:01</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Represents values that contain date- and time-related information. Due to the use of
+									built-in formats, <code>DateTime</code> is displayed based
+									on the user's locale in the operating system. This can lead to
+									different representations for different users.</p>
+								<p>The locale has no effect on any time zone formatting. All values in columns of type
+										<code>DateTime</code> are related to UTC because it is
+									not possible to pass time zone
+									offset
+									information into the Office Open XML standard representation of
+									time stamps. For columns of type <code>DateTime</code>, a
+									UTC suffix is automatically added to the column header.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>Time</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>13:21:14</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Represents values that contain time-related information only. Time information can use
+									the following units: hours, minutes, seconds, and milliseconds.
+									Contrary to <code>Date</code> and <code>DateTime</code>,
+									the built-in formats for <code>Time</code> are the same for
+									every locale in the operating system.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_wh2_zjw_43b" class=" ">
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Additional Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Optional</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>calendar</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Allows users to select a calendar other than the Gregorian calendar. The following values
+									are possible:</p>
+								<ul class="ul ">
+									<li class="li">
+										<p>Islamic</p>
+									</li>
+									<li class="li">
+										<p>Japanese</p>
+									</li>
+									<li class="li">
+										<p>Gregorian (default)</p>
+									</li>
+								</ul>
+								<p>The calendar property supports values of type <code>sap/base/i18n/date/CalendarType</code> although not all options are available for
+									the export. Islamic and Japanese representation only takes effect if the displayed
+										<code>Date</code>/<code>DateTime</code> shows some date-related information. Therefore, it does not
+									make sense to use it for the type <code>Time</code>.</p>
+								<p>If the <code>calendar</code> property has not been defined, the <code>sap/base/i18n/Formatting.getCalendarType</code> function is
+									used to determine the default value. In a SAP Fiori launchpad environment, the
+										<code>sap/base/i18n/Formatting.getCalendarType</code> function returns the configured
+										<code>sap/base/i18n/date/CalendarType</code>. If this function does not provide any
+										<code>sap/base/i18n/date/CalendarType</code>, it automatically uses
+										<code>sap/base/i18n/date/CalendarType.Gregorian</code> as fallback. If no value has been set,
+										<code>Formatting.getCalendarType</code> automatically uses the calendar type preferred by the current
+									session locale. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>format</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Defines a specific format that gets applied to
+										<code>Date</code>/<code>DateTime</code>/<code>Time</code>.
+									The format overrides the default formatting of the respective
+									type, so you can assign a format that shows only time-related
+									information even to a column of type <code>Date</code>,
+									which usually shows no time-related information. </p>
+								<p>If the <code>format</code> property has not been defined, the <code>sap/base/i18n/Formatting.getDatePattern</code> and
+										<code>sap/base/i18n/Formatting.getTimePattern</code> functions are used to determine the default format
+									pattern. In a SAP Fiori launchpad environment, these functions return the patterns configured in
+									the settings of the SAP Fiori launchpad. While columns of type
+										<code>sap.ui.export.EdmType.Date</code> require a date pattern and columns of type
+										<code>sap.ui.export.EdmType.Time</code> require a time pattern, for columns of type
+										<code>sap.ui.export.EdmType.DateTime</code>, both patterns need to be maintained. If no related pattern is
+									available, the <code>format</code> property remains undefined.</p>
+								<p>The format template needs to match the following regular
+									expression to be valid:</p>
+								<p><code>/^[gdhmsy\s-,.:/]+(AM\/PM)?$/</code></p>
+								<p>The list below shows some sample formats and their output:</p>
+								<p>
+									</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_gxn_wyw_43b" class=" ">
+											
+											
+											<thead>
+												<tr>
+												<th colspan="1" rowspan="1">
+												<p>Format Template</p>
+												</th>
+												<th colspan="1" rowspan="1">Output Sample</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+												<td colspan="1" rowspan="1">
+												<p>yyyy-mm-dd h:mm</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>2007-12-24 18:21</p>
+												</td>
+												</tr>
+												<tr>
+												<td colspan="1" rowspan="1">
+												<p>h:mm:ss AM/PM</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>9:32:24 AM</p>
+												</td>
+												</tr>
+												<tr>
+												<td colspan="1" rowspan="1">
+												<p>d-mmm-yy</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>12-Apr-17</p>
+												</td>
+												</tr>
+												<tr>
+												<td colspan="1" rowspan="1">
+												<p>dddd, d.mmmm yyyy</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>Wednesday, 22. April 2017</p>
+												</td>
+												</tr>
+											</tbody>
+										</table></div></div>
+								<p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>inputFormat</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Allows you to parse a textual date representation based on a given pattern. The pattern
+									has to be provided as a string with the literals y, m, d. Other
+									literals
+									are ignored.</p>
+								<p>
+									</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_cw2_k5l_plb" class=" ">
+											
+											
+											
+											<thead>
+												<tr>
+												<th colspan="1" rowspan="1">
+												<p>Value</p>
+												</th>
+												<th colspan="1" rowspan="1">
+												<p>Input Format</p>
+												</th>
+												<th colspan="1" rowspan="1">
+												<p>Parsed Value</p>
+												</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+												<td colspan="1" rowspan="1">
+												<p>20200123</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>yyyymmdd</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>01/23/2020</p>
+												</td>
+												</tr>
+												<tr>
+												<td colspan="1" rowspan="1">
+												<p>2020-04-21</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>yyyy-mm-dd</p>
+												</td>
+												<td colspan="1" rowspan="1">
+												<p>04/21/2020</p>
+												</td>
+												</tr>
+											</tbody>
+										</table></div></div>
+								<p></p>
+								<p>
+									<code>inputFormat</code> is case-insensitive.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>utc</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>boolean</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The date and time information is exported based on the UTC time zone. The default value
+									is <code>true</code>. If this value is set to
+										<code>false</code>, the date and time information will
+									be exported in the user's local time zone.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>This property only affects the <code>DateTime</code>
+											type.</p>
+									<p></p></div></div><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>timezone</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The date and time information is exported based on the given IANA (Internet Assigned
+									Numbers Authority) time zone. Each cell contains a reference to
+									the time zone that is applied. If no time zone is given or if
+									the time zone is invalid, it will fall back on the user's local
+									time zone or UTC, depending on the <code>utc</code> property
+									of the column. The default value is <code>undefined</code>. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>This property only affects the <code>DateTime</code>
+											type.</p>
+									<p></p></div></div><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>timezoneProperty</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>References the OData property that contains the IANA time zone, which is used to format
+									the date and time information of a particular column per line
+									item. This makes it possible to have different time zones within
+									one column. If the referenced <code>timezoneProperty</code>
+									does not contain a valid IANA time zone, it will fall back on
+									the time zone that is assigned via the <code>timezone</code>
+									property. The default value is <code>undefined</code>. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>This property only affects the <code>DateTime</code>
+											type.</p>
+									<p></p></div></div><p></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>displayTimezone</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>boolean</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Defines whether the IANA time zone is displayed within a cell.
+									The default value is <code>true</code>.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+										</p><p>This property only affects the <code>DateTime</code>
+											type in combination with
+												<code>timezoneProperty</code>.</p>
+									<p></p></div></div><p></p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Here is an example for a <code>Date/DateTime/Time</code> column:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+                property: "Duedate",
+                label: "Due date (islamic)",
+                type: sap.ui.export.EdmType.Date,
+                calendar: "islamic"
+            },
+            {
+                property: "Createdat",
+                label: "Created at",
+                type: sap.ui.export.EdmType.DateTime,
+                format: "dddd, d.mmmm yyyy"
+            },
+            {
+                property: "Dailymeeting",
+                label: "Daily meeting",
+                type: sap.ui.export.EdmType.Time,
+            },
+            {
+                property: "stringDate",
+                label: "Textual date representation",
+                type: sap.ui.export.EdmType.Date,
+                inputFormat: "yyyymmdd"
+            }
+        ]
+    }
+}</pre></div></div></section>
+		</section><section id="section_gdf_spn_n3b">
+			<h2 class="title "><code>Currency</code></h2>
+			<p>The type <code>Currency</code> handles currencies as an aggregation of a value and a
+				particular UoM. This type might apply various styles on cell level because the scale
+				of each currency cell depends on the corresponding UoM which in turn might vary for
+				various cells in a currency column. The <code>Currency</code> type inherits from
+				the <code>number</code> type but provides additional properties, including the
+					<code>unitProperty</code> property as a mandatory property.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_xb2_gqn_n3b" class=" ">
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Additional Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Mandatory</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>unitProperty</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>string</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>References the business object property that contains the UoM for
+									this particular currency. This property is required even if the
+									UoM is not displayed.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>displayUnit</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>boolean</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Defines if the UoM is shown in the column. If set to
+										<code>true</code>, the UoM is displayed after the actual
+									value. The default value is <code>true</code>.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>scale</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>integer</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Property that is equivalent to the <code>scale</code>
+									property of the
+									internal
+									numeric type. It applies a fixed number of decimals to all cells
+									within the currency column regardless of the corresponding
+									UoM.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Here is an example for a <code>Currency</code> column:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+             type: sap.ui.export.EdmType.Currency,
+                property: "Amount",
+                label: "Price",
+                unitProperty: "Currency"
+            }
+        ]
+    }
+}</pre></div></div></section>
+		</section><section id="section_zw5_53x_43b">
+			<h2 class="title "><code>Enumeration</code></h2>
+			<p>The type <code>Enumeration</code> is used for mapping values to a particular key. This is
+				useful if your SAPUI5
+				application is using formatters instead of raw data to display meaningful content
+				because formatters are not supported directly.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_azy_w3x_43b" class=" ">
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Additional Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Mandatory</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>valueMap</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>object|map</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Yes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Contains <code>object</code> as an associative array or <code>map</code>, which
+									holds all the key value pairs that are used for mapping the raw
+									data to an explicit value. The raw data is used as a key to look
+									up the actual value.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Here is an example for an <code>Enumeration</code> column:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+              type: sap.ui.export.EdmType.Enumeration,
+                property: "Shipping",
+                valueMap: {
+                    a: "Standard Shipping",
+                    b: "Premium Shipping",
+                    c: "Express Shipping"
+                }
+            }
+        ]
+    }
+}</pre></div></div></section>
+		</section><section id="section_fhw_hqx_43b">
+			<h2 class="title "><code>BigNumber</code></h2>
+			<p>The type <code>BigNumber</code> is used to represent numbers that contain more than 15
+				digits. This data type is required because of the internal number representation of
+				Microsoft Excel as defined by the IEEE (Institute of Electrical and Electronics
+				Engineers). This means that all numbers that contain more than 15 digits are filled
+				with zeros at the end. This affects precision of the values although the difference
+				is really small compared to the total amount. The <code>BigNumber</code> type
+				inherits from the <code>Currency</code> type and uses the same properties as
+					<code>Currency</code> and its superordinate class <code>Number</code>.
+				This type creates a textual output which is why it is not possible to do any
+				calculation with these values.</p>
+		</section><section id="section_wxf_zjj_l4b">
+			<h2 class="title "><code>Percentage</code></h2>
+			<p>The type <code>Percentage</code> represents numeric values that are transformed into
+				percentage. The
+				raw
+				value 1 corresponds to 100%.</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_u4p_dlj_l4b" class=" ">
+					
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Additional Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Output Sample</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Description</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>scale</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>89.706%</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>number</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Sets a fixed number of decimals. The scale is applied to the whole column and displays
+									exactly
+									the number of decimals that is configured. If
+									the actual value has fewer or more decimal places, it is filled
+									with additional zeros or gets cut off to match the configured
+									number of decimals. This property accepts a positive integer
+									value. Negative values are treated like zero.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>delimiter</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>1,754%</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p><code>boolean</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Specifies if the numeric value is shown in groups of thousands.
+									If set to <code>true</code>, the thousands delimiter is
+									shown. The delimiter is embedded in the number format and
+									therefore requires a particular scale. If the
+										<code>scale</code> property is not defined, this is
+									treated like a scale of zero, and float values might get rounded
+									down . Default value is <code>false</code>. </p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>Here is an example for a <code>Percentage</code> column:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+	    	type: sap.ui.export.EdmType.Percentage,
+                property: "Fraction",
+                scale: 2,
+		delimiter: false
+            }
+        ]
+    }
+}</pre></div></div></section>
+		</section><section id="section_f2x_vc2_qyb">
+			<h2 class="title "><code>Timezone</code></h2>
+			<p>The type <code>Timezone</code> represents IANA time zone keys that are translated
+				based on the current locale. This type behaves similar to
+					<code>Enumeration</code> but does not require any additional properties to
+				resolve the values.</p>
+			<p>Here is an example for a <code>Timezone</code> column:</p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var exportConfiguration = {
+    workbook: {
+        columns: [
+            {
+		label: "Timezone (Departure)",
+		type: sap.ui.export.EdmType.Timezone,
+		property: "TimezoneID",
+		width: 25
+            }
+        ]
+    }
+}</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="api/sap.ui.export.EdmType" title="api/sap.ui.export.EdmType" class="sap-doc" alt="api/sap.ui.export.EdmType">API Reference: sap.ui.export.EdmType</a></li>
+	</ul></section></div></section></div></body></html>

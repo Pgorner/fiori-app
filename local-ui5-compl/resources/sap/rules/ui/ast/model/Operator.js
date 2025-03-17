@@ -1,0 +1,2 @@
+sap.ui.define(["sap/rules/ui/ast/model/Base"],function(t){"use strict";var n=function(){t.apply(this,arguments);this._aSupportedFunctions=null};n.prototype=new t;n.prototype.constructor=t;n.prototype.setSupportedFunctions=function(t){this._aSupportedFunctions=t;return this};n.prototype.getSupportedFunctions=function(){return this._aSupportedFunctions};return n});
+//# sourceMappingURL=Operator.js.map

@@ -1,0 +1,47 @@
+<div><details>
+<summary><b>1. How to activate certain file types for the <code>ExportHandler</code>?</b></summary>
+
+<p>The <code>ExportHandler</code> accepts an object as parameter that controls the file types supported for exporting. These so-called capabilities do not only control the file types that are offered for the <code>Export As</code> dialog, they are also used to control specific features of each file type. By default, the type <code>sap.ui.export.FileType.XLSX</code> is activated, even if no parameter is passed to the <code>ExportHandler</code>. If you want to offer additional file types, you can add the relevant entries to the capabilities. The default capabilities can be overwritten if <code>sap.ui.export.FileType.XLSX</code> is not part of them.</p>
+<pre class="codeblock prettyprint"><code>// Create ExportHandler instance with XLSX and PDF file type
+new ExportHandler({
+    XLSX: { ... },
+    PDF: { ... }
+});
+</code></pre>
+</details><details>
+<summary><b>2. PDF has been added to the <code>ExportHandler</code> capabilities. Why is it not listed in the <code>Export As</code> dialog?</b></summary>
+
+<p>The capabilities for file types differ, which means that depending on the file type, specific properties have to be maintained. For <code>sap.ui.export.FileType.PDF</code>, the <code>ExportHandler</code> only supports server-side generated PDF. The server-side PDF capabilities are defined in the <a href="https://github.com/SAP/odata-vocabularies/blob/main/vocabularies/PDF.md">com.sap.vocabularies.PDF.v1.Features</a> annotation of the data service.</p>
+<pre class="codeblock prettyprint"><code>// Create ExportHandler instance with XLSX and PDF file type
+new ExportHandler({
+    XLSX: { ... },
+    PDF: {
+        DocumentDescriptionReference: "/some/fake/path/",
+        DocumentDescriptionCollection: "My_DocumentDescriptions",
+        ArchiveFormat: true,
+        Signature: false,
+        CoverPage: true,
+        FontName: true,
+        FontSize: true,
+        Margin: true,
+        Border: true,
+        FitToPage: false,
+        Padding: true,
+        HeaderFooter: true,
+        ResultSizeDefault: 20000,
+        ResultSizeMaximum: 20000
+    }
+});
+</code></pre>
+</details><details>
+<summary><b>3. Can file types other than the ones publicly available in the <code>sap.ui.export.FileType</code> enumeration be added?</b></summary>
+
+<p>In general, it is not possible to add file types that are not publicly available in the <code>sap.ui.export.FileType</code> enumeration. Nevertheless, it is possible to implicitly add file types to the <code>ExportHandler</code> capabilities. More specifically, this applies to the file type GSHEET. It depends on <code>sap.ui.export.FileType.XLSX</code> but requires additional configuration of the runtime environment. For more information, see the following SAP Notes:</p>
+<ul>
+<li><a href="https://launchpad.support.sap.com/#/notes/3198506">SAP Note 3198506</a></li>
+<li><a href="https://launchpad.support.sap.com/#/notes/3216632">SAP Note 3216632</a></li>
+</ul>
+</details></div>
+
+
+

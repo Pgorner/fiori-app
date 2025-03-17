@@ -1,0 +1,69 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3a16c7a2f1e944deb000db49e5ece6be" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/create-a-northwind-destination-3a16c7a.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Create a Northwind Destination</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Create a Northwind Destination</h2></div><div class="shortdesc">Configure a destination in the SAP BTP Cockpit in order to
+		bypass the same-origin policy of the browser.</div><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>SAP Web IDE is no longer available
+                                via SAP Business Technology Platform trial accounts. Any references to SAP Web IDE in this documentation are only relevant for you if you
+                                have access to SAP Web IDE through a productive SAP BTP account. Please consider SAP Business Application Studio as an alternative. See <a href="topic/6bbad66475d040f39df6fbbaabe6f40f" title="Learn how you can use SAP Business Application Studio together with UI5 Tooling to develop state-of-the-art UI5 apps." class="sap-doc">App Development Using SAP Business Application Studio</a>.</p></div></div><section id="section_xjx_nvz_ghb">
+			<p>To be able to test your app, you can use a remote OData service that provides product data from the Northwind demo service of the OData
+				group.</p>
+			<p>To do this, follow the steps described here: <a href="https://developers.sap.com/tutorials/cp-cf-create-destination.html" title="https://developers.sap.com/tutorials/cp-cf-create-destination.html" class="external-link" target="_blank" rel="noopener">Create a Destination in the SAP BTP
+					Cockpit</a></p>
+		</section><section id="section_ill_4vz_ghb">
+			<h2 class="title ">neo-app.json</h2>
+			<p>With this configuration you can use the destination for any app inside SAP Web IDE. Whenever an app calls
+				a (local) service beginning with <code>/destinations/northwind/*</code>, the
+				created destination becomes active as a simple proxy. This helps to prevent any
+				possible issues related to the same-origin policy of browsers. For this, you need to
+				add another route to the <code>neo-app.json</code>:</p>
+			<section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "version": "snapshot",
+        "entryPath": "/resources"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources"
+      },
+      "description": "SAPUI5 Test Resources"
+    }<span class="emphasis">,
+    {
+      "path": "/destinations/northwind",
+      "target": {
+        "type": "destination",
+        "name": "northwind"
+      },
+      "description": "Northwind OData Service"
+    }</span>
+  ]
+}</pre></div></div></section>
+		</section><section id="section_t5m_fwz_ghb">
+			<h2 class="title ">webapp/manifest.json</h2>
+			<p>In the app descriptor, the service URL is then defined relative to the destination path specified
+				above:</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">...
+"sap.app": {
+ "dataSources": {
+   "": {
+     "uri": "<span class="emphasis">/destinations/northwind/V2/Northwind/Northwind.svc/</span>",
+     "type": "OData",
+     "settings": {
+       "odataVersion": "2.0"
+     }
+   }
+ }
+}
+...</pre></div></div></section><p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

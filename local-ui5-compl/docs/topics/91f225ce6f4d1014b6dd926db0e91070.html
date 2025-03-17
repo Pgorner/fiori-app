@@ -1,0 +1,86 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f225ce6f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/resource-bundles-91f225c.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Resource Bundles</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Resource Bundles</h2></div><div class="shortdesc">A resource bundle file is a Java properties file (as described in the Javadoc of
+		class <code>java.util.Properties</code>). It contains key-value pairs where the values
+		are the language-dependent texts and the keys are language-independent and used by the
+		application to identify and access the corresponding values.</div><p>Resource bundles are a collection of <code>*.properties</code> files. All files are
+			named with the same base name (prefix identifying the resource bundle), an optional
+			suffix that identifies the language contained in each file, and the fixed
+				<code>.properties</code> extension. The language suffixes are formed according
+			to the older JDK locale syntax. By convention, a file without a language suffix should
+			exist and contain the raw untranslated texts in the developer's language. This file is
+			used if no more suitable language can be found. </p><p>When a localized text is needed, the application uses the SAPUI5 APIs to load the
+			properties file that matches the current language best. The same applies to any other
+			localized data that can be represented as a string, for example, a date formatter
+			string. To retrieve a text from the properties file, the application uses the
+			(language-independent) key. If no text can be found for this key, the next best matching
+			file is loaded and checked for the text. Finally, if no file matches, the raw file is
+			loaded and checked. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>JDK uses old language names for a few ISO639 codes ("iw" for "he", "ji" for "yi", and "no" for "nb").</p>
+			<p>If you wish a finer control over the mapping from the desired locale to the corresponding file name, you have several options:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p>Make use of <a href="topic/ec753bc539d748f689e3ac814e129563" title="You can configure a list of supported locales and a fallback locale in your app's manifest to control the loading of resource bundles and avoid '404 Not Found' network responses." class="sap-doc">Supported Locales</a> (recommended).</p>
+				</li>
+				<li class="li">Convert newer codes to older ones before creating the file names.</li>
+			</ul>
+		<p></p></div></div><div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+			</p><p>The resource bundle <code>myapp.i18n.messagebundle</code> consists of the following individual files: </p>
+			<ul class="ul ">
+				<li class="li"><code>sap.ui.commons.messagebundle.properties</code>: Contains the raw texts from the developer, determines the set of keys </li>
+				<li class="li"><code>sap.ui.commons.messagebundle_en.properties</code>: Contains English texts (without a specific country) </li>
+				<li class="li"><code>sap.ui.commons.messagebundle_en_US.properties</code>: Contains texts in American English </li>
+				<li class="li"><code>sap.ui.commons.messagebundle_en_UK.properties</code>: Contains texts in British English </li>
+				<li class="li"><code>sap.ui.commons.messagebundle_de.properties</code>: Contains texts in German</li>
+			</ul>
+		<p></p></div></div><p>To enable proper translation, you classify the texts with additional information, at
+			least with the text type. Place the additional information in the line directly above
+			the text element, beginning with the number sign (#). For
+				more information, see <a href="topic/582ce93d326540f59d149031a44d5fb0" title="Texts in a properties file are simple value key pairs separated by an equal sign (=) or a comma (,). However, to enable proper translation for these texts, you have to classify the texts with additional information, at least with the text type. You must place the additional information in the line directly above the text element, beginning with the number sign (#)." class="sap-doc">Text Classification</a>.</p><p>A <code>properties</code> file can, for example, look like this</p><section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"># SAPUI5 TRANSLATION-KEY &lt;GUID&gt;
+#XMSG: A message to greet the world
+helloWorld=Hello World
+#XBUT,10: Save button text
+buttonSave=Save
+#XFLD,30: Greetings displayed in the upper right corner of the screen
+welcome=Welcome {0}
+</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>To consume a properties files using a resource bundle, you can use the following snippet:</p>
+			<p>
+				</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "ResourceBundle" required from module "sap/base/i18n/ResourceBundle"
+// load the resource bundle
+ResourceBundle.create({
+	url : "myapp/i18n/messagebundle.properties",
+	supportedLocales: ["en_US", "en_GB", "en", "de", ""],
+	fallbackLocale: "en",
+	async: true
+}).then(function(oBundle){
+   oBundle.getText("buttonSave");
+   oBundle.getText("welcome", ["Administrator"]);
+});</pre></div></div></section>
+			<p></p>
+		<p></p></div></div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>If you are using SAPUI5 in SAP HANA, resource bundles files must have the extension
+					<code>*.hdbtextbundle</code> instead of <code>*.properties</code>.</p>
+			<p>To load this bundle, you add the following code to the <code>createContent</code> function of your
+				view:</p><section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">// "ResourceBundle" required from module "sap/base/i18n/ResourceBundle"
+// load the resource bundle
+ResourceBundle.create({
+// specify url of the .hdbtextbundle
+	url : "myapp/i18n/messagebundle.hdbtextbundle";
+	async: true
+}).then(function(oBundle){
+	oBundle.getText("buttonSave");
+	oBundle.getText("welcome", ["Administrator"]);
+});</pre></div></div></section><p></p>
+		<p></p></div></div><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/91f122a36f4d1014b6dd926db0e91070.html#loio91f122a36f4d1014b6dd926db0e91070" title="The resource model is used as a wrapper for resource bundles. In data binding you use the resource model instance, for example, to bind texts of a control to language-dependent resource bundle properties." class="sap-doc">Resource Model</a></li>
+		<li><a href="api/sap.ui.model.resource.ResourceModel" title="api/sap.ui.model.resource.ResourceModel" class="sap-doc" alt="api/sap.ui.model.resource.ResourceModel">API Reference: sap.ui.model.resource.ResourceModel</a></li>
+	</ul></section></div></section></div></body></html>

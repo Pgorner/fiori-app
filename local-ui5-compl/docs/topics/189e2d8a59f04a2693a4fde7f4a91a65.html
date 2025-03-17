@@ -1,0 +1,165 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio189e2d8a59f04a2693a4fde7f4a91a65" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/prefilling-fields-when-creating-a-new-entity-using-an-extension-point-189e2d8.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Prefilling Fields When Creating a New Entity Using an Extension Point</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Prefilling Fields When Creating a New Entity Using an Extension Point</h2></div><div class="shortdesc">End
+		users can create a new entity and prefill fields with specific
+		values.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is only applicable to SAP Fiori elements for OData
+                            V2.</p>
+		<p></p></div></div><p>App
+			developers can implement this feature in three different ways:</p><ul class="ul ">
+				<li class="li">
+					<p>Passing values entered by
+						the
+						end user into the filter
+						bar.</p>
+				</li>
+				<li class="li">
+					<p>Using values from <code>DefaultValuesFunction</code>.</p>
+				</li>
+				<li class="li">
+					<p>Using cross-app navigation. For more information, see <a href="topic/11ff444f82e14eb3a2e8eca0065a5055" title="When a user creates a new entity, it is possible to prefill fields with specific values." class="sap-doc">Prefilling Fields When Creating a New Entity</a>.</p>
+				</li>
+			</ul><p></p><section id="section_ttg_h3m_5cb">
+			<h2 class="title ">Passing Values Entered by the End User into
+				the Filter Bar</h2>
+			
+			<p>In the list report, when an end user inputs a value into the filter bar, performs a search, and then creates a new object, this action
+				suggests that this user intends to create an instance that wasn't found in the previous search. To support this scenario, app
+				developers can provide an additional option called <span class="ph uicontrol">Create with Filters</span>, which passes the filter values entered
+				by this user to the newly created instance.</p>
+			
+			
+			
+			<p>App developers can perform the following steps to enable this feature:</p>
+			<ol>
+				<li class="li">
+					<p>Add the following sample code to the <code>manifest.json</code> file:</p>
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">... 
+"sap.ui.generic.app": {  
+    "_version": "???",   
+    "settings": {   ...   },   
+    "pages": {    
+        "ListReport|myEntitySet": {     
+            "entitySet": "myEntitySet",     
+            "component": {      
+                "name": "sap.suite.ui.generic.template.ListReport",
+                "list": true,      
+                "settings": {       
+                    "createWithFilters": {        
+                        "strategy": "extension"       
+                    },
+            ...
+</pre></div></div></section>
+					<p></p></div></div>
+					<p>Result: The standard <span class="ph uicontrol">Create</span> button in the list report is replaced by a menu button that offers the
+						following two options: </p>
+					<ul class="ul ">
+						<li class="li">
+							<p>For the first option, the text is provided by the <code>i18n</code> key <code>CREATE_NEW_OBJECT</code>, with
+								the default being <span class="ph uicontrol">Create Object</span>. We recommend replacing this with a more specific text, such as
+									<span class="ph uicontrol">Create New Product</span>.</p>
+						</li>
+						<li class="li">
+							<p>For the second option, the text is <span class="ph uicontrol">Create with Filters</span>. We do not recommend overwriting this
+								text.</p>
+							<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+								</p><p>This option is enabled only if the data displayed in the table corresponds to the displayed filter values. This
+									means that the end user might have to choose <span class="ph uicontrol">Go</span> to enable this option if the selection is
+									not triggered automatically.</p>
+							<p></p></div></div>
+						</li>
+					</ul>
+				</li>
+				<li class="li">
+					<p>Implement the logic that transfers information from the filter bar to the instance creation process. To do so, app developers
+						must override the extension function <code>getPredefinedValuesForCreateExtension(oSmartFilterBar)</code>. This function
+						receives an instance of <code>sap.ui.comp.smartfilterbar.SmartFilterBar</code> and must return an object containing the
+						name-value pairs that can be used in the creation process.</p>
+					<p>The following sample code shows how to extract the filter values for <code>ProductCategory</code> and
+							<code>Supplier</code>, if one exists and is unique:</p>
+					<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">getPredefinedValuesForCreateExtension: function(oSmartFilterBar){   
+    var oRet = {};   
+    var oSelectionVariant = oSmartFilterBar.getUiState().getSelectionVariant();   
+    var aSelectOptions = oSelectionVariant.SelectOptions;   
+    var fnTransfer = function(sFieldname){    
+        for (var i = 0; i &lt; aSelectOptions.length; i++){     
+            var oSelectOption = aSelectOptions[i];     
+            if (oSelectOption.PropertyName === sFieldname){      
+                if (oSelectOption.Ranges.length === 1){       
+                    var oFilter = oSelectOption.Ranges[0];       
+                    if (oFilter.Sign === "I" && oFilter.Option === "EQ"){        
+                        oRet[sFieldname] = oFilter.Low;       
+                    }      
+                }      
+                break;     
+            }    
+        }   
+    };     
+    fnTransfer("ProductCategory");   
+    fnTransfer("Supplier");   
+    return oRet;  
+},</pre></div></div></section>
+					<p></p></div></div>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>We recommend using this option only for fields that are available and editable on the object page, and but cannot be
+							modified through UI adaptation. Otherwise, end users might potentially save values they have never seen or cannot
+							change.</p>
+					<p></p></div></div>
+				</li>
+			</ol>
+			
+			
+		</section><section id="section_ddx_d3k_jrb">
+			<h2 class="title ">Using Values from the <code>DefaultValuesFunction</code></h2>
+			
+			<p>The following sample
+				code extracts the filter values for
+					<code>ProductCategory</code> and
+				<code>Supplier</code>,
+				if they exist and are
+				unique.
+				Otherwise, the values returned by the <code>DefaultValuesFunction</code> are set:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">getPredefinedValuesForCreateExtension: function(oSmartFilterBar, oDefaultValues ){   
+    var oRet = {};   
+    var oSelectionVariant = oSmartFilterBar.getUiState().getSelectionVariant();   
+    var aSelectOptions = oSelectionVariant.SelectOptions;   
+    var fnTransfer = function(sFieldname){    
+        for (var i = 0; i &lt; aSelectOptions.length; i++){     
+            var oSelectOption = aSelectOptions[i];     
+            if (oSelectOption.PropertyName === sFieldname){      
+                if (oSelectOption.Ranges.length === 1){       
+                    var oFilter = oSelectOption.Ranges[0];       
+                    if (oFilter.Sign === "I" && oFilter.Option === "EQ"){        
+                        oRet[sFieldname] = oFilter.Low;       
+                    }      
+                }      
+                break;     
+            }  else if (oDefaultValues && Object.keys(oDefaultValues).includes(sFieldname)) {
+                oRet[sFieldname] = oDefaultValues[sFieldname];
+            }
+        }   
+    };     
+    fnTransfer("ProductCategory");   
+    fnTransfer("Supplier");   
+    return oRet;  
+},
+</pre></div></div></section>
+				<p></p></div></div><p></p>
+			<p>For more information, see <a href="topic/5ada91cc1ad8455bbfb7e6aee96383f2" title="When creating a new entity or when prefilling action parameters, you can provide default values using a DefaultValuesFunction." class="sap-doc">Prefilling Fields Using the
+						<code>DefaultValuesFunction</code></a>.</p>
+			
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

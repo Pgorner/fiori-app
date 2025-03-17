@@ -1,0 +1,7 @@
+/*!
+ * SAP APF Analysis Path Framework
+ * 
+ * (c) Copyright 2012-2014 SAP AG. All rights reserved
+ */
+sap.ui.define(["sap/m/Button","sap/m/Dialog","sap/m/library","sap/m/List","sap/m/StandardListItem","sap/ui/Device","sap/ui/core/mvc/View","sap/ui/thirdparty/jquery"],function(e,t,i,a,s,o,n,jQuery){"use strict";var r=i.ListMode;return n.extend("sap.apf.ui.reuse.view.deleteAnalysisPath",{getControllerName:function(){return"sap.apf.ui.reuse.controller.deleteAnalysisPath"},createContent:function(i){var n=jQuery(window).height()*.6+"px";var l=jQuery(window).height()*.6+"px";this.oCoreApi=this.getViewData().oInject.oCoreApi;this.oUiApi=this.getViewData().oInject.uiApi;var p=this;var d=new a({mode:r.Delete,items:{path:"/GalleryElements",template:new s({title:"{AnalysisPathName}",description:"{description}",tooltip:"{AnalysisPathName}"})},delete:i.handleDeleteOfDialog.bind(i)});var c=new t({title:p.oCoreApi.getTextNotHtmlEncoded("delPath"),contentWidth:n,contentHeight:l,content:d,beginButton:new e({text:p.oCoreApi.getTextNotHtmlEncoded("close"),press:function(){c.close();p.oUiApi.getLayoutView().setBusy(false)}}),afterClose:function(){p.destroy()}});if(o.system.desktop){this.addStyleClass("sapUiSizeCompact");c.addStyleClass("sapUiSizeCompact")}return c}})});
+//# sourceMappingURL=deleteAnalysisPath.view.js.map

@@ -1,0 +1,160 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.fe.core.fpmExplorer",
+		"type": "application",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"sample_index_model_data_source": {
+				"uri": "model/sampleIndex.json",
+				"type": "JSON"
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://image-viewer",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"models": {
+			"sampleIndex_model": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "sample_index_model_data_source"
+			}
+		},
+		"rootView": {
+			"viewName": "sap.fe.core.fpmExplorer.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.fe.templates": {},
+				"sap.ui.layout": {},
+				"sap.tnt": {},
+				"sap.ui.unified": {},
+				"sap.ui.integration": {
+					"lazy": true
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				},
+				{
+					"uri": "css/FileEditor.css"
+				},
+				{
+					"uri": "css/markdown-styles.css"
+				}
+			]
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.fe.core.fpmExplorer.view",
+				"controlId": "navContainer",
+				"controlAggregation": "pages",
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "default",
+					"target": "overview"
+				},
+				{
+					"pattern": "overview/{topic}/:subTopic:/:id:",
+					"name": "overview",
+					"target": "overview"
+				},
+				{
+					"pattern": "buildingBlocks/{sample}/:subSample:/:id:",
+					"name": "buildingBlocks",
+					"target": "buildingBlocks"
+				},
+				{
+					"pattern": "customElements/{sample}/:subSample:",
+					"name": "customElements",
+					"target": "customElements"
+				},
+				{
+					"pattern": "controllerExtensions/{sample}/:subSample:",
+					"name": "controllerExtensions",
+					"target": "controllerExtensions"
+				},
+				{
+					"pattern": "advancedFeatures/{sample}/:subSample:/:id:",
+					"name": "advancedFeatures",
+					"target": "advancedFeatures"
+				},
+				{
+					"pattern": "internalExperiments/{sample}/:subSample:/:id:",
+					"name": "internalExperiments",
+					"target": "internalExperiments"
+				}
+			],
+			"targets": {
+				"overview": {
+					"viewName": "Overview",
+					"viewId": "overview",
+					"viewLevel": 2
+				},
+				"buildingBlocks": {
+					"viewName": "MacrosPage",
+					"viewId": "MacrosPage",
+					"viewLevel": 2
+				},
+				"customElements": {
+					"viewName": "CustomElements",
+					"viewId": "customElements",
+					"viewLevel": 2
+				},
+				"controllerExtensions": {
+					"viewName": "ControllerExtensions",
+					"viewId": "controllerExtensions",
+					"viewLevel": 2
+				},
+				"advancedFeatures": {
+					"viewName": "AdvancedFeatures",
+					"viewId": "advancedFeatures",
+					"viewLevel": 2
+				},
+				"internalExperiments": {
+					"viewName": "InternalExperiments",
+					"viewId": "internalExperiments",
+					"viewLevel": 2
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"viewId": "notFound"
+				}
+			}
+		}
+	}
+}

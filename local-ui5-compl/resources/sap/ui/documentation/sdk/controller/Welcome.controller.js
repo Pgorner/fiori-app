@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2025 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/documentation/sdk/controller/BaseController","sap/ui/Device","sap/ui/VersionInfo","sap/ui/model/json/JSONModel","sap/base/Log"],function(e,t,n,o,i){"use strict";return e.extend("sap.ui.documentation.sdk.controller.Welcome",{onInit:function(){this.getRouter().getRoute("welcome").attachPatternMatched(this._onMatched,this);n.load().then(function(e){var t=new o({isOpenUI5:e&&e.gav&&/openui5/i.test(e.gav)});this.getView().setModel(t,"welcomeView")}.bind(this));this._onOrientationChange({landscape:t.orientation.landscape})},onBeforeRendering:function(){this._deregisterOrientationChange()},onAfterRendering:function(){this._registerOrientationChange()},onExit:function(){this._deregisterOrientationChange()},navigateToDetails:function(e){var t=e.oSource.getHref()||e.oSource.getTarget();t=t.replace("#/","").split("/");var n=t[0];var o=t[1];e.preventDefault();this.getRouter().navTo(n,{id:o},true)},onGetStarted:function(){this.getRouter().parse("topic/8b49fc198bf04b2d9800fc37fecbb218")},onDownloadButtonPress:function(e){var t=this.getView().getModel("welcomeView").getProperty("/isOpenUI5"),n=t?"https://openui5.org/releases/":"https://tools.hana.ondemand.com/#sapui5";window.open(n,"_blank")},_onMatched:function(){try{this.hideMasterSide()}catch(e){i.error(e)}}})});
+//# sourceMappingURL=Welcome.controller.js.map

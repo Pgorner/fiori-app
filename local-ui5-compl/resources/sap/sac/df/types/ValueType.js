@@ -1,0 +1,7 @@
+/*!
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define("sap/sac/df/types/ValueType",[],function(){var e={Amount:"Amount",Array:"Array",Boolean:"Boolean",ByteArray:"ByteArray",CalendarDate:"CalendarDate",CalendarDay:"CalendarDay",Char:"Char",Cuky:"Cuky",CurrentMember:"CurrentMember",Date:"Date",DateTime:"DateTime",DecimalFloat:"DecimalFloat",DimensionMember:"DimensionMember",Double:"Double",EnumConstant:"EnumConstant",Integer:"Integer",KeyValue:"KeyValue",Language:"Language",LineString:"LineString",List:"List",Long:"Long",LowerCaseString:"LowerCaseString",MultiLineString:"MultiLineString",MultiPoint:"MultiPoint",MultiPolygon:"MultiPolygon",Number:"Number",Numc:"Numc",Object:"Object",OptionList:"OptionList",OptionValue:"OptionValue",Percent:"Percent",Point:"Point",Polygon:"Polygon",Price:"Price",Properties:"Properties",Quantity:"Quantity",String:"String",Structure:"Structure",StructureList:"StructureList",Time:"Time",TimeSpan:"TimeSpan",UiColor:"UiColor",UiConstant:"UiConstant",UiControl:"UiControl",UiPosition:"UiPosition",UiSize:"UiSize",UiUnitValue:"UiUnitValue",Unit:"Unit",Unsupported:"Unsupported",UpperCaseString:"UpperCaseString",Uri:"Uri",Variable:"Variable"};return e});
+//# sourceMappingURL=ValueType.js.map

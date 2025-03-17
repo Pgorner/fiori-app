@@ -1,0 +1,113 @@
+<mvc:View
+	id="application-product"
+	height="100%"
+	controllerName="sap.fe.core.fpmExplorer.EntryPage"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:code="sap.ui.codeeditor"
+>
+	<Page>
+		<content>
+			<Text class="sapUiSmallMargin" text="This page explains how to implement custom controller logic." />
+
+			<MessageStrip
+				text="To correctly integrate your app extension coding with SAP Fiori elements, use only the extensionAPI of SAP Fiori elements. Don't access or manipulate controls, properties, models, or other internal objects created by the SAP Fiori elements framework."
+				visible="true"
+				showIcon="true"
+				type="Warning"
+				enableFormattedText="true"
+				class="sapUiSmallMargin"
+			/>
+
+			<Panel headerText="Load Custom Controller in XML">
+				<Text
+					class="sapUiTinyMargin"
+					text="A simple way to make use of custom coding as event handlers or formatters is to require a controller within your XML and give it a name. You can then use this controller coding with the given name as shown in the following code block:"
+				/>
+
+				<code:CodeEditor
+					class="sapUiTinyMargin"
+					id="codeControllerRequire"
+					lineNumbers="false"
+					type="javascript"
+					editable="false"
+					width="95%"
+				/>
+
+				<Text
+					class="sapUiTinyMargin"
+					text="The controller is automatically scoped with the SAP Fiori elements ExtensionAPI. You can access the ExtensionAPI via 'this'."
+				/>
+
+				<code:CodeEditor
+					class="sapUiTinyMargin"
+					id="codeControllerRequireExample"
+					lineNumbers="false"
+					type="javascript"
+					editable="false"
+					width="95%"
+				/>
+			</Panel>
+
+			<Panel headerText="How to Implement a Controller Extension">
+				<Text
+					class="sapUiTinyMargin"
+					text="The following code block shows an example controller extension. You can extend lifecycle hooks or hooks provided by SAP Fiori elements in a controller extension. You can also add your own methods that can be used as formatters and event handlers."
+				/>
+
+				<code:CodeEditor
+					class="sapUiTinyMargin"
+					id="codeImplementation"
+					lineNumbers="false"
+					type="json"
+					editable="false"
+					width="95%"
+				/>
+
+				<Text
+					class="sapUiTinyMargin"
+					text="Note: You can't bundle formatter and event handler methods into an object of methods. Instead, define the methods at the top level of the controller extension."
+				/>
+			</Panel>
+
+			<Panel headerText="Defining Controller Extensions">
+				<Text
+					class="sapUiTinyMargin"
+					text="Define the controller extensions in the manifest.json, as shown in the following code block:"
+				/>
+
+				<code:CodeEditor
+					class="sapUiTinyMargin"
+					id="codeDefinition"
+					lineNumbers="false"
+					type="javascript"
+					editable="false"
+					width="95%"
+				/>
+
+				<Text
+					class="sapUiTinyMargin"
+					text="The first entry extends the list report controller with one controller extension. The second entry overrides one specific instance of the object page controller (the ID is constructed by using the pattern YourApplicationID::ComponentID) with multiple controller extensions. In case of multiple controller extensions you have to use 'controllerNames' instead of 'controllerName'."
+				/>
+			</Panel>
+
+			<Panel headerText="Using Event Handlers and Formatters">
+				<Text
+					class="sapUiTinyMargin"
+					text="You can use the event handlers and formatters that were added to the controller extension within XML fragments using the following syntax: .extension.yourExtension.method:"
+				/>
+
+				<code:CodeEditor class="sapUiTinyMargin" id="codeUsage" lineNumbers="false" type="js" editable="false" width="95%" />
+			</Panel>
+
+			<Panel headerText="Using Building Blocks in Fragment">
+				<Text
+					class="sapUiTinyMargin"
+					text="You can use building blocks in an XML fragment using the loadFragment method from the SAP Fiori elements ExtensionAPI. You can access the extensionAPI via 'this.base.getExtensionAPI' on the controller extension as shown in the following code block:"
+				/>
+
+				<code:CodeEditor class="sapUiTinyMargin" id="codeLoadFragment" lineNumbers="false" type="js" editable="false" width="95%" />
+			</Panel>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,111 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loioe5ee491f69224f038a0c147480dbd436" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-8-enhancing-the-detail-page-e5ee491.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 8: Enhancing the Detail Page</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 8: Enhancing the Detail Page</h2></div><div class="shortdesc">With routing implemented, the model of the detail page is updated for each product. In this step, we enhance the detail page to show
+		information specific for the selected product.</div><section id="section_yfh_d31_12b" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Preview</h2></div><div class="fig"><div><div class="fig"><img src="loiob687506e7e55437193741a31ff739b7b_LowRes.gif" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Enhanced detail page displaying information specific to the selected product</h2></span></div></div></section><section id="section_fd2_4dd_lbb">
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files at <a href="sample/sap.f.tutorial.fcl.08/preview" title="sample/sap.f.tutorial.fcl.08/preview" class="sap-doc" alt="sample/sap.f.tutorial.fcl.08/preview">Flexible Column Layout
+						App - Step 8</a>.</p>
+		</section><section id="section_hml_l4j_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+	controllerName="sap.ui.demo.fcl.controller.Detail"
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"&gt;
+	&lt;ObjectPageLayout
+		id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		alwaysShowContentHeader="false"
+		preserveHeaderStateOnScroll="false"
+		headerContentPinnable="true"
+		isChildPage="true"
+		upperCaseAnchorBar="false"&gt;
+		&lt;headerTitle&gt;
+			&lt;ObjectPageDynamicHeaderTitle&gt;
+<span class="emphasis">				&lt;expandedHeading&gt;
+					&lt;m:Title text="{products&gt;Name}" wrapping="true" class="sapUiSmallMarginEnd"/&gt;
+				&lt;/expandedHeading&gt;
+
+				&lt;snappedHeading&gt;
+					&lt;m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center"&gt;
+						&lt;m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd"&gt;
+							&lt;m:Avatar
+								src="https://ui5.sap.com/{products&gt;ProductPicUrl}"
+								displaySize="S"
+								displayShape="Square"
+								class="sapUiTinyMarginEnd"/&gt;
+							&lt;m:Title text="{products&gt;Name}" wrapping="true"/&gt;
+						&lt;/m:FlexBox&gt;
+					&lt;/m:FlexBox&gt;
+				&lt;/snappedHeading&gt;</span>
+
+				&lt;actions&gt;
+				...</pre></div></div></section>
+			<p>Using the <code>expandedHeading</code> and <code>snappedHeading</code> aggregations, we specify different content to be
+				displayed in the title area depending on whether the header is expanded or collapsed.</p>
+		</section><section id="section_aym_k4j_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		&lt;headerContent&gt;
+			&lt;m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch"&gt;
+				&lt;m:Avatar
+<span class="emphasis">					src="https://ui5.sap.com/{products&gt;ProductPicUrl}"</span>
+					displaySize="L"
+					displayShape="Square"
+					class="sapUiTinyMarginEnd"&gt;
+				&lt;/m:Avatar&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Main Category"/&gt;
+<span class="emphasis">					&lt;m:Text text="{products&gt;MainCategory}"/&gt;</span>
+				&lt;/m:VBox&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Subcategory"/&gt;
+<span class="emphasis">					&lt;m:Text text="{products&gt;Category}"/&gt;</span>
+				&lt;/m:VBox&gt;
+				&lt;m:VBox justifyContent="Center" class="sapUiSmallMarginEnd"&gt;
+					&lt;m:Label text="Price"/&gt;
+<span class="emphasis">					&lt;m:ObjectNumber number="{products&gt;CurrencyCode} {products&gt;Price}" emphasized="false"/&gt;</span>
+				&lt;/m:VBox&gt;
+			&lt;/m:FlexBox&gt;
+		&lt;/headerContent&gt;
+		...</pre></div></div></section>
+			<p>We adjust the <code>headerContent</code> so that the <code>sap.f.Avatar</code> displays the specific image of the selected
+				product and the header displays the product's Main Category, Category and Price information, which is provided in the
+					<code>products.json</code> we're using.</p>
+		</section><section id="section_b2m_j4j_l4b">
+			<h2 class="title ">webapp/view/Detail.view.xml [MODIFY]</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">		...
+		&lt;sections&gt;
+			&lt;ObjectPageSection title="General Information"&gt;
+				&lt;subSections&gt;
+					&lt;ObjectPageSubSection&gt;
+						&lt;blocks&gt;
+							&lt;form:SimpleForm
+								maxContainerCols="2"
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanL="12"
+								labelSpanM="12"
+								emptySpanL="0"
+								emptySpanM="0"
+								columnsL="1"
+								columnsM="1"&gt;
+								&lt;form:content&gt;
+									&lt;m:Label text="Product ID"/&gt;
+<span class="emphasis">									&lt;m:Text text="{products&gt;ProductId}"/&gt;</span>
+									&lt;m:Label text="Description"/&gt;
+<span class="emphasis">									&lt;m:Text text="{products&gt;Description}"/&gt;</span>
+									&lt;m:Label text="Supplier"/&gt;
+<span class="emphasis">									&lt;m:Text text="{products&gt;SupplierName}"/&gt;</span>
+								&lt;/form:content&gt;
+							&lt;/form:SimpleForm&gt;
+						&lt;/blocks&gt;
+					&lt;/ObjectPageSubSection&gt;
+				&lt;/subSections&gt;
+			&lt;/ObjectPageSection&gt;
+			...</pre></div></div></section>
+			<p>We adjust the <span class="ph uicontrol">General Information</span> section to display Product ID, Description and Supplier of the selected
+				product.</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/c4de2df385174e58a689d9847c7553bd">Flexible Column Layout App Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/7f651316d396400d88835adb0d021532">Step 7: Routing</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/e4d21fd03edb49da82cbaab9dbd274e8">Step 9: Adding a Detail-Detail Page</a></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

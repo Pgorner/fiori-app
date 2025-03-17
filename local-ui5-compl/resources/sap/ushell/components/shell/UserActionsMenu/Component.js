@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ui/core/EventBus","sap/ui/core/UIComponent","sap/ushell/components/shell/UserActionsMenu/UserActionsMenu.controller"],function(e,n,s){"use strict";return n.extend("sap.ushell.components.shell.UserActionsMenu.Component",{metadata:{version:"1.132.1",library:"sap.ushell",dependencies:{libs:["sap.m"]}},createContent:function(){this._bIsUserActionsMenuCreated=false;this.oUserActionsMenuController=new s;this.oUserActionsMenuController.onInit();e.getInstance().publish("shell","userActionsMenuCompLoaded",{delay:0})},exit:function(){this.oUserActionsMenuController.onExit()}})});
+//# sourceMappingURL=Component.js.map

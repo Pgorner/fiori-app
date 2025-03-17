@@ -1,0 +1,163 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob0fb4de7364f4bcbb053a99aa645affe" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/handling-events-in-xml-views-b0fb4de.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Handling Events in XML Views</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Handling Events in XML Views</h2></div><div class="shortdesc">XML views use event handlers as attributes: The attribute name is the event name, such
+		as "press" for a button, and the attribute value is the event handler name.</div><section id="section_rvt_hbm_ndb">
+			<h2 class="title ">Addressing the Event Handler</h2>
+		
+		<p>Depending on the syntax of its name, the event handler will be looked up by this name in
+			different locations:</p>
+		<ul class="ul ">
+				<li class="li">
+					<p>Names starting with a dot ('.') are always assumed to represent a method in
+						the controller. They are resolved by removing the leading dot and reading
+						the property with the resulting name from the controller instance. These
+						names are relative to the view/controller. For example,
+							<code>press=".myLocalHandler"</code> is resolved by
+							<code>attachPress(oController["myLocalHandler"],
+							oController);</code></p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This syntax is by intention consistent to the complex binding syntax for
+						formatter functions.</p></div></div>
+				</li>
+			<li class="li">
+				<p>Names defined in a <code>core:require</code> statement can be used to access static
+						functions of the required modules. For example, <code>press=
+							"Util.handler"</code> sets the static <code>handler</code>
+						function of the required <code>Util</code> module as press handler for
+						the respective control. For more information, see <a href="topic/b11d853a8e784db6b2d210ef57b0f7d7" title="Modules can be required in XML views and fragments and assigned to aliases which can be used as variables in properties, event handlers, and bindings." class="sap-doc">Require Modules in XML View and Fragment</a>.</p>
+			</li>
+			<li class="li">
+				<p>Names containing a dot at a later position are assumed to represent:</p>
+					<ul class="ul ">
+						<li class="li">
+							<p>Static functions from the modules which are loaded through the XML
+								view required modules (See <a href="topic/b11d853a8e784db6b2d210ef57b0f7d7" title="Modules can be required in XML views and fragments and assigned to aliases which can be used as variables in properties, event handlers, and bindings." class="sap-doc">Require Modules in XML View and Fragment</a>)</p>
+						</li>
+						<li class="li">
+							<p>Global functions if the function cannot be resolved within the XML
+								view require modules and are resolved by calling
+									<code>ObjectPath.get</code> with the full name. For example,
+									<code>name press= "some.global.handler"</code> is resolved
+								by calling
+									<code>attachPress(ObjectPath.get("some.global.handler"),
+									oController);</code>.</p>
+							<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The use of globals is not recommended and they should be replaced,
+								see <a href="topic/b11d853a8e784db6b2d210ef57b0f7d7" title="Modules can be required in XML views and fragments and assigned to aliases which can be used as variables in properties, event handlers, and bindings." class="sap-doc">Require Modules in XML View and Fragment</a>.</p></div></div>
+						</li>
+					</ul>
+			</li>
+			<li class="li">
+				<p>Names without dot are interpreted as a relative name; if nothing is found, they are interpreted as an absolute name. This variant is only
+						supported for backward compatibility. </p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>This legacy syntax is <span class="emphasis">not</span> supported for control properties of
+							type <code>function</code>.</p></div></div><p></p>
+			</li>
+		</ul>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>When specified without parameters, the event handler will be called with one
+					argument, the event object. This object can be used to retrieve the event
+					parameters documented by the control's respective event documentation.</p>
+			<p></p></div></div></section><section>
+			<h2 class="title ">The <code>"this"</code> Context</h2>
+			
+		
+		<p>As long as no event handler parameters are specified and regardless of where the function was
+				looked up, it will be executed with the controller as the context object
+					(<code>this</code>). This is also true for global event handlers and makes
+				the implementation of generic global handlers easier that may need an easy way back
+				to the controller/view in which they are actually used, for example, to call
+					<code>createId</code> or <code>byId</code>. This should make the
+				development of global event handlers more consistent with controller local event
+				handlers.</p>
+		<p>Therefore, the following declaration is equivalent to a call of
+				<code>controller.doSomething()</code> when the button is pressed:</p>
+		<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething"/&gt;
+</pre></div></div></section></section><p>However, once event parameters are specified using the syntax described below, the
+				<code>this</code> context is always the object on which the handler function is
+			defined. For controller methods, the controller remains the <code>this</code>
+			context, but for methods defined in the XML view required modules or on global objects,
+			that owner object is used as <code>this</code> context. In case the controller is
+			still required in such global handler functions, it can be explicitly passed as
+				<code>$controller</code> parameter (see the <span class="ph uicontrol">Passing
+				Parameters</span> section below). Functions defined directly on the XML view
+			required modules or on the <code>window</code> object have an undefined
+				<code>this</code> context.</p><p>By invoking the special JavaScript function .<code>call(...)</code> on your event
+			handler function, you can also provide a different <code>this</code> context. For
+			example, you can still have the controller as <code>this</code> in an event handler
+			in a global helper object, even when you pass parameters, by doing:</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button core:require="{Helper:'path/to/Helper'}" text="Press Me" press="Helper.doSomething.call($controller, 'Hello World')"/&gt;</pre></div></div></section><section id="section_qzw_5bm_ndb">
+			<h2 class="title ">Passing Parameters</h2>
+			<p>In XMLViews and JSONViews (<span class="emphasis">deprecated</span> as of UI5 version 1.120) it is also possible to
+				directly specify the parameters that should be passed into the event handler function. These parameters then are passed instead of the
+				event object. The syntax mimics the JavaScript syntax for function calls:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething(<span class="emphasis">'Hello World'</span>)"/&gt;</pre></div></div></section>
+			<p>Any JavaScript literals including objects and arrays can be passed:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething('string', 0, 5.5, {key1: 'value1', key2: 'value2'}, ['value1', 'value2'])"/&gt;</pre></div></div></section>
+			<p>It is also possible to access model properties. The syntax to be used is the one used
+				within Expression Binding – binding paths are enclosed in <span class="emphasis">${…}</span>
+				:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething(<span class="emphasis">${products&gt;unitPrice}</span>)"/&gt;</pre></div></div></section>
+			<p>The binding context from which relative binding paths are resolved is the context of
+				the control which triggers the event. This means that for a control in a table row,
+				relative binding paths like the one above, always pass the data from the table row
+				where the event occurred. This is very convenient, because it is no longer required
+				to find out the data element to which the table row is bound.</p>
+			<p>Complex binding syntax can also be used (to add formatters, types etc.), as well as
+				all expressions allowed by <a href="topic/daf6852a04b44d118963968a1239d2c0" title="Expression binding is an enhancement of the SAPUI5 binding syntax, which allows for providing expressions instead of custom formatter functions." class="sap-doc">Expression Binding</a>:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething(<span class="emphasis">${path: 'products&gt;unitPrice', formatter: '.formatPrice'}</span>)" /&gt;
+&lt;Button text="Press Me" press=".doSomething(<span class="emphasis">10 * ${products&gt;unitPrice}</span>)" /&gt;
+&lt;Button text="Press Me" press=".doSomething(<span class="emphasis">${products&gt;type} === 'Laptop'</span>)" /&gt;
+</pre></div></div></section>
+			<div class="note restriction  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Restriction
+				</strong></div></div><div class="fig"><p>
+				</p><p>Even though complex bindings can have multiple parts (use multiple data
+					properties) instead of just one data property path, this is not possible for the
+					event parameters. Therefore, you cannot use <code>parts</code> in
+					bindings.</p>
+			<p></p></div></div>
+			<p>Formatters are resolved the same way as the event handlers: a leading dot means the
+				formatter is member of the controller.</p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>While it seems like regular JavaScript can be written directly in the event
+					handler specification, this is not the case. The entire expression is evaluated
+					as expression binding and only the syntax elements allowed there can be
+					used.</p>
+			<p></p></div></div>
+			<p>There are two special named models available in event handlers to make accessing
+				certain values easier:</p>
+			<p>The first one is named <code>$parameters</code> and contains the event
+				parameters:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Select change=".doSomething(<span class="emphasis">${$parameters&gt;/selectedItem}</span>)" /&gt;</pre></div></div></section>
+			<p>Here the event parameter <span class="parmname">selectedItem</span> is passed into the event
+				handler.</p>
+			<p>The other one is named <code>$source</code> and is a
+					<code>ManagedObjectModel</code> which wraps the control firing the
+				event:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething(<span class="emphasis">${$source&gt;/text}</span>)" /&gt;</pre></div></div></section>
+			<p>Here the text of the pressed button is passed into the event handler.</p>
+			<p>There are also two special values which can be used as parameters.</p>
+			<p>The first special value is named <code>$event</code> and represents the original
+				event object. This event object is no longer passed to event handlers, once
+				parameters are specified. This is because of the <code>$parameters</code> model,
+				which provides access to the event parameters, and it is not needed in most cases.
+				However, when access to the event object is still needed in the event handler, it
+				can be explicitly passed:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething<span class="emphasis">($event)</span>" /&gt;</pre></div></div></section>
+			<p>This leads to the same result as specifying <code>.doSomething</code> without any
+				parameters, but further parameters can of course be given.</p>
+			<p>The second special value is <code>$controller</code>. As described above, as soon
+				as parameters are specified, the <code>this</code> context inside the event
+				handler function is always the object on which this function is defined. However,
+				sometimes it is still required to access the controller even in a handler function
+				which is NOT defined in the controller, but on some other helper object. In this
+				case, the controller can be explicitly passed as one of the parameters:</p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Button text="Press Me" press=".doSomething<span class="emphasis">($controller)</span>" /&gt;</pre></div></div></section>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

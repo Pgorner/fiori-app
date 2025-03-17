@@ -1,0 +1,71 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:macros="sap.fe.macros"
+	xmlns:ce="sap.ui.codeeditor"
+	xmlns:v="sap.ui.fl.variants"
+	xmlns:f="sap.f"
+	controllerName="sap.fe.core.fpmExplorer.tableAnalytic.TableAnalytic"
+>
+	<Page enableScrolling="true">
+		<FlexBox direction="Column" fitContainer="true" justifyContent="Start">
+			<Panel expandable="true" expanded="true" headerText="Analytical Table">
+				<v:VariantManagement id="vm" for="MyAnalyticalTable" showSetAsDefault="true" headerLevel="H2" />
+				<macros:Table
+					metaPath="/RootEntity/@com.sap.vocabularies.UI.v1.LineItem"
+					id="MyAnalyticalTable"
+					type="AnalyticalTable"
+					rowCount="5"
+				/>
+			</Panel>
+			<!-- Public APIs available -->
+			<Panel expandable="true" expanded="true" headerText="Public APIs">
+				<FlexBox direction="Column" fitContainer="true" justifyContent="Start">
+					<HBox alignItems="Center" class="sapUi-Std-PaddingS">
+						<Button width="100%" text="getPresentationVariant" press=".tablePVToCodeEditor" type="Success" />
+						<Text
+							text="Select this button to get the table's current presentation variant to the code editor below."
+							width="100%"
+							class="sapUiSmallMargin"
+						/>
+					</HBox>
+					<HBox alignItems="Center" class="sapUi-Std-PaddingS">
+						<Button
+							width="100%"
+							text="setPresentationVariant"
+							press=".codeEditorPVToTable"
+							type="{interactionModel>/setPVButton/type}"
+							tooltip="{interactionModel>/setPVButton/tooltip}"
+						/>
+						<Text
+							text="Select this button to set the presentation variant from the code editor below to the table."
+							width="100%"
+							class="sapUiSmallMargin"
+						/>
+					</HBox>
+				</FlexBox>
+			</Panel>
+
+			<!-- Presentation Variant Code Editor -->
+			<Panel expanded="true" height="100%" headerText="Presentation Variant (code editor)" expandable="true">
+				<FlexBox direction="Column" fitContainer="true">
+					<ce:CodeEditor
+						id="tablesDisplayTwo"
+						type="json"
+						lineNumbers="true"
+						value="{interactionModel>/pvObject}"
+						editable="true"
+						liveChange=".validatePV"
+					>
+						<ce:layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="1" />
+						</ce:layoutData>
+					</ce:CodeEditor>
+				</FlexBox>
+				<layoutData>
+					<FlexItemData growFactor="1" shrinkFactor="1" />
+				</layoutData>
+			</Panel>
+		</FlexBox>
+	</Page>
+</mvc:View>

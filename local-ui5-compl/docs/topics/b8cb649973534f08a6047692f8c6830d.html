@@ -1,0 +1,2986 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiob8cb649973534f08a6047692f8c6830d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/localization-of-ui-texts-b8cb649.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Localization of UI Texts</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Localization of UI Texts</h2></div><div class="shortdesc">If necessary, you can replace standard UI texts for apps that you have created with SAP Fiori elements.</div><p>Standard texts are available in the generic framework (for example, the button texts for
+			draft concepts) and belong to the template components (for example, list report and
+			object page). The following sections describe how you can replace the texts in your
+			generated apps.</p><p>Standard texts can be overwritten by application-specific texts.</p><p>Perform the following steps to replace the standard UI texts:</p><ol>
+			<li class="li">
+				<p>Find or add a resource file to your application.</p>
+			</li>
+			<li class="li">
+				<p>Search for the text that you would like to change.</p>
+			</li>
+			<li class="li">
+				<p>Copy the corresponding key and text to your resource file.</p>
+			</li>
+			<li class="li">
+				<p>Adapt the text as required.</p>
+			</li>
+		</ol><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>To save translation costs, don't copy and redefine more texts than needed.</p>
+		<p></p></div></div><section>
+			<h2 class="title ">Overriding Texts from Annotations</h2>
+			<p>You can override the texts that come from annotations. To do so, the annotation must
+				refer to the i18n key that is used in the application's i18n file:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>XML
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Annotation Term="UI.LineItem"&gt;
+   &lt;Collection&gt;
+      &lt;Record Type="UI.DataFieldForAction"&gt;
+         &lt;PropertyValue Property="Label" String="Add random item"/&gt;
+         &lt;PropertyValue Property="Action"
+            String="com.c_salesordermanage_sd.AddRandomItem"/&gt;
+      &lt;/Record&gt;
+      &lt;Record Type="UI.DataFieldForAction"&gt;
+         &lt;PropertyValue Property="Label" String="{@i18n&gt;CopyActionText}"/&gt;
+         &lt;PropertyValue Property="Action"
+            String="com.c_salesordermanage_sd.CopyItem"/&gt;
+      &lt;/Record&gt;
+   &lt;/Collection&gt;
+&lt;/Annotation&gt;
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>ABAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">@UI.lineItem: [
+  {
+    label: 'Add random item',
+    dataAction: 'PUSHDOWN:com.c_salesordermanage_sd.AddRandomItem',
+    type: #FOR_ACTION,
+    position: 1 
+  },
+  {
+    label: '{@i18n&gt;CopyActionText}',
+    dataAction: 'PUSHDOWN:com.c_salesordermanage_sd.CopyItem',
+    type: #FOR_ACTION,
+    position: 2 
+  }
+];
+</pre></div></div></section><p></p></div></div>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>CAP CDS
+				Annotation</p><section class="collapsible"><div class="collapsible-icon sap-icon title"><strong>
+						Sample Code
+					</strong></div><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">LineItem                               : [
+    {
+        $Type  : 'UI.DataFieldForAction',
+        Label  : 'Add random item',
+        Action : 'com.c_salesordermanage_sd.AddRandomItem'
+    },
+    {
+        $Type  : 'UI.DataFieldForAction',
+        Label  : '{@i18n&gt;CopyActionText}',       //i18n key referred here
+        Action : 'com.c_salesordermanage_sd.CopyItem'
+    },
+    .
+    .
+    .
+]</pre></div></div></section><p></p></div></div>
+			<p>For the annotation example above, the application's i18n properties file must have the key
+					<code>CopyActionText=Copy Selected Item</code>. In addition, the model
+				should have the <code>@i18n</code> model defined within the
+					<code>manifest.json</code> file.</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p><code>manifest.json</code></p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"> "models": {
+               …
+               …
+               "@i18n": {
+                              "type": "sap.ui.model.resource.ResourceModel",
+              "uri": "i18n/i18n.properties"
+               },
+               …
+               …
+}
+</pre></div></div></section><p></p></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>The annotation modification described above is done in a local annotations file
+					if the back-end generated file does not have the corresponding annotation
+					segment.</p>
+				<p>For example, if the back-end system is based on SAP NetWeaver 7.51 or lower
+						(SAP S/4HANA) or on
+					SAP NetWeaver 7.67 or lower (SAP S/4HANA Cloud), you
+					can't add <code>UI.ReferenceFacet</code> via the back end. In such a case, a
+					modification to the <span class="uinolabel">Reference Facet</span> label is only
+					possible by modifying the local annotation file as described above.</p>
+			<p></p></div></div>
+		</section><section id="section_jxn_kgh_2nb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V2</h2></div><div class="fig"><p>When you have created your specific application component, for example in SAP Fiori tools, standard texts
+				are available from a specific template component (for example, i18n file within
+					<code>sap.suite.ui.generic.template.ListReport</code>) and from the generic
+				template component (for example, i18n file within
+					<code>sap.suite.ui.generic.template.lib</code>).</p><p>Texts from the <i>Generic Application Component</i> can't be replaced.</p><p>You can use the custom <code>i18n</code> file approach to override any keys that
+				are mentioned in the following tables:</p><div class="tableWrapper "><div class="fig"><table border="1" id="table_a4r_x2n_y5b" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="3" rowspan="1"><span class="emphasis">List Report Specific Key
+									from <code>..&gt;&gt;lib&gt;i18n</code></span></th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Key</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Default Text in SAP Fiori Elements</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Used In</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_UNSAVED_CHANGES_CHECKBOX</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Also delete objects with unsaved changes.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This message is displayed in a delete confirmation dialog when a
+									user select multiple objects, out of which few have unsaved
+									changes from other users. This confirmation dialog offers a
+									check box to include or exclude the objects with unsaved changes
+									from other users.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_SELECTED_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete the selected objects?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog that comes
+									up when a user selects all active or own draft objects from the
+									list report.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_UNSAVED_CHANGES</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Another user edited this object without saving the changes: {1} </p>
+								<p>Delete anyway?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog that comes
+									up when a user selects an object that include unsaved changes
+									made by another user. The user can still delete the object.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_UNSAVED_CHANGES_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Other users have edited the selected objects without saving the
+									changes. </p>
+								<p>Delete them anyway?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog that comes
+									up when a user selects more than one object that includes
+									unsaved changes made by another user. The user can still delete
+									the object.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_LOCKED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This object cannot be deleted. It is currently locked by {1}.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message text used in the confirmation message box when a user
+									selects an object that is locked by another user.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_NOT_DELETABLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This object cannot be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message text used in the confirmation message box when a user
+									tries to delete an object that is non-deletable.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_LOCKED_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The selected objects are currently locked by other users and
+									cannot be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message text used in the confirmation message box when a user
+									select multiple objects that are all locked by another user and
+									tries to delete them.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_UNDELETABLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} of {1} objects cannot be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when a user
+									tries to delete the selected records, out of which some objects
+									can't be deleted.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_CURRENTLY_LOCKED_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} of {1} objects are currently locked by other users and cannot
+									be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when some of
+									the selected objects are locked by other users and can't be
+									deleted. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_REMAINING</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Do you still want to delete the remaining object?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the confirmation dialog when a user select
+									some objects that are either locked or cannot be deleted.
+									However, one of the selections can be deleted. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_REMAINING_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Do you still want to delete the remaining {0} objects?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the confirmation dialog when a user select
+									some objects that are either locked or cannot be deleted.
+									However, some of the selections can be deleted. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_REMAINING_UNSAVED_CHANGES</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The remaining object has unsaved changes.</p>
+								<p>Do you still want to delete it?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the confirmation dialog when a user select
+									some objects that are either locked or cannot be deleted.
+									However, one of these selections can be deleted but it includes
+									unsaved changes made by another user.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_REMAINING_UNSAVED_CHANGES_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The remaining objects have unsaved changes by other users.</p>
+								<p>Do you still want to delete them?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the confirmation dialog when a user select
+									some objects that are either locked or cannot be deleted.
+									However, some of these selections can be deleted but it includes
+									unsaved changes made by another user.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_SUCCESS_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Objects were deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when deletion of multiple objects is
+									successful.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_ERROR</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The selected object cannot be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when an object can't be deleted from back
+									end.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><div class="tableWrapper "><div class="fig"><table border="1" id="table_y2l_hwg_vdc" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="3" rowspan="1"><span class="emphasis">List Report Specific Key from
+										<code>..&gt;&gt;ListReport&gt;i18n</code></span></th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Key</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Default Text in SAP Fiori Elements</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Used In</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>CREATE_OBJECT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Create</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Label for creating buttons in the list report.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>CREATE_DIALOG_TITLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>New Object</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Title for the <span class="ph uicontrol">Create</span> dialog if
+										<code>createWithParameterDialog</code> is configured.
+									Users can change titles to, for example, "Create Order" or
+									"Create Contract".</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>PARTIAL_UPDATE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} of {1} objects updated ??</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Used in a message box that is displayed in the list report after
+									a partial update, in case of mass edit.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DIALOG_TITLE_NEW_ACTION_FOR_CREATE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Create Object</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Title for the <code>NewAction</code> parameter dialog in the
+									list report.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DIALOG_ACTION_BUTTON_NEW_ACTION_FOR_CREATE </code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Continue</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Label for a button within the <code>NewAction</code>
+									parameter dialog in the list report.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>MULTI_EDIT_DIALOG_TITLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Edit ({0})</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Title for mass edit dialog in the list report page. </p>
+								<p>Users can change titles to for example "Edit Purchase Orders
+									({0})".</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><div class="tableWrapper "><div class="fig"><table border="1" id="table_orm_45g_vdc" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="3" rowspan="1"><span class="emphasis">Key from
+										<code>..&gt;&gt;ObjectPage&gt;i18n</code></span></th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Key</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Default Text in SAP Fiori Elements</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Used In</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DRAFT_LOCK_EXPIRED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Another user edited this object without saving the changes:
+									{0}</p>
+								<p>If you take over, any changes will be lost.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the confirmation dialog when a user clicks
+										<span class="ph uicontrol">Edit</span> on the object page that was
+									locked and the lock expired.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>OBJECT_SAVED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Your changes have been saved</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when a user chooses to save and the object
+									gets saved successfully.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ITEM_CREATED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Item created</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when a user successfully creates a sub object
+									or an item.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>WAITING_SMARTTABLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Please wait while the data is loading...</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Appears in the smart table within the object page when data is
+									loading.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>OBJECT_NOT_MODIFIED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>You haven't made any changes</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when a user clicks on
+										<span class="ph uicontrol">Save</span> and the object has no unsaved
+									changes.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>OBJECT_CREATED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Object was created.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when an object is successfully created.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_WITH_OBJECTINFO</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete this object ({1} {2})?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog with both
+									the title and description is available for the object and the
+									app is open in the flexible column layout mode.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_WITH_OBJECTTITLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete Object {0}?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when the app
+									is open in the full screen mode and a title is available for the
+									object.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>SHOW_SIDE_CONTENT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Show Details</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Used as a label to show the side content button when the side
+									content is hidden.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>HIDE_SIDE_CONTENT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Hide Details</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Used as a label to hide the side content button when the side
+									content is being displayed.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_SELECTED_ITEM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete Item?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when a user
+									select items (that don't have a title and description defined in
+									the sub object page) from smart table in the object page, and
+									press delete on the smart table toolbar.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_SELECTED_ITEM_WITH_OBJECTINFO</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete Item {1} ({2})?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when the
+									title and description is available and the sub object page is
+									open in the flexible column layout mode.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_SELECTED_ITEM_WITH_OBJECTTITLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete Item {0}?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when a user
+									select items in the object page smart table in the full screen
+									mode, and the title is defined.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_SELECTED_ITEMS</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete the selected items?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when a user
+									select items in the object page smart table and choose to delete
+									it.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_SUCCESS_PLURAL_WITH_COUNT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} items have been deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when a user successfully deletes multiple
+									items from the object page smart table.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_SUCCESS_WITH_COUNT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} item has been deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when a user successfully deletes a single item
+									from the object page smart table.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_ERROR_PLURAL_WITH_COUNT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} items cannot been deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed when a few of the selected items cannot be
+									deleted.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_ERROR_WITH_COUNT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} item cannot been deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed when a selected item cannot be deleted.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_ERROR</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The selected item cannot be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed when only one record was selected for deletion and
+									the operation failed to execute.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ITEM_DELETED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Item deleted</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text when an item is successfully deleted from the
+									object page table.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_UNDELETABLE_ITEMS</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} of {1} items cannot be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message text used in the confirmation message box when a user has
+									selected multiple items and a few cannot be deleted.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_UNDELETABLE_ITEM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This item cannot be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message text used in the confirmation message box when a user
+									selects a single item that cannot be deleted.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ENTER_MANDATORY</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Enter a value for field: {0}</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in a message popover when a user has configured
+									the <code>InsertRestriction</code> annotation to make
+									certain fields mandatory. This is applicable only in case of
+									non-draft scenarios.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>CREATE_DIALOG_TITLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>New Item</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Title text displayed for the create dialog if
+										<code>createWithParameterDialog</code> is configured on
+									an object page table of a non-draft application. Users can
+									change titles to, for example, "Create Sales Order Item".</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>T_PAGINATOR_CONTROL_PAGINATOR_TOOLTIP_UP</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Previous Item</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Tooltip text that is displayed when the focus is on the previous
+									paginator button on a subobject page.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>T_PAGINATOR_CONTROL_PAGINATOR_TOOLTIP_DOWN </code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Next Item</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Tooltip text that is displayed when the focus is on the next
+									paginator button on a subobject page.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><div class="tableWrapper "><div class="fig"><table border="1" id="table_ux5_hsg_vdc" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="3" rowspan="1"><span class="emphasis">Object Page and Subobject Page
+									Key from
+								<code>..&gt;&gt;lib&gt;i18n</code></span></th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Key</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p> Default Text in SAP Fiori Elements</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Used In</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_SELECTED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete this object?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when a user
+									deletes an object (without an object title) by clicking
+										<span class="ph uicontrol">Delete</span> on the object page header.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DRAFT_LOCKED_BY_USER</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Another user edited this object without saving the changes: {1} </p>
+								<p>If you take over, any changes will be lost.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the confirmation dialog when a user selects
+									an object to edit that is locked by another user. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>DELETE_WITH_OBJECTTITLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Delete Object {0}?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the delete confirmation dialog when a user
+									deletes an object that has a defined object title.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_OBJECT_DELETED</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Object was deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message toast text upon the successful deletion of the
+									object.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>REQUIRED_PROP_ERROR|&lt;EntitySet&gt;|&lt;navigationProperty&gt;|
+										com.sap.vocabularies.UI.v1.LineItem|&lt;Required Property
+										Name&gt;</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Enter a value.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed when the value for a required field is missing and
+									so the draft cannot be created. The required field is
+									highlighted with a red border.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><div class="tableWrapper "><div class="fig"><table border="1" id="table_kwx_1rg_vdc" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="3" rowspan="1"><span class="emphasis">List Report, Object Page, and
+									Analytical List Page Key from
+										<code>..&gt;&gt;lib&gt;i18n</code></span></th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Key</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p> Default Text in SAP Fiori Elements</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Used In</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_LOCKED_OBJECT_POPOVER_TEXT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>You cannot edit this object at the moment.</p>
+								<p>It is locked by {0}</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed when a user tries editing an object that is locked
+									by another user.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_UNSAVED_OBJECT_POPOVER_TEXT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This object has unsaved changes by {0}.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>When an object has unsaved change from another user, it is
+									indicated by an icon shown in the key field column of the list
+									report, and next to the title in the object page. When the user
+									clicks on the icon, a pop up appears that is shown in this
+									text.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NEW_OBJECT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Unnamed Object</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>This is the header title for a newly created object.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_SMARTTABLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No items available.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No data text is displayed when there is no data available in the
+									smart table of the object page.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_SMARTTABLE_WITH_FILTER</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No items available. Try adjusting the search or filter
+									parameters.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed when there is no data available in the smart table
+									of the object page after applying filter.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_SMARTTABLE_WITH_FILTER_FOR_SEGMENTEDBUTTON</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>There are no items for the selected filter criteria and table
+									view.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed when there is no data available in the smart table
+									of the object page with segmented button.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_SMARTCHART</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No data found.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in charts on the analytical list page and object
+									page when no data is found without applying any filters.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_LR_SMARTCHART</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>There is no data for the selected filter criteria and chart
+									view.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the list report chart when no data is
+									found.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_SMARTCHART_WITH_FILTER</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No data found. Try adjusting the filter parameters.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in charts on the analytical list page and object
+									page when no data is found even after applying filters.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>SMARTCHART_INITIAL_NODATA</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>To start, set the relevant filters and choose "Go".</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the list report chart when no search is
+									triggered.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_LR_SMARTTABLE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No data found.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the list report table, when the table is empty
+									after clicking "Go" without setting any filters. </p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NODATA_SMARTTABLE_LR</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>To start, set the relevant filters and choose "Go".</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the list report table, when no search is
+									triggered.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_LR_SMARTTABLE_WITH_FILTER</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>No data found. Try adjusting the search or filter criteria.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the list report table when no data is found
+									after applying filters.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NOITEMS_MULTIVIEW_LR_SMARTTABLE_WITH_FILTER</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>There is no data for the selected filter criteria and table
+									view.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the list report table when no data is found for
+									a view in case of multi view application.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_WITH_WARNING_SUGGESTION_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Hint: To ignore warnings, delete the objects individually.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Warning message text on the delete popover when a user tries to
+									delete some of the selected objects in case of multi select
+									delete.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_NOT_DELETED_RECORDS</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} of {1} objects can't be deleted.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Warning message text on the delete popover informing the user
+									that some of the objects are not deletable as the deletion has
+									failed at backend in case of multi select delete.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_DELETE_ERROR_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Some of the objects you selected can't be deleted. Try deleting
+									the objects individually instead.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Warning message text on the delete popover in case of multi
+									select delete, informing the user that the deletion has failed
+									at backend for some of the objects and the complete batch is
+									failed as a result of a generic error.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_NOT_PROCESSED_RECORDS</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>{0} of {1} objects can't be processed.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message text displayed in case of multi select function import
+									actions, if the action fails at backend.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_NOT_PROCESSED_RECORDS_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The selected objects can't be processed.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Message text displayed in case of multi select function import
+									actions, if the action fails at backend for some of the selected
+									objects and as a result, the complete batch has failed.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_GENERIC_ACTION_WITH_WARNING_SUGGESTION_PLURAL</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Hint: To ignore warnings, process the objects individually.</p>
+							</td>
+							<td colspan="1" rowspan="1">Message text displayed in case of multi select function import
+								actions, if the action shows a warning for some of the selected
+								objects and as a result, the complete batch has failed.</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>MESSAGE_SINGLE_VALUE_L_FORM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>The filter \"{0}\" isn't relevant for the tab \"{1}\". Setting
+									this filter has no effect on the results.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the message strip above the smart table in the
+									list report when a user set filters that are not relevant for
+									the selected tab in a multi view application, on a desktop or a
+									large screen device.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>MESSAGE_SINGLE_VALUE_S_FORM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>You can't filter by \"{0}\" on the \"{1}\" tab.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the message strip above the smart table in the
+									list report when a user set filters that are not relevant for
+									the selected tab in a multi view application, on a mobile or a
+									small screen device.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>MESSAGE_MULTIPLE_VALUES_L_FORM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Some of the filters aren't relevant for the tab \"{1}\" ({0}).
+									Settings these filters has no effect on the results.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the message strip above the smart table in the
+									list report when a user select a filter that is not relevant for
+									the selected tab in a multi view application, on a desktop or a
+									large screen device.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>MESSAGE_MULTIPLE_VALUES_S_FORM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>You can't use the following filters on the \"{1}\" tab\:
+									\"{0}\"</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the message strip above the smart table in the
+									list report when a user select a filter that is not relevant for
+									the selected tab in a multi view application, on a mobile or a
+									small screen device.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_KEEP_DRAFT_MESSAGE_EDIT</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>You haven't made changes to this object.</p>
+								<p>What would you like to do?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the discard confirmation dialog when a user
+									navigates away from edit draft that has unsaved changes.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ST_KEEP_DRAFT_MESSAGE_CREATE</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>You haven't created this object yet.</p>
+								<p>What would you like to do?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed within the discard confirmation dialog when a user
+									navigates away from a new draft that has unsaved changes.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>ACTION_CONFIRM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Confirm this action?</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text within the confirmation dialog that comes up when a user
+									clicks on an action that requires confirmation.</p>
+								<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+									</p><p>The <code>ACTION_CONFIRM</code> key can also be
+										interpreted as
+											<code>ACTION_CONFIRM|&lt;EntitySetName&gt;&lt;ActionName&gt;</code>.</p>
+									<p>Add the key-value pair and the message text to the<code> i18n.properties</code> file of your application. An example of a message box text for confirming an action
+										question can be as follows:<code> ACTION_CONFIRM|STTA_C_MP_ProductActivation = Confirm activation? </code></p>
+								<p></p></div></div>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><div class="tableWrapper "><div class="fig"><table border="1" id="table_cdm_34g_vdc" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="3" rowspan="1"><span class="emphasis">Key from
+										<code>..&gt;&gt;AnalyticalPage&gt;i18n</code></span></th>
+						</tr>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Key</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p> Default Text in SAP Fiori Elements</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Used In</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NODATA_SMARTCHART_ALP</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>To start, set the relevant filters and choose "Go".</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the analytical list page smart chart when no
+									search is triggered.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>NODATA_SMARTTABLE_ALP</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>To start, set the relevant filters and choose "Go".</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the analytical list page smart table when no
+									search is triggered.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>MESSAGE_MULTIPLE_VALUES_L_FORM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Some of the filters aren't relevant for the tab \"{1}\" ({0}).
+									Settings these filters has no effect on the results.</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the message strip when a user select filters
+									and a few of them are not relevant for the selected tab in a
+									multi view application, on a desktop or a large screen
+									device.</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p><code>MESSAGE_MULTIPLE_VALUES_S_FORM</code></p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>You can't use the following filters on the \"{1}\" tab\:
+									\"{0}\"</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Text displayed in the message strip when a user select filters
+									and a few of them are not relevant for the selected tab in a
+									multi view application, on a mobile or a small screen
+									device.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div><section>
+				<h3 class="title ">How to Find the Resource File of Your Application
+					Component</h3>
+				<p>SAP Fiori generator
+					automatically generates the following initial folders and files when you create
+					an app with SAP Fiori elements:</p>
+				<ul class="ul ">
+					<li class="li">
+						<p>&lt;root-folder&gt;</p>
+					</li>
+					<li class="li">
+						<p>|--webapp</p>
+					</li>
+					<li class="li">
+						<p>|----i18n</p>
+					</li>
+					<li class="li">
+						<p>|—i18n.properties</p>
+					</li>
+				</ul>
+				<p>The required folder structure to the resource model appears as shown here. You
+					can create it as required by your application structure and the texts that need
+					adaptation. Since the <code>manifest.json</code> file also refers to the
+					title and description of the app, there is a general
+						<code>i18n.properties</code> file on the top level:</p><ul class="ul ">
+						<li class="li"><code>i18n/i18n.properties </code></li>
+						<li class="li"><code>i18n/ListReport/&lt;entitySet&gt;/i18n.properties</code></li>
+						<li class="li"><code>i18n/ObjectPage/&lt;entitySet&gt;/i18n.properties</code></li>
+						<li class="li"><code>i18n/ObjectPage/&lt;subEntitySet&gt;/i18n.properties</code><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>For
+								object pages, the number of
+									<code>i18n</code>
+								files corresponds to the number of object pages defined in the
+								app.</p></div></div></li>
+					</ul><p></p>
+				<p>The app descriptor (<code>manifest.json</code> file) of an application
+					specifies the SAPUI5
+					models. </p>
+				<p>Example:</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+						</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"sap.ui5": {
+ 
+        ...
+    "models": {
+        "i18n": {                
+            "type": "sap.ui.model.resource.ResourceModel",                
+            "uri": "i18n/i18n.properties"           
+      },
+ 
+        "i18n|sap.suite.ui.generic.template.ListReport|POHeaders": {
+            "type": "sap.ui.model.resource.ResourceModel",
+            "uri": "i18n/ListReport/POHeaders/i18n.properties"
+              },
+        "i18n|sap.suite.ui.generic.template.ObjectPage|POHeaders": {
+                    "type": "sap.ui.model.resource.ResourceModel",
+                    "uri": "i18n/ObjectPage/POHeaders/i18n.properties"
+              },
+        "i18n|sap.suite.ui.generic.template.ObjectPage|POItems": {
+                    "type": "sap.ui.model.resource.ResourceModel",
+                    "uri": "i18n/ObjectPage/POItems/i18n.properties"
+</pre></div></div></section>
+					<p></p></div></div><p></p>
+				<p>The URL reflects the folder path to the resource model. The model's name,
+						<code>i18n|sap.suite.ui.generic.template.ObjectPage|POHeaders</code>, is
+					separated by lines used to identify the specific template component and entity
+					set for which the resource model can be enhanced by editing the
+						<code>i18n.properties</code> file.</p>
+			</section></div></section><section id="section_qty_nb1_zlb" class="collapsible expanded"><div class="collapsible-icon sap-icon"><h2 class="title collapsible expanded">Additional Features in SAP Fiori Elements for OData V4</h2></div><div class="fig"><p>When you have created your specific application component, standard UI texts are available
+				from a specific template component (<code>sap.fe.templates</code>).</p><div class="note tip  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Tip
+				</strong></div></div><div class="fig"><p>
+				</p><p>You can also use the building blocks provided by SAP Fiori elements in
+					applications built without using one of our floorplans. If none of our
+					floorplans suit your use case, you can build a custom app that still runs on the
+					SAP Fiori elements framework, but where all pages are treated like custom pages.
+					For more information about how to override the standard UI texts when you're
+					using building blocks, see <a href="test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/guidance/adaptI18n" title="https://ui5.sap.com/test-resources/sap/fe/core/fpmExplorer/index.html#/buildingBlocks/guidance/adaptI18n" class="sap-doc">Adapt i18n</a>.</p>
+			<p></p></div></div><section>
+				<h3 class="title ">What You Can Override</h3>
+				<p>Applications can currently choose to override any key from the list below. Check
+					the last column in the following table for a recommendation about which default
+					texts to override. Only the keys given in the table are allowed to be
+					overridden by application developers using the custom i18n file approach:</p>
+				<div class="tableWrapper "><div class="fig"><table border="1" id="table_snl_wcj_cmb" class=" ">
+						
+						
+						
+						
+						<thead>
+							<tr>
+								<th colspan="1" rowspan="1">Key</th>
+								<th colspan="1" rowspan="1">Default Text in SAP Fiori Elements</th>
+								<th colspan="1" rowspan="1">Used In</th>
+								<th colspan="1" rowspan="1">Recommendation</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_OPERATIONS_ACTION_CONFIRM_MESSAGE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Confirm this action?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text within the confirmation dialog that comes up when a user
+										clicks on an action that requires confirmation.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text with a shorter
+										version, or should specify the concrete action.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_COMMON_DIALOG_OK</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>OK</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Button text to confirm the action parameter dialog only when
+										no action label has been defined.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite with the action name.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_OPERATIONS_ACTION_PARAMETER_REQUIRED</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Invalid entry</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Error message for the field left empty in the action
+										parameter dialog.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with a more
+									specific message.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_COMMON_ACTION_PARAMETER_DIALOG_CANCEL</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Cancel</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Cancel button text on the action parameter dialog.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_ACTION_PARTIAL_FRAGMENT_SAPFE_BOUND_ACTION</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>1 selected object can't be processed.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the warning message box when the action
+										cannot be performed for one of the selected objects.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text with the
+										concrete object.</p>
+									<p>Example: <cite>1 selected sales order can't be
+											processed.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_ACTION_PARTIAL_FRAGMENT_SAPFE_BOUND_ACTION_PLURAL</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>{0} selected objects can't be processed.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the warning message box when a user
+										tries to perform an action (deletion, for example) for
+										multiple selected objects, only some of which can be
+										processed. </p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text with the
+										concrete object.</p>
+									<p>Example: <cite>2 selected sales orders can't be
+											processed.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_APP_COMPONENT_SAPFE_ETAG_LATE_PROPERTY</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This action may not work. Refresh the data to work with the
+										most recent version.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Indication to the user to first refresh the data and then
+										trigger the action again.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications can choose to overwrite the default message with
+									the concrete action name.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_FIELD_RUNTIME_DRAFT_POPOVER_LOCKED_BY_KNOWN</code></p>
+									<p>(deprecated key:
+											<code>C_EDIT_FLOW_GENERIC_LOCKED_OBJECT_POPOVER_TEXT_OWNER_INFO</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This object is currently being edited by {0}.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Draft information text displayed to a user for an object that
+										is already being edited by another user, provided that the
+										information about the owner is available.</p>
+									<p>Parameter: {0} = user who is editing the object</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object that is being edited.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><span class="emphasis">deprecated key:
+												<code>C_EDIT_FLOW_GENERIC_LOCKED_OBJECT_POPOVER_TEXT_ADDITIONAL_USER</code></span></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This key has been deprecated. The scenario no longer
+										occurs.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Draft information text displayed to a user for an object that
+										is already being edited by another user, provided that the
+										information about the owner isn't available.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object that is being edited.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_FIELD_RUNTIME_DRAFT_POPOVER_UNSAVED_CHANGES_BY_KNOWN</code></p>
+									<p>(deprecated key:
+											<code>C_EDIT_FLOW_LAST_CHANGE_USER_TEXT_OWNER_INFO</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This object has unsaved changes made by {0}.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Information about the user who has made the unsaved changes
+										or who is currently editing the draft, provided that the
+										information about the user making the changes is
+										available.</p>
+									<p>Parameter: {0} = user who is editing the object</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object that is being edited.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_FIELD_RUNTIME_DRAFT_POPOVER_UNSAVED_CHANGES_BY_UNKNOWN</code></p>
+									<p>(deprecated key:
+											<code>C_EDIT_FLOW_LAST_CHANGE_USER_TEXT_ADDITIONAL_USER</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This object has unsaved changes made by another user.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Information about the user who has made the unsaved changes
+										or who is currently editing the draft, when no information
+										about the user making the changes is available.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object that is being edited.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><span class="emphasis">deprecated key:
+												<code>C_COMMON_APPLY_ERROR</code></span></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This key has been deprecated. The regular message handling
+										flow will be invoked in case of any errors.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Error message while saving an object.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><span class="emphasis">deprecated key:
+												<code>C_TRANSACTION_HELPER_TRANSIENT_CONTEXT_MESSAGE</code></span></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This key has been deprecated. The regular message handling
+										flow will be invoked in case of any errors.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Error message short text when a user enters a value in the
+										field of an object page but the back-end update cannot be
+										done due to availability or connection issues.</p>
+									<p>This key has been deprecated.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><span class="emphasis">deprecated key:
+												<code>C_TRANSACTION_HELPER_TRANSIENT_CONTEXT_DESCRIPTION</code></span></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This key has been deprecated. The regular message handling
+										flow will be invoked in case of any errors.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Error message description/detail text when a user enters a
+										value in the field of an object page but the back-end update
+										cannot be done due to availability or connection issues.</p>
+									<p>This key has been deprecated.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_SINGLE_OBJECT_LOCKED</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_SINGLE_OBJECT_LOCKED</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This object is currently locked by {0} so it cannot be
+										deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message to indicate that the object is currently locked and
+										cannot be deleted.</p>
+									<p>Parameter: {0} = user who has locked the object</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTINFO</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTINFO</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete object {0} "{1}"?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button after
+										selecting exactly one object that has a title (and
+										optionally a description).</p>
+									<p>Parameters: {0} = <code>UI.HeaderInfo.Title</code>, {1} =
+											<code>UI.HeaderInfo.Description</code>.</p>
+									<p>The following logic is applied:</p>
+									<ul class="ul ">
+										<li class="li">
+											<p>If <code>HeaderInfo.Title</code> is not
+												annotated, then the text is taken from
+												<code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR</code>.</p>
+										</li>
+										<li class="li">
+											<p>If <code>HeaderInfo.Title</code> is annotated but
+												not present in the context, then the semantic key is
+												used if it is singular and present in the
+												context</p>
+											<ul class="ul ">
+												<li class="li">
+												<p>If there is no semantic key, the technical key
+												is used if it is singular and present in the
+												context</p>
+												</li>
+												<li class="li">
+												<p>If there is no technical key, then the text is
+												taken from
+												<code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR</code></p>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTTITLE_ONLY</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete object {0}?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button after
+										selecting exactly one object that has a title (and
+										optionally a description).</p>
+									<p>Parameter: {0} = <code>UI.HeaderInfo.Title</code>.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete this object?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button to delete a
+										single selected object that has no title.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTTITLE_PLURAL</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_PLURAL</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete the selected objects?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button to delete
+										multiple selected objects.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete objects.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_UNSAVED_CHANGES</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_UNSAVED_CHANGES</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The selected object has unsaved changes by {0}.</p>
+									<p>Delete anyway?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button to delete a
+										single selected object that has unsaved changes from another
+										user.</p>
+									<p>Parameter: {0} = user name</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_UNSAVED_CHANGES_MULTIPLE_OBJECTS</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_UNSAVED_CHANGES_MULTIPLE_OBJECTS</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The selected objects have unsaved changes by other users.</p>
+									<p>Delete anyway?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button to delete
+										multiple selected objects that have unsaved changes from
+										another user.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTTITLE_PLURAL_NON_DELETABLE</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_PLURAL_NON_DELETABLE</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete the remaining objects?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button for multiple
+										selected objects, some of which cannot be deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete objects.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR_NON_DELETABLE</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR_NON_DELETABLE</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete the remaining objects?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button for multiple
+										selected objects, only one of which can be deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTINFO_AND_ONE_OBJECT_NON_DELETABLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>1 out of {0} selected objects has delete restrictions so it
+										cannot be deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> for multiple
+										selected objects, of which one cannot be deleted.</p>
+									<p>Parameter: {0} = number of selected objects</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_NON_DELETABLE</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_NON_DELETABLE</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>{0} out of {1} selected objects have delete restrictions so
+										they cannot be deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button for multiple
+										selected objects, only some of which can be deleted.</p>
+									<p>Parameters: {0} = number of objects that cannot be deleted,
+										{1} = total number of selected objects</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_LOCKED</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_LOCKED_AND_NON_DELETABLE</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>{0} out of {1} objects are currently locked so they cannot be
+										deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button.</p>
+									<p>Parameters: {0} = number of objects that are locked, {1} =
+										number of selected objects</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTINFO_AND_ONE_OBJECT_LOCKED</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTINFO_AND_ONE_OBJECT_LOCKED_AND_NON_DELETABLE</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>1 out of {0} selected objects is currently locked by {1} so
+										it cannot be deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message text used in the confirmation message box when a user
+										clicks the <span class="ph uicontrol">Delete</span> button.</p>
+									<p>Parameters: {0} = number of selected objects, {1} = user who
+										has the lock on the object</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_UNSAVED_AND_FEW_OBJECTS_LOCKED_SINGULAR</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_UNSAVED_AND_FEW_OBJECTS_LOCKED_SINGULAR</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The remaining object has unsaved changes made by {0}.</p>
+									<p>Do you still want to delete it?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Warning message text on the delete popover when a user tries
+										to delete an object that has unsaved changes from another
+										user.</p>
+									<p>Parameters: {0} = user who has unsaved changes on the
+										object.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_UNSAVED_AND_FEW_OBJECTS_LOCKED_PLURAL</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_UNSAVED_AND_FEW_OBJECTS_LOCKED_PLURAL</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The remaining objects have unsaved changes made by other
+										users.</p>
+									<p>Do you still want to delete them?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Warning message text on the delete popover when a user tries
+										to delete multiple selected objects out of which more than
+										one have unsaved changes from other users.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_UNSAVED_SINGULAR</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_UNSAVED_SINGULAR</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Also delete objects with unsaved changes by {0}?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text used for the checkbox in the delete confirmation dialog
+										to confirm if a user also wants to delete the single object
+										from the selected objects that has changes from other
+										users.</p>
+									<p>Parameters: {0} = user who has unsaved changes on the
+										object.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_UNSAVED_PLURAL</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTINFO_AND_FEW_OBJECTS_UNSAVED_PLURAL</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Also delete objects with unsaved changes by other users?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text used for the checkbox in the delete confirmation dialog
+										to confirm if a user also wants to delete those objects from
+										the selected objects that have changes from other users.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_DELETE_TOAST_SINGULAR</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_DELETE_TOAST_SINGULAR</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Object deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message toast text when an object has been deleted
+										successfully.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_DELETE_TOAST_PLURAL</code></p>
+									<p>(deprecated key:
+											<code>C_TRANSACTION_HELPER_OBJECT_PAGE_DELETE_TOAST_PLURAL</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Objects were deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message toast text when multiple objects have been deleted
+										successfully.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_COMMON_OBJECT_PAGE_CANCEL</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Cancel</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Cancel button text on the object page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_OBJECT_CREATED</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Object created</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message toast text that is displayed after a user clicks the
+											<span class="ph uicontrol">Create</span> button on the object
+										page.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_OBJECT_SAVED</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Object saved</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Message toast text that is displayed after a user clicks the
+											<span class="ph uicontrol">Save</span> button on the object
+										page.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_DRAFT_DISCARD_MESSAGE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Discard all changes?</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><span class="ph uicontrol">Discard</span> button popover text on the
+										object page when there are unsaved changes and the user
+										clicks <span class="ph uicontrol">Cancel</span>.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_DRAFT_DISCARD_BUTTON</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Discard</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><span class="ph uicontrol">Discard</span> button text on the object page
+										when there are unsaved changes and the user clicks
+											<span class="ph uicontrol">Cancel</span>.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_COMMON_OBJECT_PAGE_DISCARD_DRAFT</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Discard Draft</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><span class="ph uicontrol">Discard</span> button text on the object page
+										when there are unsaved changes.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_TABLE_AND_CHART_NO_DATA_TEXT</code></p>
+									<p>(deprecated key:
+											<code>T_OP_TABLE_AND_CHART_NO_DATA_TEXT</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>To start, set the relevant filters and choose "Go".</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown on a table and chart when they are loaded
+										but no search has been triggered yet.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_TABLE_AND_CHART_NO_DATA_TEXT_WITH_FILTER</code></p>
+									<p>(deprecated key:
+											<code>T_OP_TABLE_AND_CHART_NO_DATA_TEXT_WITH_FILTER</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>No data found. Try adjusting the search or filter
+										parameters.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown on a table and chart when a search is
+										triggered but no data could be found with the current filter
+										settings.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_TABLE_AND_CHART_NO_DATA_TEXT_MULTI_VIEW</code></p>
+									<p>(deprecated key:
+											<code>M_OP_TABLE_AND_CHART_NO_DATA_TEXT_WITH_FILTER_MULTI_VIEW</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>There are no items for the selected filter criteria and
+										view.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown in case of multi-view scenarios when no
+										data is found for the current view.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications can overwrite the default text with a more
+									suitable text for their specific use case.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_TABLE_AND_CHART_NO_FILTERS_NO_DATA_TEXT</code></p>
+									<p>(deprecated key:
+											<code>M_OP_TABLE_AND_CHART_OP_NO_FILTERS_NO_DATA_TEXT</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>No items available.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown on an object page or a subobject page when
+										no filters are applied and no data is found.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications can overwrite the default text with a more
+									suitable text for their specific use case.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_ROUTING_NAVIGATION_DISABLED_TITLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Navigation is currently not possible.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown when the navigation cannot be completed
+										successfully.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_ANNOTATION_HELPER_DEFAULT_HEADER_TITLE_NO_HEADER_INFO</code></p>
+									<p>(deprecated key:
+											<code>T_ANNOTATION_HELPER_DEFAULT_OBJECT_PAGE_HEADER_TITLE_NO_HEADER_INFO</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Unnamed Object</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The object page title can be linked to an editable field.
+										When a user edits the object page and clears the value of
+										this field, then the page title is set from the text that
+										corresponds to this key.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications can overwrite the default text with the concrete
+									object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_DRAFT_OBJECT_PAGE_DRAFT_UNSAVED_CHANGES</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Another user edited this object without saving the changes:
+										{0}</p>
+									<p>If you start editing, those changes will be lost.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown in the confirmation dialog box when a user
+										clicks the <span class="ph uicontrol">Edit</span> button on an object
+										page that has unsaved changes made by another user. ({0}
+										refers to the user name.)</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_DRAFT_OBJECT_PAGE_DRAFT_LOCKED_BY_USER</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>You can't edit this object at the moment.</p>
+									<p>It is locked by {0}.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown to indicate that the object is currently
+										locked and cannot be edited.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_ANNOTATION_HELPER_DEFAULT_OBJECT_PAGE_HEADER_TITLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>New</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The default text "New" is appended with
+											<code>UI.HeaderInfo.TypeName</code> to form the
+										default title displayed in the object page header.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_OP_OBJECT_PAGE_SAVE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Save</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Save button text on the object page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_OP_OBJECT_PAGE_CREATE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Create</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Create button text on the footer of the object page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_OP_RELATED_APPS</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Related Apps</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Drop-down menu for the list of related apps.</p>
+								</td>
+								<td colspan="1" rowspan="1">Restriction: you can change the key only to <span class="uinolabel">Open
+										In...</span></td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_NEW_OBJECT</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>New Object</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text that is shown when applications create a new object and
+											<code>UI.HeaderInfo.TypeName</code> is not found.
+										This text is also shown in list report tables for such
+										objects.</p>
+								</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the object with a more specific
+									name.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_PAGINATOR_CONTROL_PAGINATOR_TOOLTIP_UP</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Previous Item</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Tooltip text that is displayed when the focus is on the
+										"previous" paginator button on a subobject page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"Item" with the concrete object.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_PAGINATOR_CONTROL_PAGINATOR_TOOLTIP_DOWN</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Next Item</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Tooltip text that is displayed when the focus is on the
+										"next" paginator button on a subobject page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"Item" with the concrete object.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_PAGINATOR_ANNOUNCEMENT_TITLE_LOADED</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The "{0}" was loaded</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This text is used only be screen reader programs.</p>
+									<p>When a user uses the paginator button to navigate through a
+										list of sales order items, for example, the screen reader
+										informs the user about which specific object was loaded and
+										is now in focus.</p>
+									<p><code>Parameter: {0} = title defined for the
+											object</code></p>
+									<p>If no title is defined, we use the following key instead:</p>
+									<p>
+										<code>M_PAGINATOR_ANNOUNCEMENT_OBJECT_LOADED</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_PAGINATOR_TITLE_TOP</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>You've reached the top of the list</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>When a user uses the paginator button to navigate through a
+										list of sales order items, for example, the screen reader
+										informs the user with this text that they've reached the top
+										of the list. At the same time, the focus shifts from the
+										'Previous' paginator button to the 'Next' paginator
+										button.</p>
+									<p>The screen reader program reads the combined text obtained
+										from the
+											<code>M_PAGINATOR_ANNOUNCEMENT_TITLE_LOADED</code>
+										and <code>M_PAGINATOR_TITLE_TOP</code> keys.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_PAGINATOR_TITLE_BOTTOM</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>You've reached the end of the list</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>When a user uses the paginator button to navigate through a
+										list of sales order items, for example, the screen reader
+										informs the user with this text that they've reached the
+										bottom of the list. At the same time, the focus shifts from
+										the 'Next' paginator button to the 'Previous' paginator
+										button. </p>
+									<p>The screen reader program reads the combined text obtained
+										from the
+											<code>M_PAGINATOR_ANNOUNCEMENT_TITLE_LOADED</code>
+										and <code>M_PAGINATOR_TITLE_BOTTOM</code> keys.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_PAGINATOR_ANNOUNCEMENT_OBJECT_LOADED</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The object was loaded</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This text is used only by screen reader programs. When a user
+										uses the paginator button to navigate through a list of
+										sales order items, for example, the screen reader informs
+										the user that the object was loaded. This text is used when
+										no title is defined for the object.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"object" with the concrete object.</p>
+									<p>Example: <cite>The sales order was loaded.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>ST_DRAFT_DATALOSS_POPUP_MESSAGE_CREATE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>You haven't created this object yet.</p>
+									<p>What would you like to do?</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown in the confirmation dialog when a user has
+									created a new object in a draft-enabled application and triggers
+									a navigation.</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"object" with the concrete object.</p>
+									<p>Example: <cite>You haven't created this sales order
+											yet.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>ST_DRAFT_DATALOSS_CREATE_ENTITY_TOL</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Create the object.</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown below the <span class="ph uicontrol">Create</span>
+									option in the confirmation dialog.</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"object" with the concrete object.</p>
+									<p>Example: <cite>Create the sales order.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>ST_DRAFT_DATALOSS_POPUP_MESSAGE_SAVE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>You've made changes to this object.</p>
+									<p>What would you like to do?</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown in the confirmation dialog when a user has
+									edited an existing object in a draft-enabled application and
+									triggers a navigation.</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"object" with the concrete object.</p>
+									<p>Example: <cite>You've made changes to this sales
+											order.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>ST_DRAFT_DATALOSS_SAVE_DRAFT_TOL</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Apply changes to the saved version.</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown below the <span class="ph uicontrol">Save</span>
+									option in the confirmation dialog.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>FILTERBAR_EDITING_STATUS</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Editing Status</p>
+								</td>
+								<td colspan="1" rowspan="1">Label of the filter field that is automatically added to the
+									filter bar for draft-based services.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>ACTION_PARAMETER_DIALOG_ACTION_NAME</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+								</td><td colspan="1" rowspan="1">Label of the action name in the action parameter
+									dialog.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>ACTION_PARAMETER_DIALOG_ACTION_TITLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+								</td><td colspan="1" rowspan="1">Title of the action parameter dialog.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_OPERATIONS_ACTION_CONFIRM_TITLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+								</td><td colspan="1" rowspan="1">Title of the action confirmation dialog.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_MASS_EDIT_CONFIRM_MESSAGE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>{0} of {1} {3} can't be edited.</p>
+									<p>Edit the remaining {2} {3}?</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown within the warning message box when some
+									of the selected records in a mass edit scenario are not
+									editable. {0} is the count of objects that are not editable. {1}
+									is the total count of objects selected. {2} is the count of
+									objects that can be edited. {3} is the value from
+										<code>UI.HeaderInfo.TypeNamePlural</code>.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_MASS_EDIT_CONFIRM_MESSAGE_DETAIL_REASON</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Selected {0} are excluded if:</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown within warning message box when some of
+									the selected objects in a mass edit scenario are not editable.
+									{0} is the value from
+										<code>UI.HeaderInfo.TypeNamePlural</code>.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_MASS_EDIT_CONFIRM_MESSAGE_DETAIL_REASON_DRAFT</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Another user is working on the {0} (a draft exists or changes
+										haven't been saved).</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown within the warning message box when some
+									of the selected objects in a mass edit scenario are not
+									editable. {0} is the value from
+										<code>UI.HeaderInfo.TypeNamePlural</code>.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_MASS_EDIT_CONFIRM_MESSAGE_DETAIL_REASON_NON_EDITABLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Editing isn't allowed for the {0}.</p>
+								</td>
+								<td colspan="1" rowspan="1">Text that is shown within the warning message box when some
+									of the selected objects in a mass edit scenario are not
+									editable. {0} is the value from
+										<code>UI.HeaderInfo.TypeNamePlural</code>.</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_ALL_REMAINING_NON_DELETABLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The remaining objects have delete restrictions so they cannot
+										be deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">Text to indicate that none of the remaining objects can be
+									deleted. This text is usually appended to text from another key
+									that indicates why some of the selected records cannot be
+									deleted.</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete objects.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_ONLY_DRAFT_OF_NON_DELETABLE_ACTIVE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete associated draft?</p>
+								</td>
+								<td colspan="1" rowspan="1">Text to confirm with the user if the associated own draft of
+									the selected object should be deleted when the object is
+									non-deletable.</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_ONLY_DRAFTS_OF_NON_DELETABLE_ACTIVE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete associated drafts?</p>
+								</td>
+								<td colspan="1" rowspan="1">Text to confirm with the user if the associated own drafts of
+									the selected objects should be deleted when the objects are
+									non-deletable.</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete objects.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_DRAFT_OF_NON_DELETABLE_ACTIVE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Also delete own draft of the non-deletable object?</p>
+								</td>
+								<td colspan="1" rowspan="1">Text to confirm with the user if their own draft associated
+									with the selected objects should be deleted when all of the
+									selected objects are non-deletable.</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_DRAFTS_OF_NON_DELETABLE_ACTIVE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Also delete own drafts of the non-deletable objects?</p>
+								</td>
+								<td colspan="1" rowspan="1">Text to confirm with the user if the associated own draft of
+									the selected object should be deleted when there are many
+									objects from the selected objects that are non-deletable but
+									have their own draft.</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_SINGLE_AND_ONE_OBJECT_NON_DELETABLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The selected object has delete restrictions so it cannot be
+										deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">Text used when a single object (with own draft) is selected
+									and this object is not deletable.</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_TRANSACTION_HELPER_CONFIRM_DELETE_WITH_MULTIPLE_AND_ALL_OBJECT_NON_DELETABLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The selected objects have delete restrictions so they cannot
+										be deleted.</p>
+								</td>
+								<td colspan="1" rowspan="1">Text used when all selected objects are not deletable but at
+									least one of them has its own draft.</td>
+								<td colspan="1" rowspan="1">Applications should overwrite the default text with the
+									concrete object.</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>OBJECTPAGESTATE_ERROR</code></p>
+									<p>(deprecated key: <code>OBJECTPAGESTATE_ISSUE</code>)</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The object contains errors.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Error message text used in the message strip of an object
+										page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"object" with their concrete object.</p>
+									<p>Example: <cite>The sales order contains errors.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>OBJECTPAGESTATE_WARNING</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The object contains warnings. </p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Warning message text used in the message strip of an object
+										page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"object" with their concrete object.</p>
+									<p>Example: <cite>The sales order contains warnings.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>OBJECTPAGESTATE_INFORMATION</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>The object contains messages.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Information text used in the message strip of an object
+										page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text and replace
+										"object" with their concrete object.</p>
+									<p>Example: <cite>The sales order contains messages.</cite></p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>T_COMMON_OBJECT_PAGE_OBJECT_INFO</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Object Information</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Header in the form where the page title and page description
+										can be modified when in edit mode.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+							</td></tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_ILLUSTRATEDMESSAGE_TITLE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>No details available</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Title of the popup that is shown when no details (that is, no
+										quick view annotations) and no targets are found for a
+										semantic object.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications can choose to overwrite the default text with a
+										more specific one.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_ILLUSTRATEDMESSAGE_DESCRIPTION</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>This may happen if your access is restricted or the data is
+										incomplete.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Text used in the popup that is shown when no details (that
+										is, no quick view annotations) and no targets are found for
+										a semantic object.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications can choose to overwrite the default text with a
+										more specific one.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_COMMON_TABLE_CREATE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Create</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><span class="ph uicontrol">Create</span> button text in a table.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications can choose to overwrite the default text with a
+										more specific one for a certain table.</p>
+									<p>Example:
+											<code>M_COMMON_TABLE_CREATE|_Items=MyCustomCreateText</code>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_COMMON_TABLE_DELETE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><span class="ph uicontrol">Delete</span> button text in a table.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications can choose to overwrite the default text with a
+										more specific one for a certain table.</p>
+									<p>Example:
+											<code>M_COMMON_TABLE_DELETE|_Items=MyCustomDeleteText</code>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>C_COMMON_DELETE</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Delete</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p><span class="ph uicontrol">Delete</span> button text in an object
+										page.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications can choose to overwrite the default text with a
+										more specific one for an object page.</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1" rowspan="1">
+									<p><code>M_ROW_LEVEL_NAVIGATION_DISABLED_MSG_REASON_EXTERNAL_NAVIGATION_CONFIGURED</code></p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Direct navigation to the object details isn't possible from
+										this insights card.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Warning message text used in the preview dialog when creating
+										a card.</p>
+								</td>
+								<td colspan="1" rowspan="1">
+									<p>Applications should overwrite the default text with the
+										concrete object.</p>
+								</td>
+							</tr>
+						</tbody>
+					</table></div></div>
+			</section><section>
+				<h3 class="title ">Adding a New Resource in the Properties File</h3>
+				<p>Provide the new custom texts in this custom resource bundle with the same key as
+					the one used by SAP Fiori elements (from
+					the allowed list provided above). For example:</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>SAP Fiori elements default values (resource bundle of SAP Fiori elements):</p>
+							<p><code>C_OPERATIONS_ACTION_CONFIRM_MESSAGE=Confirm this action?</code></p>
+							<p><code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_PLURAL=Delete
+									the selected objects?</code></p>
+							<p><code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR=Delete
+									this object?</code></p>
+						</li>
+						<li class="li">
+							<p>Text values from <code>i18n/customSalesOrderLR.properties</code>
+								(custom resource bundle of the application):</p>
+							<p><code>C_OPERATIONS_ACTION_CONFIRM_MESSAGE|SalesOrderManage|ReturnInProcess=Confirm the
+									returns?</code></p>
+							<p><code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_PLURAL|SalesOrderManage=Delete
+									the selected Sales Orders?</code></p>
+							<p><code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR|SalesOrderManage=Delete
+									this Sales Order?</code></p>
+							<p>Since the application has defined new texts for the above-mentioned
+								resources, while triggering the confirmation action
+									<span class="ph uicontrol">Returns in Process</span>, we see the custom
+								text: "Can you please confirm if you really want to trigger the
+								returns?" instead of
+								"Are you sure that you want to execute this action?" in the action
+								parameter popup.</p>
+						</li>
+					</ul>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Manifest Changes</h3>
+				<p>Changes must be made in the <code>manifest.json</code> file of the application. Add
+						<code>enhanceI18n</code> to the <code>settings</code> of the
+					corresponding section as shown in the following code sample:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+					</p><section class="lang-json"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+   ...
+   ...
+   "targets": {
+    "SalesOrderManageList": {
+        "type": "Component",
+        "id": "SalesOrderManageList",
+        "name": "sap.fe.templates.ListReport",
+        "options": {
+            "settings": {
+                "contextPath": "/SalesOrderManage",
+                "enhanceI18n": "i18n/customSalesOrderLR.properties", // This is the line to be added - it provides Fiori Elements with the name of the custom resource bundle
+                ...
+                ...
+                ...
+            }
+        }
+    }
+   }
+   ...
+   ...
+}</pre></div></div></section>
+				<p></p></div></div>
+			</section><section>
+				<h3 class="title ">Format of Custom Keys</h3>
+				<p>For resources that are not shared across multiple entities or by multiple
+					controls (for example, you want the same OK text in all OK confirmation
+					popovers), don't append anything to the existing key.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><p><code>C_COMMON_DIALOG_OK=OK?</code> (resource bundle of SAP Fiori
+						elements)</p>
+					<p><code>C_COMMON_DIALOG_OK=Okie?</code> (custom resource bundle of the
+						application)</p>
+				<p></p></div></div>
+				<p>For resources that are shared across multiple entity sets, append the navigation
+					property name (for navigation entity sets) or the entity set name (in case of
+					main entity). For instance, you want different delete messages based on the
+					entity being deleted.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><p><code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR=Delete
+							this object?</code> (resource bundle of SAP Fiori elements) </p>
+					<p><code>C_TRANSACTION_HELPER_OBJECT_PAGE_CONFIRM_DELETE_WITH_OBJECTTITLE_SINGULAR|_Items=Delete
+							this Sales Order Item?</code> </p>
+				<p></p></div></div>
+				<p>For overriding actions that have parameters, some of the text in the action
+					parameter popovers can be overridden. Confirmation actions also get a
+					confirmation popover that has text that can be overridden. To override these
+					texts, the action name along with the entity set name has to be provided. This
+					is a mandatory piece of information, even if the application needs the custom
+					text for an action that is used in only 1 entity set. If the entity set name is
+					not appended, the resource bundle text from SAP Fiori elements is
+					used as a fallback.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>To override the text with a key from a navigation entity set, you must use
+						the navigation property name instead of the entity set name of the
+						navigation entity. In the above example, <code>_Items</code> is the
+						navigation property set name of the navigation entity
+						<code>Items</code>.</p>
+				<p></p></div></div>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><p><code>C_OPERATIONS_ACTION_CONFIRM_MESSAGE=Confirm this action?</code></p>
+					<p>(resource bundle of SAP Fiori elements -
+						this text is shown for all confirmation actions, irrespective of the action
+						name or the entity)</p>
+					<p><code>C_OPERATIONS_ACTION_CONFIRM_MESSAGE|SalesOrderManage|ReturnInProcess=Confirm
+							the returns?</code></p>
+				<p></p></div></div>
+				<p>In the preceding example, the developer wants to show the custom message only
+					when a user clicks the <code>ReturnsInProcess</code> action of the
+						<code>SalesOrderManage</code> entity set. For a second action in the
+					same entity set the last part of the key is different, since the action name is
+					different.</p>
+				<p>If the action name is the same but the entity differs, then the second part of
+					the key name above is different and SAP Fiori elements uses
+					the correct key based on the entity set to which the clicked action is
+					associated.</p>
+				<div class="note other example "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Example
+				</strong></div></div><div class="fig"><p>
+					</p><p><code>C_OPERATIONS_ACTION_CONFIRM_MESSAGE|_Items|ReturnInProcess=Confirm
+							the returns for the selected items?</code>
+					</p>
+				<p></p></div></div>
+			</section></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,7 @@
+/*
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define("sap/sac/df/utils/ApplicationHelper",["sap/base/Log","sap/sac/df/thirdparty/lodash","sap/sac/df/firefly/library"],function(e,t,s){"use strict";e.info("ApplicationHelper loaded");function i(){function e(e,t,i,a){var n=e.createSystem();n.setName(a.systemName);n.setTimeout(1e4);n.setAuthenticationType(s.AuthenticationType[a.authentication||"NONE"]);var o=s.SystemType[a.systemType];n.setSystemType(o);n.setProtocolType(s.ProtocolType[a.protocol]);n.setHost(a.host);n.setPort(a.port);if(i>0){n.setKeepAliveIntervalMs(i*1e3);n.setKeepAliveDelayMs(i*2*1e3)}e.setSystemByDescription(n);if(o===s.SystemType.BW){n.setSessionCarrierType(s.SessionCarrierType.SAP_CONTEXT_ID_HEADER);t.getConnectionPool().setMaximumSharedConnections(a.systemName,10)}}this.createApplication=function(i,a,n){var o=new Promise(function(e,t){s.ApplicationFactory.createApplicationForDragonfly(function(s){if(s.hasErrors()){t(s.getErrors())}else{e(s.getData())}})});return o.then(function(o){var r=o.getProcess().getKernel().getSubSystemContainer(s.SubSystemType.SYSTEM_LANDSCAPE);var p=r.getMainApi();o.setSystemLandscape(p);t.forEach(i,e.bind(null,p,o,n));p.setMasterSystemName(a);return o})}}return new i});
+//# sourceMappingURL=ApplicationHelper.js.map

@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["./PatternBase"],function(t){"use strict";var e=t.extend("sap.gantt.def.pattern.BackSlashPattern",{metadata:{library:"sap.gantt",properties:{path:{type:"string"},stroke:{type:"sap.gantt.ValueSVGPaintServer"},strokeWidth:{type:"int",defaultValue:2}}}});e.prototype.getPath=function(){var t=this.getTileWidth();var e=this.getTileHeight();var c="";c=c.concat("M").concat(t/4).concat(",").concat(e/4*5).concat(" ");c=c.concat("l-").concat(t/2).concat(",-").concat(e/2).concat(" ");c=c.concat("M0,0").concat(" ");c=c.concat("l").concat(t).concat(",").concat(e).concat(" ");c=c.concat("M").concat(t/4*5).concat(",").concat(e/4).concat(" ");c=c.concat("l-").concat(t/2).concat(",-").concat(e/2).concat(" ");return c};e.prototype.getDefString=function(t){var e=this.getId();return"<pattern class='pattern' id='"+(t?e.slice(0,e.indexOf("-__clone")):e)+"' patternUnits='userSpaceOnUse' x='0' y='0' width='"+this.getTileWidth()+"' height='"+this.getTileHeight()+"'><rect x='0' width='"+this.getTileWidth()+"' height='"+(this.getTileHeight()+4)+"' stroke-width='"+this.getStrokeWidth()+"' fill='"+this.getBackgroundColor()+"' fill-opacity='"+this.getBackgroundFillOpacity()+"'></rect><path d='"+this.getPath()+"' stroke='"+this.getStroke()+"' stroke-width='"+this.getStrokeWidth()+"'></path></pattern>"};return e},true);
+//# sourceMappingURL=BackSlashPattern.js.map

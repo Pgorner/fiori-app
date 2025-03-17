@@ -1,0 +1,8 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2016 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(function(){"use strict";var e={};e.msieversion=function(){var e=window.navigator.userAgent;var r=e.indexOf("MSIE ");var t=e.indexOf("Trident/");if(r>0){return parseInt(e.substring(r+5,e.indexOf(".",r)),10)}if(t>0){var n=e.indexOf("rv:");return parseInt(e.substring(n+3,e.indexOf(".",n)),10)}return false};e.parseUTFToString=function(e){var r=/\\u([\w]{4})/gi;var t=e.replace(r,function(e,r){return String.fromCharCode(parseInt(r,16))});t=unescape(t);return t};e.getDTRuleData=function(r,t){var n=r.getProperty(t);if(!n){return null}var u=r.getProperty(t+"/DecisionTable");if(!u){return n}n=jQuery.extend(true,{},n);u=jQuery.extend(true,{},u);n.DecisionTable=u;var i=e.getDTRuleColumnsData(r,t);if(i){n.DecisionTable.DecisionTableColumns=i}return n};e.getDTRuleColumnsData=function(e,r){var t=e.getProperty(r+"/DecisionTable/DecisionTableColumns");if(!t){return null}var n={results:[]};for(var u=0;u<t.length;u++){var i=e.getProperty("/"+t[u]);i=jQuery.extend(true,{},i);var s=e.getProperty("/"+t[u]+"/Condition");if(s){i.Condition=s}var a=e.getProperty("/"+t[u]+"/Result");if(a){i.Result=a}n.results.push(i)}return n};e.getDTRuleRowsData=function(e,r){var t=e.getProperty(r+"/DecisionTable/DecisionTableRows");if(!t){return null}var n={results:[]};for(var u=0;u<t.length;u++){var i=e.getProperty("/"+t[u]);i=jQuery.extend(true,{},i);var s=e.getProperty("/"+t[u]+"/Cells");if(!s){n.results.push(i);continue}var a={results:[]};for(var o=0;o<s.length;o++){var l=e.getProperty("/"+s[o]);a.results.push(l)}i.Cells=a;n.results.push(i)}return n};return e},true);
+//# sourceMappingURL=Utils.js.map

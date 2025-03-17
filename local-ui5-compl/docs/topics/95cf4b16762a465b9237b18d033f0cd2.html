@@ -1,0 +1,35 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio95cf4b16762a465b9237b18d033f0cd2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/creating-bindings-95cf4b1.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Creating Bindings</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Creating Bindings</h2></div><p>The OData V4 model offers the factory methods <code>bindList</code>,
+				<code>bindContext</code> and <code>bindProperty</code> for creating
+			bindings. Typically, these methods are not called directly in applications, but
+			indirectly by the following:</p><ul class="ul ">
+				<li class="li">
+					<p>Binding an SAPUI5 control through an API such as
+							<code>oForm.bindElement("{/SalesOrderList('0500000000')}");</code></p>
+					<p>This sample binds a form to a certain sales order so that form elements can
+						be bound to display or change single properties of the sales order.</p>
+					<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+						</p><p>Note that binding expressions can be complex so that they can take
+							additional properties to specify the binding further in addition to the
+							path: </p>
+						<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">oForm.bindElement({path : "/SalesOrderList('0500000000')", parameters : {$expand : "SO_2_SOITEM", ...}, events : {dataReceived : '.onDataEvents', ...}});</pre></div></div></section>
+						<p>This allows you, for instance, to specify <a href="topic/1ab4f62de6ab467096a2a98b363a1373" title="1ab4f62de6ab467096a2a98b363a1373.xml" class="sap-doc">OData V4 binding
+								parameters</a> such as <code>$expand</code> or attach to
+							OData V4 <a href="topic/1a010d3b92c34226a96f202ec27e9217" title="The OData V4 model supports certain events intended for applications, and others that are to be used for controls, as outlined in this section." class="sap-doc">Binding Events</a> such as
+								<code>dataReceived</code>.</p>
+					<p></p></div></div>
+					<p>For a complete example, see the <code>onSalesOrderSelect</code> method
+						(file: <code>Main.controller.js</code>) in
+							the <a href="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview" title="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview" class="sap-doc" alt="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview">SalesOrders sample</a> in the Demo Kit.</p>
+				</li>
+				<li class="li">
+					<p>Declaring a binding for a control property in an XML view such as the
+						following:</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Table items="{path : '/SalesOrderList', parameters : { $expand : 'SO_2_BP', $filter : 'BuyerName ge \'M\'', ...}, events : {dataReceived : '.onDataEvents', ... } }"&gt;</pre></div></div></section>
+					<p></p>
+					<p>For a complete example, see the <code>Main.view.xml</code> file in the
+							<a href="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview" title="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview" class="sap-doc" alt="sample/sap.ui.core.sample.odata.v4.SalesOrders/preview">SalesOrders sample</a> in the Demo Kit.</p>
+				</li>
+			</ul><p></p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

@@ -1,0 +1,153 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiofa0ca22de375490a84aa3375b617592f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/navigation-from-header-facet-title-fa0ca22.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Navigation from Header Facet Title</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Navigation from Header Facet Title</h2></div><div class="shortdesc">Applications can configure header facets so that end users can perform both in-page navigation and the navigation to an external
+		application.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>This topic is currently only applicable to SAP Fiori elements for OData
+                            V4.</p>
+		<p></p></div></div><section id="section_fvl_d5h_gnb">
+			<h2 class="title ">In-Page Navigation</h2>
+			<p>This allows end user to click on the title of the header facet and navigate to a section/sub section in the same page.</p>
+			<p>Users can navigate within a page from a data point or micro chart in the header to a section or a subsection. In-page navigation is
+				facilitated by rendering the title of the header item (data point or micro chart) as a link. To enable in-page navigation, you must
+				add the control configuration for the header item in the <code>manifest.json</code> file:</p>
+			<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+				</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage":{
+    "type": "Component",
+    "id": "SalesOrderManageObjectPage",
+    "name": "sap.fe.templates.ObjectPage",
+    "options":{
+        "settings":{
+            "controlConfiguration":{
+                "@com.sap.vocabularies.UI.v1.DataPoint#NetValue":{ // path to the header item
+                    "navigation":{
+                        "targetSections":{
+                            "sectionId": "SalesOrder::SalesOrderManageObjectPage--fe::FacetSection::HeaderInfo", // section ID
+                            "subSectionId": "SalesOrder::SalesOrderManageObjectPage--fe::FacetSubSection::SalesOrderHeaderPartner" // subsection ID
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre></div></div></section>
+			<p></p></div></div>
+			<p>You can provide either the section ID or the subsection ID in the control configuration. In-page navigation to a custom section is also
+				supported. If only the section ID is given, the user is shown the first subsection. The following controls support in-page
+					navigation:</p><ul class="ul ">
+					<li class="li">
+						<p>data point</p>
+					</li>
+					<li class="li">
+						<p>rating indicator</p>
+					</li>
+					<li class="li">
+						<p>progress indicator</p>
+					</li>
+					<li class="li">
+						<p>micro chart</p>
+					</li>
+				</ul><p></p>
+			<p>Given an incorrect configuration, the user is shown an error message indicating that the specified section could not be found.</p>
+		</section><section id="section_fjz_q1p_gnb"><h2 class="title ">External Navigation</h2><p>This allows end users to click on the title of the header facet and navigate
+				to an external application as configured by the app developer.</p><section>
+				<h3 class="title ">Enabling Navigation from a Data Point</h3>
+				<p>External navigation from the header data point can be achieved by configuring the <code>targetOutbound</code> in the
+					manifest.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Manifest changes for navigation in data point of OP
+					header</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage" : {
+    ....
+    ....
+    ....
+    "options": {
+        "settings": {
+            "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.DataPoint#NetValue": {
+                    "navigation": {
+                        "targetOutbound": {               
+                            "outbound": "ExternalNavigation"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div>
+				<p>The qualifier given in the <code>targetOutbound</code> must be used to reference the <code>outbound</code> in the
+					cross-navigation section – the external app you want to navigate to:</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Outbound
+					section</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"crossNavigation": {          
+    "outbounds": {   
+        "ExternalNavigation": {           
+            "semanticObject": "SalesOrder",   
+            "action": "display",   
+            "parameters": {              
+                "SoldToParty": {                                          
+                    "value": {                                                      
+                        "value": "CustomerName",                                              
+                        "format": "binding"                                  
+                    }                           
+                }                                 
+            }                     
+        }         
+    }
+}</pre></div></div></section><p></p></div></div>
+				<p>Semantic object mappings can be configured in the parameters section of the qualified outbound. In the example above, the value of
+					the <code>"CustomerName"</code> field in the navigation context is passed as <code>"SoldToParty"</code> to the target app.
+					When the app is launched with this configuration, the title of the data point is rendered as a link. Clicking on this link allows
+					users to navigate to a target application with a context that is a combination of the object page and the data point contexts.</p>
+			</section><section>
+				<h3 class="title ">Enabling Navigation from a Micro Chart</h3>
+				<p>External navigation from the micro chart can be achieved by specifying the chart in the <code>controlConfiguration</code> in
+					the manifest.</p>
+				<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Manifest changes for enabling navigation to micro
+					chart</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"SalesOrderManageObjectPage" : {
+    ....
+    ....
+    ....
+    "options": {
+        "settings": {
+            "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.Chart#CreditLimitDetails": {                                 
+                    "navigation": {
+                        "targetOutbound": {               
+                            "outbound": "ExternalNavigation"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre></div></div></section><p></p></div></div>
+				<p>Navigation is done via the x-app state, and the page context is merged with the chart context and passed to the external
+					navigation.</p>
+				<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><ul class="ul ">
+						<li class="li">
+							<p>For a 1:n based micro chart, more than 1 record can be displayed in the chart (a stacked bar micro chart, for example)
+								and each record has its own technical ID. So the chart context has multiple values for the technical IDs and all of
+								these are passed to the target app using the OR operator.</p>
+						</li>
+						<li class="li">
+							<p>If the external application is not configured correctly, or in case of missing authorization for the application, the
+								title of the micro chart header appears as text instead of as a link.</p>
+						</li>
+					</ul>
+				<p></p></div></div>
+			</section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+				</p><p>If both external navigation and in-page navigation are configured for a header data point, then external navigation wins.</p>
+				<p>Only a single target is supported for external navigation.</p>
+			<p></p></div></div></section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

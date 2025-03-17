@@ -1,0 +1,15 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){
+/*!
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	
+ */
+sap.ui.define(["../i18n"],function(e){"use strict";function r(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const s=r(e);class o extends Error{name;message;details;previous;solution;constructor(e){if(typeof e==="string"){e={message:e}}super(e.message);if(e.message){this.message=e.message}if(e.details){this.details=e.details}if(e.previous){this.previous=e.previous}this.name=e.name||"ESHUIError";this.solution=e.solution}}class t extends o{constructor(e){const r="ESHUIConstructionError";const o=s.getText("error.ESHUIConstructionError.message");super({name:r,message:o,previous:e})}}class n extends o{constructor(e,r,o){const t=s.getText("error.ConfigurationExitError.title");const n=s.getText("error.ConfigurationExitError.message",[e]);const a=s.getText("error.ConfigurationExitError.solution",[r]);super({name:t,message:n,solution:a,previous:o})}}class a extends o{constructor(e){const r="UnknownDataSourceType";const o=s.getText("error.UnknownDataSourceType.message");const t=s.getText("error.UnknownDataSourceType.solution");super({name:r,message:o,solution:t,previous:e})}}class c extends o{constructor(e){const r="UnknownFacetType";const o=s.getText("error.UnknownFacetType.message");const t=s.getText("error.UnknownFacetType.solution");super({name:r,message:o,solution:t,previous:e})}}class i extends o{constructor(e,r){const o="ProgramError";const t=s.getText("error.TypeError.solution");super({name:o,message:r||s.getText("error.TypeError.message"),solution:t,previous:e})}}class u extends o{constructor(e,r){const o="AppSearchError";const t=s.getText("error.AppSearchError.solution");super({name:o,message:r||s.getText("error.AppSearchError.message"),solution:t,previous:e})}}class g extends o{constructor(e){const r="AppSearchSearchTermExceedsLimitsError";super({name:r,message:s.getText("error.AppSearchSearchTermExceedsLimitsError.message",[e])})}}class m extends o{constructor(e,r){const o="RequestTooLargeError";const t=s.getText("error.RequestTooLargeError.solution");super({name:o,message:r||s.getText("error.RequestTooLargeError.message"),solution:t,previous:e})}}class p extends o{constructor(e,r){super({name:"UrlParseError",message:r||s.getText("error.UrlParseError.message"),solution:s.getText("error.UrlParseError.solution"),previous:e})}}class E extends o{constructor(e){super({name:"SearchTermExceedsLimitError",message:s.getText("error.SearchTermExceedsLimitError.message",[e])})}}const l={ESHUIConstructionError:t,ConfigurationExitError:n,UnknownDataSourceType:a,UnknownFacetType:c,ProgramError:i};l.ESHUIError=o;l.AppSearchError=u;l.AppSearchSearchTermExceedsLimitsError=g;l.RequestTooLargeError=m;l.UrlParseError=p;l.SearchTermExceedsLimitsError=E;return l})})();
+//# sourceMappingURL=errors.js.map

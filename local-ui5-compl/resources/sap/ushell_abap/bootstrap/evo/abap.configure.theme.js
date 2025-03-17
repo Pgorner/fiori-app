@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
+sap.ui.define([],function(){"use strict";function t(t){let e;const i=t?.startupConfig||{};const n=i.userProfile?.find(t=>t?.id==="THEME");const s=n?.value||i.theme||"sap_horizon";let o=i.themeRoot;if(!o&&i.client){o="/sap/public/bc/themes/~client-"+i.client}if(o&&!s.startsWith("sap_")){e={};e[s]=o.replace(/\/?$/,"/UI5/")}return{theme:s,themeRoots:e}}return t});
+//# sourceMappingURL=abap.configure.theme.js.map

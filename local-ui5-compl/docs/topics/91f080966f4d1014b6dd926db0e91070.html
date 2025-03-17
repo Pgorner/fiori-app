@@ -1,0 +1,91 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio91f080966f4d1014b6dd926db0e91070" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/cache-buster-for-sapui5-91f0809.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Cache Buster for SAPUI5</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Cache Buster for SAPUI5</h2></div><div class="shortdesc">A cache buster allows SAPUI5 to notify the browser to
+		refresh the resources only when the SAPUI5 resources have been
+		changed. As long as they are not changed, the resources can always be fetched from the
+		browser's cache.</div><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+			</p><p>SAPUI5 supports the
+				cache buster concept for Java and ABAP servers and for SAP Business Technology Platform. SAP HANA XS does
+					<span class="emphasis">not</span> support the cache buster concept.</p>
+		<p></p></div></div><p>When you want to cache your resources permanently, you simply need to change the URL in
+			the SAPUI5 bootstrap tag
+			from <code>resources/sap-ui-core.js</code> to
+				<code>resources/sap-ui-cachebuster/sap-ui-core.js</code>. </p><p>The cache buster mechanism allows to always put the SAPUI5 resources into the
+			browsers cache until a UI library or a web application has been changed. The default
+			behavior of the SAPUI5
+			resource handler is either to cache the resources for a specific amount of time or
+			alternatively in development mode it is using the <code>304/NOT MODIFIED</code>
+			mechanism to check the SAPUI5 resources for being up-to-date. Both mechanisms are not optimal in a final,
+			productive scenario - that is the reason for the implementation of the cache buster
+			mechanism. Applications, which want to use the cache buster mechanism, have to
+			explicitly decide to use it. </p><p>The cache buster mechanism is part of the resource servlet. In general, requests to
+			JavaScript resources can be handled via the cache buster mechanism. Typically this is
+			used for the initial request for the bootstrap JavaScript: </p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">  &lt;script type="text/javascript" 
+  	id="sap-ui-bootstrap"
+  	src="resources/sap-ui-cachebuster/sap-ui-core.js"
+  	data-sap-ui-libs="sap.ui.core,sap.m,sap.ui.table"
+	data-sap-ui-theme="sap_horizon"&gt;&lt;/script&gt;</pre></div></div></section><p>The bootstrap JavaScript will be included via the URL
+				<code>resources/sap-ui-cachebuster/sap-ui-core.js</code> instead of
+				<code>resources/sap-ui-core.js</code>. </p><section id="section_854964900D904B06AC93A9948B313E31">
+			<h2 class="title ">Mechanism</h2>
+			<p>The basic mechanism is implemented in the <code>ResourceServlet</code>. For the
+				request to the bootstrap JavaScript it now serves a JavaScript file with the
+				following content: </p>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">(function() {
+  var sTimeStamp = '~20120716-0201~';
+  var sScriptPath = 'sap\x2dui\x2dcore.js';
+  var aScriptTags = document.getElementsByTagName('script');
+  for (var i = 0; i &lt; aScriptTags.length; i++) {
+    if (aScriptTags[i].src) {
+      var iIdxCb = aScriptTags[i].src.indexOf('/sap-ui-cachebuster/');
+      if (iIdxCb &gt;= 0 && aScriptTags[i].src.substring(iIdxCb + '/sap-ui-cachebuster/'.length) == sScriptPath) {
+        var sBasePath = aScriptTags[i].src.substring(0, iIdxCb);
+        sBasePath += '/' + sTimeStamp + '/';
+        window["sap-ui-config"] = window["sap-ui-config"] || {};
+        window["sap-ui-config"].resourceRoots = window["sap-ui-config"].resourceRoots || {};
+        window["sap-ui-config"].resourceRoots[''] = sBasePath;
+        document.write('&lt;script type="text/javascript" src="' + sBasePath + sScriptPath + '"&gt;&lt;/script&gt;')
+        break;
+      }
+    }
+  }
+})();</pre></div></div></section>
+			<p>This script basically ensures that the global SAPUI5 configuration
+				variable (<code>window["sap-ui-config"]</code>) exists, without modifying any
+				existing values. It defines the resource root of SAPUI5 (the location
+				where SAPUI5 loads all
+				JavaScript modules, controls and control related resources from). Finally, another
+				script tag is added to the page that points to the real boostrap JavaScript. The new
+				resource root and the request path to the bootstrap JavaScript now contain a
+				timestamp. Additionally the cache headers of the responses now look like the
+				following: </p>
+			<section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">Date: Mon, 16 Jul 2012 05:17:54 GMT
+Expires: Sun, 14 Jul 2013 05:17:54 GMT
+Cache-Control: max-age=315360000, public</pre></div></div></section>
+			<p>By default all cache buster resources will be cached for one year. </p>
+		</section><section id="section_CE7E0979C4904BAB8D627BDBF74DC262">
+			<h2 class="title ">Request Flow</h2>
+			<p>When using the cache buster mechanism, the first request must never be cached because
+				it is being used to determine the timestamp / and to finally redirect to the correct
+				script. The following list explains the flow: </p>
+			<ul class="ul ">
+				<li class="li">
+					<p><code>resources/sap-ui-cachebuster/sap-ui-core.js</code> =&gt; NO_CACHE
+					</p>
+				</li>
+				<li class="li">
+					<p><code>resources/~201207160201~/sap-ui-core.js</code> =&gt;CACHE </p>
+				</li>
+			</ul>
+		</section><section id="section_EA1BCA523C48462CB21AC33F705872FA">
+			<h2 class="title ">Timestamp</h2>
+			<p>If you are interested in the timestamp of the cache buster, you can grab it with the
+				following request: </p>
+			<p><code>resources/sap-ui-cachebuster </code>
+			</p>
+			<p>The response is <code>text/plain</code> with such value:
+					<code>~20120716-0201~</code>
+			</p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

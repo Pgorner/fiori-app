@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField With FieldControl</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-animation-mode="none"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-language="en"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-log-level="0"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="mainView"
+				xmlns:mvc="sap.ui.core.mvc"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				height="100%">
+
+			<App>
+				<smartForm:SmartForm id="smartForm" editable="true" title="Smart Form">
+					<smartForm:Group>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="V4Optional" value="{V4Optional}" maxLength="4"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="V4Mandatory" value="{V4Mandatory}" maxLength="4"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="ReadOnly" value="{ReadOnly}" maxLength="4"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="NullableFalse" value="{NullableFalse}" maxLength="4"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="V2Optional" value="{V2Optional}" maxLength="4"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="V2Mandatory" value="{V2Mandatory}" maxLength="4"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="V2MandatoryV4Optional" value="{V2MandatoryV4Optional}" maxLength="4"/>
+						</smartForm:GroupElement>
+						<smartForm:GroupElement>
+							<smartField:SmartField id="V2OptionalV4Mandatory" value="{V2OptionalV4Mandatory}" maxLength="4"/>
+						</smartForm:GroupElement>
+					</smartForm:Group>
+				</smartForm:SmartForm>
+			</App>
+
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+						<Property Name="V4Optional"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="V4 Optional"
+								  MaxLength="6"
+								  Nullable="false"/>
+						<Property Name="ReadOnly"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="false"
+								  sap:label="ReadOnly"
+								  MaxLength="6"
+								  Nullable="false"/>
+						<Property Name="NullableFalse"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="NullableFalse"
+								  MaxLength="6"
+								  Nullable="false"/>
+						<Property Name="V4Mandatory"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="V4 Mandatory"
+								  MaxLength="6"
+								  Nullable="false"/>
+						<Property Name="V2Optional"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="V2 Optional"
+								  MaxLength="6"
+								  Nullable="false"
+								  sap:field-control="FeatureControlPropertyOptional"/>
+						<Property Name="V2Mandatory"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="V2 Mandatory"
+								  MaxLength="6"
+								  Nullable="false"
+								  sap:field-control="FeatureControlPropertyMandatory"/>
+						<Property Name="V2MandatoryV4Optional"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="V2MandatoryV4Optional"
+								  MaxLength="6"
+								  Nullable="false"
+								  sap:field-control="FeatureControlPropertyMandatory"
+								  />
+						<Property Name="V2OptionalV4Mandatory"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="V2OptionalV4Mandatory"
+								  MaxLength="6"
+								  Nullable="false"
+								  sap:field-control="FeatureControlPropertyOptional"
+								 />
+						<Property Name="FeatureControlPropertyOptional"
+								Type="Edm.Byte"
+								sap:label="UI Field Control"
+								sap:quickinfo="UI Field Control Byte (Should be defined centrally)"
+								sap:creatable="false"
+								sap:updatable="true"
+								sap:sortable="false"
+								sap:filterable="false"/>
+						<Property Name="FeatureControlPropertyMandatory"
+								Type="Edm.Byte"
+								sap:label="UI Field Control"
+								sap:quickinfo="UI Field Control Byte (Should be defined centrally)"
+								sap:creatable="false"
+								sap:updatable="true"
+								sap:sortable="false"
+								sap:filterable="false"/>
+					</EntityType>
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+					</EntityContainer>
+					<Annotations Target="EmployeesNamespace.Employee/V4Mandatory" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+							<Annotation Term="com.sap.vocabularies.Common.v1.FieldControl" EnumMember="com.sap.vocabularies.Common.v1.FieldControlType/Mandatory"/>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/V4Optional" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+							<Annotation Term="com.sap.vocabularies.Common.v1.FieldControl" EnumMember="com.sap.vocabularies.Common.v1.FieldControlType/Optional"/>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/V2MandatoryV4Optional" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+							<Annotation Term="com.sap.vocabularies.Common.v1.FieldControl" EnumMember="com.sap.vocabularies.Common.v1.FieldControlType/Optional"/>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/V2OptionalV4Mandatory" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+							<Annotation Term="com.sap.vocabularies.Common.v1.FieldControl" EnumMember="com.sap.vocabularies.Common.v1.FieldControlType/Mandatory"/>
+					</Annotations>
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+						"Department": "Purchasing",
+						"V4Optional": "А",
+						"Id": "0001",
+						"FeatureControlPropertyOptional": 3,
+						"FeatureControlPropertyMandatory": 7,
+						"ReadOnly": "B",
+						"NullableFalse": "H",
+						"V4Mandatory": "C",
+						"V2Optional": "D",
+						"V2Mandatory": "G",
+						"V2MandatoryV4Optional": "E",
+						"V2OptionalV4Mandatory": "F"
+					}
+				]
+		}}
+	</script>
+<script src="./FieldControl.js"></script>
+
+</head>
+
+<body class='sapUiBody'>
+<div id='content'></div>
+</body>
+</html>

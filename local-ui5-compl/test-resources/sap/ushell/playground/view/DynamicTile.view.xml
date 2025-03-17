@@ -1,0 +1,39 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:launchpad="sap.ushell.ui.launchpad"
+    controllerName="sap.ushell.playground.controller.DynamicTile">
+    <Page title="DynamicTile" class="sapUiStdPage sapUiContentPadding">
+        <Panel height="270px">
+            <launchpad:Section
+                id="playgroundSection"
+                showSection="true"
+                visible="true"
+                visualizations="{ path: '/visualizations', factory: '._visualizationFactory' }"
+            />
+        </Panel>
+        <form:SimpleForm editable="true" layout="ColumnLayout" title="Modify Tile">
+            <Button text="Reset Tile" press="._resetTile"/>
+            <Label text="Icon" />
+            <Select items="{/icons}" selectedKey="{/visualizations/0/icon}">
+                <core:Item key="{key}" text="{text}" />
+            </Select>
+            <Label text="DisplayFormat" />
+            <Select items="{/displayFormats}" selectedKey="{/visualizations/0/displayFormat}">
+                <core:Item key="{key}" text="{key}" />
+            </Select>
+            <Label text="SizeBehavior" />
+            <Select items="{/sizeBehaviorOptions}" selectedKey="{/currentSizeBehavior}" change="._updateSizeBehavior">
+                <core:Item key="{key}" text="{key}" />
+            </Select>
+            <Label text="Locales" />
+            <Select items="{/locales}" selectedKey="{/currentLocale}" change="._updateLocale">
+                <core:Item key="{key}" text="{key}" />
+            </Select>
+            <Label text="MockResponse" />
+            <TextArea value="{/mockResponse}" rows="10" change="._refreshTile" />
+        </form:SimpleForm>
+    </Page>
+</mvc:View>

@@ -1,0 +1,2011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+    <edmx:Include Alias="Communication" Namespace="com.sap.vocabularies.Communication.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+    <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="sap.capire.officesupplies.CatalogAdminService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Products" EntityType="sap.capire.officesupplies.CatalogAdminService.Products">
+          <NavigationPropertyBinding Path="currency" Target="Currencies"/>
+          <NavigationPropertyBinding Path="dimensionUnit" Target="LengthUnits"/>
+          <NavigationPropertyBinding Path="weightUnit" Target="MassUnits"/>
+          <NavigationPropertyBinding Path="relatedProduct" Target="Products"/>
+          <NavigationPropertyBinding Path="reviews" Target="Reviews"/>
+          <NavigationPropertyBinding Path="category" Target="Categories"/>
+          <NavigationPropertyBinding Path="supplier" Target="Suppliers"/>
+          <NavigationPropertyBinding Path="texts" Target="Products_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Products_texts"/>
+          <NavigationPropertyBinding Path="SiblingEntity" Target="Products"/>
+        </EntitySet>
+        <EntitySet Name="ProductImagePool" EntityType="sap.capire.officesupplies.CatalogAdminService.ProductImagePool"/>
+        <EntitySet Name="Categories" EntityType="sap.capire.officesupplies.CatalogAdminService.Categories">
+          <NavigationPropertyBinding Path="parent" Target="Categories"/>
+          <NavigationPropertyBinding Path="children" Target="Categories"/>
+          <NavigationPropertyBinding Path="texts" Target="Categories_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Categories_texts"/>
+        </EntitySet>
+        <EntitySet Name="Countries" EntityType="sap.capire.officesupplies.CatalogAdminService.Countries">
+          <NavigationPropertyBinding Path="texts" Target="Countries_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Countries_texts"/>
+        </EntitySet>
+        <EntitySet Name="Currencies" EntityType="sap.capire.officesupplies.CatalogAdminService.Currencies">
+          <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+        </EntitySet>
+        <EntitySet Name="LengthUnits" EntityType="sap.capire.officesupplies.CatalogAdminService.LengthUnits">
+          <NavigationPropertyBinding Path="texts" Target="LengthUnits_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="LengthUnits_texts"/>
+        </EntitySet>
+        <EntitySet Name="MassUnits" EntityType="sap.capire.officesupplies.CatalogAdminService.MassUnits">
+          <NavigationPropertyBinding Path="texts" Target="MassUnits_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="MassUnits_texts"/>
+        </EntitySet>
+        <EntitySet Name="Reviews" EntityType="sap.capire.officesupplies.CatalogAdminService.Reviews">
+          <NavigationPropertyBinding Path="product" Target="Products"/>
+        </EntitySet>
+        <EntitySet Name="Suppliers" EntityType="sap.capire.officesupplies.CatalogAdminService.Suppliers">
+          <NavigationPropertyBinding Path="country" Target="Countries"/>
+        </EntitySet>
+        <EntitySet Name="Products_texts" EntityType="sap.capire.officesupplies.CatalogAdminService.Products_texts"/>
+        <EntitySet Name="Categories_texts" EntityType="sap.capire.officesupplies.CatalogAdminService.Categories_texts"/>
+        <EntitySet Name="Countries_texts" EntityType="sap.capire.officesupplies.CatalogAdminService.Countries_texts"/>
+        <EntitySet Name="Currencies_texts" EntityType="sap.capire.officesupplies.CatalogAdminService.Currencies_texts"/>
+        <EntitySet Name="LengthUnits_texts" EntityType="sap.capire.officesupplies.CatalogAdminService.LengthUnits_texts"/>
+        <EntitySet Name="MassUnits_texts" EntityType="sap.capire.officesupplies.CatalogAdminService.MassUnits_texts"/>
+      </EntityContainer>
+      <EntityType Name="Products">
+        <Key>
+          <PropertyRef Name="ID"/>
+          <PropertyRef Name="IsActiveEntity"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="identifier" Type="Edm.String" MaxLength="100"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+        <Property Name="image" Type="Edm.String"/>
+        <Property Name="thumbnailImage" Type="Edm.String"/>
+        <Property Name="price" Type="Edm.Decimal" Scale="2" Precision="9"/>
+        <NavigationProperty Name="currency" Type="sap.capire.officesupplies.CatalogAdminService.Currencies"/>
+        <Property Name="currency_code" Type="Edm.String" MaxLength="3"/>
+        <Property Name="stock" Type="Edm.Int32"/>
+        <Property Name="length" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <Property Name="width" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <Property Name="height" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <Property Name="weight" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <NavigationProperty Name="dimensionUnit" Type="sap.capire.officesupplies.CatalogAdminService.LengthUnits"/>
+        <Property Name="dimensionUnit_code" Type="Edm.String" MaxLength="100"/>
+        <NavigationProperty Name="weightUnit" Type="sap.capire.officesupplies.CatalogAdminService.MassUnits"/>
+        <Property Name="weightUnit_code" Type="Edm.String" MaxLength="100"/>
+        <Property Name="rating" Type="Edm.Decimal" Scale="1" Precision="2"/>
+        <NavigationProperty Name="relatedProduct" Type="sap.capire.officesupplies.CatalogAdminService.Products"/>
+        <Property Name="relatedProduct_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="reviews" Type="Collection(sap.capire.officesupplies.CatalogAdminService.Reviews)" Partner="product">
+          <ReferentialConstraint Property="ID" ReferencedProperty="product_ID"/>
+        </NavigationProperty>
+        <Property Name="isPreferred" Type="Edm.Boolean" DefaultValue="false"/>
+        <NavigationProperty Name="category" Type="sap.capire.officesupplies.CatalogAdminService.Categories" Nullable="false">
+          <ReferentialConstraint Property="category_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="category_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="supplier" Type="sap.capire.officesupplies.CatalogAdminService.Suppliers">
+          <ReferentialConstraint Property="supplier_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="supplier_ID" Type="Edm.Guid"/>
+        <Property Name="isDraft" Type="Edm.Boolean" DefaultValue="false"/>
+        <Property Name="identifierFieldControl" Type="Edm.Int32" DefaultValue="7"/>
+        <NavigationProperty Name="texts" Type="Collection(sap.capire.officesupplies.CatalogAdminService.Products_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="sap.capire.officesupplies.CatalogAdminService.Products_texts">
+          <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+        <NavigationProperty Name="SiblingEntity" Type="sap.capire.officesupplies.CatalogAdminService.Products"/>
+      </EntityType>
+      <EntityType Name="ProductImagePool">
+        <Key>
+          <PropertyRef Name="image"/>
+        </Key>
+        <Property Name="image" Type="Edm.String" Nullable="false"/>
+        <Property Name="preview" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Categories">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="identifier" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+        <Property Name="image" Type="Edm.String"/>
+        <Property Name="thumbnailImage" Type="Edm.String"/>
+        <NavigationProperty Name="parent" Type="sap.capire.officesupplies.CatalogAdminService.Categories" Partner="children"/>
+        <Property Name="parent_ID" Type="Edm.Guid"/>
+        <NavigationProperty Name="children" Type="Collection(sap.capire.officesupplies.CatalogAdminService.Categories)" Partner="parent">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="texts" Type="Collection(sap.capire.officesupplies.CatalogAdminService.Categories_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="sap.capire.officesupplies.CatalogAdminService.Categories_texts">
+          <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Countries">
+        <Key>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+        <NavigationProperty Name="texts" Type="Collection(sap.capire.officesupplies.CatalogAdminService.Countries_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="sap.capire.officesupplies.CatalogAdminService.Countries_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Currencies">
+        <Key>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+        <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+        <Property Name="minorUnit" Type="Edm.Int16"/>
+        <NavigationProperty Name="texts" Type="Collection(sap.capire.officesupplies.CatalogAdminService.Currencies_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="sap.capire.officesupplies.CatalogAdminService.Currencies_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Users">
+        <Key>
+          <PropertyRef Name="user"/>
+        </Key>
+        <Property Name="user" Type="Edm.String" MaxLength="255" Nullable="false"/>
+        <Property Name="firstName" Type="Edm.String"/>
+        <Property Name="lastName" Type="Edm.String"/>
+        <Property Name="fullName" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="LengthUnits">
+        <Key>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <NavigationProperty Name="texts" Type="Collection(sap.capire.officesupplies.CatalogAdminService.LengthUnits_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="sap.capire.officesupplies.CatalogAdminService.LengthUnits_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="MassUnits">
+        <Key>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <NavigationProperty Name="texts" Type="Collection(sap.capire.officesupplies.CatalogAdminService.MassUnits_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="sap.capire.officesupplies.CatalogAdminService.MassUnits_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Reviews">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="date" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="rating" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="title" Type="Edm.String"/>
+        <Property Name="text" Type="Edm.String"/>
+        <NavigationProperty Name="user" Type="sap.capire.officesupplies.CatalogAdminService.Users" ContainsTarget="true">
+          <ReferentialConstraint Property="user_ID" ReferencedProperty="user"/>
+        </NavigationProperty>
+        <NavigationProperty Name="product" Type="sap.capire.officesupplies.CatalogAdminService.Products" Nullable="false" Partner="reviews"/>
+        <Property Name="product_ID" Type="Edm.Guid" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Suppliers">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="identifier" Type="Edm.String" MaxLength="100" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="address" Type="Edm.String"/>
+        <Property Name="street" Type="Edm.String"/>
+        <Property Name="building" Type="Edm.String"/>
+        <Property Name="postCode" Type="Edm.String"/>
+        <Property Name="city" Type="Edm.String"/>
+        <NavigationProperty Name="country" Type="sap.capire.officesupplies.CatalogAdminService.Countries"/>
+        <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+        <Property Name="phone" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Products_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Categories_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="name" Type="Edm.String"/>
+        <Property Name="description" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="Countries_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="Currencies_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="LengthUnits_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="100" Nullable="false"/>
+      </EntityType>
+      <EntityType Name="MassUnits_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="code"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+        <Property Name="code" Type="Edm.String" MaxLength="100" Nullable="false"/>
+      </EntityType>
+      <Action Name="setImage" IsBound="true">
+        <Parameter Name="_it" Type="sap.capire.officesupplies.CatalogAdminService.Products"/>
+        <Parameter Name="image" Type="Edm.String" Nullable="false"/>
+      </Action>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products">
+        <Annotation Term="UI.PresentationVariant">
+          <Record Type="UI.PresentationVariantType">
+            <PropertyValue Property="Text" String="Default"/>
+            <PropertyValue Property="SortOrder">
+              <Collection>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Visualizations">
+              <Collection>
+                <AnnotationPath>@UI.LineItem</AnnotationPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="identifier"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>category_ID</PropertyPath>
+            <PropertyPath>supplier_ID</PropertyPath>
+            <PropertyPath>isPreferred</PropertyPath>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="thumbnailImage"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="5%" />
+								</Record>
+							</Annotation>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="identifier"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="30%" />
+								</Record>
+							</Annotation>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="category_ID"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="20%" />
+								</Record>
+							</Annotation>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Target" AnnotationPath="supplier/@Communication.Contact"/>
+              <PropertyValue Property="Label" String="Supplier"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="20%" />
+								</Record>
+							</Annotation>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#rating"/>
+              <PropertyValue Property="Label" String="Star Ratings"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="price"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.HeaderFacets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#HeaderGeneralInformation"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#stock"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#price"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#rating"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.CollectionFacet">
+              <PropertyValue Property="Label" String="General Information"/>
+              <PropertyValue Property="ID" String="GeneralInformation"/>
+              <PropertyValue Property="Facets">
+                <Collection>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Label" String="Basic Data"/>
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneralInformation"/>
+                  </Record>
+                  <Record Type="UI.ReferenceFacet">
+                    <PropertyValue Property="Label" String="Technical Data"/>
+                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#TechnicalData"/>
+                  </Record>
+                </Collection>
+              </PropertyValue>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Reviews"/>
+              <PropertyValue Property="Target" AnnotationPath="reviews/@UI.LineItem"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="HeaderGeneralInformation">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="category_ID"/>
+                </Record>
+                <Record Type="UI.DataFieldForAnnotation">
+                  <PropertyValue Property="Target" AnnotationPath="supplier/@Communication.Contact"/>
+                  <PropertyValue Property="Label" String="Supplier"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="GeneralInformation">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Label" String="General Information"/>
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="identifier"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="name"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="description"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="isPreferred"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="category_ID"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="supplier_ID"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="price"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="TechnicalData">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Label" String="Technical Data"/>
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="length"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="width"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="height"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="weight"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.DataPoint" Qualifier="stock">
+          <Record Type="UI.DataPointType">
+            <PropertyValue Property="Value" Path="stock"/>
+            <PropertyValue Property="Title" String="Stock Quantity"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.DataPoint" Qualifier="price">
+          <Record Type="UI.DataPointType">
+            <PropertyValue Property="Value" Path="price"/>
+            <PropertyValue Property="Title" String="Price"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.DataPoint" Qualifier="rating">
+          <Record Type="UI.DataPointType">
+            <PropertyValue Property="Value" Path="rating"/>
+            <PropertyValue Property="Title" String="Star Ratings"/>
+            <PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Rating"/>
+            <PropertyValue Property="MinimumValue" Decimal="0"/>
+            <PropertyValue Property="MaximumValue" Decimal="5"/>
+            <PropertyValue Property="TargetValue" Int="5"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Product"/>
+            <PropertyValue Property="TypeNamePlural" String="Products"/>
+            <PropertyValue Property="ImageUrl" Path="thumbnailImage"/>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://product"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="identifier"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Images">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Label" String="Image"/>
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="thumbnailImage"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="image"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="dimensionUnit">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>dimensionUnit_code</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>dimensionUnit</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="weightUnit">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>weightUnit_code</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>weightUnit</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="category">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>category_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>category</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="currency">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>currency_code</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>currency</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="supplier">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>supplier_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>supplier</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SemanticKey">
+          <Collection>
+            <PropertyPath>identifier</PropertyPath>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Product"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/Products">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.PresentationVariant">
+          <Record Type="UI.PresentationVariantType">
+            <PropertyValue Property="Text" String="Default"/>
+            <PropertyValue Property="SortOrder">
+              <Collection>
+                <Record Type="Common.SortOrderType">
+                  <PropertyValue Property="Property" PropertyPath="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="Visualizations">
+              <Collection>
+                <AnnotationPath>@UI.LineItem</AnnotationPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="dimensionUnit">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>dimensionUnit_code</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>dimensionUnit</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="weightUnit">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>weightUnit_code</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>weightUnit</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="category">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>category_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>category</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="currency">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>currency_code</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>currency</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="supplier">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>supplier_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>supplier</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.FilterRestrictions">
+          <Record Type="Capabilities.FilterRestrictionsType">
+            <PropertyValue Property="NonFilterableProperties">
+              <Collection>
+                <PropertyPath>isAssignSupplierActive</PropertyPath>
+                <PropertyPath>isDraft</PropertyPath>
+                <PropertyPath>identifierFieldControl</PropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/ID">
+        <Annotation Term="Common.Text" Path="identifier">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="ID"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/identifier">
+        <Annotation Term="Common.FieldControl" Path="identifierFieldControl"/>
+        <Annotation Term="Common.Label" String="Product"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/description">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.MultiLineText" Bool="true"/>
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/image">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.IsImageURL" Bool="true"/>
+        <Annotation Term="Common.Label" String="Image"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/thumbnailImage">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.IsImageURL" Bool="true"/>
+        <Annotation Term="Common.Label" String="Preview Image"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/price">
+        <Annotation Term="Measures.ISOCurrency" Path="currency_code"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Validation.Minimum" Int="0"/>
+        <Annotation Term="Common.Label" String="Price"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/currency">
+        <Annotation Term="Common.Label" String="Currency"/>
+        <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/currency_code">
+        <Annotation Term="Common.Text" Path="currency/name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst"/>
+        </Annotation>
+        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Currencies"/>
+            <PropertyValue Property="Label" String="Currency"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="currency_code"/>
+                  <PropertyValue Property="ValueListProperty" String="code"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Currency"/>
+        <Annotation Term="Core.Description" String="Currency code as specified by ISO 4217"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/stock">
+        <Annotation Term="Validation.Minimum" Int="0"/>
+        <Annotation Term="Common.Label" String="Stock Quantity"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/length">
+        <Annotation Term="Measures.Unit" Path="dimensionUnit_code"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Validation.Minimum" Int="0"/>
+        <Annotation Term="Common.Label" String="Length"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/width">
+        <Annotation Term="Measures.Unit" Path="dimensionUnit_code"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Validation.Minimum" Int="0"/>
+        <Annotation Term="Common.Label" String="Width"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/height">
+        <Annotation Term="Measures.Unit" Path="dimensionUnit_code"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Validation.Minimum" Int="0"/>
+        <Annotation Term="Common.Label" String="Height"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/weight">
+        <Annotation Term="Measures.Unit" Path="weightUnit_code"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Validation.Minimum" Int="0"/>
+        <Annotation Term="Common.Label" String="Weight"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/dimensionUnit">
+        <Annotation Term="Common.Label" String="Unit of Length"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/dimensionUnit_code">
+        <Annotation Term="Common.Text" Path="dimensionUnit/name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="LengthUnits"/>
+            <PropertyValue Property="Label" String="Unit of Length"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="dimensionUnit_code"/>
+                  <PropertyValue Property="ValueListProperty" String="code"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="descr"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit of Length"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/weightUnit">
+        <Annotation Term="Common.Label" String="Unit of Mass"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/weightUnit_code">
+        <Annotation Term="Common.Text" Path="weightUnit/name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="MassUnits"/>
+            <PropertyValue Property="Label" String="Unit of Mass"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="weightUnit_code"/>
+                  <PropertyValue Property="ValueListProperty" String="code"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="descr"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit of Mass"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/rating">
+        <Annotation Term="Common.Label" String="Star Ratings"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/relatedProduct">
+        <Annotation Term="Common.Label" String="Related Product"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/relatedProduct_ID">
+        <Annotation Term="Common.Text" Path="relatedProduct/identifier">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="Related Product"/>
+            <PropertyValue Property="CollectionPath" String="Products"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="relatedProduct_ID"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="price"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Related Product"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/reviews">
+        <Annotation Term="Common.Label" String="Reviews"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/isPreferred">
+        <Annotation Term="Common.Label" String="Preferred Product"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/category">
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/category_ID">
+        <Annotation Term="Common.Text" Path="category/name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Categories"/>
+            <PropertyValue Property="Label" String="Category"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="category_ID"/>
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/supplier">
+        <Annotation Term="Common.Label" String="Supplier"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/supplier_ID">
+        <Annotation Term="Common.Text" Path="supplier/name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="Supplier"/>
+            <PropertyValue Property="CollectionPath" String="Suppliers"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="supplier_ID"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="address"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Supplier"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/isDraft">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/identifierFieldControl">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.setImage(sap.capire.officesupplies.CatalogAdminService.Products)">
+        <Annotation Term="Core.OperationAvailable" Path="_it/isDraft"/>
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetProperties">
+              <Collection>
+                <String>_it/image</String>
+                <String>_it/thumbnailImage</String>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.setImage(sap.capire.officesupplies.CatalogAdminService.Products)/image">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.ValueListMapping">
+          <Record Type="Common.ValueListMappingType">
+            <PropertyValue Property="Label" String="Image"/>
+            <PropertyValue Property="CollectionPath" String="ProductImagePool"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="ValueListProperty" String="image"/>
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="image"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Image"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.ProductImagePool">
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Image"/>
+            <PropertyValue Property="TypeNamePlural" String="Images"/>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://camera"/>
+            <PropertyValue Property="ImageUrl" Path="imageUrl"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="image"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="image"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Image"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/ProductImagePool">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.ProductImagePool/image">
+        <Annotation Term="Common.Label" String="Image"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.ProductImagePool/preview">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Common.Label" String="Preview"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories">
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ID"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Category"/>
+            <PropertyValue Property="TypeNamePlural" String="Categories"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="description"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://folder-blank"/>
+            <PropertyValue Property="ImageUrl" Path="thumbnailImage"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="Images">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Label" String="Image"/>
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="thumbnailImage"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="image"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="parent">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>parent_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>parent</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SemanticKey">
+          <Collection>
+            <PropertyPath>identifier</PropertyPath>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/Categories">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="parent">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>parent_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>parent</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/ID">
+        <Annotation Term="Common.Text" Path="identifier">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Category"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/identifier">
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.Label" String="Category"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/description">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.MultiLineText" Bool="true"/>
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/image">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.IsImageURL" Bool="true"/>
+        <Annotation Term="Common.Label" String="Image"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/thumbnailImage">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.IsImageURL" Bool="true"/>
+        <Annotation Term="Common.Label" String="Preview Image"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/parent">
+        <Annotation Term="Common.Label" String="Parent Category"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/parent_ID">
+        <Annotation Term="Common.Text" Path="parent/name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Categories"/>
+            <PropertyValue Property="Label" String="Parent Category"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="parent_ID"/>
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Parent Category"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories/children">
+        <Annotation Term="UI.Hidden" Bool="true"/>
+        <Annotation Term="Common.Label" String="Child Categories"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries">
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Country"/>
+            <PropertyValue Property="TypeNamePlural" String="Countries"/>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://flag"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="code"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="code"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Country"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/Countries">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Country/Region Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies">
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Currency"/>
+            <PropertyValue Property="TypeNamePlural" String="Currencies"/>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://lead"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="code"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="code"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="symbol"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Currency"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/Currencies">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Currency Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies/symbol">
+        <Annotation Term="Common.Label" String="Symbol"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies/minorUnit">
+        <Annotation Term="Common.Label" String="Currency Minor Unit Fractions"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Users">
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="fullName"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="User"/>
+            <PropertyValue Property="TypeNamePlural" String="Users"/>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://user-placeholder"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="fullName"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Communication.Contact">
+          <Record Type="Communication.ContactType">
+            <PropertyValue Property="fn" Path="fullName"/>
+            <PropertyValue Property="n">
+              <Record Type="Communication.NameType">
+                <PropertyValue Property="surname" Path="lastName"/>
+                <PropertyValue Property="given" Path="firstName"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="kind" EnumMember="Communication.KindType/individual"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="User"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Users/user">
+        <Annotation Term="Common.Label" String="User ID"/>
+        <Annotation Term="Core.Description" String="User's unique ID"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Users/firstName">
+        <Annotation Term="Common.Label" String="First Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Users/lastName">
+        <Annotation Term="Common.Label" String="Last Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Users/fullName">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits">
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Unit of Length"/>
+            <PropertyValue Property="TypeNamePlural" String="Units of Length"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="code"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://compare"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="descr"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="code"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="descr"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit of Length"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/LengthUnits">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits">
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Unit of Mass"/>
+            <PropertyValue Property="TypeNamePlural" String="Units of Mass"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="code"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://compare"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="descr"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="code"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="descr"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit of Mass"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/MassUnits">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews">
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Label" String="Star Rating"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#rating"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="10%" />
+								</Record>
+							</Annotation>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Label" String="User"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ReviewerAndDate"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="10%" />
+								</Record>
+							</Annotation>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="title"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="20%" />
+								</Record>
+							</Annotation>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="text"/>
+              <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Low"/>
+              <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
+								<Record>
+									<PropertyValue Property="width" String="60%" />
+								</Record>
+							</Annotation>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.DataPoint" Qualifier="rating">
+          <Record Type="UI.DataPointType">
+            <PropertyValue Property="Value" Path="rating"/>
+            <PropertyValue Property="Visualization" EnumMember="UI.VisualizationType/Rating"/>
+            <PropertyValue Property="MinimumValue" Decimal="0"/>
+            <PropertyValue Property="MaximumValue" Decimal="5"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.FieldGroup" Qualifier="ReviewerAndDate">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Label" String="User"/>
+                  <PropertyValue Property="Value" Path="user/fullName"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="date"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Review"/>
+            <PropertyValue Property="TypeNamePlural" String="Reviews"/>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://favorite"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="title"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="text"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="rating">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>rating</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetProperties">
+              <Collection>
+                <String>product/rating</String>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="product">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>product_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>product</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Review"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/Reviews">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="rating">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>rating</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetProperties">
+              <Collection>
+                <String>product/rating</String>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.SideEffects" Qualifier="product">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="SourceProperties">
+              <Collection>
+                <PropertyPath>product_ID</PropertyPath>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>product</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/ID">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="ID"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/user/user">
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="User's e-mail"/>
+        <Annotation Term="Common.Label" String="User"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/date">
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="Created On"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/rating">
+        <Annotation Term="Validation.Minimum" Int="0"/>
+        <Annotation Term="Validation.Maximum" Int="5"/>
+        <Annotation Term="Common.Label" String="Star Rating"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/title">
+        <Annotation Term="Common.Label" String="Title"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/text">
+        <Annotation Term="Common.Label" String="Text"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/user">
+        <Annotation Term="Common.Label" String="User"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/product">
+        <Annotation Term="Common.Label" String="Product"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Reviews/product_ID">
+        <Annotation Term="Common.Text" Path="product/name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Products"/>
+            <PropertyValue Property="Label" String="Product"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="product_ID"/>
+                  <PropertyValue Property="ValueListProperty" String="ID"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Product"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers">
+        <Annotation Term="Communication.Contact">
+          <Record Type="Communication.ContactType">
+            <PropertyValue Property="fn" Path="name"/>
+            <PropertyValue Property="kind" EnumMember="Communication.KindType/org"/>
+            <PropertyValue Property="tel">
+              <Collection>
+                <Record Type="Communication.PhoneNumberType">
+                  <PropertyValue Property="uri" Path="phone"/>
+                  <PropertyValue Property="type" EnumMember="Communication.PhoneType/preferred"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+            <PropertyValue Property="adr">
+              <Collection>
+                <Record Type="Communication.AddressType">
+                  <PropertyValue Property="building" Path="building"/>
+                  <PropertyValue Property="street" Path="street"/>
+                  <PropertyValue Property="locality" Path="city"/>
+                  <PropertyValue Property="code" Path="postCode"/>
+                  <PropertyValue Property="label" Path="address"/>
+                  <PropertyValue Property="type" EnumMember="Communication.ContactInformationType/preferred"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Supplier"/>
+            <PropertyValue Property="TypeNamePlural" String="Suppliers"/>
+            <PropertyValue Property="TypeImageUrl" String="sap-icon://supplier"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="identifier"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="name"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="identifier"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.SemanticKey">
+          <Collection>
+            <PropertyPath>identifier</PropertyPath>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Supplier"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.EntityContainer/Suppliers">
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record Type="Capabilities.DeleteRestrictionsType">
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record Type="Capabilities.UpdateRestrictionsType">
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record Type="Capabilities.InsertRestrictionsType">
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/ID">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Common.Text" Path="identifier">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Supplier"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/identifier">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+        <Annotation Term="Common.Label" String="Supplier"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/address">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Common.Label" String="Address"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/street">
+        <Annotation Term="Common.Label" String="Street"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/building">
+        <Annotation Term="Common.Label" String="Building"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/postCode">
+        <Annotation Term="Common.Label" String="Postal Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/city">
+        <Annotation Term="Common.Label" String="City"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/country">
+        <Annotation Term="Common.Label" String="Country"/>
+        <Annotation Term="Core.Description" String="Country/region code as specified by ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/country_code">
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="CollectionPath" String="Countries"/>
+            <PropertyValue Property="Label" String="Country"/>
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                  <PropertyValue Property="ValueListProperty" String="code"/>
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+        <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+        <Annotation Term="Common.Label" String="Country"/>
+        <Annotation Term="Core.Description" String="Country/region code as specified by ISO 3166-1"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Suppliers/phone">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Common.Label" String="Phone"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products_texts/locale">
+        <Annotation Term="Common.Label" String="Language Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products_texts/ID">
+        <Annotation Term="Common.Text" Path="identifier">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="ID"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products_texts/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Products_texts/description">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.MultiLineText" Bool="true"/>
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories_texts/locale">
+        <Annotation Term="Common.Label" String="Language Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories_texts/ID">
+        <Annotation Term="Common.Text" Path="identifier">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Category"/>
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories_texts/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Categories_texts/description">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.MultiLineText" Bool="true"/>
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries_texts/locale">
+        <Annotation Term="Common.Label" String="Language Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries_texts/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries_texts/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Countries_texts/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Country/Region Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies_texts/locale">
+        <Annotation Term="Common.Label" String="Language Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies_texts/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies_texts/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.Currencies_texts/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextFirst"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Currency Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits_texts/locale">
+        <Annotation Term="Common.Label" String="Language Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits_texts/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits_texts/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.LengthUnits_texts/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits_texts/locale">
+        <Annotation Term="Common.Label" String="Language Code"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits_texts/name">
+        <Annotation Term="Common.Label" String="Name"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits_texts/descr">
+        <Annotation Term="Common.Label" String="Description"/>
+      </Annotations>
+      <Annotations Target="sap.capire.officesupplies.CatalogAdminService.MassUnits_texts/code">
+        <Annotation Term="Common.Text" Path="name">
+          <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+        </Annotation>
+        <Annotation Term="Common.Label" String="Unit"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

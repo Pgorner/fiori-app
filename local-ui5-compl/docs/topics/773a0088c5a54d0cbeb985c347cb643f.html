@@ -1,0 +1,221 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio773a0088c5a54d0cbeb985c347cb643f" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-4-adding-a-scene-tree-773a008.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 4: Adding a Scene Tree</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 4: Adding a Scene Tree</h2></div><div class="shortdesc">In this step, you will be adding an <code>sap.ui.vk.SceneTree</code> control to
+        your 3D Viewer application.</div><p>The following <code>sap.ui.vk</code> controls are introduced in this step:</p><ul class="ul ">
+                <li class="li"><code>SceneTree</code> control</li>
+                <li class="li"><code>ViewStateManager</code> control</li>
+            </ul><p></p><p>We will use the <code>SceneTree</code> control to create a tree structure that
+            displays the hierarchy of the nodes for the loaded model. We will then use the
+                <code>ViewStateManager</code> control to link the Scene Tree with the model
+            loaded into the Viewport, so that we can visually associate a selection in the scene
+            with its corresponding node as displayed in the Scene Tree.</p><p>The content in this step builds on the code from <a href="topic/112d7b417e914a5a951abc6411d6f6c4" title="In this step, you will be creating a 3D Viewer application using the sap.ui.vk.Viewport control." class="sap-doc">Step 3: 3D Viewer Using the Viewport Control</a>, and code changes performed in this
+            step of the tutorial are done in relation to the files in <a href="topic/112d7b417e914a5a951abc6411d6f6c4" title="In this step, you will be creating a 3D Viewer application using the sap.ui.vk.Viewport control." class="sap-doc">Step 3: 3D Viewer Using the Viewport Control</a>.</p><section>
+            <h2 class="title ">Preview</h2>
+            <div><div class="fig"><img src="loioa0d2e26783dd440cbe0d8a6320d12ad1_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Viewer application with a Viewport and a Scene Tree</h2></span></div>
+        </section><section><h2 class="title ">Coding</h2><p>You can view and download all files at <a href="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.04" title="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.04" class="sap-doc" alt="entity/sap.ui.vk.tutorial.VIT/sample/sap.ui.vk.tutorial.VIT.04">3D Viewer - Step 4 - Add a Scene
+                    Tree</a>.</p><section>
+                <h3 class="title ">index.html</h3>
+                <p>Update the <code>index.html</code> file to reference the
+                        <code>viewportScenetree</code> namespace, which will be the namespace
+                    we'll use for the sample application in this step.</p>
+                <section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/&gt;
+    &lt;script id="sap-ui-bootstrap"
+        src="https://ui5.sap.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-compat-version="edge"
+        data-sap-ui-async="true"
+        data-sap-ui-libs="sap.ui.vk, sap.m"
+        data-sap-ui-resource-roots='{
+            <span class="emphasis">"viewportScenetree": "./"</span>
+        }'&gt;
+    &lt;/script&gt;
+    &lt;script&gt;
+    sap.ui.getCore().attachInit(function(){
+        new sap.m.Shell({
+            app: new sap.ui.core.ComponentContainer({
+                <span class="emphasis">name : "viewportScenetree"</span>
+            })
+        }).placeAt("content");
+    });
+    &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body id="content" class="sapUiBody"&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">Component.js</h3>
+                <p>Update the <code>Component.js</code> file to reference the namespace
+                    specified for this application.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/ui/core/UIComponent"
+], function (UIComponent) {
+    "use strict";
+
+    <span class="emphasis">return UIComponent.extend("viewportScenetree.Component",</span> {
+        metadata: {
+            manifest: "json"
+        },
+        init: function () {
+            // call the init function of the parent
+            UIComponent.prototype.init.apply(this, arguments);
+        }
+    });
+});</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">i18n.properties</h3>
+                <p>Update the page title to say "Viewport with Scene Tree".</p>
+                <section class="lang-prefs"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock"># Page Descriptor
+<span class="emphasis">pageTitle=Viewport with Scene Tree</span></pre></div></div></section>
+            </section><section>
+                <h3 class="title ">manifest.json</h3>
+                <p>Update the <code>manifest.json</code> file so that it references the correct
+                    files.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">{
+    "_version": "1.8.0",
+    "sap.app": {
+        <span class="emphasis">"id": "viewportScenetree",</span>
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "1.0.0"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        <span class="emphasis">"rootView": "viewportScenetree.view.App",</span>
+        "dependencies": {
+            "minUI5Version": "1.30",
+            "libs": {
+                "sap.m": {}
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    <span class="emphasis">"bundleName": "viewportScenetree.i18n.i18n"</span>
+                }
+            }
+        }
+    }
+}</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">App.view.xml</h3>
+                <p>To display the Scene Tree in your application, add the
+                        <code>&lt;vk:SceneTree&gt;</code> element. In the element's attribute's,
+                    specify the Scene Tree control's width and height on the screen, and give it an
+                    arbitrary identifier value.</p>
+                <section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View
+        <span class="emphasis">controllerName="viewportScenetree.controller.App"</span>
+        xmlns="sap.m"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:vk="sap.ui.vk"
+        xmlns:l="sap.ui.layout"
+        xmlns:f="sap.ui.layout.form"
+        xmlns:u="sap.ui.unified"
+        displayBlock="true"&gt;
+    <span class="emphasis">&lt;App id="viewportScenetree"&gt;</span>
+        &lt;Page
+                title="{i18n&gt;pageTitle}"&gt;
+            &lt;vk:Viewport
+                    id="viewport"
+                    width="100%"
+                    height="50%"/&gt;
+<span class="emphasis">            &lt;vk:SceneTree
+                    id="scenetree"/&gt;</span>
+        &lt;/Page&gt;
+    &lt;/App&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+            </section><section>
+                <h3 class="title ">App.controller.js</h3>
+                <p>For the most part, the code in the <code>App.controller.js</code> file will
+                    be the same as the content of the <code>App.controller.js</code> file for
+                    the application in <a href="topic/112d7b417e914a5a951abc6411d6f6c4" title="In this step, you will be creating a 3D Viewer application using the sap.ui.vk.Viewport control." class="sap-doc">Step 3: 3D Viewer Using the Viewport Control</a>. The
+                    highlighted sections in the following code block indicate the additions and
+                    changes made in the code to incorporate a Scene Tree in the 3D Viewer
+                    application.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+    "sap/base/Log",
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/vk/ContentResource",
+    "sap/ui/vk/ContentConnector"
+], function (Log, Controller, ContentResource, ContentConnector) {
+    "use strict";
+
+    var contentResource = new ContentResource({
+        source: "models/boxTestModel.vds",
+        sourceType: "vds4",
+        id: "abc123"
+    });
+    <span class="emphasis">return Controller.extend("viewportScenetree.controller.App",</span>{
+        onInit: function() {
+            var view = this.getView();
+            var sceneTree = view.byId("scenetree");
+            var contentConnector = new ContentConnector({
+                contentChangesFinished: function(event) {
+                    var failureReason = event.getParameter("failureReason");
+                    if (failureReason) {
+                        Log.error("Some of content resources cannot be loaded: " + failureReason);
+                } else {
+                       Log.info("Scene successfully loaded");
+                }
+            });
+            var viewStateManager = new ViewStateManager({
+                contentConnector: contentConnector
+            });
+            viewport.setViewStateManager(viewStateManager);
+            viewport.setContentConnector(contentConnector);
+            sceneTree.setViewStateManager(viewStateManager);
+            sceneTree.setContentConnector(contentConnector);
+            contentConnector.addContentResource(contentResource);
+        }
+    });
+});</pre></div></div></section>
+                <p>Let us look at the changes in more detail.</p>
+                <p>The following code line gets a reference to a new Scene Tree object.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var sceneTree = view.byId("scenetree");</pre></div></div></section>
+                <p>We create a new object called <code>viewStateManager</code> that gets the
+                    node hierarchy of the resource that's loaded into the scene and takes care of
+                    nodes 'states' for example visibility or selection states. Then, we associate
+                    newly created <code>viewStateManager</code> object with our Viewport and
+                        <code>sceneTree</code>. We also associate the Content Connector to the
+                        <code>viewStateManager</code> and <code>sceneTree</code> objects so
+                    they can get notified when content is changed.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">var viewStateManager = new ViewStateManager({
+    contentConnector: contentConnector
+});
+viewport.setViewStateManager(viewStateManager);
+viewport.setContentConnector(contentConnector);
+sceneTree.setViewStateManager(viewStateManager);
+sceneTree.setContentConnector(contentConnector);</pre></div></div></section>
+                <p>Finally, we load Content Resource in Content Connector to take care of notifying
+                    the <code>Viewport</code> and <code>SceneTree</code> when the model is
+                    loaded.</p>
+                <section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">contentConnector.addContentResource(contentResource);</pre></div></div></section>
+                <p>Now you can select box in Scene Tree and it will be selected in the Viewport. In
+                    the same way, if you click on the box in the Viewport and select it then this
+                    will select it in Scene Tree. You can change the visibility state of the box in
+                    the Scene Tree by clicking the eye icon; this hides or shows the box in
+                    Viewport. This means that <code>ViewStateManager</code> has been connected
+                    to both objects and keeps them synchorized.</p>
+            </section></section><section>
+            <h2 class="title ">API Reference</h2>
+            <ul class="ul ">
+                <li class="li"><a href="api/sap.ui.vk.SceneTree" title="api/sap.ui.vk.SceneTree" class="sap-doc" alt="api/sap.ui.vk.SceneTree"><code>sap.ui.vk.SceneTree</code></a></li>
+                <li class="li"><a href="api/sap.ui.vk.ViewStateManager" title="api/sap.ui.vk.ViewStateManager" class="sap-doc" alt="api/sap.ui.vk.ViewStateManager"><code>sap.ui.vk.ViewStateManager</code></a></li>
+            </ul>
+        </section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+        <li><a href="topic/ab7021546c72409d84eb97c6b1434e72" title="ab7021546c72409d84eb97c6b1434e72.xml" class="sap-doc">Scene Tree</a></li>
+    </ul></section></div></section></div></body></html>

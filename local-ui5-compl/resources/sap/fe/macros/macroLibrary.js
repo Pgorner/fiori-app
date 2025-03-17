@@ -1,0 +1,6 @@
+/*!
+ * SAP UI development toolkit for HTML5 (SAPUI5)
+ *      (c) Copyright 2009-2024 SAP SE. All rights reserved
+ */
+sap.ui.define(["sap/fe/macros/filterBar/DraftEditState","sap/fe/macros/filterBar/SemanticDateOperators","sap/fe/macros/form/FormElement.block","sap/fe/macros/notes/Notes.block","./fcl/FlexibleColumnLayoutActions.block","./filterBar/FilterBar.block","./form/Form.block","./form/FormContainer.block","./fpm/CustomFragment.block","./internal/ActionCommand.block","./internal/FilterField.block","./internal/HeaderDataPoint.block","./internal/InternalField.block","./microchart/MicroChart.block","./quickView/QuickViewHeaderOptions.block","./share/Share.block","./table/Table.block","./table/TreeTable.block","./valuehelp/ValueHelpFilterBar.block","./visualfilters/VisualFilter.block"],function(e,r,t,o,a,l,i,c,n,s,f,b,k,m,u,d,p,F,g,h){"use strict";const B=[s,n,b,l,f,a,i,c,t,k,m,u,d,p,F,g,h,o];function C(){for(const e of B){e.register()}}function D(){for(const e of B){e.unregister()}}e.addDraftEditStateOperator();r.addSemanticDateOperators();C();return{register:C,unregister:D}},false);
+//# sourceMappingURL=macroLibrary.js.map

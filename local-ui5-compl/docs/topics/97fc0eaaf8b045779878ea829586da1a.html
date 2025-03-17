@@ -1,0 +1,141 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio97fc0eaaf8b045779878ea829586da1a" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-7-view-management-97fc0ea.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 7: View Management</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 7: View Management</h2></div><div class="shortdesc">The <code>VariantManagement</code> control allows you to handle views and makes
+		it possible for the user to persist changes carried out on the UI and then later retrieve
+		these changes.</div><p>For the smart controls, changes that are persisted include definitions of the filter used
+			to query the results for the table and all changes done to the table with table
+			personalization, visibility of columns and so on. Since we want to provide stand-alone
+			examples that can run on a local Web server, we do not connect to a real server on which
+			the changes can be persisted so they can be retrieved later. Consequently, in our
+			examples, changes are only kept in the current user session.</p><section>
+			<h2 class="title ">Preview</h2>
+			<p>Initially, the UI looks as in the previous steps:</p>
+			<div><div class="fig"><img src="loio398466ecb0aa4178a87bc6730a1d1e61_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Initial UI Without Personalization</h2></span></div>
+			<p>We define filters in the <span class="ph uicontrol">Filters</span> dialog as shown in step 5 and
+				then select <span class="ph uicontrol">Save As</span> in the related dialog of the view
+				management:</p>
+			<div><div class="fig"><img src="loio551f52552111420e8d0f62501abefa97_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Specifying the Filter</h2></span></div>
+			<p>After that, the following dialog is shown:</p>
+			<div><div class="fig"><img src="loioa51c238874e343e68df92f378c9317e5_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Defining the View Name</h2></span></div>
+			<p>In this dialog, we specify the name under which this view is persisted, in our case
+					<kbd class="ph userinput">With Currency EUR</kbd>. With <span class="ph uicontrol">Set as
+					Default</span>, we can also specify whether this view is always used
+				initially when navigating to this particular UI (since in our example we only
+				persist within one browser session, this setting has no effect). With
+					<span class="ph uicontrol">Apply Automatically</span> we define that the query is fired
+				automatically. The idea behind <span class="ph uicontrol">Public</span> is that some popular
+				but perhaps fairly complicated query settings that are used by several users can be
+				automatically provided to all users. This <span class="ph uicontrol">Public</span> option only
+				has an effect when running on a real server and not on the mock server as in our
+				example. If you choose <span class="ph uicontrol">Public</span>, additional information
+				regarding this function is required.</p>
+			<p>We verify these settings now and return to our main UI:</p>
+			<div><div class="fig"><img src="loiode20dc14158f45278d6ab17baef53f5a_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">UI with Active View</h2></span></div>
+			<p>We notice that the <span class="ph uicontrol">Currency</span> field is available in the filter
+				bar and that we have already specified <span class="ph uicontrol">EUR</span> as the
+				currency.</p>
+			<p>Finally we now customize the table so that we do not see the
+					<code>ProductId</code> column anymore. To do that, we press the
+					<span class="ph uicontrol">Settings</span> icon in the upper right-hand corner of the table
+				and deselect <code>ProductId</code> in the dialog:</p>
+			<div><div class="fig"><img src="loiod07f29ce27f34206bf59f622dd32bd4b_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Remove <code>ProductId</code></h2></span></div>
+			<p>Returning to the main UI, we see that only the three columns required are now
+				shown:</p>
+			<div><div class="fig"><img src="loio1fd2e4c95ee74225901f55c286e7f355_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Personalized Table</h2></span></div>
+			<p>
+			</p><div><div class="fig"><span class="collapsible-icon sap-icon figcap title"><h2 class="title "></h2><h2 class="title "></h2></span></div>
+			<p>The <span class="ph uicontrol">*</span> right next to the <span class="ph uicontrol">Standard</span> view
+				indicates that a change has been made. We save this change by choosing the
+				down-arrow symbol and <span class="ph uicontrol">Save As</span> in the dialog, which takes us
+				to the following dialog as before:</p>
+			<div><div class="fig"><img src="loio5d8cf84d7d3f4828a7aa0497f9e02c0c_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Specifying the View Name</h2></span></div>
+			<p>Also, here we have the possibility to set this as default and to share the view. The
+				latter is similar to the view for the <code>SmartFilterBar</code> control. After
+				confirming the specified name, you return directly to the main UI.</p>
+			<div><div class="fig"><img src="loio7bbfc177fb4943a5942dc62866ae40cc_LowRes.png" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">View for the Filter Bar and View for the Table</h2></span></div>
+		</div></section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit at <a href="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.07" title="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.07" class="sap-doc" alt="entity/sap.ui.comp.tutorial.smartControls/sample/sap.ui.comp.tutorial.smartControls.07">Smart Controls - Step 7 - Variant
+						Management</a>.</p>
+			<p>Since the coding is essentially identical with step 5 and step 6, we do not make any
+				listing apart from the <code>view.xml</code> in which one property value has
+				been changed and <code>persistencyKeys</code> have been specified.</p>
+		</section><section>
+			<h2 class="title ">VariantManagement.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;mvc:View 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="sap.ui.demo.smartControls.VariantManagement"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"&gt;
+	&lt;smartFilterBar:SmartFilterBar 
+		id="smartFilterBar"
+		entitySet="Products"
+		persistencyKey="SmartFilterPKey"&gt;
+		&lt;smartFilterBar:controlConfiguration&gt;
+			&lt;smartFilterBar:ControlConfiguration
+				key="Category" 
+				visibleInAdvancedArea="true"
+				preventInitialDataFetchInValueHelpDialog="false"&gt;
+			&lt;/smartFilterBar:ControlConfiguration&gt;
+		&lt;/smartFilterBar:controlConfiguration&gt;
+	&lt;/smartFilterBar:SmartFilterBar&gt;
+	&lt;smartTable:SmartTable 
+		id="smartTable_ResponsiveTable"
+		smartFilterId="smartFilterBar" 
+		tableType="ResponsiveTable" 
+		editable="false"
+		entitySet="Products" 
+		useVariantManagement="true"
+		useTablePersonalisation="true" 
+		header="Products" 
+		showRowCount="true"
+		enableExport="false" 
+		enableAutoBinding="true"
+		persistencyKey="SmartTablePKey"&gt;
+	&lt;/smartTable:SmartTable&gt;
+&lt;/mvc:View&gt;</pre></div></div></section>
+		</section><section id="section_vwt_g1g_l3b">
+			<h2 class="title ">Component.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([
+        "sap/ui/core/UIComponent"
+], function(UIComponent) {
+    "use strict";
+    return UIComponent.extend("sap.ui.demo.smartControls.Component", {
+        metadata: {
+            manifest: "json"
+        },
+        init: function () {
+            UIComponent.prototype.init.apply(this, arguments);
+        },
+        destroy: function () {
+                UIComponent.prototype.destroy.apply(this, arguments);
+        }
+    });
+});</pre></div></div></section>
+		</section><section id="section_pmf_hln_ppb">
+			<h2 class="title ">index.html</h2>
+			<p>
+				</p><section class="lang-html"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="utf-8"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+	&lt;title&gt;Smart Controls Tutorial&lt;/title&gt;
+
+	&lt;script id="sap-ui-bootstrap"
+		src="../../../../../../../../../resources/sap-ui-core.js"
+		data-sap-ui-flexibility-services='[{"connector": "LocalStorageConnector"}]'
+		data-sap-ui-resource-roots='{
+			"sap.ui.demo.smartControls": "./"
+		}'
+		data-sap-ui-on-init="module:sap/ui/demo/smartControls/initMockServer"
+		data-sap-ui-compat-version="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-frame-options="trusted"&gt;
+	&lt;/script&gt;
+&lt;/head&gt;</pre></div></div></section>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/64bde9a8879d4f418e2849f7285dd757">Smart Controls Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/19531496ec144fa1bc4adab5bc08527c">Step 6: Table Personalization</a></div><div class="nextLink"><br><strong>Next: </strong><a href="topic/b1d4d261524b4a3da78547ed4283a082">Step 8: Page Variant Management</a></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/06a4c3ac1cf545a7b51864e7f3aa02da" title="The sap.ui.comp.smartvariants.SmartVariantManagement control provides access to the SAPUI5 flexibility back end for easy communication." class="sap-doc">Smart Variant Management</a></li>
+	</ul></section></div></section></div></body></html>

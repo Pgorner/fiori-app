@@ -1,0 +1,72 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio2ca583d6b9c24e4d8f189eada7c4b668" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/03_Get-Started/step-16-adding-the-date-formatter-2ca583d.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Step 16: Adding the Date Formatter</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Step 16: Adding the Date Formatter</h2></div><div class="shortdesc">Our formatter does its job, but it is not yet used. In this step we will use
+		it.</div><section>
+			<h2 class="title ">Preview</h2>
+			<div><div class="fig"><img src="loio9aa15b0691014bd287a5a5d874f6f064_LowRes.jpg" usemap="#"></div><span class="collapsible-icon sap-icon figcap title"><h2 class="title ">Date formatter in action</h2></span></div>
+		</section><section>
+			<h2 class="title ">Coding</h2>
+			<p>You can view and download all files in the <span class="ph uicontrol">Samples</span> in the Demo
+				Kit 
+				at <a href="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.16" title="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.16" class="sap-doc" alt="entity/sap.m.tutorial.testing/sample/sap.m.tutorial.testing.16">Testing - Step 16</a>.</p>
+		</section><section>
+			<h2 class="title ">webapp/view/Post.view.xml</h2>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">…
+&lt;IconTabBar id="iconTabBar"
+			expanded="{device&gt;/isNoPhone}"
+			class="sapUiResponsiveContentPadding"&gt;
+	&lt;items&gt;
+		&lt;IconTabFilter icon="sap-icon://hint" key="info"&gt;
+			&lt;form:SimpleForm&gt;
+				&lt;form:content&gt;
+					&lt;Label text="{i18n&gt;postDateLabel}"/&gt;
+					&lt;Text text="<span class="emphasis">{
+						path: 'Timestamp',
+						formatter: '.formatter.date'
+					}</span>"/&gt;
+					&lt;Label text="{i18n&gt;postDescriptionLabel}"/&gt;
+					&lt;Text text="{Description}"/&gt;
+				&lt;/form:content&gt;
+			&lt;/form:SimpleForm&gt;
+		&lt;/IconTabFilter&gt;
+		…
+	&lt;/items&gt;
+&lt;/IconTabBar&gt;
+…</pre></div></div></section>
+			<p>On the <span class="ph uicontrol">Info</span> tab we bind the date field to a format method
+					<code>.formatter.date</code> of the controller of the view. The leading
+					<code>.</code> indicates that the function is defined on the controller
+				instance.</p>
+		</section><section>
+			<h2 class="title ">webapp/model/formatter.js</h2>
+			<section class="lang-js"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">sap.ui.define([ <span class="emphasis">"sap/ui/demo/bulletinboard/model/DateFormatter"</span> ], function (<span class="emphasis">DateFormatter</span>) {
+	// ...
+	return {
+		// ...
+		numberUnit: function(sValue) {
+			// ...
+		}<span class="emphasis">,
+		date: function(date) {
+			return new DateFormatter({now: Date.now}).format(date);
+		}
+</span>
+	};
+});</pre></div></div></section>
+			<p>In the <code>formatter.js</code> file, create an instance of the previously
+				implemented <code>DateFormatter</code> and provide the necessary
+				dependencies.</p>
+			<p>Now run the app again to see that the formatter is applied on the post date of the
+				detail page.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+					</p><p>The files that create objects with dependencies should be kept simple. They
+						do not have multiple code paths caused by if-else statements or loops. To
+						test these components, just a few simple integration tests, or merely smoke
+						tests, are sufficient. We already know that the
+							<code>DateFormatter</code> does the job right for all the different
+						cases.</p>
+				<p></p></div></div><p></p>
+		</section><section id="section_ovt_b2t_qbb"><h2 class="title ">Summary</h2>You should now be familiar with the
+			major development paradigms and concepts of SAPUI5 and have created a
+			very simple first app. You are now ready to build a proper app based on what you've
+			learned.</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink"><br><strong>Parent topic: </strong><a href="topic/291c9121e6044ab381e0b51716f97f52">Testing Tutorial</a></div><div class="previousLink"><br><strong>Previous: </strong><a href="topic/bc4114a88e4d4ac1a0f53b2a7a92b226">Step 15: Writing a Short Date Formatter Using TDD</a></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

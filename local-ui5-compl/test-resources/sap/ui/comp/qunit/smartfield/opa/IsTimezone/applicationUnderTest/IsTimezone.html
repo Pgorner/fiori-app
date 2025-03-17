@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField With IsTimezone</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-animation-mode="none"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-language="en"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-log-level="0"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="mainView"
+				xmlns:core="sap.ui.core"
+				xmlns:mvc="sap.ui.core.mvc"
+				controllerName="mainView.controller"
+				xmlns="sap.m"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				height="100%">
+
+			<App>
+				<Page id="page" title="SmartField Snippet">
+					<smartForm:SmartForm id="smartForm" editable="true" title="Smart Form">
+					<smartForm:customData>
+							<core:CustomData key="defaultInputFieldDisplayBehaviour" value="descriptionAndId"/>
+							<core:CustomData key="defaultDropDownDisplayBehaviour" value="descriptionOnly"/>
+							<core:CustomData key="defaultTextInEditModeSource" value="ValueListNoValidation"/>
+							<core:CustomData key="dateFormatSettings" value="\{&quot;UTC&quot;:true,&quot;style&quot;:&quot;medium&quot;\}"/>
+				</smartForm:customData>
+						<smartForm:Group>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="Name" value="{Name}" textInEditModeSource="None" clientSideMandatoryCheck="false"  />
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="LastName" value="{LastName}" textInEditModeSource="ValueList" clientSideMandatoryCheck="false"  />
+							</smartForm:GroupElement>
+							<smartForm:GroupElement>
+								<smartField:SmartField id="Cbmx" value="{Cbmx}" textInEditModeSource="None"  />
+							</smartForm:GroupElement>
+						</smartForm:Group>
+					</smartForm:SmartForm>
+					<Text id="modelDump" renderWhitespace="true"/>
+				</Page>
+			</App>
+
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"
+						/>
+						<Property Name="Name"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Name"
+						/>
+						<Property Name="LastName"
+								  Type="Edm.String"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Last Name"
+						/>
+						<Property Name="Cbmx"
+								Type="Edm.String"
+								sap:creatable="false"
+								sap:updatable="true"
+								sap:label="ComboBox"
+								sap:value-list="fixed-values"
+						/>
+					</EntityType>
+
+					<EntityType Name="StringVHType" sap:content-version="1">
+						<Key>
+							<PropertyRef Name="KEY" />
+						</Key>
+						<Property Name="KEY" Type="Edm.String" sap:text="TXT" Nullable="false" MaxLength="20" sap:label="Key"/>
+						<Property Name="TXT" Type="Edm.String" sap:label="Desc"/>
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+						<EntitySet Name="StringVH"
+								   EntityType="EmployeesNamespace.StringVHType"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="false"
+								   sap:addressable="false"
+								   sap:content-version="1" />
+					</EntityContainer>
+
+					<Annotations Target="EmployeesNamespace.Employee/Name"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+							<Annotation Term="com.sap.vocabularies.Common.v1.IsTimezone"/>
+							<Annotation Term="Common.ValueListForValidation" String=""/>
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Name"/>
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.StringVHType/TXT"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation  Term="com.sap.vocabularies.Common.v1.IsTimezone"/>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/Cbmx"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+							<Annotation Term="com.sap.vocabularies.Common.v1.IsTimezone"/>
+							<Annotation Term="Common.ValueListForValidation" String=""/>
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="Cbmx"/>
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/LastName"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+							<Annotation Term="com.sap.vocabularies.Common.v1.IsTimezone"/>
+							<Annotation Term="Common.ValueListForValidation" String=""/>
+						<Annotation Term="com.sap.vocabularies.Common.v1.ValueList">
+							<Record>
+								<PropertyValue Property="Label" String="Types"/>
+								<PropertyValue Property="CollectionPath" String="StringVH"/>
+								<PropertyValue Property="SearchSupported" Bool="true"/>
+								<PropertyValue Property="Parameters">
+									<Collection>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut">
+											<PropertyValue Property="LocalDataProperty" PropertyPath="LastName"/>
+											<PropertyValue Property="ValueListProperty" String="TXT"/>
+										</Record>
+										<Record Type="com.sap.vocabularies.Common.v1.ValueListParameterDisplayOnly">
+											<PropertyValue Property="ValueListProperty" String="KEY"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+					</Annotations>
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+		{"d": {
+			"__count": "1",
+			"results": [
+					{
+						"__metadata": { "uri": "testService.Employees/Employees('0001')", "type": "EmployeesNamespace.Employee" },
+						"Department": "Purchasing",
+						"Name": "",
+						"LastName": "",
+						"Id": "0000",
+						"Cbmx": ""
+					}
+				]
+		}}
+	</script>
+	<script id="dataSectionVH" type="text/json">
+		{"d": {
+			"__count": "4",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0000')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "7",
+					"TXT": "Europe/Berlin"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0001')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "1",
+					"TXT": "Europe/Berlin"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0002')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "2",
+					"TXT": "Europe/Sofia"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0003')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "3",
+					"TXT": "Europe/Paris"
+				},
+				{
+					"__metadata": {
+						"uri": "testService.StringVH/StringVH('0004')",
+						"type": "MyNameSpace.StringVH"
+					},
+					"KEY": "4",
+					"TXT": "Asia/Tokyo"
+				}
+			]
+		}}
+	</script>
+<script src="./IsTimezone.js"></script>
+
+</head>
+
+<body class='sapUiBody'>
+<div id='content'></div>
+</body>
+</html>

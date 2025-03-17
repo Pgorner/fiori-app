@@ -1,0 +1,7 @@
+/*
+ * SAPUI5
+    (c) Copyright 2009-2021 SAP SE. All rights reserved
+  
+ */
+sap.ui.define("sap/sac/df/filter/delegate/FilterBarDelegate",["sap/ui/core/Element","sap/ui/mdc/FilterBarDelegate","sap/sac/df/filter/TypeMap","sap/ui/model/Filter","sap/sac/df/model/MemberFilter","sap/sac/df/thirdparty/lodash"],function(e,t,a,r,l,i){"use strict";var p=Object.assign({},t);p.apiVersion=2;p.fetchProperties=function(e){return Promise.resolve().then(()=>{var t=[];i.forEach(e._getMetaObject(),function(r){var l=r.MergedVariable?r.MergedVariable:r;const i=e._getFilterField(l.Name);let s=a.getFormatOptions(l.ValueType);let u="String";let n=l.ValueType.includes("Date");let o=l.SupportsValueHelp;if(i){n=i&&i._isDate();u=n&&l.SupportsMultipleValues?"String":i&&i._getValueType();o=i._supportsValueHelp()}var d={name:l.Name,key:l.Name,label:l.Description,propertyKey:l.Name,typeConfig:p.getTypeMap().getTypeConfig(u,s?s:null,null),dataType:p.getTypeMap().getDataTypeClassName(u),maxConditions:o?-1:1,group:r.Group?r.Group:"_basicSearch",groupLabel:e.getModel("i18n").getResourceBundle().getText(r.Group?r.Group:""),required:l.Mandatory,hasValueHelp:o,caseSensitive:false};t.push(d)});return t})};p.addItem=function(t,a){return Promise.resolve().then(function(){var r=e.getElementById(t.getFilterFieldId(a));if(!r){r=t.createFilterField(a);r.setParent(t);r.setModel(t._getMultiDimModel(),t._getMultiDimModelName());r._setupFilterFieldFromMetaPath()}return r})};p.getTypeMap=function(){return a};return p});
+//# sourceMappingURL=FilterBarDelegate.js.map

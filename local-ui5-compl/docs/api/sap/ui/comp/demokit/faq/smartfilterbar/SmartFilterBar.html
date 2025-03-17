@@ -1,0 +1,222 @@
+<div><details>
+  <summary><b>1. TypeAhead is not working. When I start typing, no http requests are sent.</b></summary>
+
+<p>Take a look at the <code>$metadata</code> document and make sure there are <code>ValueHelp</code> annotations for this field. The Target attribute must look like this: <code>{Namespace}.{EntityName}/{FieldName}</code>.</p>
+<p>Make sure that the namespace in the Target attribute is correct.</p>
+<p>Example of a <code>ValueHelp</code> annotation:</p>
+<pre class="codeblock prettyprint"><code>&lt;Annotations Target="FAP_VENDOR_LINE_ITEMS_SRV.Item/Creditor" xmlns="http://docs.oasis-open.org/odata/ns/edm"&gt;
+    &lt;Annotation Term="com.sap.vocabularies.Common.v1.ValueList"&gt;
+        &lt;Record&gt;
+            &lt;PropertyValue Property="CollectionPath" String="Vendors"/&gt;
+            &lt;PropertyValue Property="SearchSupported" Bool="true"/&gt;
+            &lt;PropertyValue Property="Parameters"&gt;
+                &lt;Collection&gt;
+                    &lt;Record Type="com.sap.vocabularies.Common.v1.ValueListParameterInOut"&gt;
+                        &lt;PropertyValue Property="LocalDataProperty" PropertyPath="Creditor"/&gt;
+                        &lt;PropertyValue Property="ValueListProperty" String="VendorID"/&gt;
+                    &lt;/Record&gt;
+                &lt;/Collection&gt;
+            &lt;/PropertyValue&gt;
+        &lt;/Record&gt;
+    &lt;/Annotation&gt;
+    &lt;/Annotations&gt;
+</code></pre>
+</details><details>
+  <summary><b>2. I have a field 'Entered on' that’s an <code>Input</code> field. It should be a <code>DatePicker</code>.</b></summary>
+
+<p>Take a look at the <code>$metadata</code> document and make sure that the property is of type <code>Edm.DateTime</code> and the property is annotated with <code>sap:display-format="Date"</code>.</p>
+</details><details>
+  <summary><b>3. I tried to set default values for a filter field in the control configuration in JavaScript. These default values don’t have any effect.</b></summary>
+
+<p>The <code>ControlConfiguration</code> and <code>GroupConfiguration</code> are intended to be used to add static configuration in an XML view.</p>
+<p>There are three properties that can be set dynamically:</p>
+<ul>
+<li><p><code>visible</code>,</p>
+</li>
+<li><p><code>label</code>,</p>
+</li>
+<li><p><code>visibleInAdvancedArea</code>.</p>
+</li>
+</ul>
+<p>All other properties and aggregations are not dynamic. This means they have to be set statically in the XML view, and not dynamically by JavaScript. Any changes made in the <code>ControlConfiguration</code> or <code>GroupConfiguration</code> after the initialise event has been fired do not have any effect.</p>
+<p>If you have to set values of a filter field dynamically in JavaScript, you can use the <code>setFilterData</code> API.</p>
+</details><details>
+  <summary><b>4. The value help dialog for a filter field contains a table with multiple columns. How can I change the order of these columns?</b></summary>
+
+<p>The order of the columns is specified in the OData <code>$metadata</code> document in the <code>ValueHelp</code> annotation.</p>
+<p>There is one column for each <code>ValueListParameterInOut</code> or <code>ValueListParameterOut</code> in the related annotation.</p>
+<p>The order of the columns is the same as the order of the <code>InOut/Out</code> parameters in the <code>$metadata</code> document. You can’t use configuration in the XML view to change this order. If you want to change the order, you can do it in the OData <code>$metadata</code> document.</p>
+</details><details>
+  <summary><b>5. I have added custom controls to the <code>SmartFilterBar</code>. If I save a view and load it again, the custom fields are initial. What do I have to do to enable custom fields for view management?</b></summary>
+
+<p>In general, custom fields cannot be handled automatically by the <code>SmartFilterBar</code> control. You have to implement this in the view’s controller. The <code>SmartFilterBar</code> offers the following events that can be used to enable custom fields for view management:</p>
+<ul>
+<li><code>beforeVariantSave</code> (deprecated),</li>
+<li><code>afterVariantLoad</code>,</li>
+<li><code>beforeVariantFetch</code>.</li>
+</ul>
+<p><code>BeforeVariantFetch</code> replaces the <code>beforeVariantSave</code> event since it is triggered at the same points in time. Contrary to <code>beforeVariantSave</code>, the <code>beforeVariantFetch</code> event is also called whenever the Filters dialog is opened. It allows you to restore the state of the custom filters in the Filters dialog once the Reset button has been pressed.</p>
+<p>You can use the <code>beforeVariantSave</code> event to update the model of the <code>SmartFilterBar</code> with the values from the custom fields. Every value within the model is stored as a view. The values of custom fields should be stored under the property <code>_CUSTOM, for example, oSmartFilter.setFilterData({_ CUSTOM :{field1:"abc", field2:"123"}});</code> .</p>
+<p>You can use the event <code>afterVariantLoad</code> to get the values from the model and use them to update the custom filter fields, for example:</p>
+<pre class="codeblock prettyprint"><code>oData = oSmartFilter.getFilterData();
+var oCustomFieldData = oData["_CUSTOM"];
+oCustomField1.setValue(oCustomFieldData.field1);
+</code></pre>
+<p>If both events are handled this way, custom fields are enabled for view management.</p>
+</details><details>
+  <summary><b>6. How can I set initial or default data in the <code>SmartFilterBar</code> control?</b></summary>
+
+<p>Static data can be set in the control using <code>ControlConfiguration</code> in the <code>view.xml</code>:</p>
+<pre class="codeblock prettyprint"><code>&lt;smartFilterBar:SmartFilterBar id="smartFilterBar" ...&gt;
+…
+&lt;smartFilterBar:controlConfiguration&gt;
+              &lt;smartFilterBar:ControlConfiguration key="CompanyCode" visible="true" index="3"…&gt;
+                     &lt;smartFilterBar:defaultFilterValues&gt;
+                            &lt;smartFilterBar:SelectOption low="0001"&gt;
+                            &lt;/smartFilterBar:SelectOption&gt;
+                     &lt;/smartFilterBar:defaultFilterValues&gt;
+              &lt;/smartFilterBar:ControlConfiguration&gt;
+</code></pre>
+</details><details>
+  <summary><b>7. How can I set dynamic data as initial or default data in the <code>SmartFilterBar</code> control, for example, for navigation parameters?</b></summary>
+
+<p>Dynamic data can be set as initial or default data in the control by registering to the <code>initialise</code> event and setting <code>JSON/JSONstring</code> using the <code>setFilterData</code> API in your <code>controller.js</code>.
+<strong>Note:</strong>  You should not to apply <code>setValue()</code> or <code>setTokens()</code> directly to the filter inputs as the filters are considered private and this will result in incorrect behavior.</p>
+<pre class="codeblock prettyprint"><code>…
+onInitSmartFilter: function(oEvent) { //Assuming that this is the eventhandler registered for the "initialise" event of the SmartFilterBar control in your view.xml
+              var    oSmartFilter = oView.byId("smartFilterBar");
+              var oTodaysDate = new Date();
+              //Sample Data
+              var oJSONData = {
+                           Company: {
+                                  items: [ //MultiInput fields with filter-restriction="multi-value" (Ex: shown as Tokens based on control type)
+                                         {
+                                            key:"0001",
+                                            text:"SAP SE" //Display text on the token --&gt; not used for filtering!
+                                   },
+                                   {
+                                      key:"0002",
+                                      text:"SAP XYZ"
+                                  }
+                                   ]
+                           },
+                           SomeDate: { //DateRange field with filter-restriction="interval"
+                                  low: oTodaysDate, //Date fields require JavaScript Date objects!
+                                  high: oTodaysDate
+                           },
+                           YearInterval: {
+                                  low: "2000-2014" //simple input field with filter-restriction="interval" --&gt; text separated by a single "-"
+                           },
+                           Ledger:"0L" //Single-value field --&gt; Plain input
+              };
+              oSmartFilter.setFilterData(oJSONData); //Data will be updated with existing data in the SmartFilter
+       },
+…
+</code></pre>
+</details><details>
+  <summary><b>8. How does the <code>SmartFilterBar</code> determine if a filter has a value assigned to it?</b></summary>
+
+<p>The <code>SmartFilterBar</code> control handles the checks whether values are set for the OData-service-based filters, but has only a limited capability to do the same for custom fields. For checks like this, the custom field provider has to provide a Boolean value (<code>true/false</code>) as an indicator whether a value for the custom field exists via the custom data extension <code>hasValue</code>. If the custom data does not exist, the <code>SmartFilterBar</code> control analyzes if the custom control has either the method <code>getValue</code> or <code>getSelectedKey</code> and by using those tries to determine whether the value exists.</p>
+<p><strong>Note:</strong> The method-based check is not very reliable, since, for example, <code>MultiComboBox</code> provides both methods mentioned, but the actual value is accessed via <code>getSelectedKeys</code>. It is strongly recommended to use the custom data extension for such scenarios. The <code>SmartFilterBar</code> control can only react to an onChange event. Therefore, the application has to set the <code>hasValue</code> custom data while handling the <code>onChange</code> event.</p>
+</details><details>
+  <summary><b>9. I would like to use the <code>SmartFilterBar</code> control in an analytical scenario, for example, use it in combination with <code>SmartChart</code> or an analytical table. What do I have to bear in mind?</b></summary>
+
+<p>Analytical binding does not support filtering using <code>navigationProperties</code>. However, <code>SmartFilterBar</code> creates a group for each filterable property based on the navigation property of the bound <code>entitySet</code> and assigns filters to it. If you would like to prevent these filters from being created, since they cannot be used in an analytical scenario, set the property <code>useProvidedNavigationProperties</code> to <code>true</code> while leaving the provided list of navigation properties empty (property <code>navigationProperties</code> is not defined or has an empty value).</p>
+<p>If you would like the <code>SmartFilterBar</code> control to create filters only for some of the navigation properties, set <code>useProvidedNavigationProperties</code> to <code>true</code> and list the navigation properties for the filters you require in <code>navigationProperties</code>, for example, <code>navigationProperties=”to_CompanyCode”</code> takes only this specific <code>NavigationProperty</code> into account. In addition, in order to provide more precise filtering you can list separate filters from the <code>NavigationProperty</code>. For example, <code>navigationProperties="to_CompanyCode/CompanyCodeName, to_CompanyCode/CompanyCodeDescription"</code>.</p>
+</details><details>
+  <summary><b>10. Why does the <code>initialise</code> event of <code>SmartTable</code> not get fired in my scenario?</b></summary>
+
+<p>The <code>SmartTable</code> control fires the <code>initialise</code> event just once after it has completed analyzing the metadata and has initialised its inner state for the first time. Therefore, using <code>attachInitialise</code> does not help. However, the <code>isInitialised</code> method can be used in such scenarios.</p>
+<p>You can also use the following code sample to handle scenarios where you need to trigger some function after this control has been initialized. It should work in scenarios where the event has already been fired:</p>
+<pre class="codeblock prettyprint"><code>if (oSmartControl.isInitialised()){
+  runSomeCodeAfterInit();
+} else {
+  oSmartControl.attachInitialise(runSomeCodeAfterInit);
+}
+</code></pre>
+</details><details>
+  <summary><b>11. How does the <code>SmartFilterBar</code> control determine if a filter has a value?</b></summary>
+
+<p>The <code>SmartFilterBar</code> control handles the checks whether any values are set for the OData-service-based filters, but has only a limited capability to do the same for custom fields. For checks like this, the custom field provider has to provide a Boolean value (<code>true/false</code>) as an indicator whether a value for the custom field exists using the custom data extension <code>hasValue</code>. If there is no custom data, the <code>SmartFilterBar</code> control analyzes if the custom control has either the method <code>getValue</code> or <code>getSelectedKey</code> and, by using those, tries to determine whether any value exists.</p>
+<p>Once <code>hasValue</code> has been set, the custom extension calls the <code>fireFilterChange</code> method of the <code>FilterBar</code> control (no parameters required for this method) to indicate that the count of assigned values has to be recalculated.
+For more information, see <a href="topic/2ae520a67c44495ab5dbc69668c47a7f.html">Filter Bar</a> and <a href="topic/06a4c3ac1cf545a7b51864e7f3aa02da.html">Smart Variant Management</a>.</p>
+</details><details>
+  <summary><b>12. How do I set default operator for date range and single date controls?</b></summary>
+
+<pre class="codeblock prettyprint"><code>In case useDateRangeType="true"
+
+&lt;smartFilterBar:ControlConfiguration key="BUDAT" visibleInAdvancedArea="true"
+
+                                          conditionType="{
+
+                                                                  defaultOperation: 'TODAY'}"&gt;
+
+&lt;/smartFilterBar:ControlConfiguration&gt;
+
+Or when you set the type of the controls with conditionType
+
+&lt;smartFilterBar:ControlConfiguration key="BUDAT" visibleInAdvancedArea="true"
+
+                                          conditionType="{
+
+                                                                  module: 'sap.ui.comp.config.condition.DateRangeType',
+
+                                                                  defaultOperation: 'TODAY'}"&gt;
+
+&lt;/smartFilterBar:ControlConfiguration&gt;
+</code></pre>
+<p>With these configurations, the controls will be loaded with the semantic date “Today”.</p>
+</details><details>
+  <summary><b>13. Does this method of setting a default operator work for all types of operators?</b></summary>
+
+<p>  No, it’s not applicable for operators that need a parameter, for example 'Next X Days' where X is the required parameter.
+  </p></details><p></p><details>
+  <summary><b>14. Can I use semantic dates in single date filters?</b></summary>
+
+<p>  Yes, as of version 1.98, <code>SmartFilterBar</code> uses <code>sap.m.DynamicDateRange</code>. Before this version, the single date filters <code>Edm.Date.Time</code> with <code>sap:display-format= "Date"</code> and <code>Edm.String</code> used <code>sap.m.Input</code> and <code>sap.m.DatePicker</code>.</p>
+<p>Example:</p>
+<ul>
+<li><p><code>Edm.DateTime</code> and <code>sap:display-format= "Date"</code> <code>sap:filter-restriction="single-value"</code> and <code>controlConfiguration conditionType DateRangeType</code> (&lt;smartFilterBar:ControlConfiguration key=" CREATION_DATE" conditionType="sap.ui.comp.config.condition.DateRangeType"&gt;).</p>
+</li>
+<li><p><code>Edm.DateTime</code> and <code>sap:display-format= "Date" sap:filter-restriction="single-value"</code> and setting on <code>SmartFilterBar</code> level <code>useDateRangeType="true"</code>  (&lt;smartFilterBar:SmartFilterBar id="smartFilterBar"  entitySet="LineItemsSet" useDateRangeType="true"&gt;).</p>
+</li>
+<li><p><code>Edm.String</code> and <code>sap:filter-restriction="single-value"</code>  annotated with <annotation term="com.sap.vocabularies.Common.v1.IsCalendarDate" bool="true"> and setting on <code>SmartFilterBar</code> level <code>useDateRangeType="true"</code>.</annotation></p>
+</li></ul></details><details>
+  <summary><b>15. How I can set custom tooltip on FilterField label or control?</b></summary>
+
+<p>  You can set Label's tooltip by utilizing <code>setLabelTooltip</code> of the FilterItem:</p>
+<pre class="codeblock prettyprint"><code class="language-javascript">oSmartFilterBar.determineFilterItemByName("FieldName").setLabelTooltip("Label Tooltip");
+</code></pre>
+<p>You can set Control's tooltip by utilizing <code>setControlTooltip</code> of the FilterItem:</p>
+<pre class="codeblock prettyprint"><code class="language-javascript">oSmartFilterBar.determineFilterItemByName("FieldName").setControlTooltip("Control Tooltip");
+</code></pre>
+</details></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

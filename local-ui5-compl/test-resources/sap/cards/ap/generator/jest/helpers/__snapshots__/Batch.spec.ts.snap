@@ -1,0 +1,794 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check the expand query parameters generated for card manifest updateManifestWithExpandQueryParams: Check generated expand query for card header and card content when configuration parameter does not exist 1`] = `
+{
+  "_version": "1.15.0",
+  "sap.card": {
+    "configuration": {
+      "destinations": {},
+      "parameters": {
+        "_contentExpandQuery": {
+          "value": "&$expand=to_Currency,to_BillingStatus,to_LifecycleStatus",
+        },
+        "_headerExpandQuery": {
+          "value": "&$expand=to_Currency",
+        },
+      },
+    },
+    "content": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "groups": [
+        {
+          "items": [
+            {
+              "label": "Confirmation",
+              "name": "to_BillingStatus",
+              "value": "{to_BillingStatus/Status_Text}",
+            },
+            {
+              "label": "Lower Value",
+              "name": "to_LifecycleStatus",
+              "value": "{to_LifecycleStatus/Status}",
+            },
+            {
+              "label": "Long Text",
+              "name": "to_Currency",
+              "value": "{to_Currency/Currency_Code_Text}",
+            },
+            {
+              "label": "Net Amount",
+              "name": "net_amount",
+              "value": "{net_amount} {currency_code}",
+            },
+          ],
+          "title": "Group 1",
+        },
+      ],
+    },
+    "data": {
+      "request": {
+        "batch": {
+          "content": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._contentSelectQuery}}{{parameters._contentExpandQuery}}",
+          },
+          "header": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "retryAfter": 30,
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._headerSelectQuery}}{{parameters._headerExpandQuery}}",
+          },
+        },
+        "headers": {
+          "X-CSRF-Token": "{{csrfTokens.token1}}",
+        },
+        "method": "POST",
+        "url": "{{destinations.service}}/sap/opu/odata/sap/salesorder/$batch",
+      },
+    },
+    "extension": "module:sap/cards/ap/common/extensions/BaseIntegrationCardExtension",
+    "header": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "mainIndicator": {
+        "number": "{to_Currency/Currency_Code_Text}",
+        "state": "",
+        "trend": "None",
+        "unit": "",
+      },
+      "sideIndicators": [
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+      ],
+      "subTitle": "{{CardGeneratorHeaderSubTitle}}",
+      "title": "{{CardGeneratorHeaderTitle}}",
+      "type": "Numeric",
+      "unitOfMeasurement": "",
+    },
+    "type": "Object",
+  },
+}
+`;
+
+exports[`Check the expand query parameters generated for card manifest updateManifestWithExpandQueryParams: Check generated expand query for card header and card content when configuration parameter exists 1`] = `
+{
+  "_version": "1.15.0",
+  "sap.card": {
+    "configuration": {
+      "parameters": {
+        "_contentExpandQuery": {
+          "value": "&$expand=to_Currency,to_BillingStatus,to_LifecycleStatus",
+        },
+        "_contentSelectQuery": {
+          "value": "",
+        },
+        "_headerExpandQuery": {
+          "value": "&$expand=to_Currency",
+        },
+        "_headerSelectQuery": {
+          "value": "",
+        },
+        "contextParameters": {
+          "type": "string",
+          "value": "node_key=guid'fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity=true",
+        },
+      },
+    },
+    "content": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "groups": [
+        {
+          "items": [
+            {
+              "label": "Confirmation",
+              "name": "to_BillingStatus",
+              "value": "{to_BillingStatus/Status_Text}",
+            },
+            {
+              "label": "Lower Value",
+              "name": "to_LifecycleStatus",
+              "value": "{to_LifecycleStatus/Status}",
+            },
+            {
+              "label": "Long Text",
+              "name": "to_Currency",
+              "value": "{to_Currency/Currency_Code_Text}",
+            },
+            {
+              "label": "Net Amount",
+              "name": "net_amount",
+              "value": "{net_amount} {currency_code}",
+            },
+          ],
+          "title": "Group 1",
+        },
+      ],
+    },
+    "data": {
+      "request": {
+        "batch": {
+          "content": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._contentSelectQuery}}{{parameters._contentExpandQuery}}",
+          },
+          "header": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "retryAfter": 30,
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._headerSelectQuery}}{{parameters._headerExpandQuery}}",
+          },
+        },
+        "headers": {
+          "X-CSRF-Token": "{{csrfTokens.token1}}",
+        },
+        "method": "POST",
+        "url": "{{destinations.service}}/sap/opu/odata/sap/salesorder/$batch",
+      },
+    },
+    "extension": "module:sap/cards/ap/common/extensions/BaseIntegrationCardExtension",
+    "header": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "mainIndicator": {
+        "number": "{to_Currency/Currency_Code_Text}",
+        "state": "{= extension.formatters.formatCriticality(\${op_id_fc}, 'color') }",
+        "trend": "None",
+        "unit": "",
+      },
+      "sideIndicators": [
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+      ],
+      "subTitle": "{{CardGeneratorHeaderSubTitle}}",
+      "title": "{{CardGeneratorHeaderTitle}}",
+      "type": "Numeric",
+      "unitOfMeasurement": "",
+    },
+    "type": "Object",
+  },
+}
+`;
+
+exports[`Check the expand query parameters generated for card manifest with arrangemants updateManifestWithExpandQueryParams: Check generated expand query for card header and card content for V2 when configuration parameter and text arrangemensts exists 1`] = `
+{
+  "_version": "1.15.0",
+  "sap.card": {
+    "configuration": {
+      "parameters": {
+        "_contentExpandQuery": {
+          "value": "&$expand=to_Currency,to_BillingStatus,to_LifecycleStatus",
+        },
+        "_contentSelectQuery": {
+          "value": "",
+        },
+        "_headerExpandQuery": {
+          "value": "&$expand=to_Currency",
+        },
+        "_headerSelectQuery": {
+          "value": "",
+        },
+        "contextParameters": {
+          "type": "string",
+          "value": "node_key=guid'fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity=true",
+        },
+      },
+    },
+    "content": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "groups": [
+        {
+          "items": [
+            {
+              "label": "Confirmation",
+              "name": "to_BillingStatus",
+              "value": "{to_BillingStatus/Status_Text}",
+            },
+            {
+              "label": "Lower Value",
+              "name": "to_LifecycleStatus",
+              "value": "{to_LifecycleStatus/Status}",
+            },
+            {
+              "label": "Long Text",
+              "name": "to_Currency",
+              "value": "{to_Currency/Currency_Code_Text}",
+            },
+            {
+              "label": "Net Amount",
+              "name": "net_amount",
+              "value": "{net_amount} {currency_code}",
+            },
+          ],
+          "title": "Group 1",
+        },
+      ],
+    },
+    "data": {
+      "request": {
+        "batch": {
+          "content": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._contentSelectQuery}}{{parameters._contentExpandQuery}}",
+          },
+          "header": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "retryAfter": 30,
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._headerSelectQuery}}{{parameters._headerExpandQuery}}",
+          },
+        },
+        "headers": {
+          "X-CSRF-Token": "{{csrfTokens.token1}}",
+        },
+        "method": "POST",
+        "url": "{{destinations.service}}/sap/opu/odata/sap/salesorder/$batch",
+      },
+    },
+    "extension": "module:sap/cards/ap/common/extensions/BaseIntegrationCardExtension",
+    "header": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "mainIndicator": {
+        "number": "{to_Currency/Currency_Code_Text}",
+        "state": "{= extension.formatters.formatCriticality(\${op_id_fc}, 'color') }",
+        "trend": "None",
+        "unit": "",
+      },
+      "sideIndicators": [
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+      ],
+      "subTitle": "{{CardGeneratorHeaderSubTitle}}",
+      "title": "{{CardGeneratorHeaderTitle}}",
+      "type": "Numeric",
+      "unitOfMeasurement": "",
+    },
+    "type": "Object",
+  },
+}
+`;
+
+exports[`Check the expand query parameters generated for card manifest with arrangemants updateManifestWithExpandQueryParams: Check generated expand query for card header and card content when configuration parameter and text arrangemensts exists 1`] = `
+{
+  "_version": "1.15.0",
+  "sap.card": {
+    "configuration": {
+      "parameters": {
+        "_contentExpandQuery": {
+          "value": "&$expand=to_Currency,to_BillingStatus,to_LifecycleStatus",
+        },
+        "_contentSelectQuery": {
+          "value": "",
+        },
+        "_headerExpandQuery": {
+          "value": "&$expand=to_Currency",
+        },
+        "_headerSelectQuery": {
+          "value": "",
+        },
+        "contextParameters": {
+          "type": "string",
+          "value": "node_key=guid'fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity=true",
+        },
+      },
+    },
+    "content": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "groups": [
+        {
+          "items": [
+            {
+              "label": "Confirmation",
+              "name": "to_BillingStatus",
+              "value": "{to_BillingStatus/Status_Text}",
+            },
+            {
+              "label": "Lower Value",
+              "name": "to_LifecycleStatus",
+              "value": "{to_LifecycleStatus/Status}",
+            },
+            {
+              "label": "Long Text",
+              "name": "to_Currency",
+              "value": "{to_Currency/Currency_Code_Text}",
+            },
+            {
+              "label": "Net Amount",
+              "name": "net_amount",
+              "value": "{net_amount} {currency_code}",
+            },
+          ],
+          "title": "Group 1",
+        },
+      ],
+    },
+    "data": {
+      "request": {
+        "batch": {
+          "content": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._contentSelectQuery}}{{parameters._contentExpandQuery}}",
+          },
+          "header": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "retryAfter": 30,
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._headerSelectQuery}}{{parameters._headerExpandQuery}}",
+          },
+        },
+        "headers": {
+          "X-CSRF-Token": "{{csrfTokens.token1}}",
+        },
+        "method": "POST",
+        "url": "{{destinations.service}}/sap/opu/odata/sap/salesorder/$batch",
+      },
+    },
+    "extension": "module:sap/cards/ap/common/extensions/BaseIntegrationCardExtension",
+    "header": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "mainIndicator": {
+        "number": "{to_Currency/Currency_Code_Text}",
+        "state": "{= extension.formatters.formatCriticality(\${op_id_fc}, 'color') }",
+        "trend": "None",
+        "unit": "",
+      },
+      "sideIndicators": [
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+      ],
+      "subTitle": "{{CardGeneratorHeaderSubTitle}}",
+      "title": "{{CardGeneratorHeaderTitle}}",
+      "type": "Numeric",
+      "unitOfMeasurement": "",
+    },
+    "type": "Object",
+  },
+}
+`;
+
+exports[`Check the expand query parameters generated for card manifest with arrangemants updateManifestWithExpandQueryParams: Check generated expand query for card header and card content when text arrangemensts exists and configuration parameter does not exist 1`] = `
+{
+  "_version": "1.15.0",
+  "sap.card": {
+    "configuration": {
+      "destinations": {},
+      "parameters": {
+        "_contentExpandQuery": {
+          "value": "&$expand=to_Currency,to_BillingStatus,to_LifecycleStatus",
+        },
+        "_headerExpandQuery": {
+          "value": "&$expand=to_Currency",
+        },
+      },
+    },
+    "content": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "groups": [
+        {
+          "items": [
+            {
+              "label": "Confirmation",
+              "name": "to_BillingStatus",
+              "value": "{to_BillingStatus/Status_Text}",
+            },
+            {
+              "label": "Lower Value",
+              "name": "to_LifecycleStatus",
+              "value": "{to_LifecycleStatus/Status}",
+            },
+            {
+              "label": "Long Text",
+              "name": "to_Currency",
+              "value": "{to_Currency/Currency_Code_Text}",
+            },
+            {
+              "label": "Net Amount",
+              "name": "net_amount",
+              "value": "{net_amount} {currency_code}",
+            },
+          ],
+          "title": "Group 1",
+        },
+      ],
+    },
+    "data": {
+      "request": {
+        "batch": {
+          "content": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._contentSelectQuery}}{{parameters._contentExpandQuery}}",
+          },
+          "header": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "retryAfter": 30,
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._headerSelectQuery}}{{parameters._headerExpandQuery}}",
+          },
+        },
+        "headers": {
+          "X-CSRF-Token": "{{csrfTokens.token1}}",
+        },
+        "method": "POST",
+        "url": "{{destinations.service}}/sap/opu/odata/sap/salesorder/$batch",
+      },
+    },
+    "extension": "module:sap/cards/ap/common/extensions/BaseIntegrationCardExtension",
+    "header": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "mainIndicator": {
+        "number": "{to_Currency/Currency_Code_Text}",
+        "state": "",
+        "trend": "None",
+        "unit": "",
+      },
+      "sideIndicators": [
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+      ],
+      "subTitle": "{{CardGeneratorHeaderSubTitle}}",
+      "title": "{{CardGeneratorHeaderTitle}}",
+      "type": "Numeric",
+      "unitOfMeasurement": "",
+    },
+    "type": "Object",
+  },
+}
+`;
+
+exports[`Check the select query parameters generated for card manifest updateManifestWithSelectQueryParams: Validate updated CardManifest after it has been updated with header and context's select and expand queries 1`] = `
+{
+  "_version": "1.15.0",
+  "sap.card": {
+    "configuration": {
+      "parameters": {
+        "_contentSelectQuery": {
+          "value": "$select=currency_code,bp_id,ActiveUUID,DraftEntityCreationDateTime,DraftEntityLastChangeDateTime,net_amount",
+        },
+        "_headerSelectQuery": {
+          "value": "$select=op_id_fc,currency_code,created_at,bp_id",
+        },
+        "contextParameters": {
+          "type": "string",
+          "value": "node_key=guid'fa163ee4-7bdd-1ee8-b1ff-d3c5a4e5236a',IsActiveEntity=true",
+        },
+      },
+    },
+    "content": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "groups": [
+        {
+          "items": [
+            {
+              "label": "{{CardGeneratorGroupPropertyLabel_Groups_0_Items_0}}",
+              "name": "bp_id",
+              "value": "{bp_id}",
+            },
+            {
+              "label": "{{CardGeneratorGroupPropertyLabel_Groups_0_Items_1}}",
+              "name": "ActiveUUID",
+              "value": "{ActiveUUID}",
+            },
+            {
+              "label": "{{CardGeneratorGroupPropertyLabel_Groups_0_Items_2}}",
+              "name": "currency_code",
+              "value": "{currency_code}",
+            },
+          ],
+          "title": "{{CardGeneratorGroupHeader_Groups_0}}",
+        },
+        {
+          "items": [
+            {
+              "label": "{{CardGeneratorGroupPropertyLabel_Groups_1_Items_0}}",
+              "name": "DraftEntityCreationDateTime",
+              "value": "{= format.dateTime(\${DraftEntityCreationDateTime}, {"relative":false,"UTC":true})} {currency_code}",
+            },
+            {
+              "label": "{{CardGeneratorGroupPropertyLabel_Groups_1_Items_1}}",
+              "name": "DraftEntityLastChangeDateTime",
+              "value": "{= format.dateTime(\${DraftEntityLastChangeDateTime}, {"relative":true,"UTC":true})}",
+            },
+            {
+              "label": "{{CardGeneratorGroupPropertyLabel_Groups_1_Items_2}}",
+              "name": "net_amount",
+              "value": "{= format.float(\${net_amount}, {"decimals":2,"style":"short"})} {currency_code}",
+            },
+          ],
+          "title": "{{CardGeneratorGroupHeader_Groups_1}}",
+        },
+      ],
+    },
+    "data": {
+      "request": {
+        "batch": {
+          "content": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._contentSelectQuery}}",
+          },
+          "header": {
+            "headers": {
+              "Accept": "application/json",
+              "Accept-Language": "{{parameters.LOCALE}}",
+            },
+            "method": "GET",
+            "retryAfter": 30,
+            "url": "C_STTA_SalesOrder_WD_20({{parameters.contextParameters}})?{{parameters._headerSelectQuery}}",
+          },
+        },
+        "headers": {
+          "X-CSRF-Token": "{{csrfTokens.token1}}",
+        },
+        "method": "POST",
+        "url": "{{destinations.service}}/sap/opu/odata/sap/salesorder/$batch",
+      },
+    },
+    "extension": "module:sap/cards/ap/common/extensions/BaseIntegrationCardExtension",
+    "footer": {
+      "actionsStrip": [
+        {
+          "actions": [
+            {
+              "enabled": "\${SetBillingBlock}",
+              "parameters": "{{parameters.footerActionParameters.com.sap.gateway.srvd.c_salesordermanage_sd.v0001.SetBillingBlock(com.sap.gateway.srvd.c_salesordermanage_sd.v0001.SalesOrderManageType)}}",
+              "type": "custom",
+            },
+          ],
+          "buttonType": "Reject",
+          "text": "Set Billing Block",
+          "type": "Button",
+          "visible": false,
+        },
+        {
+          "actions": [
+            {
+              "enabled": "\${SetDeliveryBlock}",
+              "parameters": "{{parameters.footerActionParameters.com.sap.gateway.srvd.c_salesordermanage_sd.v0001.SetDeliveryBlock(com.sap.gateway.srvd.c_salesordermanage_sd.v0001.SalesOrderManageType)}}",
+              "type": "custom",
+            },
+          ],
+          "buttonType": "Reject",
+          "text": "Set Delivery Block",
+          "type": "Button",
+          "visible": false,
+        },
+      ],
+    },
+    "header": {
+      "data": {
+        "path": "/content/d/",
+      },
+      "mainIndicator": {
+        "number": "{bp_id} {= format.dateTime(\${created_at}, {"relative":true,"UTC":true})} {currency_code}",
+        "state": "{= extension.formatters.formatCriticality(\${op_id_fc}, 'color') }",
+        "trend": "None",
+        "unit": "",
+      },
+      "sideIndicators": [
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+        {
+          "number": "",
+          "title": "",
+          "unit": "",
+        },
+      ],
+      "subTitle": "{{CardGeneratorHeaderSubTitle}}",
+      "title": "{{CardGeneratorHeaderTitle}}",
+      "type": "Numeric",
+      "unitOfMeasurement": "",
+    },
+    "type": "Object",
+  },
+}
+`;
+
+exports[`createUrlParameters - for OData V2 service should return $select and $expand query for navigation property 1`] = `
+{
+  "$expand": "to_BillingStatus",
+  "$select": "to_BillingStatus",
+}
+`;
+
+exports[`createUrlParameters - for OData V2 service should return $select and $expand query for navigation property with selected property 1`] = `
+{
+  "$expand": "to_BillingStatus",
+  "$select": "to_BillingStatus/Status_Text",
+}
+`;
+
+exports[`createUrlParameters - for OData V2 service should return $select and $expand query for properties with navigation property with selected property 1`] = `
+{
+  "$expand": "to_BillingStatus",
+  "$select": "gross_amount,net_amount,tax_amount,to_BillingStatus/Status_Text",
+}
+`;
+
+exports[`createUrlParameters - for OData V2 service should return $select query for properties 1`] = `
+{
+  "$expand": "",
+  "$select": "gross_amount,net_amount,tax_amount",
+}
+`;
+
+exports[`createUrlParameters - for OData V2 service should return empty $select and $expand for no parameters 1`] = `
+{
+  "$expand": "",
+  "$select": "",
+}
+`;
+
+exports[`createUrlParameters - for OData V4 service should return $select and $expand query for navigation property 1`] = `
+{
+  "$expand": "to_BillingStatus",
+  "$select": "to_BillingStatus",
+}
+`;
+
+exports[`createUrlParameters - for OData V4 service should return $select and $expand query for navigation property with selected property 1`] = `
+{
+  "$expand": "to_BillingStatus($select=Status_Text)",
+  "$select": "to_BillingStatus",
+}
+`;
+
+exports[`createUrlParameters - for OData V4 service should return $select and $expand query for properties with navigation property with selected property 1`] = `
+{
+  "$expand": "to_BillingStatus($select=Status_Text)",
+  "$select": "gross_amount,net_amount,tax_amount,to_BillingStatus",
+}
+`;
+
+exports[`createUrlParameters - for OData V4 service should return $select query for properties 1`] = `
+{
+  "$expand": "",
+  "$select": "gross_amount,net_amount,tax_amount",
+}
+`;
+
+exports[`createUrlParameters - for OData V4 service should return empty $select and $expand for no parameters 1`] = `
+{
+  "$expand": "",
+  "$select": "",
+}
+`;

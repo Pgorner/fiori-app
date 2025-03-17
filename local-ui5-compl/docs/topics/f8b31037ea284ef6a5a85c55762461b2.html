@@ -1,0 +1,218 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loiof8b31037ea284ef6a5a85c55762461b2" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/10_More_About_Controls/smart-radial-micro-chart-f8b3103.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Smart Radial Micro Chart</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Smart Radial Micro Chart</h2></div><div class="shortdesc">The <code>sap.ui.comp.smartmicrochart.SmartRadialMicroChart</code> control
+		creates an <code>sap.suite.ui.microchart.RadialMicroChart</code> control based on OData
+		metadata.</div><p>For more information
+			about this control, see the <a href="api/sap.ui.comp.smartmicrochart.SmartRadialMicroChart" title="api/sap.ui.comp.smartmicrochart.SmartRadialMicroChart" class="sap-doc" alt="api/sap.ui.comp.smartmicrochart.SmartRadialMicroChart">API Reference</a> and the <a href="entity/sap.ui.comp.smartmicrochart.SmartRadialMicroChart" title="entity/sap.ui.comp.smartmicrochart.SmartRadialMicroChart" class="sap-doc" alt="entity/sap.ui.comp.smartmicrochart.SmartRadialMicroChart">Samples</a> in the Demo Kit.</p><p>By using the <code>chartType</code> property <span class="ph uicontrol">Donut</span> of the
+				<span class="ph uicontrol">UI.Chart</span> annotation the corresponding
+				<code>SmartRadialMicroChart</code> control is rendered. The
+				<code>entitySet</code> attribute needs to be specified to use the control. The
+			attribute is used to fetch metadata and annotation information from the given default
+			OData model. Based on this, the RadialMicroChart UI is created. As the other
+			SmartMicroCharts, the <code>sap.ui.comp.smartmicrochart.SmartRadialMicroChart</code>
+			control also uses the OData metadata annotations to determine the binding paths and
+			values inside the chart.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The control can also be used directly (without creating a SmartMicroChart).</p></div></div><section id="section_j1r_hp1_mz">
+			<h2 class="title ">Associated Labels</h2>
+		</section><section>
+			<p>For information on how the control provides <span class="ph uicontrol">Title</span>,
+					<span class="ph uicontrol">Description</span> and <span class="ph uicontrol">UnitOfMeasure</span>
+				values retrieved from the annotations, see the <span class="ph uicontrol">Title</span>,
+					<span class="ph uicontrol">Description</span> and <span class="ph uicontrol">UnitOfMeasure</span>
+				values in the <a href="topic/283cdca9709e4c4ebfa8f2324da371f9" title="The sap.ui.comp.smartmicrochart.SmartAreaMicroChart control creates an sap.suite.ui.microchart.AreaMicroChart control based on OData metadata." class="sap-doc">Smart Area Micro Chart</a>
+				documentation.</p>
+			<p>In addition, the Smart Radial Micro Chart supports a <span class="ph uicontrol">FreeText</span>
+				value. This can be annotated by the term <a href="https://wiki.scn.sap.com/wiki/display/EmTech/OData+4.0+Vocabularies+-+SAP+Common" title="https://wiki.scn.sap.com/wiki/display/EmTech/OData+4.0+Vocabularies+-+SAP+Common" class="external-link" target="_blank" rel="noopener">Label</a>. For more information, see
+					the <a href="api/sap.ui.comp.smartmicrochart.SmartRadialMicroChart" title="api/sap.ui.comp.smartmicrochart.SmartRadialMicroChart" class="sap-doc" alt="api/sap.ui.comp.smartmicrochart.SmartRadialMicroChart">API Reference</a>.</p>
+		</section><section>
+			<h2 class="title ">Binding</h2>
+			<p>The <code>SmartRadialMicroChart</code> control should be bound to
+					<span class="emphasis">one</span> entity and not to a collection of entities (entitySet).
+				It supports both <code>enableAutoBinding</code> = <kbd class="ph userinput">false</kbd>
+				(no binding is done inside the control) and <code>enableAutoBinding</code> =
+					<kbd class="ph userinput">true</kbd> :</p><ul class="ul ">
+					<li class="li">
+						<p>If the <code>chartBindingPath</code> is provided, the control will be
+							bound relatively to it. For example, the
+								<code>chartBindingPath</code> can be a navigation property.</p>
+					</li>
+					<li class="li">
+						<p>If <code>chartBindingPath</code> is not provided, the control will be
+							bound absolutely to the entitySet. </p>
+					</li>
+				</ul><p></p>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If <code>enableAutoBinding</code> = <kbd class="ph userinput">true</kbd> and
+					<code>chartBindingPath</code> is set then the
+					<code>bindingContext</code> for the <span class="ph uicontrol">Title</span>,
+					<span class="ph uicontrol">Description</span>, <span class="ph uicontrol">UnitOfMeasure</span> and
+					<span class="ph uicontrol">FreeText</span> is set to the value as well.</p></div></div>
+		</section><section>
+			<h2 class="title ">Criticality</h2>
+			<p>The color of the chart can be controlled by the <span class="ph uicontrol">Criticality</span>
+				property either directly or by criticality calculation. For the
+					<code>sap.ui.comp.smartmicrochart.SmartRadialMicroChart</code> control,
+				there are two options for setting the color of the RadialMicroChart by using its
+					<code>valueColor</code> property: </p>
+			<ul class="ul ">
+				<li class="li">by setting it directly via the <span class="ph uicontrol">Criticality</span> property of
+					the <span class="ph uicontrol">UI.DataPoint</span> annotation</li>
+				<li class="li">with the criticality calculation using the
+						<span class="ph uicontrol">CriticalityCalculation</span> property of the
+						<span class="ph uicontrol">UI.DataPoint</span> annotation</li>
+			</ul>
+			<p>Using the first option, the user can bind the property to a path in the application's
+				model. The criticality is then mapped to a valueColor:</p>
+			<section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;PropertyValue Property="Criticality" Path="Criticality"/&gt;</pre></div></div></section>
+			<p>The mapping is done as follows:</p>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_qs1_qxm_tx" class=" ">
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Criticality</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>ValueColor</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Neutral</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Neutral</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Positive</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Good</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>Negative</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Error</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>In the second option, the criticality can be calculated using customer-defined
+				thresholds.</p>
+			<div><div class="fig"><img src="loioec1af00585714eb39929ea46c4e30786_Source1.png" usemap="#"></div></div>
+			<div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>The thresholds are not renderd in SmartRadialMicroChart.</p></div></div>
+			<div class="tableWrapper "><div class="fig"><table border="1" id="table_wmp_1zm_tx" class=" ">
+					
+					
+					
+					<thead>
+						<tr>
+							<th colspan="1" rowspan="1">
+								<p>Property</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Type</p>
+							</th>
+							<th colspan="1" rowspan="1">
+								<p>Sample Values</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>DeviationLowValue</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Negative</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>10</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>ToleranceLowValue</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>45</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>ToleranceHighValue</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Critical</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>55</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1" rowspan="1">
+								<p>DeviationHighValue</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>Negative</p>
+							</td>
+							<td colspan="1" rowspan="1">
+								<p>80</p>
+							</td>
+						</tr>
+					</tbody>
+				</table></div></div>
+			<p>With the <code>ImprovementDirection</code> property the thresholds can determine
+				the <code>valueColor</code>. For
+					<code>sap.ui.comp.smartmicrochart.SmartRadialMicroChart</code> the
+					<span class="ph uicontrol">Maximize</span> and <span class="ph uicontrol">Minimize</span> directions
+				are supported:</p>
+			<ul class="ul ">
+				<li class="li">
+					<p><span class="emphasis">ImprovementDirection: Maximize</span></p>
+					<p>With the Maximize direction, it is calculated the higher the value the more
+						the circle color trends to green or the more positive is its status.
+						Depending on the relevant thresholds (<code>DeviationLowValue</code> and
+							<code>ToleranceLowValue</code>), there are appropriate certain
+						points where the color changes. Reflecting the sample data above, values
+						lower than 10 will be shown in red color, values lower than 45 but higher
+						than 10 are displayed in orange color and all values bigger than 45 are
+						shown in green color. </p>
+					<div><div class="fig"><img src="loioc8c3013f6e9048ad86b3bdac0dbc0c51_Source1.png" usemap="#"></div></div>
+				</li>
+				<li class="li">
+					<p><span class="emphasis">ImprovementDirection: Minimize</span></p>
+					<p>With theMinimize direction, it is calculated the lower the value the more the
+						circle color trends to green or the higher the value the more negative is
+						its status. This direction uses the <code>ToleranceHighValue</code> and
+							<code>DeviationHighValue</code> thresholds. Reflecting the sample
+						data above, values higher than 80 will be shown in red color, values lower
+						than 80 but higher than 55 are displayed in orange color and all values
+						lower than 55 are shown in green color.</p>
+					<div><div class="fig"><img src="loioe3cedd171142405095b3cc6ae11135b1_Source1.png" usemap="#"></div></div>
+				</li>
+			</ul>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

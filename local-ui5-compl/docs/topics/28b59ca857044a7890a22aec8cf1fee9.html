@@ -1,0 +1,96 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio28b59ca857044a7890a22aec8cf1fee9" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/05_Developing_Apps/app-overview-the-basic-files-of-your-app-28b59ca.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">App Overview: The Basic Files of Your App</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">App Overview: The Basic Files of Your App</h2></div><div class="shortdesc">We recommend creating at least three files for your app: the descriptor
+			(<code>manifest.json</code>), the component (<code>Component.js</code>),
+		and the main view of the app (<code>App.view.xml</code>).</div><div><div class="fig"><img src="loioeeae30fe7983476a9777e809a8820147_LowRes.png" usemap="#"></div></div><section>
+			<h2 class="title ">Descriptor (<code>manifest.json</code>)</h2>
+			<p>We recommend that you use the <code>manifest.json</code> file to configure the app
+				settings and put all important information needed to run the app in there. Using
+				this approach means you need to write less application code, and you can already
+				access the information before the app is instantiated.</p>
+			<p>Some attributes in the descriptor are just for information purposes, such as the minimum SAPUI5 version
+					(<code>minUI5version</code>), others help external components (for example
+				the SAP Fiori launchpad
+					(FLP)) to integrate
+				the application correctly, but most of the attributes are actually used to configure
+				specific aspects of the app that are needed frequently.</p>
+			<p>The most important configuration settings are:</p><ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">Models</span>. Examples of models are the configuration of the OData service
+							(default model) and language files (i18n model). All models described in
+							the <code>manifest.json</code> file are automatically
+							instantiated when the app is started. </p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Libraries</span> and <span class="emphasis">components</span> that are used in the app
+							and have to be loaded during app initialization.</p>
+					</li>
+					<li class="li">
+						<p>The <span class="emphasis">root view</span> of your application.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Routing</span> configuration that defines the navigation between views.</p>
+					</li>
+				</ul><p></p>
+		</section><section>
+			<h2 class="title ">Root View (<code>App.view.xml</code>)</h2>
+			<p>The <code>App.view.xml</code> file defines the root view of the app. In most cases, it
+				contains an <code>App</code> control or a <code>SplitApp</code> control as a
+				root control.</p>
+			<p>SAPUI5 supports multiple view
+				types (XML, HTML, JavaScript, JSON). We recommend using XML views, as for these you
+				have to separate the controller logic from the view definition in a controller file
+				(for example <code>App.controller.js</code>). </p>
+			<p>We also recommend creating a separate view file for each view you want to use in your app.</p>
+		</section><section>
+			<h2 class="title ">Component (<code>Component.js</code>)</h2>
+			<p>The <code>Component.js</code> file holds the app setup. The
+					<code>init</code> function of the component is automatically started by SAPUI5 when the
+				component is instantiated.</p><div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+					</p><p>Your component extends <code>UIComponent</code>. If you are overriding the init function
+						of your component, you have to make sure that you call the
+							<code>init</code> function of <code>UIComponent</code> and
+						initialize the router afterwards.</p>
+				<p></p></div></div>In the metadata section of the component, you define a reference to the
+				descriptor file. When the component is instantiated, the descriptor is loaded and
+				parsed automatically.<p></p>
+		</section><section>
+			<h2 class="title ">HTML Page</h2>
+			<p>All apps are started using an HTML page that loads SAPUI5 and the
+				component. You have two options: You can build an app for the FLP or build a standalone
+				app.</p>
+			<p>
+				</p><ul class="ul ">
+					<li class="li">
+						<p><span class="emphasis">App for FLP</span></p>
+						<p>The FLP instantiates the
+							component based on the information given in the descriptor file. The
+								FLP can
+							contain multiple apps at the same time. Each app can define local
+							settings, such as supported themes or supported devices.</p>
+						<p>This app cannot be run standalone, meaning no <code>index.html</code> file is
+							created but only HTML files for testing the app in the FLP sandbox.</p>
+						<p>For more information, search for <span class="ph uicontrol">Embedding SAPUI5 Applications</span> in
+							the documentation of your SAP NetWeaver version
+							on the SAP Help Portal at <a href="https://help.sap.com/viewer/p/SAP_NETWEAVER" title="https://help.sap.com/viewer/p/SAP_NETWEAVER" class="external-link" target="_blank" rel="noopener">https://help.sap.com/viewer/p/SAP_NETWEAVER</a>.</p>
+					</li>
+					<li class="li">
+						<p><span class="emphasis">Standalone app</span></p>
+						<p>If you want to run your app standalone, you need to create an <code>index.html</code> file. Within this file, you
+							instantiate the component.</p>
+					</li>
+				</ul>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig">
+		<li><a href="topic/003f755d46d34dd1bbce9ffe08c8d46a" title="The details described here represent a best practice for structuring an application that features one component, one OData service and less than 20 views. If you're building an app that has more components, OData services and views, you may have to introduce more folder levels than described here." class="sap-doc">Folder Structure: Where to Put Your Files</a></li>
+		<li><a href="topic/d2f58695fce3476f92fdfc07c9e8f7c6" title="When a user starts an app (in the SAP Fiori launchpad (FLP) or using an HTML page), several steps will be performed in the background." class="sap-doc">App Initialization: What Happens When an App Is Started?</a></li>
+		<li><a href="topic/be0cf40f61184b358b5faedaec98b2da" title="The manifest (also known as descriptor for applications, components, and libraries, in short: app descriptor) is inspired by the WebApplication Manifest concept introduced by the W3C. The manifest provides a central, machine-readable, and easy-to-access location for storing metadata associated with an application, an application component, or a library." class="sap-doc">Manifest (Descriptor for Applications, Components, and Libraries)</a></li>
+		<li><a href="topic/91f233476f4d1014b6dd926db0e91070" title="The Model View Controller (MVC) concept is used in SAPUI5 to separate the representation of information from the user interaction. This separation facilitates development and the changing of parts independently." class="sap-doc">Model View Controller (MVC)</a></li>
+		<li><a href="topic/121b8e6337d147af9819129e428f1f75" title="A controller contains methods that define how models and views interact." class="sap-doc">Controller</a></li>
+		<li><a href="topic/91f27e3e6f4d1014b6dd926db0e91070" title="The view in the Model-View-Controller (MVC) concept is responsible for defining and rendering the UI. SAPUI5 supports predefined view types." class="sap-doc">Views</a></li>
+		<li><a href="topic/e1b625940c104b558e52f47afe5ddb4f" title="A model in the Model View Controller concept holds the data and provides methods to retrieve the data from the database and to set and update data." class="sap-doc">Models</a></li>
+		<li><a href="topic/3d18f20bd2294228acb6910d8e8a5fb5" title="SAPUI5 offers hash-based navigation, which allows you to build single-page apps where the navigation is done by changing the hash. In this way the browser does not have to reload the page; instead there is a callback to which the app and especially the affected view can react. A hash string is parsed and matched against patterns which will then inform the handlers." class="sap-doc">Routing and Navigation</a></li>
+		<li><a href="topic/958ead51e2e94ab8bcdc90fb7e9d53d0" title="Components are independent and reusable parts used in SAPUI5 applications." class="sap-doc">Components</a></li>
+	</ul></section></div></section></div></body></html>

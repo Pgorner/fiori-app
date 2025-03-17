@@ -1,0 +1,166 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio40051b67edaf457cad37d552c37b497d" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/06_SAP_Fiori_Elements/custom-navigation-parameters-40051b6.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Custom Navigation Parameters</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Custom Navigation Parameters</h2></div><div class="shortdesc"> Add custom parameters for intent-based navigation to the target
+		application.</div><section>
+			<h2 class="title ">Procedure</h2>
+			<p>
+				</p><ol>
+					<li class="li">
+						<p>Define the <code>onCustomParams</code> function in the controller file extension.</p><div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>
+								</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">        onCustomParams: function(sCustomParams) {
+            if (sCustomParams === "getParameters") {
+                return this.getParameters;
+            } else if (sCustomParams === "param2") {
+                return this.param2;
+            }
+        },</pre></div></div></section>
+							<p></p></div></div><p></p>
+						<p>The custom parameter function inserts URL parameters while navigating to
+							the target application. Configure the following properties:</p><ul class="ul ">
+								<li class="li">
+									<p><code>path</code>: Property name</p>
+								</li>
+								<li class="li">
+									<p><code>operator</code>: Operator to apply. Possible operations are
+										EQ,NE,LE,GE,LT,GT,BT,CP.</p>
+								</li>
+								<li class="li">
+									<p><code>value1</code>: First operator value applied</p>
+								</li>
+								<li class="li">
+									<p><code>value2</code>: Second operator value. Use only for a range of operators, such
+										as <code>BT</code>. If empty, set the value to null.</p>
+								</li>
+								<li class="li">
+									<p><code>sign</code>: Specify the current selection to be
+										included or excluded from the filter. Use <code>I</code>
+										to include and <code>E</code> to exclude.</p>
+								</li>
+							</ul><p></p>
+						<p>
+							</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">        getParameters: function(oNavigateParams) {
+            var aCustomSelectionVariant = [];
+            var oCustomSelectionVariant = {
+                path: "TaxTarifCode",
+                operator: "EQ",
+                value1: 5,
+                value2: null,
+                sign: "I"
+            };
+            aCustomSelectionVariant.push(oCustomSelectionVariant);
+            return aCustomSelectionVariant;
+        },
+
+        param2: function(oNavigateParams) {
+            oNavigateParams.TaxTarifCode = '3';
+            return oNavigateParams;
+        }</pre></div></div></section>
+							<div class="note other samplecode "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Sample Code
+				</strong></div></div><div class="fig"><p>Adding parameters during
+								navigation</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">getParameters: function(oNavigateParams,oSelectionVariantParams) {
+ 
+ 
+            // to get the select option property names, make use of this to check what values are available to modify
+            var aSelectOptionNames = oSelectionVariantParams.getSelectOptionsPropertyNames();
+ 
+            var oFilter1 = oSelectionVariantParams.getSelectOption("Filter1");
+            var oFilter2 = oSelectionVariantParams.getSelectOption("Filter2");
+ 
+ 
+            ///
+                Your logic to extract values from oFilter1 and oFilter2
+            ///
+ 
+ 
+ 
+            /// logic to remove Filter1 and Filter2
+            /// assigning empty values to Filter1 and Filter2, with ignoreEmptyString as true, this will be removed from the Selection Variant
+ 
+ 
+                var Filter1 = {
+                    path: "Filter1",
+                    operator: "EQ",
+                    value1: "",
+                    value2: null,
+                    sign: "I"
+                };
+ 
+ 
+                var Filter2 = {
+                    path: "Filter2",
+                    operator: "EQ",
+                    value1: "",
+                    value2: null,
+                    sign: "I"
+                };
+ 
+ 
+            /// logic to remove Filter1 and Filter2
+ 
+ 
+            var aCustomSelectionVariant = [];
+            var oFilter3 = {
+                path: "Filter3PropertyName",
+                operator: "EQ",
+                value1: "&lt; Value you want to include &gt;",
+                value2: null,
+                sign: "I"
+            };
+            aCustomSelectionVariant.push(oFilter3);
+            aCustomSelectionVariant.push(oFilter2);
+            aCustomSelectionVariant.push(oFilter1);
+            return {
+                selectionVariant: aCustomSelectionVariant,
+                ignoreEmptyString: true
+            };
+        },</pre></div></div></section><p></p></div></div>
+						<p></p>
+                        <div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+                            </p><p><code>ignoreEmptyString</code> and <code>selectionVariant</code> are deprecated from the 1.54 release.
+                                Alternatively you can use <code>bIgnoreEmptyString</code> and <code>aSelectionVariant</code>.</p>
+                        <p></p></div></div>
+					</li>
+					<li class="li">
+						<p>Configure the descriptor file.</p><ol>
+								<li class="li">
+									<p>Add a controller extension and specify the path to the custom
+                                            controller.</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"extends": {
+        "extensions": {
+                "sap.ui.controllerExtensions": {
+                        "sap.ovp.app.Main": {
+                                        "controllerName": "my_app.ext.controller.OverViewPageExt"
+                        }
+                }
+        }
+}
+</pre></div></div></section><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>If a controller file already exists,
+                                            add the new extension code in the same file.</p></div></div><p></p>
+								</li>
+							</ol><p></p>
+					</li>
+					<li class="li">
+						<p>Configure the <code>customParams</code> card setting type to return custom parameters.
+							Enter the name of the custom parameter function defined in your custom
+							controller
+							file.</p><section><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">"card002_ReorderSoon": {
+  "model": "purchaseOrder",
+  "template": "sap.ovp.cards.list",
+  "settings": {
+    "title": "reorder Soon",
+    "subTitle": "Less than 10 in stock",
+    "listType": "condensed",
+    "entitySet": "PurchaseSet",
+    "customParams": "&lt;function-name&gt;"    // Depending on the logic you define in step 1, input the function name.
+    ...
+    ...</pre></div></div></section><p></p>
+					</li>
+				</ol>
+			<p></p>
+		</section><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

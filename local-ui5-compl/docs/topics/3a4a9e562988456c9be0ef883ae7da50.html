@@ -1,0 +1,124 @@
+<html><head></head><body><div id="d4h5-main-container" class="dk-main"><section id="loio3a4a9e562988456c9be0ef883ae7da50" class=" section topic"><div class="section-mdeditlink hidden">
+				<a class="mdeditlink hidden" href="https://github.com/SAP-docs/sapui5/blob/main/docs/04_Essentials/lifecycle-of-binding-templates-3a4a9e5.md">Edit on GitHub</a>
+			</div><div class="collapsible-icon sap-icon innerTitle"><h2 class="title ">Lifecycle of Binding Templates</h2></div><div class="fig"><div class="topictitle1 title"><h2 class="title ">Lifecycle of Binding Templates</h2></div><p>The lifecycle of the binding templates differs from the lifecycle of controls that are
+			contained in an aggregation. Whenever a control object is destroyed, any aggregating
+			object is destroyed as well. For list binding templates, you specify the behavior by
+			using the additional property <code>templateShareable</code> in the parameter of the
+				<code>bindAggregation</code> method of class
+				<code>sap.ui.base.ManagedObject</code>. </p><p>In <span class="emphasis">XML views</span>, you can also use the <code>templateShareable</code>
+			property by adding it to the binding info as follows:
+				</p><section class="lang-xml"><div class="fig fig-codeblock"><div class="copyButton"><span style="display: none;">Hidden</span></div><div class="codeblock-wrapper"><pre class="codeblock">&lt;Table id="EmployeeEquipments" headerText="Employee Equipments" items="{
+    path: 'EMPLOYEE_2_EQUIPMENTS',
+    <span class="emphasis">templateShareable: false</span>
+}"&gt;
+    &lt;columns&gt;
+        &lt;!-- ... --&gt;
+    &lt;/columns&gt;
+    &lt;items&gt;
+        &lt;ColumnListItem&gt;
+            &lt;cells&gt;
+                &lt;Text text="{ID}"/&gt;
+            &lt;/cells&gt;
+            &lt;cells&gt;
+                &lt;Text text="{EQUIPMENT_2_PRODUCT/Name}"/&gt;
+            &lt;/cells&gt;
+            &lt;cells&gt;
+                &lt;Text text="{Category}"/&gt;
+            &lt;/cells&gt;
+            &lt;cells&gt;
+                &lt;!-- Name="PRODUCT_2_CATEGORY" Type="Collection(...)" --&gt;
+                &lt;List items="{
+                    path: 'EQUIPMENT_2_PRODUCT/PRODUCT_2_CATEGORY',
+                    <span class="emphasis">templateShareable: true</span>
+                }"&gt;
+                    &lt;StandardListItem title="{CategoryName}"/&gt;
+                &lt;/List&gt;
+            &lt;/cells&gt;
+            &lt;cells&gt;
+                &lt;Text text="{EQUIPMENT_2_PRODUCT/PRODUCT_2_SUPPLIER/Supplier_Name}"/&gt;
+            &lt;/cells&gt;
+        &lt;/ColumnListItem&gt;
+    &lt;/items&gt;
+&lt;/Table&gt;</pre></div></div></section><ul class="ul ">
+				<li class="li">
+					<p><code>templateShareable = "false"</code> (preferred setting)</p>
+					<p>If you set the parameter to <code>false</code> the lifecycle is
+						controlled by the framework. It will destroy the template when the binding
+						is removed (<code>unbindAggregation</code>,
+						<code>unbindItems</code>) </p>
+				</li>
+				<li class="li">
+					<p><code>templateShareable = "true"</code></p>
+					<p>If you set the parameter to <code>true</code> the template is
+							<span class="emphasis">not</span> destroyed when (the binding of) the aggregated
+						object is destroyed. Use this option in the following cases only:</p><ul class="ul ">
+							<li class="li">
+								<p>The template is reused in your app to define an additional list
+									binding. </p>
+								<p>Since the template is not destroyed, this could also affect some
+									other aggregation that uses the same template at a later point
+									in time.</p>
+							</li>
+							<li class="li">
+								<p>The parent control that contains the list binding with the
+									template is cloned. The binding info is used in the clone as
+									well.</p>
+								<p>This means, when <code>templateShareable</code> is set to
+										<code>true</code>, the template will not be cloned, when
+									it is set to <code>false</code> it will be cloned when the
+									parent is cloned.</p>
+							</li>
+						</ul>In these cases, the app has to make sure that the templates are
+						properly cleaned up at some point in time - at the latest when the
+						corresponding controller or component is destroyed.<p></p>
+				</li>
+				<li class="li">
+					<p>If the parameter is undefined, (neither <code>true</code> nor
+							<code>false</code>), the framework checks at several points in time
+						whether all list bindings are removed. If there are no bindings, the
+						templates is marked as <code>candidate for destroy()</code>, but it is
+						not immediately destroyed. The candidate is destroyed in the following
+							cases:</p><ul class="ul ">
+							<li class="li">
+								<p>A <span class="emphasis">new object with the same ID</span> is
+									created.</p>
+							</li>
+							<li class="li">
+								<p>The component that owns the objects is destroyed.</p>
+							</li>
+						</ul><p></p>
+					<p>If the framework determines that a "candidate for destroy" is still in use in
+						another binding or in a clone operation, the framework makes sure that the
+						candidate is not destroyed by implicitly setting
+							<code>templateShareable</code> to <code>true</code> (as this
+						best reflects how the app deals with the template). But now the template is
+						not destroyed at all (an error message is issued), and the app
+						implementation needs to make sure that the binding template is destroyed as
+						soon as it is no longer needed.</p><div class="note   "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Note
+				</strong></div></div><div class="fig"><p>
+							</p><p>The error messages are:</p><ul class="ul ">
+									<li class="li">
+										<p><span class="ph uicontrol">A binding template that is marked as
+												'candidate for destroy' is reused in a
+												binding.</span></p>
+									</li>
+									<li class="li">
+										<p><span class="ph uicontrol">During a clone operation, a template was found
+												that neither was marked with
+												'templateShareable:true' nor
+												'templateShareable:false'.</span>
+										</p>
+									</li>
+								</ul><p></p>
+						<p></p></div></div><p></p>
+					<div class="note caution  "><div class="collapsible-icon sap-icon"><div class="title"><strong>
+					Caution
+				</strong></div></div><div class="fig"><p>
+						</p><p>To leave the parameter undefined is<span class="emphasis"> very
+							error-prone</span>, therefore we don't recommend this! Always set
+							the parameter explicitly to <code>true</code> or
+								<code>false</code>.</p>
+					<p></p></div></div>
+				</li>
+			</ul><p></p><section class="contentInSection hidden"><h2>In this section:</h2></section><section class="familyLinks"><div class="parentLink hidden"><br><strong>Parent topic: </strong></div><div class="previousLink hidden"><br><strong>Previous: </strong></div><div class="nextLink hidden"><br><strong>Next: </strong></div></section><section class="hidden relatedLinks "><div class="collapsible-icon sap-icon title"><h2>Related information</h2></div><ul class="fig"></ul></section></div></section></div></body></html>

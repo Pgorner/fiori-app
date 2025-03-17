@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SmartField DateTimeOffset</title>
+
+	<script id="sap-ui-bootstrap"
+			data-sap-ui-animation-mode="none"
+			data-sap-ui-async="true"
+			data-sap-ui-compat-version="edge"
+			data-sap-ui-language="de"
+			data-sap-ui-libs="sap.m, sap.ui.comp"
+			data-sap-ui-log-level="0"
+			src="../../../../../../../../../resources/sap-ui-core.js">
+	</script>
+
+	<script id="mainView" type="text/xml">
+		<mvc:View
+				viewName="mainView"
+				controllerName="mainView.controller"
+				xmlns:mvc="sap.ui.core.mvc"
+				xmlns:core="sap.ui.core"
+				xmlns:smartForm="sap.ui.comp.smartform"
+				xmlns:smartField="sap.ui.comp.smartfield"
+				displayBlock="true"
+				xmlns="sap.m">
+			<Shell id="shell">
+				<App id="app">
+					<Page id="page" title="SmartField Edm type DateTimeOffset">
+
+						<smartForm:SmartForm id="smartForm"
+											 editable="false"
+											 editTogglable="true"
+											 title="Smart Form"
+											 binding="{/Employees('0001')}"
+											 validationMode="Async">
+							<smartForm:layout>
+								<smartForm:ColumnLayout columnsM="2" columnsL="2" columnsXL="2"/>
+							</smartForm:layout>
+							<smartForm:Group title="JS configuration Timestamp Only">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="TimestampOnly" value="{TimestampOnly}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="shortTimestampOnly" value="{TimestampOnly}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="mediumTimestampOnly" value="{TimestampOnly}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="longTimestampOnly" value="{TimestampOnly}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="fullTimestampOnly" value="{TimestampOnly}"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+
+							<smartForm:Group title="JSConfig timezone">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="timezone" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="shortTimezone" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="mediumTimezone" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="longTimezone" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="fullTimezone" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="JSConfig showDate=true showTime=true showTimezone=false">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="timezoneHide" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="shortTimezoneHide" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="mediumTimezoneHide" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="longTimezoneHide" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="fullTimezoneHide" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="JSConfig showDate=false showTime=false showTimezone=true">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="timezoneOnly" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="shortTimezoneOnly" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="mediumTimezoneOnly" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="longTimezoneOnly" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="fullTimezoneOnly" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="JSConfig showDate=false showTime=true showTimezone=false">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="timezoneShowTime" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="shortTimezoneShowTime" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="mediumTimezoneShowTime" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="longTimezoneShowTime" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="fullTimezoneShowTime" value="{Timestamp}"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+
+							<smartForm:Group title="XMLConfig Timestamp Only">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="xmlTimestampOnly" value="{TimestampOnly}">
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="xmlShortTimestampOnly" value="{TimestampOnly}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"short"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="xmlMediumTimestampOnly" value="{TimestampOnly}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="xmlLongTimestampOnly" value="{TimestampOnly}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"long"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="xmlFullTimestampOnly" value="{TimestampOnly}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"full"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="XMLConfig Timestamp timezone">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="xmlTimestamp" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="xmlShortTimestamp" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"short"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="xmlMediumTimestamp" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="xmlLongTimestamp" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"long"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="xmlFullTimestamp" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"full"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="XMLConfig showDate=true showTime=true showTimezone=false">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="xmlTimezoneHide" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"showDate": true, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="xmlShortTimezoneHide" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"short", "showDate": true, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="xmlMediumTimezoneHide" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium", "showDate": true, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="xmlLongTimezoneHide" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"long", "showDate": true, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="xmlFullTimezoneHide" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"full", "showDate": true, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="XMLConfig showDate=false showTime=false showTimezone=true">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="xmlTimezoneOnly" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"showDate": false, "showTime": false, "showTimezone": true\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="xmlShortTimezoneOnly" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"short", "showDate": false, "showTime": false, "showTimezone": true\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="xmlMediumTimezoneOnly" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium", "showDate": false, "showTime": false, "showTimezone": true\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="xmlLongTimezoneOnly" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"long", "showDate": false, "showTime": false, "showTimezone": true\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="xmlFullTimezoneOnly" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"full", "showDate": false, "showTime": false, "showTimezone": true\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="XMLConfig showDate=false showTime=true showTimezone=false">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="xmlTimezoneShowTime" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"showDate": false, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="xmlShortTimezoneShowTime" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"short", "showDate": false, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="xmlMediumTimezoneShowTime" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium", "showDate": false, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="xmlLongTimezoneShowTime" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"long", "showDate": false, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="xmlFullTimezoneShowTime" value="{Timestamp}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"full", "showDate": false, "showTime": true, "showTimezone": false\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="XMLConfig with timezone without value">
+								<smartForm:GroupElement label="default">
+									<smartField:SmartField id="xmlTimestampEmpty" value="{TimestampEmpty}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="short">
+									<smartField:SmartField id="xmlShortTimestampEmpty" value="{TimestampEmpty}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"short"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="medium">
+									<smartField:SmartField id="xmlMediumTimestampEmpty" value="{TimestampEmpty}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="long">
+									<smartField:SmartField id="xmlLongTimestampEmpty" value="{TimestampEmpty}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"long"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+
+								<smartForm:GroupElement label="full">
+									<smartField:SmartField id="xmlFullTimestampEmpty" value="{TimestampEmpty}">
+										<smartField:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"full"\}'/>
+										</smartField:customData>
+									</smartField:SmartField>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+
+						</smartForm:SmartForm>
+
+					</Page>
+				</App>
+			</Shell>
+		</mvc:View>
+	</script>
+
+	<script id="metadata" type="text/xml"><?xml version="1.0" encoding="utf-8"?>
+		<edmx:Edmx Version="1.0"
+				   xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+				   xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+				   xmlns:sap="http://www.sap.com/Protocols/SAPData">
+
+			<edmx:DataServices m:DataServiceVersion="2.0">
+
+				<Schema Namespace="EmployeesNamespace"
+						sap:schema-version="1"
+						xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+
+					<EntityType Name="Employee"
+								sap:label="Employees"
+								sap:content-version="1">
+
+						<Key>
+							<PropertyRef Name="Id"/>
+						</Key>
+
+						<Property Name="Id"
+								  Type="Edm.String"
+								  Nullable="false"
+								  MaxLength="4"
+								  sap:visible="false"
+								  sap:label="Employee Id"
+								  sap:creatable="false"/>
+
+						<Property Name="Timestamp"
+								  Type="Edm.DateTimeOffset"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="Timestamp"/>
+
+						<Property Name="TimestampEmpty"
+								  Type="Edm.DateTimeOffset"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="TimestampEmpty"/>
+
+						<Property Name="TimestampOnly"
+								  Type="Edm.DateTimeOffset"
+								  sap:creatable="false"
+								  sap:updatable="true"
+								  sap:label="TimestampOnly"/>
+						<Property Name="ClockInTimezone" Type="Edm.String"/>
+
+					</EntityType>
+
+					<EntityContainer Name="EmployeesNamespace_Entities"
+									 m:IsDefaultEntityContainer="true"
+									 sap:supported-formats="atom json xlsx">
+
+						<EntitySet Name="Employees"
+								   EntityType="EmployeesNamespace.Employee"
+								   sap:creatable="false"
+								   sap:updatable="true"
+								   sap:deletable="true"
+								   sap:content-version="1"/>
+
+					</EntityContainer>
+					<Annotations Target="EmployeesNamespace.Employee/Timestamp"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.Timezone" Path="ClockInTimezone" />
+					</Annotations>
+					<Annotations Target="EmployeesNamespace.Employee/TimestampEmpty"
+								 xmlns="http://docs.oasis-open.org/odata/ns/edm">
+						<Annotation Term="com.sap.vocabularies.Common.v1.Timezone" Path="ClockInTimezone" />
+					</Annotations>
+
+				</Schema>
+			</edmx:DataServices>
+		</edmx:Edmx>
+	</script>
+
+	<script id="dataSection" type="text/json">
+	{"d": {
+			"__count": "1",
+			"results": [
+				{
+					"__metadata": {
+						"uri": "testService.Employees/Employees('0001')",
+						"type": "EmployeesNamespace.Employee"
+					},
+					"Timestamp": "\/Date(1416851212345+0000)\/",
+					"TimestampEmpty": "",
+					"TimestampOnly": "\/Date(1416851212345+0000)\/",
+					"Id": "0001",
+					"ClockInTimezone": "Asia/Kolkata"
+				}
+			]
+		}}
+</script>
+
+	<script src="./SmartFieldDateTimeOffset.js"></script>
+
+</head>
+
+<body class='sapUiBody'>
+<div id='content'></div>
+</body>
+</html>
