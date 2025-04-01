@@ -1,8 +1,0 @@
-/*!
- * 
-		SAP UI development toolkit for HTML5 (SAPUI5)
-        (c) Copyright 2009-2021 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["./DialogActions","sap/fe/test/Utils","sap/ui/test/OpaBuilder","sap/fe/test/builder/FEBuilder"],function(e,t,r,s){"use strict";var a=function(t,r){return e.call(this,t,r,0)};a.prototype=Object.create(e.prototype);a.prototype.constructor=a;a.prototype.isAction=true;a.prototype.iChangeField=function(e,a,i,o){var n=this,p=t.isOfType(e,String)?e:e.property,d=a&&(t.isOfType(a,String)?{rawText:a}:a),c=new RegExp("^MED(.*)"+p+"$","gi");return n.prepareResult(s.create(this.getOpaInstance()).isDialogElement().has(s.Matchers.id(c)).hasState(i).hasProperties(o).doPress().success(function(e){var s,a=e[0],i=a.getMetadata().getName();if(d.dropDownText){s=r.create().hasType("sap.ui.core.Item").has(r.Matchers.ancestor(a[0],false)).hasProperties({text:d.dropDownText}).doPress().description(t.formatMessage("Value '{3}' selected for '{0}' in mass edit dialog '{1}'",p,n.getIdentifier(),d.dropDownText)).execute()}else if(d.rawText&&i==="sap.m.ComboBox"){s=r.create().hasId(a.getId()).doEnterText(d.rawText).description(t.formatMessage("Value '{3}' entered for '{0}' in mass edit dialog '{1}'",p,n.getIdentifier(),d.rawText)).execute()}return s}).description(t.formatMessage("Mass edit dropdown for '{0}' found in dialog '{1}'",p,n.getIdentifier())).execute())};return a});
-//# sourceMappingURL=DialogMassEditActions.js.map

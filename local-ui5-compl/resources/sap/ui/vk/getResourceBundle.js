@@ -1,8 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
-
-        (c) Copyright 2009-2015 SAP SE. All rights reserved
-    
- */
-sap.ui.define(["sap/ui/core/Lib"],function(e){"use strict";return function(){return e.getResourceBundleFor("sap.ui.vk.i18n")}},true);
-//# sourceMappingURL=getResourceBundle.js.map

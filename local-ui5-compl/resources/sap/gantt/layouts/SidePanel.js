@@ -1,8 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
-
-		(c) Copyright 2009-2015 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["sap/ui/core/Control"],function(t){"use strict";var e=t.extend("sap.gantt.layouts.SidePanel",{metadata:{library:"sap.gantt",defaultAggregation:"content",properties:{visible:{type:"boolean",defaultValue:false}},aggregations:{content:{type:"sap.ui.core.Control",multiple:false}}}});e.prototype.init=function(){this._oLocalAggregation={content:null}};e.prototype.setVisible=function(t){this._setPanelVisibility(t);return this};e.prototype.setContent=function(t,e){if(this._bActive){this.setAggregation("content",t,true);if(!e){this._createInvalidation()}}else{this._oLocalAggregation["content"]=t}return this};e.prototype._setPanelVisibility=function(t,e){var i=this.getVisible();this.setProperty("visible",t,true);if(t!=i){if(i){this._deactivate()}else{this._activate()}if(!e){this._createInvalidation()}}return this};e.prototype._activate=function(){if(this._bActive){return}this.setAggregation("content",this._oLocalAggregation["content"],true);this._bActive=true;this._handleEvent(new jQuery.Event("Activated"))};e.prototype._deactivate=function(){if(!this._bActive){return}this._oLocalAggregation["content"]=this.getAggregation("content");this.setAggregation("content",null,true);this._bActive=false;this._handleEvent(new jQuery.Event("Deactivated"))};e.prototype.setParent=function(e){t.prototype.setParent.apply(this,arguments);if(e&&e.onSidePanelAttach){e.onSidePanelAttach(this)}return this};e.prototype._createInvalidation=function(){const t=this.getParent();if(t){t.invalidate(this)}return this};return e});
-//# sourceMappingURL=SidePanel.js.map

@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-(function(){"use strict";if(true){window["sap-ui-config"]={"xx-bootTask":function(n){o().then(()=>{n()})}};function o(){return new Promise(function(o){sap.ui.require(["sap/ushell/bootstrap/sandbox2/sandbox"],function(n){n.bootstrap().then(o)})})}return}if(!window["sap-ui-config"]){window["sap-ui-config"]={}}globalThis["sap-ui-config"].bootManifest="sap/ushell/bootstrap/sandbox2/sandboxBoot.json"})();
-//# sourceMappingURL=sandbox2.js.map

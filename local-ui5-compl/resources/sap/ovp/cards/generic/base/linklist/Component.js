@@ -1,5 +1,0 @@
-/*!
- * Copyright (c) 2009-2014 SAP SE, All Rights Reserved
- */
-sap.ui.define(["sap/ovp/cards/generic/Component","sap/ovp/cards/linklist/AnnotationHelper"],function(e,t){"use strict";return e.extend("sap.ovp.cards.generic.base.linklist.Component",{metadata:{properties:{contentFragment:{type:"string",defaultValue:"sap.ovp.cards.linklist.LinkList"},controllerName:{type:"string",defaultValue:"sap.ovp.cards.generic.base.linklist.BaseLinklist"},communicationPath:{type:"string",defaultValue:"com.sap.vocabularies.Communication.v1.Contact"},headerAnnotationPath:{type:"string",defaultValue:"com.sap.vocabularies.UI.v1.HeaderInfo"},identificationAnnotationPath:{type:"string",defaultValue:"com.sap.vocabularies.UI.v1.Identification"}},version:"1.132.0",library:"sap.ovp",includes:[],dependencies:{libs:[],components:[]},config:{}},getCustomPreprocessor:function(){}})});
-//# sourceMappingURL=Component.js.map

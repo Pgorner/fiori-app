@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define([],function(){"use strict";var n={};var t={};var e="HANA_CLIENT";return{getCacheHanaClient:function(){return n[e]},setCacheHanaClient:function(t){n[e]=t},getEvaluationByChipId:function(t){if(n[t]){return n[t]}return null},getEvaluationById:function(n){return this.getEvaluationByChipId(n)},setEvaluationById:function(t,e){n[t]=e},getFrontEndCacheDeferredObject:function(t){if(n[t]){return n[t]}return null},setFrontEndCacheDefferedObject:function(t,e){n[t]=e},getKpivalueById:function(n){if(t[n]){return t[n]}return null},setKpivalueById:function(n,e){t[n]=e}}},true);
-//# sourceMappingURL=cache.js.map

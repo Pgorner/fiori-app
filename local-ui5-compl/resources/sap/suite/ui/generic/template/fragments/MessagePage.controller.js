@@ -1,2 +1,0 @@
-sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("sap.suite.ui.generic.template.fragments.MessagePage",{onInit:function(){this.oView=this.getView()},onBeforeRendering:function(){var e=this.oView.byId("messagePage");var t=this.oView.getModel("_templPrivGlobal").getProperty("/generic/messagePage/additionalContent");if(t&&Array.isArray(t)){t.forEach(function(t){e.addAdditionalContent(t)})}},navButtonPress:function(){window.history.back()}})});
-//# sourceMappingURL=MessagePage.controller.js.map

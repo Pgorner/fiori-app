@@ -1,8 +1,0 @@
-/*! 
- * SAPUI5
-
-		(c) Copyright 2009-2021 SAP SE. All rights reserved
-	 
- */
-(function(){sap.ui.define(["../sinaNexTS/sina/NavigationTarget"],function(i){"use strict";const t=i["NavigationTarget"];function e(i){if(typeof i==="object"){if("titleNavigation"in i){return i.titleNavigation instanceof t}}}var a=function(i){i["App"]="App";i["DataSource"]="DataSource";i["SearchTermHistory"]="SearchTermHistory";i["SearchTermData"]="SearchTermData";i["SearchTermAI"]="SearchTermAI";i["Object"]="Object";i["Header"]="Header";i["BusyIndicator"]="BusyIndicator";i["Transaction"]="Transaction";i["Search"]="Search";return i}(a||{});const r={App:"App",DataSource:"DataSource",SearchTermHistory:"SearchTermHistory",SearchTermData:"SearchTermData",SearchTermAI:"SearchTermAI",Object:"Object",Header:"Header",BusyIndicator:"BusyIndicator",Transaction:"Transaction",Search:"Search",types:["App","DataSource","SearchTermHistory","SearchTermData","SearchTermAI","Object","Search","Transaction"],properties:{Transaction:{position:50,limitDsAll:3,limit:3},App:{position:100,limitDsAll:3,limit:7},DataSource:{position:200,limitDsAll:2,limit:2},SearchTermHistory:{position:400,limitDsAll:7,limit:5},SearchTermData:{position:400,limitDsAll:7,limit:5},SearchTermAI:{position:20,limitDsAll:7,limit:5},Object:{position:300,limitDsAll:3,limit:5},Search:{position:20,limitDsAll:7,limit:5},BusyIndicator:{position:900}}};const c=25;const o=10;r.isSearchSuggestion=e;r.Type=a;r.SuggestionType=r;r.RecentEntriesPosition=c;r.RecentEntriesLimit=o;return r})})();
-//# sourceMappingURL=SuggestionType.js.map

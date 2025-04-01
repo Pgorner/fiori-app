@@ -1,6 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
- *  * (c) Copyright 2009-2025 SAP SE. All rights reserved
- */
-"use strict";sap.ui.define(["sap/ui/fl/changeHandler/HideControl","sap/ui/fl/changeHandler/UnhideControl"],function(e,r){"use strict";var n=function(e){e["applyChange"]="applyChange";e["revertChange"]="revertChange";return e}(n||{});const t=function(e,r,n,t,a){try{const o=e;return Promise.resolve(o[r](n,t,a)).then(function(){t.getParent().resetSections?.()})}catch(e){return Promise.reject(e)}};var a={hideControl:{layers:{USER:true},changeHandler:{...e,applyChange:function(r,a,o){try{return Promise.resolve(t(e,n.applyChange,r,a,o)).then(function(){})}catch(e){return Promise.reject(e)}},revertChange:function(r,a,o){try{return Promise.resolve(t(e,n.revertChange,r,a,o)).then(function(){})}catch(e){return Promise.reject(e)}}}},unhideControl:{layers:{USER:true},changeHandler:{...r,applyChange:function(e,a,o){try{return Promise.resolve(t(r,n.applyChange,e,a,o)).then(function(){})}catch(e){return Promise.reject(e)}},revertChange:function(e,a,o){try{return Promise.resolve(t(r,n.revertChange,e,a,o)).then(function(){})}catch(e){return Promise.reject(e)}}}}};return a});
-//# sourceMappingURL=BaseContainer.flexibility-dbg.js.map

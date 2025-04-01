@@ -1,6 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
- *  * (c) Copyright 2009-2025 SAP SE. All rights reserved
- */
-"use strict";sap.ui.define(["sap/m/Dialog","sap/ui/core/Lib"],function(e,t){"use strict";const i=e.extend("sap.cux.home.BaseSettingsDialog",{renderer:{apiVersion:2},metadata:{library:"sap.cux.home",properties:{selectedKey:{type:"string",group:"Misc",defaultValue:"",visibility:"hidden"},context:{type:"object",group:"Misc",defaultValue:{},visibility:"hidden"}},defaultAggregation:"panels",aggregations:{panels:{type:"sap.cux.home.BaseSettingsPanel",singularName:"panel",multiple:true}}},constructor:function t(i,n){e.prototype.constructor.call(this,i,n)},init:function i(){e.prototype.init.call(this);this._i18nBundle=t.getResourceBundleFor("sap.cux.home.i18n");this._panelCache=[];this.addStyleClass("sapContrastPlus")},getPanels:function e(){return this._panelCache.slice()},addPanel:function e(t){this._panelCache.push(t);this.addAggregation("panels",t);return this},insertPanel:function e(t,i){this._panelCache.splice(i,0,t);this.insertAggregation("panels",t,i);return this},removeAllPanels:function e(){this._panelCache=[];this.removeAllAggregation("panels");return this.getPanels()}});return i});
-//# sourceMappingURL=BaseSettingsDialog-dbg.js.map

@@ -1,5 +1,0 @@
-/*!
- * Copyright (c) 2009-2014 SAP SE, All Rights Reserved
- */
-sap.ui.define(["sap/ui/core/Placeholder"],function(e){"use strict";var l={isPlaceHolderEnabled:function(){var e=window["sap-ushell-config"]&&window["sap-ushell-config"].apps&&window["sap-ushell-config"].apps.placeholder&&window["sap-ushell-config"].apps.placeholder.enabled,l=new window.URLSearchParams(window.location.search).get("sap-ui-xx-placeholder");return e===false||l==="false"?false:true},getPlaceholderInfo:function(){return new e({html:"sap/fe/placeholder/view/PlaceholderOVP.fragment.html",autoClose:true})},showPlaceholder:function(e){if(this.isPlaceHolderEnabled()&&!this.bPlaceholderShown){this.navContainer=e;this.bPlaceholderShown=true;e.showPlaceholder({placeholder:this.getPlaceholderInfo()})}},hidePlaceholder:function(){if(this.bPlaceholderShown){var e=this.navContainer;e&&e.hidePlaceholder();this.bPlaceholderShown=false}},hidePlaceholderNeeded:function(){return this.bPlaceholderShown}};return l});
-//# sourceMappingURL=placeholderHelper.js.map

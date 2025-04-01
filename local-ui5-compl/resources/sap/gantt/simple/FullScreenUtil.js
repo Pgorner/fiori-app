@@ -1,8 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
-
-		(c) Copyright 2009-2015 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["sap/m/Dialog","sap/ui/core/HTML"],function(e,l){"use strict";var o={toggleFullScreen:function(o,t,n,a){var r;if(t){r=o.getDomRef();if(r){if(!o._oHTML){o._oHTML=new l({preferDOM:false,afterRendering:function(){if(o&&o._oHTML){o._oFullScreenDialog.getDomRef().classList.remove("sapUiPopupWithPadding");var e=o._oHTML.getDomRef();if(e){e.style.height="100%";e.append(o.getDomRef())}}}})}if(!o._oFullScreenDialog){o._oFullScreenDialog=new e({showHeader:false,stretch:true,beforeClose:function(){if(o&&o._placeHolder&&a){a.call(o.getGanttCharts()[0],false,n)}},content:[o._oHTML]});o._oFullScreenDialog.addStyleClass("sapFullScreenGanttDialog");if(n){o._oFullScreenDialog.attachAfterOpen(function(){n.focus()});o._oFullScreenDialog.attachAfterClose(function(){n.focus()})}}o._placeHolder=document.createElement("div");r.parentNode.insertBefore(o._placeHolder,r);o._oHTML.setContent("<div></div>")}o._oFullScreenDialog.open()}else if(o._placeHolder&&o._oHTML){if(o.getShowSearchSidePanel()){o.setProperty("showSearchSidePanel",false,true);window.setTimeout(function(){o.setProperty("showSearchSidePanel",true,false)},0)}var i=o.getHeight&&o.getHeight();var c=o.getDomRef();if(i&&i!==c.style.height){c.style.height=i}r=o._oHTML.getDomRef();o._placeHolder.parentNode.replaceChild(r.children[0],o._placeHolder);o._placeHolder=null;r=null;if(o._oFullScreenDialog){o._oFullScreenDialog.close();o._oFullScreenDialog=null}}},cleanUpFullScreen:function(e){if(e._oFullScreenDialog){e._oFullScreenDialog.destroy();e._oFullScreenDialog=null}e._placeHolder=null;e._oHTML=null}};return o},true);
-//# sourceMappingURL=FullScreenUtil.js.map

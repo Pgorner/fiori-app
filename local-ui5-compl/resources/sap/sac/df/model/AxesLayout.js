@@ -1,7 +1,0 @@
-/*!
-* SAPUI5
-    (c) Copyright 2009-2021 SAP SE. All rights reserved
-  
-*/
-sap.ui.define("sap/sac/df/model/AxesLayout",["sap/ui/base/Object","sap/sac/df/firefly/library","sap/sac/df/thirdparty/lodash"],function(e,t,i){"use strict";const s=e.extend("sap.sac.df.model.AxesLayout",{constructor:function(e){Object.assign(this,Object.getPrototypeOf(this));this._DataProvider=e;this.Columns=i.map(i.sortBy(i.filter(this._getDimensions(),{Axis:t.AxisType.COLUMNS.getName()}),"Position"),function(e){return e.Name});this.Rows=i.map(i.sortBy(i.filter(this._getDimensions(),{Axis:t.AxisType.ROWS.getName()}),"Position"),function(e){return e.Name})},_getDimensions:function(){return this._DataProvider.Dimensions}});s.prototype.setAxesLayout=function(e,s){var o=this;o._DataProvider._getQueryManager().stopEventing();i.forEach(i.map(o._getDimensions(),"Name"),function(e){o._DataProvider._getQueryModel().getAxis(t.AxisType.FREE).add(o._DataProvider._getQueryModel().getDimensionByName(o._DataProvider.getDimension(e).TechName))});i.forEach(e,function(e){o._DataProvider.getDimension(e).toRows()});i.forEach(s,function(e){o._DataProvider.getDimension(e).toColumns()});o._DataProvider._getQueryManager().resumeEventing();this._DataProvider._executeModelOperation();return o};return s});
-//# sourceMappingURL=AxesLayout.js.map

@@ -1,8 +1,0 @@
-/*!
- * 
-		SAP UI development toolkit for HTML5 (SAPUI5)
-		(c) Copyright 2009-2015 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["sap/ui/model/odata/v2/ODataModel","sap/ui/model/odata/v4/ODataModel","./AppConstants"],function(e,t,n){var a={};function i(a){var i=a.filterService;var r=i&&i.uri;var o=i&&i.settings;var s=[];if(o){if(o.annotations&&o.annotations.length){o.annotations.forEach(function(e){var t=a[e];var n=t.uri;s.push(n)})}if(o.odataVersion===n.ODATA_VERSION_2){return new e(r,{annotationURI:s,loadAnnotationsJoined:true})}else if(o.odataVersion===n.ODATA_VERSION_4){return new t({serviceUrl:r,annotationURI:s})}}}function r(e){var t=e.filterService;var r=t&&t.uri;var o=t&&t.settings;var s=i(e);a[r]={oData:s,loaded:undefined};if(o.odataVersion===n.ODATA_VERSION_2){return new Promise(function(e){if(s){s.attachMetadataLoaded(function(t){return t.getSource().getMetaModel().loaded().then(function(){a[r].loaded=true;e(a[r])})});s.attachMetadataFailed(function(){a[r].loaded=false;e(a[r])})}else{e(a[r])}})}else if(o.odataVersion===n.ODATA_VERSION_4){return new Promise(function(e){s.getMetaModel().requestData().then(function(){a[r].loaded=true}).catch(function(){a[r].loaded=false}).finally(function(){e(a[r])})})}}function o(e){if(e.filterService&&e.filterService.uri){var t=e.filterService,i=e.filterService.uri;if(a[i]){return Promise.resolve(a[i])}else if(t.settings&&t.settings.odataVersion===n.ODATA_VERSION_2){return r(e)}else if(t.settings&&t.settings.odataVersion===n.ODATA_VERSION_4){return r(e)}}else{return Promise.resolve(undefined)}}return{getOdataModel:o}});
-//# sourceMappingURL=oDataModelProvider.js.map

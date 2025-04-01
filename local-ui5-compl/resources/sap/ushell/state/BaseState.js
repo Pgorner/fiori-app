@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/base/util/deepClone","sap/ushell/state/StrategyFactory","sap/ushell/state/StateManager/LaunchpadState"],function(t,a,e){"use strict";class s{#t={};constructor(a){Object.values(e).forEach(e=>{this.#t[e]=t(a)})}updateState(t,e,s,r){if(!t){Object.keys(this.#t).forEach(t=>{a.perform(this.#t[t],e,s,r)});return}a.perform(this.#t[t],e,s,r)}getStateData(a,e){const s=t(this.#t[e]);return s}}return s});
-//# sourceMappingURL=BaseState.js.map

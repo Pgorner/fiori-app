@@ -1,7 +1,0 @@
-/*!
- * SAP APF Analysis Path Framework
- * 
- * (c) Copyright 2012-2014 SAP AG. All rights reserved
- */
-sap.ui.define(["sap/apf/modeler/ui/utils/textManipulator","sap/apf/utils/exportToGlobal"],function(e,t){"use strict";function a(e,t){this.oTextReader=e;this.oOptionsValueModelBuilder=t}a.prototype.constructor=a;a.prototype.getLabelDisplayOptions=function(){var e=[{key:"key",name:this.oTextReader("key")},{key:"text",name:this.oTextReader("text")},{key:"keyAndText",name:this.oTextReader("keyAndText")}];return this.oOptionsValueModelBuilder.prepareModel(e,e.length)};a.prototype.getMeasureDisplayOptions=function(){var e=[{key:"line",name:this.oTextReader("line")},{key:"bar",name:this.oTextReader("column")}];return this.oOptionsValueModelBuilder.prepareModel(e,e.length)};a.prototype.getValidatedLabelDisplayOptions=function(){var t=[{key:"key",name:this.oTextReader("key")},{key:e.addPrefixText(["text"],this.oTextReader)[0],name:e.addPrefixText([this.oTextReader("text")],this.oTextReader)[0]},{key:e.addPrefixText(["keyAndText"],this.oTextReader)[0],name:e.addPrefixText([this.oTextReader("keyAndText")],this.oTextReader)[0]}];return this.oOptionsValueModelBuilder.prepareModel(t,t.length)};t("sap.apf.modeler.ui.utils.DisplayOptionsValueBuilder",a);return a});
-//# sourceMappingURL=displayOptionsValueBuilder.js.map

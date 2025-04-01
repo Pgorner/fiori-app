@@ -1,2 +1,0 @@
-sap.ui.define(["sap/ui/core/mvc/XMLView"],function(e){"use strict";var r={html:"sap/fe/placeholder/view/PlaceholderALP.fragment.html",autoClose:false};function t(){return r}return{getPlaceholderInfo:t}});
-//# sourceMappingURL=behaviour.js.map

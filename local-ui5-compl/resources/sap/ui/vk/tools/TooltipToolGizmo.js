@@ -1,8 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
-
-        (c) Copyright 2009-2015 SAP SE. All rights reserved
-    
- */
-sap.ui.define(["./Gizmo"],function(t){"use strict";var o=t.extend("sap.ui.vk.tools.TooltipToolGizmo",{metadata:{library:"sap.ui.vk"},renderer:{apiVersion:2,render(t,o){t.openStart("div",o);t.class("sapUiVizKitTooltip");if(o.getParent().getAnimate()){t.class("sapUiVizKitTooltipAnimation")}t.openEnd();t.close("div")}}});o.prototype.init=function(){if(t.prototype.init){t.prototype.init.apply(this)}this._viewport=null;this._tool=null;this._previousNodeRef=null};o.prototype.show=function(t,o){this._viewport=t;this._tool=o;var e=this.getDomRef();if(e){e.style.display="none"}};o.prototype.hide=function(){this._tool=null;var t=this.getDomRef();if(t){t.style.display="none"}};o.prototype.setTitle=function(t){var o=this.getDomRef();if(o){o.style.display=t?"block":"none";o.innerText=t}};o.prototype.update=function(t,o,e,i,n){if(!this._tool.getFollowCursor()){if(n===this._previousNodeRef){return}else{this._previousNodeRef=n}}if(this._tool.fireEvent("hover",{x:t,y:o,nodeRef:n},true)){var r=this.getDomRef();if(r){var s=r.offsetParent;while(s){e-=s.offsetLeft||0;i-=s.offsetTop||0;s=s.offsetParent}e+=this._tool.getOffsetX();i+=this._tool.getOffsetY();r.style.left=Math.round(e)+"px";r.style.top=Math.round(i)+"px";var p=this._viewport.getDomRef().getBoundingClientRect();var f=r.getBoundingClientRect();if(f.right>p.right){r.style.left=Math.round(e+p.right-f.right)+"px"}if(f.bottom>p.bottom){r.style.top=Math.round(i+p.bottom-f.bottom)+"px"}}}};o.prototype.onBeforeRendering=function(){};o.prototype.onAfterRendering=function(){};return o});
-//# sourceMappingURL=TooltipToolGizmo.js.map

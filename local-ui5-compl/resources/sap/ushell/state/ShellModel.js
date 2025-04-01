@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/base/util/deepClone","sap/ui/model/json/JSONModel","sap/ushell/Config","sap/ushell/utils/RestrictedJSONModel"],function(e,o,s,t){"use strict";class l{#e=new t;#o=s.createModel("/core/shell/model",o);constructor(){this.#s(this.#e)}#s(e){const o=e.refresh.bind(e);e.refresh=function e(s){if(s){throw new Error("The shell model does not support force update.")}o()}}updateModel(o){const s=e(o);this.#e._setData(s)}getModel(){return this.#e}getConfigModel(){return this.#o}reset(){this.destroy();this.#e=new t;this.#o=s.createModel("/core/shell/model",o);this.#s(this.#e)}destroy(){this.#e.destroy();this.#o.destroy()}}return new l});
-//# sourceMappingURL=ShellModel.js.map

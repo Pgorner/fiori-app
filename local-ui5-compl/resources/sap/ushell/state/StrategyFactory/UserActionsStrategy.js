@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define([],function(){"use strict";class t{add(t,n){if(t.includes(n)){return}t.push(n);const e={recentActivitiesBtn:-7,frequentActivitiesBtn:-6,openCatalogBtn:-5,userSettingsBtn:-4,ActionModeBtn:-3,EditModeBtn:-2,ContactSupportBtn:-1,logoutBtn:1};t.sort((t,n)=>{const i=e[t]||0;const s=e[n]||0;return i-s})}}return new t});
-//# sourceMappingURL=UserActionsStrategy.js.map

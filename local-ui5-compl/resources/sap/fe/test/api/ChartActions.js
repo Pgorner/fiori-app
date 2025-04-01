@@ -1,8 +1,0 @@
-/*!
- * 
-		SAP UI development toolkit for HTML5 (SAPUI5)
-        (c) Copyright 2009-2021 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["./BaseAPI","sap/fe/test/Utils","sap/ui/test/OpaBuilder","sap/fe/test/builder/FEBuilder"],function(e,t,r){"use strict";var s=function(t,r){return e.call(this,t,r)};s.prototype=Object.create(e.prototype);s.prototype.constructor=s;s.prototype.isAction=true;s.prototype.iSelectItems=function(e,t){if(typeof t==="boolean"){t=!!t}else{t=true}return r.create(this).hasType("sap.chart.Chart").check(function(r){var s;var i=r[0]._getVizFrame();if(i){var o=e?[{data:e}]:[];s=i.vizSelection(o,{clearSelection:t})}return s},true).description("Do not see the First Column Expand Button").execute()};s.prototype.iChangeChartType=function(e){return r.create(this).hasType("sap.ui.core.Icon").hasProperties({src:"sap-icon://vertical-bar-chart"}).doPress().success(function(){return r.create(this).hasType("sap.m.StandardListItem").hasProperties({icon:"sap-icon://horizontal-bar-chart"}).doPress().description("blablabla").execute()}).description("Opened the Dialog").execute()};s.prototype.iDrillDown=function(e){return r.create(this).hasType("sap.m.Button").hasProperties({text:"View By"}).doPress().success(function(){return r.create(this).hasType("sap.m.StandardListItem").hasProperties({title:e}).doPress().description("blablabla").execute()}).description("Opened the Dialog").execute()};s.prototype.iExecuteActionWithText=function(e){return r.create(this).hasType("sap.m.Button").hasProperties({text:e}).doPress().description("Clicked on button"+e).execute()};return s});
-//# sourceMappingURL=ChartActions.js.map

@@ -1,5 +1,0 @@
-/*!
- * Copyright (c) 2009-2014 SAP SE, All Rights Reserved
- */
-sap.ui.define(["sap/ui/core/CustomData","sap/ovp/app/OVPLogger","sap/ui/core/library","sap/ui/core/ControlBehavior"],function(t,e,i,r){"use strict";var o=i.ID;var a=new e("OVP.ui.CustomData");var t=t.extend("sap.ovp.ui.CustomData");t.prototype._checkWriteToDom=function(t){var e=this.getKey().toLowerCase(),i=r.isAccessibilityEnabled();if(!i){return}if(!this.getWriteToDom()){return null}var u=this.getValue();if(typeof u!="string"){a.error("CustomData with key "+e+" should be written to HTML of "+t+" but the value is not a string.");return null}if(!o.isValid(e)||e.indexOf(":")!=-1){a.error("CustomData with key "+e+" should be written to HTML of "+t+" but the key is not valid (must be a valid sap.ui.core.ID without any colon).");return null}if(e==window._FASTNAVIGATIONKEY){u=/^\s*(x|true)\s*$/i.test(u)?"true":"false"}else if(e.indexOf("sap-ui")==0){a.error("CustomData with key "+e+" should be written to HTML of "+t+" but the key is not valid (may not start with 'sap-ui').");return null}return{key:e,value:u}};return t});
-//# sourceMappingURL=CustomData.js.map

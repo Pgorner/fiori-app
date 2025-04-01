@@ -1,7 +1,0 @@
-/*!
- * OpenUI5
- * (c) Copyright 2009-2025 SAP SE or an SAP affiliate company.
- * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
- */
-sap.ui.define(["sap/base/strings/formatMessage","sap/ui/thirdparty/jquery"],function(t,jQuery){"use strict";var e={fetch:function(n){if(e.isBlob(n)){return e._fetchBlob(n)}return new Promise(function(e,r){jQuery.ajax(n,{dataType:"text"}).done(function(t){e(t)}).fail(function(e,a,i){r(t("Error {0} {1} ({2})",[e.status,n,i]))})})},isBlob:function(t){return t.match(/\.(jpeg|jpg|gif|png)$/)!==null},_fetchBlob:function(t){return new Promise(function(n,r){jQuery.ajax(t,{xhrFields:{responseType:"text"},mimeType:"text/plain; charset=x-user-defined"}).done(function(t){var r="data:image/png; base64,"+e._base64Encode(t);n(r)}).fail(function(t,e,n){r(n)})})},_base64Encode:function(t){var e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";var n="",r=0,a,i,c;while(r<t.length){a=t.charCodeAt(r++)&255;if(r==t.length){n+=e.charAt(a>>2);n+=e.charAt((a&3)<<4);n+="==";break}i=t.charCodeAt(r++);if(r==t.length){n+=e.charAt(a>>2);n+=e.charAt((a&3)<<4|(i&240)>>4);n+=e.charAt((i&15)<<2);n+="=";break}c=t.charCodeAt(r++);n+=e.charAt(a>>2);n+=e.charAt((a&3)<<4|(i&240)>>4);n+=e.charAt((i&15)<<2|(c&192)>>6);n+=e.charAt(c&63)}return n}};return e});
-//# sourceMappingURL=FileUtils.js.map

@@ -1,2 +1,0 @@
-sap.ui.define(["sap/m/Link","sap/m/LinkRenderer","sap/base/strings/whitespaceReplacer","sap/suite/ui/generic/template/lib/SideEffectUtil"],function(e,i,t,n){"use strict";var s=e.extend("sap.suite.ui.generic.template.genericUtilities.Link",{init:function(){var e=this.setText.bind(this);this.setText=function(i){e(t(i))}},renderer:function(e,t){i.render(e,t)},onAfterRendering:function(){n.assignFieldGroupIdsToLinkField(this)}});return s});
-//# sourceMappingURL=Link.js.map

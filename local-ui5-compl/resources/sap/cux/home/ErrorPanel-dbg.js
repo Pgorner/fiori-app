@@ -1,6 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
- *  * (c) Copyright 2009-2025 SAP SE. All rights reserved
- */
-"use strict";sap.ui.define(["sap/m/IllustratedMessage","sap/m/VBox","./BasePanel"],function(t,e,s){"use strict";function o(t){return t&&t.__esModule&&typeof t.default!=="undefined"?t.default:t}const i=o(s);const a=i.extend("sap.cux.home.ErrorPanel",{metadata:{library:"sap.cux.home",properties:{messageTitle:{type:"string",group:"Misc",defaultValue:""},messageDescription:{type:"string",group:"Misc",defaultValue:""},actionButton:{type:"sap.m.Button",group:"Misc"}}},constructor:function t(e,s){i.prototype.constructor.call(this,e,s)},getData:function s(){this.setProperty("enableSettings",false);if(!this._oWrapperNoCardsVBox){const s=new t({illustrationSize:"Spot",illustrationType:"sapIllus-AddDimensions",title:this.getProperty("messageTitle"),description:this.getProperty("messageDescription")});this._oWrapperNoCardsVBox=new e({backgroundDesign:"Solid"}).addStyleClass("sapUiSmallMarginTop");const o=this.getProperty("actionButton");if(o){s.insertAdditionalContent(o,0)}this._oWrapperNoCardsVBox.addItem(s);this._addContent(this._oWrapperNoCardsVBox)}}});return a});
-//# sourceMappingURL=ErrorPanel-dbg.js.map

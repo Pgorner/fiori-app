@@ -1,2 +1,0 @@
-ace.define("ace/snippets/makefile.snippets",["require","exports","module"],function(e,i,t){t.exports="snippet ifeq\n\tifeq (${1:cond0},${2:cond1})\n\t\t${3:code}\n\tendif\n"});ace.define("ace/snippets/makefile",["require","exports","module","ace/snippets/makefile.snippets"],function(e,i,t){"use strict";i.snippetText=e("./makefile.snippets");i.scope="makefile"});(function(){ace.require(["ace/snippets/makefile"],function(e){if(typeof module=="object"&&typeof exports=="object"&&module){module.exports=e}})})();
-//# sourceMappingURL=makefile.js.map

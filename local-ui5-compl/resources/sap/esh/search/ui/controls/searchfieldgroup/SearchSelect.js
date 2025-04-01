@@ -1,8 +1,0 @@
-/*! 
- * SAPUI5
-
-		(c) Copyright 2009-2021 SAP SE. All rights reserved
-	 
- */
-(function(){sap.ui.define(["../../i18n","sap/m/Select","sap/m/library","sap/ui/core/Item","sap/ui/model/BindingMode","../../eventlogging/UserEvents"],function(e,t,s,a,i,n){"use strict";function r(e){return e&&e.__esModule&&typeof e.default!=="undefined"?e.default:e}const o=r(e);const c=s["SelectType"];const l=n["UserEventType"];const d=t.extend("sap.esh.search.ui.controls.SearchSelect",{renderer:{apiVersion:2},constructor:function e(s,n){t.prototype.constructor.call(this,s,n);this.bindProperty("visible",{path:"/businessObjSearchEnabled"});this.setAutoAdjustWidth(true);this.bindItems({path:"/dataSources",template:new a("",{key:"{id}",text:"{labelPlural}"})});this.bindProperty("selectedKey",{path:"/uiFilter/dataSource/id",mode:i.OneWay});this.bindProperty("tooltip",{parts:[{path:"/uiFilter/dataSource/labelPlural"}],formatter:e=>o.getText("searchInPlaceholder",[e])});this.attachChange(()=>{const e=this.getSelectedItem();const t=e.getBindingContext();const s=t.getObject();const a=this.getModel();a.setDataSource(s,false);a.abortSuggestions();a.eventLogger.logEvent({type:l.DROPDOWN_SELECT_DS,dataSourceKey:s.id})});this.bindProperty("enabled",{parts:[{path:"/initializingObjSearch"}],formatter:e=>!e});this.addStyleClass("searchSelect")},setDisplayMode:function e(t){switch(t){case"icon":this.setType(c.IconOnly);this.setIcon("sap-icon://slim-arrow-down");break;case"default":this.setType(c.Default);break;default:break}}});return d})})();
-//# sourceMappingURL=SearchSelect.js.map

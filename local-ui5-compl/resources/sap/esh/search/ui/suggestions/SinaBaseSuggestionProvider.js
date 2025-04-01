@@ -1,8 +1,0 @@
-/*! 
- * SAPUI5
-
-		(c) Copyright 2009-2021 SAP SE. All rights reserved
-	 
- */
-(function(){sap.ui.define(["./SuggestionType"],function(e){"use strict";const s=e["Type"];class t{suggestionQuery;suggestionTypes;constructor(e){this.sinaNext=e;this.suggestionQuery=this.sinaNext.createSuggestionQuery()}prepareSuggestionQuery(e){this.suggestionQuery.resetResultSet();this.suggestionQuery.setFilter(e);const s=this.assembleSinaSuggestionTypesAndCalcModes();this.suggestionQuery.setTypes(s.types);this.suggestionQuery.setCalculationModes(s.calculationModes);this.suggestionQuery.setTop(20)}assembleSinaSuggestionTypesAndCalcModes(){const e=function(e,s){if(e.indexOf(s)>=0){return}e.push(s)};const t={types:[],calculationModes:[]};for(let i=0;i<this.suggestionTypes.length;++i){const a=this.suggestionTypes[i];switch(a){case s.SearchTermHistory:e(t.types,this.sinaNext.SuggestionType.SearchTerm);e(t.calculationModes,this.sinaNext.SuggestionCalculationMode.History);break;case s.SearchTermData:e(t.types,this.sinaNext.SuggestionType.SearchTerm);e(t.calculationModes,this.sinaNext.SuggestionCalculationMode.Data);break;case s.SearchTermAI:e(t.types,this.sinaNext.SuggestionType.SearchTermAI);e(t.calculationModes,this.sinaNext.SuggestionCalculationMode.Data);break;case s.DataSource:e(t.types,this.sinaNext.SuggestionType.DataSource);e(t.calculationModes,this.sinaNext.SuggestionCalculationMode.Data);break;case s.Object:e(t.types,this.sinaNext.SuggestionType.Object);e(t.calculationModes,this.sinaNext.SuggestionCalculationMode.Data);break}}return t}}return t})})();
-//# sourceMappingURL=SinaBaseSuggestionProvider.js.map

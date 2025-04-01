@@ -1,7 +1,0 @@
-/*!
- * SAP APF Analysis Path Framework
- *
- * (c) Copyright 2012-2014 SAP AG. All rights reserved
- */
-sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/mvc/ViewType"],function(e,t){"use strict";var i,r,a,o,n;function u(e){if(i&&i.arguments&&i.arguments.smartFilterId){n=o.getSmartFilterBar()}}function s(e){var i,u;var s={oTextReader:r,oConfigurationHandler:a,oConfigurationEditor:o,oParentObject:n,getCalatogServiceUri:e.getView().getViewData().getCalatogServiceUri,oCoreApi:e.getView().getViewData().oCoreApi};i=new sap.ui.controller("sap.apf.modeler.ui.controller.smartFilterBarRequest");u=new sap.ui.view({viewName:"sap.apf.modeler.ui.view.requestOptions",type:t.XML,id:e.createId("idSFBRequestView"),viewData:s,controller:i});e.byId("idSFBRequestVBox").insertItem(u)}return e.extend("sap.apf.modeler.ui.controller.smartFilterBar",{onInit:function(){var e=this;var t=e.getView().getViewData();r=t.getText;i=t.oParams;a=t.oConfigurationHandler;o=t.oConfigurationEditor;u(e);s(e)},setDetailData:function(){},getValidationState:function(){var e=this;return e.byId("idSFBRequestView").getController().getValidationState()},onExit:function(){var e=this;e.byId("idSFBRequestView").destroy()}})});
-//# sourceMappingURL=smartFilterBar.controller.js.map

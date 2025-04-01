@@ -1,2 +1,0 @@
-var materialIdDescriptor = sap.ui.vtm.DescriptorUtilities.createMetadataDescriptor("SAP", "MATERIAL");
-var componentIdDescriptor = sap.ui.vtm.DescriptorUtilities.createIdentifierDescriptor("SAP", "VE_COMPONENT")

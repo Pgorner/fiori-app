@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/base/Log","sap/ui/core/Element"],function(e,t){"use strict";const n=3;class s{add(n,s){if(n.includes(s)){return}if(!t.getElementById(s)){e.warning(`Failed to find control with id '${s}'`);return}if(this.#e([...n,s])){e.error("The maximum number of head items has been reached. The item could not be added.")}else{this.#t(n,s)}}#e(e){const t=[...new Set(e)];const s=["backBtn"];const d=t.filter(e=>!s.includes(e)).length;return d>n}#t(e,t){e.push(t);const n={backBtn:-1};e.sort((e,t)=>{const s=n[e]||0;const d=n[t]||0;return s-d})}}return new s});
-//# sourceMappingURL=HeadItemsStrategy.js.map

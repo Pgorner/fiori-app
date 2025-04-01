@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/ui/core/Element","sap/ushell/Container"],function(e,t){"use strict";return{isSearchFieldExpandedByDefault:function(){var a=e.getElementById("shell-header")||{isExtraLargeState:function(){return false}};var r=t.getRendererInternal("fiori2").getShellController();var n=r.getView();var i=(n.getViewData()?n.getViewData().config:{})||{};return i.openSearchAsDefault||a.isExtraLargeState()}}});
-//# sourceMappingURL=util.js.map

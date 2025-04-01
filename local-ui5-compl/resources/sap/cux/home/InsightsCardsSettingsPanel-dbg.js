@@ -1,6 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
- *  * (c) Copyright 2009-2025 SAP SE. All rights reserved
- */
-"use strict";sap.ui.define(["sap/insights/ManageCards","./BaseSettingsPanel","./utils/Constants"],function(t,e,n){"use strict";function s(t){return t&&t.__esModule&&typeof t.default!=="undefined"?t.default:t}const a=s(e);const i=n["SETTINGS_PANELS_KEYS"];const r=a.extend("sap.cux.home.InsightsCardsSettingsPanel",{constructor:function t(){a.prototype.constructor.apply(this,arguments);this.eventAttached=false},init:function t(){a.prototype.init.call(this);this.setProperty("key",i.INSIGHTS_CARDS);this.setProperty("title",this._i18nBundle.getText("insightsCards"));this.setProperty("icon","sap-icon://card");this.setProperty("showHeader",false);this.addAggregation("content",this._getContent());this.attachPanelNavigated(t=>{const e=t.getParameter("context")?.cardId;this.manageCardsInstance?.setProperty("cardId",e||"");if(!this.eventAttached){this.eventAttached=true;this.getParent()?.attachAfterClose(()=>{void this._getPanel()?.renderPanel()})}})},_getContent:function e(){if(!this.manageCardsInstance){this.manageCardsInstance=new t}return this.manageCardsInstance}});return r});
-//# sourceMappingURL=InsightsCardsSettingsPanel-dbg.js.map

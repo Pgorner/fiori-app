@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/base/Log","sap/ushell/Container"],function(e,r){"use strict";var n=function(){};n.prototype.getName=function(){return"Recent Search Terms Provider"};n.prototype.execSearch=function(){return r.getServiceAsync("UserRecents").then(function(r){return r.getRecentSearches().then(function(e){var r=[];if(Array.isArray(e)&&e.length>0){r=e.map(function(e){return{text:e.sTerm,icon:e.icon||"sap-icon://history"}})}return r},function(r){e.error("Recent Search Terms Provider failed","error: "+r,"sap.ushell.components.shell.SearchCEP.SearchProviders.RecentSearchProvider::execSearch");return[]})})};return new n},false);
-//# sourceMappingURL=RecentSearchProvider.js.map

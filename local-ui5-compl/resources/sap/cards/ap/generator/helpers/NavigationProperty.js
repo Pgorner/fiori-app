@@ -1,6 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
- *  * (c) Copyright 2009-2025 SAP SE. All rights reserved
- */
-"use strict";sap.ui.define(["../odata/ODataUtils","./ApplicationInfo","./Batch","./Formatter"],function(e,t,n,o){"use strict";const a=function(e,t,n){try{const o=e.getModel();const{entitySet:a,serviceUrl:u,odataModel:f}=s.getInstance().fetchDetails();const m=f===c.V4;const d=i(o,a);const h=d.find(e=>e.name===t);if(!h){return Promise.resolve({propertiesWithLabel:[],navigationPropertyData:{}})}const P=h.properties||[];const g={properties:[],navigationProperties:[{name:h.name,properties:[]}]};return Promise.resolve(r(u,n,m,l(g))).then(function(e){if(e[h.name]!==undefined&&e[h.name]!==null){P.forEach(t=>{const n=e[h.name];if(n[t.name]!==undefined&&n[t.name]!==null){const e=n[t.name];t.labelWithValue=p(t,e)}else{t.labelWithValue=`${t.label} (<empty>)`}})}return{propertiesWithLabel:P,navigationPropertyData:e}})}catch(e){return Promise.reject(e)}};const r=e["fetchDataAsync"];const i=e["getNavigationPropertyInfoFromEntity"];const s=t["ApplicationInfo"];const c=t["ODataModelVersion"];const l=n["createUrlParameters"];const p=o["formatPropertyDropdownValues"];var u={__esModule:true};u.getNavigationPropertiesWithLabel=a;return u});
-//# sourceMappingURL=NavigationProperty.js.map

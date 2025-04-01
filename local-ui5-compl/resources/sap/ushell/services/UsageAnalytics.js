@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/base/Log"],function(e){"use strict";function r(r,t,s){this.setLegalText=function(){this._logDeprecationError()};this.systemEnabled=function(){this._logDeprecationError();return false};this.userEnabled=function(){this._logDeprecationError();return false};this.setCustomAttributes=function(e){this._logDeprecationError()};this._logDeprecationError=function(){e.error("UsageAnalytics service is deprecated, because the corresponding cloud service 'SAP Web Analytics' has been retired.",null,"sap.ushell.services.UsageAnalytics")}}r.hasNoAdapter=true;return r},true);
-//# sourceMappingURL=UsageAnalytics.js.map

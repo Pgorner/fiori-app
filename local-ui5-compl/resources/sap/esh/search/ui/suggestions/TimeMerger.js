@@ -1,8 +1,0 @@
-/*! 
- * SAPUI5
-
-		(c) Copyright 2009-2021 SAP SE. All rights reserved
-	 
- */
-(function(){sap.ui.define([],function(){"use strict";class i{static counter=0;aborted=false;pending;returned=[];counter;processorCallback;processorNotificationSchedule;constructor(t=[],e=1e3){this.promiseList=t;this.timeDelay=e;this.pending=this.promiseList.length;this.counter=++i.counter}abort(){this.aborted=true}process(i){this.processorCallback=i;this.start();return this}start(){for(let i=0;i<this.promiseList.length;++i){const t=this.promiseList[i];t.then(this.assembleDoneCallback(),this.assembleErrorCallback())}this.scheduleProcessorNotification()}scheduleProcessorNotification(){if(this.processorNotificationSchedule){window.clearTimeout(this.processorNotificationSchedule);this.processorNotificationSchedule=null}this.processorNotificationSchedule=window.setTimeout(()=>{this.notifyProcessor()},this.timeDelay)}notifyProcessor(){if(this.aborted){return}if(this.returned.length>0){this.processorCallback(this.returned);this.returned=[]}if(this.pending>0){this.scheduleProcessorNotification()}}assembleDoneCallback(){return i=>{this.pending--;this.returned.push(i);if(this.pending===0){if(this.processorNotificationSchedule){window.clearTimeout(this.processorNotificationSchedule);this.processorNotificationSchedule=null}this.notifyProcessor()}}}assembleErrorCallback(){return i=>{this.pending--;this.returned.push(i);if(this.pending===0){if(this.processorNotificationSchedule){window.clearTimeout(this.processorNotificationSchedule);this.processorNotificationSchedule=null}this.notifyProcessor()}}}}return i})})();
-//# sourceMappingURL=TimeMerger.js.map

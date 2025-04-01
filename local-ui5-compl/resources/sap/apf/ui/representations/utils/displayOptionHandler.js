@@ -1,7 +1,0 @@
-/*!
- * SAP APF Analysis Path Framework
- * 
- * (c) Copyright 2012-2014 SAP AG. All rights reserved
- */
-sap.ui.define(["sap/apf/core/constants","sap/apf/utils/exportToGlobal"],function(e,t){"use strict";function a(){}function r(e,t){var a,r=false;var n=e[0][t];for(a=0;a<e.length;a++){if(n!==e[a][t]){r=true;break}}return r}a.prototype.constructor=a;a.prototype.getColumnNameBasedOnDisplayOption=function(t,a,r){var n;var i=t;if(a===undefined){n=i}if(a===e.representationMetadata.labelDisplayOptions.TEXT){n=r.getPropertyMetadata(i).text}if(a===e.representationMetadata.labelDisplayOptions.KEY){n="formatted_"+i}if(a===e.representationMetadata.labelDisplayOptions.KEY_AND_TEXT){n=i+"_"+r.getPropertyMetadata(i).text}return n};a.prototype.getDisplayNameForMeasure=function(e,t,a,n){var i=t.getPropertyMetadata(e.fieldName);var o=i.label?i.label:i.name;var l=t.getPropertyMetadata(i.name).unit;var p=a[0]?a[0][l]:undefined;if(e.fieldDesc){o=n.getTextNotHtmlEncoded(e.fieldDesc)}if(l&&p&&!r(a,l)){o=n.getTextNotHtmlEncoded("displayUnit",[o,p])}return o};a.prototype.getDisplayNameForDimension=function(e,t,a){var r=t.getPropertyMetadata(e.fieldName);var n=r.label?r.label:r.name;if(e.fieldDesc){n=a.getTextNotHtmlEncoded(e.fieldDesc)}return n};t("sap.apf.ui.representations.utils.DisplayOptionHandler",a);return a});
-//# sourceMappingURL=displayOptionHandler.js.map

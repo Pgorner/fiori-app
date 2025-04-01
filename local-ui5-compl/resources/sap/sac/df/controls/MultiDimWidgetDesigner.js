@@ -1,7 +1,0 @@
-/*
- * SAPUI5
-    (c) Copyright 2009-2021 SAP SE. All rights reserved
-  
- */
-sap.ui.define("sap/sac/df/controls/MultiDimWidgetDesigner",["sap/sac/df/controls/MultiDimControlBase"],function(t){var i=t.extend("sap.sac.df.controls.MultiDimWidgetDesigner",{metadata:{library:"sap.sac.df",properties:{metaPath:{type:"string"},widgetId:{type:"string"}}},init:function(){if(t.prototype.init){t.prototype.init.apply(this,arguments)}this._config={configuration:{},layout:{type:"SinglePlugin"},plugins:[{plugin:"AnalyticalWidgetDesignerDocument",config:{systemName:null,widgetCatalog:"/analyticalwidgets/",widgetId:null,previewUrl:null,sdkUrl:null,bootstrapConfigUrl:null}}],commands:[{plugin:"DataProviderCommand",config:{}}],toolbar:[]}},onBeforeRendering:function(){this._config.plugins[0].config.widgetId=this.getWidgetId();if(this._getMultiDimModel()?._SystemSettings?.masterSystem){this._config.plugins[0].config.systemName=this._getMultiDimModel()?._SystemSettings?.masterSystem}},renderer:t.getMetadata().getRenderer().render,getPluginConfigName:function(){return"AnalyticalWidgetDesignerDocument"},_applyPropertiesToPlugin:function(){t.prototype._applyPropertiesToPlugin.apply(this)}});return i});
-//# sourceMappingURL=MultiDimWidgetDesigner.js.map

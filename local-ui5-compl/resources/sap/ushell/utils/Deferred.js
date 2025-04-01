@@ -1,3 +1,0 @@
-//Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define([],function(){"use strict";class e{#e=null;#t=null;#s=null;constructor(){let e;let t;const s=new Promise((s,r)=>{e=s;t=r});this.#t=e.bind(s);this.#s=t.bind(s);s._state="pending";s.done=e=>{s.then(e);return s};s.fail=e=>{s.catch(e);return s};s.always=e=>{s.finally(e);return s};s.state=()=>s._state;this.#e=s}resolve(e){this.#e._state="resolved";this.#t(e);return this.#e}reject(e){this.#e._state="rejected";this.#s(e);return this.#e}promise(){return this.#e}}return e});
-//# sourceMappingURL=Deferred.js.map

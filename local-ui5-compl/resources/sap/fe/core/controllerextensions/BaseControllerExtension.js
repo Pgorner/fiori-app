@@ -1,6 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
- *      (c) Copyright 2009-2024 SAP SE. All rights reserved
- */
-sap.ui.define(["sap/fe/base/ClassSupport","sap/ui/core/mvc/ControllerExtension"],function(t,e){"use strict";var r,o;var n={};var c=t.defineUI5Class;function s(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,i(t,e)}function i(t,e){return i=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},i(t,e)}let a=(r=c("sap.fe.core.controllerextensions.BaseControllerExtension"),r(o=function(t){function e(){var e;e=t.call(this)||this;e.init();return e}n=e;s(e,t);var r=e.prototype;r.getInterface=function e(){var r=this;const o=t.prototype.getInterface.call(this);const n=this.getMetadata();const c=n.getAllMethods();const s={};for(const t in c){const e=c[t];if(e.overrideExecution&&(e.overrideExecution==="AfterAsync"||e.overrideExecution==="BeforeAsync")){s[t]=[o[t]];Object.defineProperty(o,t,{configurable:true,set:e=>s[t].push(e),get:()=>async function(){const o=s[t];if(e.overrideExecution==="BeforeAsync"){o.reverse()}for(var n=arguments.length,c=new Array(n),i=0;i<n;i++){c[i]=arguments[i]}for(const t of o){await t.apply(r,c)}}})}}return o};return e}(e))||o);n=a;return n},false);
-//# sourceMappingURL=BaseControllerExtension.js.map

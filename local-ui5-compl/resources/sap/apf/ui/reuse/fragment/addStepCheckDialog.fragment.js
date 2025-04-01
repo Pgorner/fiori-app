@@ -1,7 +1,0 @@
-/*!
- * SAP APF Analysis Path Framework
- *
- * (c) Copyright 2012-2014 SAP SE. All rights reserved
- */
-sap.ui.define(["sap/m/Button","sap/m/Dialog","sap/m/library","sap/m/Link","sap/m/Text","sap/m/VBox","sap/base/security/encodeXML","sap/ui/core/HTML","sap/ui/core/library","sap/ui/thirdparty/jquery"],function(e,t,n,o,i,s,a,r,d,jQuery){"use strict";var c=n.DialogType,p=n.FlexAlignItems,l=d.ValueState;return{createContent:function(n){var d=n.oController;var g=new t(d.createId("idAddStepCheckDialog"),{title:d.oCoreApi.getTextNotHtmlEncoded("warning"),type:c.Message,state:l.Warning,content:[new i({text:d.oCoreApi.getTextNotHtmlEncoded("addStepCheck")}),new s({alignItems:p.End,items:[new o(d.createId("idShowDetailsLinkForAddStep"),{text:d.oCoreApi.getTextNotHtmlEncoded("showDetails"),press:function(){var o=new t(d.createId("idShowDetailsDialogForAddStep"),{contentWidth:jQuery(window).height()*.6+"px",contentHeight:jQuery(window).height()*.6+"px",title:d.oCoreApi.getTextNotHtmlEncoded("warning"),type:c.Message,state:l.Warning,content:new r({content:["<div><p> "+a(n.sMessageText)+"</p></div>"].join(""),sanitizeContent:true}),beginButton:new e({text:d.oCoreApi.getTextNotHtmlEncoded("close"),press:function(){o.close()}}),afterClose:function(){o.destroy()}});o.setInitialFocus(o);o.open()}})]})],beginButton:new e({text:d.oCoreApi.getTextNotHtmlEncoded("close"),press:function(){g.close()}}),afterClose:function(){g.destroy()}});return g}}});
-//# sourceMappingURL=addStepCheckDialog.fragment.js.map

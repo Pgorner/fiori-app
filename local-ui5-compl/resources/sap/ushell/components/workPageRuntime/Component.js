@@ -1,3 +1,0 @@
-//Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/ui/core/UIComponent"],function(t){"use strict";return t.extend("sap.ushell.components.workPageRuntime.Component",{metadata:{manifest:"json",library:"sap.ushell",interfaces:["sap.ui.core.IAsyncContentCreation"]},getNavigationDisabled:function(){var t=this.getComponentData()||{};return!!t.navigationDisabled},hideRuntime:function(){this.getRootControl().getController().hideRuntime()},onRouteMatched:function(){this.getRootControl().getController().onRouteMatched()}})});
-//# sourceMappingURL=Component.js.map

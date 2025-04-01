@@ -1,2 +1,0 @@
-sap.ui.define(["sap/suite/ui/generic/template/genericUtilities/controlStateWrapperFactory/SmartTableChartCommon"],function(e){"use strict";function t(t,i,n){return new e(t,i,n,"initialized")}return t});
-//# sourceMappingURL=SmartChartWrapper.js.map

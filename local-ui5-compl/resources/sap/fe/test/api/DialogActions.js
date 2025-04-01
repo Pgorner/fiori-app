@@ -1,8 +1,0 @@
-/*!
- * 
-		SAP UI development toolkit for HTML5 (SAPUI5)
-        (c) Copyright 2009-2021 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["./DialogAPI","sap/fe/test/Utils","sap/ui/test/OpaBuilder"],function(e,t,i){"use strict";var r=function(t,i,r){return e.call(this,t,i,r)};r.prototype=Object.create(e.prototype);r.prototype.constructor=r;r.prototype.isAction=true;r.prototype.iConfirm=function(){return this.prepareResult(this.getBuilder().doPressFooterButton(this._getConfirmButtonMatcher()).description(t.formatMessage("Confirming dialog '{0}'",this.getIdentifier())).execute())};r.prototype.iCancel=function(){return this.prepareResult(this.getBuilder().doPressFooterButton(this._getCancelButtonMatcher()).description(t.formatMessage("Cancelling dialog '{0}'",this.getIdentifier())).execute())};r.prototype.iClose=function(){return this.prepareResult(this.getBuilder().doPressKeyboardShortcut("Escape").description(t.formatMessage("Closing dialog '{0}'",this.getIdentifier())).execute())};r.prototype.iChangeDialogField=function(e,i,r){var o=t.parseArguments([Object,String,Boolean],arguments);return this.prepareResult(this._createFieldBuilder(e,this.getIdentifier()).doChangeValue(o[1],o[2]).description(t.formatMessage("Changing the field '{1}' of dialog '{0}' by adding '{2}' (was cleared first: {3})",this.getIdentifier(),o[0],o[1],!!o[2])).execute())};r.prototype.iChangeActionParameterDialogField=function(e,t,i){return this.iChangeDialogField(e,t,i)};r.prototype.iExecuteKeyboardShortcut=function(e){return this.prepareResult(this.getBuilder().doPressKeyboardShortcut(e).description(t.formatMessage("Execute keyboard shortcut "+e+" on dialog")).execute())};return r});
-//# sourceMappingURL=DialogActions.js.map

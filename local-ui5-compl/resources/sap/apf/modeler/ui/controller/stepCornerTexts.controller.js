@@ -1,7 +1,0 @@
-/*!
- * SAP APF Analysis Path Framework
- *
- * (c) Copyright 2012-2014 SAP AG. All rights reserved
- */
-sap.ui.define(["sap/apf/modeler/ui/controller/cornerTexts","sap/apf/modeler/ui/utils/textPoolHelper"],function(e,t){"use strict";function r(e,t){var r=t&&e.oTextPool.get(t);return r&&r.TextElementDescription}var a=e.extend("sap.apf.modeler.ui.controller.stepCornerTexts",{setChartIcon:function(){var e=this;e.byId("idChartIcon").setSrc("sap-icon://line-chart");e.byId("idChartIcon").addStyleClass("stepChartIcon")},addStyleClasses:function(){var e=this;e.byId("idLeftUpper").addStyleClass("stepLeftCornerText");e.byId("idRightUpper").addStyleClass("stepRightCornerText");e.byId("idLeftLower").addStyleClass("stepLeftCornerText");e.byId("idRightLower").addStyleClass("stepRightCornerText")},getTranslationFormatMap:function(){return t.TranslationFormatMap.STEP_CORNER_TEXT},getLeftUpperCornerText:function(e){var t=this;var a=t.getView().getViewData().oParentObject[e]();var n=r(t,a);return n},getRightUpperCornerText:function(e){var t=this;var a=t.getView().getViewData().oParentObject[e]();var n=r(t,a);return n},getLeftLowerCornerText:function(e){var t=this;var a=t.getView().getViewData().oParentObject[e]();var n=r(t,a);return n},getRightLowerCornerText:function(e){var t=this;var a=t.getView().getViewData().oParentObject[e]();var n=r(t,a);return n}});return a},true);
-//# sourceMappingURL=stepCornerTexts.controller.js.map

@@ -1,7 +1,0 @@
-/*!
- * SAP APF Analysis Path Framework
- *
- * (c) Copyright 2012-2014 SAP AG. All rights reserved
- */
-sap.ui.define(["sap/m/library","sap/m/Popover","sap/ui/core/mvc/View","sap/ui/layout/VerticalLayout"],function(t,e,i,a){"use strict";var o=t.PlacementType;return i.extend("sap.apf.ui.reuse.view.analysisPath",{getCarouselView:function(){return this.oCarousel},getToolbar:function(){return this.oActionListItem},getPathGallery:function(){return this.pathGallery},getPathGalleryWithDeleteMode:function(){return this.deleteAnalysisPath},getControllerName:function(){return"sap.apf.ui.reuse.controller.analysisPath"},createContent:function(t){var i=this;this.oController=t;this.oActionListPopover=new e({id:this.createId("idAnalysisPathMenuPopOver"),showHeader:false,placement:o.Bottom,contentWidth:"165px"});var s=this.getViewData();i.oCoreApi=s.oCoreApi;i.oUiApi=s.uiApi;this.oActionListItem=i.oUiApi.getToolbar().addStyleClass("toolbarView");this.oCarousel=i.oUiApi.createCarouselSingleton();this.oCarousel.getViewData().analysisPath=i;this.pathGallery=i.oUiApi.getPathGallery();this.deleteAnalysisPath=i.oUiApi.getDeleteAnalysisPath();this.oAnalysisPath=new a({content:[i.oContentTitle,i.oCarousel],width:"100%"});return this.oAnalysisPath}})});
-//# sourceMappingURL=analysisPath.view.js.map

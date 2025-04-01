@@ -1,8 +1,0 @@
-/*!
- * 
-		SAP UI development toolkit for HTML5 (SAPUI5)
-        (c) Copyright 2009-2021 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["sap/ui/test/Opa5","sap/ui/test/OpaBuilder","sap/fe/test/Utils","sap/fe/test/Stubs","sap/fe/test/BaseArrangements","sap/fe/test/internal/ConsoleErrorChecker","sap/ui/thirdparty/jquery"],function(e,t,r,a,s,n,jQuery){"use strict";return s.extend("sap.fe.test.internal.FEArrangements",{constructor:function(e){s.call(this,r.mergeObjects({launchUrl:"test-resources/sap/fe/templates/internal/demokit/flpSandbox.html"},e))},iResetTestData:function(e){var a=this,s=new URLSearchParams(window.location.search),n=s.get("useBackendUrl"),i=n?"/databinding/proxy/"+n.replace("://","/"):"",c=false;var o="";if(window.__karma__&&window.__karma__.config&&window.__karma__.config.ui5){o=window.__karma__.config.ui5.shardIndex}else{o=window.location.href.includes("sap-client")?new URL(window.location.href).searchParams.get("sap-client"):"default"}return t.create(this).success(function(){var r=a.resetTestData(),s=e?Promise.resolve():jQuery.post(i+"/redeploy?tenant="+o);Promise.all([r,s]).finally(function(){c=true}).catch(function(e){throw e});return t.create(this).timeout(60).check(function(){return c}).execute()}).description(r.formatMessage("Reset test data on tenant '{0}'",o)).execute()},iAcceptTheseErrors:function(e){return t.create(this).do(function(){n.setAcceptedErrorPatterns(e)}).description(!e||e.length===0?"Do not accept error messages":r.formatMessage("Only accept these error message patterns: {0}",e)).execute()}})});
-//# sourceMappingURL=FEArrangements.js.map

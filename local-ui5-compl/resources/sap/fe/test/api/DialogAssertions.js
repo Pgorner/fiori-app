@@ -1,8 +1,0 @@
-/*!
- * 
-		SAP UI development toolkit for HTML5 (SAPUI5)
-        (c) Copyright 2009-2021 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["./DialogAPI","sap/fe/test/Utils"],function(t,e){"use strict";var i=function(e,i,r){return t.call(this,e,i,r)};i.prototype=Object.create(t.prototype);i.prototype.constructor=i;i.prototype.isAction=false;i.prototype.iCheckState=function(t){return this.prepareResult(this.getBuilder().hasState(t).description(e.formatMessage("Checking dialog '{0}' in state '{1}'",this.getIdentifier(),t)).execute())};i.prototype.iCheckConfirm=function(t){return this.prepareResult(this.getBuilder().hasFooterButton(this._getConfirmButtonMatcher(),t).description(e.formatMessage("Checking dialog '{0}' having confirmation button with state '{1}'",this.getIdentifier(),t)).execute())};i.prototype.iCheckCancel=function(t){return this.prepareResult(this.getBuilder().hasFooterButton(this._getCancelButtonMatcher(),t).description(e.formatMessage("Checking dialog '{0}' having cancellation button with state '{1}'",this.getIdentifier(),t)).execute())};i.prototype.iCheckDialogField=function(t,i,r){var o=e.parseArguments([Object,[String,Array,Object],Object],arguments);return this.prepareResult(this._createFieldBuilder(t,this.getIdentifier()).hasValue(o[1]).hasState(o[2]).description(e.formatMessage("Checking field '{1}' of dialog '{0}' with content '{2}' and state '{3}'",this.getIdentifier(),o[0],o[1],o[2])).execute())};i.prototype.iCheckActionParameterDialogField=function(t,e,i){return this.iCheckDialogField(t,e,i)};return i});
-//# sourceMappingURL=DialogAssertions.js.map

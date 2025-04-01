@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-var apprtBIdiv;document.addEventListener("DOMContentLoaded",function(){try{const d=document.createElement("link");d.rel="stylesheet";d.href="style.css";document.head.appendChild(d);apprtBIdiv=document.createElement("div");apprtBIdiv.classList.add("apprtBIcenter");document.body.appendChild(apprtBIdiv);var e;for(var t=0;t<3;t++){e=document.createElement("div");e.classList.add("apprtBIcir");apprtBIdiv.appendChild(e)}}catch(e){}});
-//# sourceMappingURL=BusyIndicator.js.map

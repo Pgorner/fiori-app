@@ -1,7 +1,0 @@
-/*!
- * OpenUI5
- * (c) Copyright 2009-2025 SAP SE or an SAP affiliate company.
- * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
- */
-sap.ui.define(["./APIInfo","sap/base/util/ObjectPath","sap/ui/VersionInfo"],function(e,n,r){"use strict";function i(e){return r.load().catch(function(){}).then(function(n){if(n&&Array.isArray(n.libraries)){var r=n.libraries.length;for(var i=0;i<r;i++){var t=n.libraries[i];if(e===t.name||e.indexOf(t.name+".")===0){return t.name}}}return"sap.ui.core"})}function t(e,n){return new Promise(function(r,t){if(n){r(n);return}sap.ui.require([e.replaceAll(".","/")],function(t){if(t&&t.getMetadata){var u=t.getMetadata();if(u.getLibraryName){n=u.getLibraryName()}else{n="sap.ui.core"}return r(n)}return i(e)},t)})}function u(n,r){return t(n,r).then(function(n){return e.getLibraryElementsJSONPromise(n)}).then(function(e){var r,i;for(var t=0,u=e.length;t<u;t++){if(e[t].name===n){r=e[t];break}}if(r){i={baseType:r.extends,deprecation:r.deprecatedText?r.deprecatedText:null,doc:r.description,module:r.module,name:r.name,since:r.since,values:r.properties,uxGuidelinesLink:r.uxGuidelinesLink,uxGuidelinesLinkText:r.uxGuidelinesLinkText,docuLink:r.docuLink,docuLinkText:r.docuLinkText}}return i})}return{getEntityDocuAsync:function(e,n){return u(e,n)}}},true);
-//# sourceMappingURL=EntityInfo.js.map

@@ -1,7 +1,0 @@
-/*
- * SAPUI5
-    (c) Copyright 2009-2021 SAP SE. All rights reserved
-  
- */
-sap.ui.define("sap/sac/df/controls/MultiDimWidget",["sap/sac/df/controls/MultiDimControlBase"],function(t){var i=t.extend("sap.sac.df.controls.MultiDimWidget",{metadata:{library:"sap.sac.df",properties:{metaPath:{type:"string"},widgetId:{type:"string"}}},init:function(){if(t.prototype.init){t.prototype.init.apply(this,arguments)}this._config={configuration:{},layout:{type:"SinglePlugin"},plugins:[{plugin:"AnalyticalWidget",config:{widgetCatalog:"/analyticalwidgets/",widgetId:null}}],commands:[],toolbar:[]}},onBeforeRendering:function(){this._config.plugins[0].config.widgetId=this.getWidgetId()},setWidgetId:function(t){if(this.getWidgetId()){this.setProperty("widgetId",t);if(this.oHorizonProgram){this.oHorizonProgram.terminate();delete this.oHorizonProgram}if(this.oHorizonRunner){this.oHorizonRunner.releaseObject();delete this.oHorizonRunner}this._unregisterOnDataProviderChange();this.oDataProvider=null;delete this._oPluginContainer;delete this._oPluginConfig;this.init();return this.onBeforeRendering()}else{this.setProperty("widgetId",t)}},renderer:t.getMetadata().getRenderer().render,getPluginConfigName:function(){return"AnalyticalWidget"},_applyPropertiesToPlugin:function(){t.prototype._applyPropertiesToPlugin.apply(this)}});return i});
-//# sourceMappingURL=MultiDimWidget.js.map

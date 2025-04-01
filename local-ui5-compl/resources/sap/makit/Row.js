@@ -1,6 +1,0 @@
-/*!
- * SAPUI5
- * (c) Copyright 2009-2024 SAP SE. All rights reserved.
- */
-sap.ui.define(["./library","sap/ui/core/Element"],function(e,a){"use strict";var t=a.extend("sap.makit.Row",{metadata:{deprecated:true,library:"sap.makit",aggregations:{cells:{type:"sap.makit.Column",multiple:true,singularName:"cell"}}}});t.prototype.init=function(){this._datarow={}};t.prototype.addCell=function(e){a.prototype.addAggregation.call(this,"cells",e,false);var t=this.getId();if(!t.endsWith("dummyrows")){this._datarow[e.getName()]=e.getValue();e.attachEvent("_change",this.onCellChanged,this)}return this};t.prototype.onCellChanged=function(e){if(e.mParameters["name"]==="name"){var a=e.mParameters["oldValue"];var t=e.mParameters["newValue"];this._datarow[t]=undefined;if(a&&a!==""){this._datarow[t]=this._datarow[a];this._datarow[a]=null;this._datarow[a]=undefined;delete this._datarow[a]}}else if(e.mParameters["name"]==="value"){var r=e.oSource.getName();this._datarow[r]=e.mParameters["newValue"]}};return t});
-//# sourceMappingURL=Row.js.map

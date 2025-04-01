@@ -1,7 +1,0 @@
-/*
- * SAPUI5
-    (c) Copyright 2009-2021 SAP SE. All rights reserved
-  
- */
-sap.ui.define("sap/sac/df/DesignerPanel",["sap/sac/df/controls/MultiDimControlBase","sap/sac/df/firefly/library"],function(i,e){var t=i.extend("sap.sac.df.DesignerPanel",{metadata:{library:"sap.sac.df",properties:{metaPath:{type:"string"},showVisualizationType:{type:"boolean",defaultValue:false},showAvailableObjects:{type:"boolean",defaultValue:true}}},init:function(){if(i.prototype.init){i.prototype.init.apply(this,arguments)}},renderer:i.getMetadata().getRenderer().render,getPluginConfigName:function(){return"DesignerPanel"},_applyPropertiesToPlugin:function(){i.prototype._applyPropertiesToPlugin.apply(this);if(this.oHorizonProgram){let i=this._getVisualizationName();if(i){const t=e.XNotificationData.create();t.putString(e.AuOlapAxesBuilderViewPlugin.CONFIG_VISUALIZATION_NAME,i);this.oHorizonProgram.postLocalNotification(e.AuOlapAxesBuilderViewPlugin.NOTIFICATION_VISUALIZATION_NAME_SET,t)}const t=e.XNotificationData.create();t.putBoolean(e.AuOlapAxesBuilderViewPlugin.CONFIG_SHOW_DISPLAY_TYPE,this.getShowVisualizationType());this.oHorizonProgram.postLocalNotification(e.AuOlapAxesBuilderViewPlugin.NOTIFICATION_DISPLAY_TYPE_VISIBILITY_CHANGE,t);const a=e.XNotificationData.create();a.putBoolean(e.AuOlapDesignerDocumentPlugin.NOTIFICATION_DATA_VISIBLE,this.getShowAvailableObjects());this.oHorizonProgram.postLocalNotification(e.AuOlapDesignerDocumentPlugin.NOTIFICATION_TOGGLE_INVENTORY_VISIBILITY,a)}}});return t});
-//# sourceMappingURL=DesignerPanel.js.map

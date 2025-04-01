@@ -1,8 +1,0 @@
-/*! 
- * SAPUI5
-
-		(c) Copyright 2009-2021 SAP SE. All rights reserved
-	 
- */
-(function(){sap.ui.define(["sap/esh/search/ui/SearchHelper","sap/ui/core/CustomData","sap/m/library","sap/m/StandardListItem"],function(e,t,a,r){"use strict";const i=a["ListType"];const s=r.extend("sap.esh.search.ui.controls.SearchFacetSimpleListItem",{renderer:{apiVersion:2},metadata:{properties:{isDataSource:{type:"boolean",defaultValue:false}}},constructor:function a(s,n){r.prototype.constructor.call(this,s,n);this.setType(i.Active);this.bindProperty("title",{path:"label"});this.bindProperty("tooltip",{parts:[{path:"label"},{path:"valueLabel"}],formatter:(e,t)=>t?`${e}: ${t}`:""});if(!n.isDataSource){this.bindProperty("icon",{path:"icon"})}this.bindProperty("info",{parts:[{path:"value"},{path:"valueLabel"}],formatter:function(t,a){if(typeof t==="number"){return e.formatInteger(t)}else if(typeof t==="string"){return t}else if(typeof a!=="undefined"&&a!==""){return a}else{return""}}});this.bindProperty("selected",{path:"selected"});this.insertCustomData(new t({key:"test-id-facet-dimension-value",value:{parts:[{path:"facetTitle"},{path:"label"}],formatter:(e,t)=>`${e}-${t}`},writeToDom:true}),0);this.addStyleClass("sapUshellSearchFacetGenericItem");this.addStyleClass("sapUshellSearchFacetItem");this.addEventDelegate({onAfterRendering:()=>{if(this?.getBindingContext()?.getObject()){const e=this.getBindingContext().getObject().level;if(jQuery("html").attr("dir")==="rtl"){jQuery(this.getDomRef()).children(".sapMLIBContent").css("padding-right",e+"rem")}else{jQuery(this.getDomRef()).children(".sapMLIBContent").css("padding-left",e+"rem")}}}})}});return s})})();
-//# sourceMappingURL=SearchFacetSimpleListItem.js.map

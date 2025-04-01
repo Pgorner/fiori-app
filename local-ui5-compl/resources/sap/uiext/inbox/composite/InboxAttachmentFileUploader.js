@@ -1,6 +1,0 @@
-/*!
- * SAPUI5
- * (c) Copyright 2009-2024 SAP SE. All rights reserved.
- */
-jQuery.sap.declare("sap.uiext.inbox.composite.InboxAttachmentFileUploader");sap.ui.commons.FileUploader.extend("sap.uiext.inbox.composite.InboxAttachmentFileUploader",{metadata:{},renderer:{}});sap.uiext.inbox.composite.InboxAttachmentFileUploader.prototype.upload=function(){var e=this.getDomRef("fu_form");try{if(e){this._bUploading=true;if(this.getSendXHR()&&window.File){var t=jQuery.sap.domById(this.getId()+"-fu").files;if(t.length>0){var a=new window.XMLHttpRequest;a.open("POST",this.getUploadUrl(),true);if(this.getHeaderParameters()){var r=this.getHeaderParameters();for(var o=0;o<r.length;o++){var s=r[o].getName();var i=r[o].getValue();a.setRequestHeader(s,i)}}a.send(t[0]);var n=this;a.onreadystatechange=function(){if(a.readyState==4){n.fireUploadComplete({response:a.response,status:a.status,"x-csrf-token":a.getResponseHeader("x-csrf-token"),headerParameters:n.getHeaderParameters()});n._bUploading=false}};this._bUploading=false}}else{e.submit()}jQuery.sap.log.info("File uploading to "+this.getUploadUrl())}}catch(e){jQuery.sap.log.error("File upload failed:\n"+e.message)}};
-//# sourceMappingURL=InboxAttachmentFileUploader.js.map

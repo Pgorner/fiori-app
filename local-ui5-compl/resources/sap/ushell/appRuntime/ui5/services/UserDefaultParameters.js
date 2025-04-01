@@ -1,3 +1,0 @@
-// Copyright (c) 2009-2023 SAP SE, All Rights Reserved
-sap.ui.define(["sap/ushell/services/UserDefaultParameters","sap/ushell/appRuntime/ui5/AppRuntimeService","sap/base/util/ObjectPath"],function(e,s,t){"use strict";function a(t,a){e.call(this,t,a);this.getValue=function(e){return s.sendMessageToOuterShell("sap.ushell.services.UserDefaultParameters.getValue",{sParameterName:e})}}t.set("sap.ushell.services.UserDefaultParameters",a);a.prototype=e.prototype;a.hasNoAdapter=true;return a});
-//# sourceMappingURL=UserDefaultParameters.js.map

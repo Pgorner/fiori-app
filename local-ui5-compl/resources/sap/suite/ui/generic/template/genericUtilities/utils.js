@@ -1,2 +1,0 @@
-sap.ui.define([],function(){"use strict";function t(t,r,e){if(!t){return""}var n=t.startsWith("sap-icon://");if(e&&n){return""}if(n||t.startsWith("/")||t.startsWith("http://")||t.startsWith("https://")){return t}return sap.ui.require.toUrl(r.replace(/\./g,"/"))+"/"+t}function r(t,r){if(t===r){return true}if(!t||!r){return false}if(t.length>r.length){return false}return t.every(function(t){return r.includes(t)})}function e(t){return/^[\x20-\x7E]*$/.test(t)}return{adjustImageUrlPath:t,isASubsetOfB:r,isASCII:e}});
-//# sourceMappingURL=utils.js.map

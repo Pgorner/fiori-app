@@ -1,2 +1,0 @@
-sap.ui.define(["sap/ui/base/Object","sap/base/util/extend","sap/cards/ap/common/services/RetrieveCard"],function(e,r,t){"use strict";var a={INTEGRATION:t.CardTypes.INTEGRATION,ADAPTIVE:t.CardTypes.ADAPTIVE};function n(e){var r=e.getOwnerComponent();var a=r.getAppComponent();function n(e){return t.getObjectPageCardManifestForPreview(a,{cardType:e})}return{getCardManifest:n}}var s=e.extend("sap.suite.ui.generic.template.lib.DTCardHelper",{constructor:function(e){r(this,n(e))}});s.CardTypes=a;return s});
-//# sourceMappingURL=DTCardHelper.js.map

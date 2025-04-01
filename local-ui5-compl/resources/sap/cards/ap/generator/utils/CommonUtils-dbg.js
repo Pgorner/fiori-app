@@ -1,6 +1,0 @@
-/*!
- * SAP UI development toolkit for HTML5 (SAPUI5)
- *  * (c) Copyright 2009-2025 SAP SE. All rights reserved
- */
-"use strict";sap.ui.define(["../types/CommonTypes"],function(e){"use strict";const t=e["ColorIndicator"];function i(e){return e&&e.startsWith("{")&&e.endsWith("}")}function n(e){return e.activeCalculation===true}function r(e){if(e){if(n(e)){const t={deviationLow:e.deviationRangeLowValue,deviationHigh:e.deviationRangeHighValue,toleranceLow:e.toleranceRangeLowValue,toleranceHigh:e.toleranceRangeHighValue,sImprovementDirection:e.improvementDirection,oCriticalityConfigValues:{None:"None",Negative:"Error",Critical:"Warning",Positive:"Success"}};return"{= extension.formatters.formatValueColor(${"+e.name+"},"+JSON.stringify(t)+") }"}else if(e.includes("extension.formatters.formatCriticality")){return e}else if(i(e)){return"{= extension.formatters.formatCriticality($"+e+", 'state') }"}return t[e]}}var o={__esModule:true};o.isBinding=i;o.getColorForGroup=r;return o});
-//# sourceMappingURL=CommonUtils-dbg.js.map

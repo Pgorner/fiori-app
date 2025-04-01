@@ -1,8 +1,0 @@
-/*!
- * 
-		SAP UI development toolkit for HTML5 (SAPUI5)
-        (c) Copyright 2009-2021 SAP SE. All rights reserved
-	
- */
-sap.ui.define(["./BaseAPI","sap/fe/test/Utils","sap/ui/test/OpaBuilder","sap/fe/test/builder/FEBuilder","sap/fe/test/builder/MacroFieldBuilder","sap/base/Log"],function(e,t,r,a,i,s){"use strict";var o=function(r,i){if(!t.isOfType(r,a)){throw new Error("oFormBuilder parameter must be a FEBuilder instance")}return e.call(this,r,i)};o.prototype=Object.create(e.prototype);o.prototype.constructor=o;o.prototype.createFieldBuilder=function(e){var t=new i(this.getOpaInstance(),this.getBuilder().build());if(e.fieldGroup){t.has(r.Matchers.children(this._getBuilderForFieldGroup(e)))}return t.has(r.Matchers.children(this._getBuilderForFormElement(e))).has(a.Matchers.singleElement()).has(r.Matchers.children(this.createFieldMatcher(e))).has(a.Matchers.singleElement())};o.prototype._getBuilderForFormElement=function(e){return a.create(this.getOpaInstance()).hasType("sap.ui.layout.form.FormElement").hasSome(this.createFormElementMatcher(e,"DataField"),this.createFormElementMatcher(e,"DataFieldWithNavigationPath"),this.createFormElementMatcher(e,"DataFieldWithUrl"),this.createFormElementMatcher(e,"DataFieldForAnnotation"),this.createFormElementMatcher(e,"DataFieldWithIntentBasedNavigation"))};o.prototype._getBuilderForFieldGroup=function(e){return a.create(this.getOpaInstance()).hasType("sap.ui.layout.form.FormContainer").has(this.createFieldGroupMatcher(e))};return o});
-//# sourceMappingURL=FormAPI.js.map
