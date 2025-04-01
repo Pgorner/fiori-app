@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/UIComponent","sap/ui/model/json/JSONModel"],function(n,t){"use strict";return n.extend("app.Component",{metadata:{manifest:"json"},init:function(){n.prototype.init.apply(this,arguments)}})});
+//# sourceMappingURL=Component.js.map
